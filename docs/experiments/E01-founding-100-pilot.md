@@ -1,0 +1,45 @@
+# E01: Founding 100 pilot
+
+- **Status:** Planned
+- **Owner:** Viraj (product, data) · wife (teachers, content) · **Start:** Jan 2027 (target) · **End:** +8 weeks (max 2–3 months)
+- **Tests assumptions:** A3, A4, A5, A6, A7, A8, A9, A15, A19
+- **Decisions:** [DR-0003](../decisions/0003-pilot-price-300.md), [DR-0008](../decisions/0008-pilot-close-circle.md), [DR-0009](../decisions/0009-pilot-exit-criteria.md)
+
+## Hypothesis
+If students do ~15–20 min/day of skill-based practice, with teacher assignments and weekly parent reports, then D30 retention will be ≥40% and mock MCQ scores will clearly improve within 8 weeks, because accountability creates the daily habit and the skill graph targets weak concepts.
+
+## Setup
+- **Cohort:** ~100 students. The wife's classes plus 3–4 close teacher friends' classes, and **at least one teacher or class she doesn't teach and isn't close to** (to counter selection bias). Track the Bio vs Physical Science streams separately.
+- **Offer:** 300 LKR / 8 weeks, lock in 600/month for life, money-back if the mock score doesn't improve. Everyone pays, friends included.
+- **Recruiting:** 5 minutes at the end of class + a printed QR flyer; the parent WhatsApp message ([template](../living/go-to-market.md#parent-message-founding-100-translate-to-sinhala--tamil)); a 20-min parent orientation showing the report.
+- **Payment:** bank transfer / eZ Cash / LankaQR → activation code.
+- **Distribution:** Play Store closed testing (check the current tester requirement).
+- **Content scope:** 2–3 units (e.g. Mechanics, Electricity), one medium.
+- **Measurement:** mock MCQ paper at week 0 and week 8. A non-user comparison group if a teacher can provide one.
+- **Mid-pilot (weeks 4–6):** run [E02](E02-teacher-channel-survey.md).
+
+## Pre-pilot checklist
+- [ ] DR-0009 exit criteria set to **Accepted** (before day 1)
+- [ ] Pilot start date announced to teachers; 300 LKR collected ([commitment device](../living/founder-playbook.md#commitment-device))
+- [ ] Parental consent flow (WhatsApp opt-in)
+- [ ] Week-0 mock paper ready
+- [ ] Parent survey questions added: "Which subject is your child most worried about?" / "Would you pay 900/month for help in that subject alone?"
+
+## Metrics & thresholds
+| Metric | Success (proceed) | Kill / pivot |
+|---|---|---|
+| D30 retention | ≥ 40% | < 20% → rethink the core loop |
+| Study days / week | ≥ 4 | |
+| Mock MCQ score delta | Clear positive gain vs baseline/control | No gain → rethink content/scheduling |
+| Refund requests | < 15% | > 25% |
+| Teachers using the dashboard | ≥ 3 of 4 | |
+| Parent recruitment conversion | ≥ 60% | < 30% after 2 weeks |
+| Full-price conversion after the pilot | Track (feeds A9) | |
+
+Also track weekly: D1/D7 retention, % finishing the daily queue, streak-break rate, report link open rate, error-tag distribution, Learn-mode usage.
+
+## Result
+_(Fill in after the pilot. Link the data.)_
+
+## Decisions triggered
+_(e.g. DR-00xx: proceed to wave 1 / extend the pilot)_
