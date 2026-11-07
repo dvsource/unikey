@@ -25,6 +25,11 @@ Status: `Untested` → `Testing` → `Validated` | `Invalidated` (add the date a
 | A5 | Daily practice + parent reports → clear mock MCQ score gain (target +10%) in 8 weeks | E01 mock at week 0 vs week 8, vs a non-user group | Untested | DR-0009 |
 | A6 | Accountability (teacher assignments, parent visibility) and visible progress drive the daily habit more than gamification/novelty | E01 retention by teacher engagement level; exit interviews | Untested | DR-0006 |
 | A7 | Parents value and act on weekly WhatsApp reports (open the link, respond) | E01 link open rate, parent replies | Untested | DR-0015 |
+| A20 | Students who link a parent retain and convert better than student-only users | E01: retention and conversion, parent-linked vs not | Untested | DR-0018 |
+| A21 | Effort-only default sharing reduces students refusing to add a parent | E01: % adding a parent, and at which sharing level | Untested | DR-0018 |
+| A22 | A 5-minute minimum day (vs a 15–20 minute ask) lifts D7 retention | E01: D3/D7 retention; % continuing past the minimum ("keep going?") | Untested | DR-0019 |
+| A25 | An early behaviour (e.g. 3 sessions in 5 days, or adding a friend) predicts staying, and onboarding can push students toward it | E01: correlate first-week behaviours with D30 | Untested | DR-0019 |
+| A26 | Without push notifications, the widget + opt-in WhatsApp + friends provide enough triggers | E01: widget adoption, WhatsApp opt-in rate, exit interviews ("forgot" vs "bored") | Untested | DR-0020 |
 
 ## Segments
 | ID | Assumption | Test | Status | Used by |
@@ -46,3 +51,7 @@ Status: `Untested` → `Testing` → `Validated` | `Invalidated` (add the date a
 | A15 | Choosing the wrong method is a main cause of failed problems (L3 matters) | E01 error-tag distribution ("wrong principle" share) | Untested | DR-0004 |
 | A18 | Students can't reliably self-grade problem-solving | (Design assumption; spot-check with a small self-grade vs auto-grade comparison) | Untested | DR-0004 |
 | A19 | Theory-first students are a meaningful share (Learn mode is worth it) | E01: share choosing "Learn first"; Learn-mode opens | Untested | DR-0005 |
+| A23 | Implicit review (FIRe-style) keeps the daily load within the cap as mastered skills grow | E01: daily due load per student over 8 weeks | Untested | DR-0022 |
+| A24 | The readiness score tracks real mock results (enough to later show predicted marks) | E01: readiness vs week-8 mock correlation | Untested | DR-0022 |
+| A27 | Sinhala-medium students are comfortable with an English interface around Sinhala content | E01: usability feedback, confusion reports | Untested | DR-0024 |
+| A28 | The calm "mist" UI keeps the main action findable, and blur/motion perform on 2–3 GB RAM phones | Usability test + low-end device test before the pilot | Untested | DR-0023 |

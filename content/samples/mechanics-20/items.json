@@ -1,0 +1,6220 @@
+{
+ "spec_version": "0.5",
+ "status": "draft, not teacher reviewed",
+ "medium": "en",
+ "skills": [
+  {
+   "id": "phy.mech.vec.resultant-range",
+   "name": "Range of a resultant force",
+   "name_si": "සම්ප්‍රයුක්ත බලයේ පරාසය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.kin.vertical-throw",
+   "name": "Vertical throw symmetry",
+   "name_si": "සිරස් විසි කිරීමේ සමමිතිය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.kin.graph-slope-area",
+   "name": "Gradient and area of motion graphs",
+   "name_si": "චලිත ප්‍රස්තාරවල අනුක්‍රමණය හා වර්ගඵලය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.mech.kin.average-velocity",
+   "name": "Average velocity",
+   "name_si": "සාමාන්‍ය ප්‍රවේගය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.newton.n3-pairs",
+   "name": "Newton's third-law pairs",
+   "name_si": "නිව්ටන්ගේ තුන්වන නියමයේ බල යුගල",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.mech.newton.apparent-weight",
+   "name": "Apparent weight in a lift",
+   "name_si": "සෝපානයක දෘශ්‍ය බර",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.fric.stopping-distance",
+   "name": "Stopping distance under friction",
+   "name_si": "ඝර්ෂණය යටතේ නැවතුම් දුර",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.fric.traction-limit",
+   "name": "Friction limit on acceleration",
+   "name_si": "ත්වරණයට ඝර්ෂණයෙන් ඇති සීමාව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.mom.momentum-vs-energy",
+   "name": "Momentum or energy conservation",
+   "name_si": "ගම්‍යතා හෝ ශක්ති සංස්ථිතිය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.imp.graph-area",
+   "name": "Impulse from a force–time graph",
+   "name_si": "බල–කාල ප්‍රස්තාරයකින් ආවේගය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.proj.components",
+   "name": "Projectile velocity components",
+   "name_si": "ප්‍රක්ෂිප්තයක ප්‍රවේග සංරචක",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.circ.friction-limit",
+   "name": "Friction limit in circular motion",
+   "name_si": "වෘත්ත චලිතයේ ඝර්ෂණ සීමාව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.eq.moment-balance",
+   "name": "Moment balance on a beam",
+   "name_si": "බාල්කයක සූර්ණ තුලනය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.pow.force-speed",
+   "name": "Power, force and speed",
+   "name_si": "ජවය, බලය හා වේගය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.energy.bounce-height",
+   "name": "Rebound height and speed",
+   "name_si": "පොළා පැනීමේ උස හා වේගය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.rot.angular-momentum",
+   "name": "Angular momentum conservation",
+   "name_si": "කෝණික ගම්‍යතා සංස්ථිතිය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.rot.rolling-energy",
+   "name": "Energy of a rolling body",
+   "name_si": "පෙරළෙන වස්තුවක ශක්තිය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.mech.rot.moi-factors",
+   "name": "What moment of inertia depends on",
+   "name_si": "අවස්ථිති සූර්ණය රඳා පවතින දේ",
+   "type": "conceptual"
+  }
+ ],
+ "cards": [
+  {
+   "id": "phy.mech.c001",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.mech.vec.resultant-range"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2022-2",
+   "note_ref": "phy.mech.note.vec",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Forces A and B act at one point, with A > B. Smallest possible resultant?",
+    "si": "A > B වන සේ A සහ B බල එක් ලක්ෂ්‍යයක ක්‍රියා කරයි. සම්ප්‍රයුක්තයේ කුඩාම අගය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "A − B",
+      "si": "A − B"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "0",
+      "si": "0"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "A + B",
+      "si": "A + B"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "√(A² − B²)",
+      "si": "√(A² − B²)"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Forces in opposite directions give the smallest resultant, A − B.",
+    "si": "බල ප්‍රතිවිරුද්ධ දිශාවලට ක්‍රියා කරන විට සම්ප්‍රයුක්තය කුඩාම වන අතර එය A − B වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c002",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.mech.vec.resultant-range"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-2",
+   "note_ref": "phy.mech.note.vec",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Two forces at right angles always have a resultant larger than the bigger force.",
+    "si": "එකිනෙකට ලම්බක බල දෙකක සම්ප්‍රයුක්තය සැමවිටම විශාල බලයට වඩා වැඩි ය."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "no-resolve"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "R = √(A² + B²), which is always larger than A or B alone.",
+    "si": "R = √(A² + B²) වන අතර එය සැමවිටම A ට හෝ B ට වඩා විශාල ය."
+   }
+  },
+  {
+   "id": "phy.mech.c003",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.mech.kin.vertical-throw"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-48",
+   "note_ref": "phy.mech.note.thr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball passes a window going up, then again coming down, 6 s later. Student says: \"It takes 6 s to go from the window to the top.\" What's wrong?",
+    "si": "පන්දුවක් ඉහළ යන විට ජනේලයක් පසු කර, 6 s කට පසු පහළ එන විට නැවත එය පසු කරයි. ශිෂ්‍යයෙක් මෙසේ කියයි: \"ජනේලයේ සිට ඉහළම ලක්ෂ්‍යයට යාමට 6 s ගත වේ.\" එහි වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The 6 s covers up and down, so window to top is 3 s",
+      "si": "6 s යනු ඉහළ යාමට හා පහළ ඒමට ගත වන කාලය නිසා ජනේලයේ සිට ඉහළටම 3 s වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The ball is slower going up, so window to top is over 3 s",
+      "si": "ඉහළ යන විට පන්දුව සෙමින් ගමන් කරන නිසා ජනේලයේ සිට ඉහළටම 3 s ට වැඩි ය"
+     },
+     "correct": false,
+     "tag": "up-down-time"
+    },
+    {
+     "text": {
+      "en": "The ball's mass decides how long it takes to reach the top",
+      "si": "ඉහළටම ළඟා වීමට ගත වන කාලය තීරණය වන්නේ පන්දුවේ ස්කන්ධයෙනි"
+     },
+     "correct": false,
+     "tag": "mass-matters"
+    },
+    {
+     "text": {
+      "en": "Nothing is wrong: the 6 s only counts the way up",
+      "si": "වැරැද්දක් නැත: 6 s යනු ඉහළ යාමට පමණක් ගත වන කාලයයි"
+     },
+     "correct": false,
+     "tag": "misread-interval",
+     "detail": {
+      "en": "The gap covers the way up and the way down.",
+      "si": "මෙම කාල පරතරයට ඉහළ යාම හා පහළ ඒම යන දෙකම අයත් ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "With no air resistance, the path is symmetric. Half the gap is spent going up to the top.",
+    "si": "වායු ප්‍රතිරෝධය නැති විට පථය සමමිතික ය. කාල පරතරයෙන් අඩක් ඉහළටම යාමට ගත වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c004",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F03",
+   "skills": [
+    "phy.mech.kin.graph-slope-area"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-7",
+   "note_ref": "phy.mech.note.gr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "On a displacement–time graph, the gradient gives?",
+    "si": "විස්ථාපන–කාල ප්‍රස්තාරයක අනුක්‍රමණයෙන් ලැබෙන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Velocity",
+      "si": "ප්‍රවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Displacement",
+      "si": "විස්ථාපනය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Force",
+      "si": "බලය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Gradient of s–t is the rate of change of displacement, which is velocity.",
+    "si": "s–t ප්‍රස්තාරයේ අනුක්‍රමණය යනු විස්ථාපනය වෙනස් වීමේ සීඝ්‍රතාව, එනම් ප්‍රවේගයයි."
+   }
+  },
+  {
+   "id": "phy.mech.c005",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F03",
+   "skills": [
+    "phy.mech.kin.graph-slope-area"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-7",
+   "note_ref": "phy.mech.note.gr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "On a velocity–time graph, the area under the line gives?",
+    "si": "ප්‍රවේග–කාල ප්‍රස්තාරයක රේඛාවට යටින් ඇති වර්ගඵලයෙන් ලැබෙන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Displacement",
+      "si": "විස්ථාපනය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Force",
+      "si": "බලය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Area under v–t is displacement. Its gradient is acceleration.",
+    "si": "v–t ප්‍රස්තාරයට යටින් ඇති වර්ගඵලය විස්ථාපනයයි. එහි අනුක්‍රමණය ත්වරණයයි."
+   }
+  },
+  {
+   "id": "phy.mech.c006",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.mech.kin.graph-slope-area"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-7",
+   "note_ref": "phy.mech.note.gr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "An object starts from rest, speeds up, then slows to a stop, never reversing. Pick its s–t graph.",
+    "si": "වස්තුවක් නිශ්චලතාවෙන් ආරම්භ වී වේගය වැඩි කර, පසුව වේගය අඩු වී නතර වේ. එය කිසිවිටෙක ආපසු නොයයි. එහි s–t ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "S-shaped rise: flat at the start and flat at the end",
+      "si": "S හැඩැති නැගීමක්: ආරම්භයේ හා අවසානයේ තිරස් ය"
+     },
+     "correct": true,
+     "asset": "figures/c006-1.svg"
+    },
+    {
+     "text": {
+      "en": "Straight rising line",
+      "si": "ඉහළ යන සරල රේඛාවක්"
+     },
+     "correct": false,
+     "tag": "graph-shape",
+     "asset": "figures/c006-2.svg"
+    },
+    {
+     "text": {
+      "en": "Rises, then falls back to zero",
+      "si": "ඉහළ ගොස් නැවත ශුන්‍යයට වැටේ"
+     },
+     "correct": false,
+     "tag": "sign",
+     "asset": "figures/c006-3.svg"
+    },
+    {
+     "text": {
+      "en": "Steep at the start, flat only at the end",
+      "si": "ආරම්භයේ බෑවුම වැඩි ය, අවසානයේ පමණක් තිරස් ය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "It starts from rest, so the curve starts flat.",
+      "si": "එය නිශ්චලතාවෙන් ආරම්භ වන නිසා වක්‍රය තිරස්ව ආරම්භ වේ."
+     },
+     "asset": "figures/c006-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Zero velocity means zero gradient, so the curve is flat at both ends.",
+    "si": "ශුන්‍ය ප්‍රවේගය යනු ශුන්‍ය අනුක්‍රමණයයි. එබැවින් වක්‍රය දෙකෙළවරේම තිරස් ය."
+   }
+  },
+  {
+   "id": "phy.mech.c007",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.mech.kin.average-velocity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-4",
+   "note_ref": "phy.mech.note.avg",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A runner goes 5 m s⁻¹ for 1 s, then 1 m s⁻¹ for 3 s. Student says: \"Average = (5 + 1) ÷ 2 = 3 m s⁻¹.\" What's wrong?",
+    "si": "ධාවකයෙක් 1 s ක් 5 m s⁻¹ කින් ද, පසුව 3 s ක් 1 m s⁻¹ කින් ද දුවයි. ශිෂ්‍යයෙක් මෙසේ කියයි: \"සාමාන්‍යය = (5 + 1) ÷ 2 = 3 m s⁻¹.\" එහි වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The times are unequal, so divide total distance by total time",
+      "si": "කාල අසමාන නිසා මුළු දුර මුළු කාලයෙන් බෙදිය යුතු ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The runner slowed down, so use the final speed instead",
+      "si": "ධාවකයා වේගය අඩු කළ නිසා අවසාන වේගය යොදා ගත යුතු ය"
+     },
+     "correct": false,
+     "tag": "misread-interval",
+     "detail": {
+      "en": "Average velocity covers the whole motion, not just the end.",
+      "si": "සාමාන්‍ය ප්‍රවේගය අදාළ වන්නේ අවසානයට පමණක් නොව මුළු චලිතයට ම ය."
+     }
+    },
+    {
+     "text": {
+      "en": "The faster part counts more, so the average is above 3 m s⁻¹",
+      "si": "වේගවත් කොටසට වැඩි බරක් ලැබෙන නිසා සාමාන්‍යය 3 m s⁻¹ ට වැඩි ය"
+     },
+     "correct": false,
+     "tag": "mean-of-speeds"
+    },
+    {
+     "text": {
+      "en": "The times need averaging too, so divide 3 by 2",
+      "si": "කාලවල ද සාමාන්‍යය ගත යුතු නිසා 3, 2 න් බෙදිය යුතු ය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Average velocity is total displacement ÷ total time.",
+      "si": "සාමාන්‍ය ප්‍රවේගය = මුළු විස්ථාපනය ÷ මුළු කාලය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Average velocity = total displacement ÷ total time, here 8 m ÷ 4 s = 2 m s⁻¹.",
+    "si": "සාමාන්‍ය ප්‍රවේගය = මුළු විස්ථාපනය ÷ මුළු කාලය. මෙහි 8 m ÷ 4 s = 2 m s⁻¹."
+   }
+  },
+  {
+   "id": "phy.mech.c008",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F18",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-3",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "What pushes a walking person forward?",
+    "si": "ඇවිදින පුද්ගලයෙකු ඉදිරියට තල්ලු කරන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The ground, on the person",
+      "si": "පොළොව, පුද්ගලයා මත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The person, on the ground",
+      "si": "පුද්ගලයා, පොළොව මත"
+     },
+     "correct": false,
+     "tag": "force-on-wrong-body"
+    },
+    {
+     "text": {
+      "en": "The person's legs, on the person",
+      "si": "පුද්ගලයාගේ පාද, පුද්ගලයා මත"
+     },
+     "correct": false,
+     "tag": "internal-force"
+    },
+    {
+     "text": {
+      "en": "The air, on the person",
+      "si": "වාතය, පුද්ගලයා මත"
+     },
+     "correct": false,
+     "tag": "force-wrong-source"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The foot pushes the ground backward. The ground pushes the person forward.",
+    "si": "පාදය පොළොව පිටුපසට තල්ලු කරයි. පොළොව පුද්ගලයා ඉදිරියට තල්ලු කරයි."
+   }
+  },
+  {
+   "id": "phy.mech.c009",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F18",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-3",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A car speeds up on a level road. What force pushes it forward?",
+    "si": "මෝටර් රථයක් තිරස් මාර්ගයක වේගය වැඩි කරයි. එය ඉදිරියට තල්ලු කරන බලය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The road, on the tyres",
+      "si": "මාර්ගය, ටයර මත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The engine, on the car",
+      "si": "එන්ජිම, මෝටර් රථය මත"
+     },
+     "correct": false,
+     "tag": "internal-force"
+    },
+    {
+     "text": {
+      "en": "The tyres, on the road",
+      "si": "ටයර, මාර්ගය මත"
+     },
+     "correct": false,
+     "tag": "force-on-wrong-body"
+    },
+    {
+     "text": {
+      "en": "The air, on the car",
+      "si": "වාතය, මෝටර් රථය මත"
+     },
+     "correct": false,
+     "tag": "force-wrong-source"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The engine turns the wheels, but an internal force can't accelerate the car. Road friction does.",
+    "si": "එන්ජිම රෝද කරකවයි. නමුත් අභ්‍යන්තර බලයකට රථය ත්වරණය කළ නොහැකි ය. එය කරන්නේ මාර්ගයේ ඝර්ෂණයයි."
+   }
+  },
+  {
+   "id": "phy.mech.c010",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-3",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A truck speeds up while pulling a trailer. The truck's pull on the trailer equals the trailer's pull on the truck.",
+    "si": "ට්‍රක් රථයක් ට්‍රේලරයක් ඇදගෙන යමින් වේගය වැඩි කරයි. ට්‍රේලරය මත ට්‍රක් රථයේ ඇදීම, ට්‍රක් රථය මත ට්‍රේලරයේ ඇදීමට සමාන ය."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "pair-unequal"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "A third-law pair is always equal, even during acceleration.",
+    "si": "තුන්වන නියමයේ බල යුගලය ත්වරණය වන විට පවා සැමවිටම සමාන ය."
+   }
+  },
+  {
+   "id": "phy.mech.c011",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F18",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-4",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A book rests on a table. Which force pairs with Earth's pull on the book?",
+    "si": "පොතක් මේසයක් මත නිශ්චලව ඇත. පොත මත පෘථිවියේ ඇදීම සමඟ බල යුගලයක් වන්නේ කුමන බලය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The book's pull on Earth",
+      "si": "පෘථිවිය මත පොතේ ඇදීම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The table's push on the book",
+      "si": "පොත මත මේසයේ තෙරපුම"
+     },
+     "correct": false,
+     "tag": "balance-vs-pair"
+    },
+    {
+     "text": {
+      "en": "The book's push on the table",
+      "si": "මේසය මත පොතේ තෙරපුම"
+     },
+     "correct": false,
+     "tag": "force-on-wrong-body"
+    },
+    {
+     "text": {
+      "en": "The table's pull on Earth",
+      "si": "පෘථිවිය මත මේසයේ ඇදීම"
+     },
+     "correct": false,
+     "tag": "pair-wrong-bodies"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "A pair involves the same two bodies. The table's push balances the weight, but it isn't the pair.",
+    "si": "බල යුගලයකට අයත් වන්නේ එකම වස්තු දෙකයි. මේසයේ තෙරපුම බර තුලනය කළ ද එය එහි යුගලය නොවේ."
+   }
+  },
+  {
+   "id": "phy.mech.c012",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-4",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Action and reaction are equal and opposite, so nothing can ever accelerate.\" What's wrong?",
+    "si": "ශිෂ්‍යයෙක් මෙසේ කියයි: \"ක්‍රියාව හා ප්‍රතික්‍රියාව සමාන හා ප්‍රතිවිරුද්ධ නිසා කිසිවක් කිසිදා ත්වරණය විය නොහැක.\" එහි වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "They act on different bodies, so they don't cancel",
+      "si": "ඒවා වෙනස් වස්තු මත ක්‍රියා කරන නිසා එකිනෙක අවලංගු නොවේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The reaction is a little smaller, so a net force remains",
+      "si": "ප්‍රතික්‍රියාව මඳක් කුඩා නිසා ශුද්ධ බලයක් ඉතිරි වේ"
+     },
+     "correct": false,
+     "tag": "pair-unequal"
+    },
+    {
+     "text": {
+      "en": "The reaction comes later, so they don't cancel at once",
+      "si": "ප්‍රතික්‍රියාව පසුව ඇති වන නිසා ඒවා එකවර අවලංගු නොවේ"
+     },
+     "correct": false,
+     "tag": "pair-delay"
+    },
+    {
+     "text": {
+      "en": "They only cancel when the two bodies are touching",
+      "si": "ඒවා අවලංගු වන්නේ වස්තු දෙක ස්පර්ශ වී ඇති විට පමණි"
+     },
+     "correct": false,
+     "tag": "pair-contact-only"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Add forces only on the same body when finding its acceleration.",
+    "si": "වස්තුවක ත්වරණය සෙවීමේ දී එම වස්තුව මත ක්‍රියා කරන බල පමණක් එකතු කරන්න."
+   }
+  },
+  {
+   "id": "phy.mech.c013",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.mech.newton.apparent-weight"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-17",
+   "note_ref": "phy.mech.note.lift",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A lift moving up is slowing down. Compared with mg, the scale reading is?",
+    "si": "ඉහළට යන සෝපානයක වේගය අඩු වෙමින් පවතී. mg හා සසඳන විට තරාදියේ පාඨාංකය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Less than mg",
+      "si": "mg ට වඩා අඩු ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "More than mg",
+      "si": "mg ට වඩා වැඩි ය"
+     },
+     "correct": false,
+     "tag": "motion-vs-accel"
+    },
+    {
+     "text": {
+      "en": "Equal to mg",
+      "si": "mg ට සමාන ය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Slowing down is acceleration, so the reading changes.",
+      "si": "වේගය අඩු වීම ද ත්වරණයකි. එබැවින් පාඨාංකය වෙනස් වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Zero",
+      "si": "ශුන්‍ය වේ"
+     },
+     "correct": false,
+     "tag": "free-fall-reading"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Slowing while moving up means the acceleration is downward, so N = m(g − a).",
+    "si": "ඉහළ යන අතර වේගය අඩු වන්නේ නම් ත්වරණය පහළට ය. එබැවින් N = m(g − a)."
+   }
+  },
+  {
+   "id": "phy.mech.c014",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.mech.newton.apparent-weight"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-17",
+   "note_ref": "phy.mech.note.lift",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A lift moves down at constant speed. Compared with mg, the scale reading is?",
+    "si": "සෝපානයක් නියත වේගයකින් පහළට ගමන් කරයි. mg හා සසඳන විට තරාදියේ පාඨාංකය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Equal to mg",
+      "si": "mg ට සමාන ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Less than mg",
+      "si": "mg ට වඩා අඩු ය"
+     },
+     "correct": false,
+     "tag": "motion-vs-accel"
+    },
+    {
+     "text": {
+      "en": "More than mg",
+      "si": "mg ට වඩා වැඩි ය"
+     },
+     "correct": false,
+     "tag": "sign"
+    },
+    {
+     "text": {
+      "en": "Zero",
+      "si": "ශුන්‍ය වේ"
+     },
+     "correct": false,
+     "tag": "free-fall-reading"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Constant speed means zero acceleration, whichever way the lift moves.",
+    "si": "සෝපානය කුමන දිශාවට ගියත්, නියත වේගය යනු ශුන්‍ය ත්වරණයයි."
+   }
+  },
+  {
+   "id": "phy.mech.c015",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.fric.stopping-distance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-14",
+   "note_ref": "phy.mech.note.stop",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A block slides to rest on a rough surface. Initial speed × 2. Stopping distance × ?",
+    "si": "කුට්ටියක් රළු පෘෂ්ඨයක ලිස්සා ගොස් නතර වේ. ආරම්භක වේගය × 2. නැවතුම් දුර × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "8",
+      "si": "8"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "√2",
+      "si": "√2"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "s = v²/(2μg), so s ∝ v².",
+    "si": "s = v²/(2μg) නිසා s ∝ v²."
+   }
+  },
+  {
+   "id": "phy.mech.c016",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.fric.stopping-distance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-14",
+   "note_ref": "phy.mech.note.stop",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A block slides to rest on a rough surface. Mass × 2, same initial speed. Stopping distance × ?",
+    "si": "කුට්ටියක් රළු පෘෂ්ඨයක ලිස්සා ගොස් නතර වේ. ස්කන්ධය × 2, ආරම්භක වේගය එලෙසම ය. නැවතුම් දුර × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "mass-matters"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Mass cancels: both the KE and the friction force are proportional to m.",
+    "si": "ස්කන්ධය කැපී යයි: චාලක ශක්තිය හා ඝර්ෂණ බලය යන දෙකම m ට අනුලෝමව සමානුපාතික ය."
+   }
+  },
+  {
+   "id": "phy.mech.c017",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.mech.fric.stopping-distance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-14",
+   "note_ref": "phy.mech.note.stop",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Blocks X and Y slide on the same rough floor, at 2 m s⁻¹ and 6 m s⁻¹. Ratio of stopping distances, X : Y?",
+    "si": "X සහ Y කුට්ටි එකම රළු බිමක 2 m s⁻¹ හා 6 m s⁻¹ වේගවලින් ලිස්සයි. නැවතුම් දුරවල අනුපාතය X : Y කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "1 : 9",
+      "si": "1 : 9"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1 : 3",
+      "si": "1 : 3"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "3 : 1",
+      "si": "3 : 1"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "9 : 1",
+      "si": "9 : 1"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "s = v²/(2μg), so s ∝ v². Mass doesn't matter.",
+    "si": "s = v²/(2μg) නිසා s ∝ v². ස්කන්ධය බලපාන්නේ නැත."
+   }
+  },
+  {
+   "id": "phy.mech.c018",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F23",
+   "skills": [
+    "phy.mech.fric.stopping-distance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-14",
+   "note_ref": "phy.mech.note.stop",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A block rests on a rough slope without sliding. Pick the diagram of the forces on it.",
+    "si": "කුට්ටියක් රළු ආනත තලයක ලිස්සා නොගොස් නිශ්චලව ඇත. එය මත බල දැක්වෙන රූපසටහන තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Weight down, N perpendicular to the slope, friction up the slope",
+      "si": "බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය තලය දිගේ ඉහළට"
+     },
+     "correct": true,
+     "asset": "figures/c018-1.svg"
+    },
+    {
+     "text": {
+      "en": "Weight down, N perpendicular to the slope, friction down the slope",
+      "si": "බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය තලය දිගේ පහළට"
+     },
+     "correct": false,
+     "tag": "friction-direction",
+     "asset": "figures/c018-2.svg"
+    },
+    {
+     "text": {
+      "en": "Weight down, N perpendicular to the slope, no friction",
+      "si": "බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය නැත"
+     },
+     "correct": false,
+     "tag": "omitted-friction",
+     "asset": "figures/c018-3.svg"
+    },
+    {
+     "text": {
+      "en": "Weight down, N straight up, friction up the slope",
+      "si": "බර පහළට, N සිරස්ව ඉහළට, ඝර්ෂණය තලය දිගේ ඉහළට"
+     },
+     "correct": false,
+     "tag": "normal-vertical",
+     "asset": "figures/c018-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Without friction the block would slide down, so friction acts up the slope. N is perpendicular to the surface.",
+    "si": "ඝර්ෂණය නැතිනම් කුට්ටිය පහළට ලිස්සයි. එබැවින් ඝර්ෂණය තලය දිගේ ඉහළට ක්‍රියා කරයි. N පෘෂ්ඨයට ලම්බ වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c019",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F05",
+   "skills": [
+    "phy.mech.fric.traction-limit"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2025-12",
+   "note_ref": "phy.mech.note.grip",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "54 km h⁻¹ in m s⁻¹?",
+    "si": "54 km h⁻¹ යනු m s⁻¹ කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "15",
+      "si": "15"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "54",
+      "si": "54"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "30",
+      "si": "30"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "194",
+      "si": "194"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Divide by 3.6: 54 ÷ 3.6 = 15 m s⁻¹.",
+    "si": "3.6 න් බෙදන්න: 54 ÷ 3.6 = 15 m s⁻¹."
+   }
+  },
+  {
+   "id": "phy.mech.c020",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.mech.fric.traction-limit"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-12",
+   "note_ref": "phy.mech.note.grip",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "All four wheels of a car are driven. Greatest possible acceleration on a level road?",
+    "si": "මෝටර් රථයක රෝද හතරම එන්ජිමෙන් ධාවනය වේ. තිරස් මාර්ගයක ලැබිය හැකි විශාලතම ත්වරණය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "μₛg",
+      "si": "μₛg"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "μₛmg",
+      "si": "μₛmg"
+     },
+     "correct": false,
+     "tag": "forgot-mass"
+    },
+    {
+     "text": {
+      "en": "g/μₛ",
+      "si": "g/μₛ"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "μₛg/2",
+      "si": "μₛg/2"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Maximum friction μₛmg = ma, so a = μₛg. All the weight is on the driven wheels.",
+    "si": "උපරිම ඝර්ෂණය μₛmg = ma නිසා a = μₛg. මුළු බරම ධාවනය වන රෝද මත පවතී."
+   }
+  },
+  {
+   "id": "phy.mech.c021",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Equal-mass blocks move towards each other at 6 m s⁻¹ and 2 m s⁻¹, then stick. Their speed after?",
+    "si": "සමාන ස්කන්ධ ඇති කුට්ටි දෙකක් 6 m s⁻¹ හා 2 m s⁻¹ වේගවලින් එකිනෙක දෙසට ගමන් කර ඇලී යයි. ඉන්පසු ඒවායේ වේගය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2 m s⁻¹",
+      "si": "2 m s⁻¹"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "4 m s⁻¹",
+      "si": "4 m s⁻¹"
+     },
+     "correct": false,
+     "tag": "sign"
+    },
+    {
+     "text": {
+      "en": "8 m s⁻¹",
+      "si": "8 m s⁻¹"
+     },
+     "correct": false,
+     "tag": "forgot-mass"
+    },
+    {
+     "text": {
+      "en": "0",
+      "si": "0"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Opposite directions: (6 − 2) ÷ 2 = 2 m s⁻¹, in the direction of the faster block.",
+    "si": "දිශා ප්‍රතිවිරුද්ධ ය: (6 − 2) ÷ 2 = 2 m s⁻¹, වේගවත් කුට්ටියේ දිශාවට."
+   }
+  },
+  {
+   "id": "phy.mech.c022",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "KE is conserved in a perfectly inelastic collision.",
+    "si": "පූර්ණ අප්‍රත්‍යාස්ථ ගැටීමක දී චාලක ශක්තිය සංස්ථිතික වේ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-inelastic"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Momentum is conserved, but some KE becomes heat and sound.",
+    "si": "ගම්‍යතාව සංස්ථිතික වේ. නමුත් චාලක ශක්තියෙන් කොටසක් තාපය හා ශබ්දය බවට පත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c023",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F03",
+   "skills": [
+    "phy.mech.imp.graph-area"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2022-18",
+   "note_ref": "phy.mech.note.imp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The area under a force–time graph gives?",
+    "si": "බල–කාල ප්‍රස්තාරයකට යටින් ඇති වර්ගඵලයෙන් ලැබෙන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Impulse",
+      "si": "ආවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Work done",
+      "si": "කරන ලද කාර්යය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Impulse = ∫F dt = change in momentum. Work is the area under force–distance.",
+    "si": "ආවේගය = ∫F dt = ගම්‍යතාවේ වෙනස. කාර්යය යනු බල–දුර ප්‍රස්තාරයට යටින් ඇති වර්ගඵලයයි."
+   }
+  },
+  {
+   "id": "phy.mech.c024",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F04",
+   "skills": [
+    "phy.mech.imp.graph-area"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2022-18",
+   "note_ref": "phy.mech.note.imp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Dimensions of impulse?",
+    "si": "ආවේගයේ මාන මොනවා ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "MLT⁻¹",
+      "si": "MLT⁻¹"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "MLT⁻²",
+      "si": "MLT⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ML²T⁻²",
+      "si": "ML²T⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "MT⁻¹",
+      "si": "MT⁻¹"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Impulse = force × time = MLT⁻² × T.",
+    "si": "ආවේගය = බලය × කාලය = MLT⁻² × T."
+   }
+  },
+  {
+   "id": "phy.mech.c025",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.mech.imp.graph-area"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-18",
+   "note_ref": "phy.mech.note.imp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The area under an F–t graph is 30 N s. It acts on a 3 kg body at rest. Final speed?",
+    "si": "F–t ප්‍රස්තාරයකට යටින් ඇති වර්ගඵලය 30 N s කි. එය නිශ්චලව ඇති 3 kg වස්තුවක් මත ක්‍රියා කරයි. අවසාන වේගය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "10 m s⁻¹",
+      "si": "10 m s⁻¹"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "30 m s⁻¹",
+      "si": "30 m s⁻¹"
+     },
+     "correct": false,
+     "tag": "forgot-mass"
+    },
+    {
+     "text": {
+      "en": "90 m s⁻¹",
+      "si": "90 m s⁻¹"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "5 m s⁻¹",
+      "si": "5 m s⁻¹"
+     },
+     "correct": false,
+     "tag": "forgot-half"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Impulse = change in momentum, so v = 30 ÷ 3.",
+    "si": "ආවේගය = ගම්‍යතාවේ වෙනස. එබැවින් v = 30 ÷ 3."
+   }
+  },
+  {
+   "id": "phy.mech.c026",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"At the top of its path the ball has v = 0, so its KE = 0.\" What's wrong?",
+    "si": "ශිෂ්‍යයෙක් මෙසේ කියයි: \"පථයේ ඉහළම ලක්ෂ්‍යයේ දී පන්දුවේ v = 0 නිසා එහි චාලක ශක්තිය = 0.\" එහි වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Horizontal velocity remains, so KE isn't zero",
+      "si": "තිරස් ප්‍රවේගය ඉතිරි වන නිසා චාලක ශක්තිය ශුන්‍ය නොවේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "KE at the top is always half of K, at any angle",
+      "si": "ඕනෑම කෝණයක දී ඉහළම ලක්ෂ්‍යයේ චාලක ශක්තිය සැමවිටම K ගෙන් අඩකි"
+     },
+     "correct": false,
+     "tag": "ke-half-at-top"
+    },
+    {
+     "text": {
+      "en": "KE is zero only when PE is zero as well",
+      "si": "චාලක ශක්තිය ශුන්‍ය වන්නේ විභව ශක්තිය ද ශුන්‍ය වන විට පමණි"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    },
+    {
+     "text": {
+      "en": "v = 0 is right, but KE also depends on height",
+      "si": "v = 0 නිවැරදි ය, නමුත් චාලක ශක්තිය උස මත ද රඳා පවතී"
+     },
+     "correct": false,
+     "tag": "v-zero-at-top"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Only the vertical component is zero at the top.",
+    "si": "ඉහළම ලක්ෂ්‍යයේ දී ශුන්‍ය වන්නේ සිරස් සංරචකය පමණි."
+   }
+  },
+  {
+   "id": "phy.mech.c027",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A projectile's acceleration is zero at the top of its path.",
+    "si": "ප්‍රක්ෂිප්තයක ත්වරණය එහි පථයේ ඉහළම ලක්ෂ්‍යයේ දී ශුන්‍ය වේ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "accel-zero-at-top"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Acceleration is g downward throughout the flight.",
+    "si": "මුළු ගමන පුරාම ත්වරණය පහළට g වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c028",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F23",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball in flight is at the top of its path, moving right. No air resistance. Pick the diagram of the forces on it.",
+    "si": "පියාසර කරන පන්දුවක් පථයේ ඉහළම ලක්ෂ්‍යයේ දී දකුණට ගමන් කරයි. වායු ප්‍රතිරෝධය නැත. එය මත බල දැක්වෙන රූපසටහන තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Only mg, downward",
+      "si": "mg පමණි, පහළට"
+     },
+     "correct": true,
+     "asset": "figures/c028-1.svg"
+    },
+    {
+     "text": {
+      "en": "mg downward and a forward force",
+      "si": "පහළට mg සහ ඉදිරියට බලයක්"
+     },
+     "correct": false,
+     "tag": "force-along-motion",
+     "asset": "figures/c028-2.svg"
+    },
+    {
+     "text": {
+      "en": "Only a forward force",
+      "si": "ඉදිරියට බලයක් පමණි"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight",
+     "asset": "figures/c028-3.svg"
+    },
+    {
+     "text": {
+      "en": "No forces at the top",
+      "si": "ඉහළම ලක්ෂ්‍යයේ බල නැත"
+     },
+     "correct": false,
+     "tag": "accel-zero-at-top",
+     "asset": "figures/c028-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Nothing pushes the ball forward. It keeps moving because no horizontal force acts.",
+    "si": "පන්දුව ඉදිරියට කිසිවක් තල්ලු නොකරයි. තිරස් බලයක් ක්‍රියා නොකරන නිසා එය දිගටම ගමන් කරයි."
+   }
+  },
+  {
+   "id": "phy.mech.c029",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F05",
+   "skills": [
+    "phy.mech.circ.friction-limit"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-15",
+   "note_ref": "phy.mech.note.circ",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "60 rpm in rad s⁻¹?",
+    "si": "60 rpm යනු rad s⁻¹ කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2π",
+      "si": "2π"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "60",
+      "si": "60"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "π",
+      "si": "π"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "120π",
+      "si": "120π"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "ω = 2π × (rpm ÷ 60) = 2π rad s⁻¹.",
+    "si": "ω = 2π × (rpm ÷ 60) = 2π rad s⁻¹."
+   }
+  },
+  {
+   "id": "phy.mech.c030",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F18",
+   "skills": [
+    "phy.mech.circ.friction-limit"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-15",
+   "note_ref": "phy.mech.note.circ",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A coin turns with a turntable without sliding. What force keeps it moving in a circle?",
+    "si": "කාසියක් ලිස්සා නොගොස් භ්‍රමණ තලයක් සමඟ කැරකෙයි. එය වෘත්තයක ගමන් කරවන බලය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Static friction, towards the centre",
+      "si": "ස්ථිතික ඝර්ෂණය, කේන්ද්‍රය දෙසට"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Centrifugal force, outwards",
+      "si": "කේන්ද්‍රාපසාරී බලය, පිටතට"
+     },
+     "correct": false,
+     "tag": "centrifugal"
+    },
+    {
+     "text": {
+      "en": "The normal reaction",
+      "si": "අභිලම්බ ප්‍රතික්‍රියාව"
+     },
+     "correct": false,
+     "tag": "force-wrong-source"
+    },
+    {
+     "text": {
+      "en": "A force along its direction of motion",
+      "si": "චලිත දිශාව ඔස්සේ ක්‍රියා කරන බලයක්"
+     },
+     "correct": false,
+     "tag": "force-along-motion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Friction is the only horizontal force, and it provides mrω².",
+    "si": "එකම තිරස් බලය ඝර්ෂණය වන අතර එයින් mrω² සැපයේ."
+   }
+  },
+  {
+   "id": "phy.mech.c031",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.circ.friction-limit"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-15",
+   "note_ref": "phy.mech.note.circ",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A coin rests on a turntable. Rotation rate × 2. Largest radius without sliding × ?",
+    "si": "කාසියක් භ්‍රමණ තලයක් මත ඇත. භ්‍රමණ සීඝ්‍රතාව × 2. ලිස්සා නොයන විශාලතම අරය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "r = μg/ω², so r ∝ 1/ω².",
+    "si": "r = μg/ω² නිසා r ∝ 1/ω²."
+   }
+  },
+  {
+   "id": "phy.mech.c032",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A person walks along a uniform beam from support P to support Q. Pick the graph of the force at Q against distance walked.",
+    "si": "පුද්ගලයෙක් ඒකාකාර බාල්කයක් දිගේ P ආධාරකයේ සිට Q ආධාරකය දක්වා ඇවිදියි. ඇවිද ගිය දුරට එරෙහිව Q හි බලයේ ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Straight rising line that starts above zero",
+      "si": "ශුන්‍යයට ඉහළින් ආරම්භ වී ඉහළ යන සරල රේඛාවක්"
+     },
+     "correct": true,
+     "asset": "figures/c032-1.svg"
+    },
+    {
+     "text": {
+      "en": "Curve that rises",
+      "si": "ඉහළ යන වක්‍රයක්"
+     },
+     "correct": false,
+     "tag": "wrong-power",
+     "asset": "figures/c032-2.svg"
+    },
+    {
+     "text": {
+      "en": "Straight falling line",
+      "si": "පහළ යන සරල රේඛාවක්"
+     },
+     "correct": false,
+     "tag": "swapped-support",
+     "asset": "figures/c032-3.svg"
+    },
+    {
+     "text": {
+      "en": "Straight rising line that starts at zero",
+      "si": "ශුන්‍යයෙන් ආරම්භ වී ඉහළ යන සරල රේඛාවක්"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The beam's own weight loads Q even when the person is at P.",
+      "si": "පුද්ගලයා P හි සිටිය දී පවා බාල්කයේ බරින් කොටසක් Q මත පැටවේ."
+     },
+     "asset": "figures/c032-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments give a force linear in distance. The beam's own weight sets the starting value.",
+    "si": "සූර්ණ ගැනීමෙන් දුරට රේඛීය වන බලයක් ලැබේ. ආරම්භක අගය තීරණය වන්නේ බාල්කයේ බරිනි."
+   }
+  },
+  {
+   "id": "phy.mech.c033",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.mech.pow.force-speed"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-45",
+   "note_ref": "phy.mech.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Power = driving force × ▢",
+    "si": "ජවය = ධාවක බලය × ▢"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "velocity",
+      "si": "ප්‍රවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "time",
+      "si": "කාලය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "distance",
+      "si": "දුර"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "P = Fv at every instant.",
+    "si": "සෑම මොහොතකම P = Fv."
+   }
+  },
+  {
+   "id": "phy.mech.c034",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F04",
+   "skills": [
+    "phy.mech.pow.force-speed"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-45",
+   "note_ref": "phy.mech.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Dimensions of power?",
+    "si": "ජවයේ මාන මොනවා ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ML²T⁻³",
+      "si": "ML²T⁻³"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ML²T⁻²",
+      "si": "ML²T⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "MLT⁻¹",
+      "si": "MLT⁻¹"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "MLT⁻³",
+      "si": "MLT⁻³"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Power = energy ÷ time = ML²T⁻² ÷ T.",
+    "si": "ජවය = ශක්තිය ÷ කාලය = ML²T⁻² ÷ T."
+   }
+  },
+  {
+   "id": "phy.mech.c035",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.mech.pow.force-speed"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-45",
+   "note_ref": "phy.mech.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A car climbs a slope at constant speed. Driving force = resistance + mg sin θ.",
+    "si": "මෝටර් රථයක් නියත වේගයකින් ආනත තලයක් නගියි. ධාවක බලය = ප්‍රතිරෝධය + mg sin θ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "no-resolve"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Constant speed means zero net force along the slope.",
+    "si": "නියත වේගය යනු තලය දිගේ ශුද්ධ බලය ශුන්‍ය වීමයි."
+   }
+  },
+  {
+   "id": "phy.mech.c036",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.energy.bounce-height"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-31",
+   "note_ref": "phy.mech.note.bnc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball's rebound speed × ½. Rebound height × ?",
+    "si": "පන්දුවක පොළා පැනීමේ වේගය × ½. පොළා පැනීමේ උස × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "√½",
+      "si": "√½"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "h = v²/(2g), so h ∝ v².",
+    "si": "h = v²/(2g) නිසා h ∝ v²."
+   }
+  },
+  {
+   "id": "phy.mech.c037",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.mech.energy.bounce-height"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-31",
+   "note_ref": "phy.mech.note.bnc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Speed falls by 25% at a bounce, so height falls by 25%.\" What's wrong?",
+    "si": "ශිෂ්‍යයෙක් මෙසේ කියයි: \"පොළා පැනීමේ දී වේගය 25% කින් අඩු වන නිසා උස ද 25% කින් අඩු වේ.\" එහි වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Height ∝ v², so height falls to about 56%",
+      "si": "උස ∝ v² නිසා උස 56% පමණ දක්වා අඩු වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Height ∝ v², so height falls by 2 × 25% = 50%",
+      "si": "උස ∝ v² නිසා උස 2 × 25% = 50% කින් අඩු වේ"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "Height ∝ √v, so height falls to about 87%",
+      "si": "උස ∝ √v නිසා උස 87% පමණ දක්වා අඩු වේ"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "Energy isn't lost, so height doesn't change",
+      "si": "ශක්තිය හානි නොවන නිසා උස වෙනස් නොවේ"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "0.75² ≈ 0.56, so the height falls by about 44%.",
+    "si": "0.75² ≈ 0.56 නිසා උස 44% පමණ කින් අඩු වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c038",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A skater pulls in their arms, and I halves. ω × ?",
+    "si": "ලිස්සන්නෙක් අත් ඇතුළට ගන්නා විට I අඩක් වේ. ω × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "√2",
+      "si": "√2"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Iω is constant.",
+    "si": "Iω නියත ය."
+   }
+  },
+  {
+   "id": "phy.mech.c039",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A skater pulls in their arms, and I halves. Rotational KE × ?",
+    "si": "ලිස්සන්නෙක් අත් ඇතුළට ගන්නා විට I අඩක් වේ. භ්‍රමණ චාලක ශක්තිය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "KE = L²/(2I), so it doubles. The skater's muscles supply the extra energy.",
+    "si": "චාලක ශක්තිය = L²/(2I) නිසා එය දෙගුණ වේ. අමතර ශක්තිය සපයන්නේ ලිස්සන්නාගේ පේශි ය."
+   }
+  },
+  {
+   "id": "phy.mech.c040",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.mech.rot.rolling-energy"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2025-13",
+   "note_ref": "phy.mech.note.roll",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "KE of a rolling body = ½mv² + ½ ▢ ω²",
+    "si": "පෙරළෙන වස්තුවක චාලක ශක්තිය = ½mv² + ½ ▢ ω²"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "I",
+      "si": "I"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "m",
+      "si": "m"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "r",
+      "si": "r"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "v",
+      "si": "v"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Translation + rotation, with I as the rotational mass.",
+    "si": "පරිවහනය + භ්‍රමණය. මෙහි I භ්‍රමණයට අදාළ ස්කන්ධය ලෙස ක්‍රියා කරයි."
+   }
+  },
+  {
+   "id": "phy.mech.c041",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.mech.rot.rolling-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-13",
+   "note_ref": "phy.mech.note.roll",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A solid sphere and a hoop of equal mass and radius roll down the same slope. Which gets down first?",
+    "si": "සමාන ස්කන්ධ හා අරය ඇති ඝන ගෝලයක් සහ වළල්ලක් එකම ආනත තලයක පහළට පෙරළේ. පළමුව පහළට ළඟා වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Sphere",
+      "si": "ගෝලය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Hoop",
+      "si": "වළල්ල"
+     },
+     "correct": false,
+     "tag": "moi-shape-swap"
+    },
+    {
+     "text": {
+      "en": "They tie",
+      "si": "දෙකම එකවර"
+     },
+     "correct": false,
+     "tag": "moi-mass-only"
+    },
+    {
+     "text": {
+      "en": "Depends on the mass",
+      "si": "ස්කන්ධය මත රඳා පවතී"
+     },
+     "correct": false,
+     "tag": "mass-matters"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The sphere has the smaller I/(MR²), so less energy goes into rotation.",
+    "si": "ගෝලයේ I/(MR²) කුඩා නිසා භ්‍රමණයට යන ශක්තිය අඩු ය."
+   }
+  },
+  {
+   "id": "phy.mech.c042",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.mech.rot.rolling-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-13",
+   "note_ref": "phy.mech.note.roll",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A hoop and a disc have equal M and R, and roll at equal speed. Ratio of rotational KE, hoop : disc?",
+    "si": "සමාන M හා R ඇති වළල්ලක් සහ තැටියක් සමාන වේගයෙන් පෙරළේ. භ්‍රමණ චාලක ශක්තිවල අනුපාතය, වළල්ල : තැටිය, කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2 : 1",
+      "si": "2 : 1"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1 : 2",
+      "si": "1 : 2"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "1 : 1",
+      "si": "1 : 1"
+     },
+     "correct": false,
+     "tag": "moi-mass-only"
+    },
+    {
+     "text": {
+      "en": "4 : 1",
+      "si": "4 : 1"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Same ω, and I is MR² against ½MR².",
+    "si": "ω සමාන ය. I අගයන් MR² සහ ½MR² වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c043",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.mech.rot.moi-factors"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-15",
+   "note_ref": "phy.mech.note.moi",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ring and a disc have equal mass and radius. Which has the larger I about the central axis?",
+    "si": "මුද්දකට සහ තැටියකට සමාන ස්කන්ධ හා අරය ඇත. කේන්ද්‍රීය අක්ෂය වටා විශාල I ඇත්තේ කුමකට ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Ring",
+      "si": "මුද්ද"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Disc",
+      "si": "තැටිය"
+     },
+     "correct": false,
+     "tag": "moi-shape-swap"
+    },
+    {
+     "text": {
+      "en": "Equal",
+      "si": "සමාන ය"
+     },
+     "correct": false,
+     "tag": "moi-mass-only"
+    },
+    {
+     "text": {
+      "en": "Depends on speed",
+      "si": "වේගය මත රඳා පවතී"
+     },
+     "correct": false,
+     "tag": "moi-depends-on-omega"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "All of the ring's mass is at distance r: MR², against ½MR² for the disc.",
+    "si": "මුද්දේ මුළු ස්කන්ධයම r දුරින් ඇත: එහි අගය MR² වන අතර තැටියේ අගය ½MR² වේ."
+   }
+  },
+  {
+   "id": "phy.mech.c044",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F04",
+   "skills": [
+    "phy.mech.rot.moi-factors"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2021-15",
+   "note_ref": "phy.mech.note.moi",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Dimensions of moment of inertia?",
+    "si": "අවස්ථිති සූර්ණයේ මාන මොනවා ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ML²",
+      "si": "ML²"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ML",
+      "si": "ML"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ML⁻²",
+      "si": "ML⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ML²T⁻²",
+      "si": "ML²T⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "I = Σmr².",
+    "si": "I = Σmr²."
+   }
+  }
+ ],
+ "pools": [
+  {
+   "id": "phy.mech.p01-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "Two rail wagons collide and couple together. Most direct principle for their common speed?",
+    "si": "දුම්රිය මැදිරි දෙකක් ගැටී එකට සම්බන්ධ වේ. පොදු වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-inelastic"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "No external horizontal force acts. Coupling loses KE, so energy won't give it.",
+    "si": "බාහිර තිරස් බලයක් ක්‍රියා නොකරයි. සම්බන්ධ වීමේ දී චාලක ශක්තිය හානි වන නිසා ශක්තියෙන් මෙය නොලැබේ."
+   }
+  },
+  {
+   "id": "phy.mech.p01-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "A bullet embeds in a block on a smooth table. Most direct principle for the speed just after?",
+    "si": "වෙඩි උණ්ඩයක් සිනිඳු මේසයක් මත ඇති කුට්ටියක කාවැදේ. ඉන් මොහොතකට පසු වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-inelastic"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The impact force is internal and unknown. KE turns into heat.",
+    "si": "ගැටුම් බලය අභ්‍යන්තර වන අතර නොදනී. චාලක ශක්තිය තාපය බවට පත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p01-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "A gun recoils when it fires a shell. Most direct principle for the recoil speed?",
+    "si": "තුවක්කුවක් උණ්ඩයක් විදින විට පසුපසට පැන යයි. පසුපසට පැනීමේ වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-inelastic"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Total momentum stays zero. Chemical energy makes KE unusable here.",
+    "si": "මුළු ගම්‍යතාව ශුන්‍යව පවතී. රසායනික ශක්තිය නිසා මෙහි චාලක ශක්තිය යොදා ගත නොහැක."
+   }
+  },
+  {
+   "id": "phy.mech.p01-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "A ball rolls without friction down a curved track. Most direct principle for its speed at the bottom?",
+    "si": "පන්දුවක් ඝර්ෂණයෙන් තොරව වක්‍ර ධාවන පථයක පහළට යයි. පහළදී එහි වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "momentum-external-force"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The acceleration changes along a curve. PE lost becomes KE.",
+    "si": "වක්‍රයක් දිගේ ත්වරණය වෙනස් වේ. හානි වන විභව ශක්තිය චාලක ශක්තිය බවට පත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p01-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "A pendulum bob swings down from rest. Most direct principle for its speed at the lowest point?",
+    "si": "සරල අවලම්බයක ගෝලය නිශ්චලතාවෙන් පහළට පැද්දේ. පහළම ලක්ෂ්‍යයේ වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "momentum-external-force"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Tension does no work, so PE lost becomes KE. The acceleration isn't uniform.",
+    "si": "ආතතිය කාර්යයක් නොකරන නිසා හානි වන විභව ශක්තිය චාලක ශක්තිය බවට පත් වේ. ත්වරණය ඒකාකාර නොවේ."
+   }
+  },
+  {
+   "id": "phy.mech.p01-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p01",
+   "text": {
+    "en": "A compressed spring launches a block across a smooth table. Most direct principle for the launch speed?",
+    "si": "සම්පීඩිත දුන්නක් සිනිඳු මේසයක් හරහා කුට්ටියක් විදියි. විදින වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of momentum",
+      "si": "ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "momentum-external-force"
+    },
+    {
+     "text": {
+      "en": "F = ma with a constant force",
+      "si": "නියත බලයක් සමඟ F = ma"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Equations of uniform acceleration",
+      "si": "නියත ත්වරණයේ සමීකරණ"
+     },
+     "correct": false,
+     "tag": "suvat-nonuniform"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The spring force varies. Stored energy becomes KE.",
+    "si": "දුනු බලය වෙනස් වේ. ගබඩා වූ ශක්තිය චාලක ශක්තිය බවට පත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p02-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"Wagons couple after a collision.\" and \"A skater throws a ball and recoils.\" Same method?",
+    "si": "\"ගැටීමෙන් පසු මැදිරි එකට සම්බන්ධ වේ.\" සහ \"ලිස්සන්නෙක් පන්දුවක් විසි කර පසුපසට යයි.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Both use conservation of momentum, as no external force acts.",
+    "si": "බාහිර බලයක් ක්‍රියා නොකරන නිසා දෙකටම ගම්‍යතා සංස්ථිතිය යොදයි."
+   }
+  },
+  {
+   "id": "phy.mech.p02-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"A bullet embeds in a block.\" and \"A gun recoils on firing.\" Same method?",
+    "si": "\"වෙඩි උණ්ඩයක් කුට්ටියක කාවැදේ.\" සහ \"වෙඩි තබන විට තුවක්කුව පසුපසට පැන යයි.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Both use momentum. KE changes in both.",
+    "si": "දෙකටම ගම්‍යතාව යොදයි. දෙකේම චාලක ශක්තිය වෙනස් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p02-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"A ball rolls down a smooth curved track.\" and \"A pendulum bob swings to its lowest point.\" Same method?",
+    "si": "\"පන්දුවක් සිනිඳු වක්‍ර ධාවන පථයක පහළට යයි.\" සහ \"සරල අවලම්බයක ගෝලය පහළම ලක්ෂ්‍යයට පැද්දේ.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Both use energy conservation.",
+    "si": "දෙකටම ශක්ති සංස්ථිතිය යොදයි."
+   }
+  },
+  {
+   "id": "phy.mech.p02-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"Wagons couple after a collision.\" and \"A block slides down a smooth curved slope; find its speed at the bottom.\" Same method?",
+    "si": "\"ගැටීමෙන් පසු මැදිරි එකට සම්බන්ධ වේ.\" සහ \"කුට්ටියක් සිනිඳු වක්‍ර ආනතියක පහළට ලිස්සයි; පහළදී වේගය සොයන්න.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Wagons use momentum. On the slope, use energy.",
+    "si": "මැදිරිවලට ගම්‍යතාව යොදයි. ආනතියේ දී ශක්තිය යොදයි."
+   }
+  },
+  {
+   "id": "phy.mech.p02-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"A bullet embeds in a block.\" and \"A spring launches a block.\" Same method?",
+    "si": "\"වෙඩි උණ්ඩයක් කුට්ටියක කාවැදේ.\" සහ \"දුන්නක් කුට්ටියක් විදියි.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "The bullet uses momentum. The spring uses energy.",
+    "si": "උණ්ඩයට ගම්‍යතාව යොදයි. දුන්නට ශක්තිය යොදයි."
+   }
+  },
+  {
+   "id": "phy.mech.p02-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F32",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-16",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p02",
+   "text": {
+    "en": "\"A pendulum bob swings to its lowest point.\" and \"A shell splits into two at its highest point.\" Same method?",
+    "si": "\"සරල අවලම්බයක ගෝලය පහළම ලක්ෂ්‍යයට පැද්දේ.\" සහ \"උණ්ඩයක් ඉහළම ලක්ෂ්‍යයේ දී දෙකට කැඩේ.\" ක්‍රමය එකම ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Different methods",
+      "si": "වෙනස් ක්‍රම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Same method",
+      "si": "එකම ක්‍රමය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "The pendulum uses energy. The split shell uses momentum.",
+    "si": "අවලම්බයට ශක්තිය යොදයි. කැඩුණු උණ්ඩයට ගම්‍යතාව යොදයි."
+   }
+  },
+  {
+   "id": "phy.mech.p03-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A stone is thrown at 40° to the horizontal, with no air resistance. Which quantity stays constant?",
+    "si": "ගලක් තිරසට 40° ක් ආනතව විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Horizontal velocity",
+      "si": "තිරස් ප්‍රවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Vertical velocity",
+      "si": "සිරස් ප්‍රවේගය"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "No horizontal force acts, so the horizontal velocity doesn't change.",
+    "si": "තිරස් බලයක් ක්‍රියා නොකරන නිසා තිරස් ප්‍රවේගය වෙනස් නොවේ."
+   }
+  },
+  {
+   "id": "phy.mech.p03-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A marble rolls off a table and falls to the floor, with no air resistance. Which quantity stays constant?",
+    "si": "කිරිබිත්තරයක් මේසයකින් පෙරළී බිමට වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Horizontal velocity",
+      "si": "තිරස් ප්‍රවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Vertical velocity",
+      "si": "සිරස් ප්‍රවේගය"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Gravity changes only the vertical velocity.",
+    "si": "ගුරුත්වය වෙනස් කරන්නේ සිරස් ප්‍රවේගය පමණි."
+   }
+  },
+  {
+   "id": "phy.mech.p03-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A parcel drops from a plane flying level, with no air resistance. Which quantity stays constant?",
+    "si": "තිරස්ව පියාසර කරන ගුවන් යානයකින් පාර්සලයක් වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Horizontal velocity",
+      "si": "තිරස් ප්‍රවේගය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Height above ground",
+      "si": "පොළොවේ සිට උස"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "It keeps the plane's horizontal velocity as it falls.",
+    "si": "වැටෙන අතර එය ගුවන් යානයේ තිරස් ප්‍රවේගය රඳවා ගනී."
+   }
+  },
+  {
+   "id": "phy.mech.p03-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A ball is thrown straight up, with no air resistance. Which quantity stays constant?",
+    "si": "පන්දුවක් සිරස්ව ඉහළට විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Velocity",
+      "si": "ප්‍රවේගය"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Acceleration is g throughout, including at the top.",
+    "si": "ඉහළම ලක්ෂ්‍යය ඇතුළුව මුළු ගමන පුරාම ත්වරණය g වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p03-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A ball is thrown at 30° to the horizontal, with no air resistance. Which quantity stays constant?",
+    "si": "පන්දුවක් තිරසට 30° ක් ආනතව විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Vertical velocity",
+      "si": "සිරස් ප්‍රවේගය"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Gravity is the only force, so acceleration stays at g downward.",
+    "si": "එකම බලය ගුරුත්වය නිසා ත්වරණය පහළට g ලෙස පවතී."
+   }
+  },
+  {
+   "id": "phy.mech.p03-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p03",
+   "text": {
+    "en": "A stone falls from a bridge from rest, with no air resistance. Which quantity stays constant?",
+    "si": "ගලක් පාලමක සිට නිශ්චලතාවෙන් වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Acceleration",
+      "si": "ත්වරණය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Velocity",
+      "si": "ප්‍රවේගය"
+     },
+     "correct": false,
+     "tag": "gravity-off-in-flight"
+    },
+    {
+     "text": {
+      "en": "Speed",
+      "si": "වේගය"
+     },
+     "correct": false,
+     "tag": "speed-constant"
+    },
+    {
+     "text": {
+      "en": "Kinetic energy",
+      "si": "චාලක ශක්තිය"
+     },
+     "correct": false,
+     "tag": "ke-pe-confusion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Velocity grows at a steady rate g.",
+    "si": "ප්‍රවේගය g නියත සීඝ්‍රතාවෙන් වැඩි වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A beam rests on supports P and Q, with a person on it. You need the force at Q. Most direct first step?",
+    "si": "බාල්කයක් P සහ Q ආධාරක මත ඇති අතර එය මත පුද්ගලයෙක් සිටී. Q හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about P",
+      "si": "P වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about Q",
+      "si": "Q වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments about P remove the unknown force at P.",
+    "si": "P වටා සූර්ණ ගැනීමෙන් P හි නොදන්නා බලය ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A plank rests on supports A and B, with a painter on it. You need the force at A. Most direct first step?",
+    "si": "ලෑල්ලක් A සහ B ආධාරක මත ඇති අතර එය මත තීන්ත ආලේප කරන්නෙක් සිටී. A හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about B",
+      "si": "B වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about A",
+      "si": "A වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments about B remove the unknown force at B.",
+    "si": "B වටා සූර්ණ ගැනීමෙන් B හි නොදන්නා බලය ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A rod is hinged at one end and held level by a string at the other. You need the string's tension. Most direct first step?",
+    "si": "දණ්ඩක එක් කෙළවරක් අසවු කර ඇති අතර අනෙක් කෙළවර තන්තුවකින් තිරස්ව රඳවා ඇත. තන්තුවේ ආතතිය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about the hinge",
+      "si": "අසව්ව වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about the string",
+      "si": "තන්තුව වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments about the hinge remove the unknown hinge force.",
+    "si": "අසව්ව වටා සූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A ladder leans on a smooth wall and stands on rough ground. You need the wall's force. Most direct first step?",
+    "si": "ඉණිමගක් සිනිඳු බිත්තියකට හේත්තු වී රළු බිමක පිහිටා ඇත. බිත්තියේ බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about the ladder's foot",
+      "si": "ඉණිමගේ පාදය වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about the top of the ladder",
+      "si": "ඉණිමගේ ඉහළ කෙළවර වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The foot carries two unknown forces, and moments about it remove both.",
+    "si": "පාදයේ නොදන්නා බල දෙකක් ඇති අතර එය වටා සූර්ණ ගැනීමෙන් දෙකම ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A shelf is hinged to a wall and held by a sloping strut. You need the strut's force. Most direct first step?",
+    "si": "රාක්කයක් බිත්තියකට අසවු කර ආනත ආධාරක දණ්ඩකින් රඳවා ඇත. එම දණ්ඩේ බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about the hinge",
+      "si": "අසව්ව වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about the strut's joint",
+      "si": "ආධාරක දණ්ඩේ සන්ධිය වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments about the hinge remove the unknown hinge force.",
+    "si": "අසව්ව වටා සූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p04-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F33",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p04",
+   "text": {
+    "en": "A bridge deck rests on piers X and Y, with a truck on it. You need the force at Y. Most direct first step?",
+    "si": "පාලමක තට්ටුවක් X සහ Y කණු මත ඇති අතර එය මත ට්‍රක් රථයක් ඇත. Y හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Take moments about X",
+      "si": "X වටා සූර්ණ ගන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Take moments about Y",
+      "si": "Y වටා සූර්ණ ගන්න"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Share the load equally",
+      "si": "පැටවුම සමානව බෙදන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Use conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය යොදන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A balance problem needs moments, not energy.",
+      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Moments about X remove the unknown force at X.",
+    "si": "X වටා සූර්ණ ගැනීමෙන් X හි නොදන්නා බලය ඉවත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p05-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "A diver tucks in mid-air and spins faster. Most direct principle for the new spin rate?",
+    "si": "කිමිදුම්කරුවෙක් අහසේ දී ශරීරය හකුළා වේගයෙන් කැරකෙයි. නව භ්‍රමණ සීඝ්‍රතාව සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "τ = Iα needs a known constant torque, and this isn't that.",
+      "si": "τ = Iα සඳහා දන්නා නියත ව්‍යාවර්තයක් අවශ්‍ය වේ. මෙහි එය නැත."
+     }
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "No external torque acts about the centre of mass, so Iω is constant.",
+    "si": "ස්කන්ධ කේන්ද්‍රය වටා බාහිර ව්‍යාවර්තයක් ක්‍රියා නොකරන නිසා Iω නියත ය."
+   }
+  },
+  {
+   "id": "phy.mech.p05-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "Clay drops onto a spinning disc and sticks. Most direct principle for the new spin rate?",
+    "si": "මැටි කැටියක් කැරකෙන තැටියක් මතට වැටී ඇලී යයි. නව භ්‍රමණ සීඝ්‍රතාව සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "τ = Iα needs a known constant torque, and this isn't that.",
+      "si": "τ = Iα සඳහා දන්නා නියත ව්‍යාවර්තයක් අවශ්‍ය වේ. මෙහි එය නැත."
+     }
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The sticking is internal, and KE is lost.",
+    "si": "ඇලීම අභ්‍යන්තර ක්‍රියාවක් වන අතර චාලක ශක්තිය හානි වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p05-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "A solid cylinder rolls down a slope from rest. Most direct principle for its speed at the bottom?",
+    "si": "ඝන සිලින්ඩරයක් නිශ්චලතාවෙන් ආනත තලයක පහළට පෙරළේ. පහළදී එහි වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    },
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "τ = Iα needs a known constant torque, and this isn't that.",
+      "si": "τ = Iα සඳහා දන්නා නියත ව්‍යාවර්තයක් අවශ්‍ය වේ. මෙහි එය නැත."
+     }
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "PE lost becomes translational and rotational KE.",
+    "si": "හානි වන විභව ශක්තිය පරිවහන හා භ්‍රමණ චාලක ශක්ති බවට පත් වේ."
+   }
+  },
+  {
+   "id": "phy.mech.p05-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "A wheel falls, unwinding a string round its axle. Most direct principle for its speed after a known drop?",
+    "si": "රෝදයක් එහි අක්ෂ දණ්ඩ වටා ඔතා ඇති තන්තුවක් ලිහමින් පහළට වැටේ. දන්නා උසක් වැටුණු පසු එහි වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    },
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "τ = Iα needs a known constant torque, and this isn't that.",
+      "si": "τ = Iα සඳහා දන්නා නියත ව්‍යාවර්තයක් අවශ්‍ය වේ. මෙහි එය නැත."
+     }
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "PE lost becomes both kinds of KE, and the string does no net work.",
+    "si": "හානි වන විභව ශක්තිය චාලක ශක්ති දෙවර්ගයම බවට පත් වන අතර තන්තුව ශුද්ධ කාර්යයක් නොකරයි."
+   }
+  },
+  {
+   "id": "phy.mech.p05-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "A constant torque spins up a flywheel from rest. Most direct principle for its angular speed after a known time?",
+    "si": "නියත ව්‍යාවර්තයක් නිශ්චලව ඇති භ්‍රමණ රෝදයක් කරකවයි. දන්නා කාලයකට පසු එහි කෝණික වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Constant torque gives constant α, so ω = αt.",
+    "si": "නියත ව්‍යාවර්තයෙන් නියත α ලැබෙන නිසා ω = αt."
+   }
+  },
+  {
+   "id": "phy.mech.p05-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.mech.p05",
+   "text": {
+    "en": "A constant friction torque slows a wheel. Most direct principle for the time it takes to stop?",
+    "si": "නියත ඝර්ෂණ ව්‍යාවර්තයක් රෝදයක වේගය අඩු කරයි. නතර වීමට ගත වන කාලය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "τ = Iα",
+      "si": "τ = Iα"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Conservation of angular momentum",
+      "si": "කෝණික ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "wrong-conservation-law"
+    },
+    {
+     "text": {
+      "en": "Conservation of energy",
+      "si": "ශක්ති සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "ke-conserved-rotation"
+    },
+    {
+     "text": {
+      "en": "Conservation of linear momentum",
+      "si": "රේඛීය ගම්‍යතා සංස්ථිතිය"
+     },
+     "correct": false,
+     "tag": "linear-vs-angular"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Constant torque gives constant α, so t = ω/α.",
+    "si": "නියත ව්‍යාවර්තයෙන් නියත α ලැබෙන නිසා t = ω/α."
+   }
+  }
+ ],
+ "templates": [
+  {
+   "id": "phy.mech.t01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.vec.resultant-range"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-2",
+   "note_ref": "phy.mech.note.vec",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Forces of {F1} N and {F2} N act at one point. Which can be the size of their resultant?",
+    "si": "{F1} N සහ {F2} N බල එක් ලක්ෂ්‍යයක ක්‍රියා කරයි. ඒවායේ සම්ප්‍රයුක්තයේ විශාලත්වය විය හැක්කේ කුමක් ද?"
+   },
+   "params": {
+    "F1": {
+     "set": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+     ],
+     "unit": "N"
+    },
+    "F2": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+     ],
+     "unit": "N"
+    }
+   },
+   "answer": {
+    "expr": "lo + (3*F1 + F2) % (hi - lo + 1)",
+    "unit": "N",
+    "dim_skip": true
+   },
+   "verify": [
+    "res_min(F1, F2) <= answer <= res_max(F1, F2)",
+    "hi + 2 > res_max(F1, F2)",
+    "lo - 2 < res_min(F1, F2)"
+   ],
+   "distractors": [
+    {
+     "tag": "boundary",
+     "expr": "hi + 2"
+    },
+    {
+     "tag": "boundary",
+     "expr": "hi + 4"
+    },
+    {
+     "tag": "boundary",
+     "expr": "hi + 7"
+    },
+    {
+     "tag": "boundary",
+     "expr": "lo - 2"
+    },
+    {
+     "tag": "boundary",
+     "expr": "lo - 4"
+    },
+    {
+     "tag": "boundary",
+     "expr": "lo - 7"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "The resultant lies between the difference and the sum of the two forces.",
+    "si": "සම්ප්‍රයුක්තය බල දෙකේ අන්තරය හා ඓක්‍යය අතර පිහිටයි."
+   },
+   "derived": {
+    "lo": "F1 - F2",
+    "hi": "F1 + F2"
+   },
+   "constraints": [
+    "lo >= 3"
+   ],
+   "exclude": [
+    "(F1, F2) in ((11, 5), (9, 6))"
+   ],
+   "shared_tags": true
+  },
+  {
+   "id": "phy.mech.t02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.kin.vertical-throw"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2021-48",
+   "note_ref": "phy.mech.note.thr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?",
+    "si": "පොළොවේ සිට සිරස්ව ඉහළට විසි කළ පන්දුවක් {h} m උසකින් ඇති ලක්ෂ්‍යයක් {dt} s ක පරතරයකින් දෙවරක් පසු කරයි. විසි කළ වේගය කුමක් ද?"
+   },
+   "params": {
+    "h": {
+     "set": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200
+     ],
+     "unit": "m"
+    },
+    "dt": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+     ],
+     "unit": "s"
+    }
+   },
+   "answer": {
+    "expr": "sqrt(v_h**2 + 2*g*h)",
+    "unit": "m s⁻¹",
+    "dim": "m s^-1"
+   },
+   "verify": [
+    "(answer + sqrt(answer**2 - 2*g*h))/g - (answer - sqrt(answer**2 - 2*g*h))/g == dt"
+   ],
+   "distractors": [
+    {
+     "tag": "stopped-early",
+     "expr": "v_h",
+     "detail": "That's the speed at that height, not at launch.",
+     "detail_si": "එය විසි කළ වේගය නොව එම උසේ දී වේගයයි."
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "g*dt",
+     "detail": "Only half the gap is spent rising from that height.",
+     "detail_si": "එම උසේ සිට ඉහළ යාමට ගත වන්නේ කාල පරතරයෙන් අඩක් පමණි."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "sqrt(2*g*h)",
+     "detail": "That assumes the ball stops at that height, but it's still moving there.",
+     "detail_si": "එයින් උපකල්පනය වන්නේ පන්දුව එම උසේ දී නතර වන බවයි. නමුත් එය තවමත් ගමන් කරයි."
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "v_h + sqrt(2*g*h)"
+    },
+    {
+     "tag": "sign",
+     "expr": "sqrt(abs(2*g*h - v_h**2))"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "h/dt",
+     "detail": "Height ÷ gap isn't the speed at any point here.",
+     "detail_si": "උස ÷ කාල පරතරය මෙහි කිසිදු ලක්ෂ්‍යයක වේගය නොවේ."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Half the gap gives the speed at that height, v = gt. Then u² = v² + 2gh.",
+    "si": "කාල පරතරයෙන් අඩකින් එම උසේ දී වේගය ලැබේ: v = gt. ඉන්පසු u² = v² + 2gh."
+   },
+   "derived": {
+    "v_h": "g*dt/2"
+   },
+   "constraints": [
+    "answer == int(answer)",
+    "answer % 5 == 0"
+   ],
+   "exclude": [
+    "(h, dt) == (25, 4)"
+   ]
+  },
+  {
+   "id": "phy.mech.t03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F44",
+   "skills": [
+    "phy.mech.kin.average-velocity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-4",
+   "note_ref": "phy.mech.note.avg",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The graph shows the velocity of an object moving in a straight line. Average velocity over the whole motion?",
+    "si": "ප්‍රස්තාරයෙන් සරල රේඛාවක ගමන් කරන වස්තුවක ප්‍රවේගය දැක්වේ. මුළු චලිතය සඳහා සාමාන්‍ය ප්‍රවේගය කුමක් ද?"
+   },
+   "params": {
+    "v1": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+     ],
+     "unit": "m s^-1"
+    },
+    "t1": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "unit": "s"
+    },
+    "v2": {
+     "set": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "unit": "m s^-1"
+    },
+    "t2": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "unit": "s"
+    }
+   },
+   "answer": {
+    "expr": "(v1*t1 + v2*t2)/(t1 + t2)",
+    "unit": "m s⁻¹",
+    "dim": "m s^-1"
+   },
+   "verify": [
+    "answer == step_average(v1, t1, v2, t2)"
+   ],
+   "distractors": [
+    {
+     "tag": "mean-of-speeds",
+     "expr": "(v1 + v2)/2"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "(v1*t1 + v2*t2)/t1",
+     "detail": "Divide by the total time, not the first part.",
+     "detail_si": "පළමු කොටසින් නොව මුළු කාලයෙන් බෙදන්න."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "(v1*t1 + v2*t2)/2",
+     "detail": "Divide by the total time, not by the number of stages.",
+     "detail_si": "අවධි ගණනින් නොව මුළු කාලයෙන් බෙදන්න."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "v1*t1 + v2*t2",
+     "detail": "That's the displacement. Now divide by the total time.",
+     "detail_si": "එය විස්ථාපනයයි. දැන් මුළු කාලයෙන් බෙදන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "v2",
+     "detail": "That's only the final velocity.",
+     "detail_si": "එය අවසාන ප්‍රවේගය පමණි."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "v1",
+     "detail": "The object doesn't stay at its first velocity.",
+     "detail_si": "වස්තුව පළමු ප්‍රවේගයේම නොරැඳේ."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Average velocity = total area under the graph ÷ total time.",
+    "si": "සාමාන්‍ය ප්‍රවේගය = ප්‍රස්තාරයට යටින් ඇති මුළු වර්ගඵලය ÷ මුළු කාලය."
+   },
+   "constraints": [
+    "v1 > v2",
+    "t1 != t2",
+    "nice(answer, 1)"
+   ],
+   "exclude": [
+    "(v1, t1, v2, t2) == (3, 3, 1, 1)"
+   ],
+   "figure": {
+    "engine": "vt-steps",
+    "params": {
+     "v1": "v1",
+     "t1": "t1",
+     "v2": "v2",
+     "t2": "t2"
+    }
+   }
+  },
+  {
+   "id": "phy.mech.t04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.newton.apparent-weight"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2025-17",
+   "note_ref": "phy.mech.note.lift",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A lift is moving {motion}. Its speed changes by {dv} m s⁻¹ in {t} s. Force from the floor on a {m} kg block?",
+    "si": "සෝපානයක් {motion}. {t} s තුළ එහි වේගය {dv} m s⁻¹ කින් වෙනස් වේ. {m} kg කුට්ටියක් මත බිමෙන් ඇති වන බලය කුමක් ද?"
+   },
+   "params": {
+    "motion": {
+     "set": [
+      "down, speeding up",
+      "down, slowing to a stop",
+      "up, speeding up",
+      "up, slowing to a stop"
+     ]
+    },
+    "m": {
+     "set": [
+      2,
+      5,
+      40,
+      50,
+      60
+     ],
+     "unit": "kg"
+    },
+    "dv": {
+     "set": [
+      2,
+      4,
+      6,
+      8
+     ],
+     "unit": "m s^-1"
+    },
+    "t": {
+     "set": [
+      2,
+      4
+     ],
+     "unit": "s"
+    }
+   },
+   "answer": {
+    "expr": "m*(g + s_up*a)",
+    "unit": "N",
+    "dim": "N"
+   },
+   "verify": [
+    "m*g - answer == m*(v_after - v_before)/t"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "m*g",
+     "detail": "The lift is accelerating, so the floor force isn't mg.",
+     "detail_si": "සෝපානය ත්වරණය වන නිසා බිමේ බලය mg නොවේ."
+    },
+    {
+     "tag": "motion-vs-accel",
+     "expr": "m*(g - s_up*a)"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "m*a",
+     "detail": "The floor also holds up the weight, so ma alone isn't enough.",
+     "detail_si": "බිම බර ද දරා සිටින නිසා ma පමණක් ප්‍රමාණවත් නොවේ."
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "g + s_up*a"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "m*(g + s_up*dv)",
+     "detail": "Δv isn't the acceleration. Divide by the time first.",
+     "detail_si": "Δv යනු ත්වරණය නොවේ. පළමුව කාලයෙන් බෙදන්න."
+    }
+   ],
+   "param_text": {
+    "si": {
+     "down, speeding up": "වේගය වැඩි කරමින් පහළට යයි",
+     "down, slowing to a stop": "වේගය අඩු කරමින් පහළට ගොස් නතර වේ",
+     "up, speeding up": "වේගය වැඩි කරමින් ඉහළට යයි",
+     "up, slowing to a stop": "වේගය අඩු කරමින් ඉහළට ගොස් නතර වේ"
+    }
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Find the direction of the acceleration first. Then N = m(g + a) if it points up, or m(g − a) if it points down.",
+    "si": "පළමුව ත්වරණයේ දිශාව සොයන්න. එය ඉහළට නම් N = m(g + a), පහළට නම් N = m(g − a)."
+   },
+   "derived": {
+    "a": "dv/t",
+    "s_up": "{'down, speeding up': -1, 'down, slowing to a stop': 1, 'up, speeding up': 1, 'up, slowing to a stop': -1}[motion]",
+    "v_before": "{'down, speeding up': 0*dv, 'down, slowing to a stop': dv, 'up, speeding up': 0*dv, 'up, slowing to a stop': -1*dv}[motion]",
+    "v_after": "{'down, speeding up': dv, 'down, slowing to a stop': 0*dv, 'up, speeding up': -1*dv, 'up, slowing to a stop': 0*dv}[motion]"
+   },
+   "exclude": [
+    "(m, dv / t) == (1, 1)"
+   ]
+  },
+  {
+   "id": "phy.mech.t05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.fric.stopping-distance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-14",
+   "note_ref": "phy.mech.note.stop",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A block sliding at {v} m s⁻¹ on a rough level floor comes to rest. μ = {mu}. Distance moved?",
+    "si": "රළු තිරස් බිමක {v} m s⁻¹ කින් ලිස්සන කුට්ටියක් නතර වේ. μ = {mu}. ගමන් කළ දුර කුමක් ද?"
+   },
+   "params": {
+    "v": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      12,
+      14,
+      15,
+      16,
+      18,
+      20
+     ],
+     "unit": "m s^-1"
+    },
+    "mu": {
+     "set": [
+      0.1,
+      0.2,
+      0.25,
+      0.4,
+      0.5
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "v**2/(2*mu*g)",
+    "unit": "m",
+    "dim": "m"
+   },
+   "verify": [
+    "mu*m*g*answer == m*v**2/2"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-half",
+     "expr": "v**2/(mu*g)"
+    },
+    {
+     "tag": "forgot-mu",
+     "expr": "v**2/(2*g)"
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "v/(2*mu*g)"
+    },
+    {
+     "tag": "inverted",
+     "expr": "mu*v**2/(2*g)"
+    },
+    {
+     "tag": "forgot-g",
+     "expr": "v**2/(2*mu)"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "2*v**2/(mu*g)",
+     "detail": "½mv² = μmgs puts the 2 below the line, not above it.",
+     "detail_si": "½mv² = μmgs අනුව 2 පවතින්නේ හරයේ මිස ලවයේ නොවේ."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Work done by friction = loss of KE: μmgs = ½mv², so s = v²/(2μg).",
+    "si": "ඝර්ෂණයෙන් කරන ලද කාර්යය = චාලක ශක්ති හානිය: μmgs = ½mv² නිසා s = v²/(2μg)."
+   },
+   "verify_given": {
+    "m": 3
+   },
+   "constraints": [
+    "answer <= 100"
+   ]
+  },
+  {
+   "id": "phy.mech.t06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.fric.traction-limit"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2025-12",
+   "note_ref": "phy.mech.note.grip",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A car with all wheels driven reaches {kmh} km h⁻¹ from rest in {t} s on a level road, at uniform acceleration. Smallest μₛ needed?",
+    "si": "සියලු රෝද ධාවනය වන මෝටර් රථයක් තිරස් මාර්ගයක ඒකාකාර ත්වරණයෙන් නිශ්චලතාවේ සිට {t} s තුළ {kmh} km h⁻¹ ට ළඟා වේ. අවශ්‍ය කුඩාම μₛ කුමක් ද?"
+   },
+   "params": {
+    "kmh": {
+     "set": [
+      18,
+      36,
+      54,
+      72,
+      90,
+      108,
+      126,
+      144
+     ],
+     "unit": "m s^-1"
+    },
+    "t": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ],
+     "unit": "s"
+    }
+   },
+   "answer": {
+    "expr": "v/(t*g)",
+    "unit": "",
+    "dim": "1"
+   },
+   "verify": [
+    "answer*m*g/m*t == v"
+   ],
+   "distractors": [
+    {
+     "tag": "unit-conversion",
+     "expr": "kmh/(t*g)"
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "2*v/(t*g)"
+    },
+    {
+     "tag": "forgot-half",
+     "expr": "v/(2*t*g)"
+    },
+    {
+     "tag": "forgot-g",
+     "expr": "v/t"
+    },
+    {
+     "tag": "inverted",
+     "expr": "v/(3.6*t*g)"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Friction gives the acceleration: μₛmg = ma, so μₛ = a/g, with the speed in m s⁻¹.",
+    "si": "ත්වරණය ලැබෙන්නේ ඝර්ෂණයෙනි: μₛmg = ma නිසා μₛ = a/g. වේගය m s⁻¹ වලින් ගන්න."
+   },
+   "derived": {
+    "v": "kmh/3.6"
+   },
+   "verify_given": {
+    "m": 3
+   },
+   "constraints": [
+    "answer <= 1",
+    "nice(answer, 2)"
+   ],
+   "exclude": [
+    "(kmh, t) == (72, 5)"
+   ]
+  },
+  {
+   "id": "phy.mech.t07",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.mom.momentum-vs-energy"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-6",
+   "note_ref": "phy.mech.note.mom",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {m1} kg cart at {u1} m s⁻¹ catches a {m2} kg cart moving the same way at {u2} m s⁻¹. They couple. Common speed?",
+    "si": "{u1} m s⁻¹ කින් යන {m1} kg කරත්තයක්, එම දිශාවටම {u2} m s⁻¹ කින් යන {m2} kg කරත්තයක් අල්ලා ගනී. ඒවා එකට සම්බන්ධ වේ. පොදු වේගය කුමක් ද?"
+   },
+   "params": {
+    "m1": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "unit": "kg"
+    },
+    "m2": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "unit": "kg"
+    },
+    "u1": {
+     "set": [
+      4,
+      6,
+      8,
+      10
+     ],
+     "unit": "m s^-1"
+    },
+    "u2": {
+     "set": [
+      1,
+      2,
+      3
+     ],
+     "unit": "m s^-1"
+    }
+   },
+   "answer": {
+    "expr": "(m1*u1 + m2*u2)/(m1 + m2)",
+    "unit": "m s⁻¹",
+    "dim": "m s^-1"
+   },
+   "verify": [
+    "(m1 + m2)*answer == m1*u1 + m2*u2",
+    "(m1 + m2)*answer**2 <= m1*u1**2 + m2*u2**2"
+   ],
+   "distractors": [
+    {
+     "tag": "mean-of-speeds",
+     "expr": "(u1 + u2)/2"
+    },
+    {
+     "tag": "sign",
+     "expr": "(m1*u1 - m2*u2)/(m1 + m2)"
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "(m1*u1 + m2*u2)/m1"
+    },
+    {
+     "tag": "ke-conserved-inelastic",
+     "expr": "sqrt((m1*u1**2 + m2*u2**2)/(m1 + m2))"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "m1*u1 + m2*u2",
+     "detail": "That's the total momentum. Now divide by the total mass.",
+     "detail_si": "එය මුළු ගම්‍යතාවයි. දැන් මුළු ස්කන්ධයෙන් බෙදන්න."
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "(m1*u1 + m2*u2)/m2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Momentum is conserved: m₁u₁ + m₂u₂ = (m₁ + m₂)v.",
+    "si": "ගම්‍යතාව සංස්ථිතික වේ: m₁u₁ + m₂u₂ = (m₁ + m₂)v."
+   },
+   "constraints": [
+    "m1 != m2",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.mech.t08",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F44",
+   "skills": [
+    "phy.mech.imp.graph-area"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-18",
+   "note_ref": "phy.mech.note.imp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The graph shows the force on a {m} kg body, at rest at first on a smooth surface. Final speed?",
+    "si": "ප්‍රස්තාරයෙන් සිනිඳු පෘෂ්ඨයක මුලින් නිශ්චලව ඇති {m} kg වස්තුවක් මත බලය දැක්වේ. අවසාන වේගය කුමක් ද?"
+   },
+   "params": {
+    "F": {
+     "set": [
+      4,
+      6,
+      8,
+      12
+     ],
+     "unit": "N"
+    },
+    "t1": {
+     "set": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "unit": "s"
+    },
+    "t2": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "unit": "s"
+    },
+    "m": {
+     "set": [
+      2,
+      4,
+      5
+     ],
+     "unit": "kg"
+    }
+   },
+   "answer": {
+    "expr": "F*(t1/2 + t2)/m",
+    "unit": "m s⁻¹",
+    "dim": "m s^-1"
+   },
+   "verify": [
+    "answer*m == ramp_area(F, t1, t2)"
+   ],
+   "distractors": [
+    {
+     "tag": "area-shape",
+     "expr": "F*(t1 + t2)/m"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "F*t2/m",
+     "detail": "The rising part adds area too.",
+     "detail_si": "ඉහළ යන කොටසෙන් ද වර්ගඵලය එකතු වේ."
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "F*(t1/2 + t2)"
+    },
+    {
+     "tag": "inverted",
+     "expr": "F*(t1/2 + t2)*m"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "F*t1/(2*m)",
+     "detail": "That's only the rising part. Add the flat part.",
+     "detail_si": "එය ඉහළ යන කොටස පමණි. තිරස් කොටස ද එකතු කරන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "F/m",
+     "detail": "That's the acceleration at full force, not the final speed.",
+     "detail_si": "එය අවසාන වේගය නොව උපරිම බලයේ දී ත්වරණයයි."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Impulse = area under the graph = change in momentum.",
+    "si": "ආවේගය = ප්‍රස්තාරයට යටින් ඇති වර්ගඵලය = ගම්‍යතාවේ වෙනස."
+   },
+   "constraints": [
+    "nice(answer, 1)"
+   ],
+   "figure": {
+    "engine": "ft-ramp",
+    "params": {
+     "F": "F",
+     "t1": "t1",
+     "t2": "t2"
+    }
+   }
+  },
+  {
+   "id": "phy.mech.t09",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.proj.components"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2023-17",
+   "note_ref": "phy.mech.note.proj",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball is thrown at {angle}° to the horizontal with {K} J of KE. {ask} (No air resistance)",
+    "si": "පන්දුවක් {K} J චාලක ශක්තියක් සහිතව තිරසට {angle}° ක් ආනතව විසි කෙරේ. {ask} (වායු ප්‍රතිරෝධය නැත)"
+   },
+   "params": {
+    "angle": {
+     "set": [
+      30,
+      60
+     ],
+     "unit": "1"
+    },
+    "K": {
+     "set": [
+      40,
+      80,
+      100,
+      120,
+      160,
+      200,
+      240,
+      400
+     ],
+     "unit": "J"
+    },
+    "ask": {
+     "set": [
+      "KE at the top of its path?",
+      "PE gained by the top of its path?"
+     ]
+    }
+   },
+   "answer": {
+    "expr": "K*(c2 if ask.startswith('KE') else s2)",
+    "unit": "J",
+    "dim": "J",
+    "dim_skip": true
+   },
+   "verify": [
+    "approx(answer, K*(cos(radians(angle))**2 if ask.startswith('KE') else sin(radians(angle))**2))",
+    "K - K*c2 == K*s2"
+   ],
+   "distractors": [
+    {
+     "tag": "sin-cos-swap",
+     "expr": "K*(s2 if ask.startswith('KE') else c2)"
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "K*cos(radians(angle))"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "K",
+     "detail": "The vertical speed is lost by the top, so it isn't all of K.",
+     "detail_si": "ඉහළම ලක්ෂ්‍යය වන විට සිරස් වේගය නැති වන නිසා එය මුළු K නොවේ."
+    },
+    {
+     "tag": "v-zero-at-top",
+     "expr": "0"
+    },
+    {
+     "tag": "ke-half-at-top",
+     "expr": "K/2"
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "K/4"
+    }
+   ],
+   "param_text": {
+    "si": {
+     "KE at the top of its path?": "පථයේ ඉහළම ලක්ෂ්‍යයේ දී චාලක ශක්තිය කුමක් ද?",
+     "PE gained by the top of its path?": "පථයේ ඉහළම ලක්ෂ්‍යය වන විට ලබාගත් විභව ශක්තිය කුමක් ද?"
+    }
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "At the top, only u cos θ remains, so KE = K cos²θ and the PE gained is K sin²θ.",
+    "si": "ඉහළම ලක්ෂ්‍යයේ ඉතිරි වන්නේ u cos θ පමණි. එබැවින් චාලක ශක්තිය = K cos²θ වන අතර ලබාගත් විභව ශක්තිය K sin²θ වේ."
+   },
+   "derived": {
+    "c2": "{30: 3/4, 60: 1/4}[angle]",
+    "s2": "{30: 1/4, 60: 3/4}[angle]"
+   }
+  },
+  {
+   "id": "phy.mech.t10",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.circ.friction-limit"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2024-15",
+   "note_ref": "phy.mech.note.circ",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A coin sits on a turntable spinning at {rpm} rpm. μₛ = {mu}. Largest distance from the centre without sliding? (Take π = 3)",
+    "si": "{rpm} rpm කින් කැරකෙන භ්‍රමණ තලයක් මත කාසියක් ඇත. μₛ = {mu}. ලිස්සා නොයන, කේන්ද්‍රයේ සිට විශාලතම දුර කුමක් ද? (π = 3 ලෙස ගන්න)"
+   },
+   "params": {
+    "mu": {
+     "set": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.4,
+      0.45,
+      0.5,
+      0.6,
+      0.8,
+      0.9
+     ],
+     "unit": "1"
+    },
+    "rpm": {
+     "set": [
+      30,
+      40,
+      50,
+      60,
+      80,
+      100,
+      120,
+      150
+     ],
+     "unit": "s^-1"
+    }
+   },
+   "answer": {
+    "expr": "mu*g/w**2*100",
+    "unit": "cm",
+    "dim": "m"
+   },
+   "verify": [
+    "w**2*(answer/100) == mu*g",
+    "w**2*(1.1*answer/100) > mu*g"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-square",
+     "expr": "mu*g/w*100"
+    },
+    {
+     "tag": "forgot-mu",
+     "expr": "g/w**2*100"
+    },
+    {
+     "tag": "radius-diameter",
+     "expr": "2*mu*g/w**2*100"
+    },
+    {
+     "tag": "radius-diameter",
+     "expr": "mu*g/w**2*50"
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "mu**2*g/w**2*100"
+    },
+    {
+     "tag": "unit-conversion",
+     "expr": "mu*g/w**2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10,
+    "pi": 3
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "At the limit, μmg = mrω², so r = μg/ω².",
+    "si": "සීමාවේ දී μmg = mrω² නිසා r = μg/ω²."
+   },
+   "derived": {
+    "w": "rpm*2*pi/60"
+   },
+   "constraints": [
+    "2 <= answer <= 30",
+    "nice(answer, 1)"
+   ],
+   "exclude": [
+    "(mu, rpm) == (0.36, 30)"
+   ]
+  },
+  {
+   "id": "phy.mech.t11",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F44",
+   "skills": [
+    "phy.mech.eq.moment-balance"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2025-41",
+   "note_ref": "phy.mech.note.beam",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The figure shows a uniform {M} kg beam on supports at P and Q, with a {m} kg person standing on it. Force from support Q?",
+    "si": "රූපයේ P සහ Q ආධාරක මත ඇති {M} kg ඒකාකාර බාල්කයක් සහ ඒ මත සිටින {m} kg පුද්ගලයෙක් දැක්වේ. Q ආධාරකයෙන් ඇති වන බලය කුමක් ද?"
+   },
+   "params": {
+    "L": {
+     "set": [
+      4,
+      5,
+      6,
+      8,
+      10
+     ],
+     "unit": "m"
+    },
+    "M": {
+     "set": [
+      40,
+      60,
+      80,
+      100
+     ],
+     "unit": "kg"
+    },
+    "m": {
+     "set": [
+      50,
+      60,
+      70
+     ],
+     "unit": "kg"
+    },
+    "d": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "unit": "m"
+    }
+   },
+   "answer": {
+    "expr": "(M*g*L/2 + m*g*d)/L",
+    "unit": "N",
+    "dim": "N"
+   },
+   "verify": [
+    "((M + m)*g - answer)*L == M*g*L/2 + m*g*(L - d)"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "m*g*d/L",
+     "detail": "The beam's own weight also loads the supports.",
+     "detail_si": "බාල්කයේ බර ද ආධාරක මත පැටවේ."
+    },
+    {
+     "tag": "swapped-support",
+     "expr": "(M*g*L/2 + m*g*(L - d))/L"
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "(M + m)*g/2"
+    },
+    {
+     "tag": "forgot-g",
+     "expr": "(M*L/2 + m*d)/L"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "(M + m)*g",
+     "detail": "That's the total of both support forces.",
+     "detail_si": "එය ආධාරක දෙකේ බලවල එකතුවයි."
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "M*g/2"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "m*g",
+     "detail": "That's the person's whole weight, but the supports share it.",
+     "detail_si": "එය පුද්ගලයාගේ මුළු බරයි. නමුත් ආධාරක එය බෙදා ගනී."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Moments about P remove the force at P: Q × L = Mg × L/2 + mg × d.",
+    "si": "P වටා සූර්ණ ගැනීමෙන් P හි බලය ඉවත් වේ: Q × L = Mg × L/2 + mg × d."
+   },
+   "constraints": [
+    "d < L",
+    "2*d != L",
+    "answer == int(answer)"
+   ],
+   "figure": {
+    "engine": "beam",
+    "params": {
+     "L": "L",
+     "d": "d"
+    }
+   }
+  },
+  {
+   "id": "phy.mech.t12",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.pow.force-speed"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2023-45",
+   "note_ref": "phy.mech.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "{article} {m} kg car needs {p0} kW to hold {v} m s⁻¹ on a level road. Power to hold the same speed up a slope with sin θ = {s}, same resistance?",
+    "si": "{m} kg මෝටර් රථයකට තිරස් මාර්ගයක {v} m s⁻¹ පවත්වා ගැනීමට {p0} kW අවශ්‍ය වේ. ප්‍රතිරෝධය එලෙසම තිබිය දී, sin θ = {s} වූ ආනත තලයක් නගිමින් එම වේගයම පවත්වා ගැනීමට අවශ්‍ය ජවය කුමක් ද?"
+   },
+   "params": {
+    "m": {
+     "set": [
+      800,
+      1000,
+      1500
+     ],
+     "unit": "kg"
+    },
+    "v": {
+     "set": [
+      10,
+      15,
+      20,
+      25
+     ],
+     "unit": "m s^-1"
+    },
+    "p0": {
+     "set": [
+      10,
+      12,
+      15,
+      18,
+      20,
+      24,
+      25,
+      30
+     ],
+     "unit": "W"
+    },
+    "s": {
+     "set": [
+      0.05,
+      0.1
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "p0 + m*g*s*v/1000",
+    "unit": "kW",
+    "dim": "W"
+   },
+   "verify": [
+    "(p0*1000/v + m*g*s)*v/1000 == answer"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "m*g*s*v/1000",
+     "detail": "The level-road resistance still acts on the slope.",
+     "detail_si": "තිරස් මාර්ගයේ ප්‍රතිරෝධය ආනත තලයේ දී ද ක්‍රියා කරයි."
+    },
+    {
+     "tag": "no-resolve",
+     "expr": "p0 + m*g*v/1000"
+    },
+    {
+     "tag": "forgot-g",
+     "expr": "p0 + m*s*v/1000"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "p0",
+     "detail": "That's the power on the level road.",
+     "detail_si": "එය තිරස් මාර්ගයේ ජවයයි."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "p0*(1 + s)",
+     "detail": "Add the power needed against gravity. Don't scale by the slope.",
+     "detail_si": "ගුරුත්වයට එරෙහිව අවශ්‍ය ජවය එකතු කරන්න. ආනතියෙන් ගුණ නොකරන්න."
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "2*p0 + m*g*s*v/1000",
+     "detail": "Count the level-road power once.",
+     "detail_si": "තිරස් මාර්ගයේ ජවය එක් වරක් පමණක් ගන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Driving force = resistance + mg sin θ, and P = Fv.",
+    "si": "ධාවක බලය = ප්‍රතිරෝධය + mg sin θ වන අතර P = Fv."
+   },
+   "derived": {
+    "article": "'An' if m == 800 else 'A'"
+   }
+  },
+  {
+   "id": "phy.mech.t13",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F41",
+   "skills": [
+    "phy.mech.energy.bounce-height"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2019-31",
+   "note_ref": "phy.mech.note.bnc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A ball is dropped from {h0} m. Each bounce cuts its speed by {pct}%. Height reached after {n} bounces?",
+    "si": "පන්දුවක් {h0} m උසකින් අත හරිනු ලැබේ. එක් එක් පොළා පැනීමේ දී වේගය {pct}% කින් අඩු වේ. පොළා පැනීම් {n} කට පසු ළඟා වන උස කුමක් ද?"
+   },
+   "params": {
+    "pct": {
+     "set": [
+      10,
+      20,
+      25,
+      50
+     ],
+     "unit": "1"
+    },
+    "n": {
+     "set": [
+      3,
+      4
+     ],
+     "unit": "1"
+    },
+    "h0": {
+     "set": [
+      2,
+      3,
+      5
+     ],
+     "unit": "m"
+    }
+   },
+   "answer": {
+    "expr": "h0*k**(2*n)",
+    "unit": "m",
+    "dim": "m",
+    "display": "{h0} × ({k}){sup(2*n)} m"
+   },
+   "verify": [
+    "answer == bounce_height(h0, k, n, g)"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-square",
+     "expr": "h0*k**n",
+     "display": "{h0} × ({k}){sup(n)} m"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "h0*k**2",
+     "display": "{h0} × ({k}){sup(2)} m",
+     "detail": "That's only one bounce.",
+     "detail_si": "එය එක් පොළා පැනීමක් පමණි."
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "h0*k**(3*n)",
+     "display": "{h0} × ({k}){sup(3*n)} m"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "h0*k**(n + 1)",
+     "display": "{h0} × ({k}){sup(n + 1)} m",
+     "detail": "Count two powers of k for each bounce.",
+     "detail_si": "එක් පොළා පැනීමකට k හි බල දෙකක් ගන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {
+    "g": 10
+   },
+   "option_order": "shuffle",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Each bounce multiplies the speed by k, and height ∝ v², so each bounce multiplies the height by k².",
+    "si": "සෑම පොළා පැනීමකම වේගය k වලින් ගුණ වේ. උස ∝ v² නිසා උස k² වලින් ගුණ වේ."
+   },
+   "derived": {
+    "k": "1 - pct/100"
+   }
+  },
+  {
+   "id": "phy.mech.t14",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.mech.rot.angular-momentum"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-32",
+   "note_ref": "phy.mech.note.ang",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A student spins on a smooth turntable at {w0} rad s⁻¹ with I = {I0} kg m². Pulling in the weights makes I = {I1} kg m². New angular speed?",
+    "si": "ශිෂ්‍යයෙක් I = {I0} kg m² සමඟ සිනිඳු භ්‍රමණ තලයක {w0} rad s⁻¹ කින් කැරකෙයි. බර ඇතුළට ගත් විට I = {I1} kg m² වේ. නව කෝණික වේගය කුමක් ද?"
+   },
+   "params": {
+    "I0": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+     ],
+     "unit": "kg m^2"
+    },
+    "I1": {
+     "set": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "unit": "kg m^2"
+    },
+    "w0": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      10
+     ],
+     "unit": "s^-1"
+    }
+   },
+   "answer": {
+    "expr": "I0*w0/I1",
+    "unit": "rad s⁻¹",
+    "dim": "s^-1"
+   },
+   "verify": [
+    "I1*answer == I0*w0",
+    "I1*answer**2 > I0*w0**2"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "w0",
+     "detail": "Pulling in the weights changes I, so ω must change.",
+     "detail_si": "බර ඇතුළට ගැනීමෙන් I වෙනස් වන නිසා ω ද වෙනස් විය යුතු ය."
+    },
+    {
+     "tag": "inverted",
+     "expr": "I1*w0/I0"
+    },
+    {
+     "tag": "ke-conserved-rotation",
+     "expr": "w0*sqrt(I0/I1)"
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "w0*(I0/I1)**2"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "I0*w0",
+     "detail": "That's the angular momentum. Now divide by the new I.",
+     "detail_si": "එය කෝණික ගම්‍යතාවයි. දැන් නව I වලින් බෙදන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "No external torque acts, so Iω is constant.",
+    "si": "බාහිර ව්‍යාවර්තයක් ක්‍රියා නොකරන නිසා Iω නියත ය."
+   },
+   "constraints": [
+    "I1 < I0",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.mech.t15",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F41",
+   "skills": [
+    "phy.mech.rot.rolling-energy"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2025-13",
+   "note_ref": "phy.mech.note.roll",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {shape} (I = {frac(c)} MR²) rolls without slipping. Find total KE ÷ {target} KE.",
+    "si": "{shape} (I = {frac(c)} MR²) ලිස්සීමකින් තොරව පෙරළේ. මුළු චාලක ශක්තිය ÷ {target} චාලක ශක්තිය සොයන්න."
+   },
+   "params": {
+    "shape": {
+     "set": [
+      "solid sphere",
+      "hollow sphere",
+      "solid cylinder"
+     ]
+    },
+    "target": {
+     "set": [
+      "rotational",
+      "translational"
+     ]
+    }
+   },
+   "answer": {
+    "expr": "(1 + c)/c if target == 'rotational' else 1 + c",
+    "unit": "",
+    "dim": "1",
+    "display": "{frac(value)}",
+    "dim_skip": true
+   },
+   "verify": [
+    "approx(answer, (M*v**2/2 + c*M*v**2/2)/(c*M*v**2/2 if target == 'rotational' else M*v**2/2))"
+   ],
+   "distractors": [
+    {
+     "tag": "wrong-quantity",
+     "expr": "1 + c if target == 'rotational' else (1 + c)/c",
+     "display": "{frac(value)}",
+     "detail": "That's the other ratio. Check which KE goes below the line.",
+     "detail_si": "එය අනෙක් අනුපාතයයි. හරයට යන චාලක ශක්තිය කුමක් දැයි බලන්න."
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "1/c",
+     "display": "{frac(value)}",
+     "detail": "That's translational ÷ rotational, not total.",
+     "detail_si": "එය මුළු අගය නොව පරිවහන ÷ භ්‍රමණ අනුපාතයයි."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "c",
+     "display": "{frac(value)}",
+     "detail": "c is only the factor in I. Now build the ratio.",
+     "detail_si": "c යනු I හි සාධකය පමණි. දැන් අනුපාතය ගොඩනගන්න."
+    },
+    {
+     "tag": "inverted",
+     "expr": "c/(1 + c) if target == 'rotational' else 1/(1 + c)",
+     "display": "{frac(value)}"
+    }
+   ],
+   "param_text": {
+    "si": {
+     "solid sphere": "ඝන ගෝලයක්",
+     "hollow sphere": "කුහර ගෝලයක්",
+     "solid cylinder": "ඝන සිලින්ඩරයක්",
+     "rotational": "භ්‍රමණ",
+     "translational": "පරිවහන"
+    }
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "KE total = ½Mv²(1 + c), and rotational KE = ½Mv²c.",
+    "si": "මුළු චාලක ශක්තිය = ½Mv²(1 + c) වන අතර භ්‍රමණ චාලක ශක්තිය = ½Mv²c වේ."
+   },
+   "derived": {
+    "c": "{'solid sphere': Fraction(2, 5), 'hollow sphere': Fraction(2, 3), 'solid cylinder': Fraction(1, 2)}[shape]"
+   },
+   "verify_given": {
+    "M": 2,
+    "v": 3
+   },
+   "exclude": [
+    "(shape, target) == ('solid cylinder', 'rotational')"
+   ],
+   "exact": "fraction"
+  }
+ ],
+ "banks": [
+  {
+   "id": "phy.mech.b01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.mech.newton.n3-pairs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-4",
+   "note_ref": "phy.mech.note.n3",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "The two forces of a pair are equal in size.",
+      "si": "බල යුගලයක බල දෙක විශාලත්වයෙන් සමාන ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The two forces of a pair are of the same type.",
+      "si": "බල යුගලයක බල දෙක එකම වර්ගයේ ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Earth's pull on a book and the book's pull on Earth form a pair.",
+      "si": "පොත මත පෘථිවියේ ඇදීම හා පෘථිවිය මත පොතේ ඇදීම බල යුගලයකි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The two forces of a pair act on different bodies.",
+      "si": "බල යුගලයක බල දෙක වෙනස් වස්තු මත ක්‍රියා කරයි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The two forces of a pair cancel each other.",
+      "si": "බල යුගලයක බල දෙක එකිනෙක අවලංගු කරයි."
+     },
+     "true": false,
+     "tag": "pair-cancels"
+    },
+    {
+     "text": {
+      "en": "A pair of forces can exist only between bodies in contact.",
+      "si": "බල යුගලයක් ඇති විය හැක්කේ ස්පර්ශ වී ඇති වස්තු අතර පමණි."
+     },
+     "true": false,
+     "tag": "pair-contact-only"
+    },
+    {
+     "text": {
+      "en": "The reaction appears slightly after the action.",
+      "si": "ප්‍රතික්‍රියාව ඇති වන්නේ ක්‍රියාවට මඳ වේලාවකට පසුව ය."
+     },
+     "true": false,
+     "tag": "pair-delay"
+    },
+    {
+     "text": {
+      "en": "A table's push on a book and the book's weight form a pair.",
+      "si": "පොත මත මේසයේ තෙරපුම හා පොතේ බර බල යුගලයකි."
+     },
+     "true": false,
+     "tag": "balance-vs-pair"
+    }
+   ],
+   "conflicts": [
+    [
+     3,
+     4
+    ],
+    [
+     2,
+     7
+    ]
+   ],
+   "explanation": {
+    "en": "The two forces of a pair are equal, simultaneous, of one type, and act on different bodies.",
+    "si": "බල යුගලයක බල සමාන ය, එකවර පවතී, එකම වර්ගයේ ය, සහ වෙනස් වස්තු මත ක්‍රියා කරයි."
+   }
+  },
+  {
+   "id": "phy.mech.b02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.mech.rot.moi-factors"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-15",
+   "note_ref": "phy.mech.note.moi",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "Moment of inertia depends on the axis chosen.",
+      "si": "අවස්ථිති සූර්ණය තෝරා ගන්නා අක්ෂය මත රඳා පවතී."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Doubling every mass, at the same positions, doubles the moment of inertia.",
+      "si": "එකම පිහිටීම්වල සියලු ස්කන්ධ දෙගුණ කළ විට අවස්ථිති සූර්ණය දෙගුණ වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Moving mass further from the axis increases the moment of inertia.",
+      "si": "ස්කන්ධය අක්ෂයෙන් ඈතට ගෙන ගිය විට අවස්ථිති සූර්ණය වැඩි වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "About the central axis, a ring has a larger moment of inertia than a disc of equal mass and radius.",
+      "si": "කේන්ද්‍රීය අක්ෂය වටා, මුද්දක අවස්ථිති සූර්ණය සමාන ස්කන්ධ හා අරය ඇති තැටියක අගයට වඩා වැඩි ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Moment of inertia increases when the body spins faster.",
+      "si": "වස්තුව වේගයෙන් කැරකෙන විට අවස්ථිති සූර්ණය වැඩි වේ."
+     },
+     "true": false,
+     "tag": "moi-depends-on-omega"
+    },
+    {
+     "text": {
+      "en": "Moment of inertia has the same value about every axis.",
+      "si": "සෑම අක්ෂයක් වටාම අවස්ථිති සූර්ණයේ අගය සමාන ය."
+     },
+     "true": false,
+     "tag": "moi-axis-free"
+    },
+    {
+     "text": {
+      "en": "Two bodies of equal mass always have equal moments of inertia.",
+      "si": "සමාන ස්කන්ධ ඇති වස්තු දෙකක අවස්ථිති සූර්ණ සැමවිටම සමාන ය."
+     },
+     "true": false,
+     "tag": "moi-mass-only"
+    },
+    {
+     "text": {
+      "en": "The SI unit of moment of inertia is kg m.",
+      "si": "අවස්ථිති සූර්ණයේ SI ඒකකය kg m වේ."
+     },
+     "true": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "conflicts": [
+    [
+     0,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     1,
+     6
+    ]
+   ],
+   "explanation": {
+    "en": "I = Σmr² depends on the masses and their distances from the axis, not on how fast the body spins.",
+    "si": "I = Σmr² රඳා පවතින්නේ ස්කන්ධ හා අක්ෂයේ සිට ඒවායේ දුර මත මිස වස්තුව කැරකෙන වේගය මත නොවේ."
+   }
+  }
+ ]
+}

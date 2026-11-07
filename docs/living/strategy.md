@@ -1,6 +1,6 @@
 # Strategy
 
-_Last updated: 2026-11-02_
+_Last updated: 2026-11-03_
 
 ## Vision
 Daily, mastery-based revision for Sri Lankan A/L students. It starts with Physics, then covers every A/L subject (and later other exams) on one engine.
@@ -23,11 +23,13 @@ This is realistic in 18–30 months *if teachers are the channel*. It's unlikely
 - Teacher-neutral: star-teacher platforms structurally can't be this, because rival teachers won't send students to them.
 
 ## Customers: three roles, never mix messages
+At A/L the **student decides**; parent involvement is optional and student-controlled ([DR-0018](../decisions/0018-student-is-primary-customer.md)). The core segment is the **motivated-but-struggling** student, not the uninterested one.
+
 
 | Role | Who | What they care about |
 |---|---|---|
-| User | Student | Easy, not boring, a feeling of progress |
-| Payer | Parent | Results, visibility, value for money |
+| User **and primary customer** | Student | Easy, not boring, a feeling of progress, autonomy |
+| Payer (wallet, optional motivator) | Parent | Effort, direction, the university dream, value for money |
 | Channel | Teacher | Class results, less work, (optional) extra income |
 
 **First segment:** Bio-stream students who are weak in Physics, and their parents (the most motivated payers in the A/L market). Validate this in the pilot ([A8](../experiments/assumptions.md)).

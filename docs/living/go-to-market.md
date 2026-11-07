@@ -1,6 +1,6 @@
 # Go-to-Market
 
-_Last updated: 2026-11-02_
+_Last updated: 2026-11-03_
 
 ## Channel sequence ([DR-0002](../decisions/0002-teachers-as-channel.md), [DR-0008](../decisions/0008-pilot-close-circle.md), [DR-0010](../decisions/0010-rollout-waves.md))
 
@@ -73,10 +73,28 @@ MoE circulars restrict government teachers from charging their own school studen
 4. Close with a free trial for one batch.
 5. Follow up weekly with that class's data ("your batch did 4,200 reviews, weak in Electromagnetism"). The data closes the deal.
 
-## Parents (the payers)
-- Pitch "**weekly progress report on WhatsApp**," not "gamified app."
-- No parent app. A weekly WhatsApp summary plus a signed web report link ([DR-0015](../decisions/0015-parents-via-whatsapp.md)).
-- Parent orientation (20 min, Zoom or in person) showing the report. Parents who see the dashboard convert.
+## Parents (the wallet, not the customer)
+At A/L, **the student is the real customer**; parents are at most the wallet and a motivator ([DR-0018](../decisions/0018-student-is-primary-customer.md)). Don't chase parent contacts. Let students bring parents in when it benefits the student.
+
+| Parent segment | Share (guess) | What they get |
+|---|---|---|
+| Engaged (understands A/L, cares about university) | Minority, highest value | Full weekly report |
+| Supportive, not involved (pays, doesn't follow details) | Majority | Payment request + simple monthly update |
+| Absent / won't engage | Some | Nothing. The student pays, or the teacher bundles it. |
+
+**Ethical routes to parent contacts** (never scrape, buy or copy numbers from groups):
+| Route | How |
+|---|---|
+| Payment flow (main route) | In-app **"Ask parent to pay"** sends a ready-made Sinhala/Tamil WhatsApp message with a payment link and the student's progress. The parent pays, and we get the contact with consent. |
+| Under-18 consent | A one-time WhatsApp confirmation from the parent (covers PDPA) |
+| Teachers and classes | The teacher shares our intro and opt-in link in existing parent groups; we never take numbers directly |
+| Pilot | Introduced at a class or parent meeting, with a QR code |
+| Student invite | The student taps "Add parent" when they choose to share progress |
+
+**Hook for parents who don't understand A/L.** They understand effort ("studied 5 of 7 days"), direction (improving, steady, falling), the dream (university, doctor, engineer), value (less than one tuition class) and authority ("the teacher says…"). Use the university hook, not features: "Physics decides the Z-score for medicine and engineering." The usage-tied money-back guarantee removes risk. Offer easy payment: eZ Cash, mCash, LankaQR, bank transfer.
+
+- No parent app: WhatsApp plus a signed web report link ([DR-0015](../decisions/0015-parents-via-whatsapp.md)). Report design is in [product spec](product-spec.md#parent-report).
+- Parent orientation in the pilot (20 min, Zoom or in person) showing the report.
 
 ## Social media: necessary, not sufficient
 Social produces free users; teachers and referrals produce paid ones. Hold off on broadcasting until the pilot is running ([DR-0017](../decisions/0017-friend-as-advisor.md)).
@@ -113,7 +131,9 @@ Sell into exam pressure. **Apr–Jul** (pre-exam crunch) brings the highest moti
 ## Message templates
 
 ### Parent message: Founding 100 (translate to Sinhala / Tamil)
-> Dear Parent, we're piloting a new A/L Physics revision app, reviewed by [Teacher name], with 100 students. Your child gets a 15-minute daily practice plan, and you get a weekly progress report on WhatsApp showing strong and weak topics. 8 weeks: Rs 300 (refunded if their mock score doesn't improve). Only 100 places. Reply YES to reserve.
+> Dear Parent, we're piloting a new A/L Physics revision app, reviewed by [Teacher name], with 100 students. Your child gets a short daily practice plan, and you can get a weekly progress update on WhatsApp if your child shares it. 8 weeks: Rs 300 (refunded if they practise at least 20 days and their mock score doesn't improve). Only 100 places. Reply YES to reserve.
+
+_Updated 2026-11-03: the guarantee is tied to usage ([DR-0021](../decisions/0021-usage-tied-guarantee.md), proposed), and reports are student-controlled ([DR-0018](../decisions/0018-student-is-primary-customer.md))._
 
 ### WhatsApp teacher channel: first message (wife's voice; translate to Sinhala; no price, no revenue share)
 > Hi everyone 👋

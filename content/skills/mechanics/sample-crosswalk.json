@@ -1,0 +1,110 @@
+[
+  {
+    "sample_id": "phy.mech.vec.resultant-range",
+    "graph_id": "phy.mech.vec.resultant-range",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.kin.vertical-throw",
+    "graph_id": "phy.mech.kin.vertical-throw",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.kin.graph-slope-area",
+    "graph_id": "phy.mech.kin.graph-slope-area",
+    "action": "kept",
+    "note": "Graph-to-graph conversion is now its own skill, phy.mech.kin.graph-convert."
+  },
+  {
+    "sample_id": "phy.mech.kin.average-velocity",
+    "graph_id": "phy.mech.kin.average-velocity",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.newton.n3-pairs",
+    "graph_id": "phy.mech.newton.n3-pairs",
+    "action": "kept",
+    "note": "Sample renamed from phy.mech.n3-pairs on 2026-11-07 to add the topic segment."
+  },
+  {
+    "sample_id": "phy.mech.newton.apparent-weight",
+    "graph_id": "phy.mech.newton.apparent-weight",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.fric.stopping-distance",
+    "graph_id": "phy.mech.fric.stopping-distance",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.fric.traction-limit",
+    "graph_id": "phy.mech.fric.traction-limit",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.mom.momentum-vs-energy",
+    "graph_id": "phy.mech.mom.momentum-vs-energy",
+    "action": "kept",
+    "note": "Consider type method-selection: its L3 pool is the point of the skill."
+  },
+  {
+    "sample_id": "phy.mech.imp.graph-area",
+    "graph_id": "phy.mech.imp.graph-area",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.proj.components",
+    "graph_id": "phy.mech.proj.components",
+    "action": "narrowed",
+    "note": "KE at the top is now phy.mech.proj.ke-at-top; move template t13-style items there."
+  },
+  {
+    "sample_id": "phy.mech.circ.friction-limit",
+    "graph_id": "phy.mech.circ.friction-limit",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.eq.moment-balance",
+    "graph_id": "phy.mech.eq.moment-balance",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.pow.force-speed",
+    "graph_id": "phy.mech.pow.force-speed",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.energy.bounce-height",
+    "graph_id": "phy.mech.energy.bounce-height",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.rot.angular-momentum",
+    "graph_id": "phy.mech.rot.angular-momentum",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.rot.rolling-energy",
+    "graph_id": "phy.mech.rot.rolling-energy",
+    "action": "kept",
+    "note": null
+  },
+  {
+    "sample_id": "phy.mech.rot.moi-factors",
+    "graph_id": "phy.mech.rot.moi-factors",
+    "action": "kept",
+    "note": null
+  }
+]

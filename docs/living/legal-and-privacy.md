@@ -31,7 +31,7 @@ _Last updated: 2026-11-02. Not legal advice; verify each item with a lawyer or t
 ## Privacy (minors' data)
 SL's Personal Data Protection Act applies.
 - Collect the minimum: name, class, medium. No national ID numbers, no precise location.
-- Parental consent at onboarding (WhatsApp opt-in works).
+- Parental consent at onboarding for under-18s: a one-time WhatsApp confirmation ([DR-0018](../decisions/0018-student-is-primary-customer.md)). After that, what parents see is the student's choice (effort only by default).
 - Leaderboards are class-scoped, with a nickname option, and never show public full names.
 - Parent links: unguessable token, expiring, read-only, scoped to one student.
 - Encrypted backups; export and delete data on request.

@@ -19,7 +19,7 @@ In short: living docs say what we're doing, decision records say why, and experi
 Other folders:
 - [`meetings/`](meetings/): raw notes from teacher calls, user interviews and advisor chats.
 - [`templates/`](templates/): copy these to start a new decision, experiment or meeting note.
-- [`sources/`](sources/): original material these docs were built from (the 2026-11-01/02 business-plan chat with Claude).
+- [`sources/`](sources/): original material these docs were built from: the business-plan chat with Claude, snapshotted [2026-11-02](sources/2026-11-02-business-plan-chat.md) and [2026-11-03](sources/2026-11-03-business-plan-chat.md) (the latter is a superset).
 
 ### Rules
 
@@ -46,7 +46,9 @@ Other folders:
 - [Pricing](living/pricing.md): plans, pilot offer, revenue math
 - [Go-to-market](living/go-to-market.md): channels, teacher pitch, message templates, funnel
 - [Competitors](living/competitors.md): landscape and white space
-- [Product spec](living/product-spec.md): skill graph, L1–L5, step player, Learn mode, retention, MVP cut
+- [Product spec](living/product-spec.md): skill graph, L1–L5, step player, Learn mode, retention, parent report, MVP cut
+- [Content authoring spec](living/content-authoring.md): item forms, schema, automated checks, error tags (proposed)
+- [UX design](living/ux-design.md): "mist" design system, language rule, screen inventory, WhatsApp messages, [design canvas](https://claude.ai/code/artifact/8663e5e8-8080-4e38-a1bc-a487744ad18f)
 - [Tech architecture](living/tech-architecture.md): stack, architecture, costs, AI-code review rules
 - [Legal & privacy](living/legal-and-privacy.md): company, IP, PDPA, teacher rules, open legal questions
 - [Roadmap](living/roadmap.md): timeline, build order, subject order

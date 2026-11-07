@@ -1,0 +1,1056 @@
+{
+  "status": "draft",
+  "papers": [
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "candidate_rule": "unit_no = 2, plus unit_no = 10 fluid subtopics that the NIE syllabus puts in Unit 2 (2.7, 2.8)",
+  "questions": [
+    {
+      "uid": "2016-15",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.explosions",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-16",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-slope-area",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-17",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.pow.power-efficiency",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-29",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.eq.moment-balance",
+      "secondary": [
+        "phy.mech.mom.linear-momentum"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-30",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.rolling-energy",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-31",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.floatation",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-32",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.angular-momentum",
+      "secondary": [
+        "phy.mech.rot.rotational-ke-work"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-33",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.eq.concurrent-forces",
+      "secondary": [
+        "phy.mech.cg.regular-bodies"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-47",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.connected-bodies",
+      "secondary": [
+        "phy.mech.newton.free-body"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-50",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.energy.elastic-pe",
+      "secondary": [
+        "phy.mech.energy.mech-conservation"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-3",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.composite-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-12",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.float-changes",
+      "secondary": [],
+      "note": "also needs thermal expansion (Unit 4)"
+    },
+    {
+      "uid": "2017-13",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.floatation",
+      "secondary": [
+        "phy.mech.hydro.upthrust"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-16",
+      "db_unit": 2,
+      "db_subtopic": "Moment of Inertia",
+      "primary": "phy.mech.rot.moi-factors",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-22",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-slope-area",
+      "secondary": [
+        "phy.mech.kin.relative-velocity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-23",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.pow.power-efficiency",
+      "secondary": [
+        "phy.mech.work.work-done"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-24",
+      "db_unit": 2,
+      "db_subtopic": "Vectors & Scalars",
+      "primary": "phy.mech.vec.resultant-system",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-25",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli",
+      "secondary": [
+        "phy.mech.hydro.pressure-depth"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-31",
+      "db_unit": 10,
+      "db_subtopic": "Fluid Pressure",
+      "primary": "phy.mech.hydro.pascal",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-44",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.rolling-kinematics",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-46",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.eq.conditions",
+      "secondary": [
+        "phy.mech.newton.n3-pairs"
+      ],
+      "note": "two-force equilibrium"
+    },
+    {
+      "uid": "2017-50",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.horizontal-launch",
+      "secondary": [
+        "phy.mech.energy.mech-conservation"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-12",
+      "db_unit": 2,
+      "db_subtopic": "Vectors & Scalars",
+      "primary": "phy.mech.vec.resultant-system",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-13",
+      "db_unit": 2,
+      "db_subtopic": "Impulse & Momentum",
+      "primary": "phy.mech.imp.impulse",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-14",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.fric.stopping-distance",
+      "secondary": [
+        "phy.mech.energy.work-energy"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-15",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.composite-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-16",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-slope-area",
+      "secondary": [
+        "phy.mech.newton.second-law"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-28",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.eq.moment-balance",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-29",
+      "db_unit": 10,
+      "db_subtopic": "Fluid Pressure",
+      "primary": "phy.mech.hydro.pressure-depth",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-33",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli",
+      "secondary": [
+        "phy.mech.flow.continuity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-34",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.angular-momentum",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-35",
+      "db_unit": 2,
+      "db_subtopic": "Moment of Inertia",
+      "primary": "phy.mech.rot.moi-factors",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-46",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.contact-forces",
+      "secondary": [
+        "phy.mech.newton.n3-pairs"
+      ],
+      "note": "tension in a rope"
+    },
+    {
+      "uid": "2018-47",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.float-changes",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-8",
+      "db_unit": 2,
+      "db_subtopic": "Circular Motion",
+      "primary": "phy.mech.circ.centripetal-accel",
+      "secondary": [
+        "phy.mech.vec.resultant-two"
+      ],
+      "note": "change of velocity"
+    },
+    {
+      "uid": "2019-9",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.work.work-done",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-25",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.angular-momentum",
+      "secondary": [
+        "phy.mech.rot.linear-angular"
+      ],
+      "note": "L = mvr for an air mass"
+    },
+    {
+      "uid": "2019-28",
+      "db_unit": 10,
+      "db_subtopic": "Continuity & Flow Rate",
+      "primary": "phy.mech.flow.continuity",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-31",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.energy.bounce-height",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-35",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.buoyancy-motion",
+      "secondary": [
+        "phy.mech.kin.graph-slope-area"
+      ],
+      "note": "accelerating container"
+    },
+    {
+      "uid": "2019-36",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.elastic-inelastic",
+      "secondary": [
+        "phy.mech.mom.conservation"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-38",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.float-changes",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-39",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli",
+      "secondary": [
+        "phy.mech.flow.continuity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-40",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-slope-area",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-50",
+      "db_unit": 2,
+      "db_subtopic": "Circular Motion",
+      "primary": "phy.mech.circ.inclined-forces",
+      "secondary": [
+        "phy.mech.circ.friction-limit"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-4",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.average-velocity",
+      "secondary": [
+        "phy.mech.kin.graph-slope-area"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-5",
+      "db_unit": 2,
+      "db_subtopic": "Moment of Inertia",
+      "primary": "phy.mech.rot.moi-standard",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-19",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.composite-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-20",
+      "db_unit": 10,
+      "db_subtopic": "Fluid Pressure",
+      "primary": "phy.mech.hydro.compare-densities",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-22",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.newton.connected-bodies",
+      "secondary": [
+        "phy.mech.fric.friction-force"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-23",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.mom.explosions",
+      "secondary": [
+        "phy.mech.proj.components"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-26",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.upthrust",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-30",
+      "db_unit": 2,
+      "db_subtopic": "Impulse & Momentum",
+      "primary": "phy.mech.imp.graph-area",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-41",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli",
+      "secondary": [
+        "phy.mech.flow.continuity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-42",
+      "db_unit": 2,
+      "db_subtopic": "Terminal Velocity & Stokes' Law",
+      "primary": "phy.mech.newton.second-law",
+      "secondary": [
+        "phy.mech.kin.graph-slope-area"
+      ],
+      "note": "DB subtopic is Stokes' law (Unit 10); mapped to Unit 2"
+    },
+    {
+      "uid": "2020-49",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.momentum-vs-energy",
+      "secondary": [
+        "phy.mech.energy.elastic-pe"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2021-4",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.elastic-inelastic",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-6",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.conservation",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-12",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-convert",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-15",
+      "db_unit": 2,
+      "db_subtopic": "Moment of Inertia",
+      "primary": "phy.mech.rot.moi-factors",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-16",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.jet-force",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-18",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.connected-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-21",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.floatation",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-24",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.regular-bodies",
+      "secondary": [],
+      "note": "suspension method"
+    },
+    {
+      "uid": "2021-25",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli-applications",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-38",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.torque-alpha",
+      "secondary": [
+        "phy.mech.rot.rotational-ke-work"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2021-48",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.vertical-throw",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-49",
+      "db_unit": 10,
+      "db_subtopic": "Fluid Pressure",
+      "primary": "phy.mech.hydro.pressure-depth",
+      "secondary": [],
+      "note": "force on an inclined surface"
+    },
+    {
+      "uid": "2022-1",
+      "db_unit": 2,
+      "db_subtopic": "Vectors & Scalars",
+      "primary": "phy.meas.vec.scalar-vector",
+      "secondary": [],
+      "note": "Unit 1 (1.5): not a Mechanics skill"
+    },
+    {
+      "uid": "2022-2",
+      "db_unit": 2,
+      "db_subtopic": "Vectors & Scalars",
+      "primary": "phy.mech.vec.resultant-range",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-9",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.components",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-18",
+      "db_unit": 2,
+      "db_subtopic": "Impulse & Momentum",
+      "primary": "phy.mech.imp.graph-area",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-19",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-slope-area",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-20",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.fric.friction-force",
+      "secondary": [
+        "phy.mech.vec.resolve"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-22",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.composite-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-24",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.explosions",
+      "secondary": [
+        "phy.mech.proj.horizontal-launch"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-25",
+      "db_unit": 2,
+      "db_subtopic": "Circular Motion",
+      "primary": "phy.mech.circ.vertical-tension",
+      "secondary": [
+        "phy.mech.energy.mech-conservation"
+      ],
+      "note": "vertical circle: check syllabus scope"
+    },
+    {
+      "uid": "2022-27",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.work.work-done",
+      "secondary": [
+        "phy.mech.energy.work-energy"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-34",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.efflux",
+      "secondary": [],
+      "note": "siphon"
+    },
+    {
+      "uid": "2022-35",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.torque-alpha",
+      "secondary": [
+        "phy.mech.rot.linear-angular"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-36",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.upthrust",
+      "secondary": [
+        "phy.mech.hydro.floatation"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-3",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.n3-pairs",
+      "secondary": [
+        "phy.mech.fric.friction-states"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-4",
+      "db_unit": 2,
+      "db_subtopic": "Vectors & Scalars",
+      "primary": "phy.mech.vec.resultant-range",
+      "secondary": [],
+      "note": "displacements, not forces"
+    },
+    {
+      "uid": "2023-16",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.conservation",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-17",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.ke-at-top",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-22",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.regular-bodies",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-28",
+      "db_unit": 10,
+      "db_subtopic": "Bernoulli's Principle",
+      "primary": "phy.mech.flow.bernoulli",
+      "secondary": [
+        "phy.mech.flow.continuity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-32",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-convert",
+      "secondary": [
+        "phy.mech.energy.bounce-height"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-41",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.contact-forces",
+      "secondary": [
+        "phy.mech.newton.second-law"
+      ],
+      "note": "spring vs string at the instant of release"
+    },
+    {
+      "uid": "2023-44",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.fric.rough-incline",
+      "secondary": [
+        "phy.mech.newton.connected-bodies"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-45",
+      "db_unit": 2,
+      "db_subtopic": "Work, Power & Energy",
+      "primary": "phy.mech.pow.force-speed",
+      "secondary": [
+        "phy.mech.vec.resolve"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-50",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.torque-alpha",
+      "secondary": [
+        "phy.mech.newton.connected-bodies"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-3",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.ke-at-top",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-4",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.n3-pairs",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-5",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.elastic-inelastic",
+      "secondary": [
+        "phy.mech.mom.conservation"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-7",
+      "db_unit": 2,
+      "db_subtopic": "Kinematics & Motion Graphs",
+      "primary": "phy.mech.kin.graph-convert",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-8",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.torque-alpha",
+      "secondary": [
+        "phy.mech.rot.rotational-suvat"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-12",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.composite-bodies",
+      "secondary": [],
+      "note": "part removed"
+    },
+    {
+      "uid": "2024-15",
+      "db_unit": 2,
+      "db_subtopic": "Circular Motion",
+      "primary": "phy.mech.circ.friction-limit",
+      "secondary": [
+        "phy.mech.rot.angular-quantities"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-16",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.newton.connected-bodies",
+      "secondary": [
+        "phy.mech.fric.friction-force"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-30",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.buoyancy-motion",
+      "secondary": [
+        "phy.mech.kin.vertical-throw"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-38",
+      "db_unit": 10,
+      "db_subtopic": "Torricelli's Law",
+      "primary": "phy.mech.flow.efflux",
+      "secondary": [
+        "phy.mech.proj.horizontal-launch"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-41",
+      "db_unit": 2,
+      "db_subtopic": "Circular Motion",
+      "primary": "phy.mech.circ.inclined-forces",
+      "secondary": [
+        "phy.mech.vec.resolve"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-43",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.energy.work-energy",
+      "secondary": [
+        "phy.mech.fric.rough-incline"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-50",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.eq.resolve-forces",
+      "secondary": [
+        "phy.mech.fric.friction-force"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-5",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.components",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-12",
+      "db_unit": 2,
+      "db_subtopic": "Friction",
+      "primary": "phy.mech.fric.traction-limit",
+      "secondary": [
+        "phy.mech.kin.suvat"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-13",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.rolling-energy",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-14",
+      "db_unit": 2,
+      "db_subtopic": "Projectile Motion",
+      "primary": "phy.mech.proj.horizontal-launch",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-17",
+      "db_unit": 2,
+      "db_subtopic": "Newton's Laws of Motion",
+      "primary": "phy.mech.newton.apparent-weight",
+      "secondary": [
+        "phy.mech.kin.graph-slope-area"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-21",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.cg.regular-bodies",
+      "secondary": [],
+      "note": "CG outside the body"
+    },
+    {
+      "uid": "2025-27",
+      "db_unit": 10,
+      "db_subtopic": "Buoyancy & Floatation",
+      "primary": "phy.mech.hydro.float-changes",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-30",
+      "db_unit": 10,
+      "db_subtopic": "Torricelli's Law",
+      "primary": "phy.mech.flow.efflux",
+      "secondary": [
+        "phy.mech.hydro.pascal"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-40",
+      "db_unit": 2,
+      "db_subtopic": "Rotational Dynamics",
+      "primary": "phy.mech.rot.angular-momentum",
+      "secondary": [
+        "phy.mech.rot.moi-standard"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-41",
+      "db_unit": 2,
+      "db_subtopic": "Centre of Gravity & Equilibrium",
+      "primary": "phy.mech.eq.moment-balance",
+      "secondary": [],
+      "note": "source issue logged for option (2)"
+    },
+    {
+      "uid": "2025-45",
+      "db_unit": 2,
+      "db_subtopic": "Collisions & Momentum",
+      "primary": "phy.mech.mom.elastic-inelastic",
+      "secondary": [
+        "phy.mech.mom.conservation"
+      ],
+      "note": null
+    }
+  ]
+}

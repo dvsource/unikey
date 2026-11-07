@@ -1,6 +1,6 @@
 # Tech Architecture
 
-_Last updated: 2026-11-02 · Decision: [DR-0013](../decisions/0013-tech-stack.md)_
+_Last updated: 2026-11-03 · Decision: [DR-0013](../decisions/0013-tech-stack.md)_
 
 TypeScript end to end, a **local-first** mobile app, and a **modular monolith** on managed Postgres. Fast for users, cheap at the start, and it grows to ~10k students without a rewrite. ~90% of the code is AI-written; Viraj reviews the critical parts line by line.
 
@@ -18,7 +18,7 @@ TypeScript end to end, a **local-first** mobile app, and a **modular monolith** 
 |---|---|---|
 | Mobile app | React Native + Expo (Hermes) | EAS Update pushes JS fixes without store review |
 | Local DB | SQLite (op-sqlite or expo-sqlite) | Content packs + review state + event queue |
-| Scheduler | ts-fsrs (L1/L2) + own KC mastery model (TS, shared package) | Runs on device; server recomputes as the source of truth |
+| Scheduler | ts-fsrs (L1/L2) + own KC mastery model with retrievability and FIRe-style implicit review (TS, shared package) | Runs on device; server recomputes as the source of truth ([DR-0022](../decisions/0022-typed-skill-graph.md)) |
 | API | Node + Fastify (or Hono), Zod schemas shared via the monorepo | |
 | Database | Postgres on Supabase (or Neon) | Auth, storage, RLS; plain Postgres, no lock-in |
 | Jobs | pg-boss | No Redis. Weekly reports, PDFs, calibration, WhatsApp sends. |
@@ -30,12 +30,13 @@ TypeScript end to end, a **local-first** mobile app, and a **modular monolith** 
 | PDF / paper builder | HTML → PDF via headless Chromium (Gotenberg); test Typst | Chromium is safe for Sinhala/Tamil shaping. Test Typst first. |
 | Auth | Google sign-in + phone OTP via a **local** SMS gateway + class join codes | International SMS is expensive for SL numbers |
 | Payments | PayHere (web/bulk/codes) + RevenueCat over Play Billing (later) | See [DR-0014](../decisions/0014-payments.md) |
-| Parent channel | WhatsApp Business Cloud API, utility template + signed link | Check Meta's per-message SL pricing |
-| Push | Expo Notifications (FCM) | Reminder at the chosen study time |
+| Parent / student WhatsApp | WhatsApp Business Cloud API, utility template + signed link | Parents only with student-chosen sharing ([DR-0018](../decisions/0018-student-is-primary-customer.md)); students only if opted in. Check Meta's per-message SL pricing. |
+| Reminders | **No push notifications** ([DR-0020](../decisions/0020-no-push-notifications.md)). Android home-screen widget (streak + today's 5 questions) + opt-in WhatsApp reminder (off by default) | Widget: e.g. react-native-android-widget or Expo native module |
 | Analytics | PostHog | Funnels, retention, flags, session replay |
 | Errors | Sentry | |
 | Region | Singapore or Mumbai | Lowest latency to SL |
-| Fonts | Noto Sans Sinhala, Noto Sans Tamil (bundled) | Test on low-end Android |
+| Fonts | Geist (UI, numbers), Noto Sans Sinhala, Noto Sans Tamil (bundled) | Test on low-end Android. Design: [UX design](ux-design.md) |
+| UI effects | Frosted glass + slow gradient blobs ("mist", [DR-0023](../decisions/0023-mist-design-system.md)) | Low-end devices: solid 85% white surface, no backdrop blur; respect reduced motion |
 
 ## Architecture
 ```

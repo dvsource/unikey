@@ -1,6 +1,6 @@
 # Pricing
 
-_Last updated: 2026-11-02_
+_Last updated: 2026-11-03_
 
 ## Plans (planned; validate before public launch)
 
@@ -20,7 +20,7 @@ _Last updated: 2026-11-02_
 ## Pilot offer: "Founding 100" ([DR-0003](../decisions/0003-pilot-price-300.md))
 - **300 LKR for an 8-week pilot** (anchored as "normally 1,800").
 - Founding members **lock in 600/month for life** (vs 900), including future subjects.
-- **Money-back guarantee**: if their mock MCQ score doesn't improve, they get the 300 back.
+- **Money-back guarantee**: if their mock MCQ score doesn't improve, they get the 300 back. _Proposed change ([DR-0021](../decisions/0021-usage-tied-guarantee.md)):_ only if they practised **at least 20 days in 8 weeks**.
 - Name on a "founding students" wall, plus early access to new features.
 - "Only 100 places" (true, so it's honest scarcity).
 - Friends and the wife's own students pay too. Payment is the most honest signal.
@@ -53,3 +53,5 @@ What the target hides:
 ## Open pricing questions
 - Monthly vs exam-year as the default plan? (Ask the advisor friend; test it after the pilot.)
 - Will parents pay 900/month for one subject? Ask in the pilot parent survey ([A9](../experiments/assumptions.md)).
+- A 7-day free trial before the first payment (post-pilot)? Students who don't engage never pay, so they never feel cheated ([DR-0021](../decisions/0021-usage-tied-guarantee.md)).
+- Set expectations at purchase: "Results show after 3–4 weeks of 5+ days a week."

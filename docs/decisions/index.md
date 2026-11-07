@@ -21,5 +21,12 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0015](0015-parents-via-whatsapp.md) | No parent app; WhatsApp + signed links | Product | Accepted | 2026-11-02 | 2027-04-01 |
 | [0016](0016-stop-only-by-decision.md) | Stop/pivot only via a written decision | Process | Proposed | 2026-11-02 | 2027-02-01 |
 | [0017](0017-friend-as-advisor.md) | Friend as informal advisor, no equity yet | Company | Proposed | 2026-11-02 | 2027-04-01 |
+| [0018](0018-student-is-primary-customer.md) | Student is primary customer; parent sharing student-controlled | Product/GTM | Proposed | 2026-11-03 | 2027-04-01 |
+| [0019](0019-teen-retention-design.md) | Teen retention: 5-min day, no-guilt comebacks, social + progress | Product | Accepted | 2026-11-03 | 2027-04-01 |
+| [0020](0020-no-push-notifications.md) | No push, no teacher-voice nudges, no class-enrolment dependency | Product | Accepted | 2026-11-03 | 2027-04-01 |
+| [0021](0021-usage-tied-guarantee.md) | Money-back guarantee tied to ≥20 practice days | Pricing | Proposed | 2026-11-03 | 2027-01-15 |
+| [0022](0022-typed-skill-graph.md) | Typed skill graph: mastery × retrievability, implicit review, soft gating | Product | Proposed | 2026-11-03 | 2027-04-01 |
+| [0023](0023-mist-design-system.md) | "Mist" design system | Design | Accepted | 2026-11-03 | 2027-02-01 |
+| [0024](0024-sinhala-medium-ui-language.md) | Sinhala medium: content + topic names Sinhala, UI English | Design/Content | Accepted | 2026-11-03 | 2027-02-01 |
 
 New record: copy [`../templates/decision.md`](../templates/decision.md) to `00NN-short-slug.md` and add a row here.

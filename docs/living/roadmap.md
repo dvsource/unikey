@@ -24,8 +24,8 @@ December holidays are a weak time to start a pilot; a January start gives cleane
 Feature scope: see the [MVP cut](product-spec.md#mvp-cut-physics-pilot).
 
 ## Feature versions
-- **v1 (pilot):** SRS cards and questions, L3, L4 MCQ templates, timed MCQ, readiness score, weak-topic report, mistake notebook, micro-notes + 3 sim engines, teacher dashboard, parent report.
-- **v2:** gamification (XP, class leagues, badges), paper builder PDFs, full step player, one admin report, automated WhatsApp, Play Billing.
+- **v1 (pilot):** SRS cards and questions, L3, L4 MCQ templates, timed MCQ, readiness score, weak-topic report, mistake notebook, micro-notes + 3 sim engines, teacher dashboard, parent report, 5-minute day + streak freeze + no-guilt catch-up, home-screen widget, opt-in WhatsApp reminder, term-test mode.
+- **v2:** gamification (XP, class leagues, badges, friend streaks, duels), paper builder PDFs, full step player, one admin report, automated WhatsApp, Play Billing, Tamil UI pass.
 - **v3+:** more sim engines, freeform mode, simulations for the most-failed concepts, runtime AI explanations (capped). Music and quotes are optional polish.
 
 ## Subject order

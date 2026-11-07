@@ -1,0 +1,4094 @@
+{
+  "status": "draft",
+  "reviewer": null,
+  "spec_version": "0.5",
+  "unit": {
+    "id": "phy.mech",
+    "name": "Mechanics",
+    "syllabus_unit": 2,
+    "periods": 110
+  },
+  "sources": [
+    "resources/nie/physics/en/syllabus/AL-Physics-Syllabus-Gr12-13-en.pdf (Unit 2)",
+    "resources/nie/physics/en/resource-books/Gr12-Physics-RB-Unit01-02-Measurement-Mechanics-en.pdf"
+  ],
+  "exam_weight_policy": {
+    "papers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "source": "Paper I MCQs only. Paper II is not mapped yet, so these weights are not final.",
+    "score": "primary hits + 0.5 × secondary hits",
+    "level_weight": "0.5 × level's share of the unit's score + 0.5 × level's share of teaching periods",
+    "within_level": "level_weight × max(0.1, score / top score in level), normalised within the level",
+    "exam_weight_share": "the skill's share of the unit (sums to 1)",
+    "exam_weight": "exam_weight_share / the largest share in the unit (0–1)"
+  },
+  "mastery_policy": "mastery = inferred for a skill no past paper tests that at least 5 tested skills require: its mastery comes from the skills built on it, and it is not practised first",
+  "edge_semantics": {
+    "requires": "`from` cannot be done without `to`. Must be a DAG.",
+    "helps": "knowing `from` makes `to` easier",
+    "encompasses": "practising `from` partly reviews `to`; weight is the implicit-review credit",
+    "confusable": "undirected; interleave the two skills",
+    "uses-math": "`to` is a skill in the shared maths layer"
+  },
+  "topics": [
+    {
+      "id": "phy.mech.2.1",
+      "syllabus_ref": "2.1",
+      "name": "Kinematics: one- and two-dimensional motion",
+      "periods": 15,
+      "exam_share": 0.147,
+      "level_weight": 0.142
+    },
+    {
+      "id": "phy.mech.2.2",
+      "syllabus_ref": "2.2",
+      "name": "Resultant force, moment of a force and centre of gravity",
+      "periods": 15,
+      "exam_share": 0.102,
+      "level_weight": 0.119
+    },
+    {
+      "id": "phy.mech.2.3",
+      "syllabus_ref": "2.3",
+      "name": "Newton's laws of motion",
+      "periods": 20,
+      "exam_share": 0.246,
+      "level_weight": 0.214
+    },
+    {
+      "id": "phy.mech.2.4",
+      "syllabus_ref": "2.4",
+      "name": "Equilibrium of forces",
+      "periods": 10,
+      "exam_share": 0.042,
+      "level_weight": 0.067
+    },
+    {
+      "id": "phy.mech.2.5",
+      "syllabus_ref": "2.5",
+      "name": "Work, energy and power",
+      "periods": 15,
+      "exam_share": 0.084,
+      "level_weight": 0.11
+    },
+    {
+      "id": "phy.mech.2.6",
+      "syllabus_ref": "2.6",
+      "name": "Rotational motion and circular motion",
+      "periods": 15,
+      "exam_share": 0.168,
+      "level_weight": 0.152
+    },
+    {
+      "id": "phy.mech.2.7",
+      "syllabus_ref": "2.7",
+      "name": "Hydrostatics",
+      "periods": 12,
+      "exam_share": 0.119,
+      "level_weight": 0.114
+    },
+    {
+      "id": "phy.mech.2.8",
+      "syllabus_ref": "2.8",
+      "name": "Fluid dynamics",
+      "periods": 8,
+      "exam_share": 0.091,
+      "level_weight": 0.082
+    }
+  ],
+  "external": [
+    {
+      "id": "phy.meas.vec.scalar-vector",
+      "name": "Scalars and vectors",
+      "syllabus_ref": "1.5",
+      "status": "stub"
+    },
+    {
+      "id": "phy.meas.vec.addition",
+      "name": "Adding vectors (triangle and parallelogram)",
+      "syllabus_ref": "1.5",
+      "status": "stub"
+    }
+  ],
+  "math": [
+    {
+      "id": "math.trig.ratios",
+      "name": "sin, cos, tan and the special angles 30°, 45°, 60°"
+    },
+    {
+      "id": "math.trig.cosine-rule",
+      "name": "Cosine rule / parallelogram rule for two vectors"
+    },
+    {
+      "id": "math.algebra.rearrange",
+      "name": "Rearranging a formula for one variable"
+    },
+    {
+      "id": "math.algebra.simultaneous",
+      "name": "Solving two simultaneous linear equations"
+    },
+    {
+      "id": "math.algebra.quadratic",
+      "name": "Solving or reasoning with a quadratic"
+    },
+    {
+      "id": "math.algebra.proportion",
+      "name": "Ratio, proportion and scaling"
+    },
+    {
+      "id": "math.graph.gradient",
+      "name": "Gradient of a straight line or tangent"
+    },
+    {
+      "id": "math.graph.area",
+      "name": "Area under a graph from simple shapes"
+    },
+    {
+      "id": "math.geometry.mensuration",
+      "name": "Areas and volumes of circles, cylinders, spheres"
+    },
+    {
+      "id": "math.geometry.perpendicular",
+      "name": "Perpendicular distance, angles and similar triangles"
+    },
+    {
+      "id": "math.angle.radian",
+      "name": "Radian measure, rpm and revolutions"
+    }
+  ],
+  "skills": [
+    {
+      "id": "phy.mech.kin.motion-quantities",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Kinematics",
+      "syllabus_ref": "2.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "Displacement, velocity and acceleration",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 32
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.average-velocity",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Kinematics",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Average velocity",
+        "si": "සාමාන්‍ය ප්‍රවේගය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2020-4"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.143,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.relative-velocity",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Relative motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Relative velocity on parallel paths",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2017-22"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.graph-slope-area",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Graphs of motion",
+      "syllabus_ref": "2.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Gradient and area of motion graphs",
+        "si": "චලිත ප්‍රස්තාරවල අනුක්‍රමණය හා වර්ගඵලය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.graph.gradient",
+        "math.graph.area"
+      ],
+      "difficulty_est": 3.2,
+      "exam": {
+        "primary": [
+          "2016-16",
+          "2017-22",
+          "2018-16",
+          "2019-40",
+          "2022-19"
+        ],
+        "secondary": [
+          "2019-35",
+          "2020-4",
+          "2020-42",
+          "2025-17"
+        ],
+        "score": 7.0,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0423,
+      "exam_weight": 1.0,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.graph-convert",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Graphs of motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Converting between s–t, v–t and a–t graphs",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.graph.gradient",
+        "math.graph.area"
+      ],
+      "difficulty_est": 2.7,
+      "exam": {
+        "primary": [
+          "2021-12",
+          "2023-32",
+          "2024-7"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0181,
+      "exam_weight": 0.429,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.suvat",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Equations of motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Equations of motion for constant acceleration",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.rearrange",
+        "math.algebra.quadratic"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2025-12"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.vertical-throw",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Equations of motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Vertical throw symmetry",
+        "si": "සිරස් විසි කිරීමේ සමමිතිය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.quadratic"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2021-48"
+        ],
+        "secondary": [
+          "2024-30"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0091,
+      "exam_weight": 0.214,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.kin.smooth-incline",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Equations of motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Motion down a smooth inclined plane",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.proj.components",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Projectile motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Projectile velocity components",
+        "si": "ප්‍රක්ෂිප්තයක ප්‍රවේග සංරචක",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2022-9",
+          "2025-5"
+        ],
+        "secondary": [
+          "2020-23"
+        ],
+        "score": 2.5,
+        "figure_share": 0.5,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0151,
+      "exam_weight": 0.357,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.proj.horizontal-launch",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Projectile motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Horizontal launch from a height",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-50",
+          "2025-14"
+        ],
+        "secondary": [
+          "2022-24",
+          "2024-38"
+        ],
+        "score": 3.0,
+        "figure_share": 0.5,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0181,
+      "exam_weight": 0.429,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.proj.angled-launch",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Projectile motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Time of flight, maximum height and range",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios",
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.proj.ke-at-top",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.1",
+      "subtopic": "Projectile motion",
+      "syllabus_ref": "2.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Kinetic energy at the top of a projectile path",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2023-17",
+          "2024-3"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0121,
+      "exam_weight": 0.286,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.vec.resolve",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Resultant of forces",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Resolving a force into components",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2022-20",
+          "2023-45",
+          "2024-41"
+        ],
+        "score": 1.5,
+        "figure_share": null,
+        "tested_dependents": 9
+      },
+      "exam_weight_share": 0.0108,
+      "exam_weight": 0.256,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.vec.resultant-two",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Resultant of forces",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Resultant of two forces (parallelogram law)",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.trig.cosine-rule"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2019-8"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.085,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.vec.resultant-range",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Resultant of forces",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Range of a resultant force",
+        "si": "සම්ප්‍රයුක්ත බලයේ පරාසය",
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2022-2",
+          "2023-4"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0144,
+      "exam_weight": 0.342,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.vec.resultant-system",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Resultant of forces",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Resultant of a system of coplanar forces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-24",
+          "2018-12"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0144,
+      "exam_weight": 0.342,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.moment.moment-of-force",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Moment of a force",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "Moment of a force about a point",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.geometry.perpendicular"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 6
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.085,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.moment.couple",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Moment of a force",
+      "syllabus_ref": "2.2",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Moment of a couple",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [
+        "math.geometry.perpendicular"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.085,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.moment.parallel-resultant",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Moment of a force",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Resultant and line of action of parallel forces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.085,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.cg.regular-bodies",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Centre of gravity",
+      "syllabus_ref": "2.2",
+      "type": "conceptual",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Centre of gravity of regular bodies and by suspension",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 1.7,
+      "exam": {
+        "primary": [
+          "2021-24",
+          "2023-22",
+          "2025-21"
+        ],
+        "secondary": [
+          "2016-33"
+        ],
+        "score": 3.5,
+        "figure_share": 1.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0253,
+      "exam_weight": 0.598,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.cg.composite-bodies",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Centre of gravity",
+      "syllabus_ref": "2.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Centre of gravity of compound bodies and bodies with parts removed",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.geometry.mensuration",
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.4,
+      "exam": {
+        "primary": [
+          "2017-3",
+          "2018-15",
+          "2020-19",
+          "2022-22",
+          "2024-12"
+        ],
+        "secondary": [],
+        "score": 5.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0361,
+      "exam_weight": 0.854,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.cg.force-through-cm",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.2",
+      "subtopic": "Centre of gravity",
+      "syllabus_ref": "2.2",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Force through or away from the centre of mass",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.085,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.inertia-first-law",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Force and motion",
+      "syllabus_ref": "2.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Inertia, mass and Newton's first law",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.003,
+      "exam_weight": 0.071,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.free-body",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Free body force diagrams",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Free-body force diagrams",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-47"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 14
+      },
+      "exam_weight_share": 0.003,
+      "exam_weight": 0.071,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.second-law",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Force and motion",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Newton's second law for one body",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2020-42"
+        ],
+        "secondary": [
+          "2018-16",
+          "2023-41"
+        ],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 11
+      },
+      "exam_weight_share": 0.012,
+      "exam_weight": 0.285,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.n3-pairs",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Force and motion",
+      "syllabus_ref": "2.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Newton's third-law pairs",
+        "si": "නිව්ටන්ගේ තුන්වන නියමයේ බල යුගල",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2023-3",
+          "2024-4"
+        ],
+        "secondary": [
+          "2017-46",
+          "2018-46"
+        ],
+        "score": 3.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0181,
+      "exam_weight": 0.427,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.contact-forces",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Self adjusting forces",
+      "syllabus_ref": "2.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Self-adjusting forces: tension, normal reaction, thrust",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2018-46",
+          "2023-41"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 8
+      },
+      "exam_weight_share": 0.012,
+      "exam_weight": 0.285,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.connected-bodies",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Applications of Newton's laws",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Connected bodies: pulleys, strings and blocks in contact",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 30,
+      "math_deps": [
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2016-47",
+          "2020-22",
+          "2021-18",
+          "2024-16"
+        ],
+        "secondary": [
+          "2023-44",
+          "2023-50"
+        ],
+        "score": 5.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0301,
+      "exam_weight": 0.712,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.newton.apparent-weight",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Applications of Newton's laws",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Apparent weight in a lift",
+        "si": "සෝපානයක දෘශ්‍ය බර",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2025-17"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.142,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.fric.friction-states",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Frictional forces",
+      "syllabus_ref": "2.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Static, limiting and dynamic friction",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2023-3"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.003,
+      "exam_weight": 0.071,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.fric.friction-force",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Frictional forces",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Limiting and dynamic friction force (μR)",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2022-20"
+        ],
+        "secondary": [
+          "2020-22",
+          "2024-16",
+          "2024-50"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0151,
+      "exam_weight": 0.356,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.fric.stopping-distance",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Frictional forces",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Stopping distance under friction",
+        "si": "ඝර්ෂණය යටතේ නැවතුම් දුර",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2018-14"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.142,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.fric.traction-limit",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Frictional forces",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Friction limit on acceleration",
+        "si": "ත්වරණයට ඝර්ෂණයෙන් ඇති සීමාව",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2025-12"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.142,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.fric.rough-incline",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Frictional forces",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Block on a rough inclined plane",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2023-44"
+        ],
+        "secondary": [
+          "2024-43"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.009,
+      "exam_weight": 0.214,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.mom.linear-momentum",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Momentum",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Linear momentum and force as rate of change of momentum",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-29"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 7
+      },
+      "exam_weight_share": 0.003,
+      "exam_weight": 0.071,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.imp.impulse",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Impulse",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Impulse and impulsive forces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2018-13"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.142,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.imp.graph-area",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Impulse",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Impulse from a force–time graph",
+        "si": "බල–කාල ප්‍රස්තාරයකින් ආවේගය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.area"
+      ],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2020-30",
+          "2022-18"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.012,
+      "exam_weight": 0.285,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.mom.conservation",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Momentum",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Conservation of linear momentum in one dimension",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2021-6",
+          "2023-16"
+        ],
+        "secondary": [
+          "2019-36",
+          "2024-5",
+          "2025-45"
+        ],
+        "score": 3.5,
+        "figure_share": 0.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0211,
+      "exam_weight": 0.499,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.mom.explosions",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Momentum",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Explosions and fragments, including in flight",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.7,
+      "exam": {
+        "primary": [
+          "2016-15",
+          "2020-23",
+          "2022-24"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0181,
+      "exam_weight": 0.427,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.mom.elastic-inelastic",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Momentum",
+      "syllabus_ref": "2.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Elastic and inelastic collisions",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-36",
+          "2021-4",
+          "2024-5",
+          "2025-45"
+        ],
+        "secondary": [],
+        "score": 4.0,
+        "figure_share": 0.5,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0241,
+      "exam_weight": 0.57,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.mom.momentum-vs-energy",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.3",
+      "subtopic": "Momentum",
+      "syllabus_ref": "2.3",
+      "type": "method-selection",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Momentum or energy conservation",
+        "si": "ගම්‍යතා හෝ ශක්ති සංස්ථිතිය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2020-49"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.142,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.eq.conditions",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.4",
+      "subtopic": "Conditions for equilibrium",
+      "syllabus_ref": "2.4",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Conditions for equilibrium",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-46"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0106,
+      "exam_weight": 0.25,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.eq.concurrent-forces",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.4",
+      "subtopic": "Equilibrium of coplanar forces",
+      "syllabus_ref": "2.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Three non-parallel forces and the triangle of forces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios",
+        "math.geometry.perpendicular"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-33"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0106,
+      "exam_weight": 0.25,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.eq.resolve-forces",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.4",
+      "subtopic": "Equilibrium of coplanar forces",
+      "syllabus_ref": "2.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Equilibrium by resolving forces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios",
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 5.0,
+      "exam": {
+        "primary": [
+          "2024-50"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0106,
+      "exam_weight": 0.25,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.eq.moment-balance",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.4",
+      "subtopic": "Principle of moments",
+      "syllabus_ref": "2.4",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Moment balance on a beam",
+        "si": "බාල්කයක සූර්ණ තුලනය",
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 3.3,
+      "exam": {
+        "primary": [
+          "2016-29",
+          "2018-28",
+          "2025-41"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0317,
+      "exam_weight": 0.749,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.eq.stability",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.4",
+      "subtopic": "States of equilibrium",
+      "syllabus_ref": "2.4",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Stable, unstable and neutral equilibrium",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0032,
+      "exam_weight": 0.075,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.work.work-done",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Work",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Work done by a force, and its sign",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2019-9",
+          "2022-27"
+        ],
+        "secondary": [
+          "2017-23"
+        ],
+        "score": 2.5,
+        "figure_share": 0.5,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0225,
+      "exam_weight": 0.533,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.energy.ke-pe",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Mechanical energy",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "Kinetic and gravitational potential energy",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 11
+      },
+      "exam_weight_share": 0.0023,
+      "exam_weight": 0.053,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.energy.elastic-pe",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Mechanical energy",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Elastic potential energy",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.area"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2016-50"
+        ],
+        "secondary": [
+          "2020-49"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0135,
+      "exam_weight": 0.32,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.energy.work-energy",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Work-energy principle",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Work–energy principle with friction",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2024-43"
+        ],
+        "secondary": [
+          "2018-14",
+          "2022-27"
+        ],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.018,
+      "exam_weight": 0.426,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.energy.mech-conservation",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Conservation of energy",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Conservation of mechanical energy",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-50",
+          "2017-50",
+          "2022-25"
+        ],
+        "score": 1.5,
+        "figure_share": null,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.0135,
+      "exam_weight": 0.32,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.energy.bounce-height",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Conservation of energy",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Rebound height and speed",
+        "si": "පොළා පැනීමේ උස හා වේගය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-31"
+        ],
+        "secondary": [
+          "2023-32"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0135,
+      "exam_weight": 0.32,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.pow.power-efficiency",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Power and efficiency",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Power and efficiency",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-17",
+          "2017-23"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.5,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.018,
+      "exam_weight": 0.426,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.pow.force-speed",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.5",
+      "subtopic": "Power and efficiency",
+      "syllabus_ref": "2.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Power, force and speed",
+        "si": "ජවය, බලය හා වේගය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2023-45"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.009,
+      "exam_weight": 0.213,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.angular-quantities",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Angular displacement, velocity, acceleration, period and rpm",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.angle.radian"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2024-15"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 10
+      },
+      "exam_weight_share": 0.0031,
+      "exam_weight": 0.074,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.linear-angular",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Linking linear and angular quantities (v = rω)",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2019-25",
+          "2022-35"
+        ],
+        "score": 1.0,
+        "figure_share": null,
+        "tested_dependents": 6
+      },
+      "exam_weight_share": 0.0062,
+      "exam_weight": 0.148,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.rotational-suvat",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Equations of rotational motion",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.angle.radian"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2024-8"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0031,
+      "exam_weight": 0.074,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.moi-standard",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Moment of inertia",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Moment of inertia of a point mass and standard bodies",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2020-5"
+        ],
+        "secondary": [
+          "2025-40"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.0094,
+      "exam_weight": 0.222,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.moi-factors",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Moment of inertia",
+      "syllabus_ref": "2.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "What moment of inertia depends on",
+        "si": "අවස්ථිති සූර්ණය රඳා පවතින දේ",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.7,
+      "exam": {
+        "primary": [
+          "2017-16",
+          "2018-35",
+          "2021-15"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 0.67,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0187,
+      "exam_weight": 0.443,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.torque-alpha",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Torque",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Torque and angular acceleration (τ = Iα)",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2021-38",
+          "2022-35",
+          "2023-50",
+          "2024-8"
+        ],
+        "secondary": [],
+        "score": 4.0,
+        "figure_share": 0.5,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.025,
+      "exam_weight": 0.591,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.angular-momentum",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Angular momentum",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Angular momentum conservation",
+        "si": "කෝණික ගම්‍යතා සංස්ථිතිය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.2,
+      "exam": {
+        "primary": [
+          "2016-32",
+          "2018-34",
+          "2019-25",
+          "2025-40"
+        ],
+        "secondary": [],
+        "score": 4.0,
+        "figure_share": 0.75,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.025,
+      "exam_weight": 0.591,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.rotational-ke-work",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational kinetic energy",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Rotational kinetic energy, work and power",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-32",
+          "2021-38"
+        ],
+        "score": 1.0,
+        "figure_share": null,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0062,
+      "exam_weight": 0.148,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.rolling-energy",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational kinetic energy",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Energy of a rolling body",
+        "si": "පෙරළෙන වස්තුවක ශක්තිය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2016-30",
+          "2025-13"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.5,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0125,
+      "exam_weight": 0.296,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.rot.rolling-kinematics",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Rotational motion",
+      "syllabus_ref": "2.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Velocity of points on a rolling wheel",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2017-44"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0062,
+      "exam_weight": 0.148,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.circ.centripetal-accel",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Circular motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Centripetal acceleration and change of velocity on a circle",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.angle.radian"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-8"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0062,
+      "exam_weight": 0.148,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.circ.centripetal-force",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Circular motion",
+      "syllabus_ref": "2.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Which force provides the centripetal force",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0025,
+      "exam_weight": 0.059,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.circ.friction-limit",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Circular motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Friction limit in circular motion",
+        "si": "වෘත්ත චලිතයේ ඝර්ෂණ සීමාව",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2024-15"
+        ],
+        "secondary": [
+          "2019-50"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0094,
+      "exam_weight": 0.222,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.circ.inclined-forces",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Circular motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Horizontal circles with inclined strings or surfaces",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": 5.0,
+      "exam": {
+        "primary": [
+          "2019-50",
+          "2024-41"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0125,
+      "exam_weight": 0.296,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.circ.vertical-tension",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.6",
+      "subtopic": "Circular motion",
+      "syllabus_ref": "2.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Forces at the top and bottom of a vertical circle",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2022-25"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0062,
+      "exam_weight": 0.148,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.pressure-depth",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Hydrostatic pressure",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Pressure at a depth and force on a surface",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.geometry.mensuration"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2018-29",
+          "2021-49"
+        ],
+        "secondary": [
+          "2017-25"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 9
+      },
+      "exam_weight_share": 0.0164,
+      "exam_weight": 0.388,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.compare-densities",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Hydrostatic pressure",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Comparing densities with a U-tube or Hare's apparatus",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2020-20"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0066,
+      "exam_weight": 0.155,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.pascal",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Transmission of pressure",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Pascal's principle and hydraulic systems",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-31"
+        ],
+        "secondary": [
+          "2025-30"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0098,
+      "exam_weight": 0.233,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.upthrust",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Up thrust",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Archimedes' principle and apparent weight in a fluid",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.geometry.mensuration"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2020-26",
+          "2022-36"
+        ],
+        "secondary": [
+          "2017-13"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0164,
+      "exam_weight": 0.388,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.floatation",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Floatation",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Condition for floating and fraction submerged",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-31",
+          "2017-13",
+          "2021-21"
+        ],
+        "secondary": [
+          "2022-36"
+        ],
+        "score": 3.5,
+        "figure_share": 0.67,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.023,
+      "exam_weight": 0.544,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.float-changes",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Floatation",
+      "syllabus_ref": "2.7",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "What changes when a floating system is rearranged",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2017-12",
+          "2018-47",
+          "2019-38",
+          "2025-27"
+        ],
+        "secondary": [],
+        "score": 4.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0263,
+      "exam_weight": 0.621,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.hydrometer",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Floatation",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Hydrometer and weighted test tube",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0026,
+      "exam_weight": 0.062,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.hydro.buoyancy-motion",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.7",
+      "subtopic": "Up thrust",
+      "syllabus_ref": "2.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Motion of a body under upthrust",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2019-35",
+          "2024-30"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.5,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0131,
+      "exam_weight": 0.311,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.streamline",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Streamline flow",
+      "syllabus_ref": "2.8",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "Streamline and turbulent flow",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.003,
+      "exam_weight": 0.072,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.continuity",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Equation of continuity",
+      "syllabus_ref": "2.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Equation of continuity",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.geometry.mensuration"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-28"
+        ],
+        "secondary": [
+          "2018-33",
+          "2019-39",
+          "2020-41",
+          "2023-28"
+        ],
+        "score": 3.0,
+        "figure_share": 0.0,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0182,
+      "exam_weight": 0.431,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.bernoulli",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Bernoulli's principle",
+      "syllabus_ref": "2.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Bernoulli's principle in pipes",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 4.2,
+      "exam": {
+        "primary": [
+          "2017-25",
+          "2018-33",
+          "2019-39",
+          "2020-41",
+          "2023-28"
+        ],
+        "secondary": [],
+        "score": 5.0,
+        "figure_share": 0.8,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0304,
+      "exam_weight": 0.718,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.bernoulli-applications",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Bernoulli's principle",
+      "syllabus_ref": "2.8",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Applications of Bernoulli's principle (lift, roofs, sprayers)",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2021-25"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0061,
+      "exam_weight": 0.144,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.efflux",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Bernoulli's principle",
+      "syllabus_ref": "2.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Speed of efflux and siphons",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2022-34",
+          "2024-38",
+          "2025-30"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0182,
+      "exam_weight": 0.431,
+      "status": "draft"
+    },
+    {
+      "id": "phy.mech.flow.jet-force",
+      "unit": "phy.mech",
+      "topic": "phy.mech.2.8",
+      "subtopic": "Equation of continuity",
+      "syllabus_ref": "2.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Force exerted by a fluid jet",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2021-16"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0061,
+      "exam_weight": 0.144,
+      "status": "draft"
+    }
+  ],
+  "edges": [
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.motion-quantities",
+      "to": "phy.meas.vec.scalar-vector"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.average-velocity",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.relative-velocity",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.graph-slope-area",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.graph-convert",
+      "to": "phy.mech.kin.graph-slope-area"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.suvat",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.vertical-throw",
+      "to": "phy.mech.kin.suvat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.smooth-incline",
+      "to": "phy.mech.kin.suvat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.kin.smooth-incline",
+      "to": "phy.mech.vec.resolve"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.components",
+      "to": "phy.mech.kin.suvat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.components",
+      "to": "phy.mech.vec.resolve"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.horizontal-launch",
+      "to": "phy.mech.proj.components"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.angled-launch",
+      "to": "phy.mech.proj.components"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.ke-at-top",
+      "to": "phy.mech.proj.components"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.proj.ke-at-top",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.vec.resolve",
+      "to": "phy.meas.vec.addition"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.vec.resultant-two",
+      "to": "phy.meas.vec.addition"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.vec.resultant-range",
+      "to": "phy.mech.vec.resultant-two"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.vec.resultant-system",
+      "to": "phy.mech.vec.resolve"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.moment.couple",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.moment.parallel-resultant",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.cg.composite-bodies",
+      "to": "phy.mech.cg.regular-bodies"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.cg.composite-bodies",
+      "to": "phy.mech.moment.parallel-resultant"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.cg.force-through-cm",
+      "to": "phy.mech.cg.regular-bodies"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.inertia-first-law",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.second-law",
+      "to": "phy.mech.newton.free-body"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.contact-forces",
+      "to": "phy.mech.newton.free-body"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.connected-bodies",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.connected-bodies",
+      "to": "phy.mech.newton.contact-forces"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.apparent-weight",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.newton.apparent-weight",
+      "to": "phy.mech.newton.contact-forces"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.friction-states",
+      "to": "phy.mech.newton.contact-forces"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.friction-force",
+      "to": "phy.mech.fric.friction-states"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.friction-force",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.stopping-distance",
+      "to": "phy.mech.fric.friction-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.traction-limit",
+      "to": "phy.mech.fric.friction-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.rough-incline",
+      "to": "phy.mech.fric.friction-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.fric.rough-incline",
+      "to": "phy.mech.vec.resolve"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.linear-momentum",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.imp.impulse",
+      "to": "phy.mech.mom.linear-momentum"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.imp.graph-area",
+      "to": "phy.mech.imp.impulse"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.imp.graph-area",
+      "to": "phy.mech.kin.graph-slope-area"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.conservation",
+      "to": "phy.mech.mom.linear-momentum"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.explosions",
+      "to": "phy.mech.mom.conservation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.elastic-inelastic",
+      "to": "phy.mech.mom.conservation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.elastic-inelastic",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.momentum-vs-energy",
+      "to": "phy.mech.mom.elastic-inelastic"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.mom.momentum-vs-energy",
+      "to": "phy.mech.energy.mech-conservation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.conditions",
+      "to": "phy.mech.vec.resultant-system"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.conditions",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.concurrent-forces",
+      "to": "phy.mech.eq.conditions"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.concurrent-forces",
+      "to": "phy.mech.vec.resultant-two"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.resolve-forces",
+      "to": "phy.mech.eq.conditions"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.moment-balance",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.eq.stability",
+      "to": "phy.mech.cg.regular-bodies"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.work.work-done",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.energy.elastic-pe",
+      "to": "phy.mech.work.work-done"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.energy.work-energy",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.energy.mech-conservation",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.energy.bounce-height",
+      "to": "phy.mech.energy.mech-conservation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.pow.power-efficiency",
+      "to": "phy.mech.work.work-done"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.pow.force-speed",
+      "to": "phy.mech.pow.power-efficiency"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.pow.force-speed",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.angular-quantities",
+      "to": "phy.mech.kin.motion-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.linear-angular",
+      "to": "phy.mech.rot.angular-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rotational-suvat",
+      "to": "phy.mech.rot.angular-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rotational-suvat",
+      "to": "phy.mech.kin.suvat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.moi-factors",
+      "to": "phy.mech.rot.moi-standard"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.torque-alpha",
+      "to": "phy.mech.rot.moi-standard"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.torque-alpha",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.torque-alpha",
+      "to": "phy.mech.rot.angular-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.angular-momentum",
+      "to": "phy.mech.rot.moi-standard"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.angular-momentum",
+      "to": "phy.mech.rot.angular-quantities"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rotational-ke-work",
+      "to": "phy.mech.rot.moi-standard"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rotational-ke-work",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rolling-energy",
+      "to": "phy.mech.rot.rotational-ke-work"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rolling-energy",
+      "to": "phy.mech.rot.linear-angular"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.rot.rolling-kinematics",
+      "to": "phy.mech.rot.linear-angular"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.centripetal-accel",
+      "to": "phy.mech.rot.linear-angular"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.centripetal-force",
+      "to": "phy.mech.circ.centripetal-accel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.centripetal-force",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.friction-limit",
+      "to": "phy.mech.circ.centripetal-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.friction-limit",
+      "to": "phy.mech.fric.friction-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.inclined-forces",
+      "to": "phy.mech.circ.centripetal-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.inclined-forces",
+      "to": "phy.mech.vec.resolve"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.circ.vertical-tension",
+      "to": "phy.mech.circ.centripetal-force"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.compare-densities",
+      "to": "phy.mech.hydro.pressure-depth"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.pascal",
+      "to": "phy.mech.hydro.pressure-depth"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.upthrust",
+      "to": "phy.mech.hydro.pressure-depth"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.floatation",
+      "to": "phy.mech.hydro.upthrust"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.float-changes",
+      "to": "phy.mech.hydro.floatation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.hydrometer",
+      "to": "phy.mech.hydro.floatation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.buoyancy-motion",
+      "to": "phy.mech.hydro.upthrust"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.hydro.buoyancy-motion",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.continuity",
+      "to": "phy.mech.flow.streamline"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.bernoulli",
+      "to": "phy.mech.flow.continuity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.bernoulli",
+      "to": "phy.mech.hydro.pressure-depth"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.bernoulli",
+      "to": "phy.mech.energy.mech-conservation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.bernoulli-applications",
+      "to": "phy.mech.flow.bernoulli"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.efflux",
+      "to": "phy.mech.flow.bernoulli"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.jet-force",
+      "to": "phy.mech.flow.continuity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.mech.flow.jet-force",
+      "to": "phy.mech.imp.impulse"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.kin.graph-slope-area",
+      "to": "phy.mech.kin.suvat"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.vec.resolve",
+      "to": "phy.mech.moment.moment-of-force"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.moment.parallel-resultant",
+      "to": "phy.mech.cg.regular-bodies"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.n3-pairs",
+      "to": "phy.mech.newton.free-body"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.second-law",
+      "to": "phy.mech.kin.smooth-incline"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.mom.linear-momentum",
+      "to": "phy.mech.newton.second-law"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.energy.work-energy",
+      "to": "phy.mech.fric.stopping-distance"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.vec.resolve",
+      "to": "phy.mech.work.work-done"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.vec.resultant-two",
+      "to": "phy.mech.mom.explosions"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.vec.resultant-two",
+      "to": "phy.mech.circ.centripetal-accel"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.mom.linear-momentum",
+      "to": "phy.mech.rot.angular-momentum"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.second-law",
+      "to": "phy.mech.rot.torque-alpha"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.kin.graph-slope-area",
+      "to": "phy.mech.rot.rolling-kinematics"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.proj.horizontal-launch",
+      "to": "phy.mech.flow.efflux"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.hydro.pascal",
+      "to": "phy.mech.flow.efflux"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.flow.streamline",
+      "to": "phy.mech.flow.bernoulli-applications"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.cg.force-through-cm",
+      "to": "phy.mech.rot.torque-alpha"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.moment.couple",
+      "to": "phy.mech.eq.conditions"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.kin.relative-velocity",
+      "to": "phy.mech.kin.graph-convert"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.free-body",
+      "to": "phy.mech.hydro.upthrust"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.hydro.floatation",
+      "to": "phy.mech.hydro.compare-densities"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.eq.conditions",
+      "to": "phy.mech.eq.moment-balance"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.kin.vertical-throw",
+      "to": "phy.mech.proj.components"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.energy.mech-conservation",
+      "to": "phy.mech.circ.vertical-tension"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.n3-pairs",
+      "to": "phy.mech.mom.conservation"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.work.work-done",
+      "to": "phy.mech.energy.ke-pe"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.newton.inertia-first-law",
+      "to": "phy.mech.newton.free-body"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.kin.suvat",
+      "to": "phy.mech.fric.stopping-distance"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.rot.linear-angular",
+      "to": "phy.mech.rot.angular-momentum"
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.kin.graph-convert",
+      "to": "phy.mech.kin.graph-slope-area",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.kin.vertical-throw",
+      "to": "phy.mech.kin.suvat",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.proj.components",
+      "to": "phy.mech.kin.vertical-throw",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.proj.horizontal-launch",
+      "to": "phy.mech.proj.components",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.proj.angled-launch",
+      "to": "phy.mech.proj.components",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.proj.ke-at-top",
+      "to": "phy.mech.proj.components",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.vec.resultant-range",
+      "to": "phy.mech.vec.resultant-two",
+      "weight": 0.3
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.vec.resultant-system",
+      "to": "phy.mech.vec.resolve",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.cg.composite-bodies",
+      "to": "phy.mech.moment.parallel-resultant",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.newton.connected-bodies",
+      "to": "phy.mech.newton.second-law",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.newton.connected-bodies",
+      "to": "phy.mech.newton.free-body",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.newton.apparent-weight",
+      "to": "phy.mech.newton.second-law",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.fric.rough-incline",
+      "to": "phy.mech.fric.friction-force",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.fric.rough-incline",
+      "to": "phy.mech.vec.resolve",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.fric.stopping-distance",
+      "to": "phy.mech.fric.friction-force",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.fric.traction-limit",
+      "to": "phy.mech.fric.friction-force",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.imp.graph-area",
+      "to": "phy.mech.imp.impulse",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.mom.conservation",
+      "to": "phy.mech.mom.linear-momentum",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.mom.explosions",
+      "to": "phy.mech.mom.conservation",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.mom.momentum-vs-energy",
+      "to": "phy.mech.mom.conservation",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.mom.momentum-vs-energy",
+      "to": "phy.mech.mom.elastic-inelastic",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.eq.moment-balance",
+      "to": "phy.mech.moment.moment-of-force",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.eq.resolve-forces",
+      "to": "phy.mech.vec.resolve",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.eq.concurrent-forces",
+      "to": "phy.mech.vec.resultant-two",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.energy.work-energy",
+      "to": "phy.mech.work.work-done",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.energy.mech-conservation",
+      "to": "phy.mech.energy.ke-pe",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.energy.bounce-height",
+      "to": "phy.mech.energy.mech-conservation",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.pow.force-speed",
+      "to": "phy.mech.pow.power-efficiency",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.rot.torque-alpha",
+      "to": "phy.mech.rot.moi-standard",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.rot.rolling-energy",
+      "to": "phy.mech.rot.rotational-ke-work",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.rot.rotational-suvat",
+      "to": "phy.mech.rot.angular-quantities",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.circ.centripetal-force",
+      "to": "phy.mech.circ.centripetal-accel",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.circ.friction-limit",
+      "to": "phy.mech.circ.centripetal-force",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.circ.inclined-forces",
+      "to": "phy.mech.circ.centripetal-force",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.circ.vertical-tension",
+      "to": "phy.mech.circ.centripetal-force",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.hydro.floatation",
+      "to": "phy.mech.hydro.upthrust",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.hydro.buoyancy-motion",
+      "to": "phy.mech.hydro.upthrust",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.flow.bernoulli",
+      "to": "phy.mech.flow.continuity",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.mech.flow.efflux",
+      "to": "phy.mech.flow.bernoulli",
+      "weight": 0.4
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.kin.average-velocity",
+      "to": "phy.mech.kin.suvat",
+      "why": "mean-of-speeds"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.newton.n3-pairs",
+      "to": "phy.mech.eq.conditions",
+      "why": "balance-vs-pair"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.mom.conservation",
+      "to": "phy.mech.energy.mech-conservation",
+      "why": "wrong-conservation-law"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.mom.conservation",
+      "to": "phy.mech.rot.angular-momentum",
+      "why": "linear-vs-angular"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.energy.work-energy",
+      "to": "phy.mech.energy.mech-conservation",
+      "why": "friction does work, so mechanical energy is not conserved"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.circ.friction-limit",
+      "to": "phy.mech.fric.traction-limit",
+      "why": "both are μg limits; one is centripetal, one is linear"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.eq.moment-balance",
+      "to": "phy.mech.rot.torque-alpha",
+      "why": "zero net moment vs non-zero torque"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.newton.second-law",
+      "to": "phy.mech.newton.inertia-first-law",
+      "why": "force-along-motion"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.mech.mom.elastic-inelastic",
+      "to": "phy.mech.mom.explosions",
+      "why": "ke-conserved-inelastic"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.average-velocity",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.relative-velocity",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.graph-slope-area",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.graph-slope-area",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.graph-convert",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.graph-convert",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.suvat",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.suvat",
+      "to": "math.algebra.quadratic"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.vertical-throw",
+      "to": "math.algebra.quadratic"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.kin.smooth-incline",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.proj.components",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.proj.horizontal-launch",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.proj.angled-launch",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.proj.angled-launch",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.proj.ke-at-top",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.vec.resolve",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.vec.resultant-two",
+      "to": "math.trig.cosine-rule"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.vec.resultant-system",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.moment.moment-of-force",
+      "to": "math.geometry.perpendicular"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.moment.couple",
+      "to": "math.geometry.perpendicular"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.moment.parallel-resultant",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.cg.composite-bodies",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.cg.composite-bodies",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.newton.second-law",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.newton.connected-bodies",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.fric.friction-force",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.fric.stopping-distance",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.fric.rough-incline",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.imp.impulse",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.imp.graph-area",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.mom.conservation",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.mom.elastic-inelastic",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.eq.concurrent-forces",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.eq.concurrent-forces",
+      "to": "math.geometry.perpendicular"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.eq.resolve-forces",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.eq.resolve-forces",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.eq.moment-balance",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.work.work-done",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.energy.elastic-pe",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.energy.work-energy",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.energy.mech-conservation",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.energy.bounce-height",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.pow.power-efficiency",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.rot.angular-quantities",
+      "to": "math.angle.radian"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.rot.rotational-suvat",
+      "to": "math.angle.radian"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.rot.torque-alpha",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.rot.angular-momentum",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.circ.centripetal-accel",
+      "to": "math.angle.radian"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.circ.inclined-forces",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.pressure-depth",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.compare-densities",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.pascal",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.upthrust",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.floatation",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.hydro.hydrometer",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.flow.continuity",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.mech.flow.bernoulli",
+      "to": "math.algebra.rearrange"
+    }
+  ]
+}

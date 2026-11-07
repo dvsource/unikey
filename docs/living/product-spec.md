@@ -1,11 +1,11 @@
 # Product Spec
 
-_Last updated: 2026-11-02_
+_Last updated: 2026-11-07_
 
 ## Core idea
 Anki-style spaced repetition is the crown jewel, but **we schedule skills, not cards** ([DR-0004](../decisions/0004-schedule-skills-not-cards.md)). Spaced repetition runs underneath, on a skill graph instead of a flat deck.
 
-Users: **students** (mobile app), **teachers** (web dashboard), **parents** (WhatsApp + web report link, no app).
+Users: **students** (mobile app; the primary customer, [DR-0018](../decisions/0018-student-is-primary-customer.md)), **teachers** (web dashboard; optional, since the app works without a class), **parents** (optional; WhatsApp + web report link, no app). Screens and design: [UX design](ux-design.md).
 Choices at onboarding: medium (Sinhala / English / Tamil), subject, topics.
 
 ## Why plain Anki breaks on Physics and Combined Maths
@@ -17,17 +17,115 @@ Choices at onboarding: medium (Sinhala / English / Tamil), subject, topics.
 | Reviewing = seeing the same item again | Reviewing a skill = a **new instance** of it |
 
 ## Skill graph
+Decisions: [DR-0004](../decisions/0004-schedule-skills-not-cards.md), [DR-0022](../decisions/0022-typed-skill-graph.md)
+
+A **typed graph, not a tree**: many physics skills have several parents. The hierarchy is only for navigation and display.
+
 ```
-Unit (Mechanics)
- └─ Concept (Circular motion)
-     └─ Skill / KC (find tension at top of vertical circle)
-         ├─ prerequisites: [resolve forces, centripetal force eqn, energy conservation]
-         └─ Problem families (templates)
-              └─ Variants (generated instances: different numbers/context)
+Hierarchy (navigation & display):
+Subject → Unit → Topic (= NIE competency level) → Sub-topic (= NIE content heading) → Skill (KC) → Problem families (templates) → Variants
+
+Graph edges (learning logic):
+Skill ──requires──▶ Skill      (hard prerequisite: can't do B without A)
+Skill ──helps────▶ Skill       (soft: A makes B easier)
+Skill ──encompasses▶ Skill     (doing B exercises A implicitly)
+Skill ◀─confusable─▶ Skill     (often mixed up: momentum vs energy)
+Skill ──uses-math──▶ MathSkill (vectors, trig, calculus, graphs)
 ```
-- **KC (knowledge component)** is the unit that gets scheduled and mastered. ~150–300 per subject.
-- Every item is tagged with one or more KCs plus a difficulty.
-- Mastery is stored per student per KC. It drives the readiness score, teacher heatmaps and the scheduler.
+| Edge | Used for |
+|---|---|
+| requires | Diagnosis (failing B → check A), recommended order, soft gating. **Only when B can't be done without A.** **Must be a DAG; validate in CI.** |
+| helps | Recommendations ("learn A first to make this easier"). Use for useful-but-skippable prerequisites, and when B can be done by more than one method (no "any-of" edge) |
+| encompasses | Implicit review (practising B partly reviews A) |
+| confusable | Deliberate interleaving; L3 method-recognition cards. Only where students pick the wrong idea or method; never a skill and its own prerequisite |
+| uses-math | Maths remediation (big for Bio students) |
+
+Not every skill needs a prerequisite, but every skill links to at least one other skill (validated). A foundation skill that past papers never test directly, but that many tested skills require, has `mastery: inferred`: it is credited from the skills built on it and is not practised first.
+
+### Skill (node) design
+Granularity: one skill is testable by 5–20 variants, masterable in 1–3 short sessions, and a single point of failure. Aim for about 1 skill per 1.3–2 NIE teaching periods, finer where exam weight is high. Mechanics (110 periods) has 83 skills, accepted for the pilot units. The whole-physics budget (around 350) is revisited after the pilot. Use the NIE competency levels as the topic layer and the NIE content headings as sub-topics. Can-do statements per skill come later ([DR-0022](../decisions/0022-typed-skill-graph.md)).
+```
+Skill {
+  id: "phy.mech.circ.vertical-tension"    // stable forever
+  unit, topic, subtopic
+  syllabus_ref: competency level 2.6       // NIE competency level
+  type: recall | conceptual | procedural | method-selection
+  practical: true | false                  // tied to a set practical or activity
+  mastery: practised | inferred            // inferred = credited from skills built on it
+  exam_weight: 0.0–1.0                     // level weight (exam share + period share), split by skill score; Paper I only until Paper II is mapped
+  difficulty: est. → calibrated from data
+  est_minutes: 20
+  math_deps: [trig.resolve, algebra.rearrange]
+  names: { si: "...", ta: "...", en: "..." }
+}
+```
+
+### Mastery states: progress isn't one number
+| Dimension | Meaning | Source |
+|---|---|---|
+| Mastery (θ) | Can they do it? | KC model (Elo/IRT-style) from attempts |
+| Retrievability (R) | Can they do it *now*, or has it faded? | FSRS-style decay since the last success |
+
+```
+⚪ Not started → 🔵 Learning → 🟡 Practising → 🟢 Mastered
+                                                  │ (time passes, R drops)
+                                                  ▼
+                                            🟠 Fading → review restores 🟢
+```
+"Fading" is an honest retention hook that doesn't nag: "3 skills are fading, 4 minutes to refresh them."
+
+### Moving evidence through the graph
+| Event | Update |
+|---|---|
+| Success on B | B mastery ↑; encompassed skills get partial review credit (**FIRe-style implicit review**, weights ~0.3–0.7 per edge), so foundations stay fresh and the daily load stays small |
+| Failure on B | B mastery ↓; **don't** penalise prerequisites automatically. Schedule a quick check on the most likely weak prerequisite. |
+| Prerequisite A confirmed weak | Remediate A first; pause B ("let's fix the foundation") |
+| Repeated A/C confusion | More interleaving of the pair; more L3 cards |
+
+**Adaptive placement** (Knowledge Space Theory, as in ALEKS): solving an advanced skill implies its prerequisites are known; failing it probes downward. ~15–25 questions place a student across a unit.
+
+### Ordering: soft gating, never hard locks
+```
+priority(skill) = in_current_unit (teacher/student selected)   ← strongest
+                × prerequisites_ready (soft gate)
+                × exam_weight
+                × (1 − mastery) or fading urgency
+```
+Any skill can be opened. If prerequisites are weak, show "Recommended first: Resolving forces (5 min)" instead of a lock.
+
+### Readiness score
+```
+readiness = Σ exam_weight_i × mastery_i × retrievability_i  /  Σ exam_weight_i
+```
+- Exam weights come from tagging 10 years of past-paper questions to skills.
+- Shown per unit (moves faster, so progress is felt) and overall.
+- **Predicted marks (e.g. "~32/50 MCQ") are held back** until they're calibrated against real pilot mocks. A wrong prediction kills trust.
+
+### Showing progress
+| View | Verdict |
+|---|---|
+| Unit rings (tap to drill down) | ✅ Main view |
+| Skill chips per topic, coloured by state | ✅ Drill-down |
+| Local graph: skill + 2 levels of prerequisites + 1 level of what it unlocks | ✅ Skill detail |
+| Full constellation map (~250 nodes) | ⚠️ Optional explorer; good for marketing screenshots |
+| Game-style skill tree | ❌ Implies a tree and hard locks |
+| Territory / fog-of-war map | 🔮 v2 idea |
+
+Progress moments: "You unlocked 3 new skills by mastering Ohm's law" · "Mechanics: 0 fading skills 💪" · "This week: 4 mastered, 2 rescued from fading" · weekly map-growth snapshot.
+
+### Building and maintaining the graph
+```
+NIE syllabus + teacher guide (competencies/levels)
+   → AI drafts skills + typed edges + math deps
+   → automated checks: DAG validity, orphan skills, granularity heuristics
+   → teacher reviews per unit (visual graph editor in the admin UI)
+   → past-paper questions tagged → exam weights
+   → pilot data refines: calibrated difficulty, data-suggested edges
+     (failing A strongly predicts failing B → missing edge?), tuned encompassing weights
+```
+**Skill IDs are permanent.** When the 2031 syllabus arrives, map old skills to new ones so student history carries over.
+
+**Cross-subject reuse:** a shared maths skill layer (vectors, trig, calculus, graphs, rearranging) serves Physics and Chemistry now and becomes the base for Combined Maths. A Bio student failing physics because of trigonometry gets maths remediation inside the physics app.
 
 ## Five layers of practice
 | Layer | Item type | Example | Time | Scheduling |
@@ -78,6 +176,31 @@ Daily queue builder
 - **Daily session mix** (capped at ~20 min, interleaved): 35% L1/L2, 25% L3, 40% L4, plus an L5 timed set once a week.
 - **No review debt**: cap the daily load (15–20 min), offer a catch-up mode that spreads the backlog over days, and use FSRS.
 
+### Grading rules
+_Proposed, not yet built or tested._
+
+**L1/L2 cards → FSRS grade**
+
+| Outcome | Grade |
+|---|---|
+| Wrong, or "I don't know" | Again |
+| Correct, but over 2× the item's typical time, or after a hint | Hard |
+| Correct on a 2-option card, when the last review was wrong | Hard |
+| Correct within normal time | Good |
+
+- **Typical time** starts at the layer's budget and is calibrated from pilot data, per medium, as reading speed may differ.
+- **"I don't know"** is an app button on every item, not one of the options. It counts as Again, so retrievability and readiness fall as for any failed review, but it costs no streak or XP.
+- **No Easy in the pilot.** A fast tap on a multiple-choice card can be a guess, and Easy pushes the next review far out. Add it only if pilot data supports it.
+- **Guessing guard:** a 2-option card answered correctly in its first review is re-checked once the same day, within the daily cap, before its interval grows.
+
+**L3/L4 → skill mastery**
+- Skill mastery θ (per student, per skill) and item difficulty b use a guess-corrected logistic model: `p(correct) = c + (1 − c) · σ(θ − b)`, with `c = 1 / number_of_options`.
+- After each attempt: `θ ← θ + K · (score − p)`. K starts around 0.4 and decays with attempts.
+- Score: 1 = correct, no hint · 0.6 = correct after 1 hint · 0.3 = correct after 2+ hints · 0 = wrong. Step problems score per step; the item score is the mean.
+- A small template pool (fewer than 20 variants) is scheduled as L2 cards instead.
+
+**Wrong answers:** the distractor's tag goes into the mistake notebook. Three or more of the same tag within 14 days triggers a remediation set for that tag.
+
 ## Learn mode: notes and simulations
 Decision: [DR-0005](../decisions/0005-learn-mode-notes-and-sims.md)
 
@@ -100,22 +223,62 @@ Learn (micro-note 1–3 min) → 2–3 check questions → unlock Practice
 - Offline-capable.
 
 ## Retention levers
-In order of retention return. Build the top ones first.
+Decisions: [DR-0019](../decisions/0019-teen-retention-design.md), [DR-0020](../decisions/0020-no-push-notifications.md)
 
-| # | Lever | What to build |
-|---|---|---|
-| 1 | Visible goal and progress | Exam readiness score / predicted grade per unit + exam countdown |
-| 2 | Social accountability | Teacher assigns today's deck, the class sees completion, the parent gets a weekly WhatsApp report. **Strongest lever.** |
-| 3 | Kill review debt | Daily cap, catch-up mode, FSRS |
-| 4 | Habit mechanics | Streak with freeze tokens, reminder at the chosen study time, <2 s open-to-first-card, offline |
-| 5 | Light gamification | XP, weekly **class-scoped** leagues, badges for mastery (not time) |
-| 6 | Immediate payoff | "You fixed 3 weak concepts. Electrostatics readiness +4%." |
-| 7 | Novelty (last) | Simulations only for the 5 concepts the data shows students fail most |
+You can't make an unmotivated teen want to study. You can make the app easier to open than to skip, and rewarding within 5 minutes. The core segment is the **motivated-but-struggling** student (e.g. a Bio student afraid of physics), not the completely uninterested one.
+
+**Not used** ([DR-0020](../decisions/0020-no-push-notifications.md)): push notifications, teacher-voice nudges, and anything that requires the whole class to enrol.
+
+| Cause of day 2–3 drop-off | Lever |
+|---|---|
+| Too big an ask | **5-minute minimum day**: 10 questions keeps the streak; "keep going?" after; show "5 min", not a count |
+| Missed a day → guilt and backlog | **Streak freeze tokens** (earned plus a few free); **no-guilt catch-up** ("Good to see you, let's start small"; a short refresh of fading skills only; never "300 due") |
+| No felt progress | **Readiness moves every session**; mastery moments; before vs after ("Week 1 you got this wrong. Today you got 3 like it right."); "You solved one 60% of students get wrong" |
+| Too hard too soon | Calibrate early sessions to ~80% correct |
+| Disconnected from real life | Queue follows the class topic; **term-test mode** ("test in 12 days, here's your plan"); exam countdown; past-paper tags ("appeared in 2019, 2021, 2023"); the student's goal on screen (Medicine / Engineering / Pass A/L) |
+| No trigger | Routine anchor chosen at onboarding (after tuition / on the bus / before bed); **Android home-screen widget** (streak + today's 5 questions); **opt-in WhatsApp reminder, off by default**; friend activity ("Nimal just finished today's practice") |
+| Nobody notices | **Opt-in social**: friend streaks, weekly class leagues that reset on Monday (class-scoped, never national), 5-question duels, class-vs-class challenges. If the class is enrolled: teacher sees inactive students and can use results in class. |
+| Teens resist control | Autonomy: learn or practise, topic order, duel vs solo; the queue is a recommendation; avatar, nickname, class badge |
+| Boredom | Fun layer as sugar only: variable rewards (bonus XP days, surprise badges), speed rounds, mini-challenges |
 
 - Background music and motivational quotes: near-zero retention effect. Later polish.
-- Leaderboards: class- or friend-scoped, nickname option, never national.
+- **Ethics for minors:** no dark patterns (fake urgency, shame, endless loops); a healthy daily cap; "Done for today 🎉" endings.
 
-**Retention metrics (weekly):** D1/D7/D30 retention, % finishing the daily queue, average study days/week (target ≥4), streak-break rate.
+### First 7 days
+| Day | Goal | Experience |
+|---|---|---|
+| 0 (install) | First win in < 5 min | Optional class code → goal + routine time → 5-question easy diagnostic → "You're already strong in X!" + first readiness score |
+| 1 | Habit trigger works | Widget / chosen routine; 5-minute session; streak 🔥 2 |
+| 2 | Social hook | "Add a friend for a friend streak" + first duel |
+| 3 | Felt progress (danger day) | Readiness visibly up; "mastered your first concept" moment |
+| 4–5 | Class connection | This week's class topic in the queue (teacher assignment if enrolled) |
+| 6 | Safety net | Missed a day → freeze auto-used + "welcome back" session |
+| 7 | Weekly payoff | League results; week summary ("5 days, +12% in Mechanics"); parent effort update if shared |
+
+**Find the "aha moment"** from pilot data (e.g. "3 sessions in the first 5 days" or "added a friend"), then redesign onboarding to push every student toward it ([A25](../experiments/assumptions.md)).
+
+### Re-engagement ladder (no push)
+```
+No session 24h  → widget shows today's 5; in-app welcome waiting
+No session 48h  → WhatsApp nudge (only if opted in) / friend nudge
+No session 4d   → "welcome back" 3-minute session
+No session 7d   → inactive flag on teacher dashboard (only if class enrolled)
+```
+
+### Countering "it doesn't work"
+- Set expectations at purchase: "Results show after 3–4 weeks of 5+ days a week."
+- Make effort visible in reports: if the student stopped, the report shows it. That's a usage issue, not a product failure.
+- Money-back guarantee tied to usage ([DR-0021](../decisions/0021-usage-tied-guarantee.md)); consider a 7-day free trial.
+
+### Pilot build priority
+1. 5-minute minimum day + streak with freeze + no-guilt catch-up
+2. Readiness score that moves every session + mastery moments
+3. Teacher assignments + inactive-student flag (for enrolled classes)
+4. Home-screen widget + opt-in WhatsApp reminder
+5. Friend streaks and class leagues
+6. Duels and the fun layer
+
+**Retention metrics (weekly):** D1/D3/D7/D30 retention (D7 ≥ 40% would be strong), % finishing the daily queue, average study days/week (target ≥4), streak-break rate, widget adoption, WhatsApp opt-in rate.
 
 ## Segment paths
 - **"Physics for Bio students"**: same content, but a different default mix and entry diagnostic. More scaffolding, more L1–L3, early wins ([DR-0012](../decisions/0012-single-subject-bio-first.md)).
@@ -124,7 +287,21 @@ In order of retention return. Build the top ones first.
 Class weak-topic heatmap, assign decks, paper builder (term-test/model papers with answers and marking guides, PDF), one admin report (to be chosen from survey data), class progress reports.
 
 ## Parent report
-Weekly WhatsApp summary plus a signed, expiring, read-only link to a mobile web report: strong and weak topics, study days, readiness trend.
+Decisions: [DR-0015](../decisions/0015-parents-via-whatsapp.md), [DR-0018](../decisions/0018-student-is-primary-customer.md)
+
+Parents are optional. The **student chooses the sharing level**:
+
+| Level | Parent sees |
+|---|---|
+| Effort only (**default**) | Study days, streak |
+| Effort + progress | + readiness trend (traffic light) |
+| Full detail | + scores, weak topics |
+
+- Delivered as a WhatsApp summary plus a signed, expiring, read-only link to a mobile web report. **Weekly** for engaged parents, **monthly** for others.
+- Written for a parent who can't follow physics: one headline number, a traffic light instead of scores, plain language in their medium, an optional 20-second voice note, the teacher's name for authority, and one action. Template in [UX design](ux-design.md#parent-weekly-report-template-to-translate).
+- **"Ask parent to pay"** button: a ready-made WhatsApp message with a payment link and the student's progress so far.
+- **Parent-sponsored rewards:** e.g. a 30-day streak prompts the parent to give a reward.
+- **Under-18 consent:** a one-time parent confirmation via WhatsApp (PDPA). This is the only parent step that's always required.
 
 ## Combined Maths extensions (future)
 | Need | Feature |
@@ -170,6 +347,8 @@ Decision: [DR-0006](../decisions/0006-mvp-feature-cut.md)
 | | Mini-games, music, quotes, bespoke animations (v3+, data-driven only) |
 
 ## Content pipeline
+Item forms, schema and automated checks are in the [content authoring spec](content-authoring.md).
+
 1. LLM drafts templates, steps, misconception maps and notes (batch).
 2. SymPy verifies each template across ~50 sampled variants.
 3. Status `AI-verified` → teacher review in the review UI → `published`.
