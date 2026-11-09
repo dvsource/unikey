@@ -27,7 +27,7 @@ The 500-teacher channel is a **one-shot first impression**. Don't spend it on a 
 
 ## Teachers
 
-**Model: teachers never sell** ([DR-0011](../decisions/0011-teachers-never-sell.md)). Teachers get the tool free. We sell premium to parents directly. At most, the teacher says "there's a premium if you want it."
+**Model** ([DR-0034](../decisions/0034-teacher-offer-free-tool-plus-affiliate.md), replaces "teachers never sell"): teachers get the dashboard and class insights free, and an affiliate share on students who join with their code. Until the MoE question (L2) is answered, offer the share for private-tuition students only. Teacher tools (paper builder etc.) are prototyped; free vs paid decided later.
 
 ### Selling points, in order
 1. 🥇 **Paper builder + model papers with answers and marking guides.** This is the hook: painful, frequent (every term test), and useful on day one without any students.

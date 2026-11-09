@@ -1,6 +1,6 @@
 # DR-0017: Share the plan with a business-minded friend as an informal advisor (no equity yet)
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Company
 

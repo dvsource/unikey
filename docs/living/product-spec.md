@@ -281,7 +281,7 @@ No session 7d   → inactive flag on teacher dashboard (only if class enrolled)
 **Retention metrics (weekly):** D1/D3/D7/D30 retention (D7 ≥ 40% would be strong), % finishing the daily queue, average study days/week (target ≥4), streak-break rate, widget adoption, WhatsApp opt-in rate.
 
 ## Segment paths
-- **"Physics for Bio students"**: same content, but a different default mix and entry diagnostic. More scaffolding, more L1–L3, early wins ([DR-0012](../decisions/0012-single-subject-bio-first.md)).
+- **One adaptive path for every student** ([DR-0028](../decisions/0028-any-physics-student-adaptive.md), replaces the "Physics for Bio students" path). The algorithm adapts the daily mix (L1–L5 share), difficulty, scaffolding, new-skill pace and review load from: current knowledge (placement + mastery), skill level (Elo/IRT), learning speed (mastery gain, response time, hint use) and usage (frequency, missed days). Stream and exam year only set the starting default.
 
 ## Teacher dashboard
 Class weak-topic heatmap, assign decks, paper builder (term-test/model papers with answers and marking guides, PDF), one admin report (to be chosen from survey data), class progress reports.

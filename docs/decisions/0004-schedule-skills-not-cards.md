@@ -1,6 +1,6 @@
 # DR-0004: Schedule skills (KCs), not cards
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Product
 

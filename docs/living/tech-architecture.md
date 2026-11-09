@@ -1,6 +1,6 @@
 # Tech Architecture
 
-_Last updated: 2026-11-03 · Decision: [DR-0013](../decisions/0013-tech-stack.md)_
+_Last updated: 2026-11-09 (clock and simulated flag) · Decision: [DR-0013](../decisions/0013-tech-stack.md)_
 
 TypeScript end to end, a **local-first** mobile app, and a **modular monolith** on managed Postgres. Fast for users, cheap at the start, and it grows to ~10k students without a rewrite. ~90% of the code is AI-written; Viraj reviews the critical parts line by line.
 
@@ -36,7 +36,7 @@ TypeScript end to end, a **local-first** mobile app, and a **modular monolith** 
 | Errors | Sentry | |
 | Region | Singapore or Mumbai | Lowest latency to SL |
 | Fonts | Geist (UI, numbers), Noto Sans Sinhala, Noto Sans Tamil (bundled) | Test on low-end Android. Design: [UX design](ux-design.md) |
-| UI effects | Frosted glass + slow gradient blobs ("mist", [DR-0023](../decisions/0023-mist-design-system.md)) | Low-end devices: solid 85% white surface, no backdrop blur; respect reduced motion |
+| UI effects | Sky gradient ground, solid white surfaces, no blur ("Dawn", [DR-0025](../decisions/0025-dawn-design-system.md)) | Dark theme "Dusk" later as a token swap; respect reduced motion |
 
 ## Architecture
 ```
@@ -74,6 +74,16 @@ TypeScript end to end, a **local-first** mobile app, and a **modular monolith** 
 
 Append-only events never conflict. They are also the source for analytics, calibration and reports.
 
+### Built for simulation from day one
+| Rule | Why |
+|---|---|
+| All server code reads time through one `Clock` (`now()`); no direct `Date.now()`. Real time in production; pausable and up to 1440× in staging ([DR-0044](../decisions/0044-controllable-backend-clock.md)) | The simulator runs 8 pilot weeks in about an hour; time bugs can be replayed |
+| Every user has an immutable `simulated` flag; classes, events, payments and insights inherit it. Real reports, digests, WhatsApp, PostHog and payments exclude it ([DR-0045](../decisions/0045-simulated-flag-on-every-user.md)) | Simulated and test data never mix with real data |
+| The simulator uses the same sync API as the app, no back door | It tests the real deployment |
+| Admin writes are append-only `admin_action` events; a narrow `/admin` page in `apps/web` ([DR-0046](../decisions/0046-narrow-admin-page-reuse-tools.md)) | Support actions are traceable; generic needs stay in PostHog, Sentry, Supabase Studio |
+
+Plan and go/no-go criteria: [simulation and admin](simulation-and-admin.md).
+
 ## Content workflow
 `draft → AI-verified (SymPy, 50 variants/template) → reviewed (review UI) → published → content pack → R2`
 
@@ -96,7 +106,7 @@ Strict TypeScript, shared Zod schemas, and a CLAUDE.md that points to these docs
 | Area | Why |
 |---|---|
 | Data model + migrations | Expensive to undo |
-| Scheduler + mastery model | Core product logic. Property-based tests (never scheduled in the past; mastery bounded). |
+| Scheduler + mastery model | Core product logic. Property-based tests (never scheduled in the past; mastery bounded). Acceptance test: the [simulator](simulation-and-admin.md) ([DR-0047](../decisions/0047-simulator-as-engine-acceptance-test.md)). |
 | Sync + event ingestion | Idempotency and ordering bugs silently corrupt data |
 | Auth, RLS, signed links | No leaks between classes or to the wrong parents |
 | Payments + entitlements | Real money; the main source of complaints |

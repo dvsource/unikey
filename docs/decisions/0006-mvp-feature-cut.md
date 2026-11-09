@@ -1,6 +1,6 @@
 # DR-0006: MVP feature cut for the physics pilot
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Product
 

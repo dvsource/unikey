@@ -1,6 +1,6 @@
 # DR-0023: "Mist" design system: calm, minimal, frosted glass with slow gradient blobs
 
-- **Status:** Accepted (Viraj: "much better")
+- **Status:** Superseded by [DR-0025](0025-dawn-design-system.md) on 2026-11-07 (was accepted: Viraj: "much better")
 - **Date:** 2026-11-03 · **Owner:** Viraj
 - **Area:** Design
 

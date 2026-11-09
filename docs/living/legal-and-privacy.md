@@ -1,11 +1,11 @@
 # Legal & Privacy
 
-_Last updated: 2026-11-02. Not legal advice; verify each item with a lawyer or the relevant authority._
+_Last updated: 2026-11-07. Not legal advice; verify each item with a lawyer or the relevant authority._
 
 ## Company and IP hygiene (do early)
-- [ ] Register a **Pvt Ltd**.
+- [ ] Register a **sole proprietorship** now; convert to Pvt Ltd later ([DR-0033](../decisions/0033-sole-proprietorship-first.md)).
 - [ ] **Trademark** the name and logo with the National Intellectual Property Office (NIPO). Cheap insurance.
-- [ ] **IP assignment** to the company from everyone who creates content or code, including the wife and paid reviewers. Keep it clean and friendly.
+- [ ] **IP assignment** to the business (moves to the company at Pvt Ltd conversion) from everyone who creates content or code, including the wife and paid reviewers. Keep it clean and friendly.
 - [ ] Simple written agreements with teachers (revenue share terms; content IP stays with the company).
 - Skip NDAs with tuition teachers (they look amateur). Skip software patents (slow, expensive, weak in SL).
 
@@ -23,10 +23,10 @@ _Last updated: 2026-11-02. Not legal advice; verify each item with a lawyer or t
 | # | Question | Why it matters | Status |
 |---|---|---|---|
 | L1 | Can past DoE papers be used commercially in a paid product? | Copyright grey area | Open. Default: link the originals, generate "in the style of" variants. |
-| L2 | What do current MoE circulars say about government teachers and paid products for their own students? | Teacher onboarding model | Open. Mitigated by [DR-0011](../decisions/0011-teachers-never-sell.md). |
+| L2 | What do current MoE circulars say about government teachers and paid products for their own students? | Teacher onboarding model | Open. **More urgent now:** [DR-0034](../decisions/0034-teacher-offer-free-tool-plus-affiliate.md) offers an affiliate share. |
 | L3 | Google Play payments policy for SL: must digital subscriptions use Play Billing? | Payment design | Open. Check before public launch. |
 | L4 | Play Console closed-testing requirement for new personal developer accounts | Pilot distribution | Open. The pilot likely satisfies it. Check the current rule. |
-| L5 | PDPA obligations for minors' data and parental consent | Onboarding flow | Open |
+| L5 | PDPA obligations for minors' data and parental consent | Onboarding flow; includes whether the 7-day pre-consent grace ([DR-0026](../decisions/0026-onboarding-flow.md)) is allowed | Open |
 
 ## Privacy (minors' data)
 SL's Personal Data Protection Act applies.

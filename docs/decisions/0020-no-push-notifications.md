@@ -25,5 +25,5 @@ Three of the suggested retention levers were rejected:
 - Review date: 2027-04-01
 
 ## Consequences
-+ A calm, respectful product; it fits the "mist" design ([DR-0023](0023-mist-design-system.md))
++ A calm, respectful product; it fits the calm "Dawn" design ([DR-0025](0025-dawn-design-system.md))
 − Fewer re-engagement levers. Leans harder on the widget, friends and visible progress.

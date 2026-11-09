@@ -1,6 +1,6 @@
 # DR-0021: Tie the money-back guarantee to usage
 
-- **Status:** Proposed (if accepted, it supersedes the guarantee clause of DR-0003)
+- **Status:** Accepted (Viraj, 2026-11-07). Supersedes the guarantee clause of DR-0003.
 - **Date:** 2026-11-03 · **Owner:** Viraj
 - **Area:** Pricing
 

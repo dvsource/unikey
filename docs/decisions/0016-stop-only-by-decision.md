@@ -1,6 +1,6 @@
 # DR-0016: Stop or pivot only through a written decision; competitors matter only via revisit triggers
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Company / Process
 

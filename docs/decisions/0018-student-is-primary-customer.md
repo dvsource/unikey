@@ -1,6 +1,6 @@
 # DR-0018: The student is the primary customer; parent involvement is optional and student-controlled
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-03 · **Owner:** Viraj
 - **Area:** Product / GTM
 - **Refines:** DR-0003 and DR-0015 (parent pitch). Those records stay in force.

@@ -1,26 +1,26 @@
 # Pricing
 
-_Last updated: 2026-11-03_
+_Last updated: 2026-11-07_
 
 ## Plans (planned; validate before public launch)
 
 | Plan | Price | Notes |
 |---|---|---|
-| Free | 0 | Basic daily practice (limited). Students in a teacher's class get this by default. |
 | 1 subject | 900 LKR/month | Premium: full question bank, exam sets, parent reports |
 | Referral / bulk | 800 LKR/month | Referral code or bulk purchase |
 | 2 subjects | 1,500 LKR/month | Once Chemistry exists |
 | Stream bundle (3 subjects) | 2,000 LKR/month | Once a stream is covered |
-| Exam-year plan | ~6,000–7,000 LKR one-off | **Push this.** It locks in revenue before the post-exam churn cliff and dilutes gateway fixed fees. |
+| Until-exam plan | max(1,500, months left × 900 × 0.75) LKR ([DR-0032](../decisions/0032-until-exam-price-by-months-left.md)) | **Push this.** It locks in revenue before the post-exam churn cliff and dilutes gateway fixed fees. |
 
-- **Teachers: free forever** ([DR-0011](../decisions/0011-teachers-never-sell.md)).
-- Subjects are add-ons inside one app, never separate apps ([DR-0012](../decisions/0012-single-subject-bio-first.md)).
+- **No free plan for students** ([DR-0029](../decisions/0029-no-free-plan.md)). Onboarding and the first session are free, then the paywall; class-code students pay the same, with a teacher discount code ([DR-0030](../decisions/0030-paywall-after-first-session.md)).
+- **Teachers:** dashboard and class insights free, plus a fixed 100 LKR/month affiliate share per paying student who joins with their code; teacher tools decided later ([DR-0034](../decisions/0034-teacher-offer-free-tool-plus-affiliate.md)).
+- Subjects are add-ons inside one app, never separate apps ([DR-0028](../decisions/0028-any-physics-student-adaptive.md)).
 - Loyalty rewards are tied to measurable progress or referrals, not tenure (tenure ends at the exam anyway).
 
 ## Pilot offer: "Founding 100" ([DR-0003](../decisions/0003-pilot-price-300.md))
 - **300 LKR for an 8-week pilot** (anchored as "normally 1,800").
 - Founding members **lock in 600/month for life** (vs 900), including future subjects.
-- **Money-back guarantee**: if their mock MCQ score doesn't improve, they get the 300 back. _Proposed change ([DR-0021](../decisions/0021-usage-tied-guarantee.md)):_ only if they practised **at least 20 days in 8 weeks**.
+- **Money-back guarantee**: if their mock MCQ score doesn't improve, they get the 300 back. Accepted ([DR-0021](../decisions/0021-usage-tied-guarantee.md)): only if they practised **at least 20 days in 8 weeks**.
 - Name on a "founding students" wall, plus early access to new features.
 - "Only 100 places" (true, so it's honest scarcity).
 - Friends and the wife's own students pay too. Payment is the most honest signal.
@@ -47,7 +47,7 @@ The trap: a ~50 LKR fixed fee on a 900 LKR monthly payment adds ~5.5%. Annual / 
 | **Net** | **~4–6.5 lakh, only if CAC ≈ 0** |
 
 What the target hides:
-- **Freemium funnel**: typical free→paid conversion is 2–5%, so 1,000 payers needs **20–50k active free users** ([A2](../experiments/assumptions.md)).
+- **No freemium funnel** ([DR-0029](../decisions/0029-no-free-plan.md)): 1,000 payers must come from paid sign-ups directly (teachers, word of mouth), not from converting 20–50k free users.
 - **Seasonal churn**: a typical subscriber's lifetime is 6–18 months.
 
 ## Open pricing questions

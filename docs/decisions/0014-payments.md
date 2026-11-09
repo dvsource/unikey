@@ -1,6 +1,6 @@
 # DR-0014: Payments: manual + activation codes for the pilot; PayHere + Play Billing later
 
-- **Status:** Proposed
+- **Status:** Accepted for the pilot stage (Viraj, 2026-11-07: manual + activation codes). The later stages (PayHere, Play Billing) are still Proposed.
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Tech / Pricing
 

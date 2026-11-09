@@ -1,6 +1,6 @@
 # DR-0022: Typed skill graph with mastery × retrievability, implicit review and soft gating
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-03 · **Owner:** Viraj
 - **Amended:** 2026-11-07, while still Proposed, after the first syllabus-built graph ([Mechanics](../../content/skills/mechanics/review.md))
 - **Area:** Product

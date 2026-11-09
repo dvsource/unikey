@@ -19,7 +19,7 @@ In short: living docs say what we're doing, decision records say why, and experi
 Other folders:
 - [`meetings/`](meetings/): raw notes from teacher calls, user interviews and advisor chats.
 - [`templates/`](templates/): copy these to start a new decision, experiment or meeting note.
-- [`sources/`](sources/): original material these docs were built from: the business-plan chat with Claude, snapshotted [2026-11-02](sources/2026-11-02-business-plan-chat.md) and [2026-11-03](sources/2026-11-03-business-plan-chat.md) (the latter is a superset).
+- [`sources/`](sources/): original material these docs were built from: the business-plan chat with Claude, snapshotted [2026-11-02](sources/2026-11-02-business-plan-chat.md) [2026-11-03](sources/2026-11-03-business-plan-chat.md) and [2026-11-07](sources/2026-11-07-business-plan-chat.md) (each later snapshot is a superset).
 
 ### Rules
 
@@ -48,7 +48,10 @@ Other folders:
 - [Competitors](living/competitors.md): landscape and white space
 - [Product spec](living/product-spec.md): skill graph, L1–L5, step player, Learn mode, retention, parent report, MVP cut
 - [Content authoring spec](living/content-authoring.md): item forms, schema, automated checks, error tags (proposed)
-- [UX design](living/ux-design.md): "mist" design system, language rule, screen inventory, WhatsApp messages, [design canvas](https://claude.ai/code/artifact/8663e5e8-8080-4e38-a1bc-a487744ad18f)
+- [Open topics](living/open-topics.md): what's still undecided before development (business, product, technical)
+- [UX design](living/ux-design.md): "Dawn" design system, language rule, user flow, screen inventory, WhatsApp messages, [design canvas](https://claude.ai/code/artifact/8663e5e8-8080-4e38-a1bc-a487744ad18f)
+- [Teacher dashboard](living/teacher-dashboard.md): jobs, principles, screens, pilot scope, build plan (DR-0037 to 0043 accepted)
+- [Simulation and admin](living/simulation-and-admin.md): synthetic students as the learning-engine test, personas, `/admin` mission control, "safe to launch the pilot" go/no-go (DR-0044 to 0047 proposed)
 - [Tech architecture](living/tech-architecture.md): stack, architecture, costs, AI-code review rules
 - [Legal & privacy](living/legal-and-privacy.md): company, IP, PDPA, teacher rules, open legal questions
 - [Roadmap](living/roadmap.md): timeline, build order, subject order
@@ -60,4 +63,4 @@ Other folders:
 
 ## One-line positioning
 
-> "15 minutes a day of the right Physics questions, so nothing you learn in class is forgotten before the exam."
+> "5 minutes a day of the right Physics questions, so nothing you learn in class is forgotten before the exam."

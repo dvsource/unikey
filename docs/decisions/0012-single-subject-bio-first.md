@@ -1,6 +1,6 @@
 # DR-0012: Sell Physics as a single subject; Bio-stream students are the first segment
 
-- **Status:** Proposed
+- **Status:** Superseded by [DR-0028](0028-any-physics-student-adaptive.md)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Positioning / Pricing
 

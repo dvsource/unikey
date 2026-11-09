@@ -8,8 +8,8 @@ Status: `Untested` → `Testing` → `Validated` | `Invalidated` (add the date a
 | ID | Assumption | Test | Status | Used by |
 |---|---|---|---|---|
 | A1 | 1,000 paying students (~1–2% of one physics cohort of 60–90k) is reachable in 18–30 months via teachers | Track paid growth after the rollout | Untested | [strategy](../living/strategy.md) |
-| A2 | Free→paid conversion is 2–5%, so 1,000 payers need 20–50k active free users | Post-launch funnel data | Untested | [pricing](../living/pricing.md) |
-| A9 | Parents will pay 900/month for a single subject (Physics) | Pilot parent survey: "Would you pay 900/month for help in that subject alone?" + post-pilot full-price conversion | Untested | DR-0001, DR-0012 |
+| A2 | Free→paid conversion is 2–5%, so 1,000 payers need 20–50k active free users | Post-launch funnel data | Dropped: no free plan (DR-0029) | [pricing](../living/pricing.md) |
+| A9 | Parents will pay 900/month for a single subject (Physics) | Pilot parent survey: "Would you pay 900/month for help in that subject alone?" + post-pilot full-price conversion | Untested | DR-0001, DR-0028 |
 | A16 | Infra stays ~3–5% of revenue at 1,000 payers | Monthly cost tracking | Untested | [tech](../living/tech-architecture.md) |
 | A17 | CAC ≈ 0 through the teacher channel | Cost per paid student by source | Untested | DR-0002 |
 
@@ -34,7 +34,7 @@ Status: `Untested` → `Testing` → `Validated` | `Invalidated` (add the date a
 ## Segments
 | ID | Assumption | Test | Status | Used by |
 |---|---|---|---|---|
-| A8 | Bio-stream students/parents convert and retain better than Physical Science | E01: track the streams separately; survey "which subject is your child most worried about?" | Untested | DR-0012 |
+| A8 | Bio-stream students/parents convert and retain better than Physical Science | E01: track the streams separately; survey "which subject is your child most worried about?" | Untested | DR-0028 (messaging) |
 
 ## Teachers
 | ID | Assumption | Test | Status | Used by |
@@ -54,4 +54,7 @@ Status: `Untested` → `Testing` → `Validated` | `Invalidated` (add the date a
 | A23 | Implicit review (FIRe-style) keeps the daily load within the cap as mastered skills grow | E01: daily due load per student over 8 weeks | Untested | DR-0022 |
 | A24 | The readiness score tracks real mock results (enough to later show predicted marks) | E01: readiness vs week-8 mock correlation | Untested | DR-0022 |
 | A27 | Sinhala-medium students are comfortable with an English interface around Sinhala content | E01: usability feedback, confusion reports | Untested | DR-0024 |
-| A28 | The calm "mist" UI keeps the main action findable, and blur/motion perform on 2–3 GB RAM phones | Usability test + low-end device test before the pilot | Untested | DR-0023 |
+| A28 | The "Dawn" UI keeps the yellow main action findable, colour meanings are understood, and the sky gradient looks clean on cheap LCD phones | Usability test + low-end device test before the pilot | Untested | DR-0025 |
+| A29 | Decomposed L1–L4 practice transfers to exam-level MCQs, provided exam-strength items (F45) are in the L5 sets | E01: accuracy on exam-strength items vs L1–L4, tracked separately; week-8 mock | Untested | DR-0027 |
+| A30 | One adaptive path keeps both weak and strong students engaged (no separate Bio path needed) | E01: retention and mastery gain by starting placement band and stream | Untested | DR-0028 |
+| A31 | Paid-only (no free plan) gives higher commitment and retention, and enough students still start | E01 + post-pilot: sign-up → paid rate, D30 vs benchmarks | Untested | DR-0029 |

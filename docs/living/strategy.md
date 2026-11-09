@@ -1,6 +1,6 @@
 # Strategy
 
-_Last updated: 2026-11-03_
+_Last updated: 2026-11-07_
 
 ## Vision
 Daily, mastery-based revision for Sri Lankan A/L students. It starts with Physics, then covers every A/L subject (and later other exams) on one engine.
@@ -17,8 +17,8 @@ This is realistic in 18–30 months *if teachers are the channel*. It's unlikely
 ## Positioning
 **The revision and retention layer that plugs into any teacher's class**, not another content platform.
 
-- One line: *"15 minutes a day of the right Physics questions, so nothing you learn in class is forgotten before the exam."*
-- For Bio-stream students and parents: *"Physics is the subject that decides medicine. 15 minutes a day to stop it pulling your Z-score down."* ([DR-0012](../decisions/0012-single-subject-bio-first.md))
+- One line (chosen 2026-11-07 as the lead for the Play Store and teacher pitch; "15" changed to "5" to match the 5-minute day, [DR-0019](../decisions/0019-teen-retention-design.md)): *"5 minutes a day of the right Physics questions, so nothing you learn in class is forgotten before the exam."*
+- Marketing message for Bio-stream students and parents (a message, not a separate product path): *"Physics is the subject that decides medicine. 15 minutes a day to stop it pulling your Z-score down."* ([DR-0028](../decisions/0028-any-physics-student-adaptive.md))
 - Our price anchor is **tuition, not other apps**. The pitch is "measurably better marks," not "nicer Anki."
 - Teacher-neutral: star-teacher platforms structurally can't be this, because rival teachers won't send students to them.
 
@@ -32,7 +32,7 @@ At A/L the **student decides**; parent involvement is optional and student-contr
 | Payer (wallet, optional motivator) | Parent | Effort, direction, the university dream, value for money |
 | Channel | Teacher | Class results, less work, (optional) extra income |
 
-**First segment:** Bio-stream students who are weak in Physics, and their parents (the most motivated payers in the A/L market). Validate this in the pilot ([A8](../experiments/assumptions.md)).
+**Audience:** any A/L physics student, Bio or Physical Science ([DR-0028](../decisions/0028-any-physics-student-adaptive.md)). One path that adapts to each student: current knowledge, skill level, learning speed and how often they practise. Track the streams separately in the pilot ([A8](../experiments/assumptions.md)) to tune messaging.
 
 ## Market size
 - 2025 A/L: 340,525 candidates (246,521 school + 94,004 private).

@@ -1,12 +1,12 @@
 # E01: Founding 100 pilot
 
 - **Status:** Planned
-- **Owner:** Viraj (product, data) · wife (teachers, content) · **Start:** Jan 2027 (target) · **End:** +8 weeks (max 2–3 months)
-- **Tests assumptions:** A3, A4, A5, A6, A7, A8, A9, A15, A19, A20–A27
+- **Owner:** Viraj (product, data) · wife (teachers, content) · **Start:** mid-January 2027 (decided 2026-11-07) · **End:** +8 weeks (max 2–3 months)
+- **Tests assumptions:** A3, A4, A5, A6, A7, A8, A9, A15, A19, A20–A27, A29
 - **Decisions:** [DR-0003](../decisions/0003-pilot-price-300.md), [DR-0008](../decisions/0008-pilot-close-circle.md), [DR-0009](../decisions/0009-pilot-exit-criteria.md)
 
 ## Hypothesis
-If students do short daily skill-based practice (5-minute minimum, 15–20 min cap), with visible progress, opt-in social features, teacher assignments where the class is enrolled, and student-controlled parent sharing, then D30 retention will be ≥40% and mock MCQ scores will clearly improve within 8 weeks, because accountability creates the daily habit and the skill graph targets weak concepts.
+If students do short daily skill-based practice (5-minute minimum, 15–20 min cap), with visible progress, opt-in social features, teacher assignments where the class is enrolled, and student-controlled parent sharing, then D30 retention will be ≥30% and mock MCQ scores will clearly improve within 8 weeks, because accountability creates the daily habit and the skill graph targets weak concepts.
 
 ## Setup
 - **Cohort:** ~100 students. The wife's classes plus 3–4 close teacher friends' classes, and **at least one teacher or class she doesn't teach and isn't close to** (to counter selection bias). Track the Bio vs Physical Science streams separately.
@@ -14,12 +14,12 @@ If students do short daily skill-based practice (5-minute minimum, 15–20 min c
 - **Recruiting:** 5 minutes at the end of class + a printed QR flyer; the parent WhatsApp message ([template](../living/go-to-market.md#parent-message-founding-100-translate-to-sinhala--tamil)); a 20-min parent orientation showing the report.
 - **Payment:** bank transfer / eZ Cash / LankaQR → activation code.
 - **Distribution:** Play Store closed testing (check the current tester requirement).
-- **Content scope:** 2–3 units (e.g. Mechanics, Electricity), one medium.
+- **Content scope:** 3 units (Mechanics, Current Electricity, Thermal Physics), Sinhala medium only ([DR-0031](../decisions/0031-pilot-scope-3-units-sinhala.md)).
 - **Measurement:** mock MCQ paper at week 0 and week 8. A non-user comparison group if a teacher can provide one.
 - **Mid-pilot (weeks 4–6):** run [E02](E02-teacher-channel-survey.md).
 
 ## Pre-pilot checklist
-- [ ] DR-0009 exit criteria set to **Accepted** (before day 1)
+- [x] DR-0009 exit criteria set to **Accepted** (2026-11-07, D30 ≥ 30%)
 - [ ] Pilot start date announced to teachers; 300 LKR collected ([commitment device](../living/founder-playbook.md#commitment-device))
 - [ ] Parental consent flow (one-time WhatsApp confirmation for under-18s)
 - [ ] Decide D1–D3 open design questions ([UX design](../living/ux-design.md#open-design-questions))
@@ -30,7 +30,7 @@ If students do short daily skill-based practice (5-minute minimum, 15–20 min c
 ## Metrics & thresholds
 | Metric | Success (proceed) | Kill / pivot |
 |---|---|---|
-| D30 retention | ≥ 40% | < 20% → rethink the core loop |
+| D30 retention | ≥ 30% | < 20% → rethink the core loop |
 | Study days / week | ≥ 4 | |
 | Mock MCQ score delta | Clear positive gain vs baseline/control | No gain → rethink content/scheduling |
 | Refund requests | < 15% | > 25% |
@@ -40,7 +40,7 @@ If students do short daily skill-based practice (5-minute minimum, 15–20 min c
 
 Also track weekly: D1/D3/D7 retention, % finishing the daily queue, % continuing past the 5-minute minimum, streak-break rate, report link open rate, error-tag distribution, Learn-mode usage, widget adoption, WhatsApp opt-in rate.
 
-Parent and graph metrics ([DR-0018](../decisions/0018-student-is-primary-customer.md), [DR-0022](../decisions/0022-typed-skill-graph.md)): % of students adding a parent and at which sharing level; conversion and retention, parent-linked vs student-only; daily due load per student; readiness vs week-8 mock correlation. Also run an "aha moment" analysis: which first-week behaviours predict D30.
+Parent and graph metrics ([DR-0018](../decisions/0018-student-is-primary-customer.md), [DR-0022](../decisions/0022-typed-skill-graph.md)): % of students adding a parent and at which sharing level; conversion and retention, parent-linked vs student-only; daily due load per student; readiness vs week-8 mock correlation; accuracy on exam-strength items vs L1–L4 (A29). Also run an "aha moment" analysis: which first-week behaviours predict D30.
 
 ## Result
 _(Fill in after the pilot. Link the data.)_

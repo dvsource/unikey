@@ -1,6 +1,6 @@
 # DR-0009: Pilot exit criteria for the WhatsApp rollout
 
-- **Status:** Proposed (**must be Accepted before the pilot starts**, then not changed)
+- **Status:** Accepted (Viraj, 2026-11-07: accepted with D30 lowered from 40% to 30%). Not to be changed until the pilot ends.
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** GTM / Product
 
@@ -16,7 +16,7 @@ Proceed to the WhatsApp channel rollout only if **all** hold at the end of the p
 
 | Metric | Threshold |
 |---|---|
-| D30 retention | ≥ 40% |
+| D30 retention | ≥ 30% (was 40% when proposed; lowered for a paid-only app with no push) |
 | Study days per week | ≥ 4 |
 | Mock MCQ score delta vs baseline (week 0 vs week 8, vs a non-user group if possible) | Clear positive gain |
 | Refund requests | < 15% |

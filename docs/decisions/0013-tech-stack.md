@@ -1,6 +1,6 @@
 # DR-0013: Tech stack: TypeScript monorepo, Expo app, local-first, modular monolith on Postgres
 
-- **Status:** Proposed
+- **Status:** Accepted (Viraj, 2026-11-07)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Tech
 

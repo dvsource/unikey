@@ -1,6 +1,6 @@
 # DR-0011: Teachers never sell. Free tool for teachers; premium sold to parents
 
-- **Status:** Proposed
+- **Status:** Superseded by [DR-0034](0034-teacher-offer-free-tool-plus-affiliate.md)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** GTM / Pricing
 
