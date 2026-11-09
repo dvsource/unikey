@@ -1,2 +1,6 @@
 .idea
 .DS_Store
+
+# Large source files (past papers, design references); kept out of git
+resources/
+references/
