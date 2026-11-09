@@ -1,0 +1,2257 @@
+{
+  "status": "draft",
+  "reviewer": null,
+  "spec_version": "0.5",
+  "unit": {
+    "id": "phy.elec",
+    "name": "Current Electricity",
+    "syllabus_unit": 8,
+    "periods": 70
+  },
+  "sources": [
+    "resources/nie/physics/en/syllabus/AL-Physics-Syllabus-Gr12-13-en.pdf (Unit 8)",
+    "resources/nie/physics/en/resource-books/Gr13-Physics-RB-Unit05-08-en.pdf"
+  ],
+  "exam_weight_policy": {
+    "papers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "source": "Paper I MCQs only. Paper II is not mapped yet, so these weights are not final.",
+    "score": "primary hits + 0.5 × secondary hits",
+    "level_weight": "0.5 × level's share of the unit's score + 0.5 × level's share of teaching periods",
+    "within_level": "level_weight × max(0.1, score / top score in level), normalised within the level",
+    "exam_weight_share": "the skill's share of the unit (sums to 1)",
+    "exam_weight": "exam_weight_share / the largest share in the unit (0–1)"
+  },
+  "mastery_policy": "mastery = inferred for a skill no past paper tests that at least 5 tested skills require: its mastery comes from the skills built on it, and it is not practised first",
+  "edge_semantics": {
+    "requires": "`from` cannot be done without `to`. Must be a DAG.",
+    "helps": "knowing `from` makes `to` easier",
+    "encompasses": "practising `from` partly reviews `to`; weight is the implicit-review credit",
+    "confusable": "undirected; interleave the two skills",
+    "uses-math": "`to` is a skill in the shared maths layer"
+  },
+  "topics": [
+    {
+      "id": "phy.elec.8.1",
+      "syllabus_ref": "8.1",
+      "name": "Current, resistance and resistor networks",
+      "periods": 12,
+      "exam_share": 0.278,
+      "level_weight": 0.225
+    },
+    {
+      "id": "phy.elec.8.2",
+      "syllabus_ref": "8.2",
+      "name": "Electrical energy and power",
+      "periods": 6,
+      "exam_share": 0.077,
+      "level_weight": 0.081
+    },
+    {
+      "id": "phy.elec.8.3",
+      "syllabus_ref": "8.3",
+      "name": "Electromotive force and internal resistance",
+      "periods": 12,
+      "exam_share": 0.089,
+      "level_weight": 0.13
+    },
+    {
+      "id": "phy.elec.8.4",
+      "syllabus_ref": "8.4",
+      "name": "Kirchhoff's laws",
+      "periods": 8,
+      "exam_share": 0.101,
+      "level_weight": 0.107
+    },
+    {
+      "id": "phy.elec.8.5",
+      "syllabus_ref": "8.5",
+      "name": "Measuring instruments, bridges and the potentiometer",
+      "periods": 12,
+      "exam_share": 0.16,
+      "level_weight": 0.166
+    },
+    {
+      "id": "phy.elec.8.6",
+      "syllabus_ref": "8.6",
+      "name": "Electromagnetic induction, a.c. and transformers",
+      "periods": 20,
+      "exam_share": 0.296,
+      "level_weight": 0.291
+    }
+  ],
+  "external": [
+    {
+      "id": "phy.estat.cap.capacitance",
+      "name": "Capacitance and Q = CV",
+      "syllabus_ref": "6.4",
+      "status": "stub"
+    },
+    {
+      "id": "phy.mag.force.conductor",
+      "name": "Force on a current-carrying conductor, F = BIl",
+      "syllabus_ref": "7.1",
+      "status": "stub"
+    },
+    {
+      "id": "phy.mag.field.wire-field",
+      "name": "Magnetic field of a current-carrying conductor",
+      "syllabus_ref": "7.2",
+      "status": "stub"
+    },
+    {
+      "id": "phy.therm.heat.specific-heat",
+      "name": "Heat capacity and specific heat capacity",
+      "syllabus_ref": "4.5",
+      "status": "stub"
+    }
+  ],
+  "math": [
+    {
+      "id": "math.algebra.rearrange",
+      "name": "Rearranging a formula for one variable"
+    },
+    {
+      "id": "math.algebra.proportion",
+      "name": "Ratio, proportion and scaling"
+    },
+    {
+      "id": "math.algebra.simultaneous",
+      "name": "Solving two simultaneous linear equations"
+    },
+    {
+      "id": "math.graph.gradient",
+      "name": "Gradient of a straight line or tangent"
+    },
+    {
+      "id": "math.geometry.mensuration",
+      "name": "Areas and volumes of circles, cylinders, spheres"
+    },
+    {
+      "id": "math.trig.ratios",
+      "name": "sin, cos, tan and the special angles 30°, 45°, 60°"
+    }
+  ],
+  "skills": [
+    {
+      "id": "phy.elec.cur.charge-current",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Fundamental concepts",
+      "syllabus_ref": "8.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "Current as the rate of flow of charge",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 23
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.cur.drift-velocity",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Mechanism of conduction",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Drift velocity and current density, I = nAve",
+        "si": "ප්ලාවිත ප්‍රවේගය සහ ධාරා ඝනත්වය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion",
+        "math.geometry.mensuration"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2022-31",
+          "2023-48"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0171,
+      "exam_weight": 0.286,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.ohms-law-iv",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Ohm's law",
+      "syllabus_ref": "8.1",
+      "type": "conceptual",
+      "practical": true,
+      "mastery": "inferred",
+      "names": {
+        "en": "Ohm's law and I–V curves",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 22
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.resistivity",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Resistance and resistivity",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Resistance and resistivity, R = ρl/A",
+        "si": "ප්‍රතිරෝධය සහ ප්‍රතිරෝධකතාව",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion",
+        "math.geometry.mensuration"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-26"
+        ],
+        "secondary": [
+          "2021-43",
+          "2023-18"
+        ],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0171,
+      "exam_weight": 0.286,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.temperature",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Variation of resistance with temperature",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Change of resistance with temperature",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.superconductors",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Superconductivity",
+      "syllabus_ref": "8.1",
+      "type": "recall",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Superconductors: properties and uses",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.series-parallel",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Combination of resistors",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Resistors in series and parallel",
+        "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2018-24",
+          "2021-43",
+          "2024-18",
+          "2024-34",
+          "2025-29",
+          "2025-6"
+        ],
+        "secondary": [
+          "2016-26",
+          "2018-25"
+        ],
+        "score": 7.0,
+        "figure_share": 0.83,
+        "tested_dependents": 15
+      },
+      "exam_weight_share": 0.0598,
+      "exam_weight": 1.0,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.network-reduction",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Combination of resistors",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Reducing networks: symmetry, bridges and ladders",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2017-8",
+          "2019-49",
+          "2020-47",
+          "2021-40",
+          "2022-41",
+          "2023-29"
+        ],
+        "secondary": [],
+        "score": 6.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0513,
+      "exam_weight": 0.857,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.res.circuit-changes",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Combination of resistors",
+      "syllabus_ref": "8.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "What changes when a component is removed, shorted or burns out",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2018-26"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0085,
+      "exam_weight": 0.143,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.cur.potential-divider",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.1",
+      "subtopic": "Potential divider circuit",
+      "syllabus_ref": "8.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Potential divider",
+        "si": "විභව බෙදුම්කරය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.8,
+      "exam": {
+        "primary": [
+          "2017-41",
+          "2018-42",
+          "2020-38",
+          "2023-43"
+        ],
+        "secondary": [
+          "2021-23",
+          "2024-18",
+          "2025-29"
+        ],
+        "score": 5.5,
+        "figure_share": 1.0,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.047,
+      "exam_weight": 0.786,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pow.power-formulas",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.2",
+      "subtopic": "Energy and power",
+      "syllabus_ref": "8.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Electrical power: P = VI = I²R = V²/R",
+        "si": "විද්‍යුත් ජවය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2018-25",
+          "2021-46"
+        ],
+        "secondary": [
+          "2016-25",
+          "2019-47",
+          "2022-31"
+        ],
+        "score": 3.5,
+        "figure_share": 1.0,
+        "tested_dependents": 5
+      },
+      "exam_weight_share": 0.0415,
+      "exam_weight": 0.695,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pow.joule-heating",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.2",
+      "subtopic": "Energy and power",
+      "syllabus_ref": "8.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Joule heating: heaters, energy and time",
+        "si": "ජූල් තාපනය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2023-18"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0119,
+      "exam_weight": 0.198,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pow.power-graphs",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.2",
+      "subtopic": "Energy and power",
+      "syllabus_ref": "8.2",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "How power varies with current, voltage and resistance",
+        "si": "ධාරාව, වෝල්ටීයතාව සහ ප්‍රතිරෝධය සමඟ ජවය වෙනස් වන ආකාරය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2017-40",
+          "2024-24"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0237,
+      "exam_weight": 0.397,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pow.ratings",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.2",
+      "subtopic": "Energy and power",
+      "syllabus_ref": "8.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Appliance ratings, energy in kWh and cost",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0042,
+      "exam_weight": 0.069,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.sources",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Electromotive force",
+      "syllabus_ref": "8.3",
+      "type": "recall",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Sources of e.m.f. and their energy changes",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2018-9"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0159,
+      "exam_weight": 0.265,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.definition",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Electromotive force",
+      "syllabus_ref": "8.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "inferred",
+      "names": {
+        "en": "E.m.f. and potential difference",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 7
+      },
+      "exam_weight_share": 0.0056,
+      "exam_weight": 0.093,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.internal-resistance",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Internal resistance",
+      "syllabus_ref": "8.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Terminal pd and internal resistance, V = E − Ir",
+        "si": "අග්‍ර විභව අන්තරය සහ අභ්‍යන්තර ප්‍රතිරෝධය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-46",
+          "2022-23"
+        ],
+        "secondary": [
+          "2017-26",
+          "2020-33",
+          "2021-46"
+        ],
+        "score": 3.5,
+        "figure_share": 1.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0555,
+      "exam_weight": 0.928,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.ir-graph",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Internal resistance",
+      "syllabus_ref": "8.3",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "E and r from a V–I graph",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0056,
+      "exam_weight": 0.093,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.cell-combinations",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Combination of sources of e.m.f.",
+      "syllabus_ref": "8.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Cells in series, and identical cells in parallel",
+        "si": "ශ්‍රේණිගත සහ සමාන්තරගත කෝෂ",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.5,
+      "exam": {
+        "primary": [
+          "2016-25",
+          "2019-45"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0317,
+      "exam_weight": 0.53,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emf.max-power",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.3",
+      "subtopic": "Combination of sources of e.m.f.",
+      "syllabus_ref": "8.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Maximum power transfer",
+        "si": "උපරිම ජව සංක්‍රාමණය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2020-33"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0159,
+      "exam_weight": 0.265,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.kir.junction-rule",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.4",
+      "subtopic": "Kirchhoff's laws",
+      "syllabus_ref": "8.4",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Kirchhoff's first law",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0037,
+      "exam_weight": 0.061,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.kir.loop-rule",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.4",
+      "subtopic": "Kirchhoff's laws",
+      "syllabus_ref": "8.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Kirchhoff's second law and circuits with several sources",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.simultaneous"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2016-43"
+        ],
+        "secondary": [
+          "2016-40",
+          "2019-46",
+          "2020-14",
+          "2022-30"
+        ],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0366,
+      "exam_weight": 0.612,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.kir.potential-at-point",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.4",
+      "subtopic": "Kirchhoff's laws",
+      "syllabus_ref": "8.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Potential at a point, and pd between two points",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2021-23"
+        ],
+        "secondary": [
+          "2016-43",
+          "2017-41",
+          "2019-45"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0305,
+      "exam_weight": 0.51,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.kir.capacitor-dc",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.4",
+      "subtopic": "Kirchhoff's laws",
+      "syllabus_ref": "8.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Steady d.c. circuits with a capacitor",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.3,
+      "exam": {
+        "primary": [
+          "2018-21",
+          "2020-14",
+          "2022-30"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0366,
+      "exam_weight": 0.612,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.meter.ammeter-voltmeter",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Ammeter, voltmeter and multimeter",
+      "syllabus_ref": "8.5",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Ammeters, voltmeters and ideal meters",
+        "si": "ඇමීටර, වෝල්ට්මීටර සහ පරිපූර්ණ මීටර",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2016-7"
+        ],
+        "secondary": [
+          "2018-24",
+          "2018-42",
+          "2020-38"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.03,
+      "exam_weight": 0.501,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.meter.multimeter",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Ammeter, voltmeter and multimeter",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Using and reading a multimeter",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-26"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.012,
+      "exam_weight": 0.201,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.bridge.wheatstone-balance",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Wheatstone bridge",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Balanced Wheatstone bridge",
+        "si": "තුලිත විට්ස්ටන් සේතුව",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.3,
+      "exam": {
+        "primary": [
+          "2016-40",
+          "2017-26",
+          "2023-40"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.036,
+      "exam_weight": 0.602,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.bridge.metre-bridge",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Metre bridge",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Metre bridge: unknown resistance and temperature coefficient",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0036,
+      "exam_weight": 0.06,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pot.principle",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Potentiometer",
+      "syllabus_ref": "8.5",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Potentiometer principle and sensitivity",
+        "si": "විභවමාන මූලධර්මය සහ සංවේදීතාව",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2016-5",
+          "2017-5"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.024,
+      "exam_weight": 0.401,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pot.potential-gradient",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Potentiometer",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Potential gradient along a potentiometer wire",
+        "si": "විභවමාන කම්බියක් දිගේ විභව අනුක්‍රමණය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2020-17",
+          "2024-26"
+        ],
+        "secondary": [
+          "2016-5"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.03,
+      "exam_weight": 0.501,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pot.compare-emf",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Uses of the potentiometer",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Comparing e.m.f.s with a potentiometer",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2020-17"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.006,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.pot.internal-resistance",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.5",
+      "subtopic": "Uses of the potentiometer",
+      "syllabus_ref": "8.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Internal resistance with a potentiometer",
+        "si": "විභවමානයෙන් අභ්‍යන්තර ප්‍රතිරෝධය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2021-31",
+          "2025-24"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.024,
+      "exam_weight": 0.401,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.flux",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Magnetic flux",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Magnetic flux and flux linkage",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2019-20",
+          "2025-9"
+        ],
+        "score": 1.0,
+        "figure_share": null,
+        "tested_dependents": 10
+      },
+      "exam_weight_share": 0.0113,
+      "exam_weight": 0.188,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.faraday",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Laws of electromagnetic induction",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Faraday's law: e.m.f. from the rate of change of flux",
+        "si": "ෆැරඩේ නියමය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.7,
+      "exam": {
+        "primary": [
+          "2019-20",
+          "2020-29",
+          "2025-9"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 0.67,
+        "tested_dependents": 6
+      },
+      "exam_weight_share": 0.0338,
+      "exam_weight": 0.565,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.lenz",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Laws of electromagnetic induction",
+      "syllabus_ref": "8.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Lenz's law: direction of the induced current",
+        "si": "ලෙන්ස් නියමය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.3,
+      "exam": {
+        "primary": [
+          "2017-34",
+          "2017-48",
+          "2023-23"
+        ],
+        "secondary": [
+          "2016-48",
+          "2017-49"
+        ],
+        "score": 4.0,
+        "figure_share": 1.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0451,
+      "exam_weight": 0.754,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.lenz-energy",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Laws of electromagnetic induction",
+      "syllabus_ref": "8.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Lenz's law, energy and magnetic braking",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2024-11"
+        ],
+        "secondary": [
+          "2025-33"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0169,
+      "exam_weight": 0.283,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.moving-rod",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Moving and rotating conductors",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "E.m.f. in a moving rod, E = Blv, and the right-hand rule",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2018-49"
+        ],
+        "secondary": [
+          "2023-47"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0169,
+      "exam_weight": 0.283,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.loop-through-field",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Moving and rotating conductors",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "A loop moving through a field region",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-48",
+          "2021-50",
+          "2023-47"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0338,
+      "exam_weight": 0.565,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.rotating-rod-disc",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Moving and rotating conductors",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "E.m.f. of a rotating rod or disc, E = ½Bωr²",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2022-39"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0113,
+      "exam_weight": 0.188,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.rotating-coil",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Alternating current generator",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Rotating coil and the a.c. generator, E = NBAω sin ωt",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.trig.ratios"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0045,
+      "exam_weight": 0.075,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.ac.rms",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Alternating current",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "r.m.s. and peak values, and average power",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-47"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0113,
+      "exam_weight": 0.188,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.eddy-currents",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Eddy currents",
+      "syllabus_ref": "8.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Eddy currents and their uses",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2017-49",
+          "2025-33"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0225,
+      "exam_weight": 0.377,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.emi.back-emf",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Back e.m.f. of an electric motor",
+      "syllabus_ref": "8.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Back e.m.f. of a motor and the starter",
+        "si": "මෝටරයක ප්‍රති වි.ගා.බ.",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2022-5"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0113,
+      "exam_weight": 0.188,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.tr.ideal-transformer",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Transformers",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Ideal transformer: turns ratio and voltage",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 2.3,
+      "exam": {
+        "primary": [
+          "2016-6",
+          "2017-30",
+          "2018-8"
+        ],
+        "secondary": [
+          "2019-19",
+          "2024-14"
+        ],
+        "score": 4.0,
+        "figure_share": 0.33,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0451,
+      "exam_weight": 0.754,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.tr.power-current",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Transformers",
+      "syllabus_ref": "8.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Transformer power and current ratio",
+        "si": "පරිණාමකයේ ජවය සහ ධාරා අනුපාතය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2019-19",
+          "2024-14"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0225,
+      "exam_weight": 0.377,
+      "status": "draft"
+    },
+    {
+      "id": "phy.elec.tr.losses-transmission",
+      "unit": "phy.elec",
+      "topic": "phy.elec.8.6",
+      "subtopic": "Transmission of electric power",
+      "syllabus_ref": "8.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Transformer losses and power transmission",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0045,
+      "exam_weight": 0.075,
+      "status": "draft"
+    }
+  ],
+  "edges": [
+    {
+      "type": "requires",
+      "from": "phy.elec.cur.drift-velocity",
+      "to": "phy.elec.cur.charge-current"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.ohms-law-iv",
+      "to": "phy.elec.cur.charge-current"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.temperature",
+      "to": "phy.elec.res.resistivity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.superconductors",
+      "to": "phy.elec.res.temperature"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.series-parallel",
+      "to": "phy.elec.res.ohms-law-iv"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.network-reduction",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.res.circuit-changes",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.cur.potential-divider",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pow.power-formulas",
+      "to": "phy.elec.res.ohms-law-iv"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pow.joule-heating",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pow.power-graphs",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pow.ratings",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.internal-resistance",
+      "to": "phy.elec.emf.definition"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.internal-resistance",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.ir-graph",
+      "to": "phy.elec.emf.internal-resistance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.cell-combinations",
+      "to": "phy.elec.emf.internal-resistance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.max-power",
+      "to": "phy.elec.emf.internal-resistance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emf.max-power",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.junction-rule",
+      "to": "phy.elec.cur.charge-current"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.loop-rule",
+      "to": "phy.elec.kir.junction-rule"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.loop-rule",
+      "to": "phy.elec.res.ohms-law-iv"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.potential-at-point",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.capacitor-dc",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.kir.capacitor-dc",
+      "to": "phy.estat.cap.capacitance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.meter.ammeter-voltmeter",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.meter.multimeter",
+      "to": "phy.elec.meter.ammeter-voltmeter"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.bridge.wheatstone-balance",
+      "to": "phy.elec.cur.potential-divider"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.bridge.metre-bridge",
+      "to": "phy.elec.bridge.wheatstone-balance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.bridge.metre-bridge",
+      "to": "phy.elec.res.resistivity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.principle",
+      "to": "phy.elec.cur.potential-divider"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.principle",
+      "to": "phy.elec.emf.definition"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.potential-gradient",
+      "to": "phy.elec.pot.principle"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.compare-emf",
+      "to": "phy.elec.pot.principle"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.internal-resistance",
+      "to": "phy.elec.pot.potential-gradient"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.pot.internal-resistance",
+      "to": "phy.elec.emf.internal-resistance"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.faraday",
+      "to": "phy.elec.emi.flux"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.lenz",
+      "to": "phy.elec.emi.flux"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.lenz-energy",
+      "to": "phy.elec.emi.lenz"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.moving-rod",
+      "to": "phy.elec.emi.faraday"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.loop-through-field",
+      "to": "phy.elec.emi.moving-rod"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.loop-through-field",
+      "to": "phy.elec.emi.lenz"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.rotating-rod-disc",
+      "to": "phy.elec.emi.moving-rod"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.rotating-coil",
+      "to": "phy.elec.emi.faraday"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.ac.rms",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.eddy-currents",
+      "to": "phy.elec.emi.lenz"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.back-emf",
+      "to": "phy.elec.emi.faraday"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.emi.back-emf",
+      "to": "phy.mag.force.conductor"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.tr.ideal-transformer",
+      "to": "phy.elec.emi.faraday"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.tr.power-current",
+      "to": "phy.elec.tr.ideal-transformer"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.tr.power-current",
+      "to": "phy.elec.pow.power-formulas"
+    },
+    {
+      "type": "requires",
+      "from": "phy.elec.tr.losses-transmission",
+      "to": "phy.elec.tr.power-current"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.res.ohms-law-iv",
+      "to": "phy.elec.res.resistivity"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.res.resistivity",
+      "to": "phy.elec.res.series-parallel"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.bridge.wheatstone-balance",
+      "to": "phy.elec.res.network-reduction"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.meter.ammeter-voltmeter",
+      "to": "phy.elec.cur.potential-divider"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.heat.specific-heat",
+      "to": "phy.elec.pow.joule-heating"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.emf.sources",
+      "to": "phy.elec.emf.definition"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.emf.definition",
+      "to": "phy.elec.kir.loop-rule"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.kir.loop-rule",
+      "to": "phy.elec.kir.potential-at-point"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.kir.loop-rule",
+      "to": "phy.elec.emf.cell-combinations"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.res.temperature",
+      "to": "phy.elec.bridge.metre-bridge"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.emi.lenz",
+      "to": "phy.elec.emi.moving-rod"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mag.field.wire-field",
+      "to": "phy.elec.emi.lenz"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mag.force.conductor",
+      "to": "phy.elec.emi.lenz-energy"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.emi.rotating-coil",
+      "to": "phy.elec.ac.rms"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.emi.eddy-currents",
+      "to": "phy.elec.tr.losses-transmission"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.pot.compare-emf",
+      "to": "phy.elec.pot.internal-resistance"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.pot.potential-gradient",
+      "to": "phy.elec.pot.compare-emf"
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.res.network-reduction",
+      "to": "phy.elec.res.series-parallel",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.res.circuit-changes",
+      "to": "phy.elec.res.series-parallel",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.cur.potential-divider",
+      "to": "phy.elec.res.series-parallel",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.pow.joule-heating",
+      "to": "phy.elec.pow.power-formulas",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.pow.power-graphs",
+      "to": "phy.elec.pow.power-formulas",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emf.ir-graph",
+      "to": "phy.elec.emf.internal-resistance",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emf.cell-combinations",
+      "to": "phy.elec.emf.internal-resistance",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emf.max-power",
+      "to": "phy.elec.emf.internal-resistance",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.kir.capacitor-dc",
+      "to": "phy.elec.kir.loop-rule",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.kir.potential-at-point",
+      "to": "phy.elec.cur.potential-divider",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.bridge.metre-bridge",
+      "to": "phy.elec.bridge.wheatstone-balance",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.pot.compare-emf",
+      "to": "phy.elec.pot.potential-gradient",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.pot.internal-resistance",
+      "to": "phy.elec.pot.compare-emf",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.faraday",
+      "to": "phy.elec.emi.flux",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.lenz-energy",
+      "to": "phy.elec.emi.lenz",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.loop-through-field",
+      "to": "phy.elec.emi.moving-rod",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.loop-through-field",
+      "to": "phy.elec.emi.lenz",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.rotating-rod-disc",
+      "to": "phy.elec.emi.moving-rod",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.emi.eddy-currents",
+      "to": "phy.elec.emi.lenz",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.elec.tr.power-current",
+      "to": "phy.elec.tr.ideal-transformer",
+      "weight": 0.6
+    },
+    {
+      "type": "confusable",
+      "from": "phy.elec.pot.compare-emf",
+      "to": "phy.elec.emf.internal-resistance",
+      "why": "emf-vs-terminal-pd"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.elec.meter.ammeter-voltmeter",
+      "to": "phy.elec.cur.potential-divider",
+      "why": "an ideal voltmeter draws no current; a real one changes the divider"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.elec.emi.moving-rod",
+      "to": "phy.mag.force.conductor",
+      "why": "hand-rule-direction"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.elec.tr.ideal-transformer",
+      "to": "phy.elec.ac.rms",
+      "why": "peak and r.m.s. values mixed in one calculation"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.cur.drift-velocity",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.cur.drift-velocity",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.res.ohms-law-iv",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.res.resistivity",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.res.resistivity",
+      "to": "math.geometry.mensuration"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.res.temperature",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.res.series-parallel",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.cur.potential-divider",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pow.power-formulas",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pow.joule-heating",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pow.power-graphs",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emf.internal-resistance",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emf.ir-graph",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emf.max-power",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.kir.loop-rule",
+      "to": "math.algebra.simultaneous"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.bridge.wheatstone-balance",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.bridge.metre-bridge",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pot.potential-gradient",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pot.compare-emf",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.pot.internal-resistance",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emi.flux",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emi.faraday",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emi.loop-through-field",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.emi.rotating-coil",
+      "to": "math.trig.ratios"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.ac.rms",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.tr.ideal-transformer",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.elec.tr.power-current",
+      "to": "math.algebra.proportion"
+    }
+  ]
+}

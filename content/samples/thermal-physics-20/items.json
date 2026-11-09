@@ -1,0 +1,4831 @@
+{
+ "spec_version": "0.5",
+ "status": "draft, not teacher reviewed",
+ "medium": "en",
+ "skills": [
+  {
+   "id": "phy.therm.exp.linear",
+   "name": "Linear expansion",
+   "name_si": "රේඛීය ප්‍රසාරණය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.heat.mixtures",
+   "name": "Method of mixtures",
+   "name_si": "මිශ්‍රණ ක්‍රමය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.heat.continuous-flow",
+   "name": "Continuous-flow heating",
+   "name_si": "අඛණ්ඩ ගැලීම් තාපනය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.state.mixtures-with-change",
+   "name": "Mixtures that melt or boil",
+   "name_si": "දිය වන හෝ නටන මිශ්‍රණ",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.state.latent-errors",
+   "name": "Latent heat by mixtures: sources of error",
+   "name_si": "මිශ්‍රණ ක්‍රමයෙන් ගුප්ත තාපය: දෝෂ ප්‍රභව",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.gas.graphs",
+   "name": "Gas law graphs",
+   "name_si": "වායු නියම ප්‍රස්තාර",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.gas.ideal-gas-equation",
+   "name": "Ideal gas equation",
+   "name_si": "පරිපූර්ණ වායු සමීකරණය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.kin.mean-ke-temperature",
+   "name": "Mean molecular KE and absolute temperature",
+   "name_si": "මධ්‍යන්‍ය අණුක චාලක ශක්තිය සහ නිරපේක්ෂ උෂ්ණත්වය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.kin.rms-speed",
+   "name": "r.m.s. speed and gas pressure",
+   "name_si": "r.m.s. වේගය සහ වායු පීඩනය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.heat.newton-cooling",
+   "name": "Newton's law of cooling",
+   "name_si": "නිවුටන්ගේ සිසිලන නියමය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.hum.absolute-humidity",
+   "name": "Absolute humidity and the mass of water vapour",
+   "name_si": "නිරපේක්ෂ ආර්ද්‍රතාව සහ ජල වාෂ්ප ස්කන්ධය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.hum.relative-humidity",
+   "name": "Relative humidity",
+   "name_si": "සාපේක්ෂ ආර්ද්‍රතාව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.hum.mixing-air",
+   "name": "Humidity when air is mixed",
+   "name_si": "වාතය මිශ්‍ර වන විට ආර්ද්‍රතාව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.hum.rh-temperature",
+   "name": "How relative humidity changes with temperature",
+   "name_si": "උෂ්ණත්වය සමඟ සාපේක්ෂ ආර්ද්‍රතාව වෙනස් වන ආකාරය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.hum.dew-point",
+   "name": "Dew point",
+   "name_si": "තුෂාර අංකය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.thermo.first-law",
+   "name": "First law of thermodynamics",
+   "name_si": "තාප ගති විද්‍යාවේ පළමුවැනි නියමය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.thermo.processes",
+   "name": "Thermodynamic processes",
+   "name_si": "තාපගතික ක්‍රියාවලි",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.therm.cond.composite-rods",
+   "name": "Rods in series",
+   "name_si": "ශ්‍රේණිගත දඬු",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.therm.cond.temperature-profile",
+   "name": "Temperature along lagged and unlagged rods",
+   "name_si": "පරිවාරණය කළ සහ නොකළ දඬු දිගේ උෂ්ණත්වය",
+   "type": "conceptual"
+  }
+ ],
+ "cards": [
+  {
+   "id": "phy.therm.c001",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-27",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "ΔL = L₀ α ▢",
+    "si": "ΔL = L₀ α ▢"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Δθ",
+      "si": "Δθ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "θ",
+      "si": "θ"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ΔL",
+      "si": "ΔL"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "t",
+      "si": "t"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Change in length = original length × expansivity × change in temperature.",
+    "si": "දිගෙහි වෙනස් වීම = මුල් දිග × ප්‍රසාරණශීලතාව × උෂ්ණත්ව වෙනස."
+   }
+  },
+  {
+   "id": "phy.therm.c002",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F04",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-27",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "SI unit of linear expansivity?",
+    "si": "රේඛීය ප්‍රසාරණශීලතාවයේ SI ඒකකය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "K⁻¹",
+      "si": "K⁻¹"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "K",
+      "si": "K"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "m K⁻¹",
+      "si": "m K⁻¹"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "m⁻¹",
+      "si": "m⁻¹"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "α = ΔL ÷ (L₀ Δθ): a length ÷ a length ÷ a temperature.",
+    "si": "α = ΔL ÷ (L₀ Δθ): දිගක් ÷ දිගක් ÷ උෂ්ණත්වයක්."
+   }
+  },
+  {
+   "id": "phy.therm.c003",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-27",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A steel tape, correct at 20 °C, is used outdoors at 40 °C. Compared with the true length, its reading is?",
+    "si": "20 °C හි නිවැරදි වානේ මිනුම් පටියක් එළිමහනේ 40 °C හි භාවිත කෙරේ. සැබෑ දිගට සාපේක්ෂව එහි පාඨාංකය?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Too small",
+      "si": "ඉතා කුඩා"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Too large",
+      "si": "ඉතා විශාල"
+     },
+     "correct": false,
+     "tag": "expansion-reading"
+    },
+    {
+     "text": {
+      "en": "Correct, as the object expands too",
+      "si": "නිවැරදි ය, මන්ද වස්තුව ද ප්‍රසාරණය වන නිසා"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The tape's marks spread apart whatever the object does.",
+      "si": "වස්තුවට කුමක් සිදු වුවත් පටියේ සලකුණු ඈත් වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Too small only for long objects",
+      "si": "දිගු වස්තු සඳහා පමණක් ඉතා කුඩා"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Every reading is short by the same fraction, αΔθ.",
+      "si": "සෑම පාඨාංකයක්ම එකම භාගයකින්, αΔθ, අඩු ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The hot tape's marks spread apart, so fewer of them fit along the object.",
+    "si": "උණුසුම් පටියේ සලකුණු ඈත් වේ, එබැවින් වස්තුව දිගේ ඒවායින් අඩුවෙන් ගැළපේ."
+   }
+  },
+  {
+   "id": "phy.therm.c004",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-27",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A metal rod's rise in temperature × 2. Increase in its length × ?",
+    "si": "ලෝහ දණ්ඩක උෂ්ණත්වයේ වැඩි වීම × 2. එහි දිගෙහි වැඩි වීම × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "ΔL is proportional to Δθ.",
+      "si": "ΔL, Δθ ට අනුලෝමව සමානුපාතික ය."
+     }
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "ΔL = L₀αΔθ, so ΔL ∝ Δθ.",
+    "si": "ΔL = L₀αΔθ, so ΔL ∝ Δθ."
+   }
+  },
+  {
+   "id": "phy.therm.c005",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-42",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A brass plate has a hole slightly too small for an iron ball. Student says: \"Heating the plate shrinks the hole, as the brass expands into it.\" What's wrong?",
+    "si": "පිත්තල තහඩුවක ඇති කුහරයක් යකඩ බෝලයකට තරමක් කුඩා ය. සිසුවා පවසයි: \"තහඩුව රත් කළ විට පිත්තල කුහරය තුළට ප්‍රසාරණය වන නිසා කුහරය කුඩා වේ.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The hole grows as if it were made of brass",
+      "si": "කුහරය පිත්තලවලින් සෑදූවා සේ විශාල වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: the brass fills the hole",
+      "si": "කිසිවක් නැත: පිත්තල කුහරය පුරවයි"
+     },
+     "correct": false,
+     "tag": "hole-shrinks"
+    },
+    {
+     "text": {
+      "en": "The hole stays the same size",
+      "si": "කුහරය එකම ප්‍රමාණයෙන් පවතී"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Every length in the plate grows, including the hole's diameter.",
+      "si": "කුහරයේ විෂ්කම්භය ද ඇතුළුව තහඩුවේ සෑම දිගක්ම වැඩි වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The hole grows only if the plate is thin",
+      "si": "තහඩුව තුනී නම් පමණක් කුහරය විශාල වේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Thickness doesn't matter: all lengths grow by the same fraction.",
+      "si": "ඝනකම වැදගත් නොවේ: සියලු දිග එකම භාගයකින් වැඩි වේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The whole plate scales up, so the hole scales up with it.",
+    "si": "මුළු තහඩුවම විශාල වේ, එබැවින් කුහරය ද ඒ සමඟ විශාල වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c006",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.therm.heat.mixtures"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2019-42",
+   "note_ref": "phy.therm.note.mix",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Heat to warm a body: Q = m c ▢",
+    "si": "වස්තුවක් රත් කිරීමට තාපය: Q = m c ▢"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Δθ",
+      "si": "Δθ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "θ",
+      "si": "θ"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "t",
+      "si": "t"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "L",
+      "si": "L"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Q = mcΔθ, using the change in temperature.",
+    "si": "Q = mcΔθ, උෂ්ණත්ව වෙනස භාවිත කරමින්."
+   }
+  },
+  {
+   "id": "phy.therm.c007",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.heat.mixtures"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-42",
+   "note_ref": "phy.therm.note.mix",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "100 g of water at 80 °C is mixed with 300 g of water at 20 °C, with no heat loss. Final temperature?",
+    "si": "80 °C හි ජලය 100 g ක් 20 °C හි ජලය 300 g ක් සමඟ, තාප හානියක් නොමැතිව මිශ්‍ර කෙරේ. අවසාන උෂ්ණත්වය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "35 °C",
+      "si": "35 °C"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "50 °C",
+      "si": "50 °C"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "65 °C",
+      "si": "65 °C"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "60 °C",
+      "si": "60 °C"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That's the difference of the two temperatures.",
+      "si": "එය උෂ්ණත්ව දෙකේ වෙනසයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Heat lost = heat gained: 100 × (80 − θ) = 300 × (θ − 20), so θ = 35 °C.",
+    "si": "හානි වූ තාපය = ලැබුණු තාපය: 100 × (80 − θ) = 300 × (θ − 20), එබැවින් θ = 35 °C."
+   }
+  },
+  {
+   "id": "phy.therm.c008",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.therm.heat.mixtures"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-42",
+   "note_ref": "phy.therm.note.mix",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"In a method-of-mixtures experiment, the hot metal's fall in temperature equals the water's rise.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"මිශ්‍රණ ක්‍රම පරීක්ෂණයක දී, උණු ලෝහයේ උෂ්ණත්ව අඩු වීම ජලයේ උෂ්ණත්ව වැඩි වීමට සමාන ය.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Heat lost equals heat gained, not Δθ",
+      "si": "සමාන වන්නේ Δθ නොව, හානි වූ තාපය හා ලැබුණු තාපය ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: energy is conserved",
+      "si": "කිසිවක් නැත: ශක්තිය සංස්ථිතික ය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "The changes are equal only for metals",
+      "si": "වෙනස්වීම් සමාන වන්නේ ලෝහ සඳහා පමණි"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Temperature changes depend on m and c, for any substance.",
+      "si": "ඕනෑම ද්‍රව්‍යයක් සඳහා උෂ්ණත්ව වෙනස්වීම් m සහ c මත රඳා පවතී."
+     }
+    },
+    {
+     "text": {
+      "en": "Heat flows until both hold the same heat",
+      "si": "දෙකම එකම තාපය දරන තුරු තාපය ගලයි"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Heat flows until the temperatures are equal, not the heat.",
+      "si": "තාපය ගලන්නේ තාපය නොව උෂ්ණත්ව සමාන වන තුරු ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "m₁c₁Δθ₁ = m₂c₂Δθ₂, so the temperature changes differ unless mc is equal.",
+    "si": "m₁c₁Δθ₁ = m₂c₂Δθ₂, එබැවින් mc සමාන නොවේ නම් උෂ්ණත්ව වෙනස්වීම් වෙනස් වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c009",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.therm.heat.continuous-flow"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-20",
+   "note_ref": "phy.therm.note.flow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Water flows through a heater of fixed power. Flow rate × 2. Rise in temperature × ?",
+    "si": "අචල ජවයක් ඇති තාපකයක් හරහා ජලය ගලයි. ගැලීම් ශීඝ්‍රතාව × 2. උෂ්ණත්වයේ වැඩි වීම × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Twice the water shares the same heat each second.",
+      "si": "දෙගුණයක් ජලය සෑම තත්පරයකම එකම තාපය බෙදා ගනී."
+     }
+    },
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "P = (m/t) c Δθ, so with P fixed, Δθ ∝ 1 ÷ flow rate.",
+    "si": "P = (m/t) c Δθ, එබැවින් P අචල විට Δθ ∝ 1 ÷ ගැලීම් ශීඝ්‍රතාව."
+   }
+  },
+  {
+   "id": "phy.therm.c010",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.heat.continuous-flow"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-20",
+   "note_ref": "phy.therm.note.flow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Water flows through a 2.1 kW heater at 0.5 kg per minute. Rise in temperature? (c of water = 4200 J kg⁻¹ K⁻¹)",
+    "si": "ජලය 2.1 kW තාපකයක් හරහා මිනිත්තුවට 0.5 kg බැගින් ගලයි. උෂ්ණත්වයේ වැඩි වීම කීය ද? (ජලයේ c = 4200 J kg⁻¹ K⁻¹)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "60 K",
+      "si": "60 K"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1 K",
+      "si": "1 K"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "15 K",
+      "si": "15 K"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Divide by the mass per second, don't multiply.",
+      "si": "තත්පරයකට ස්කන්ධයෙන් බෙදන්න, ගුණ නොකරන්න."
+     }
+    },
+    {
+     "text": {
+      "en": "30 K",
+      "si": "30 K"
+     },
+     "correct": false,
+     "tag": "forgot-mass"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "0.5 kg per minute is 1/120 kg s⁻¹. Δθ = 2100 ÷ (1/120 × 4200) = 60 K.",
+    "si": "මිනිත්තුවට 0.5 kg යනු 1/120 kg s⁻¹ කි. Δθ = 2100 ÷ (1/120 × 4200) = 60 K."
+   }
+  },
+  {
+   "id": "phy.therm.c011",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.state.mixtures-with-change"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-33",
+   "note_ref": "phy.therm.note.mixc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Water at 30 °C meets ice at −10 °C in an insulated flask. The water gives 12.6 kJ cooling to 0 °C, but the ice needs 35.7 kJ to warm and fully melt. Final state?",
+    "si": "පරිවාරණය කළ ෆ්ලාස්කුවක 30 °C හි ජලය −10 °C හි අයිස් හා මිශ්‍ර වේ. 0 °C දක්වා සිසිල් වීමේ දී ජලය 12.6 kJ දෙයි, නමුත් අයිස් රත් වී සම්පූර්ණයෙන් දිය වීමට 35.7 kJ අවශ්‍ය වේ. අවසාන තත්ත්වය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "0 °C, with some ice left",
+      "si": "0 °C, අයිස් කොටසක් ඉතිරිව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "10 °C, the average",
+      "si": "10 °C, සාමාන්‍යය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Above 0 °C, with all the ice melted",
+      "si": "0 °C ට ඉහළින්, සියලු අයිස් දිය වී"
+     },
+     "correct": false,
+     "tag": "ice-all-melts"
+    },
+    {
+     "text": {
+      "en": "Below 0 °C, with all the water frozen",
+      "si": "0 °C ට පහළින්, සියලු ජලය මිදී"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The water has more heat to give than the ice needs to reach 0 °C.",
+      "si": "අයිස් 0 °C ට ළඟා වීමට අවශ්‍ය තාපයට වඩා ජලයට දිය හැකි තාපය වැඩි ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "12.6 kJ is less than 35.7 kJ, so only part of the ice melts and the mix stays at 0 °C.",
+    "si": "12.6 kJ යනු 35.7 kJ ට වඩා අඩු ය, එබැවින් අයිස්වලින් කොටසක් පමණක් දිය වී මිශ්‍රණය 0 °C හි පවතී."
+   }
+  },
+  {
+   "id": "phy.therm.c012",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.therm.state.mixtures-with-change"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-35",
+   "note_ref": "phy.therm.note.mixc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Ice at 0 °C and water at 0 °C cool a drink equally well.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"0 °C හි අයිස් සහ 0 °C හි ජලය පානයක් සමානව සිසිල් කරයි.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Melting ice also takes in latent heat",
+      "si": "දිය වන අයිස් ගුප්ත තාපය ද ලබා ගනී"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: same temperature, same cooling",
+      "si": "කිසිවක් නැත: එකම උෂ්ණත්වය, එකම සිසිලනය"
+     },
+     "correct": false,
+     "tag": "forgot-latent"
+    },
+    {
+     "text": {
+      "en": "Water cools better, as its c is larger",
+      "si": "ජලයේ c විශාල නිසා ජලය වඩා හොඳින් සිසිල් කරයි"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Ice is better only if it is crushed",
+      "si": "අයිස් වඩා හොඳ වන්නේ කුඩු කළොත් පමණි"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Crushing changes how fast it cools, not the total heat taken in.",
+      "si": "කුඩු කිරීම වෙනස් කරන්නේ සිසිල් වන වේගය මිස, ලබාගන්නා මුළු තාපය නොවේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Each kilogram of ice takes in about 3.4 × 10⁵ J just to melt, before it warms.",
+    "si": "සෑම අයිස් කිලෝග්‍රෑමයක්ම රත් වීමට පෙර දිය වීමට පමණක් ආසන්න වශයෙන් 3.4 × 10⁵ J ලබා ගනී."
+   }
+  },
+  {
+   "id": "phy.therm.c013",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.therm.state.mixtures-with-change"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-35",
+   "note_ref": "phy.therm.note.mixc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "While ice melts at 0 °C, it takes in heat but its temperature stays at 0 °C.",
+    "si": "අයිස් 0 °C හි දිය වන අතරතුර එය තාපය ලබා ගනී, නමුත් එහි උෂ්ණත්වය 0 °C හි පවතී."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "heat-during-change"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "The heat goes into breaking bonds, not into raising the temperature.",
+    "si": "තාපය යන්නේ උෂ්ණත්වය වැඩි කිරීමට නොව, බන්ධන බිඳීමට ය."
+   }
+  },
+  {
+   "id": "phy.therm.c014",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.state.latent-errors"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2017-36",
+   "note_ref": "phy.therm.note.lat",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "To find the latent heat of fusion of ice by mixtures, the ice should be?",
+    "si": "මිශ්‍රණ ක්‍රමයෙන් අයිස්වල විලයනයේ ගුප්ත තාපය සෙවීමට අයිස් තිබිය යුත්තේ කෙසේ ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Dry and at 0 °C",
+      "si": "වියළි සහ 0 °C හි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Wet and at 0 °C",
+      "si": "තෙත් සහ 0 °C හි"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Dry and well below 0 °C",
+      "si": "වියළි සහ 0 °C ට බොහෝ පහළින්"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Crushed and wet",
+      "si": "කුඩු කළ සහ තෙත්"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Water on the ice, or ice below 0 °C, adds heat terms the calculation leaves out.",
+    "si": "අයිස් මත ඇති ජලය හෝ 0 °C ට පහළ අයිස්, ගණනයෙන් මඟහැරෙන තාප පද එකතු කරයි."
+   }
+  },
+  {
+   "id": "phy.therm.c015",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F03",
+   "skills": [
+    "phy.therm.gas.graphs"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-9",
+   "note_ref": "phy.therm.note.ggr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A fixed mass of gas at constant temperature. The graph of p against 1/V is?",
+    "si": "නියත උෂ්ණත්වයේ ඇති අචල වායු ස්කන්ධයකි. 1/V ට එරෙහිව p හි ප්‍රස්තාරය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "A straight line through the origin",
+      "si": "මූල ලක්ෂ්‍යය හරහා යන සරල රේඛාවක්"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "A curve",
+      "si": "වක්‍රයක්"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "A horizontal line",
+      "si": "තිරස් රේඛාවක්"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "A straight line with a negative gradient",
+      "si": "සෘණ අනුක්‍රමණයක් ඇති සරල රේඛාවක්"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "pV = constant, so p ∝ 1/V.",
+    "si": "pV = නියතයක්, එබැවින් p ∝ 1/V."
+   }
+  },
+  {
+   "id": "phy.therm.c016",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.therm.gas.graphs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-9",
+   "note_ref": "phy.therm.note.ggr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A fixed mass of ideal gas at constant pressure. Pick the graph of its density ρ against absolute temperature T.",
+    "si": "නියත පීඩනයේ ඇති පරිපූර්ණ වායුවක අචල ස්කන්ධයකි. නිරපේක්ෂ උෂ්ණත්වය T ට එරෙහිව එහි ඝනත්වය ρ හි ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Falling curve, ρ ∝ 1/T",
+      "si": "පහළ යන වක්‍රය, ρ ∝ 1/T"
+     },
+     "correct": true,
+     "asset": "figures/c016-1.svg"
+    },
+    {
+     "text": {
+      "en": "Falling straight line",
+      "si": "පහළ යන සරල රේඛාව"
+     },
+     "correct": false,
+     "tag": "wrong-power",
+     "asset": "figures/c016-2.svg"
+    },
+    {
+     "text": {
+      "en": "Rising straight line through the origin",
+      "si": "මූල ලක්ෂ්‍යය හරහා ඉහළ යන සරල රේඛාව"
+     },
+     "correct": false,
+     "tag": "inverted",
+     "asset": "figures/c016-3.svg"
+    },
+    {
+     "text": {
+      "en": "Horizontal line",
+      "si": "තිරස් රේඛාව"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The volume grows with T, so the density falls.",
+      "si": "T සමඟ පරිමාව වැඩි වේ, එබැවින් ඝනත්වය අඩු වේ."
+     },
+     "asset": "figures/c016-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "V ∝ T at constant p, and ρ = m/V, so ρ ∝ 1/T.",
+    "si": "නියත p හි දී V ∝ T, සහ ρ = m/V, එබැවින් ρ ∝ 1/T."
+   }
+  },
+  {
+   "id": "phy.therm.c017",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.therm.gas.graphs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-9",
+   "note_ref": "phy.therm.note.ggr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A fixed mass of ideal gas is kept at constant temperature. As its pressure rises, the product pV?",
+    "si": "පරිපූර්ණ වායුවක අචල ස්කන්ධයක් නියත උෂ්ණත්වයේ තබා ඇත. එහි පීඩනය වැඩි වන විට pV ගුණිතය?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Stays the same",
+      "si": "නොවෙනස්ව පවතී"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Increases",
+      "si": "වැඩි වේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Boyle's law: pV is constant at a fixed temperature.",
+      "si": "බොයිල් නියමය: අචල උෂ්ණත්වයක දී pV නියත ය."
+     }
+    },
+    {
+     "text": {
+      "en": "Decreases",
+      "si": "අඩු වේ"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Rises, then falls",
+      "si": "වැඩි වී, ඉන්පසු අඩු වේ"
+     },
+     "correct": false,
+     "tag": "graph-shape"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "At constant temperature, pV = nRT is constant.",
+    "si": "නියත උෂ්ණත්වයේ දී pV = nRT නියත ය."
+   }
+  },
+  {
+   "id": "phy.therm.c018",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In pV = nRT, the temperature T must be in?",
+    "si": "pV = nRT හි උෂ්ණත්වය T තිබිය යුත්තේ කුමන ඒකකයෙන් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "kelvin",
+      "si": "කෙල්වින්"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "°C",
+      "si": "°C"
+     },
+     "correct": false,
+     "tag": "celsius-in-gas-law"
+    },
+    {
+     "text": {
+      "en": "°F",
+      "si": "°F"
+     },
+     "correct": false,
+     "tag": "celsius-in-gas-law"
+    },
+    {
+     "text": {
+      "en": "Either °C or kelvin",
+      "si": "°C හෝ කෙල්වින් ඕනෑම එකක්"
+     },
+     "correct": false,
+     "tag": "celsius-in-gas-law"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Gas laws use the absolute temperature.",
+    "si": "වායු නියම නිරපේක්ෂ උෂ්ණත්වය භාවිත කරයි."
+   }
+  },
+  {
+   "id": "phy.therm.c019",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A sealed gas at 27 °C is heated to 127 °C at constant volume. Pressure × ?",
+    "si": "27 °C හි මුද්‍රා තැබූ වායුවක් නියත පරිමාවේ දී 127 °C දක්වා රත් කෙරේ. පීඩනය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "4/3",
+      "si": "4/3"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "127/27",
+      "si": "127/27"
+     },
+     "correct": false,
+     "tag": "celsius-in-gas-law"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "At constant volume, p rises with T.",
+      "si": "නියත පරිමාවේ දී T සමඟ p වැඩි වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "3/4",
+      "si": "3/4"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "p ∝ T in kelvin: 400 K ÷ 300 K.",
+    "si": "p ∝ T, කෙල්වින් වලින්: 400 K ÷ 300 K."
+   }
+  },
+  {
+   "id": "phy.therm.c020",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Doubling a gas's Celsius temperature doubles its pressure at constant volume.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"නියත පරිමාවේ දී වායුවක සෙල්සියස් උෂ්ණත්වය දෙගුණ කිරීම එහි පීඩනය දෙගුණ කරයි.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "p ∝ T only in kelvin",
+      "si": "p ∝ T වන්නේ කෙල්වින් වලින් පමණි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: p ∝ θ",
+      "si": "කිසිවක් නැත: p ∝ θ"
+     },
+     "correct": false,
+     "tag": "celsius-in-gas-law"
+    },
+    {
+     "text": {
+      "en": "The pressure halves instead",
+      "si": "ඒ වෙනුවට පීඩනය අඩක් වේ"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Pressure doesn't depend on temperature",
+      "si": "පීඩනය උෂ්ණත්වය මත රඳා නොපවතී"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "At constant volume, p ∝ T in kelvin.",
+      "si": "නියත පරිමාවේ දී p ∝ T, කෙල්වින් වලින්."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "20 °C to 40 °C is 293 K to 313 K, a rise of only about 7%.",
+    "si": "20 °C සිට 40 °C යනු 293 K සිට 313 K දක්වා, ආසන්න වශයෙන් 7% ක වැඩි වීමක් පමණි."
+   }
+  },
+  {
+   "id": "phy.therm.c021",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.kin.mean-ke-temperature"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2021-5",
+   "note_ref": "phy.therm.note.ke",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The mean KE of an ideal gas molecule depends on?",
+    "si": "පරිපූර්ණ වායු අණුවක මධ්‍යන්‍ය චාලක ශක්තිය රඳා පවතින්නේ කුමක් මත ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The absolute temperature only",
+      "si": "නිරපේක්ෂ උෂ්ණත්වය පමණි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The pressure",
+      "si": "පීඩනය"
+     },
+     "correct": false,
+     "tag": "ke-depends-on-gas"
+    },
+    {
+     "text": {
+      "en": "The volume",
+      "si": "පරිමාව"
+     },
+     "correct": false,
+     "tag": "ke-depends-on-gas"
+    },
+    {
+     "text": {
+      "en": "The molar mass of the gas",
+      "si": "වායුවේ මවුලික ස්කන්ධය"
+     },
+     "correct": false,
+     "tag": "ke-depends-on-gas"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Mean KE = (3/2)kT.",
+    "si": "මධ්‍යන්‍ය චාලක ශක්තිය = (3/2)kT."
+   }
+  },
+  {
+   "id": "phy.therm.c022",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.therm.kin.mean-ke-temperature"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-5",
+   "note_ref": "phy.therm.note.ke",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Absolute temperature × 2. Mean molecular KE × ?",
+    "si": "නිරපේක්ෂ උෂ්ණත්වය × 2. මධ්‍යන්‍ය අණුක චාලක ශක්තිය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "√2",
+      "si": "√2"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "√2 is for the r.m.s. speed, not the KE.",
+      "si": "√2 චාලක ශක්තිය සඳහා නොව, r.m.s. වේගය සඳහා ය."
+     }
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Mean KE ∝ T in kelvin.",
+      "si": "මධ්‍යන්‍ය චාලක ශක්තිය ∝ T, කෙල්වින් වලින්."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Mean KE = (3/2)kT, so it is proportional to T.",
+    "si": "මධ්‍යන්‍ය චාලක ශක්තිය = (3/2)kT, එබැවින් එය T ට අනුලෝමව සමානුපාතික ය."
+   }
+  },
+  {
+   "id": "phy.therm.c023",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.therm.kin.mean-ke-temperature"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-5",
+   "note_ref": "phy.therm.note.ke",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Helium (M = 4) and oxygen (M = 32) are at the same temperature. Mean molecular KE, helium : oxygen?",
+    "si": "හීලියම් (M = 4) සහ ඔක්සිජන් (M = 32) එකම උෂ්ණත්වයේ ඇත. මධ්‍යන්‍ය අණුක චාලක ශක්තිය, හීලියම් : ඔක්සිජන්?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "1 : 1",
+      "si": "1 : 1"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "8 : 1",
+      "si": "8 : 1"
+     },
+     "correct": false,
+     "tag": "ke-depends-on-gas"
+    },
+    {
+     "text": {
+      "en": "1 : 8",
+      "si": "1 : 8"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "√8 : 1",
+      "si": "√8 : 1"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Lighter molecules move faster, but the mean KE is the same.",
+      "si": "සැහැල්ලු අණු වේගයෙන් චලනය වේ, නමුත් මධ්‍යන්‍ය චාලක ශක්තිය සමාන ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Mean KE depends only on T, whatever the gas.",
+    "si": "වායුව කුමක් වුවත්, මධ්‍යන්‍ය චාලක ශක්තිය රඳා පවතින්නේ T මත පමණි."
+   }
+  },
+  {
+   "id": "phy.therm.c024",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.kin.rms-speed"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2019-15",
+   "note_ref": "phy.therm.note.rms",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Kinetic theory: p = ?",
+    "si": "චාලක වාදය: p = ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "⅓ρc̄²",
+      "si": "⅓ρc̄²"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "½ρc̄²",
+      "si": "½ρc̄²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ρc̄²",
+      "si": "ρc̄²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "⅓ρc̄",
+      "si": "⅓ρc̄"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "p = ⅓ρc̄², where c̄² is the mean square speed.",
+    "si": "p = ⅓ρc̄², මෙහි c̄² යනු මධ්‍යන්‍ය වර්ග වේගයයි."
+   }
+  },
+  {
+   "id": "phy.therm.c025",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.therm.kin.rms-speed"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-15",
+   "note_ref": "phy.therm.note.rms",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The same gas, absolute temperature × 4. r.m.s. speed × ?",
+    "si": "එකම වායුව, නිරපේක්ෂ උෂ්ණත්වය × 4. r.m.s. වේගය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "16",
+      "si": "16"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "c_rms ∝ √T.",
+    "si": "c_rms ∝ √T."
+   }
+  },
+  {
+   "id": "phy.therm.c026",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.kin.rms-speed"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-15",
+   "note_ref": "phy.therm.note.rms",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A gas at 1.2 × 10⁵ Pa has an r.m.s. molecular speed of 600 m s⁻¹. Its density?",
+    "si": "1.2 × 10⁵ Pa හි ඇති වායුවක අණුවල වර්ග මධ්‍යන්‍ය මූල (r.m.s.) වේගය 600 m s⁻¹ වේ. එහි ඝනත්වය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "1.0 kg m⁻³",
+      "si": "1.0 kg m⁻³"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "0.33 kg m⁻³",
+      "si": "0.33 kg m⁻³"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Include the 3: ρ = 3p ÷ c̄².",
+      "si": "3 ඇතුළත් කරන්න: ρ = 3p ÷ c̄²."
+     }
+    },
+    {
+     "text": {
+      "en": "0.67 kg m⁻³",
+      "si": "0.67 kg m⁻³"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The factor is ⅓, not ½.",
+      "si": "සාධකය ½ නොව, ⅓ වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "600 kg m⁻³",
+      "si": "600 kg m⁻³"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "ρ = 3p ÷ c̄² = 3.6 × 10⁵ ÷ 3.6 × 10⁵.",
+    "si": "ρ = 3p ÷ c̄² = 3.6 × 10⁵ ÷ 3.6 × 10⁵."
+   }
+  },
+  {
+   "id": "phy.therm.c027",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.heat.newton-cooling"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2020-34",
+   "note_ref": "phy.therm.note.cool",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Newton's law of cooling: rate of heat loss ∝ ?",
+    "si": "නිවුටන්ගේ සිසිලන නියමය: තාප හානි සීඝ්‍රතාව ∝ ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Excess temperature over the surroundings",
+      "si": "වටපිටාවට වඩා ඇති අතිරික්ත උෂ්ණත්වය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The body's temperature",
+      "si": "වස්තුවේ උෂ්ණත්වය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "The surroundings' temperature",
+      "si": "වටපිටාවේ උෂ්ණත්වය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "The square of the excess temperature",
+      "si": "අතිරික්ත උෂ්ණත්වයේ වර්ගය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Rate of loss ∝ (θ − θ_room).",
+    "si": "හානි සීඝ්‍රතාව ∝ (θ − θ_room)."
+   }
+  },
+  {
+   "id": "phy.therm.c028",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.heat.newton-cooling"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-34",
+   "note_ref": "phy.therm.note.cool",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A body in a room at 20 °C cools from 70 °C to 60 °C in 4 min. Using average temperatures, time to cool from 40 °C to 30 °C?",
+    "si": "20 °C කාමරයක ඇති වස්තුවක් 4 min කින් 70 °C සිට 60 °C දක්වා සිසිල් වේ. සාමාන්‍ය උෂ්ණත්ව භාවිතයෙන්, 40 °C සිට 30 °C දක්වා සිසිල් වීමට ගතවන කාලය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "12 min",
+      "si": "12 min"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "4 min",
+      "si": "4 min"
+     },
+     "correct": false,
+     "tag": "cooling-constant-rate"
+    },
+    {
+     "text": {
+      "en": "7.4 min",
+      "si": "7.4 min"
+     },
+     "correct": false,
+     "tag": "room-temp-excess"
+    },
+    {
+     "text": {
+      "en": "1.3 min",
+      "si": "1.3 min"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Average excess falls from 45 K to 15 K, so the rate falls to a third and the time triples.",
+    "si": "සාමාන්‍ය අතිරික්තය 45 K සිට 15 K දක්වා අඩු වේ, එබැවින් සීඝ්‍රතාව තුනෙන් එකක් වන අතර කාලය තුන් ගුණ වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c029",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.therm.heat.newton-cooling"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-34",
+   "note_ref": "phy.therm.note.cool",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Tea cools from 80 °C to 70 °C in 2 min, so it cools from 50 °C to 40 °C in 2 min too.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"තේ 2 min කින් 80 °C සිට 70 °C දක්වා සිසිල් වේ, එබැවින් 50 °C සිට 40 °C දක්වා ද 2 min කින් සිසිල් වේ.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "It cools more slowly nearer room temperature",
+      "si": "කාමර උෂ්ණත්වයට ළං වන විට එය සෙමින් සිසිල් වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: cooling is steady",
+      "si": "කිසිවක් නැත: සිසිලනය ඒකාකාර ය"
+     },
+     "correct": false,
+     "tag": "cooling-constant-rate"
+    },
+    {
+     "text": {
+      "en": "It cools faster at lower temperatures",
+      "si": "අඩු උෂ්ණත්වවල දී එය වේගයෙන් සිසිල් වේ"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "It takes 2 min only if the cup is covered",
+      "si": "කෝප්පය වසා ඇත්නම් පමණක් එයට 2 min ගත වේ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Covering changes the rate, but the rate still falls as the tea cools.",
+      "si": "ආවරණය කිරීම සීඝ්‍රතාව වෙනස් කරයි, නමුත් තේ සිසිල් වන විට සීඝ්‍රතාව තවමත් අඩු වේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The rate of cooling is proportional to the excess over room temperature.",
+    "si": "සිසිලන සීඝ්‍රතාව කාමර උෂ්ණත්වයට වඩා ඇති අතිරික්තයට අනුලෝමව සමානුපාතික ය."
+   }
+  },
+  {
+   "id": "phy.therm.c030",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.hum.absolute-humidity"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-28",
+   "note_ref": "phy.therm.note.abs",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Absolute humidity is?",
+    "si": "නිරපේක්ෂ ආර්ද්‍රතාව යනු?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Mass of water vapour per unit volume of air",
+      "si": "ඒකක වාත පරිමාවකට ජල වාෂ්ප ස්කන්ධය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Vapour pressure ÷ saturated vapour pressure",
+      "si": "වාෂ්ප පීඩනය ÷ සංතෘප්ත වාෂ්ප පීඩනය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Mass of water vapour per unit mass of air",
+      "si": "ඒකක වාත ස්කන්ධයකට ජල වාෂ්ප ස්කන්ධය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Volume of water vapour per unit volume of air",
+      "si": "ඒකක වාත පරිමාවකට ජල වාෂ්ප පරිමාව"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "It is measured in kg m⁻³ or g m⁻³.",
+    "si": "එය kg m⁻³ හෝ g m⁻³ වලින් මනිනු ලැබේ."
+   }
+  },
+  {
+   "id": "phy.therm.c031",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.hum.relative-humidity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-13",
+   "note_ref": "phy.therm.note.rh",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Air at 30 °C has a dew point of 20 °C. The SVP of water is 4.2 kPa at 30 °C and 2.3 kPa at 20 °C. Relative humidity?",
+    "si": "30 °C හි වාතයක තුෂාර අංකය 20 °C වේ. ජලයේ සංතෘප්ත වාෂ්ප පීඩනය (SVP) 30 °C හි 4.2 kPa ද 20 °C හි 2.3 kPa ද වේ. සාපේක්ෂ ආර්ද්‍රතාව කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "55%",
+      "si": "55%"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "182%",
+      "si": "182%"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "67%",
+      "si": "67%"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "RH uses vapour pressures, not temperatures.",
+      "si": "RH උෂ්ණත්ව නොව, වාෂ්ප පීඩන භාවිත කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "45%",
+      "si": "45%"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That's 100% minus the RH.",
+      "si": "එය 100% න් RH අඩු කළ අගයයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The vapour pressure equals the SVP at the dew point, so RH = 2.3 ÷ 4.2.",
+    "si": "වාෂ්ප පීඩනය තුෂාර අංකයේ SVP ට සමාන ය, එබැවින් RH = 2.3 ÷ 4.2."
+   }
+  },
+  {
+   "id": "phy.therm.c032",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.hum.dew-point"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2019-13",
+   "note_ref": "phy.therm.note.dew",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The dew point is the temperature at which?",
+    "si": "තුෂාර අංකය යනු කුමක් සිදු වන උෂ්ණත්වය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The air's own vapour just saturates it",
+      "si": "වාතයේම ඇති වාෂ්පය එය හරියටම සංතෘප්ත කරයි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Water starts to boil",
+      "si": "ජලය නැටීමට පටන් ගනී"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Water starts to freeze",
+      "si": "ජලය මිදීමට පටන් ගනී"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "All the vapour in the air condenses",
+      "si": "වාතයේ ඇති සියලු වාෂ්ප ඝනීභවනය වේ"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Cooled to the dew point, the air becomes saturated with the vapour it already holds.",
+    "si": "තුෂාර අංකය දක්වා සිසිල් කළ විට, වාතය දැනටමත් දරන වාෂ්පයෙන් සංතෘප්ත වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c033",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.therm.hum.dew-point"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2019-13",
+   "note_ref": "phy.therm.note.dew",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Reducing the volume of saturated air at constant temperature raises its vapour pressure.",
+    "si": "නියත උෂ්ණත්වයේ දී සංතෘප්ත වාතයේ පරිමාව අඩු කිරීම එහි වාෂ්ප පීඩනය වැඩි කරයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "svp-boyle"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Extra vapour condenses, so the saturated vapour pressure stays the same.",
+    "si": "අමතර වාෂ්ප ඝනීභවනය වේ, එබැවින් සංතෘප්ත වාෂ්ප පීඩනය නොවෙනස්ව පවතී."
+   }
+  },
+  {
+   "id": "phy.therm.c034",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.hum.mixing-air"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-13",
+   "note_ref": "phy.therm.note.mixa",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Room A (volume 2V) at RH 50% and room B (volume V) at RH 80% are at the same temperature. The door between them stays open. Final RH?",
+    "si": "RH 50% වූ A කාමරය (පරිමාව 2V) සහ RH 80% වූ B කාමරය (පරිමාව V) එකම උෂ්ණත්වයේ ඇත. ඒවා අතර දොර විවෘතව පවතී. අවසාන RH කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "60%",
+      "si": "60%"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "65%",
+      "si": "65%"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "130%",
+      "si": "130%"
+     },
+     "correct": false,
+     "tag": "sign"
+    },
+    {
+     "text": {
+      "en": "70%",
+      "si": "70%"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The vapour spreads through 3V: (2 × 50 + 1 × 80) ÷ 3 = 60%.",
+    "si": "වාෂ්පය 3V පුරා පැතිරේ: (2 × 50 + 1 × 80) ÷ 3 = 60%."
+   }
+  },
+  {
+   "id": "phy.therm.c035",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.therm.thermo.first-law"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2021-30",
+   "note_ref": "phy.therm.note.fl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "First law of thermodynamics, with ΔW the work done by the gas: ΔQ = ?",
+    "si": "තාප ගති විද්‍යාවේ පළමුවැනි නියමය, ΔW යනු වායුව විසින් කරන ලද කාර්යය ලෙස: ΔQ = ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔU + ΔW",
+      "si": "ΔU + ΔW"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔU − ΔW",
+      "si": "ΔU − ΔW"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ΔW − ΔU",
+      "si": "ΔW − ΔU"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "ΔU × ΔW",
+      "si": "ΔU × ΔW"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Heat in = rise in internal energy + work done by the gas.",
+    "si": "ලැබෙන තාපය = අභ්‍යන්තර ශක්තියේ වැඩි වීම + වායුව විසින් කරන ලද කාර්යය."
+   }
+  },
+  {
+   "id": "phy.therm.c036",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.therm.thermo.first-law"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-30",
+   "note_ref": "phy.therm.note.fl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A gas takes in 500 J of heat and does 200 J of work on its surroundings. Change in its internal energy?",
+    "si": "වායුවක් තාපය 500 J ක් ලබාගෙන වටපිටාව මත 200 J කාර්යයක් කරයි. එහි අභ්‍යන්තර ශක්තියේ වෙනස කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "+300 J",
+      "si": "+300 J"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "+700 J",
+      "si": "+700 J"
+     },
+     "correct": false,
+     "tag": "sign"
+    },
+    {
+     "text": {
+      "en": "+500 J",
+      "si": "+500 J"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Some of the heat leaves as work.",
+      "si": "තාපයෙන් කොටසක් කාර්යය ලෙස පිට වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "−300 J",
+      "si": "−300 J"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "ΔU = ΔQ − ΔW = 500 − 200.",
+    "si": "ΔU = ΔQ − ΔW = 500 − 200."
+   }
+  },
+  {
+   "id": "phy.therm.c037",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In which process does all the heat given to an ideal gas become work done by the gas?",
+    "si": "පරිපූර්ණ වායුවකට දෙන සියලු තාපය වායුව විසින් කරන ලද කාර්යය බවට පත් වන්නේ කුමන ක්‍රියාවලියේ දී ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Isothermal",
+      "si": "සමෝෂ්ණ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Constant volume",
+      "si": "නියත පරිමාව"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "At constant volume no work is done.",
+      "si": "නියත පරිමාවේ දී කාර්යයක් සිදු නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Constant pressure",
+      "si": "නියත පීඩනය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "At constant pressure, part of the heat raises U.",
+      "si": "නියත පීඩනයේ දී තාපයෙන් කොටසක් U වැඩි කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "Adiabatic",
+      "si": "අනුෂ්ණීය"
+     },
+     "correct": false,
+     "tag": "adiabatic-constant-t"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Isothermal means ΔU = 0, so ΔQ = ΔW.",
+    "si": "සමෝෂ්ණ යනු ΔU = 0, එබැවින් ΔQ = ΔW."
+   }
+  },
+  {
+   "id": "phy.therm.c038",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In which process is the rise in internal energy equal to the heat supplied?",
+    "si": "අභ්‍යන්තර ශක්තියේ වැඩි වීම සැපයූ තාපයට සමාන වන්නේ කුමන ක්‍රියාවලියේ දී ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Constant volume",
+      "si": "නියත පරිමාව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Constant pressure",
+      "si": "නියත පීඩනය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "At constant pressure the gas also does work.",
+      "si": "නියත පීඩනයේ දී වායුව කාර්යය ද කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "Isothermal",
+      "si": "සමෝෂ්ණ"
+     },
+     "correct": false,
+     "tag": "isothermal-no-heat"
+    },
+    {
+     "text": {
+      "en": "Adiabatic",
+      "si": "අනුෂ්ණීය"
+     },
+     "correct": false,
+     "tag": "adiabatic-constant-t"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "At constant volume ΔW = 0, so ΔQ = ΔU.",
+    "si": "නියත පරිමාවේ දී ΔW = 0, එබැවින් ΔQ = ΔU."
+   }
+  },
+  {
+   "id": "phy.therm.c039",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In an adiabatic expansion, an ideal gas's temperature stays the same.",
+    "si": "අනුෂ්ණීය ප්‍රසාරණයක දී පරිපූර්ණ වායුවක උෂ්ණත්වය නොවෙනස්ව පවතී."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "adiabatic-constant-t"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "No heat flows in, so the work done comes from U and the gas cools.",
+    "si": "තාපය ඇතුළට නොගලයි, එබැවින් කරන කාර්යය U මගින් ලැබෙන අතර වායුව සිසිල් වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c040",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In an isothermal expansion of an ideal gas, heat flows into the gas.",
+    "si": "පරිපූර්ණ වායුවක සමෝෂ්ණ ප්‍රසාරණයක දී තාපය වායුව තුළට ගලයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "isothermal-no-heat"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "ΔU = 0, so the heat taken in equals the work done by the gas.",
+    "si": "ΔU = 0, එබැවින් ලබාගත් තාපය වායුව විසින් කරන ලද කාර්යයට සමාන ය."
+   }
+  },
+  {
+   "id": "phy.therm.c041",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.therm.cond.composite-rods"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2018-40",
+   "note_ref": "phy.therm.note.rods",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Two rods of the same size, with conductivities k and 3k, are joined end to end between two reservoirs. Temperature drop across the k rod ÷ total drop?",
+    "si": "සන්නායකතා k සහ 3k වූ එකම ප්‍රමාණයේ දඬු දෙකක් තාප ආශය දෙකක් අතර කෙළවරින් කෙළවරට සම්බන්ධ කර ඇත. k දණ්ඩ හරහා උෂ්ණත්ව අඩු වීම ÷ මුළු අඩු වීම?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "¾",
+      "si": "¾"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The other rod has a temperature drop across it too.",
+      "si": "අනෙක් දණ්ඩ හරහා ද උෂ්ණත්ව අඩු වීමක් ඇත."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The same heat flows through both, so the drop is larger where k is smaller: 3 : 1.",
+    "si": "දෙක හරහාම එකම තාපය ගලයි, එබැවින් k කුඩා තැන අඩු වීම විශාල ය: 3 : 1."
+   }
+  },
+  {
+   "id": "phy.therm.c042",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.therm.cond.temperature-profile"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-47",
+   "note_ref": "phy.therm.note.prof",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A uniform copper bar is fully lagged, and its ends are held at θ₁ and θ₂ (θ₁ > θ₂). Pick the graph of temperature θ along the bar, in steady state.",
+    "si": "ඒකාකාර තඹ දණ්ඩක් සම්පූර්ණයෙන් පරිවාරණය කර, එහි කෙළවර θ₁ සහ θ₂ (θ₁ > θ₂) හි තබා ඇත. අනවරත අවස්ථාවේ දී දණ්ඩ දිගේ උෂ්ණත්වය θ හි ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Straight line falling from θ₁ to θ₂",
+      "si": "θ₁ සිට θ₂ දක්වා පහළ යන සරල රේඛාව"
+     },
+     "correct": true,
+     "asset": "figures/c042-1.svg"
+    },
+    {
+     "text": {
+      "en": "Curve falling steeply, then gently",
+      "si": "මුලින් තියුණුව, ඉන්පසු සෙමින් පහළ යන වක්‍රය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "No heat escapes a lagged bar, so the gradient is the same all along.",
+      "si": "පරිවාරණය කළ දණ්ඩකින් තාපය පිට නොවේ, එබැවින් අනුක්‍රමණය දිගේම සමාන ය."
+     },
+     "asset": "figures/c042-2.svg"
+    },
+    {
+     "text": {
+      "en": "Straight line rising along the bar",
+      "si": "දණ්ඩ දිගේ ඉහළ යන සරල රේඛාව"
+     },
+     "correct": false,
+     "tag": "inverted",
+     "asset": "figures/c042-3.svg"
+    },
+    {
+     "text": {
+      "en": "Horizontal line",
+      "si": "තිරස් රේඛාව"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Steady state means steady temperatures, not equal ones.",
+      "si": "අනවරත අවස්ථාව යනු සමාන උෂ්ණත්ව නොව, නොවෙනස් උෂ්ණත්වයි."
+     },
+     "asset": "figures/c042-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The same heat flows through every section, so the temperature gradient is constant.",
+    "si": "සෑම කොටසක් හරහාම එකම තාපය ගලයි, එබැවින් උෂ්ණත්ව අනුක්‍රමණය නියත ය."
+   }
+  },
+  {
+   "id": "phy.therm.c043",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.therm.cond.temperature-profile"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-47",
+   "note_ref": "phy.therm.note.prof",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The same copper bar, now unlagged, with its ends held at θ₁ and θ₂ (θ₁ > θ₂). Pick the graph of θ along the bar, in steady state.",
+    "si": "එම තඹ දණ්ඩම, දැන් පරිවාරණය නොකර, එහි කෙළවර θ₁ සහ θ₂ (θ₁ > θ₂) හි තබා ඇත. අනවරත අවස්ථාවේ දී දණ්ඩ දිගේ θ හි ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Curve falling steeply, then gently",
+      "si": "මුලින් තියුණුව, ඉන්පසු සෙමින් පහළ යන වක්‍රය"
+     },
+     "correct": true,
+     "asset": "figures/c043-1.svg"
+    },
+    {
+     "text": {
+      "en": "Straight line falling from θ₁ to θ₂",
+      "si": "θ₁ සිට θ₂ දක්වා පහළ යන සරල රේඛාව"
+     },
+     "correct": false,
+     "tag": "lagged-linear",
+     "asset": "figures/c043-2.svg"
+    },
+    {
+     "text": {
+      "en": "Curve falling gently, then steeply",
+      "si": "මුලින් සෙමින්, ඉන්පසු තියුණුව පහළ යන වක්‍රය"
+     },
+     "correct": false,
+     "tag": "inverted",
+     "asset": "figures/c043-3.svg"
+    },
+    {
+     "text": {
+      "en": "Horizontal line",
+      "si": "තිරස් රේඛාව"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Steady state means steady temperatures, not equal ones.",
+      "si": "අනවරත අවස්ථාව යනු සමාන උෂ්ණත්ව නොව, නොවෙනස් උෂ්ණත්වයි."
+     },
+     "asset": "figures/c043-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Heat leaks out of the sides, so less flows further along and the gradient gets smaller.",
+    "si": "තාපය පැතිවලින් කාන්දු වේ, එබැවින් ඉදිරියට ගලන්නේ අඩුවෙන් වන අතර අනුක්‍රමණය කුඩා වේ."
+   }
+  },
+  {
+   "id": "phy.therm.c044",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.therm.cond.temperature-profile"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-47",
+   "note_ref": "phy.therm.note.prof",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In an unlagged bar in steady state, the same heat flows through every cross-section.",
+    "si": "අනවරත අවස්ථාවේ ඇති පරිවාරණය නොකළ දණ්ඩක සෑම හරස්කඩක් හරහාම එකම තාපය ගලයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "lagged-linear"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Heat escapes from the sides, so less heat reaches the far end.",
+    "si": "පැතිවලින් තාපය පිට වේ, එබැවින් ඈත කෙළවරට ළඟා වන්නේ අඩු තාපයකි."
+   }
+  }
+ ],
+ "pools": [
+  {
+   "id": "phy.therm.p01-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "An ideal gas expands slowly at constant temperature. Which is zero?",
+    "si": "පරිපූර්ණ වායුවක් නියත උෂ්ණත්වයේ දී සෙමින් ප්‍රසාරණය වේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The gas expands, so it does work.",
+      "si": "වායුව ප්‍රසාරණය වේ, එබැවින් එය කාර්යය කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": false,
+     "tag": "isothermal-no-heat"
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "At constant T, the U of an ideal gas doesn't change.",
+      "si": "නියත T හි දී පරිපූර්ණ වායුවක U වෙනස් නොවේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "U of an ideal gas depends only on T, which doesn't change.",
+    "si": "පරිපූර්ණ වායුවක U රඳා පවතින්නේ T මත පමණක් වන අතර එය වෙනස් නොවේ."
+   }
+  },
+  {
+   "id": "phy.therm.p01-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "A gas in a sealed, rigid tank is heated. Which is zero?",
+    "si": "මුද්‍රා තැබූ දෘඪ ටැංකියක ඇති වායුවක් රත් කෙරේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Heating at constant volume raises U.",
+      "si": "නියත පරිමාවේ දී රත් කිරීම U වැඩි කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Heat is supplied, so ΔQ isn't zero.",
+      "si": "තාපය සැපයේ, එබැවින් ΔQ ශුන්‍ය නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The volume can't change, so no work is done.",
+      "si": "පරිමාව වෙනස් විය නොහැක, එබැවින් කාර්යයක් සිදු නොවේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The volume can't change, so no work is done.",
+    "si": "පරිමාව වෙනස් විය නොහැක, එබැවින් කාර්යයක් සිදු නොවේ."
+   }
+  },
+  {
+   "id": "phy.therm.p01-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "A gas is compressed quickly in an insulated cylinder. Which is zero?",
+    "si": "පරිවාරණය කළ සිලින්ඩරයක වායුවක් ඉක්මනින් සම්පීඩනය කෙරේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": false,
+     "tag": "adiabatic-constant-t"
+    },
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The gas is compressed, so work is done on it.",
+      "si": "වායුව සම්පීඩනය වේ, එබැවින් එය මත කාර්යය කෙරේ."
+     }
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Insulated means no heat flows.",
+      "si": "පරිවාරණය කළ යනු තාපය නොගලන බවයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Insulated and quick means adiabatic: no heat flows.",
+    "si": "පරිවාරණය කළ සහ ඉක්මන් යනු අනුෂ්ණීය ය: තාපය නොගලයි."
+   }
+  },
+  {
+   "id": "phy.therm.p01-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "A gas is squeezed slowly in a cylinder that sits in a large water bath. Which is zero?",
+    "si": "විශාල ජල තටාකයක ඇති සිලින්ඩරයක වායුවක් සෙමින් සම්පීඩනය කෙරේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The gas is compressed, so work is done on it.",
+      "si": "වායුව සම්පීඩනය වේ, එබැවින් එය මත කාර්යය කෙරේ."
+     }
+    },
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": false,
+     "tag": "isothermal-no-heat"
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The water bath keeps T, and so U, the same.",
+      "si": "ජල තටාකය T, එබැවින් U ද, නොවෙනස්ව තබයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The water bath keeps the temperature constant, so U doesn't change.",
+    "si": "ජල තටාකය උෂ්ණත්වය නියතව තබයි, එබැවින් U වෙනස් නොවේ."
+   }
+  },
+  {
+   "id": "phy.therm.p01-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "A gas in a sealed steel cylinder cools overnight. Which is zero?",
+    "si": "මුද්‍රා තැබූ වානේ සිලින්ඩරයක ඇති වායුවක් රාත්‍රිය පුරා සිසිල් වේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The gas cools, so its U falls.",
+      "si": "වායුව සිසිල් වේ, එබැවින් එහි U අඩු වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Heat flows out as it cools.",
+      "si": "එය සිසිල් වන විට තාපය පිටතට ගලයි."
+     }
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "A steel cylinder can't change volume, so no work is done.",
+      "si": "වානේ සිලින්ඩරයකට පරිමාව වෙනස් කළ නොහැක, එබැවින් කාර්යයක් සිදු නොවේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The volume is fixed, so ΔW = 0.",
+    "si": "පරිමාව අචල ය, එබැවින් ΔW = 0."
+   }
+  },
+  {
+   "id": "phy.therm.p01-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.therm.thermo.processes"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-10",
+   "note_ref": "phy.therm.note.proc",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p01",
+   "text": {
+    "en": "A gas expands quickly through a valve into an insulated cylinder, pushing a piston. Which is zero?",
+    "si": "වායුවක් පිස්ටනයක් තල්ලු කරමින් කපාටයක් හරහා පරිවාරණය කළ සිලින්ඩරයකට ඉක්මනින් ප්‍රසාරණය වේ. ශුන්‍ය වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "ΔQ",
+      "si": "ΔQ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "ΔU",
+      "si": "ΔU"
+     },
+     "correct": false,
+     "tag": "adiabatic-constant-t"
+    },
+    {
+     "text": {
+      "en": "ΔW",
+      "si": "ΔW"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The gas pushes a piston, so it does work.",
+      "si": "වායුව පිස්ටනයක් තල්ලු කරයි, එබැවින් එය කාර්යය කරයි."
+     }
+    },
+    {
+     "text": {
+      "en": "None of them",
+      "si": "ඒ කිසිවක් නොවේ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Insulated means no heat flows.",
+      "si": "පරිවාරණය කළ යනු තාපය නොගලන බවයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "No heat can flow, so the process is adiabatic.",
+    "si": "තාපය ගැලිය නොහැක, එබැවින් ක්‍රියාවලිය අනුෂ්ණීය ය."
+   }
+  },
+  {
+   "id": "phy.therm.p02-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "A balloon is squeezed slowly at room temperature. You need its new pressure. Most direct law?",
+    "si": "බැලූනයක් කාමර උෂ්ණත්වයේ දී සෙමින් තද කෙරේ. එහි නව පීඩනය සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Charles's law needs constant pressure, and it isn't constant here.",
+      "si": "චාර්ල්ස් නියමයට නියත පීඩනයක් අවශ්‍ය වන අතර මෙහි එය නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The volume changes here, so the pressure law doesn't apply.",
+      "si": "මෙහි පරිමාව වෙනස් වේ, එබැවින් පීඩන නියමය අදාළ නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The temperature and the amount of gas stay fixed.",
+    "si": "උෂ්ණත්වය සහ වායු ප්‍රමාණය අචලව පවතී."
+   }
+  },
+  {
+   "id": "phy.therm.p02-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "A sealed syringe is pushed in slowly, with its temperature unchanged. You need the new pressure. Most direct law?",
+    "si": "මුද්‍රා තැබූ සිරිංජයක් එහි උෂ්ණත්වය නොවෙනස්ව සෙමින් ඇතුළට තල්ලු කෙරේ. නව පීඩනය සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Charles's law needs constant pressure, and it isn't constant here.",
+      "si": "චාර්ල්ස් නියමයට නියත පීඩනයක් අවශ්‍ය වන අතර මෙහි එය නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The volume changes here, so the pressure law doesn't apply.",
+      "si": "මෙහි පරිමාව වෙනස් වේ, එබැවින් පීඩන නියමය අදාළ නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Fixed mass and temperature: pV is constant.",
+    "si": "අචල ස්කන්ධය සහ උෂ්ණත්වය: pV නියත ය."
+   }
+  },
+  {
+   "id": "phy.therm.p02-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "A sealed, rigid can of gas is heated. You need the new pressure. Most direct law?",
+    "si": "වායුව ඇති මුද්‍රා තැබූ දෘඪ ටින් එකක් රත් කෙරේ. නව පීඩනය සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The temperature changes here, so pV isn't constant.",
+      "si": "මෙහි උෂ්ණත්වය වෙනස් වේ, එබැවින් pV නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Charles's law needs constant pressure, and it isn't constant here.",
+      "si": "චාර්ල්ස් නියමයට නියත පීඩනයක් අවශ්‍ය වන අතර මෙහි එය නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The volume can't change, so p ∝ T.",
+    "si": "පරිමාව වෙනස් විය නොහැක, එබැවින් p ∝ T."
+   }
+  },
+  {
+   "id": "phy.therm.p02-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "A closed steel cylinder of gas warms in the sun. You need the new pressure. Most direct law?",
+    "si": "වායුව ඇති වසා ඇති වානේ සිලින්ඩරයක් අව්වේ රත් වේ. නව පීඩනය සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The temperature changes here, so pV isn't constant.",
+      "si": "මෙහි උෂ්ණත්වය වෙනස් වේ, එබැවින් pV නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Charles's law needs constant pressure, and it isn't constant here.",
+      "si": "චාර්ල්ස් නියමයට නියත පීඩනයක් අවශ්‍ය වන අතර මෙහි එය නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Fixed volume, so p ∝ T.",
+    "si": "අචල පරිමාව, එබැවින් p ∝ T."
+   }
+  },
+  {
+   "id": "phy.therm.p02-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "Gas under a free, frictionless piston is heated. You need its new volume. Most direct law?",
+    "si": "නිදහස්, ඝර්ෂණ රහිත පිස්ටනයක් යට ඇති වායුවක් රත් කෙරේ. එහි නව පරිමාව සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The temperature changes here, so pV isn't constant.",
+      "si": "මෙහි උෂ්ණත්වය වෙනස් වේ, එබැවින් pV නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "The pressure is fixed here. It's the volume that changes.",
+      "si": "මෙහි පීඩනය අචල ය. වෙනස් වන්නේ පරිමාවයි."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The piston keeps the pressure fixed, so V ∝ T.",
+    "si": "පිස්ටනය පීඩනය අචලව තබයි, එබැවින් V ∝ T."
+   }
+  },
+  {
+   "id": "phy.therm.p02-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.therm.p02",
+   "text": {
+    "en": "A soap bubble's air cools at constant pressure. You need its new volume. Most direct law?",
+    "si": "සබන් බුබුළක වාතය නියත පීඩනයේ දී සිසිල් වේ. එහි නව පරිමාව සෙවිය යුතු ය. වඩාත්ම සෘජු නියමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Charles's law",
+      "si": "චාර්ල්ස් නියමය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Boyle's law",
+      "si": "බොයිල් නියමය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The temperature changes here, so pV isn't constant.",
+      "si": "මෙහි උෂ්ණත්වය වෙනස් වේ, එබැවින් pV නියත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The pressure law",
+      "si": "පීඩන නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "The pressure is fixed here. It's the volume that changes.",
+      "si": "මෙහි පීඩනය අචල ය. වෙනස් වන්නේ පරිමාවයි."
+     }
+    },
+    {
+     "text": {
+      "en": "Dalton's law",
+      "si": "ඩෝල්ටන් නියමය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Dalton's law is for a mixture of gases. There's only one here.",
+      "si": "ඩෝල්ටන් නියමය වායු මිශ්‍රණයක් සඳහා ය. මෙහි ඇත්තේ එක් වායුවක් පමණි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Constant pressure, so V ∝ T.",
+    "si": "නියත පීඩනය, එබැවින් V ∝ T."
+   }
+  }
+ ],
+ "templates": [
+  {
+   "id": "phy.therm.t01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.exp.linear"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2023-27",
+   "note_ref": "phy.therm.note.lin",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A steel tape, correct at {t0} °C, is used at {t} °C to measure {L} m. How far out is its reading, in mm? (α of steel = {a} × 10⁻⁵ K⁻¹)",
+    "si": "{t0} °C හි නිවැරදි වානේ මිනුම් පටියක් {L} m මැනීමට {t} °C හි භාවිත කෙරේ. එහි පාඨාංකයේ දෝෂය mm කීය ද? (වානේවල α = {a} × 10⁻⁵ K⁻¹)"
+   },
+   "params": {
+    "L": {
+     "set": [
+      10,
+      20,
+      25,
+      30,
+      40,
+      50
+     ],
+     "unit": "m"
+    },
+    "t0": {
+     "set": [
+      15,
+      20,
+      25
+     ],
+     "unit": "K"
+    },
+    "t": {
+     "set": [
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70
+     ],
+     "unit": "K"
+    },
+    "a": {
+     "set": [
+      1.1,
+      1.2
+     ],
+     "unit": "K^-1"
+    }
+   },
+   "answer": {
+    "expr": "L*a*1e-5*(t - t0)*1000",
+    "unit": "mm",
+    "dim": "m"
+   },
+   "verify": [
+    "answer/1000 == L*(a/100000)*(t - t0)"
+   ],
+   "distractors": [
+    {
+     "tag": "misread-interval",
+     "expr": "L*a*1e-5*t*1000",
+     "detail": "Use the change in temperature, not the temperature itself.",
+     "detail_si": "උෂ්ණත්වයම නොව, උෂ්ණත්ව වෙනස භාවිත කරන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "L*a*1e-5*t0*1000",
+     "detail": "That uses the calibration temperature, not the change.",
+     "detail_si": "එය උෂ්ණත්ව වෙනස නොව, ක්‍රමාංකන උෂ්ණත්වය භාවිත කරයි."
+    },
+    {
+     "tag": "sign",
+     "expr": "L*a*1e-5*(t + t0)*1000"
+    },
+    {
+     "tag": "unit-conversion",
+     "expr": "L*a*1e-5*(t - t0)*100"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "L*a*1e-6*(t - t0)*1000",
+     "detail": "α is × 10⁻⁵, not × 10⁻⁶.",
+     "detail_si": "α යනු × 10⁻⁶ නොව, × 10⁻⁵ වේ."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Error = L × α × Δθ. The tape reads short, because its marks have spread apart.",
+    "si": "දෝෂය = L × α × Δθ. පටියේ සලකුණු ඈත් වී ඇති නිසා එය අඩුවෙන් පෙන්වයි."
+   },
+   "constraints": [
+    "t > t0",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.therm.t02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.state.mixtures-with-change"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2020-35",
+   "note_ref": "phy.therm.note.mixc",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Heat needed to turn {m} g of ice at {Ti} °C into water at {Tf} °C? (c of ice = 2100, c of water = 4200 J kg⁻¹ K⁻¹; latent heat of fusion = 3.36 × 10⁵ J kg⁻¹)",
+    "si": "{Ti} °C හි අයිස් {m} g ක් {Tf} °C හි ජලය බවට පත් කිරීමට අවශ්‍ය තාපය කීය ද? (අයිස්වල c = 2100, ජලයේ c = 4200 J kg⁻¹ K⁻¹; විලයනයේ ගුප්ත තාපය = 3.36 × 10⁵ J kg⁻¹)"
+   },
+   "params": {
+    "m": {
+     "set": [
+      50,
+      100,
+      200,
+      250,
+      500
+     ],
+     "unit": "kg"
+    },
+    "Ti": {
+     "set": [
+      -4,
+      -5,
+      -8,
+      -10,
+      -15,
+      -20
+     ],
+     "unit": "K"
+    },
+    "Tf": {
+     "set": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      40,
+      50
+     ],
+     "unit": "K"
+    }
+   },
+   "answer": {
+    "expr": "m/1000*(2100*(-Ti) + 336000 + 4200*Tf)/1000",
+    "unit": "kJ",
+    "dim_skip": true
+   },
+   "verify": [
+    "answer*1000 == m/1000*2100*(0 - Ti) + m/1000*336000 + m/1000*4200*(Tf - 0)"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-latent",
+     "expr": "m/1000*(2100*(-Ti) + 4200*Tf)/1000"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "m/1000*(336000 + 4200*Tf)/1000",
+     "detail": "The ice must warm to 0 °C before it melts.",
+     "detail_si": "අයිස් දිය වීමට පෙර 0 °C දක්වා රත් විය යුතු ය."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "m/1000*(4200*(-Ti) + 336000 + 4200*Tf)/1000",
+     "detail": "Warm the ice with c of ice, 2100, not c of water.",
+     "detail_si": "අයිස් රත් කිරීමට ජලයේ c නොව, අයිස්වල c වන 2100 භාවිත කරන්න."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "m/1000*336000/1000",
+     "detail": "That's only the melting. Add the warming before and after.",
+     "detail_si": "එය දිය වීම පමණි. පෙර සහ පසු රත් වීම එකතු කරන්න."
+    },
+    {
+     "tag": "sign",
+     "expr": "m/1000*(2100*Ti + 336000 + 4200*Tf)/1000"
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "(2100*(-Ti) + 336000 + 4200*Tf)/1000"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Three steps: warm the ice to 0 °C, melt it, then warm the water to the final temperature.",
+    "si": "පියවර තුනක්: අයිස් 0 °C දක්වා රත් කරන්න, එය දිය කරන්න, ඉන්පසු ජලය අවසාන උෂ්ණත්වය දක්වා රත් කරන්න."
+   },
+   "constraints": [
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.therm.t03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.heat.mixtures"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2019-42",
+   "note_ref": "phy.therm.note.mix",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {m1} g metal block at 100 °C is dropped into {m2} g of water at {T2} °C. The final temperature is {Tf} °C. Specific heat capacity of the metal, with no heat loss? (c of water = 4200 J kg⁻¹ K⁻¹)",
+    "si": "100 °C හි ඇති {m1} g ලෝහ කුට්ටියක් {T2} °C හි ජලය {m2} g කට දමනු ලැබේ. අවසාන උෂ්ණත්වය {Tf} °C වේ. තාප හානියක් නොමැති නම්, ලෝහයේ විශිෂ්ට තාප ධාරිතාව කීය ද? (ජලයේ c = 4200 J kg⁻¹ K⁻¹)"
+   },
+   "params": {
+    "m1": {
+     "set": [
+      100,
+      200,
+      250,
+      300,
+      400,
+      500
+     ],
+     "unit": "kg"
+    },
+    "m2": {
+     "set": [
+      100,
+      150,
+      200,
+      250,
+      300
+     ],
+     "unit": "kg"
+    },
+    "T2": {
+     "set": [
+      20,
+      25,
+      30
+     ],
+     "unit": "K"
+    },
+    "Tf": {
+     "set": [
+      24,
+      25,
+      26,
+      28,
+      30,
+      32,
+      35,
+      40
+     ],
+     "unit": "K"
+    }
+   },
+   "answer": {
+    "expr": "m2*4200*(Tf - T2)/(m1*(100 - Tf))",
+    "unit": "J kg⁻¹ K⁻¹",
+    "dim_skip": true
+   },
+   "verify": [
+    "answer*m1*(100 - Tf) == m2*4200*(Tf - T2)"
+   ],
+   "distractors": [
+    {
+     "tag": "inverted",
+     "expr": "m1*4200*(Tf - T2)/(m2*(100 - Tf))"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "m2*4200*(Tf - T2)/(m1*(100 - T2))",
+     "detail": "The metal cools from 100 °C to the final temperature, not to the water's start.",
+     "detail_si": "ලෝහය සිසිල් වන්නේ 100 °C සිට අවසාන උෂ්ණත්වය දක්වා මිස, ජලයේ ආරම්භක උෂ්ණත්වය දක්වා නොවේ."
+    },
+    {
+     "tag": "forgot-mass",
+     "expr": "4200*(Tf - T2)/(100 - Tf)"
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "4200*m2/m1"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "m2*4200*(Tf - T2)/(m1*Tf)",
+     "detail": "Use the metal's fall in temperature, not the final temperature.",
+     "detail_si": "අවසාන උෂ්ණත්වය නොව, ලෝහයේ උෂ්ණත්ව අඩු වීම භාවිත කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Heat lost by the metal = heat gained by the water: m₁c(100 − θ) = m₂ × 4200 × (θ − θ₂).",
+    "si": "ලෝහයෙන් හානි වූ තාපය = ජලයට ලැබුණු තාපය: m₁c(100 − θ) = m₂ × 4200 × (θ − θ₂)."
+   },
+   "constraints": [
+    "Tf > T2",
+    "200 <= answer <= 1000",
+    "nice(answer, 0)"
+   ]
+  },
+  {
+   "id": "phy.therm.t04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.gas.ideal-gas-equation"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2016-42",
+   "note_ref": "phy.therm.note.igl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A rigid cylinder holds gas at {p1} kPa and {T1} °C. Some gas leaks out, and the rest is heated to {T2} °C. The pressure is now {p2} kPa. Fraction of the gas that leaked out?",
+    "si": "දෘඪ සිලින්ඩරයක {p1} kPa සහ {T1} °C හි වායුව ඇත. වායුවෙන් කොටසක් කාන්දු වී, ඉතිරිය {T2} °C දක්වා රත් කෙරේ. දැන් පීඩනය {p2} kPa වේ. කාන්දු වූ වායු භාගය කීය ද?"
+   },
+   "params": {
+    "p1": {
+     "set": [
+      100,
+      120,
+      150,
+      200,
+      240,
+      300
+     ],
+     "unit": "1"
+    },
+    "p2": {
+     "set": [
+      60,
+      75,
+      80,
+      90,
+      100,
+      120,
+      150,
+      160,
+      180,
+      200
+     ],
+     "unit": "1"
+    },
+    "T1": {
+     "set": [
+      27,
+      77,
+      127
+     ],
+     "unit": "1"
+    },
+    "T2": {
+     "set": [
+      77,
+      127,
+      227,
+      327,
+      427
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "1 - (p2/p1)*(T1 + 273)/(T2 + 273)",
+    "unit": "",
+    "dim": "1"
+   },
+   "verify": [
+    "(1 - answer)*p1/(T1 + 273) == p2/(T2 + 273)"
+   ],
+   "distractors": [
+    {
+     "tag": "celsius-in-gas-law",
+     "expr": "1 - (p2/p1)*T1/T2"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "(p2/p1)*(T1 + 273)/(T2 + 273)",
+     "detail": "That's the fraction left. Subtract it from 1.",
+     "detail_si": "එය ඉතිරි වූ භාගයයි. එය 1 න් අඩු කරන්න."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "1 - p2/p1",
+     "detail": "Heating also raised the pressure, so allow for T.",
+     "detail_si": "රත් කිරීම ද පීඩනය වැඩි කළේ ය, එබැවින් T ද සලකන්න."
+    },
+    {
+     "tag": "inverted",
+     "expr": "1 - (p1/p2)*(T1 + 273)/(T2 + 273)"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "1 - (T1 + 273)/(T2 + 273)",
+     "detail": "The pressure changed too. Use n ∝ p/T.",
+     "detail_si": "පීඩනය ද වෙනස් විය. n ∝ p/T භාවිත කරන්න."
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "(1 - p2/p1)*(T1 + 273)/(T2 + 273)",
+     "detail": "Scale the whole of p₂/p₁ by the temperatures, then subtract from 1.",
+     "detail_si": "p₂/p₁ සම්පූර්ණයෙන්ම උෂ්ණත්වවලින් පරිමාණය කර, ඉන්පසු 1 න් අඩු කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "n ∝ p/T at fixed volume. Fraction left = (p₂/T₂) ÷ (p₁/T₁), with T in kelvin.",
+    "si": "අචල පරිමාවේ දී n ∝ p/T. ඉතිරි භාගය = (p₂/T₂) ÷ (p₁/T₁), T කෙල්වින් වලින්."
+   },
+   "constraints": [
+    "T2 > T1",
+    "0.1 <= answer <= 0.9"
+   ]
+  },
+  {
+   "id": "phy.therm.t05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.heat.newton-cooling"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2020-34",
+   "note_ref": "phy.therm.note.cool",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In a room kept at {Tr} °C, a body cools from {a1} °C to {b1} °C in {t1} min. Using average temperatures, time for it to cool from {a2} °C to {b2} °C?",
+    "si": "{Tr} °C හි තබා ඇති කාමරයක, වස්තුවක් {t1} min කින් {a1} °C සිට {b1} °C දක්වා සිසිල් වේ. සාමාන්‍ය උෂ්ණත්ව භාවිතයෙන්, එය {a2} °C සිට {b2} °C දක්වා සිසිල් වීමට ගතවන කාලය කීය ද?"
+   },
+   "params": {
+    "Tr": {
+     "set": [
+      15,
+      20,
+      25,
+      30
+     ],
+     "unit": "K"
+    },
+    "a1": {
+     "set": [
+      62,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      100
+     ],
+     "unit": "K"
+    },
+    "t1": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "unit": "s"
+    },
+    "a2": {
+     "set": [
+      35,
+      40,
+      45,
+      50,
+      55,
+      58
+     ],
+     "unit": "K"
+    }
+   },
+   "answer": {
+    "expr": "t1*((a1 + b1)/2 - Tr)/((a2 + b2)/2 - Tr)",
+    "unit": "min",
+    "dim": "s",
+    "dim_skip": true
+   },
+   "verify": [
+    "(10/answer)/(10/t1) == ((a2 + b2)/2 - Tr)/((a1 + b1)/2 - Tr)"
+   ],
+   "distractors": [
+    {
+     "tag": "cooling-constant-rate",
+     "expr": "t1"
+    },
+    {
+     "tag": "room-temp-excess",
+     "expr": "t1*(a1 + b1)/(a2 + b2)"
+    },
+    {
+     "tag": "inverted",
+     "expr": "t1*((a2 + b2)/2 - Tr)/((a1 + b1)/2 - Tr)"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "t1*(a1 - Tr)/(a2 - Tr)",
+     "detail": "Use the average temperature over each interval, not the start.",
+     "detail_si": "ආරම්භක අගය නොව, එක් එක් කාල පරාසයේ සාමාන්‍ය උෂ්ණත්වය භාවිත කරන්න."
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "t1*(((a1 + b1)/2 - Tr)/((a2 + b2)/2 - Tr))**2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Both drops are 10 K. The time is inversely proportional to the average excess over the room.",
+    "si": "අඩු වීම් දෙකම 10 K වේ. කාලය කාමරයට වඩා සාමාන්‍ය අතිරික්තයට ප්‍රතිලෝමව සමානුපාතික ය."
+   },
+   "derived": {
+    "b1": "a1 - 10",
+    "b2": "a2 - 10"
+   },
+   "exclude": [
+    "a2 - 10 <= Tr + 5"
+   ],
+   "constraints": [
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.therm.t06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.hum.absolute-humidity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-28",
+   "note_ref": "phy.therm.note.abs",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A closed room of {V} m³ has an absolute humidity of {a} g m⁻³ and a relative humidity of {rh}%. Extra water vapour needed to saturate it, at the same temperature?",
+    "si": "{V} m³ වූ වසා ඇති කාමරයක නිරපේක්ෂ ආර්ද්‍රතාව {a} g m⁻³ ද සාපේක්ෂ ආර්ද්‍රතාව {rh}% ද වේ. එම උෂ්ණත්වයේ දී එය සංතෘප්ත කිරීමට අවශ්‍ය අමතර ජල වාෂ්ප ප්‍රමාණය කීය ද?"
+   },
+   "params": {
+    "V": {
+     "set": [
+      50,
+      60,
+      75,
+      80,
+      100,
+      120
+     ],
+     "unit": "m^3"
+    },
+    "a": {
+     "set": [
+      12,
+      15,
+      18,
+      20,
+      24,
+      30
+     ],
+     "unit": "kg m^-3"
+    },
+    "rh": {
+     "set": [
+      40,
+      50,
+      60,
+      75,
+      80
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "V*a*(100/rh - 1)/1000",
+    "unit": "kg",
+    "dim_skip": true
+   },
+   "verify": [
+    "(answer*1000/V + a)*rh/100 == a"
+   ],
+   "distractors": [
+    {
+     "tag": "wrong-law",
+     "expr": "V*a*(1 - rh/100)/1000",
+     "detail": "Saturation needs a ÷ RH per m³, not a × (1 − RH).",
+     "detail_si": "සංතෘප්තියට m³ එකකට a × (1 − RH) නොව, a ÷ RH අවශ්‍ය වේ."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "V*a*100/rh/1000",
+     "detail": "That's the total at saturation. Subtract what's already there.",
+     "detail_si": "එය සංතෘප්තියේ දී මුළු ප්‍රමාණයයි. දැනටමත් ඇති ප්‍රමාණය අඩු කරන්න."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "a*(100/rh - 1)/1000",
+     "detail": "Multiply by the room's volume.",
+     "detail_si": "කාමරයේ පරිමාවෙන් ගුණ කරන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "V*a/1000",
+     "detail": "That's the vapour already in the room.",
+     "detail_si": "එය දැනටමත් කාමරයේ ඇති වාෂ්පයයි."
+    },
+    {
+     "tag": "inverted",
+     "expr": "V*a*rh/100/1000"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "At saturation the absolute humidity would be a × 100/RH. The extra is V × (that − a).",
+    "si": "සංතෘප්තියේ දී නිරපේක්ෂ ආර්ද්‍රතාව a × 100/RH වේ. අමතර ප්‍රමාණය V × (එම අගය − a) වේ."
+   },
+   "constraints": [
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.therm.t07",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.hum.mixing-air"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2020-13",
+   "note_ref": "phy.therm.note.mixa",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Room A ({VA} m³) is at RH {ha}% and room B ({VB} m³) at RH {hb}%, both at the same temperature. The door between them is left open for a long time. Final RH?",
+    "si": "A කාමරය ({VA} m³) RH {ha}% හි ද B කාමරය ({VB} m³) RH {hb}% හි ද ඇත, දෙකම එකම උෂ්ණත්වයේ ය. ඒවා අතර දොර දිගු කාලයක් විවෘතව තබයි. අවසාන RH කීය ද?"
+   },
+   "params": {
+    "VA": {
+     "set": [
+      20,
+      30,
+      40,
+      50,
+      60
+     ],
+     "unit": "m^3"
+    },
+    "VB": {
+     "set": [
+      10,
+      20,
+      30,
+      40
+     ],
+     "unit": "m^3"
+    },
+    "ha": {
+     "set": [
+      30,
+      40,
+      50,
+      60
+     ],
+     "unit": "1"
+    },
+    "hb": {
+     "set": [
+      60,
+      70,
+      80,
+      90
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "(VA*ha + VB*hb)/(VA + VB)",
+    "unit": "%",
+    "dim": "1"
+   },
+   "verify": [
+    "answer*(VA + VB) == VA*ha + VB*hb"
+   ],
+   "distractors": [
+    {
+     "tag": "assumed-symmetry",
+     "expr": "(ha + hb)/2"
+    },
+    {
+     "tag": "inverted",
+     "expr": "(VB*ha + VA*hb)/(VA + VB)"
+    },
+    {
+     "tag": "sign",
+     "expr": "ha + hb"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "hb",
+     "detail": "The vapour spreads through both rooms, so B's RH falls.",
+     "detail_si": "වාෂ්පය කාමර දෙක පුරාම පැතිරේ, එබැවින් B හි RH අඩු වේ."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "hb - ha",
+     "detail": "That's the difference between the rooms.",
+     "detail_si": "එය කාමර අතර වෙනසයි."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "At the same temperature, RH ∝ vapour per m³, so the final RH is the volume-weighted average.",
+    "si": "එකම උෂ්ණත්වයේ දී RH ∝ m³ එකකට වාෂ්ප, එබැවින් අවසාන RH පරිමාවෙන් බර තැබූ සාමාන්‍යය වේ."
+   },
+   "constraints": [
+    "VA != VB",
+    "ha < hb",
+    "nice(answer, 0)"
+   ]
+  },
+  {
+   "id": "phy.therm.t08",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.thermo.first-law"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2021-30",
+   "note_ref": "phy.therm.note.fl",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A gas under a free, frictionless piston is heated by a {R} Ω coil carrying {I} A for {t} min. It expands from {V1} m³ to {V2} m³ at a constant {p} kPa. Rise in its internal energy?",
+    "si": "නිදහස්, ඝර්ෂණ රහිත පිස්ටනයක් යට ඇති වායුවක් {I} A ධාරාවක් ගලන {R} Ω දඟරයකින් {t} min ක් රත් කෙරේ. එය නියත {p} kPa පීඩනයක දී {V1} m³ සිට {V2} m³ දක්වා ප්‍රසාරණය වේ. එහි අභ්‍යන්තර ශක්තියේ වැඩි වීම කීය ද?"
+   },
+   "params": {
+    "R": {
+     "set": [
+      40,
+      50,
+      80,
+      100,
+      200
+     ],
+     "unit": "ohm"
+    },
+    "I": {
+     "set": [
+      1,
+      1.5,
+      2
+     ],
+     "unit": "A"
+    },
+    "t": {
+     "set": [
+      2,
+      5,
+      10
+     ],
+     "unit": "s"
+    },
+    "V1": {
+     "set": [
+      0.2,
+      0.4
+     ],
+     "unit": "m^3"
+    },
+    "dV": {
+     "set": [
+      0.02,
+      0.05,
+      0.1,
+      0.2
+     ],
+     "unit": "m^3"
+    },
+    "p": {
+     "set": [
+      100,
+      120,
+      150,
+      200
+     ],
+     "unit": "Pa"
+    }
+   },
+   "answer": {
+    "expr": "(I**2*R*t*60 - p*1000*(V2 - V1))/1000",
+    "unit": "kJ",
+    "dim_skip": true
+   },
+   "verify": [
+    "answer*1000 + p*1000*dV == I*I*R*t*60"
+   ],
+   "distractors": [
+    {
+     "tag": "sign",
+     "expr": "(I**2*R*t*60 + p*1000*(V2 - V1))/1000"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "I**2*R*t*60/1000",
+     "detail": "The gas does work pushing the piston, so subtract pΔV.",
+     "detail_si": "වායුව පිස්ටනය තල්ලු කරමින් කාර්යය කරයි, එබැවින් pΔV අඩු කරන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "p*1000*(V2 - V1)/1000",
+     "detail": "That's the work done by the gas.",
+     "detail_si": "එය වායුව විසින් කරන ලද කාර්යයයි."
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "(I*R*t*60 - p*1000*(V2 - V1))/1000"
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "(I**2*R*t*60 - p*1000*V2)/1000",
+     "detail": "Work uses the change in volume, not the final volume.",
+     "detail_si": "කාර්යය සඳහා අවසාන පරිමාව නොව, පරිමාවේ වෙනස භාවිත වේ."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "ΔQ = I²Rt, ΔW = pΔV, and ΔU = ΔQ − ΔW.",
+    "si": "ΔQ = I²Rt, ΔW = pΔV, සහ ΔU = ΔQ − ΔW."
+   },
+   "derived": {
+    "V2": "V1 + dV"
+   },
+   "constraints": [
+    "answer > 0",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.therm.t09",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.therm.cond.composite-rods"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2018-40",
+   "note_ref": "phy.therm.note.rods",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Two rods of equal length and cross-section, with conductivities {k1} and {k2} W m⁻¹ K⁻¹, are joined end to end and lagged. The free end of the first is held at {Th} °C, and of the second at {Tc} °C. Temperature of the joint?",
+    "si": "සමාන දිග සහ හරස්කඩ ඇති, සන්නායකතා {k1} සහ {k2} W m⁻¹ K⁻¹ වූ දඬු දෙකක් කෙළවරින් කෙළවරට සම්බන්ධ කර පරිවාරණය කර ඇත. පළමු දණ්ඩේ නිදහස් කෙළවර {Th} °C හි ද, දෙවැන්නේ නිදහස් කෙළවර {Tc} °C හි ද තබා ඇත. සන්ධියේ උෂ්ණත්වය කීය ද?"
+   },
+   "params": {
+    "k1": {
+     "set": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      90,
+      120,
+      200,
+      400
+     ],
+     "unit": "1"
+    },
+    "k2": {
+     "set": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      90,
+      120,
+      200,
+      400
+     ],
+     "unit": "1"
+    },
+    "Th": {
+     "set": [
+      80,
+      100
+     ],
+     "unit": "K"
+    },
+    "Tc": {
+     "set": [
+      10,
+      20,
+      30
+     ],
+     "unit": "K"
+    }
+   },
+   "answer": {
+    "expr": "(k1*Th + k2*Tc)/(k1 + k2)",
+    "unit": "°C",
+    "dim": "K"
+   },
+   "verify": [
+    "k1*(Th - answer) == k2*(answer - Tc)"
+   ],
+   "distractors": [
+    {
+     "tag": "inverted",
+     "expr": "(k2*Th + k1*Tc)/(k1 + k2)"
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "(Th + Tc)/2"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "(Th - Tc)*k1/(k1 + k2)",
+     "detail": "That's the rise above the cold end. Add the cold end's temperature.",
+     "detail_si": "එය සීතල කෙළවරට වඩා වැඩි වීමයි. සීතල කෙළවරේ උෂ්ණත්වය එකතු කරන්න."
+    },
+    {
+     "tag": "misread-interval",
+     "expr": "Th*k1/(k1 + k2)",
+     "detail": "Share out the drop between the two ends, not from 0 °C.",
+     "detail_si": "0 °C සිට නොව, කෙළවර දෙක අතර අඩු වීම බෙදන්න."
+    },
+    {
+     "tag": "sign",
+     "expr": "(k1*Th - k2*Tc)/(k1 + k2)"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "The same heat flows through both rods: k₁(θ_h − θ) = k₂(θ − θ_c).",
+    "si": "දඬු දෙක හරහාම එකම තාපය ගලයි: k₁(θ_h − θ) = k₂(θ − θ_c)."
+   },
+   "constraints": [
+    "k1 != k2",
+    "nice(answer, 1)"
+   ]
+  }
+ ],
+ "banks": [
+  {
+   "id": "phy.therm.b01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.therm.state.latent-errors"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2017-36",
+   "note_ref": "phy.therm.note.lat",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "Heat taken in from the room makes the measured latent heat of ice too small.",
+      "si": "කාමරයෙන් ලැබෙන තාපය නිසා මනින ලද අයිස්වල ගුප්ත තාපය ඉතා කුඩා වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Wet ice makes the measured latent heat of ice too small.",
+      "si": "තෙත් අයිස් නිසා මනින ලද අයිස්වල ගුප්ත තාපය ඉතා කුඩා වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Ice colder than 0 °C makes the measured latent heat too large.",
+      "si": "0 °C ට වඩා සීතල අයිස් නිසා මනින ලද ගුප්ත තාපය ඉතා විශාල වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Ending as far below room temperature as you started above it cancels most heat exchange.",
+      "si": "ආරම්භයේ දී කාමර උෂ්ණත්වයට ඉහළින් සිටි තරමටම පහළින් අවසන් කිරීම තාප හුවමාරුවෙන් වැඩි කොටසක් අවලංගු කරයි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Wet ice makes the measured latent heat of ice too large.",
+      "si": "තෙත් අයිස් නිසා මනින ලද අයිස්වල ගුප්ත තාපය ඉතා විශාල වේ."
+     },
+     "true": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Ice colder than 0 °C makes the measured latent heat too small.",
+      "si": "0 °C ට වඩා සීතල අයිස් නිසා මනින ලද ගුප්ත තාපය ඉතා කුඩා වේ."
+     },
+     "true": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "The mixture's temperature rises steadily while the ice melts.",
+      "si": "අයිස් දිය වන අතරතුර මිශ්‍රණයේ උෂ්ණත්වය ඒකාකාරව වැඩි වේ."
+     },
+     "true": false,
+     "tag": "heat-during-change"
+    },
+    {
+     "text": {
+      "en": "Dew forming on the calorimeter gives it no extra heat.",
+      "si": "කැලරිමීටරය මත තුෂාරය ඇති වීමෙන් එයට අමතර තාපයක් නොලැබේ."
+     },
+     "true": false,
+     "tag": "forgot-latent"
+    }
+   ],
+   "conflicts": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     5
+    ]
+   ],
+   "explanation": {
+    "en": "Any heat the calculation leaves out shows up as an error in L: heat from the room or dew adds heat, wet ice adds mass that never melted, and cold ice needs extra heat to warm.",
+    "si": "ගණනයෙන් මඟහැරෙන ඕනෑම තාපයක් L හි දෝෂයක් ලෙස පෙනේ: කාමරයෙන් හෝ තුෂාරයෙන් තාපය එකතු වේ, තෙත් අයිස් කිසිදා දිය නොවූ ස්කන්ධයක් එකතු කරයි, සහ සීතල අයිස් රත් වීමට අමතර තාපයක් අවශ්‍ය වේ."
+   }
+  },
+  {
+   "id": "phy.therm.b02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.therm.kin.mean-ke-temperature"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2021-5",
+   "note_ref": "phy.therm.note.ke",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "At 0 K, the mean KE of an ideal gas molecule is zero.",
+      "si": "0 K හි දී පරිපූර්ණ වායු අණුවක මධ්‍යන්‍ය චාලක ශක්තිය ශුන්‍ය වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The mean molecular KE of an ideal gas is proportional to its absolute temperature.",
+      "si": "පරිපූර්ණ වායුවක මධ්‍යන්‍ය අණුක චාලක ශක්තිය එහි නිරපේක්ෂ උෂ්ණත්වයට අනුලෝමව සමානුපාතික ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Two ideal gases at the same temperature have the same mean molecular KE.",
+      "si": "එකම උෂ්ණත්වයේ ඇති පරිපූර්ණ වායු දෙකකට එකම මධ්‍යන්‍ය අණුක චාලක ශක්තිය ඇත."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "At the same temperature, lighter molecules have a higher r.m.s. speed.",
+      "si": "එකම උෂ්ණත්වයේ දී සැහැල්ලු අණුවලට වැඩි r.m.s. වේගයක් ඇත."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Water freezes at absolute zero.",
+      "si": "ජලය මිදෙන්නේ නිරපේක්ෂ ශුන්‍යයේ දී ය."
+     },
+     "true": false,
+     "tag": "absolute-zero-myth"
+    },
+    {
+     "text": {
+      "en": "At the same temperature, heavier molecules have more mean KE.",
+      "si": "එකම උෂ්ණත්වයේ දී බර අණුවලට වැඩි මධ්‍යන්‍ය චාලක ශක්තියක් ඇත."
+     },
+     "true": false,
+     "tag": "ke-depends-on-gas"
+    },
+    {
+     "text": {
+      "en": "Doubling the Celsius temperature of a gas doubles its mean molecular KE.",
+      "si": "වායුවක සෙල්සියස් උෂ්ණත්වය දෙගුණ කිරීම එහි මධ්‍යන්‍ය අණුක චාලක ශක්තිය දෙගුණ කරයි."
+     },
+     "true": false,
+     "tag": "celsius-in-gas-law"
+    },
+    {
+     "text": {
+      "en": "Compressing a gas at constant temperature raises its mean molecular KE.",
+      "si": "නියත උෂ්ණත්වයේ දී වායුවක් සම්පීඩනය කිරීම එහි මධ්‍යන්‍ය අණුක චාලක ශක්තිය වැඩි කරයි."
+     },
+     "true": false,
+     "tag": "ke-depends-on-gas"
+    }
+   ],
+   "conflicts": [
+    [
+     2,
+     5
+    ],
+    [
+     1,
+     6
+    ]
+   ],
+   "explanation": {
+    "en": "Mean molecular KE = (3/2)kT. It depends only on the absolute temperature.",
+    "si": "මධ්‍යන්‍ය අණුක චාලක ශක්තිය = (3/2)kT. එය රඳා පවතින්නේ නිරපේක්ෂ උෂ්ණත්වය මත පමණි."
+   }
+  },
+  {
+   "id": "phy.therm.b03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.therm.hum.rh-temperature"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2025-23",
+   "note_ref": "phy.therm.note.rht",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "At constant absolute humidity, the relative humidity falls as the air warms.",
+      "si": "නියත නිරපේක්ෂ ආර්ද්‍රතාවයක දී, වාතය රත් වන විට සාපේක්ෂ ආර්ද්‍රතාව අඩු වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Cooling air to its dew point brings its relative humidity to 100%.",
+      "si": "වාතය එහි තුෂාර අංකය දක්වා සිසිල් කිරීම එහි සාපේක්ෂ ආර්ද්‍රතාව 100% දක්වා ගෙන එයි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Below the dew point, some of the vapour condenses.",
+      "si": "තුෂාර අංකයට පහළින් වාෂ්පයෙන් කොටසක් ඝනීභවනය වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Saturated vapour pressure rises with temperature.",
+      "si": "සංතෘප්ත වාෂ්ප පීඩනය උෂ්ණත්වය සමඟ වැඩි වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "A higher relative humidity always means more water vapour per m³.",
+      "si": "ඉහළ සාපේක්ෂ ආර්ද්‍රතාවක් යනු සැමවිටම m³ එකකට වැඩි ජල වාෂ්පයකි."
+     },
+     "true": false,
+     "tag": "rh-vs-absolute"
+    },
+    {
+     "text": {
+      "en": "Warming air with no change in its vapour raises its relative humidity.",
+      "si": "වාෂ්පය වෙනස් නොකර වාතය රත් කිරීම එහි සාපේක්ෂ ආර්ද්‍රතාව වැඩි කරයි."
+     },
+     "true": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Compressing saturated vapour at constant temperature raises its pressure.",
+      "si": "නියත උෂ්ණත්වයේ දී සංතෘප්ත වාෂ්ප සම්පීඩනය කිරීම එහි පීඩනය වැඩි කරයි."
+     },
+     "true": false,
+     "tag": "svp-boyle"
+    },
+    {
+     "text": {
+      "en": "Saturated air holds the same mass of vapour per m³ at every temperature.",
+      "si": "සංතෘප්ත වාතය සෑම උෂ්ණත්වයකදීම m³ එකකට එකම වාෂ්ප ස්කන්ධයක් දරයි."
+     },
+     "true": false,
+     "tag": "rh-vs-absolute"
+    }
+   ],
+   "conflicts": [
+    [
+     0,
+     5
+    ],
+    [
+     3,
+     7
+    ]
+   ],
+   "explanation": {
+    "en": "RH = vapour pressure ÷ SVP. SVP rises with temperature, so warming air with the same vapour lowers its RH.",
+    "si": "RH = වාෂ්ප පීඩනය ÷ SVP. උෂ්ණත්වය සමඟ SVP වැඩි වේ, එබැවින් එකම වාෂ්පය සහිත වාතය රත් කිරීම එහි RH අඩු කරයි."
+   }
+  }
+ ]
+}

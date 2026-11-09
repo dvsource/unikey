@@ -1,0 +1,545 @@
+{
+  "status": "draft",
+  "papers": [
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "candidate_rule": "unit_no = 4. The 3 thermal radiation questions map to a Unit 11 stub, because the syllabus puts Stefan's and Wien's laws in 11.1",
+  "questions": [
+    {
+      "uid": "2016-3",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.temp.liquid-thermometer",
+      "secondary": [
+        "phy.therm.temp.thermometric-property"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-19",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.linear",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-20",
+      "db_unit": 4,
+      "db_subtopic": "Kinetic Theory of Gases",
+      "primary": "phy.therm.heat.specific-heat",
+      "secondary": [
+        "phy.therm.cond.mechanisms"
+      ],
+      "note": "DB files this as kinetic theory; it asks why a room re-warms (heat capacity of air vs walls)"
+    },
+    {
+      "uid": "2016-21",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.state.latent-heat",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-22",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.cycles",
+      "secondary": [
+        "phy.therm.thermo.first-law"
+      ],
+      "note": "two paths between the same states"
+    },
+    {
+      "uid": "2016-42",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.ideal-gas-equation",
+      "secondary": [
+        "phy.therm.gas.graphs"
+      ],
+      "note": "gas removed, then reheated"
+    },
+    {
+      "uid": "2016-44",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.mixing-air",
+      "secondary": [
+        "phy.therm.hum.absolute-humidity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-17",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Radiation",
+      "primary": "phy.matrad.rad.blackbody",
+      "secondary": [],
+      "note": "Unit 11 (11.1); DB files it under Unit 4"
+    },
+    {
+      "uid": "2017-32",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.cycles",
+      "secondary": [
+        "phy.therm.thermo.pv-work"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-35",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.composite-rods",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-36",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.state.latent-errors",
+      "secondary": [
+        "phy.therm.state.mixtures-with-change"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-37",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.vapour-pressure",
+      "secondary": [
+        "phy.therm.hum.dew-point"
+      ],
+      "note": "does sweat evaporate in a saturated room?"
+    },
+    {
+      "uid": "2017-42",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.dalton",
+      "secondary": [
+        "phy.therm.gas.graphs"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-6",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.processes",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-7",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.linear",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-19",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.temp.liquid-thermometer",
+      "secondary": [
+        "phy.therm.exp.real-apparent"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-20",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.heat.continuous-flow",
+      "secondary": [
+        "phy.therm.state.latent-heat"
+      ],
+      "note": "water is heated, then boiled"
+    },
+    {
+      "uid": "2018-39",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.relative-humidity",
+      "secondary": [
+        "phy.therm.hum.absolute-humidity"
+      ],
+      "note": "RH ∝ vapour mass at constant T"
+    },
+    {
+      "uid": "2018-40",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.composite-rods",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-41",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.water-anomaly",
+      "secondary": [],
+      "note": "DB files this as thermal expansion"
+    },
+    {
+      "uid": "2019-6",
+      "db_unit": 4,
+      "db_subtopic": "Thermometry",
+      "primary": "phy.therm.temp.liquid-thermometer",
+      "secondary": [
+        "phy.therm.temp.thermometric-property"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-13",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.dew-point",
+      "secondary": [
+        "phy.therm.hum.vapour-pressure"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-15",
+      "db_unit": 4,
+      "db_subtopic": "Kinetic Theory of Gases",
+      "primary": "phy.therm.kin.rms-speed",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-30",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.cycles",
+      "secondary": [
+        "phy.therm.thermo.first-law"
+      ],
+      "note": "two paths between the same states"
+    },
+    {
+      "uid": "2019-42",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.heat.mixtures",
+      "secondary": [],
+      "note": "identify the metal from its specific heat capacity"
+    },
+    {
+      "uid": "2020-13",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.mixing-air",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-24",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.cycles",
+      "secondary": [
+        "phy.therm.thermo.first-law"
+      ],
+      "note": "all five options were accepted (see content/source-issues.md)"
+    },
+    {
+      "uid": "2020-27",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.temperature-profile",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-34",
+      "db_unit": 4,
+      "db_subtopic": "Newton's Law of Cooling",
+      "primary": "phy.therm.heat.newton-cooling",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-35",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.state.mixtures-with-change",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-46",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.real-apparent",
+      "secondary": [
+        "phy.mech.hydro.pressure-depth"
+      ],
+      "note": "balancing columns at two temperatures"
+    },
+    {
+      "uid": "2021-5",
+      "db_unit": 4,
+      "db_subtopic": "Kinetic Theory of Gases",
+      "primary": "phy.therm.kin.mean-ke-temperature",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-19",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.graphs",
+      "secondary": [
+        "phy.therm.gas.boyle"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2021-30",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.first-law",
+      "secondary": [
+        "phy.therm.thermo.pv-work",
+        "phy.elec.pow.power-formulas"
+      ],
+      "note": "heat from a coil at constant pressure"
+    },
+    {
+      "uid": "2021-36",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.composite-rods",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-42",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.state.mixtures-with-change",
+      "secondary": [],
+      "note": "water poured into a hot vessel partly boils off"
+    },
+    {
+      "uid": "2022-8",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Radiation",
+      "primary": "phy.matrad.rad.blackbody",
+      "secondary": [],
+      "note": "Unit 11 (11.1); DB files it under Unit 4"
+    },
+    {
+      "uid": "2022-15",
+      "db_unit": 4,
+      "db_subtopic": "Kinetic Theory of Gases",
+      "primary": "phy.therm.kin.mean-ke-temperature",
+      "secondary": [
+        "phy.therm.temp.kelvin-celsius"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-37",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.trapped-column",
+      "secondary": [
+        "phy.therm.gas.ideal-gas-equation"
+      ],
+      "note": "sealed tube, one side heated"
+    },
+    {
+      "uid": "2022-40",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.temperature-profile",
+      "secondary": [
+        "phy.therm.cond.composite-rods"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-42",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.graphs",
+      "secondary": [
+        "phy.therm.kin.mean-ke-temperature"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-47",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.mixing-air",
+      "secondary": [
+        "phy.therm.hum.dew-point"
+      ],
+      "note": "air cooled, dried, then reheated"
+    },
+    {
+      "uid": "2023-6",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Radiation",
+      "primary": "phy.matrad.rad.blackbody",
+      "secondary": [],
+      "note": "Unit 11 (11.1); DB files it under Unit 4"
+    },
+    {
+      "uid": "2023-9",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.graphs",
+      "secondary": [
+        "phy.therm.gas.ideal-gas-equation"
+      ],
+      "note": "gas density against T"
+    },
+    {
+      "uid": "2023-10",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.processes",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-27",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.linear",
+      "secondary": [],
+      "note": "tape read at another temperature"
+    },
+    {
+      "uid": "2023-36",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.temperature-profile",
+      "secondary": [
+        "phy.therm.cond.composite-rods"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-17",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.linear",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-28",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.absolute-humidity",
+      "secondary": [
+        "phy.therm.hum.relative-humidity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-31",
+      "db_unit": 4,
+      "db_subtopic": "Newton's Law of Cooling",
+      "primary": "phy.therm.heat.newton-cooling",
+      "secondary": [
+        "phy.therm.heat.specific-heat"
+      ],
+      "note": "cooling rate against size"
+    },
+    {
+      "uid": "2024-33",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.state.mixtures-with-change",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-46",
+      "db_unit": 4,
+      "db_subtopic": "Ideal Gas Law",
+      "primary": "phy.therm.gas.ideal-gas-equation",
+      "secondary": [
+        "phy.therm.gas.graphs"
+      ],
+      "note": "temperature at a corner of a cycle"
+    },
+    {
+      "uid": "2024-47",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.temperature-profile",
+      "secondary": [],
+      "note": "half lagged, half unlagged"
+    },
+    {
+      "uid": "2025-20",
+      "db_unit": 4,
+      "db_subtopic": "Calorimetry & Latent Heat",
+      "primary": "phy.therm.heat.continuous-flow",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-23",
+      "db_unit": 4,
+      "db_subtopic": "Relative Humidity",
+      "primary": "phy.therm.hum.rh-temperature",
+      "secondary": [
+        "phy.therm.hum.dew-point"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-34",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Conduction",
+      "primary": "phy.therm.cond.temperature-profile",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-42",
+      "db_unit": 4,
+      "db_subtopic": "Thermal Expansion",
+      "primary": "phy.therm.exp.linear",
+      "secondary": [],
+      "note": "ball and hole expand at different rates"
+    },
+    {
+      "uid": "2025-44",
+      "db_unit": 4,
+      "db_subtopic": "First Law of Thermodynamics",
+      "primary": "phy.therm.thermo.pv-work",
+      "secondary": [
+        "phy.therm.thermo.cycles"
+      ],
+      "note": null
+    }
+  ]
+}

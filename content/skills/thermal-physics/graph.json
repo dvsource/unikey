@@ -1,0 +1,2267 @@
+{
+  "status": "draft",
+  "reviewer": null,
+  "spec_version": "0.5",
+  "unit": {
+    "id": "phy.therm",
+    "name": "Thermal Physics",
+    "syllabus_unit": 4,
+    "periods": 60
+  },
+  "sources": [
+    "resources/nie/physics/en/syllabus/AL-Physics-Syllabus-Gr12-13-en.pdf (Unit 4)",
+    "resources/nie/physics/en/resource-books/Gr12-Physics-RB-Unit04-en.pdf"
+  ],
+  "exam_weight_policy": {
+    "papers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "source": "Paper I MCQs only. Paper II is not mapped yet, so these weights are not final.",
+    "score": "primary hits + 0.5 × secondary hits",
+    "level_weight": "0.5 × level's share of the unit's score + 0.5 × level's share of teaching periods",
+    "within_level": "level_weight × max(0.1, score / top score in level), normalised within the level",
+    "exam_weight_share": "the skill's share of the unit (sums to 1)",
+    "exam_weight": "exam_weight_share / the largest share in the unit (0–1)"
+  },
+  "mastery_policy": "mastery = inferred for a skill no past paper tests that at least 5 tested skills require: its mastery comes from the skills built on it, and it is not practised first",
+  "edge_semantics": {
+    "requires": "`from` cannot be done without `to`. Must be a DAG.",
+    "helps": "knowing `from` makes `to` easier",
+    "encompasses": "practising `from` partly reviews `to`; weight is the implicit-review credit",
+    "confusable": "undirected; interleave the two skills",
+    "uses-math": "`to` is a skill in the shared maths layer"
+  },
+  "topics": [
+    {
+      "id": "phy.therm.4.1",
+      "syllabus_ref": "4.1",
+      "name": "Temperature and thermometers",
+      "periods": 6,
+      "exam_share": 0.064,
+      "level_weight": 0.082
+    },
+    {
+      "id": "phy.therm.4.2",
+      "syllabus_ref": "4.2",
+      "name": "Thermal expansion of solids and liquids",
+      "periods": 6,
+      "exam_share": 0.107,
+      "level_weight": 0.104
+    },
+    {
+      "id": "phy.therm.4.3",
+      "syllabus_ref": "4.3",
+      "name": "Gas laws",
+      "periods": 10,
+      "exam_share": 0.143,
+      "level_weight": 0.155
+    },
+    {
+      "id": "phy.therm.4.4",
+      "syllabus_ref": "4.4",
+      "name": "Kinetic theory of gases",
+      "periods": 4,
+      "exam_share": 0.05,
+      "level_weight": 0.058
+    },
+    {
+      "id": "phy.therm.4.5",
+      "syllabus_ref": "4.5",
+      "name": "Heat capacity and heat exchange",
+      "periods": 8,
+      "exam_share": 0.093,
+      "level_weight": 0.113
+    },
+    {
+      "id": "phy.therm.4.6",
+      "syllabus_ref": "4.6",
+      "name": "Change of state",
+      "periods": 8,
+      "exam_share": 0.086,
+      "level_weight": 0.11
+    },
+    {
+      "id": "phy.therm.4.7",
+      "syllabus_ref": "4.7",
+      "name": "Vapour and humidity",
+      "periods": 8,
+      "exam_share": 0.164,
+      "level_weight": 0.149
+    },
+    {
+      "id": "phy.therm.4.8",
+      "syllabus_ref": "4.8",
+      "name": "Thermodynamics",
+      "periods": 4,
+      "exam_share": 0.157,
+      "level_weight": 0.112
+    },
+    {
+      "id": "phy.therm.4.9",
+      "syllabus_ref": "4.9",
+      "name": "Transfer of heat",
+      "periods": 6,
+      "exam_share": 0.136,
+      "level_weight": 0.118
+    }
+  ],
+  "external": [
+    {
+      "id": "phy.mech.hydro.pressure-depth",
+      "name": "Pressure at a depth in a fluid",
+      "syllabus_ref": "2.7",
+      "status": "stub"
+    },
+    {
+      "id": "phy.mech.mom.linear-momentum",
+      "name": "Linear momentum",
+      "syllabus_ref": "2.3",
+      "status": "stub"
+    },
+    {
+      "id": "phy.mech.energy.ke-pe",
+      "name": "Kinetic and potential energy",
+      "syllabus_ref": "2.5",
+      "status": "stub"
+    },
+    {
+      "id": "phy.elec.pow.power-formulas",
+      "name": "Electrical power: P = VI = I²R = V²/R",
+      "syllabus_ref": "8.2",
+      "status": "stub"
+    },
+    {
+      "id": "phy.matrad.rad.blackbody",
+      "name": "Black-body radiation: Stefan's and Wien's laws",
+      "syllabus_ref": "11.1",
+      "status": "stub"
+    }
+  ],
+  "math": [
+    {
+      "id": "math.algebra.rearrange",
+      "name": "Rearranging a formula for one variable"
+    },
+    {
+      "id": "math.algebra.proportion",
+      "name": "Ratio, proportion and scaling"
+    },
+    {
+      "id": "math.algebra.simultaneous",
+      "name": "Solving two simultaneous linear equations"
+    },
+    {
+      "id": "math.graph.gradient",
+      "name": "Gradient of a straight line or tangent"
+    },
+    {
+      "id": "math.graph.area",
+      "name": "Area under a graph from simple shapes"
+    },
+    {
+      "id": "math.geometry.mensuration",
+      "name": "Areas and volumes of circles, cylinders, spheres"
+    }
+  ],
+  "skills": [
+    {
+      "id": "phy.therm.temp.thermal-equilibrium",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.1",
+      "subtopic": "Temperature",
+      "syllabus_ref": "4.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Thermal equilibrium and the zeroth law",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0048,
+      "exam_weight": 0.073,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.temp.thermometric-property",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.1",
+      "subtopic": "Temperature",
+      "syllabus_ref": "4.1",
+      "type": "recall",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Thermometric properties and fixed points",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-3",
+          "2019-6"
+        ],
+        "score": 1.0,
+        "figure_share": null,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0161,
+      "exam_weight": 0.242,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.temp.kelvin-celsius",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.1",
+      "subtopic": "Absolute scale",
+      "syllabus_ref": "4.1",
+      "type": "recall",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Kelvin and Celsius scales, absolute zero",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2022-15"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0081,
+      "exam_weight": 0.121,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.temp.scale-equation",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.1",
+      "subtopic": "Temperature scales",
+      "syllabus_ref": "4.1",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Temperature from a thermometric property",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0048,
+      "exam_weight": 0.073,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.temp.liquid-thermometer",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.1",
+      "subtopic": "Thermometers",
+      "syllabus_ref": "4.1",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Liquid-in-glass thermometers: design and sensitivity",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 2.3,
+      "exam": {
+        "primary": [
+          "2016-3",
+          "2018-19",
+          "2019-6"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0483,
+      "exam_weight": 0.725,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.exp.linear",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.2",
+      "subtopic": "Expansion of solids",
+      "syllabus_ref": "4.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Linear expansion",
+        "si": "රේඛීය ප්‍රසාරණය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.6,
+      "exam": {
+        "primary": [
+          "2016-19",
+          "2018-7",
+          "2023-27",
+          "2024-17",
+          "2025-42"
+        ],
+        "secondary": [],
+        "score": 5.0,
+        "figure_share": 0.2,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0609,
+      "exam_weight": 0.914,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.exp.area-volume",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.2",
+      "subtopic": "Expansion of solids",
+      "syllabus_ref": "4.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Area and volume expansion, and α : β : γ",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0061,
+      "exam_weight": 0.091,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.exp.real-apparent",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.2",
+      "subtopic": "Volume expansion of liquids",
+      "syllabus_ref": "4.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Real and apparent expansion of a liquid",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2020-46"
+        ],
+        "secondary": [
+          "2018-19"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0183,
+      "exam_weight": 0.274,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.exp.density-temperature",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.2",
+      "subtopic": "Variation of density with temperature",
+      "syllabus_ref": "4.2",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Density change with temperature",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0061,
+      "exam_weight": 0.091,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.exp.water-anomaly",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.2",
+      "subtopic": "Anomalous expansion of water",
+      "syllabus_ref": "4.2",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Anomalous expansion of water",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2018-41"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0122,
+      "exam_weight": 0.183,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.boyle",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Gas laws",
+      "syllabus_ref": "4.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Boyle's law",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2021-19"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0074,
+      "exam_weight": 0.111,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.charles-pressure",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Gas laws",
+      "syllabus_ref": "4.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Charles's law and the pressure law",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0067,
+      "exam_weight": 0.1,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.ideal-gas-equation",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Ideal gas equation",
+      "syllabus_ref": "4.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Ideal gas equation pV = nRT",
+        "si": "පරිපූර්ණ වායු සමීකරණය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.5,
+      "exam": {
+        "primary": [
+          "2016-42",
+          "2024-46"
+        ],
+        "secondary": [
+          "2022-37",
+          "2023-9"
+        ],
+        "score": 3.0,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0444,
+      "exam_weight": 0.667,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.graphs",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Gas laws",
+      "syllabus_ref": "4.3",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Gas law graphs",
+        "si": "වායු නියම ප්‍රස්තාර",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": 2.3,
+      "exam": {
+        "primary": [
+          "2021-19",
+          "2022-42",
+          "2023-9"
+        ],
+        "secondary": [
+          "2016-42",
+          "2017-42",
+          "2024-46"
+        ],
+        "score": 4.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0666,
+      "exam_weight": 1.0,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.trapped-column",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Gas laws",
+      "syllabus_ref": "4.3",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Gas trapped by a liquid column",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 5.0,
+      "exam": {
+        "primary": [
+          "2022-37"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0148,
+      "exam_weight": 0.222,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.gas.dalton",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.3",
+      "subtopic": "Ideal gas equation",
+      "syllabus_ref": "4.3",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Dalton's law of partial pressures",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-42"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0148,
+      "exam_weight": 0.222,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.kin.assumptions",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.4",
+      "subtopic": "Kinetic theory of gases",
+      "syllabus_ref": "4.4",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Kinetic theory: assumptions and the origin of pressure",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0039,
+      "exam_weight": 0.058,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.kin.mean-ke-temperature",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.4",
+      "subtopic": "Kinetic theory of gases",
+      "syllabus_ref": "4.4",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Mean molecular KE and absolute temperature",
+        "si": "මධ්‍යන්‍ය අණුක චාලක ශක්තිය සහ නිරපේක්ෂ උෂ්ණත්වය",
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 1.5,
+      "exam": {
+        "primary": [
+          "2021-5",
+          "2022-15"
+        ],
+        "secondary": [
+          "2022-42"
+        ],
+        "score": 2.5,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0389,
+      "exam_weight": 0.584,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.kin.rms-speed",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.4",
+      "subtopic": "Kinetic theory of gases",
+      "syllabus_ref": "4.4",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "pV = ⅓Nmc̄² and r.m.s. speed",
+        "si": "r.m.s. වේගය සහ වායු පීඩනය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2019-15"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0156,
+      "exam_weight": 0.233,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.specific-heat",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Heat capacity",
+      "syllabus_ref": "4.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Heat capacity and specific heat capacity",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-20"
+        ],
+        "secondary": [
+          "2024-31"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0246,
+      "exam_weight": 0.369,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.mixtures",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Heat capacity",
+      "syllabus_ref": "4.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Method of mixtures",
+        "si": "මිශ්‍රණ ක්‍රමය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-42"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0164,
+      "exam_weight": 0.246,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.continuous-flow",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Heat capacity",
+      "syllabus_ref": "4.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Continuous-flow heating",
+        "si": "අඛණ්ඩ ගැලීම් තාපනය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2018-20",
+          "2025-20"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0328,
+      "exam_weight": 0.492,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.molar-heat-capacity",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Molar heat capacities of gases",
+      "syllabus_ref": "4.5",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Molar heat capacities of a gas",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0033,
+      "exam_weight": 0.049,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.newton-cooling",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Newton's law of cooling",
+      "syllabus_ref": "4.5",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Newton's law of cooling",
+        "si": "නිවුටන්ගේ සිසිලන නියමය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2020-34",
+          "2024-31"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0328,
+      "exam_weight": 0.492,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.heat.cooling-method",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.5",
+      "subtopic": "Newton's law of cooling",
+      "syllabus_ref": "4.5",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Specific heat capacity of a liquid by the method of cooling",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0033,
+      "exam_weight": 0.049,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.molecular-states",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Change of state",
+      "syllabus_ref": "4.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Molecular picture of the states of matter",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0054,
+      "exam_weight": 0.082,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.latent-heat",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Latent heat",
+      "syllabus_ref": "4.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Specific latent heat",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2016-21"
+        ],
+        "secondary": [
+          "2018-20"
+        ],
+        "score": 1.5,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0233,
+      "exam_weight": 0.35,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.mixtures-with-change",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Latent heat",
+      "syllabus_ref": "4.6",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Mixtures that melt or boil",
+        "si": "දිය වන හෝ නටන මිශ්‍රණ",
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2020-35",
+          "2021-42",
+          "2024-33"
+        ],
+        "secondary": [
+          "2017-36"
+        ],
+        "score": 3.5,
+        "figure_share": 0.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0544,
+      "exam_weight": 0.816,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.heating-curve",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Change of state",
+      "syllabus_ref": "4.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Temperature–time graphs through a change of state",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0054,
+      "exam_weight": 0.082,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.latent-errors",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Latent heat",
+      "syllabus_ref": "4.6",
+      "type": "conceptual",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Latent heat by mixtures: sources of error",
+        "si": "මිශ්‍රණ ක්‍රමයෙන් ගුප්ත තාපය: දෝෂ ප්‍රභව",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-36"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0155,
+      "exam_weight": 0.233,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.state.pressure-effect",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.6",
+      "subtopic": "Change of state",
+      "syllabus_ref": "4.6",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Effect of pressure on melting and boiling points",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0054,
+      "exam_weight": 0.082,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.vapour-pressure",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Vapour pressure",
+      "syllabus_ref": "4.7",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Saturated and unsaturated vapour pressure",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2017-37"
+        ],
+        "secondary": [
+          "2019-13"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 4
+      },
+      "exam_weight_share": 0.0194,
+      "exam_weight": 0.291,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.dew-point",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Humidity",
+      "syllabus_ref": "4.7",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Dew point",
+        "si": "තුෂාර අංකය",
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2019-13"
+        ],
+        "secondary": [
+          "2017-37",
+          "2022-47",
+          "2025-23"
+        ],
+        "score": 2.5,
+        "figure_share": 0.0,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0323,
+      "exam_weight": 0.485,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.relative-humidity",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Humidity",
+      "syllabus_ref": "4.7",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Relative humidity from vapour pressures or dew point",
+        "si": "සාපේක්ෂ ආර්ද්‍රතාව",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2018-39"
+        ],
+        "secondary": [
+          "2024-28"
+        ],
+        "score": 1.5,
+        "figure_share": 0.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0194,
+      "exam_weight": 0.291,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.absolute-humidity",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Humidity",
+      "syllabus_ref": "4.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Absolute humidity and the mass of water vapour",
+        "si": "නිරපේක්ෂ ආර්ද්‍රතාව සහ ජල වාෂ්ප ස්කන්ධය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 2.0,
+      "exam": {
+        "primary": [
+          "2024-28"
+        ],
+        "secondary": [
+          "2016-44",
+          "2018-39"
+        ],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0259,
+      "exam_weight": 0.388,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.mixing-air",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Humidity",
+      "syllabus_ref": "4.7",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Humidity when air is mixed, cooled or heated",
+        "si": "වාතය මිශ්‍ර වන විට ආර්ද්‍රතාව",
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 4.3,
+      "exam": {
+        "primary": [
+          "2016-44",
+          "2020-13",
+          "2022-47"
+        ],
+        "secondary": [],
+        "score": 3.0,
+        "figure_share": 0.33,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0388,
+      "exam_weight": 0.582,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.hum.rh-temperature",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.7",
+      "subtopic": "Humidity",
+      "syllabus_ref": "4.7",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "How relative humidity changes with temperature and volume",
+        "si": "උෂ්ණත්වය සමඟ සාපේක්ෂ ආර්ද්‍රතාව වෙනස් වන ආකාරය",
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2025-23"
+        ],
+        "secondary": [],
+        "score": 1.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0129,
+      "exam_weight": 0.194,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.thermo.internal-energy",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.8",
+      "subtopic": "First law of thermodynamics",
+      "syllabus_ref": "4.8",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Heat, work and internal energy",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 3
+      },
+      "exam_weight_share": 0.0044,
+      "exam_weight": 0.066,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.thermo.first-law",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.8",
+      "subtopic": "First law of thermodynamics",
+      "syllabus_ref": "4.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "First law of thermodynamics",
+        "si": "තාප ගති විද්‍යාවේ පළමුවැනි නියමය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": 4.0,
+      "exam": {
+        "primary": [
+          "2021-30"
+        ],
+        "secondary": [
+          "2016-22",
+          "2019-30",
+          "2020-24"
+        ],
+        "score": 2.5,
+        "figure_share": 1.0,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0244,
+      "exam_weight": 0.367,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.thermo.processes",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.8",
+      "subtopic": "Thermodynamic processes",
+      "syllabus_ref": "4.8",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Constant-pressure, constant-volume, isothermal and adiabatic processes",
+        "si": "තාපගතික ක්‍රියාවලි",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [],
+      "difficulty_est": 2.5,
+      "exam": {
+        "primary": [
+          "2018-6",
+          "2023-10"
+        ],
+        "secondary": [],
+        "score": 2.0,
+        "figure_share": 0.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0195,
+      "exam_weight": 0.293,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.thermo.pv-work",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.8",
+      "subtopic": "Thermodynamic processes",
+      "syllabus_ref": "4.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Work done from a p–V graph",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 15,
+      "math_deps": [
+        "math.graph.area"
+      ],
+      "difficulty_est": 3.0,
+      "exam": {
+        "primary": [
+          "2025-44"
+        ],
+        "secondary": [
+          "2017-32",
+          "2021-30"
+        ],
+        "score": 2.0,
+        "figure_share": 1.0,
+        "tested_dependents": 1
+      },
+      "exam_weight_share": 0.0195,
+      "exam_weight": 0.293,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.thermo.cycles",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.8",
+      "subtopic": "Thermodynamic processes",
+      "syllabus_ref": "4.8",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Cyclic processes and paths on a p–V graph",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.graph.area"
+      ],
+      "difficulty_est": 3.8,
+      "exam": {
+        "primary": [
+          "2016-22",
+          "2017-32",
+          "2019-30",
+          "2020-24"
+        ],
+        "secondary": [
+          "2025-44"
+        ],
+        "score": 4.5,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.044,
+      "exam_weight": 0.66,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.cond.mechanisms",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.9",
+      "subtopic": "Transfer of heat",
+      "syllabus_ref": "4.9",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Conduction, convection and radiation",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 10,
+      "math_deps": [],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [
+          "2016-20"
+        ],
+        "score": 0.5,
+        "figure_share": null,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0059,
+      "exam_weight": 0.088,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.cond.rate-equation",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.9",
+      "subtopic": "Conduction",
+      "syllabus_ref": "4.9",
+      "type": "procedural",
+      "practical": true,
+      "mastery": "practised",
+      "names": {
+        "en": "Rate of conduction, and Searle's method",
+        "si": null,
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.algebra.rearrange"
+      ],
+      "difficulty_est": null,
+      "exam": {
+        "primary": [],
+        "secondary": [],
+        "score": 0.0,
+        "figure_share": null,
+        "tested_dependents": 2
+      },
+      "exam_weight_share": 0.0059,
+      "exam_weight": 0.088,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.cond.composite-rods",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.9",
+      "subtopic": "Conduction",
+      "syllabus_ref": "4.9",
+      "type": "procedural",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Rods in series and parallel",
+        "si": "ශ්‍රේණිගත දඬු",
+        "ta": null
+      },
+      "est_minutes": 25,
+      "math_deps": [
+        "math.algebra.proportion"
+      ],
+      "difficulty_est": 3.7,
+      "exam": {
+        "primary": [
+          "2017-35",
+          "2018-40",
+          "2021-36"
+        ],
+        "secondary": [
+          "2022-40",
+          "2023-36"
+        ],
+        "score": 4.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0471,
+      "exam_weight": 0.707,
+      "status": "draft"
+    },
+    {
+      "id": "phy.therm.cond.temperature-profile",
+      "unit": "phy.therm",
+      "topic": "phy.therm.4.9",
+      "subtopic": "Conduction",
+      "syllabus_ref": "4.9",
+      "type": "conceptual",
+      "practical": false,
+      "mastery": "practised",
+      "names": {
+        "en": "Temperature along lagged, unlagged and tapered rods",
+        "si": "පරිවාරණය කළ සහ නොකළ දඬු දිගේ උෂ්ණත්වය",
+        "ta": null
+      },
+      "est_minutes": 20,
+      "math_deps": [
+        "math.graph.gradient"
+      ],
+      "difficulty_est": 2.8,
+      "exam": {
+        "primary": [
+          "2020-27",
+          "2022-40",
+          "2023-36",
+          "2024-47",
+          "2025-34"
+        ],
+        "secondary": [],
+        "score": 5.0,
+        "figure_share": 1.0,
+        "tested_dependents": 0
+      },
+      "exam_weight_share": 0.0589,
+      "exam_weight": 0.884,
+      "status": "draft"
+    }
+  ],
+  "edges": [
+    {
+      "type": "requires",
+      "from": "phy.therm.temp.scale-equation",
+      "to": "phy.therm.temp.thermometric-property"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.temp.liquid-thermometer",
+      "to": "phy.therm.temp.thermometric-property"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.exp.area-volume",
+      "to": "phy.therm.exp.linear"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.exp.real-apparent",
+      "to": "phy.therm.exp.area-volume"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.exp.density-temperature",
+      "to": "phy.therm.exp.area-volume"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.exp.water-anomaly",
+      "to": "phy.therm.exp.density-temperature"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.charles-pressure",
+      "to": "phy.therm.temp.kelvin-celsius"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.gas.boyle"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.gas.charles-pressure"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.graphs",
+      "to": "phy.therm.gas.ideal-gas-equation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.trapped-column",
+      "to": "phy.therm.gas.boyle"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.trapped-column",
+      "to": "phy.mech.hydro.pressure-depth"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.gas.dalton",
+      "to": "phy.therm.gas.ideal-gas-equation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.kin.mean-ke-temperature",
+      "to": "phy.therm.kin.assumptions"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.kin.mean-ke-temperature",
+      "to": "phy.therm.temp.kelvin-celsius"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.kin.rms-speed",
+      "to": "phy.therm.kin.assumptions"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.heat.mixtures",
+      "to": "phy.therm.heat.specific-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.heat.continuous-flow",
+      "to": "phy.therm.heat.specific-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.heat.molar-heat-capacity",
+      "to": "phy.therm.heat.specific-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.heat.cooling-method",
+      "to": "phy.therm.heat.newton-cooling"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.heat.cooling-method",
+      "to": "phy.therm.heat.specific-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.state.mixtures-with-change",
+      "to": "phy.therm.state.latent-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.state.mixtures-with-change",
+      "to": "phy.therm.heat.mixtures"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.state.heating-curve",
+      "to": "phy.therm.state.latent-heat"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.state.latent-errors",
+      "to": "phy.therm.state.mixtures-with-change"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.hum.dew-point",
+      "to": "phy.therm.hum.vapour-pressure"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.hum.relative-humidity",
+      "to": "phy.therm.hum.dew-point"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.hum.mixing-air",
+      "to": "phy.therm.hum.relative-humidity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.hum.mixing-air",
+      "to": "phy.therm.hum.absolute-humidity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.hum.rh-temperature",
+      "to": "phy.therm.hum.relative-humidity"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.thermo.first-law",
+      "to": "phy.therm.thermo.internal-energy"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.thermo.processes",
+      "to": "phy.therm.thermo.first-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.thermo.cycles",
+      "to": "phy.therm.thermo.first-law"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.thermo.cycles",
+      "to": "phy.therm.thermo.pv-work"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.cond.composite-rods",
+      "to": "phy.therm.cond.rate-equation"
+    },
+    {
+      "type": "requires",
+      "from": "phy.therm.cond.temperature-profile",
+      "to": "phy.therm.cond.rate-equation"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.temp.thermal-equilibrium",
+      "to": "phy.therm.temp.thermometric-property"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.temp.thermal-equilibrium",
+      "to": "phy.therm.heat.mixtures"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.temp.kelvin-celsius",
+      "to": "phy.therm.temp.scale-equation"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.exp.real-apparent",
+      "to": "phy.therm.temp.liquid-thermometer"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.gas.graphs",
+      "to": "phy.therm.thermo.pv-work"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.thermo.cycles"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.kin.rms-speed"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.gas.dalton",
+      "to": "phy.therm.hum.vapour-pressure"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.kin.mean-ke-temperature",
+      "to": "phy.therm.thermo.internal-energy"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.energy.ke-pe",
+      "to": "phy.therm.kin.mean-ke-temperature"
+    },
+    {
+      "type": "helps",
+      "from": "phy.mech.mom.linear-momentum",
+      "to": "phy.therm.kin.assumptions"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.heat.specific-heat",
+      "to": "phy.therm.heat.newton-cooling"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.heat.molar-heat-capacity",
+      "to": "phy.therm.thermo.processes"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.thermo.internal-energy",
+      "to": "phy.therm.heat.molar-heat-capacity"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.state.molecular-states",
+      "to": "phy.therm.state.latent-heat"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.state.molecular-states",
+      "to": "phy.therm.hum.vapour-pressure"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.hum.vapour-pressure",
+      "to": "phy.therm.state.pressure-effect"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.hum.vapour-pressure",
+      "to": "phy.therm.hum.absolute-humidity"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.cond.mechanisms",
+      "to": "phy.therm.cond.rate-equation"
+    },
+    {
+      "type": "helps",
+      "from": "phy.therm.cond.mechanisms",
+      "to": "phy.matrad.rad.blackbody"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.pow.power-formulas",
+      "to": "phy.therm.heat.continuous-flow"
+    },
+    {
+      "type": "helps",
+      "from": "phy.elec.pow.power-formulas",
+      "to": "phy.therm.thermo.first-law"
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.temp.scale-equation",
+      "to": "phy.therm.temp.kelvin-celsius",
+      "weight": 0.3
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.exp.area-volume",
+      "to": "phy.therm.exp.linear",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.exp.real-apparent",
+      "to": "phy.therm.exp.area-volume",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.exp.density-temperature",
+      "to": "phy.therm.exp.area-volume",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.gas.boyle",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "phy.therm.gas.charles-pressure",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.gas.trapped-column",
+      "to": "phy.therm.gas.boyle",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.gas.dalton",
+      "to": "phy.therm.gas.ideal-gas-equation",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.gas.graphs",
+      "to": "phy.therm.gas.ideal-gas-equation",
+      "weight": 0.3
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.kin.rms-speed",
+      "to": "phy.therm.kin.assumptions",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.heat.mixtures",
+      "to": "phy.therm.heat.specific-heat",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.heat.continuous-flow",
+      "to": "phy.therm.heat.specific-heat",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.heat.cooling-method",
+      "to": "phy.therm.heat.newton-cooling",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.state.mixtures-with-change",
+      "to": "phy.therm.heat.mixtures",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.state.mixtures-with-change",
+      "to": "phy.therm.state.latent-heat",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.state.latent-errors",
+      "to": "phy.therm.state.mixtures-with-change",
+      "weight": 0.3
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.hum.relative-humidity",
+      "to": "phy.therm.hum.vapour-pressure",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.hum.mixing-air",
+      "to": "phy.therm.hum.relative-humidity",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.hum.mixing-air",
+      "to": "phy.therm.hum.absolute-humidity",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.hum.rh-temperature",
+      "to": "phy.therm.hum.relative-humidity",
+      "weight": 0.4
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.thermo.processes",
+      "to": "phy.therm.thermo.first-law",
+      "weight": 0.5
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.thermo.cycles",
+      "to": "phy.therm.thermo.first-law",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.thermo.cycles",
+      "to": "phy.therm.thermo.pv-work",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.cond.composite-rods",
+      "to": "phy.therm.cond.rate-equation",
+      "weight": 0.6
+    },
+    {
+      "type": "encompasses",
+      "from": "phy.therm.cond.temperature-profile",
+      "to": "phy.therm.cond.rate-equation",
+      "weight": 0.4
+    },
+    {
+      "type": "confusable",
+      "from": "phy.therm.heat.specific-heat",
+      "to": "phy.therm.state.latent-heat",
+      "why": "uses mcΔθ while the substance is melting or boiling"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.therm.hum.relative-humidity",
+      "to": "phy.therm.hum.absolute-humidity",
+      "why": "a higher relative humidity is not always more water vapour"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.therm.hum.vapour-pressure",
+      "to": "phy.therm.gas.boyle",
+      "why": "applies Boyle's law to a saturated vapour"
+    },
+    {
+      "type": "confusable",
+      "from": "phy.therm.thermo.pv-work",
+      "to": "phy.therm.thermo.first-law",
+      "why": "work done by the gas against work done on it"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.temp.scale-equation",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.exp.linear",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.exp.area-volume",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.exp.real-apparent",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.exp.density-temperature",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.gas.boyle",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.gas.charles-pressure",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.gas.ideal-gas-equation",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.gas.graphs",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.gas.trapped-column",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.kin.mean-ke-temperature",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.kin.rms-speed",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.heat.specific-heat",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.heat.mixtures",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.heat.continuous-flow",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.heat.newton-cooling",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.heat.cooling-method",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.state.latent-heat",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.state.mixtures-with-change",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.state.heating-curve",
+      "to": "math.graph.gradient"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.hum.relative-humidity",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.hum.absolute-humidity",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.hum.mixing-air",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.thermo.first-law",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.thermo.pv-work",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.thermo.cycles",
+      "to": "math.graph.area"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.cond.rate-equation",
+      "to": "math.algebra.rearrange"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.cond.composite-rods",
+      "to": "math.algebra.proportion"
+    },
+    {
+      "type": "uses-math",
+      "from": "phy.therm.cond.temperature-profile",
+      "to": "math.graph.gradient"
+    }
+  ]
+}

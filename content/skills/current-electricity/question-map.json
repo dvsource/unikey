@@ -1,0 +1,635 @@
+{
+  "status": "draft",
+  "papers": [
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "candidate_rule": "unit_no = 8, plus the unit_no = 7 induction subtopics that the NIE syllabus puts in Unit 8 (8.6)",
+  "questions": [
+    {
+      "uid": "2016-5",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.principle",
+      "secondary": [
+        "phy.elec.pot.potential-gradient"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-6",
+      "db_unit": 7,
+      "db_subtopic": "Transformer",
+      "primary": "phy.elec.tr.ideal-transformer",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-7",
+      "db_unit": 8,
+      "db_subtopic": "Ammeter & Voltmeter",
+      "primary": "phy.elec.meter.ammeter-voltmeter",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2016-25",
+      "db_unit": 8,
+      "db_subtopic": "Internal Resistance",
+      "primary": "phy.elec.emf.cell-combinations",
+      "secondary": [
+        "phy.elec.pow.power-formulas"
+      ],
+      "note": "two cells of unequal e.m.f. in parallel"
+    },
+    {
+      "uid": "2016-26",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.resistivity",
+      "secondary": [
+        "phy.elec.res.series-parallel"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-40",
+      "db_unit": 8,
+      "db_subtopic": "Wheatstone Bridge",
+      "primary": "phy.elec.bridge.wheatstone-balance",
+      "secondary": [
+        "phy.elec.kir.loop-rule"
+      ],
+      "note": "bridge with a cell in each arm"
+    },
+    {
+      "uid": "2016-43",
+      "db_unit": 8,
+      "db_subtopic": "Kirchhoff's Laws",
+      "primary": "phy.elec.kir.loop-rule",
+      "secondary": [
+        "phy.elec.kir.potential-at-point"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2016-48",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.loop-through-field",
+      "secondary": [
+        "phy.elec.emi.lenz"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-5",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.principle",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-8",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-26",
+      "db_unit": 8,
+      "db_subtopic": "Wheatstone Bridge",
+      "primary": "phy.elec.bridge.wheatstone-balance",
+      "secondary": [
+        "phy.elec.emf.internal-resistance"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-30",
+      "db_unit": 7,
+      "db_subtopic": "Transformer",
+      "primary": "phy.elec.tr.ideal-transformer",
+      "secondary": [],
+      "note": "a d.c. offset is not passed to the secondary"
+    },
+    {
+      "uid": "2017-34",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.lenz",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-40",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.pow.power-graphs",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2017-41",
+      "db_unit": 8,
+      "db_subtopic": "Potential Divider",
+      "primary": "phy.elec.cur.potential-divider",
+      "secondary": [
+        "phy.elec.kir.potential-at-point"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-48",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.lenz",
+      "secondary": [
+        "phy.mag.field.wire-field"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2017-49",
+      "db_unit": 7,
+      "db_subtopic": "Eddy Currents",
+      "primary": "phy.elec.emi.eddy-currents",
+      "secondary": [
+        "phy.elec.emi.lenz"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-8",
+      "db_unit": 7,
+      "db_subtopic": "Transformer",
+      "primary": "phy.elec.tr.ideal-transformer",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-9",
+      "db_unit": 8,
+      "db_subtopic": "Sources of EMF",
+      "primary": "phy.elec.emf.sources",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2018-21",
+      "db_unit": 8,
+      "db_subtopic": "Capacitor in DC Circuit",
+      "primary": "phy.elec.kir.capacitor-dc",
+      "secondary": [
+        "phy.estat.cap.capacitance"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-24",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [
+        "phy.elec.meter.ammeter-voltmeter"
+      ],
+      "note": "voltmeter resistance in parallel"
+    },
+    {
+      "uid": "2018-25",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.pow.power-formulas",
+      "secondary": [
+        "phy.elec.res.series-parallel"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-26",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.circuit-changes",
+      "secondary": [],
+      "note": "bulbs burning out"
+    },
+    {
+      "uid": "2018-42",
+      "db_unit": 8,
+      "db_subtopic": "Potential Divider",
+      "primary": "phy.elec.cur.potential-divider",
+      "secondary": [
+        "phy.elec.meter.ammeter-voltmeter"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2018-49",
+      "db_unit": 7,
+      "db_subtopic": "Motional EMF",
+      "primary": "phy.elec.emi.moving-rod",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-19",
+      "db_unit": 7,
+      "db_subtopic": "Transformer",
+      "primary": "phy.elec.tr.power-current",
+      "secondary": [
+        "phy.elec.tr.ideal-transformer"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-20",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.faraday",
+      "secondary": [
+        "phy.elec.emi.flux",
+        "phy.mag.field.wire-field"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-26",
+      "db_unit": 8,
+      "db_subtopic": "Analogue Multimeter",
+      "primary": "phy.elec.meter.multimeter",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2019-45",
+      "db_unit": 8,
+      "db_subtopic": "Internal Resistance",
+      "primary": "phy.elec.emf.cell-combinations",
+      "secondary": [
+        "phy.elec.kir.potential-at-point"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2019-46",
+      "db_unit": 8,
+      "db_subtopic": "Internal Resistance",
+      "primary": "phy.elec.emf.internal-resistance",
+      "secondary": [
+        "phy.elec.kir.loop-rule"
+      ],
+      "note": "a reversible source in series with the cell"
+    },
+    {
+      "uid": "2019-47",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.ac.rms",
+      "secondary": [
+        "phy.elec.pow.power-formulas"
+      ],
+      "note": "average power from voltage and current waveforms"
+    },
+    {
+      "uid": "2019-49",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-14",
+      "db_unit": 8,
+      "db_subtopic": "Kirchhoff's Laws",
+      "primary": "phy.elec.kir.capacitor-dc",
+      "secondary": [
+        "phy.elec.kir.loop-rule"
+      ],
+      "note": "DB files this as Kirchhoff's laws"
+    },
+    {
+      "uid": "2020-17",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.potential-gradient",
+      "secondary": [
+        "phy.elec.pot.compare-emf"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-29",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.faraday",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2020-33",
+      "db_unit": 8,
+      "db_subtopic": "Internal Resistance",
+      "primary": "phy.elec.emf.max-power",
+      "secondary": [
+        "phy.elec.emf.internal-resistance"
+      ],
+      "note": "equal power in two resistors gives r = √(R₁R₂)"
+    },
+    {
+      "uid": "2020-38",
+      "db_unit": 8,
+      "db_subtopic": "Potential Divider",
+      "primary": "phy.elec.cur.potential-divider",
+      "secondary": [
+        "phy.elec.meter.ammeter-voltmeter"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2020-47",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": "infinite ladder"
+    },
+    {
+      "uid": "2021-23",
+      "db_unit": 8,
+      "db_subtopic": "Wheatstone Bridge",
+      "primary": "phy.elec.kir.potential-at-point",
+      "secondary": [
+        "phy.elec.cur.potential-divider"
+      ],
+      "note": "DB files this as a Wheatstone bridge"
+    },
+    {
+      "uid": "2021-31",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.internal-resistance",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-40",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2021-43",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [
+        "phy.elec.res.resistivity"
+      ],
+      "note": "two arcs of a ring in parallel"
+    },
+    {
+      "uid": "2021-46",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.pow.power-formulas",
+      "secondary": [
+        "phy.elec.emf.internal-resistance"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2021-50",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.loop-through-field",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-5",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.back-emf",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-23",
+      "db_unit": 8,
+      "db_subtopic": "Internal Resistance",
+      "primary": "phy.elec.emf.internal-resistance",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-30",
+      "db_unit": 8,
+      "db_subtopic": "Capacitor in DC Circuit",
+      "primary": "phy.elec.kir.capacitor-dc",
+      "secondary": [
+        "phy.elec.kir.loop-rule"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-31",
+      "db_unit": 8,
+      "db_subtopic": "Drift Velocity",
+      "primary": "phy.elec.cur.drift-velocity",
+      "secondary": [
+        "phy.elec.pow.power-formulas"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2022-39",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.rotating-rod-disc",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2022-41",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-18",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.pow.joule-heating",
+      "secondary": [
+        "phy.elec.res.resistivity"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-23",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.lenz",
+      "secondary": [
+        "phy.mag.field.wire-field"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-29",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.network-reduction",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-40",
+      "db_unit": 8,
+      "db_subtopic": "Wheatstone Bridge",
+      "primary": "phy.elec.bridge.wheatstone-balance",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-43",
+      "db_unit": 8,
+      "db_subtopic": "Potential Divider",
+      "primary": "phy.elec.cur.potential-divider",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2023-47",
+      "db_unit": 7,
+      "db_subtopic": "Motional EMF",
+      "primary": "phy.elec.emi.loop-through-field",
+      "secondary": [
+        "phy.elec.emi.moving-rod"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2023-48",
+      "db_unit": 8,
+      "db_subtopic": "Drift Velocity",
+      "primary": "phy.elec.cur.drift-velocity",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-11",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.lenz-energy",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-14",
+      "db_unit": 7,
+      "db_subtopic": "Transformer",
+      "primary": "phy.elec.tr.power-current",
+      "secondary": [
+        "phy.elec.tr.ideal-transformer"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-18",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [
+        "phy.elec.cur.potential-divider"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2024-24",
+      "db_unit": 8,
+      "db_subtopic": "Electrical Power",
+      "primary": "phy.elec.pow.power-graphs",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-26",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.potential-gradient",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2024-34",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-6",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-9",
+      "db_unit": 7,
+      "db_subtopic": "Electromagnetic Induction",
+      "primary": "phy.elec.emi.faraday",
+      "secondary": [
+        "phy.elec.emi.flux"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-24",
+      "db_unit": 8,
+      "db_subtopic": "Potentiometer",
+      "primary": "phy.elec.pot.internal-resistance",
+      "secondary": [],
+      "note": null
+    },
+    {
+      "uid": "2025-29",
+      "db_unit": 8,
+      "db_subtopic": "Resistor Networks",
+      "primary": "phy.elec.res.series-parallel",
+      "secondary": [
+        "phy.elec.cur.potential-divider"
+      ],
+      "note": null
+    },
+    {
+      "uid": "2025-33",
+      "db_unit": 7,
+      "db_subtopic": "Eddy Currents",
+      "primary": "phy.elec.emi.eddy-currents",
+      "secondary": [
+        "phy.elec.emi.lenz-energy"
+      ],
+      "note": null
+    }
+  ]
+}

@@ -1,0 +1,5737 @@
+{
+ "spec_version": "0.5",
+ "status": "draft, not teacher reviewed",
+ "medium": "en",
+ "skills": [
+  {
+   "id": "phy.elec.res.series-parallel",
+   "name": "Resistors in series and parallel",
+   "name_si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.cur.potential-divider",
+   "name": "Potential divider",
+   "name_si": "විභව බෙදුම්කරය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.res.resistivity",
+   "name": "Resistance and resistivity",
+   "name_si": "ප්‍රතිරෝධය සහ ප්‍රතිරෝධකතාව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.cur.drift-velocity",
+   "name": "Drift velocity and current density",
+   "name_si": "ප්ලාවිත ප්‍රවේගය සහ ධාරා ඝනත්වය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.pow.power-formulas",
+   "name": "Electrical power",
+   "name_si": "විද්‍යුත් ජවය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.pow.power-graphs",
+   "name": "How power varies with current, voltage and resistance",
+   "name_si": "ධාරාව, වෝල්ටීයතාව සහ ප්‍රතිරෝධය සමඟ ජවය වෙනස් වන ආකාරය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.elec.pow.joule-heating",
+   "name": "Joule heating",
+   "name_si": "ජූල් තාපනය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.emf.internal-resistance",
+   "name": "Terminal pd and internal resistance",
+   "name_si": "අග්‍ර විභව අන්තරය සහ අභ්‍යන්තර ප්‍රතිරෝධය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.emf.cell-combinations",
+   "name": "Cells in series and in parallel",
+   "name_si": "ශ්‍රේණිගත සහ සමාන්තරගත කෝෂ",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.emf.max-power",
+   "name": "Maximum power transfer",
+   "name_si": "උපරිම ජව සංක්‍රාමණය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.meter.ammeter-voltmeter",
+   "name": "Ammeters, voltmeters and ideal meters",
+   "name_si": "ඇමීටර, වෝල්ට්මීටර සහ පරිපූර්ණ මීටර",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.elec.bridge.wheatstone-balance",
+   "name": "Balanced Wheatstone bridge",
+   "name_si": "තුලිත විට්ස්ටන් සේතුව",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.pot.principle",
+   "name": "Potentiometer principle and sensitivity",
+   "name_si": "විභවමාන මූලධර්මය සහ සංවේදීතාව",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.elec.pot.potential-gradient",
+   "name": "Potential gradient along a potentiometer wire",
+   "name_si": "විභවමාන කම්බියක් දිගේ විභව අනුක්‍රමණය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.pot.internal-resistance",
+   "name": "Internal resistance with a potentiometer",
+   "name_si": "විභවමානයෙන් අභ්‍යන්තර ප්‍රතිරෝධය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.emi.faraday",
+   "name": "Faraday's law",
+   "name_si": "ෆැරඩේ නියමය",
+   "type": "procedural"
+  },
+  {
+   "id": "phy.elec.emi.lenz",
+   "name": "Lenz's law",
+   "name_si": "ලෙන්ස් නියමය",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.elec.emi.back-emf",
+   "name": "Back e.m.f. of a motor",
+   "name_si": "මෝටරයක ප්‍රති වි.ගා.බ.",
+   "type": "conceptual"
+  },
+  {
+   "id": "phy.elec.tr.power-current",
+   "name": "Transformer power and current ratio",
+   "name_si": "පරිණාමකයේ ජවය සහ ධාරා අනුපාතය",
+   "type": "procedural"
+  }
+ ],
+ "cards": [
+  {
+   "id": "phy.elec.c001",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2025-6",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Resistors R₁ and R₂ are in parallel. Equivalent resistance?",
+    "si": "R₁ සහ R₂ ප්‍රතිරෝධක සමාන්තරගත ය. සමක ප්‍රතිරෝධය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "R₁R₂/(R₁ + R₂)",
+      "si": "R₁R₂/(R₁ + R₂)"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "R₁ + R₂",
+      "si": "R₁ + R₂"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "(R₁ + R₂)/2",
+      "si": "(R₁ + R₂)/2"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "(R₁ + R₂)/(R₁R₂)",
+      "si": "(R₁ + R₂)/(R₁R₂)"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "1/R = 1/R₁ + 1/R₂, which rearranges to product ÷ sum.",
+    "si": "1/R = 1/R₁ + 1/R₂, එය නැවත සැකසූ විට ගුණිතය ÷ එකතුව ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.c002",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Adding one more resistor in parallel always lowers the total resistance.",
+    "si": "තවත් ප්‍රතිරෝධකයක් සමාන්තරගතව එක් කිරීම සැමවිටම මුළු ප්‍රතිරෝධය අඩු කරයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Each new path lets more current through for the same pd.",
+    "si": "එකම විභව අන්තරය සඳහා සෑම නව මාර්ගයක්ම වැඩි ධාරාවක් ගැලීමට ඉඩ දෙයි."
+   }
+  },
+  {
+   "id": "phy.elec.c003",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-6",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Three identical resistors. Largest possible equivalent resistance ÷ smallest?",
+    "si": "සර්වසම ප්‍රතිරෝධක තුනකි. ලබා ගත හැකි විශාලතම සමක ප්‍රතිරෝධය ÷ කුඩාතම?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "9",
+      "si": "9"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "3",
+      "si": "3"
+     },
+     "correct": false,
+     "tag": "stopped-early",
+     "detail": {
+      "en": "3R is only the largest. Divide it by the smallest, R/3.",
+      "si": "3R යනු විශාලතම අගය පමණි. එය කුඩාතම අගය වන R/3 න් බෙදන්න."
+     }
+    },
+    {
+     "text": {
+      "en": "6",
+      "si": "6"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "The smallest is R/3, all three in parallel.",
+      "si": "කුඩාතම අගය තුනම සමාන්තරගත කළ විට ලැබෙන R/3 වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "All in series gives 3R. All in parallel gives R/3. The ratio is 9.",
+    "si": "සියල්ල ශ්‍රේණිගත කළ විට 3R ලැබේ. සියල්ල සමාන්තරගත කළ විට R/3 ලැබේ. අනුපාතය 9 කි."
+   }
+  },
+  {
+   "id": "phy.elec.c004",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A 4 Ω and a 12 Ω resistor are joined in parallel. Equivalent resistance?",
+    "si": "4 Ω සහ 12 Ω ප්‍රතිරෝධක සමාන්තරගතව සම්බන්ධ කර ඇත. සමක ප්‍රතිරෝධය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "3 Ω",
+      "si": "3 Ω"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "16 Ω",
+      "si": "16 Ω"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "8 Ω",
+      "si": "8 Ω"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Parallel resistors don't average. Use product ÷ sum.",
+      "si": "සමාන්තරගත ප්‍රතිරෝධකවල සාමාන්‍යය නොගනී. ගුණිතය ÷ එකතුව භාවිත කරන්න."
+     }
+    },
+    {
+     "text": {
+      "en": "0.33 Ω",
+      "si": "0.33 Ω"
+     },
+     "correct": false,
+     "tag": "stopped-early",
+     "detail": {
+      "en": "That's 1/R. Take the reciprocal.",
+      "si": "එය 1/R වේ. එහි පරස්පරය ගන්න."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "4 × 12 ÷ 16 = 3 Ω, which is less than the smaller resistor.",
+    "si": "4 × 12 ÷ 16 = 3 Ω, එය කුඩා ප්‍රතිරෝධකයටත් වඩා අඩු ය."
+   }
+  },
+  {
+   "id": "phy.elec.c005",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"Two different resistors in parallel share the current equally.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"සමාන්තරගත වෙනස් ප්‍රතිරෝධක දෙකක් ධාරාව සමානව බෙදා ගනී.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "More current flows through the smaller resistance",
+      "si": "කුඩා ප්‍රතිරෝධය හරහා වැඩි ධාරාවක් ගලයි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: the pd is equal, so the current is too",
+      "si": "කිසිවක් නැත: විභව අන්තරය සමාන නිසා ධාරාව ද සමාන ය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "More current flows through the larger resistance",
+      "si": "විශාල ප්‍රතිරෝධය හරහා වැඩි ධාරාවක් ගලයි"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "The first resistor uses up most of the current",
+      "si": "පළමු ප්‍රතිරෝධකය ධාරාවෙන් වැඩි කොටසක් වැය කරයි"
+     },
+     "correct": false,
+     "tag": "current-used-up"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The pd is the same across both, so I = V/R is larger where R is smaller.",
+    "si": "දෙක හරහාම විභව අන්තරය සමාන ය, එබැවින් R කුඩා තැන I = V/R විශාල ය."
+   }
+  },
+  {
+   "id": "phy.elec.c006",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.elec.cur.potential-divider"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-43",
+   "note_ref": "phy.elec.note.div",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A divider has R and 3R in series across a cell. Pd across 3R ÷ cell voltage?",
+    "si": "බෙදුම්කරයක කෝෂයක් හරහා R සහ 3R ශ්‍රේණිගතව ඇත. 3R හරහා විභව අන්තරය ÷ කෝෂයේ වෝල්ටීයතාව?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "¾",
+      "si": "¾"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "⅓",
+      "si": "⅓"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That's the share across R, not 3R.",
+      "si": "එය 3R හි නොව, R හරහා කොටසයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Same current through both, so pd ∝ R: 3R ÷ 4R.",
+    "si": "දෙක හරහාම එකම ධාරාව, එබැවින් විභව අන්තරය ∝ R: 3R ÷ 4R."
+   }
+  },
+  {
+   "id": "phy.elec.c007",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.cur.potential-divider"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-43",
+   "note_ref": "phy.elec.note.div",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A 6 V cell with no internal resistance drives 1 kΩ and 2 kΩ in series. An ideal voltmeter reads the pd across the 2 kΩ. Reading?",
+    "si": "අභ්‍යන්තර ප්‍රතිරෝධයක් නැති 6 V කෝෂයක් ශ්‍රේණිගත 1 kΩ සහ 2 kΩ හරහා ධාරාව යවයි. පරිපූර්ණ වෝල්ට්මීටරයක් 2 kΩ හරහා විභව අන්තරය මනියි. පාඨාංකය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "4 V",
+      "si": "4 V"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2 V",
+      "si": "2 V"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That's the pd across the 1 kΩ.",
+      "si": "එය 1 kΩ හරහා විභව අන්තරයයි."
+     }
+    },
+    {
+     "text": {
+      "en": "3 V",
+      "si": "3 V"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "6 V",
+      "si": "6 V"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The cell's voltage is shared by both resistors.",
+      "si": "කෝෂයේ වෝල්ටීයතාව ප්‍රතිරෝධක දෙකම විසින් බෙදා ගනී."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The 2 kΩ has ⅔ of the total resistance, so it takes ⅔ of 6 V.",
+    "si": "2 kΩ ට මුළු ප්‍රතිරෝධයෙන් ⅔ ක් ඇත, එබැවින් එය 6 V න් ⅔ ක් ගනී."
+   }
+  },
+  {
+   "id": "phy.elec.c008",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.cur.potential-divider"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-43",
+   "note_ref": "phy.elec.note.div",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In a divider, an ideal voltmeter across one resistor is swapped for a real one with a similar resistance. Student says: \"The reading stays the same.\" What's wrong?",
+    "si": "බෙදුම්කරයක එක් ප්‍රතිරෝධකයක් හරහා ඇති පරිපූර්ණ වෝල්ට්මීටරය, ඊට සමාන ප්‍රතිරෝධයක් ඇති සැබෑ එකකින් ප්‍රතිස්ථාපනය කෙරේ. සිසුවා පවසයි: \"පාඨාංකය නොවෙනස්ව පවතී.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The meter draws current, so the reading falls",
+      "si": "මීටරය ධාරාව ගනී, එබැවින් පාඨාංකය අඩු වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The meter adds resistance, so the reading rises",
+      "si": "මීටරය ප්‍රතිරෝධය එකතු කරයි, එබැවින් පාඨාංකය වැඩි වේ"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "A voltmeter never changes a circuit",
+      "si": "වෝල්ට්මීටරයක් කිසිවිටෙක පරිපථයක් වෙනස් නොකරයි"
+     },
+     "correct": false,
+     "tag": "meter-resistance"
+    },
+    {
+     "text": {
+      "en": "The reading falls only if the cell has internal resistance",
+      "si": "පාඨාංකය අඩු වන්නේ කෝෂයට අභ්‍යන්තර ප්‍රතිරෝධයක් ඇත්නම් පමණි"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The meter in parallel lowers that part's resistance, so it changes the divider.",
+      "si": "සමාන්තරගත මීටරය එම කොටසේ ප්‍රතිරෝධය අඩු කරයි, එබැවින් එය බෙදුම්කරය වෙනස් කරයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The meter in parallel lowers the resistance of that part, so it takes a smaller share of the pd.",
+    "si": "සමාන්තරගත මීටරය එම කොටසේ ප්‍රතිරෝධය අඩු කරයි, එබැවින් එයට විභව අන්තරයෙන් කුඩා කොටසක් ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.c009",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.elec.res.resistivity"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2016-26",
+   "note_ref": "phy.elec.note.rho",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "R = ρ ▢ ÷ A",
+    "si": "R = ρ ▢ ÷ A"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "l",
+      "si": "l"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "d",
+      "si": "d"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "A",
+      "si": "A"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "l²",
+      "si": "l²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Resistance grows with the length and falls with the cross-sectional area.",
+    "si": "ප්‍රතිරෝධය දිග සමඟ වැඩි වන අතර හරස්කඩ වර්ගඵලය සමඟ අඩු වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c010",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.elec.res.resistivity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-26",
+   "note_ref": "phy.elec.note.rho",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A wire is stretched to twice its length, with its volume unchanged. Resistance × ?",
+    "si": "කම්බියක පරිමාව නොවෙනස්ව, එය දිග මෙන් දෙගුණයක් දක්වා අදිනු ලැබේ. ප්‍රතිරෝධය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Stretching also halves the cross-sectional area.",
+      "si": "ඇදීමෙන් හරස්කඩ වර්ගඵලය ද අඩක් වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "8",
+      "si": "8"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "l × 2 and A × ½, so ρl/A goes up 4 times.",
+    "si": "l × 2 සහ A × ½, එබැවින් ρl/A 4 ගුණයකින් වැඩි වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c011",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.elec.res.resistivity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-26",
+   "note_ref": "phy.elec.note.rho",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Same metal and length, but the diameter × 2. Resistance × ?",
+    "si": "එකම ලෝහය සහ දිග, නමුත් විෂ්කම්භය × 2. ප්‍රතිරෝධය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "forgot-square"
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "A ∝ d², so A × 4 and R × ¼.",
+    "si": "A ∝ d², එබැවින් A × 4 සහ R × ¼."
+   }
+  },
+  {
+   "id": "phy.elec.c012",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.elec.cur.drift-velocity"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2022-31",
+   "note_ref": "phy.elec.note.drift",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "I = n ▢ v e",
+    "si": "I = n ▢ v e"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "A",
+      "si": "A"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "l",
+      "si": "l"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "R",
+      "si": "R"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "V",
+      "si": "V"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "I = nAve: carrier density × area × drift speed × charge.",
+    "si": "I = nAve: වාහක ඝනත්වය × වර්ගඵලය × ප්ලාවිත වේගය × ආරෝපණය."
+   }
+  },
+  {
+   "id": "phy.elec.c013",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F19",
+   "skills": [
+    "phy.elec.cur.drift-velocity"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-31",
+   "note_ref": "phy.elec.note.drift",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A wire has a thin part of area A and a thick part of area 3A. Drift speed, thin : thick?",
+    "si": "කම්බියක වර්ගඵලය A වූ සිහින් කොටසක් සහ 3A වූ ඝන කොටසක් ඇත. ප්ලාවිත වේගය, සිහින් : ඝන?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "3 : 1",
+      "si": "3 : 1"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1 : 3",
+      "si": "1 : 3"
+     },
+     "correct": false,
+     "tag": "drift-thin-slower"
+    },
+    {
+     "text": {
+      "en": "1 : 1",
+      "si": "1 : 1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Same current through a smaller area needs faster drift.",
+      "si": "කුඩා වර්ගඵලයක් හරහා එකම ධාරාවට වේගවත් ප්ලාවිත වේගයක් අවශ්‍ය ය."
+     }
+    },
+    {
+     "text": {
+      "en": "9 : 1",
+      "si": "9 : 1"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The current is the same in both parts, so v ∝ 1/A.",
+    "si": "කොටස් දෙකේම ධාරාව සමාන ය, එබැවින් v ∝ 1/A."
+   }
+  },
+  {
+   "id": "phy.elec.c014",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.pow.power-formulas"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2021-46",
+   "note_ref": "phy.elec.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A resistor R has a pd V across it. Power?",
+    "si": "R ප්‍රතිරෝධකයක් හරහා V විභව අන්තරයක් ඇත. ජවය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "V²/R",
+      "si": "V²/R"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "VR",
+      "si": "VR"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "V/R",
+      "si": "V/R"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "V²R",
+      "si": "V²R"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "P = VI and I = V/R, so P = V²/R.",
+    "si": "P = VI සහ I = V/R, එබැවින් P = V²/R."
+   }
+  },
+  {
+   "id": "phy.elec.c015",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.pow.power-formulas"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-46",
+   "note_ref": "phy.elec.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A 60 W and a 100 W lamp, both rated for 230 V, are joined in series across 230 V. Which glows brighter?",
+    "si": "දෙකම 230 V සඳහා ශ්‍රේණිගත කළ 60 W සහ 100 W ලාම්පු දෙකක් 230 V හරහා ශ්‍රේණිගතව සම්බන්ධ කර ඇත. වඩා දීප්තිමත්ව දැල්වෙන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The 60 W lamp",
+      "si": "60 W ලාම්පුව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The 100 W lamp",
+      "si": "100 W ලාම්පුව"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Both equally",
+      "si": "දෙකම සමානව"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "The lamp nearer the + terminal",
+      "si": "+ අග්‍රයට ආසන්න ලාම්පුව"
+     },
+     "correct": false,
+     "tag": "current-used-up"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The 60 W lamp has the larger R. In series the current is the same, so P = I²R is larger for it.",
+    "si": "60 W ලාම්පුවට විශාල R ඇත. ශ්‍රේණිගතව ධාරාව සමාන ය, එබැවින් එයට P = I²R විශාල ය."
+   }
+  },
+  {
+   "id": "phy.elec.c016",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F03",
+   "skills": [
+    "phy.elec.pow.power-graphs"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-24",
+   "note_ref": "phy.elec.note.pgr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A fixed resistor's pd × 3. Power × ?",
+    "si": "අචල ප්‍රතිරෝධකයක විභව අන්තරය × 3. ජවය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "9",
+      "si": "9"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "3",
+      "si": "3"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "27",
+      "si": "27"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "⅓",
+      "si": "⅓"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "P = V²/R, so P ∝ V².",
+    "si": "P = V²/R, so P ∝ V²."
+   }
+  },
+  {
+   "id": "phy.elec.c017",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F15",
+   "skills": [
+    "phy.elec.pow.power-graphs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-24",
+   "note_ref": "phy.elec.note.pgr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A wire kept at constant temperature carries current I. Pick the graph of its power P against I.",
+    "si": "නියත උෂ්ණත්වයක තබා ඇති කම්බියක් I ධාරාවක් ගෙන යයි. I ට එරෙහිව එහි ජවය P හි ප්‍රස්තාරය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Curve from the origin, getting steeper",
+      "si": "මූල ලක්ෂ්‍යයේ සිට, ක්‍රමයෙන් බෑවුම වැඩි වන වක්‍රය"
+     },
+     "correct": true,
+     "asset": "figures/c017-1.svg"
+    },
+    {
+     "text": {
+      "en": "Straight line rising from the origin",
+      "si": "මූල ලක්ෂ්‍යයේ සිට ඉහළ යන සරල රේඛාව"
+     },
+     "correct": false,
+     "tag": "forgot-square",
+     "asset": "figures/c017-2.svg"
+    },
+    {
+     "text": {
+      "en": "Curve that rises, then levels off",
+      "si": "ඉහළ ගොස්, ඉන්පසු සමතලා වන වක්‍රය"
+     },
+     "correct": false,
+     "tag": "wrong-power",
+     "asset": "figures/c017-3.svg"
+    },
+    {
+     "text": {
+      "en": "Curve that falls as I grows",
+      "si": "I වැඩි වන විට පහළ යන වක්‍රය"
+     },
+     "correct": false,
+     "tag": "inverted",
+     "asset": "figures/c017-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "R is constant, so P = I²R is a parabola through the origin.",
+    "si": "R නියත ය, එබැවින් P = I²R මූල ලක්ෂ්‍යය හරහා යන පරාවලයකි."
+   }
+  },
+  {
+   "id": "phy.elec.c018",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F11",
+   "skills": [
+    "phy.elec.pow.power-graphs"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-24",
+   "note_ref": "phy.elec.note.pgr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A fixed-voltage supply drives a resistor. As the resistance increases, the power?",
+    "si": "නියත වෝල්ටීයතා සැපයුමක් ප්‍රතිරෝධකයක් හරහා ධාරාව යවයි. ප්‍රතිරෝධය වැඩි වන විට ජවය?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Decreases",
+      "si": "අඩු වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Increases",
+      "si": "වැඩි වේ"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Stays the same",
+      "si": "නොවෙනස්ව පවතී"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "With V fixed, the current falls as R rises, so P changes.",
+      "si": "V නියත විට R වැඩි වන විට ධාරාව අඩු වේ, එබැවින් P වෙනස් වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Rises, then falls",
+      "si": "වැඩි වී, ඉන්පසු අඩු වේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "That shape needs a source with internal resistance. Here V is fixed.",
+      "si": "එම හැඩයට අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති ප්‍රභවයක් අවශ්‍ය ය. මෙහි V නියත ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "With V fixed, P = V²/R, which falls as R rises.",
+    "si": "V නියත විට P = V²/R, එය R වැඩි වන විට අඩු වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c019",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F05",
+   "skills": [
+    "phy.elec.pow.joule-heating"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-18",
+   "note_ref": "phy.elec.note.heat",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "1 kWh in joules?",
+    "si": "1 kWh ජූල් වලින් කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "3.6 × 10⁶ J",
+      "si": "3.6 × 10⁶ J"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1000 J",
+      "si": "1000 J"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "3600 J",
+      "si": "3600 J"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "3.6 × 10⁵ J",
+      "si": "3.6 × 10⁵ J"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "1 kW × 3600 s = 3.6 × 10⁶ J.",
+    "si": "1 kW × 3600 s = 3.6 × 10⁶ J."
+   }
+  },
+  {
+   "id": "phy.elec.c020",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.elec.pow.joule-heating"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-18",
+   "note_ref": "phy.elec.note.heat",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A heater runs on fixed mains voltage. Its wire is swapped for one of the same metal and thickness, half as long. Time to heat the same water × ?",
+    "si": "තාපකයක් නියත ප්‍රධාන වෝල්ටීයතාවයක ක්‍රියා කරයි. එහි කම්බිය එම ලෝහයෙන්ම, එම ඝනකමින්ම, දිග අඩක් වූ කම්බියකින් ප්‍රතිස්ථාපනය කෙරේ. එම ජලය රත් කිරීමට ගතවන කාලය × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "¼",
+      "si": "¼"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Halving R changes the power, so the time changes.",
+      "si": "R අඩක් කිරීම ජවය වෙනස් කරයි, එබැවින් කාලය වෙනස් වේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "R halves, so P = V²/R doubles and the time halves.",
+    "si": "R අඩක් වේ, එබැවින් P = V²/R දෙගුණ වන අතර කාලය අඩක් වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c021",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.emf.internal-resistance"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2022-23",
+   "note_ref": "phy.elec.note.ir",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A cell of e.m.f. E and internal resistance r gives current I. Terminal pd?",
+    "si": "වි.ගා.බ. E සහ අභ්‍යන්තර ප්‍රතිරෝධය r වූ කෝෂයක් I ධාරාවක් දෙයි. අග්‍ර විභව අන්තරය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "E − Ir",
+      "si": "E − Ir"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "E + Ir",
+      "si": "E + Ir"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "E",
+      "si": "E"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Ir",
+      "si": "Ir"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Part of the e.m.f., Ir, is used up inside the cell.",
+    "si": "වි.ගා.බ. යෙන් කොටසක් වන Ir කෝෂය තුළ වැය වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c022",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.emf.internal-resistance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-23",
+   "note_ref": "phy.elec.note.ir",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "An ideal voltmeter across a cell with nothing else connected reads the cell's e.m.f.",
+    "si": "වෙනත් කිසිවක් සම්බන්ධ නොකළ කෝෂයක් හරහා ඇති පරිපූර්ණ වෝල්ට්මීටරයක් කෝෂයේ වි.ගා.බ. පෙන්වයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "emf-vs-terminal-pd"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "No current flows, so no pd is lost inside the cell.",
+    "si": "ධාරාවක් නොගලයි, එබැවින් කෝෂය තුළ විභව අන්තරයක් නාස්ති නොවේ."
+   }
+  },
+  {
+   "id": "phy.elec.c023",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.emf.internal-resistance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-23",
+   "note_ref": "phy.elec.note.ir",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A cell's terminal pd rises when it supplies a larger current.",
+    "si": "කෝෂයක් විශාල ධාරාවක් සපයන විට එහි අග්‍ර විභව අන්තරය වැඩි වේ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "emf-vs-terminal-pd"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "V = E − Ir, so a larger current means a smaller terminal pd.",
+    "si": "V = E − Ir, එබැවින් විශාල ධාරාවක් යනු කුඩා අග්‍ර විභව අන්තරයකි."
+   }
+  },
+  {
+   "id": "phy.elec.c024",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.emf.cell-combinations"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-25",
+   "note_ref": "phy.elec.note.cells",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Two identical cells, each of e.m.f. E and internal resistance r, are joined in parallel. E.m.f. and internal resistance of the pair?",
+    "si": "එක එකක් වි.ගා.බ. E සහ අභ්‍යන්තර ප්‍රතිරෝධය r වූ සර්වසම කෝෂ දෙකක් සමාන්තරගතව සම්බන්ධ කර ඇත. යුගලයේ වි.ගා.බ. සහ අභ්‍යන්තර ප්‍රතිරෝධය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "E and r/2",
+      "si": "E සහ r/2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "2E and 2r",
+      "si": "2E සහ 2r"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "2E and r/2",
+      "si": "2E සහ r/2"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Identical cells in parallel keep the same e.m.f.",
+      "si": "සමාන්තරගත සර්වසම කෝෂවල වි.ගා.බ. නොවෙනස්ව පවතී."
+     }
+    },
+    {
+     "text": {
+      "en": "E and 2r",
+      "si": "E සහ 2r"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The e.m.f. stays E. The two internal resistances are in parallel, giving r/2.",
+    "si": "වි.ගා.බ. E ලෙසම පවතී. අභ්‍යන්තර ප්‍රතිරෝධ දෙක සමාන්තරගත නිසා r/2 ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.c025",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.elec.emf.cell-combinations"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-25",
+   "note_ref": "phy.elec.note.cells",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "n identical cells in series. Total internal resistance ÷ one cell's?",
+    "si": "ශ්‍රේණිගත සර්වසම කෝෂ n කි. මුළු අභ්‍යන්තර ප්‍රතිරෝධය ÷ එක් කෝෂයක අභ්‍යන්තර ප්‍රතිරෝධය?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "n",
+      "si": "n"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1/n",
+      "si": "1/n"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Each cell's r adds when they are in series.",
+      "si": "ශ්‍රේණිගත විට එක් එක් කෝෂයේ r එකතු වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "n²",
+      "si": "n²"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Internal resistances in series add.",
+    "si": "ශ්‍රේණිගත අභ්‍යන්තර ප්‍රතිරෝධ එකතු වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c026",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.emf.max-power"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-33",
+   "note_ref": "phy.elec.note.maxp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A cell has an internal resistance of 2 Ω. Which load takes the most power from it?",
+    "si": "කෝෂයක අභ්‍යන්තර ප්‍රතිරෝධය 2 Ω වේ. එයින් වැඩිම ජවය ලබා ගන්නේ කුමන භාරය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2 Ω",
+      "si": "2 Ω"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "0 Ω",
+      "si": "0 Ω"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Zero load gives the largest current, but no power in the load.",
+      "si": "ශුන්‍ය භාරයක් විශාලතම ධාරාව දෙයි, නමුත් භාරයේ ජවයක් නැත."
+     }
+    },
+    {
+     "text": {
+      "en": "As large as possible",
+      "si": "හැකි තරම් විශාල"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "4 Ω",
+      "si": "4 Ω"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Maximum power needs R = r, not R = 2r.",
+      "si": "උපරිම ජවය සඳහා R = 2r නොව, R = r අවශ්‍ය ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The load gets the most power when its resistance equals the internal resistance.",
+    "si": "භාරයේ ප්‍රතිරෝධය අභ්‍යන්තර ප්‍රතිරෝධයට සමාන වන විට එයට වැඩිම ජවය ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.c027",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.emf.max-power"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2020-33",
+   "note_ref": "phy.elec.note.maxp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"At maximum power transfer, the cell is at its most efficient.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"උපරිම ජව සංක්‍රාමණයේ දී කෝෂය වඩාත්ම කාර්යක්ෂම ය.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The efficiency is only 50% there",
+      "si": "එහි දී කාර්යක්ෂමතාව 50% ක් පමණි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: most power means the least waste",
+      "si": "කිසිවක් නැත: වැඩිම ජවය යනු අවම නාස්තියයි"
+     },
+     "correct": false,
+     "tag": "max-power-efficiency"
+    },
+    {
+     "text": {
+      "en": "The efficiency is 100% there",
+      "si": "එහි දී කාර්යක්ෂමතාව 100% කි"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "Half the power is lost inside the cell.",
+      "si": "ජවයෙන් අඩක් කෝෂය තුළ නාස්ති වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "The efficiency is highest when the load is zero",
+      "si": "භාරය ශුන්‍ය විට කාර්යක්ෂමතාව ඉහළම ය"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "With R = r, the cell's own resistance wastes as much power as the load uses.",
+    "si": "R = r විට, භාරය භාවිත කරන තරම්ම ජවයක් කෝෂයේම ප්‍රතිරෝධය නාස්ති කරයි."
+   }
+  },
+  {
+   "id": "phy.elec.c028",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.meter.ammeter-voltmeter"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-7",
+   "note_ref": "phy.elec.note.meter",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Which meters disturb a circuit least when measuring the current in, and pd across, a 1 kΩ resistor?",
+    "si": "1 kΩ ප්‍රතිරෝධකයක ධාරාව සහ ඒ හරහා විභව අන්තරය මනින විට පරිපථයට අවම බලපෑමක් කරන්නේ කුමන මීටර ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Ammeter 1 Ω, voltmeter 1 MΩ",
+      "si": "ඇමීටරය 1 Ω, වෝල්ට්මීටරය 1 MΩ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Ammeter 1 MΩ, voltmeter 1 Ω",
+      "si": "ඇමීටරය 1 MΩ, වෝල්ට්මීටරය 1 Ω"
+     },
+     "correct": false,
+     "tag": "meter-resistance"
+    },
+    {
+     "text": {
+      "en": "Both 1 kΩ",
+      "si": "දෙකම 1 kΩ"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Ammeter 1 kΩ, voltmeter 1 MΩ",
+      "si": "ඇමීටරය 1 kΩ, වෝල්ට්මීටරය 1 MΩ"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "An ammeter's resistance adds to the circuit, so it must be tiny.",
+      "si": "ඇමීටරයේ ප්‍රතිරෝධය පරිපථයට එකතු වේ, එබැවින් එය ඉතා කුඩා විය යුතු ය."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The ammeter's resistance must be far below 1 kΩ, and the voltmeter's far above it.",
+    "si": "ඇමීටරයේ ප්‍රතිරෝධය 1 kΩ ට වඩා බොහෝ අඩු ද, වෝල්ට්මීටරයේ ප්‍රතිරෝධය ඊට වඩා බොහෝ වැඩි ද විය යුතු ය."
+   }
+  },
+  {
+   "id": "phy.elec.c029",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F23",
+   "skills": [
+    "phy.elec.meter.ammeter-voltmeter"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-7",
+   "note_ref": "phy.elec.note.meter",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Pick the circuit that measures the current in R and the pd across R.",
+    "si": "R හි ධාරාව සහ R හරහා විභව අන්තරය මනින පරිපථය තෝරන්න."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Ammeter in the loop, voltmeter across R",
+      "si": "ඇමීටරය පරිපථයේ ශ්‍රේණිගතව, වෝල්ට්මීටරය R හරහා"
+     },
+     "correct": true,
+     "asset": "figures/c029-1.svg"
+    },
+    {
+     "text": {
+      "en": "Voltmeter in the loop, ammeter across R",
+      "si": "වෝල්ට්මීටරය පරිපථයේ ශ්‍රේණිගතව, ඇමීටරය R හරහා"
+     },
+     "correct": false,
+     "tag": "meter-placement",
+     "asset": "figures/c029-2.svg"
+    },
+    {
+     "text": {
+      "en": "Ammeter in the loop, voltmeter across the cell",
+      "si": "ඇමීටරය පරිපථයේ ශ්‍රේණිගතව, වෝල්ට්මීටරය කෝෂය හරහා"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That reads the cell's pd, not R's.",
+      "si": "එය R හි නොව, කෝෂයේ විභව අන්තරය මනියි."
+     },
+     "asset": "figures/c029-3.svg"
+    },
+    {
+     "text": {
+      "en": "Both meters in the loop",
+      "si": "මීටර දෙකම පරිපථයේ ශ්‍රේණිගතව"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap",
+     "asset": "figures/c029-4.svg"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "An ammeter goes in series with R. A voltmeter goes in parallel with R.",
+    "si": "ඇමීටරය R සමඟ ශ්‍රේණිගතව යෙදේ. වෝල්ට්මීටරය R සමඟ සමාන්තරගතව යෙදේ."
+   }
+  },
+  {
+   "id": "phy.elec.c030",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.meter.ammeter-voltmeter"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2016-7",
+   "note_ref": "phy.elec.note.meter",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "An ideal voltmeter has zero resistance.",
+    "si": "පරිපූර්ණ වෝල්ට්මීටරයක ප්‍රතිරෝධය ශුන්‍ය වේ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "meter-resistance"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "An ideal voltmeter has infinite resistance, so it draws no current.",
+    "si": "පරිපූර්ණ වෝල්ට්මීටරයක ප්‍රතිරෝධය අනන්ත ය, එබැවින් එය ධාරාවක් නොගනී."
+   }
+  },
+  {
+   "id": "phy.elec.c031",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A Wheatstone bridge has P, Q on one side and R, S on the other. Balance condition?",
+    "si": "විට්ස්ටන් සේතුවක එක් පැත්තක P, Q ද අනෙක් පැත්තේ R, S ද ඇත. තුලන තත්ත්වය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "P/Q = R/S",
+      "si": "P/Q = R/S"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "PQ = RS",
+      "si": "PQ = RS"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "P + Q = R + S",
+      "si": "P + Q = R + S"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "P − Q = R − S",
+      "si": "P − Q = R − S"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "At balance, the two middle points are at the same potential, so the ratios match.",
+    "si": "තුලනයේ දී මැද ලක්ෂ්‍ය දෙක එකම විභවයේ ඇත, එබැවින් අනුපාත සමාන වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c032",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A bridge has 2 Ω and 4 Ω on one side, 3 Ω and 6 Ω on the other, and a 10 Ω resistor joining the middle points. Current in the 10 Ω?",
+    "si": "සේතුවක එක් පැත්තක 2 Ω සහ 4 Ω ද, අනෙක් පැත්තේ 3 Ω සහ 6 Ω ද, මැද ලක්ෂ්‍ය යා කරමින් 10 Ω ප්‍රතිරෝධකයක් ද ඇත. 10 Ω හි ධාරාව කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Zero",
+      "si": "ශුන්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Depends on the cell's voltage",
+      "si": "කෝෂයේ වෝල්ටීයතාව මත රඳා පවතී"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The bridge is balanced, so the middle points are at equal potential.",
+      "si": "සේතුව තුලිත ය, එබැවින් මැද ලක්ෂ්‍ය සමාන විභවයේ ඇත."
+     }
+    },
+    {
+     "text": {
+      "en": "Half the cell's current",
+      "si": "කෝෂයේ ධාරාවෙන් අඩක්"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Largest of all, because the path is short",
+      "si": "මාර්ගය කෙටි නිසා සියල්ලටම වඩා විශාල ය"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "No pd across it, so no current, whatever its resistance.",
+      "si": "එහි ප්‍රතිරෝධය කුමක් වුවත්, ඒ හරහා විභව අන්තරයක් නැති නිසා ධාරාවක් නැත."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "2 : 4 = 3 : 6, so the bridge is balanced.",
+    "si": "2 : 4 = 3 : 6 නිසා සේතුව තුලිත ය."
+   }
+  },
+  {
+   "id": "phy.elec.c033",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.pot.principle"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2016-5",
+   "note_ref": "phy.elec.note.potp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Why measure an e.m.f. with a potentiometer rather than a voltmeter?",
+    "si": "වි.ගා.බ. එකක් වෝල්ට්මීටරයකට වඩා විභවමානයකින් මනින්නේ ඇයි?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "It draws no current at balance",
+      "si": "තුලනයේ දී එය ධාරාවක් නොගනී"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "It has a higher resistance",
+      "si": "එයට වැඩි ප්‍රතිරෝධයක් ඇත"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "It gives a faster reading",
+      "si": "එය ඉක්මන් පාඨාංකයක් දෙයි"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "It needs no driver cell",
+      "si": "එයට ධාවක කෝෂයක් අවශ්‍ය නැත"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "At balance no current flows from the cell, so its full e.m.f. is measured.",
+    "si": "තුලනයේ දී කෝෂයෙන් ධාරාවක් නොගලයි, එබැවින් එහි සම්පූර්ණ වි.ගා.බ. මනිනු ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.c034",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F02",
+   "skills": [
+    "phy.elec.pot.potential-gradient"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-26",
+   "note_ref": "phy.elec.note.potg",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Potential gradient of a potentiometer wire = pd across the wire ÷ ▢",
+    "si": "විභවමාන කම්බියක විභව අනුක්‍රමණය = කම්බිය හරහා විභව අන්තරය ÷ ▢"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "its length",
+      "si": "එහි දිග"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "its resistance",
+      "si": "එහි ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "the current",
+      "si": "ධාරාව"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "the cell's e.m.f.",
+      "si": "කෝෂයේ වි.ගා.බ."
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Potential gradient is volts per metre of wire.",
+    "si": "විභව අනුක්‍රමණය යනු කම්බියේ මීටරයකට වෝල්ට් ගණනයි."
+   }
+  },
+  {
+   "id": "phy.elec.c035",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.pot.potential-gradient"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-26",
+   "note_ref": "phy.elec.note.potg",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A 100 cm, 10 Ω potentiometer wire is in series with a 2 V cell and a resistor. A 10 mV source balances at 50 cm. Current in the wire?",
+    "si": "100 cm, 10 Ω විභවමාන කම්බියක් 2 V කෝෂයක් හා ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගතව ඇත. 10 mV ප්‍රභවයක් 50 cm දී තුලනය වේ. කම්බියේ ධාරාව කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2 mA",
+      "si": "2 mA"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "20 mA",
+      "si": "20 mA"
+     },
+     "correct": false,
+     "tag": "unit-conversion"
+    },
+    {
+     "text": {
+      "en": "0.2 mA",
+      "si": "0.2 mA"
+     },
+     "correct": false,
+     "tag": "stopped-early",
+     "detail": {
+      "en": "0.2 mV per cm is the gradient. Find the pd across the whole wire, then I.",
+      "si": "cm එකකට 0.2 mV යනු අනුක්‍රමණයයි. මුළු කම්බිය හරහා විභව අන්තරය සොයා, ඉන්පසු I සොයන්න."
+     }
+    },
+    {
+     "text": {
+      "en": "200 mA",
+      "si": "200 mA"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Use the wire's own pd, 20 mV, not the cell's e.m.f.",
+      "si": "කෝෂයේ වි.ගා.බ. නොව, කම්බියේම විභව අන්තරය වන 20 mV භාවිත කරන්න."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Gradient = 0.2 mV cm⁻¹, so the wire has 20 mV across it, and I = 20 mV ÷ 10 Ω.",
+    "si": "අනුක්‍රමණය = 0.2 mV cm⁻¹, එබැවින් කම්බිය හරහා 20 mV ඇත, සහ I = 20 mV ÷ 10 Ω."
+   }
+  },
+  {
+   "id": "phy.elec.c036",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.pot.internal-resistance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-31",
+   "note_ref": "phy.elec.note.potr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Potentiometer: a cell balances at 60 cm on open circuit, and at 50 cm when it drives a 5 Ω resistor. Internal resistance?",
+    "si": "විභවමානය: කෝෂයක් විවෘත පරිපථයේ දී 60 cm දී ද, 5 Ω ප්‍රතිරෝධකයක් හරහා ධාරාව යවන විට 50 cm දී ද තුලනය වේ. අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "1 Ω",
+      "si": "1 Ω"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "6 Ω",
+      "si": "6 Ω"
+     },
+     "correct": false,
+     "tag": "stopped-early",
+     "detail": {
+      "en": "That's R × l₁ ÷ l₂. Subtract R.",
+      "si": "එය R × l₁ ÷ l₂ වේ. R අඩු කරන්න."
+     }
+    },
+    {
+     "text": {
+      "en": "0.83 Ω",
+      "si": "0.83 Ω"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "10 Ω",
+      "si": "10 Ω"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Use r = R(l₁ − l₂) ÷ l₂. The lengths are a ratio, not ohms.",
+      "si": "r = R(l₁ − l₂) ÷ l₂ භාවිත කරන්න. දිග යනු ඕම් නොව, අනුපාතයකි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω.",
+    "si": "E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω."
+   }
+  },
+  {
+   "id": "phy.elec.c037",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.pot.internal-resistance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2021-31",
+   "note_ref": "phy.elec.note.potr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "At balance, the cell being tested gives a small current to the potentiometer circuit.",
+    "si": "තුලනයේ දී, පරීක්ෂා කරන කෝෂය විභවමාන පරිපථයට කුඩා ධාරාවක් දෙයි."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "pot-draws-current"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "The galvanometer reads zero, so no current flows from that cell.",
+    "si": "ගැල්වනෝමීටරය ශුන්‍ය පෙන්වයි, එබැවින් එම කෝෂයෙන් ධාරාවක් නොගලයි."
+   }
+  },
+  {
+   "id": "phy.elec.c038",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.emi.faraday"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2025-9",
+   "note_ref": "phy.elec.note.far",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Faraday's law: the induced e.m.f. equals?",
+    "si": "ෆැරඩේ නියමය: ප්‍රේරිත වි.ගා.බ. සමාන වන්නේ කුමකට ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The rate of change of flux linkage",
+      "si": "ස්‍රාව බන්ධනයේ වෙනස් වීමේ ශීඝ්‍රතාව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The flux linkage",
+      "si": "ස්‍රාව බන්ධනය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Flux density × area",
+      "si": "චුම්බක ස්‍රාව ඝනත්වය × වර්ගඵලය"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "The rate of change of current",
+      "si": "ධාරාවේ වෙනස් වීමේ ශීඝ්‍රතාව"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "E = −d(NΦ)/dt.",
+    "si": "E = −d(NΦ)/dt."
+   }
+  },
+  {
+   "id": "phy.elec.c039",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F04",
+   "skills": [
+    "phy.elec.emi.faraday"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2025-9",
+   "note_ref": "phy.elec.note.far",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "SI unit of magnetic flux?",
+    "si": "චුම්බක ස්‍රාවයේ SI ඒකකය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Wb (T m²)",
+      "si": "Wb (T m²)"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "T",
+      "si": "T"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "T m⁻²",
+      "si": "T m⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Wb m⁻²",
+      "si": "Wb m⁻²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Φ = BA, so its unit is T m², called the weber.",
+    "si": "Φ = BA, එබැවින් එහි ඒකකය T m² වන අතර එය වෙබර් ලෙස හැඳින්වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c040",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F12",
+   "skills": [
+    "phy.elec.emi.faraday"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-9",
+   "note_ref": "phy.elec.note.far",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A coil's turns × 2, in the same changing field. Induced e.m.f. × ?",
+    "si": "එකම විචලනය වන ක්ෂේත්‍රයේ දඟරයක වට ගණන × 2. ප්‍රේරිත වි.ගා.බ. × ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "2",
+      "si": "2"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "1",
+      "si": "1"
+     },
+     "correct": false,
+     "tag": "forgot-turns"
+    },
+    {
+     "text": {
+      "en": "4",
+      "si": "4"
+     },
+     "correct": false,
+     "tag": "wrong-power"
+    },
+    {
+     "text": {
+      "en": "½",
+      "si": "½"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "E = N dΦ/dt, so E ∝ N.",
+    "si": "E = N dΦ/dt, so E ∝ N."
+   }
+  },
+  {
+   "id": "phy.elec.c041",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.emi.faraday"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-9",
+   "note_ref": "phy.elec.note.far",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A coil sits still in a strong, steady magnetic field. Student says: \"The flux is large, so the induced e.m.f. is large.\" What's wrong?",
+    "si": "දඟරයක් ප්‍රබල, නියත චුම්බක ක්ෂේත්‍රයක නිසලව ඇත. සිසුවා පවසයි: \"ස්‍රාවය විශාල නිසා ප්‍රේරිත වි.ගා.බ. ද විශාල ය.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "The flux isn't changing, so there is no e.m.f.",
+      "si": "ස්‍රාවය වෙනස් නොවේ, එබැවින් වි.ගා.බ. නැත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing: more flux always means more e.m.f.",
+      "si": "කිසිවක් නැත: වැඩි ස්‍රාවයක් සැමවිටම වැඩි වි.ගා.බ. අදහස් කරයි"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "The e.m.f. depends on the coil's resistance",
+      "si": "වි.ගා.බ. දඟරයේ ප්‍රතිරෝධය මත රඳා පවතී"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "E.m.f. depends on the rate of change of flux, not on resistance.",
+      "si": "වි.ගා.බ. රඳා පවතින්නේ ප්‍රතිරෝධය මත නොව, ස්‍රාවයේ වෙනස් වීමේ ශීඝ්‍රතාව මත ය."
+     }
+    },
+    {
+     "text": {
+      "en": "The e.m.f. is large only with an iron core",
+      "si": "වි.ගා.බ. විශාල වන්නේ යකඩ හරයක් ඇති විට පමණි"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "No change in flux means no e.m.f., whatever the core.",
+      "si": "හරය කුමක් වුවත්, ස්‍රාවයේ වෙනසක් නැත්නම් වි.ගා.බ. නැත."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Induced e.m.f. needs a changing flux.",
+    "si": "ප්‍රේරිත වි.ගා.බ. සඳහා වෙනස් වන ස්‍රාවයක් අවශ්‍ය ය."
+   }
+  },
+  {
+   "id": "phy.elec.c042",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F18",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A magnet's N pole is pushed towards a coil. The induced current makes the near face of the coil act as?",
+    "si": "චුම්බකයක N ධ්‍රැවය දඟරයක් දෙසට තල්ලු කෙරේ. ප්‍රේරිත ධාරාව නිසා දඟරයේ ආසන්න මුහුණත ක්‍රියා කරන්නේ කුමක් ලෙස ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "A N pole, pushing the magnet back",
+      "si": "N ධ්‍රැවයක්, චුම්බකය ආපසු තල්ලු කරමින්"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "A S pole, pulling the magnet in",
+      "si": "S ධ්‍රැවයක්, චුම්බකය ඇතුළට අදිමින්"
+     },
+     "correct": false,
+     "tag": "lenz-same-direction"
+    },
+    {
+     "text": {
+      "en": "No pole at all",
+      "si": "කිසිදු ධ්‍රැවයක් නැත"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Any current makes a field, and this one opposes the change.",
+      "si": "ඕනෑම ධාරාවක් ක්ෂේත්‍රයක් ඇති කරයි, මෙය වෙනසට විරුද්ධ වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "A N pole, but only once the magnet stops",
+      "si": "N ධ්‍රැවයක්, නමුත් චුම්බකය නැවතුණු පසුව පමණි"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The induced current opposes the change: the approaching N pole is repelled.",
+    "si": "ප්‍රේරිත ධාරාව වෙනසට විරුද්ධ වේ: ළඟා වන N ධ්‍රැවය විකර්ෂණය වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c043",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "The current in a long straight wire is falling. A loop lies flat beside it. The field of the induced current inside the loop?",
+    "si": "දිගු සෘජු කම්බියක ධාරාව අඩු වෙමින් පවතී. පුඩුවක් ඒ අසල සමතලාව ඇත. පුඩුව තුළ ප්‍රේරිත ධාරාවේ ක්ෂේත්‍රය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Points the same way as the wire's field",
+      "si": "කම්බියේ ක්ෂේත්‍රයේ දිශාවටම යොමු වේ"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Points against the wire's field",
+      "si": "කම්බියේ ක්ෂේත්‍රයට විරුද්ධ දිශාවට යොමු වේ"
+     },
+     "correct": false,
+     "tag": "lenz-opposes-field"
+    },
+    {
+     "text": {
+      "en": "Is zero, because the wire's field is still there",
+      "si": "ශුන්‍ය වේ, මන්ද කම්බියේ ක්ෂේත්‍රය තවමත් පවතින නිසා"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Exists only while the current rises",
+      "si": "පවතින්නේ ධාරාව වැඩි වන අතරතුර පමණි"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "A current that falls also changes the flux, so it also induces a current.",
+      "si": "අඩු වන ධාරාවක් ද ස්‍රාවය වෙනස් කරයි, එබැවින් එය ද ධාරාවක් ප්‍රේරණය කරයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The flux is falling, so the induced current tries to keep it up.",
+    "si": "ස්‍රාවය අඩු වෙමින් පවතී, එබැවින් ප්‍රේරිත ධාරාව එය පවත්වා ගැනීමට උත්සාහ කරයි."
+   }
+  },
+  {
+   "id": "phy.elec.c044",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F13",
+   "skills": [
+    "phy.elec.emi.back-emf"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-5",
+   "note_ref": "phy.elec.note.bemf",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A motor starts from rest and speeds up to full speed. When is its back e.m.f. largest?",
+    "si": "මෝටරයක් නිශ්චලතාවයේ සිට ආරම්භ වී පූර්ණ වේගයට ළඟා වේ. එහි ප්‍රති වි.ගා.බ. විශාලතම වන්නේ කවදා ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "At full speed",
+      "si": "පූර්ණ වේගයේ දී"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "At the moment it starts",
+      "si": "ආරම්භ වන මොහොතේ"
+     },
+     "correct": false,
+     "tag": "back-emf-start"
+    },
+    {
+     "text": {
+      "en": "The same throughout",
+      "si": "මුළු කාලය පුරාම සමාන ය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Back e.m.f. grows as the coil turns faster.",
+      "si": "දඟරය වේගයෙන් කැරකෙන විට ප්‍රති වි.ගා.බ. වැඩි වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "While it is speeding up",
+      "si": "වේගය වැඩි වෙමින් පවතින අතරතුර"
+     },
+     "correct": false,
+     "tag": "wrong-quantity",
+     "detail": {
+      "en": "That's when the speed is changing, not when it is largest.",
+      "si": "එය වේගය විශාලතම වන විට නොව, වේගය වෙනස් වන විටයි."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Back e.m.f. is proportional to the speed of rotation.",
+    "si": "ප්‍රති වි.ගා.බ. භ්‍රමණ වේගයට අනුලෝමව සමානුපාතික ය."
+   }
+  },
+  {
+   "id": "phy.elec.c045",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.emi.back-emf"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-5",
+   "note_ref": "phy.elec.note.bemf",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"A motor draws the most current at full speed, because it is doing the most work.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"මෝටරයක් වැඩිම කාර්යය කරන නිසා පූර්ණ වේගයේ දී වැඩිම ධාරාව ගනී.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Back e.m.f. is largest then, so the current is smallest",
+      "si": "එවිට ප්‍රති වි.ගා.බ. විශාලතම ය, එබැවින් ධාරාව කුඩාතම ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "The current is the same at every speed",
+      "si": "සෑම වේගයකදීම ධාරාව සමාන ය"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The back e.m.f. changes with speed, so the current does too.",
+      "si": "ප්‍රති වි.ගා.බ. වේගය සමඟ වෙනස් වේ, එබැවින් ධාරාව ද වෙනස් වේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Back e.m.f. is largest at the start, so the current is smallest then",
+      "si": "ප්‍රති වි.ගා.බ. ආරම්භයේ දී විශාලතම ය, එබැවින් එවිට ධාරාව කුඩාතම ය"
+     },
+     "correct": false,
+     "tag": "back-emf-start"
+    },
+    {
+     "text": {
+      "en": "The current depends only on the supply voltage",
+      "si": "ධාරාව රඳා පවතින්නේ සැපයුම් වෝල්ටීයතාව මත පමණි"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "I = (V − back e.m.f.) ÷ R, so the speed matters.",
+      "si": "I = (V − ප්‍රති වි.ගා.බ.) ÷ R, එබැවින් වේගය වැදගත් වේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "I = (V − E_back) ÷ R, and E_back rises with speed.",
+    "si": "I = (V − E_back) ÷ R, සහ වේගය සමඟ E_back වැඩි වේ."
+   }
+  },
+  {
+   "id": "phy.elec.c046",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.emi.back-emf"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2022-5",
+   "note_ref": "phy.elec.note.bemf",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A motor needs a starter resistor because its back e.m.f. is zero when it starts.",
+    "si": "මෝටරයක් පණගන්වන විට එහි ප්‍රති වි.ගා.බ. ශුන්‍ය නිසා ආරම්භක ප්‍රතිරෝධකයක් අවශ්‍ය වේ."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": false,
+     "tag": "back-emf-start"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "With no back e.m.f., only the coil's small resistance would limit the current.",
+    "si": "ප්‍රති වි.ගා.බ. නැති විට, දඟරයේ කුඩා ප්‍රතිරෝධය පමණක් ධාරාව සීමා කරයි."
+   }
+  },
+  {
+   "id": "phy.elec.c047",
+   "version": 1,
+   "status": "draft",
+   "layer": "L1",
+   "form": "F01",
+   "skills": [
+    "phy.elec.tr.power-current"
+   ],
+   "difficulty_est": 1,
+   "source_ref": "2024-14",
+   "note_ref": "phy.elec.note.tr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Ideal transformer: Vs ÷ Vp = ?",
+    "si": "පරිපූර්ණ පරිණාමකය: Vs ÷ Vp = ?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Ns ÷ Np",
+      "si": "Ns ÷ Np"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Np ÷ Ns",
+      "si": "Np ÷ Ns"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "Is ÷ Ip",
+      "si": "Is ÷ Ip"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    },
+    {
+     "text": {
+      "en": "(Ns ÷ Np)²",
+      "si": "(Ns ÷ Np)²"
+     },
+     "correct": false,
+     "tag": "recall-gap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Each turn has the same e.m.f., so voltage ∝ turns.",
+    "si": "සෑම වටයකටම එකම වි.ගා.බ. ඇත, එබැවින් වෝල්ටීයතාව ∝ වට ගණන."
+   }
+  },
+  {
+   "id": "phy.elec.c048",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F14",
+   "skills": [
+    "phy.elec.tr.power-current"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-14",
+   "note_ref": "phy.elec.note.tr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Student says: \"A transformer can step a 12 V car battery up to 240 V.\" What's wrong?",
+    "si": "සිසුවා පවසයි: \"පරිණාමකයකට 12 V මෝටර් රථ බැටරියක් 240 V දක්වා වැඩි කළ හැක.\" වැරැද්ද කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "A transformer needs a.c., and a battery gives d.c.",
+      "si": "පරිණාමකයකට ප්‍රත්‍යාවර්ත ධාරාව අවශ්‍ය වන අතර බැටරියක් ඍජු ධාරාව දෙයි"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Nothing, if the turns ratio is 20",
+      "si": "වට අනුපාතය 20 නම් කිසිවක් නැත"
+     },
+     "correct": false,
+     "tag": "transformer-dc"
+    },
+    {
+     "text": {
+      "en": "It would step the voltage down instead",
+      "si": "ඒ වෙනුවට එය වෝල්ටීයතාව අඩු කරයි"
+     },
+     "correct": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "It works, but the current rises as well",
+      "si": "එය ක්‍රියා කරයි, නමුත් ධාරාව ද වැඩි වේ"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "An ideal transformer keeps VI the same, and steady d.c. gives no output at all.",
+      "si": "පරිපූර්ණ පරිණාමකයක VI නොවෙනස්ව පවතී, තවද නියත ඍජු ධාරාවකින් කිසිදු ප්‍රතිදානයක් නොලැබේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Steady current gives steady flux, so no e.m.f. is induced in the secondary.",
+    "si": "නියත ධාරාවක් නියත ස්‍රාවයක් දෙයි, එබැවින් ද්විතීයිකයේ වි.ගා.බ. ප්‍රේරණය නොවේ."
+   }
+  },
+  {
+   "id": "phy.elec.c049",
+   "version": 1,
+   "status": "draft",
+   "layer": "L2",
+   "form": "F10",
+   "skills": [
+    "phy.elec.tr.power-current"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-14",
+   "note_ref": "phy.elec.note.tr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "In an ideal step-up transformer, the secondary current is larger than the primary current.",
+    "si": "පරිපූර්ණ අධිකර පරිණාමකයක, ද්විතීයික ධාරාව ප්‍රාථමික ධාරාවට වඩා විශාල ය."
+   },
+   "options": [
+    {
+     "text": {
+      "en": "False",
+      "si": "අසත්‍ය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "True",
+      "si": "සත්‍ය"
+     },
+     "correct": false,
+     "tag": "inverted"
+    }
+   ],
+   "option_order": "fixed",
+   "explanation": {
+    "en": "Power in = power out, so if V goes up, I comes down.",
+    "si": "ප්‍රදාන ජවය = ප්‍රතිදාන ජවය, එබැවින් V වැඩි වුවහොත් I අඩු වේ."
+   }
+  }
+ ],
+ "pools": [
+  {
+   "id": "phy.elec.p01-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "A 4 Ω and a 12 Ω resistor in parallel, in series with 2 Ω, across one cell. Most direct way to find the cell's current?",
+    "si": "සමාන්තරගත 4 Ω සහ 12 Ω ප්‍රතිරෝධක, 2 Ω සමඟ ශ්‍රේණිගතව, එක් කෝෂයක් හරහා ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Every resistor is in series or in parallel with another.",
+    "si": "සෑම ප්‍රතිරෝධකයක්ම තවත් එකක් සමඟ ශ්‍රේණිගත හෝ සමාන්තරගත ය."
+   }
+  },
+  {
+   "id": "phy.elec.p01-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "Three resistors in parallel, with the group in series with a fourth, across one cell. Most direct way to find the cell's current?",
+    "si": "සමාන්තරගත ප්‍රතිරෝධක තුනක්, එම කාණ්ඩය හතරවැන්නක් සමඟ ශ්‍රේණිගතව, එක් කෝෂයක් හරහා ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Combine the parallel group, then add the series resistor.",
+    "si": "සමාන්තරගත කාණ්ඩය සංයෝජනය කර, ඉන්පසු ශ්‍රේණිගත ප්‍රතිරෝධකය එකතු කරන්න."
+   }
+  },
+  {
+   "id": "phy.elec.p01-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "A bridge of 2, 4, 3 and 6 Ω, with 5 Ω across the middle, on one cell. Most direct way to find the cell's current?",
+    "si": "2, 4, 3 සහ 6 Ω සේතුවක්, මැද හරහා 5 Ω සමඟ, එක් කෝෂයක් මත ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Some resistors here are neither in series nor in parallel.",
+      "si": "මෙහි සමහර ප්‍රතිරෝධක ශ්‍රේණිගත හෝ සමාන්තරගත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "2 : 4 = 3 : 6, so no current flows in the 5 Ω.",
+    "si": "2 : 4 = 3 : 6 නිසා 5 Ω හරහා ධාරාවක් නොගලයි."
+   }
+  },
+  {
+   "id": "phy.elec.p01-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "A bridge of 1, 2, 5 and 10 Ω, with 8 Ω across the middle, on one cell. Most direct way to find the cell's current?",
+    "si": "1, 2, 5 සහ 10 Ω සේතුවක්, මැද හරහා 8 Ω සමඟ, එක් කෝෂයක් මත ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Some resistors here are neither in series nor in parallel.",
+      "si": "මෙහි සමහර ප්‍රතිරෝධක ශ්‍රේණිගත හෝ සමාන්තරගත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": false,
+     "tag": "unknown-not-eliminated"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "1 : 2 = 5 : 10, so the middle resistor carries no current.",
+    "si": "1 : 2 = 5 : 10 නිසා මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි."
+   }
+  },
+  {
+   "id": "phy.elec.p01-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "Two cells sit in different branches, each with its own resistor, and both branches share a third resistor. Most direct way to find a branch current?",
+    "si": "කෝෂ දෙකක් වෙනත් ශාඛාවල, එක එකක් තමන්ගේම ප්‍රතිරෝධකයක් සමඟ ඇති අතර, ශාඛා දෙකම තුන්වන ප්‍රතිරෝධකයක් බෙදා ගනී. ශාඛා ධාරාවක් සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Some resistors here are neither in series nor in parallel.",
+      "si": "මෙහි සමහර ප්‍රතිරෝධක ශ්‍රේණිගත හෝ සමාන්තරගත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "With two sources, write loop equations.",
+    "si": "ප්‍රභව දෙකක් ඇති විට, පුඩු සමීකරණ ලියන්න."
+   }
+  },
+  {
+   "id": "phy.elec.p01-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F30",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p01",
+   "text": {
+    "en": "A 6 V and a 3 V cell oppose each other through a network of three resistors. Most direct way to find the current in one resistor?",
+    "si": "6 V සහ 3 V කෝෂ දෙකක් ප්‍රතිරෝධක තුනක ජාලයක් හරහා එකිනෙකට විරුද්ධව ක්‍රියා කරයි. එක් ප්‍රතිරෝධකයක ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Kirchhoff's laws",
+      "si": "කර්චොෆ්ගේ නියම"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Combine series and parallel resistors",
+      "si": "ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න"
+     },
+     "correct": false,
+     "tag": "wrong-law",
+     "detail": {
+      "en": "Some resistors here are neither in series nor in parallel.",
+      "si": "මෙහි සමහර ප්‍රතිරෝධක ශ්‍රේණිගත හෝ සමාන්තරගත නොවේ."
+     }
+    },
+    {
+     "text": {
+      "en": "Balanced bridge: leave out the middle resistor",
+      "si": "තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    },
+    {
+     "text": {
+      "en": "Add all the resistances",
+      "si": "සියලු ප්‍රතිරෝධ එකතු කරන්න"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Two sources that interact need Kirchhoff's laws.",
+    "si": "එකිනෙකට බලපාන ප්‍රභව දෙකකට කර්චොෆ්ගේ නියම අවශ්‍ය වේ."
+   }
+  },
+  {
+   "id": "phy.elec.p02-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "The field through a loop grows steadily. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් හරහා ක්ෂේත්‍රය ඒකාකාරව වැඩි වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-same-direction"
+    },
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The flux changes in one direction only, so the current keeps one direction.",
+      "si": "ස්‍රාවය වෙනස් වන්නේ එක් දිශාවකට පමණි, එබැවින් ධාරාව එක් දිශාවක් පවත්වා ගනී."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The induced field must point out of the page to oppose the growing flux.",
+    "si": "වැඩි වන ස්‍රාවයට විරුද්ධ වීමට ප්‍රේරිත ක්ෂේත්‍රය පිටුවෙන් පිටතට යොමු විය යුතු ය."
+   }
+  },
+  {
+   "id": "phy.elec.p02-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "The field through a loop shrinks steadily. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් හරහා ක්ෂේත්‍රය ඒකාකාරව අඩු වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-opposes-field"
+    },
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The flux changes in one direction only, so the current keeps one direction.",
+      "si": "ස්‍රාවය වෙනස් වන්නේ එක් දිශාවකට පමණි, එබැවින් ධාරාව එක් දිශාවක් පවත්වා ගනී."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The induced field points into the page, to keep the flux up.",
+    "si": "ස්‍රාවය පවත්වා ගැනීමට ප්‍රේරිත ක්ෂේත්‍රය පිටුව තුළට යොමු වේ."
+   }
+  },
+  {
+   "id": "phy.elec.p02-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "A loop sits still in a steady field. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් නියත ක්ෂේත්‍රයක නිසලව ඇත. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-opposes-field"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "Nothing changes, so there is no current at any time.",
+      "si": "කිසිවක් වෙනස් නොවේ, එබැවින් කිසිම විටෙක ධාරාවක් නැත."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Nothing changes, so no e.m.f. is induced.",
+    "si": "කිසිවක් වෙනස් නොවේ, එබැවින් වි.ගා.බ. ප්‍රේරණය නොවේ."
+   }
+  },
+  {
+   "id": "phy.elec.p02-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "A loop is pulled steadily out of a field region. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් ක්ෂේත්‍ර ප්‍රදේශයකින් ඒකාකාරව ඉවතට අදිනු ලැබේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-opposes-field"
+    },
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The flux changes in one direction only, so the current keeps one direction.",
+      "si": "ස්‍රාවය වෙනස් වන්නේ එක් දිශාවකට පමණි, එබැවින් ධාරාව එක් දිශාවක් පවත්වා ගනී."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Less of the loop is in the field, so the flux falls and the current tries to keep it up.",
+    "si": "පුඩුවෙන් අඩු කොටසක් ක්ෂේත්‍රයේ ඇත, එබැවින් ස්‍රාවය අඩු වන අතර ධාරාව එය පවත්වා ගැනීමට උත්සාහ කරයි."
+   }
+  },
+  {
+   "id": "phy.elec.p02-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "A loop moves steadily inside a large uniform field, never reaching its edge. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් විශාල ඒකාකාර ක්ෂේත්‍රයක් තුළ, එහි දාරයට නොපැමිණ, ඒකාකාරව චලනය වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-opposes-field"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The whole loop stays in the field, so the flux never changes.",
+      "si": "මුළු පුඩුවම ක්ෂේත්‍රයේ පවතී, එබැවින් ස්‍රාවය කිසිවිටෙක වෙනස් නොවේ."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The flux through the loop stays the same, so there is no e.m.f.",
+    "si": "පුඩුව හරහා ස්‍රාවය නොවෙනස්ව පවතී, එබැවින් වි.ගා.බ. නැත."
+   }
+  },
+  {
+   "id": "phy.elec.p02-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.emi.lenz"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2023-23",
+   "note_ref": "phy.elec.note.lenz",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p02",
+   "text": {
+    "en": "A loop is pushed steadily into a field region. Induced current? (Field into the page, loop viewed from the front.)",
+    "si": "පුඩුවක් ක්ෂේත්‍ර ප්‍රදේශයකට ඒකාකාරව තල්ලු කරනු ලැබේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Anticlockwise",
+      "si": "වාමාවර්ත"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Clockwise",
+      "si": "දක්ෂිණාවර්ත"
+     },
+     "correct": false,
+     "tag": "lenz-same-direction"
+    },
+    {
+     "text": {
+      "en": "No current",
+      "si": "ධාරාවක් නැත"
+     },
+     "correct": false,
+     "tag": "flux-not-change"
+    },
+    {
+     "text": {
+      "en": "Clockwise, then anticlockwise",
+      "si": "දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත"
+     },
+     "correct": false,
+     "tag": "ignored-condition",
+     "detail": {
+      "en": "The flux changes in one direction only, so the current keeps one direction.",
+      "si": "ස්‍රාවය වෙනස් වන්නේ එක් දිශාවකට පමණි, එබැවින් ධාරාව එක් දිශාවක් පවත්වා ගනී."
+     }
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "More of the loop is in the field, so the induced field opposes the rise.",
+    "si": "පුඩුවෙන් වැඩි කොටසක් ක්ෂේත්‍රයේ ඇත, එබැවින් ප්‍රේරිත ක්ෂේත්‍රය එම වැඩි වීමට විරුද්ධ වේ."
+   }
+  },
+  {
+   "id": "phy.elec.p03-01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "A 2 Ω and a 5 Ω resistor are in series across a cell. Which is the same for both?",
+    "si": "2 Ω සහ 5 Ω ප්‍රතිරෝධක දෙකක් කෝෂයක් හරහා ශ්‍රේණිගතව ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "In series there is only one path, so the current is the same.",
+    "si": "ශ්‍රේණිගතව ඇත්තේ එක් මාර්ගයක් පමණි, එබැවින් ධාරාව සමාන ය."
+   }
+  },
+  {
+   "id": "phy.elec.p03-02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "A 2 Ω and a 5 Ω resistor are in parallel across a cell. Which is the same for both?",
+    "si": "2 Ω සහ 5 Ω ප්‍රතිරෝධක දෙකක් කෝෂයක් හරහා සමාන්තරගතව ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Both are joined across the same two points.",
+    "si": "දෙකම එකම ලක්ෂ්‍ය දෙක හරහා සම්බන්ධ කර ඇත."
+   }
+  },
+  {
+   "id": "phy.elec.p03-03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "A thick wire and a thin wire of the same metal are joined end to end in a circuit. Which is the same for both?",
+    "si": "එකම ලෝහයේ ඝන කම්බියක් සහ සිහින් කම්බියක් පරිපථයක කෙළවරින් කෙළවරට සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "End to end is series, so the current is the same.",
+    "si": "කෙළවරින් කෙළවරට යනු ශ්‍රේණිගත වීමයි, එබැවින් ධාරාව සමාන ය."
+   }
+  },
+  {
+   "id": "phy.elec.p03-04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "A 60 W and a 100 W lamp are both plugged into the mains. Which is the same for both?",
+    "si": "60 W සහ 100 W ලාම්පු දෙකම ප්‍රධාන සැපයුමට සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "Mains sockets are in parallel, so each lamp has the full mains voltage.",
+    "si": "ප්‍රධාන සැපයුමේ කෙවෙනි සමාන්තරගත ය, එබැවින් සෑම ලාම්පුවකටම සම්පූර්ණ ප්‍රධාන වෝල්ටීයතාව ලැබේ."
+   }
+  },
+  {
+   "id": "phy.elec.p03-05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "An ammeter is joined in series with a resistor. Which is the same for both?",
+    "si": "ඇමීටරයක් ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගතව සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The same current flows through both.",
+    "si": "දෙක හරහාම එකම ධාරාව ගලයි."
+   }
+  },
+  {
+   "id": "phy.elec.p03-06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L3",
+   "form": "F31",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-34",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "pool_id": "phy.elec.p03",
+   "text": {
+    "en": "A voltmeter is joined across a resistor. Which is the same for both?",
+    "si": "වෝල්ට්මීටරයක් ප්‍රතිරෝධකයක් හරහා සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?"
+   },
+   "options": [
+    {
+     "text": {
+      "en": "Pd",
+      "si": "විභව අන්තරය"
+     },
+     "correct": true
+    },
+    {
+     "text": {
+      "en": "Current",
+      "si": "ධාරාව"
+     },
+     "correct": false,
+     "tag": "series-parallel-swap"
+    },
+    {
+     "text": {
+      "en": "Power",
+      "si": "ජවය"
+     },
+     "correct": false,
+     "tag": "power-formula-choice"
+    },
+    {
+     "text": {
+      "en": "Resistance",
+      "si": "ප්‍රතිරෝධය"
+     },
+     "correct": false,
+     "tag": "assumed-symmetry"
+    }
+   ],
+   "option_order": "shuffle",
+   "explanation": {
+    "en": "The voltmeter is in parallel with the resistor.",
+    "si": "වෝල්ට්මීටරය ප්‍රතිරෝධකය සමඟ සමාන්තරගත ය."
+   }
+  }
+ ],
+ "templates": [
+  {
+   "id": "phy.elec.t01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.res.series-parallel"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-6",
+   "note_ref": "phy.elec.note.sp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {R} Ω and a {S} Ω resistor are joined in parallel, and a {T} Ω resistor is joined in series with the pair. Total resistance?",
+    "si": "{R} Ω සහ {S} Ω ප්‍රතිරෝධක සමාන්තරගතව සම්බන්ධ කර, එම යුගලය සමඟ {T} Ω ප්‍රතිරෝධකයක් ශ්‍රේණිගතව සම්බන්ධ කර ඇත. මුළු ප්‍රතිරෝධය කීය ද?"
+   },
+   "params": {
+    "R": {
+     "set": [
+      2,
+      3,
+      4,
+      6,
+      8,
+      10,
+      12
+     ],
+     "unit": "ohm"
+    },
+    "S": {
+     "set": [
+      3,
+      4,
+      6,
+      12,
+      15,
+      20,
+      24
+     ],
+     "unit": "ohm"
+    },
+    "T": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "T + R*S/(R + S)",
+    "unit": "Ω",
+    "dim": "ohm"
+   },
+   "verify": [
+    "1/(answer - T) == 1/R + 1/S"
+   ],
+   "distractors": [
+    {
+     "tag": "series-parallel-swap",
+     "expr": "R + S + T"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "R*S/(R + S)",
+     "detail": "That's only the parallel pair. Add the series resistor.",
+     "detail_si": "එය සමාන්තරගත යුගලය පමණි. ශ්‍රේණිගත ප්‍රතිරෝධකය එකතු කරන්න."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "T + (R + S)/2",
+     "detail": "Two resistors in parallel don't average. Use product ÷ sum.",
+     "detail_si": "සමාන්තරගත ප්‍රතිරෝධක දෙකක සාමාන්‍යය නොගනී. ගුණිතය ÷ එකතුව භාවිත කරන්න."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "T + R",
+     "detail": "Current flows through both resistors of the pair, so include S.",
+     "detail_si": "යුගලයේ ප්‍රතිරෝධක දෙක හරහාම ධාරාව ගලයි, එබැවින් S ද ඇතුළත් කරන්න."
+    },
+    {
+     "tag": "inverted",
+     "expr": "1/(1/T + 1/(R + S))"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "The pair gives RS/(R + S). Add T in series.",
+    "si": "යුගලයෙන් RS/(R + S) ලැබේ. T ශ්‍රේණිගතව එකතු කරන්න."
+   },
+   "constraints": [
+    "R < S",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.elec.t02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.cur.potential-divider"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2023-43",
+   "note_ref": "phy.elec.note.div",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {E} V cell with no internal resistance is joined across a {R1} Ω and a {R2} Ω resistor in series. Pd across the {R2} Ω resistor?",
+    "si": "අභ්‍යන්තර ප්‍රතිරෝධයක් නැති {E} V කෝෂයක් ශ්‍රේණිගත {R1} Ω සහ {R2} Ω ප්‍රතිරෝධක හරහා සම්බන්ධ කර ඇත. {R2} Ω ප්‍රතිරෝධකය හරහා විභව අන්තරය කීය ද?"
+   },
+   "params": {
+    "E": {
+     "set": [
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      24
+     ],
+     "unit": "V"
+    },
+    "R1": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10
+     ],
+     "unit": "ohm"
+    },
+    "R2": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      12,
+      15
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "E*R2/(R1 + R2)",
+    "unit": "V",
+    "dim": "V"
+   },
+   "verify": [
+    "answer/R2 == (E - answer)/R1"
+   ],
+   "distractors": [
+    {
+     "tag": "wrong-quantity",
+     "expr": "E*R1/(R1 + R2)",
+     "detail": "That's the pd across the other resistor.",
+     "detail_si": "එය අනෙක් ප්‍රතිරෝධකය හරහා විභව අන්තරයයි."
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "E/2"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "E",
+     "detail": "The cell's voltage is shared between the two resistors.",
+     "detail_si": "කෝෂයේ වෝල්ටීයතාව ප්‍රතිරෝධක දෙක අතර බෙදී යයි."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "E*R2/R1",
+     "detail": "Divide by the total resistance, not by the other resistor.",
+     "detail_si": "අනෙක් ප්‍රතිරෝධකයෙන් නොව, මුළු ප්‍රතිරෝධයෙන් බෙදන්න."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "E/(R1 + R2)",
+     "detail": "That's the current. Multiply by the resistance.",
+     "detail_si": "එය ධාරාවයි. ප්‍රතිරෝධයෙන් ගුණ කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "The current is E/(R₁ + R₂), and the pd across R₂ is that current × R₂.",
+    "si": "ධාරාව E/(R₁ + R₂) වන අතර R₂ හරහා විභව අන්තරය එම ධාරාව × R₂ වේ."
+   },
+   "constraints": [
+    "R1 != R2",
+    "nice(answer, 1)"
+   ],
+   "exclude": [
+    "(E, R1, R2) == (6, 1, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t03",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.res.resistivity"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2016-26",
+   "note_ref": "phy.elec.note.rho",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A wire {l} m long and {d} mm in diameter has a resistance of {R} Ω. Resistance of a wire of the same metal, {l2} m long and {d2} mm in diameter?",
+    "si": "දිග {l} m සහ විෂ්කම්භය {d} mm වූ කම්බියක ප්‍රතිරෝධය {R} Ω වේ. එම ලෝහයෙන්ම, දිග {l2} m සහ විෂ්කම්භය {d2} mm වූ කම්බියක ප්‍රතිරෝධය කීය ද?"
+   },
+   "params": {
+    "R": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      12
+     ],
+     "unit": "ohm"
+    },
+    "l": {
+     "set": [
+      1,
+      2,
+      4
+     ],
+     "unit": "m"
+    },
+    "l2": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8
+     ],
+     "unit": "m"
+    },
+    "d": {
+     "set": [
+      0.2,
+      0.4,
+      0.6
+     ],
+     "unit": "m"
+    },
+    "d2": {
+     "set": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+     ],
+     "unit": "m"
+    }
+   },
+   "answer": {
+    "expr": "R*(l2/l)*(d/d2)**2",
+    "unit": "Ω",
+    "dim": "ohm"
+   },
+   "verify": [
+    "answer*d2**2/l2 == R*d**2/l"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-square",
+     "expr": "R*(l2/l)*(d/d2)"
+    },
+    {
+     "tag": "inverted",
+     "expr": "R*(l/l2)*(d/d2)**2"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "R*(l2/l)*(d2/d)**2",
+     "detail": "R falls as the wire gets thicker: R ∝ l/d².",
+     "detail_si": "කම්බිය ඝන වන විට R අඩු වේ: R ∝ l/d²."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "R*l2/l",
+     "detail": "The diameter changes too, and R ∝ 1/d².",
+     "detail_si": "විෂ්කම්භය ද වෙනස් වේ, සහ R ∝ 1/d²."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "(l2/l)*(d/d2)**2",
+     "detail": "That's only the ratio. Multiply by the first resistance.",
+     "detail_si": "එය අනුපාතය පමණි. පළමු ප්‍රතිරෝධයෙන් ගුණ කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "R = ρl/A and A ∝ d², so R ∝ l/d².",
+    "si": "R = ρl/A සහ A ∝ d², එබැවින් R ∝ l/d²."
+   },
+   "constraints": [
+    "(l, d) != (l2, d2)",
+    "l2 != l",
+    "d2 != d",
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t04",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.pow.joule-heating"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2023-18",
+   "note_ref": "phy.elec.note.heat",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A heater on fixed mains voltage warms some water in {t} min. Its wire is swapped for one of the same metal, {k} times as long and with {m} times the diameter. Time to warm the same water by the same amount?",
+    "si": "නියත ප්‍රධාන වෝල්ටීයතාවයක ක්‍රියා කරන තාපකයක් ජලය යම් ප්‍රමාණයක් {t} min කින් රත් කරයි. එහි කම්බිය එම ලෝහයෙන්ම, දිග {k} ගුණයක් ද විෂ්කම්භය {m} ගුණයක් ද වූ කම්බියකින් ප්‍රතිස්ථාපනය කෙරේ. එම ජලය එම ප්‍රමාණයෙන්ම රත් කිරීමට ගතවන කාලය කීය ද?"
+   },
+   "params": {
+    "t": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      12
+     ],
+     "unit": "s"
+    },
+    "k": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8
+     ],
+     "unit": "1"
+    },
+    "m": {
+     "set": [
+      1,
+      2,
+      3
+     ],
+     "unit": "1"
+    }
+   },
+   "answer": {
+    "expr": "t*k/m**2",
+    "unit": "min",
+    "dim": "s"
+   },
+   "verify": [
+    "answer/t == (k/m**2)"
+   ],
+   "distractors": [
+    {
+     "tag": "power-formula-choice",
+     "expr": "t*m**2/k"
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "t*k/m"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "t*k",
+     "detail": "The diameter changes too, and R ∝ 1/d².",
+     "detail_si": "විෂ්කම්භය ද වෙනස් වේ, සහ R ∝ 1/d²."
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "t*k/m**4"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "k/m**2",
+     "detail": "That's how R changes. Multiply by the first time.",
+     "detail_si": "එය R වෙනස් වන ආකාරයයි. පළමු කාලයෙන් ගුණ කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "R × k/m². With V fixed, P = V²/R, so the time scales the same way as R.",
+    "si": "R × k/m². V නියත විට P = V²/R, එබැවින් කාලය R ලෙසම වෙනස් වේ."
+   },
+   "constraints": [
+    "(k, m) != (1, 1)",
+    "nice(answer, 1)"
+   ]
+  },
+  {
+   "id": "phy.elec.t05",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.pow.power-formulas"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2021-46",
+   "note_ref": "phy.elec.note.pow",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {R} Ω resistor is connected to a supply with an e.m.f. of {E} V and an internal resistance of {r} Ω. Power used in the resistor?",
+    "si": "{R} Ω ප්‍රතිරෝධකයක් වි.ගා.බ. {E} V සහ අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ සැපයුමකට සම්බන්ධ කර ඇත. ප්‍රතිරෝධකයේ වැය වන ජවය කීය ද?"
+   },
+   "params": {
+    "E": {
+     "set": [
+      2,
+      3,
+      4,
+      6,
+      8,
+      9,
+      12
+     ],
+     "unit": "V"
+    },
+    "r": {
+     "set": [
+      0.5,
+      1,
+      2,
+      3
+     ],
+     "unit": "ohm"
+    },
+    "R": {
+     "set": [
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "E**2*R/(R + r)**2",
+    "unit": "W",
+    "dim": "W"
+   },
+   "verify": [
+    "(answer/R)**0.5*(R + r) == E"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "E**2/R",
+     "detail": "The internal resistance takes part of the e.m.f.",
+     "detail_si": "අභ්‍යන්තර ප්‍රතිරෝධය වි.ගා.බ. යෙන් කොටසක් ගනී."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "E**2/(R + r)",
+     "detail": "That's the cell's total power, including the loss inside it.",
+     "detail_si": "එය කෝෂය තුළ නාස්තිය ද ඇතුළුව කෝෂයේ මුළු ජවයයි."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "E**2*r/(R + r)**2",
+     "detail": "That's the power wasted inside the cell.",
+     "detail_si": "එය කෝෂය තුළ නාස්ති වන ජවයයි."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "E/(R + r)",
+     "detail": "That's the current. Now use P = I²R.",
+     "detail_si": "එය ධාරාවයි. දැන් P = I²R භාවිත කරන්න."
+    },
+    {
+     "tag": "forgot-square",
+     "expr": "E**2*R/(R + r)"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "I = E/(R + r), then P = I²R.",
+    "si": "I = E/(R + r), ඉන්පසු P = I²R."
+   },
+   "constraints": [
+    "R != r",
+    "nice(answer, 2)"
+   ],
+   "shared_tags": true
+  },
+  {
+   "id": "phy.elec.t06",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.emf.internal-resistance"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2022-23",
+   "note_ref": "phy.elec.note.ir",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A cell of e.m.f. {E} V and internal resistance {r} Ω drives a {R1} Ω resistor. A {R2} Ω resistor is then joined in parallel with it. New current from the cell?",
+    "si": "වි.ගා.බ. {E} V සහ අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ කෝෂයක් {R1} Ω ප්‍රතිරෝධකයක් හරහා ධාරාව යවයි. ඉන්පසු {R2} Ω ප්‍රතිරෝධකයක් එයට සමාන්තරගතව සම්බන්ධ කෙරේ. කෝෂයෙන් ලැබෙන නව ධාරාව කීය ද?"
+   },
+   "params": {
+    "E": {
+     "set": [
+      3,
+      4.5,
+      6,
+      9,
+      12
+     ],
+     "unit": "V"
+    },
+    "r": {
+     "set": [
+      0.5,
+      1,
+      2
+     ],
+     "unit": "ohm"
+    },
+    "R1": {
+     "set": [
+      2,
+      3,
+      4,
+      6,
+      12
+     ],
+     "unit": "ohm"
+    },
+    "R2": {
+     "set": [
+      3,
+      4,
+      6,
+      12
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "E/(Rp + r)",
+    "unit": "A",
+    "dim": "A"
+   },
+   "verify": [
+    "answer*(R1*R2/(R1 + R2) + r) == E"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "E/Rp",
+     "detail": "The internal resistance still limits the current.",
+     "detail_si": "අභ්‍යන්තර ප්‍රතිරෝධය තවමත් ධාරාව සීමා කරයි."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "E/(R1 + r)",
+     "detail": "That's the current before the second resistor was added.",
+     "detail_si": "එය දෙවැනි ප්‍රතිරෝධකය එකතු කිරීමට පෙර ධාරාවයි."
+    },
+    {
+     "tag": "series-parallel-swap",
+     "expr": "E/(R1 + R2 + r)"
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "2*E/(R1 + r)"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "E/r",
+     "detail": "That's the current with the terminals shorted. The resistors are still in the circuit.",
+     "detail_si": "එය අගු කෙටි පරිපථ කළ විට ධාරාවයි. ප්‍රතිරෝධක තවමත් පරිපථයේ ඇත."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Combine R₁ and R₂ in parallel, add r, then I = E ÷ total.",
+    "si": "R₁ සහ R₂ සමාන්තරගතව සංයෝජනය කර, r එකතු කර, ඉන්පසු I = E ÷ මුළු ප්‍රතිරෝධය."
+   },
+   "derived": {
+    "Rp": "R1*R2/(R1 + R2)"
+   },
+   "constraints": [
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t07",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.emf.max-power"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2020-33",
+   "note_ref": "phy.elec.note.maxp",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A cell gives the same power to a {R1} Ω resistor as to a {R2} Ω resistor, joined one at a time. Internal resistance of the cell?",
+    "si": "වරකට එකක් බැගින් සම්බන්ධ කළ විට, කෝෂයක් {R1} Ω ප්‍රතිරෝධකයකට හා {R2} Ω ප්‍රතිරෝධකයකට එකම ජවය ලබා දෙයි. කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?"
+   },
+   "params": {
+    "R1": {
+     "set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9
+     ],
+     "unit": "ohm"
+    },
+    "R2": {
+     "set": [
+      4,
+      8,
+      9,
+      12,
+      16,
+      18,
+      20,
+      25,
+      27,
+      32,
+      36
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "sqrt(R1*R2)",
+    "unit": "Ω",
+    "dim": "ohm"
+   },
+   "verify": [
+    "R1/(R1 + answer)**2 == R2/(R2 + answer)**2"
+   ],
+   "distractors": [
+    {
+     "tag": "assumed-symmetry",
+     "expr": "(R1 + R2)/2"
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "R2 - R1",
+     "detail": "Equal power doesn't give r = R₂ − R₁. Set I²R equal for both loads.",
+     "detail_si": "සමාන ජවයෙන් r = R₂ − R₁ නොලැබේ. භාර දෙකටම I²R සමාන කරන්න."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "R1*R2",
+     "detail": "That's r². Take the square root.",
+     "detail_si": "එය r² වේ. වර්ගමූලය ගන්න."
+    },
+    {
+     "tag": "series-parallel-swap",
+     "expr": "R1*R2/(R1 + R2)"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "R2",
+     "detail": "That's one of the loads, not the cell.",
+     "detail_si": "එය කෝෂය නොව, එක් භාරයකි."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "E²R₁/(R₁ + r)² = E²R₂/(R₂ + r)² gives r² = R₁R₂.",
+    "si": "E²R₁/(R₁ + r)² = E²R₂/(R₂ + r)² න් r² = R₁R₂ ලැබේ."
+   },
+   "constraints": [
+    "R1 < R2",
+    "answer == int(answer)"
+   ]
+  },
+  {
+   "id": "phy.elec.t08",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.emf.cell-combinations"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2016-25",
+   "note_ref": "phy.elec.note.cells",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Two cells of e.m.f. {E1} V and {E2} V, each with internal resistance {r} Ω, are joined in parallel, + to +, with nothing else connected. Current flowing round them?",
+    "si": "වි.ගා.බ. {E1} V සහ {E2} V වූ, එක එකෙහි අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ කෝෂ දෙකක් + සිට + ට සමාන්තරගතව සම්බන්ධ කර ඇත, වෙනත් කිසිවක් සම්බන්ධ කර නැත. ඒවා වටා ගලන ධාරාව කීය ද?"
+   },
+   "params": {
+    "E1": {
+     "set": [
+      1.5,
+      2,
+      3,
+      6
+     ],
+     "unit": "V"
+    },
+    "dE": {
+     "set": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      1,
+      1.5
+     ],
+     "unit": "V"
+    },
+    "r": {
+     "set": [
+      0.1,
+      0.2,
+      0.25,
+      0.4,
+      0.5,
+      1
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "(E2 - E1)/(2*r)",
+    "unit": "A",
+    "dim": "A"
+   },
+   "verify": [
+    "answer*2*r + E1 == E2"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-half",
+     "expr": "(E2 - E1)/r"
+    },
+    {
+     "tag": "sign",
+     "expr": "(E1 + E2)/(2*r)"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "E2/(2*r)",
+     "detail": "The other cell pushes back, so use the difference in e.m.f.",
+     "detail_si": "අනෙක් කෝෂය ආපසු තල්ලු කරයි, එබැවින් වි.ගා.බ. වල වෙනස භාවිත කරන්න."
+    },
+    {
+     "tag": "series-parallel-swap",
+     "expr": "2*(E2 - E1)/r"
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "(E2 - E1)**2/(2*r)",
+     "detail": "That's the power wasted, not the current.",
+     "detail_si": "එය ධාරාව නොව, නාස්ති වන ජවයයි."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "The net e.m.f. E₂ − E₁ drives current through both internal resistances in series.",
+    "si": "ශුද්ධ වි.ගා.බ. E₂ − E₁ ශ්‍රේණිගත අභ්‍යන්තර ප්‍රතිරෝධ දෙක හරහා ධාරාව යවයි."
+   },
+   "derived": {
+    "E2": "E1 + dE"
+   },
+   "constraints": [
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t09",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.pot.internal-resistance"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2021-31",
+   "note_ref": "phy.elec.note.potr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A potentiometer balances a cell at {l1} cm on open circuit, and at {l2} cm when a {R} Ω resistor is joined across the cell. Internal resistance of the cell?",
+    "si": "විවෘත පරිපථයේ දී විභවමානයක් කෝෂයක් {l1} cm දී ද, කෝෂය හරහා {R} Ω ප්‍රතිරෝධකයක් සම්බන්ධ කළ විට {l2} cm දී ද තුලනය කරයි. කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?"
+   },
+   "params": {
+    "l1": {
+     "set": [
+      50,
+      60,
+      72,
+      75,
+      80,
+      90,
+      96,
+      100
+     ],
+     "unit": "m"
+    },
+    "l2": {
+     "set": [
+      40,
+      45,
+      48,
+      50,
+      60,
+      64,
+      75,
+      80
+     ],
+     "unit": "m"
+    },
+    "R": {
+     "set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10
+     ],
+     "unit": "ohm"
+    }
+   },
+   "answer": {
+    "expr": "R*(l1 - l2)/l2",
+    "unit": "Ω",
+    "dim": "ohm"
+   },
+   "verify": [
+    "(answer + R)/R == l1/l2"
+   ],
+   "distractors": [
+    {
+     "tag": "inverted",
+     "expr": "R*(l1 - l2)/l1"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "R*l1/l2",
+     "detail": "That's R × l₁ ÷ l₂. Subtract R.",
+     "detail_si": "එය R × l₁ ÷ l₂ වේ. R අඩු කරන්න."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "R*l2/l1",
+     "detail": "E ÷ V = l₁ ÷ l₂ gives r = R(l₁ − l₂) ÷ l₂.",
+     "detail_si": "E ÷ V = l₁ ÷ l₂ න් r = R(l₁ − l₂) ÷ l₂ ලැබේ."
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "(l1 - l2)/l2",
+     "detail": "Multiply by R. The length ratio alone has no unit.",
+     "detail_si": "R න් ගුණ කරන්න. දිග අනුපාතයට පමණක් ඒකකයක් නැත."
+    },
+    {
+     "tag": "sign",
+     "expr": "R*(l1 + l2)/l2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "E ÷ V = l₁ ÷ l₂, and E ÷ V = (R + r) ÷ R.",
+    "si": "E ÷ V = l₁ ÷ l₂, සහ E ÷ V = (R + r) ÷ R."
+   },
+   "constraints": [
+    "l2 < l1",
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t10",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.pot.potential-gradient"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2024-26",
+   "note_ref": "phy.elec.note.potg",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {L} cm potentiometer wire has {V} V across it. A cell balances at {l} cm. E.m.f. of the cell?",
+    "si": "{L} cm විභවමාන කම්බියක් හරහා {V} V ඇත. කෝෂයක් {l} cm දී තුලනය වේ. කෝෂයේ වි.ගා.බ. කීය ද?"
+   },
+   "params": {
+    "L": {
+     "set": [
+      100,
+      200
+     ],
+     "unit": "m"
+    },
+    "V": {
+     "set": [
+      1.5,
+      2,
+      2.5,
+      3,
+      4
+     ],
+     "unit": "V"
+    },
+    "l": {
+     "set": [
+      20,
+      24,
+      28,
+      32,
+      36,
+      40,
+      44,
+      48,
+      52,
+      56,
+      60,
+      64,
+      68,
+      72,
+      76,
+      80,
+      84,
+      88,
+      92,
+      96,
+      100,
+      104,
+      108,
+      112,
+      116,
+      120,
+      124,
+      128,
+      132,
+      136,
+      140,
+      144,
+      148,
+      152,
+      156,
+      160,
+      164,
+      168,
+      172,
+      176,
+      180,
+      184,
+      188,
+      192
+     ],
+     "unit": "m"
+    }
+   },
+   "answer": {
+    "expr": "V*l/L",
+    "unit": "V",
+    "dim": "V"
+   },
+   "verify": [
+    "answer/l == V/L"
+   ],
+   "distractors": [
+    {
+     "tag": "inverted",
+     "expr": "V*L/l"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "V",
+     "detail": "Only part of the wire balances the cell.",
+     "detail_si": "කම්බියේ කොටසක් පමණක් කෝෂය තුලනය කරයි."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "V*(L - l)/L",
+     "detail": "That's the pd across the rest of the wire.",
+     "detail_si": "එය කම්බියේ ඉතිරි කොටස හරහා විභව අන්තරයයි."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "V*l/100",
+     "detail": "Divide by the length of this wire, not by 100 cm.",
+     "detail_si": "100 cm න් නොව, මෙම කම්බියේ දිගින් බෙදන්න."
+    },
+    {
+     "tag": "assumed-symmetry",
+     "expr": "V/2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Potential gradient = V ÷ L. The e.m.f. = gradient × balance length.",
+    "si": "විභව අනුක්‍රමණය = V ÷ L. වි.ගා.බ. = අනුක්‍රමණය × තුලන දිග."
+   },
+   "constraints": [
+    "l < L",
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t11",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.bridge.wheatstone-balance"
+   ],
+   "difficulty_est": 4,
+   "source_ref": "2023-40",
+   "note_ref": "phy.elec.note.wsb",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "Resistors of {P} Ω and {Q} Ω form one side of a bridge, and {R} Ω and {S} Ω the other, with a {G} Ω resistor joining the middle points. A {E} V cell with no internal resistance drives it. Current through the cell?",
+    "si": "{P} Ω සහ {Q} Ω ප්‍රතිරෝධක සේතුවක එක් පැත්තක් ද, {R} Ω සහ {S} Ω අනෙක් පැත්ත ද සාදයි, මැද ලක්ෂ්‍ය {G} Ω ප්‍රතිරෝධකයකින් යා කර ඇත. අභ්‍යන්තර ප්‍රතිරෝධයක් නැති {E} V කෝෂයක් එය ක්‍රියා කරවයි. කෝෂය හරහා ධාරාව කීය ද?"
+   },
+   "params": {
+    "P": {
+     "set": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "unit": "ohm"
+    },
+    "Q": {
+     "set": [
+      2,
+      3,
+      4,
+      6,
+      8
+     ],
+     "unit": "ohm"
+    },
+    "R": {
+     "set": [
+      2,
+      3,
+      4,
+      6
+     ],
+     "unit": "ohm"
+    },
+    "G": {
+     "set": [
+      5,
+      10
+     ],
+     "unit": "ohm"
+    },
+    "E": {
+     "set": [
+      3,
+      6,
+      12
+     ],
+     "unit": "V"
+    }
+   },
+   "answer": {
+    "expr": "E/((P + Q)*(R + S)/(P + Q + R + S))",
+    "unit": "A",
+    "dim": "A"
+   },
+   "verify": [
+    "answer == E/(P + Q) + E/(R + S)"
+   ],
+   "distractors": [
+    {
+     "tag": "ignored-condition",
+     "expr": "E/(P + Q)",
+     "detail": "Both sides carry current. Combine them in parallel.",
+     "detail_si": "පැති දෙකම ධාරාව ගෙන යයි. ඒවා සමාන්තරගතව සංයෝජනය කරන්න."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "E/(R + S)",
+     "detail": "That's the current in one side only.",
+     "detail_si": "එය එක් පැත්තක ධාරාව පමණි."
+    },
+    {
+     "tag": "series-parallel-swap",
+     "expr": "E/(P + Q + R + S)"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "(P + Q)*(R + S)/(P + Q + R + S)",
+     "detail": "That's the total resistance. Now find I = E/R.",
+     "detail_si": "එය මුළු ප්‍රතිරෝධයයි. දැන් I = E/R සොයන්න."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "E*(1/(P + Q) + 1/(R + S) + 1/G)",
+     "detail": "No current flows in the middle resistor, so leave it out.",
+     "detail_si": "මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි, එබැවින් එය ඉවත් කරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "P : Q = R : S, so no current flows in the middle resistor. The two sides are in parallel.",
+    "si": "P : Q = R : S නිසා මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි. පැති දෙක සමාන්තරගත ය."
+   },
+   "derived": {
+    "S": "Q*R/P"
+   },
+   "constraints": [
+    "S == int(S)",
+    "S <= 24",
+    "nice(answer, 2)"
+   ]
+  },
+  {
+   "id": "phy.elec.t12",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.emi.faraday"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2025-9",
+   "note_ref": "phy.elec.note.far",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "A {N}-turn coil of area {A} cm² lies perpendicular to a magnetic field. The flux density rises steadily from {B1} T to {B2} T in {t} s. Induced e.m.f.?",
+    "si": "වට {N} ක් සහ වර්ගඵලය {A} cm² වූ දඟරයක් චුම්බක ක්ෂේත්‍රයකට ලම්බකව ඇත. චුම්බක ස්‍රාව ඝනත්වය {t} s තුළ {B1} T සිට {B2} T දක්වා ඒකාකාරව වැඩි වේ. ප්‍රේරිත වි.ගා.බ. කීය ද?"
+   },
+   "params": {
+    "N": {
+     "set": [
+      50,
+      100,
+      200,
+      250,
+      400,
+      500
+     ],
+     "unit": "1"
+    },
+    "A": {
+     "set": [
+      10,
+      20,
+      25,
+      40,
+      50,
+      100
+     ],
+     "unit": "m^2"
+    },
+    "B1": {
+     "set": [
+      0,
+      0.02,
+      0.04,
+      0.1
+     ],
+     "unit": "tesla"
+    },
+    "B2": {
+     "set": [
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.5
+     ],
+     "unit": "tesla"
+    },
+    "t": {
+     "set": [
+      0.1,
+      0.2,
+      0.4,
+      0.5,
+      1,
+      2
+     ],
+     "unit": "s"
+    }
+   },
+   "answer": {
+    "expr": "N*A*1e-4*(B2 - B1)/t",
+    "unit": "V",
+    "dim": "V"
+   },
+   "verify": [
+    "answer*t == N*(A/10000)*(B2 - B1)"
+   ],
+   "distractors": [
+    {
+     "tag": "forgot-turns",
+     "expr": "A*1e-4*(B2 - B1)/t"
+    },
+    {
+     "tag": "flux-not-change",
+     "expr": "N*A*1e-4*B2/t"
+    },
+    {
+     "tag": "sign",
+     "expr": "N*A*1e-4*(B2 + B1)/t"
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "N*A*1e-4*(B2 - B1)",
+     "detail": "That's the change in flux linkage. Divide by the time.",
+     "detail_si": "එය ස්‍රාව බන්ධනයේ වෙනසයි. කාලයෙන් බෙදන්න."
+    },
+    {
+     "tag": "wrong-law",
+     "expr": "N*A*1e-4*(B2 - B1)*t",
+     "detail": "E.m.f. is a rate: divide by the time, don't multiply.",
+     "detail_si": "වි.ගා.බ. යනු ශීඝ්‍රතාවකි: කාලයෙන් බෙදන්න, ගුණ නොකරන්න."
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "E = N × A × ΔB ÷ Δt, with A in m².",
+    "si": "E = N × A × ΔB ÷ Δt, A m² වලින්."
+   },
+   "constraints": [
+    "B2 > B1",
+    "nice(answer, 3)",
+    "0.001 <= answer <= 50"
+   ],
+   "exclude": [
+    "B1 == 0.01"
+   ]
+  },
+  {
+   "id": "phy.elec.t13",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F40",
+   "skills": [
+    "phy.elec.tr.power-current"
+   ],
+   "difficulty_est": 2,
+   "source_ref": "2024-14",
+   "note_ref": "phy.elec.note.tr",
+   "reviewer": null,
+   "review_notes": null,
+   "text": {
+    "en": "An ideal transformer has {Np} primary turns and {Ns} secondary turns. The primary takes {Ip} A r.m.s. from a {Vp} V r.m.s. supply. Secondary current?",
+    "si": "පරිපූර්ණ පරිණාමකයක ප්‍රාථමික වට {Np} ක් සහ ද්විතීයික වට {Ns} ක් ඇත. ප්‍රාථමිකය {Vp} V r.m.s. සැපයුමකින් {Ip} A r.m.s. ගනී. ද්විතීයික ධාරාව කීය ද?"
+   },
+   "params": {
+    "Np": {
+     "set": [
+      100,
+      200,
+      400,
+      500,
+      1000,
+      1200
+     ],
+     "unit": "1"
+    },
+    "Ns": {
+     "set": [
+      50,
+      100,
+      200,
+      400,
+      600,
+      2000,
+      2400
+     ],
+     "unit": "1"
+    },
+    "Ip": {
+     "set": [
+      0.5,
+      1,
+      2,
+      4,
+      5,
+      10
+     ],
+     "unit": "A"
+    },
+    "Vp": {
+     "set": [
+      12,
+      24,
+      110,
+      230
+     ],
+     "unit": "V"
+    }
+   },
+   "answer": {
+    "expr": "Ip*Np/Ns",
+    "unit": "A",
+    "dim": "A"
+   },
+   "verify": [
+    "answer*Vp*Ns/Np == Vp*Ip"
+   ],
+   "distractors": [
+    {
+     "tag": "inverted",
+     "expr": "Ip*Ns/Np"
+    },
+    {
+     "tag": "ignored-condition",
+     "expr": "Ip",
+     "detail": "The current changes the opposite way to the voltage.",
+     "detail_si": "ධාරාව වෝල්ටීයතාවට ප්‍රතිවිරුද්ධ ලෙස වෙනස් වේ."
+    },
+    {
+     "tag": "wrong-quantity",
+     "expr": "Vp*Ns/Np",
+     "detail": "That's the secondary voltage, not the current.",
+     "detail_si": "එය ධාරාව නොව, ද්විතීයික වෝල්ටීයතාවයි."
+    },
+    {
+     "tag": "stopped-early",
+     "expr": "Vp*Ip",
+     "detail": "That's the power. Divide by the secondary voltage.",
+     "detail_si": "එය ජවයයි. ද්විතීයික වෝල්ටීයතාවෙන් බෙදන්න."
+    },
+    {
+     "tag": "wrong-power",
+     "expr": "Ip*(Np/Ns)**2"
+    }
+   ],
+   "param_text": {
+    "si": {}
+   },
+   "constants": {},
+   "option_order": "ascending",
+   "format": {
+    "sig_figs": 3
+   },
+   "explanation": {
+    "en": "Power in = power out, so Is = Ip × Np ÷ Ns.",
+    "si": "ප්‍රදාන ජවය = ප්‍රතිදාන ජවය, එබැවින් Is = Ip × Np ÷ Ns."
+   },
+   "constraints": [
+    "Np != Ns",
+    "nice(answer, 2)"
+   ]
+  }
+ ],
+ "banks": [
+  {
+   "id": "phy.elec.b01",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.elec.cur.drift-velocity"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2022-31",
+   "note_ref": "phy.elec.note.drift",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "The current is the same in the thick and the thin part of a wire.",
+      "si": "කම්බියක ඝන සහ සිහින් කොටස් දෙකේම ධාරාව සමාන ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Electrons drift faster in the thin part of a wire.",
+      "si": "කම්බියක සිහින් කොටසේ ඉලෙක්ට්‍රෝන වේගයෙන් ප්ලාවනය වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The thin part of a wire has more resistance per metre.",
+      "si": "කම්බියක සිහින් කොටසට මීටරයකට වැඩි ප්‍රතිරෝධයක් ඇත."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "More power is turned to heat per metre in the thin part of a wire.",
+      "si": "කම්බියක සිහින් කොටසේ මීටරයකට වැඩි ජවයක් තාපය බවට පත් වේ."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "The current is smaller in the thin part of a wire.",
+      "si": "කම්බියක සිහින් කොටසේ ධාරාව කුඩා ය."
+     },
+     "true": false,
+     "tag": "current-used-up"
+    },
+    {
+     "text": {
+      "en": "Electrons drift at the same speed in the thick and the thin part.",
+      "si": "ඝන සහ සිහින් කොටස් දෙකේම ඉලෙක්ට්‍රෝන එකම වේගයෙන් ප්ලාවනය වේ."
+     },
+     "true": false,
+     "tag": "drift-thin-slower"
+    },
+    {
+     "text": {
+      "en": "Electrons drift more slowly in the thin part of a wire.",
+      "si": "කම්බියක සිහින් කොටසේ ඉලෙක්ට්‍රෝන සෙමින් ප්ලාවනය වේ."
+     },
+     "true": false,
+     "tag": "drift-thin-slower"
+    },
+    {
+     "text": {
+      "en": "The thin part of a wire has less resistance per metre.",
+      "si": "කම්බියක සිහින් කොටසට මීටරයකට අඩු ප්‍රතිරෝධයක් ඇත."
+     },
+     "true": false,
+     "tag": "inverted"
+    }
+   ],
+   "conflicts": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     2,
+     7
+    ]
+   ],
+   "explanation": {
+    "en": "The same current flows all along, so the electrons drift faster where the area is smaller, and the thin part has more resistance per metre.",
+    "si": "දිගේම එකම ධාරාව ගලයි, එබැවින් වර්ගඵලය කුඩා තැන ඉලෙක්ට්‍රෝන වේගයෙන් ප්ලාවනය වන අතර, සිහින් කොටසට මීටරයකට වැඩි ප්‍රතිරෝධයක් ඇත."
+   }
+  },
+  {
+   "id": "phy.elec.b02",
+   "version": 1,
+   "status": "draft",
+   "layer": "L4",
+   "form": "F42",
+   "skills": [
+    "phy.elec.pot.principle"
+   ],
+   "difficulty_est": 3,
+   "source_ref": "2016-5",
+   "note_ref": "phy.elec.note.potp",
+   "reviewer": null,
+   "review_notes": null,
+   "statements": [
+    {
+     "text": {
+      "en": "At balance, no current flows through the cell being tested.",
+      "si": "තුලනයේ දී, පරීක්ෂා කරන කෝෂය හරහා ධාරාවක් නොගලයි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "A longer wire, with the same driver cell, has a smaller potential gradient.",
+      "si": "එකම ධාවක කෝෂය සමඟ, දිගු කම්බියක විභව අනුක්‍රමණය කුඩා ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "A potentiometer measures an e.m.f. without taking current from it.",
+      "si": "විභවමානයක් වි.ගා.බ. එකක් මනින්නේ එයින් ධාරාවක් නොගෙන ය."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "Adding resistance to the driver circuit lowers the potential gradient.",
+      "si": "ධාවක පරිපථයට ප්‍රතිරෝධයක් එක් කිරීම විභව අනුක්‍රමණය අඩු කරයි."
+     },
+     "true": true
+    },
+    {
+     "text": {
+      "en": "At balance, the cell being tested drives a small current through the galvanometer.",
+      "si": "තුලනයේ දී, පරීක්ෂා කරන කෝෂය ගැල්වනෝමීටරය හරහා කුඩා ධාරාවක් යවයි."
+     },
+     "true": false,
+     "tag": "pot-draws-current"
+    },
+    {
+     "text": {
+      "en": "Raising the voltage across the wire makes the potentiometer more sensitive.",
+      "si": "කම්බිය හරහා වෝල්ටීයතාව වැඩි කිරීම විභවමානය වඩා සංවේදී කරයි."
+     },
+     "true": false,
+     "tag": "inverted"
+    },
+    {
+     "text": {
+      "en": "Any driver cell gives a balance point, even one weaker than the cell tested.",
+      "si": "පරීක්ෂා කරන කෝෂයට වඩා දුර්වල වුවත්, ඕනෑම ධාවක කෝෂයක් තුලන ලක්ෂ්‍යයක් ලබා දෙයි."
+     },
+     "true": false,
+     "tag": "pot-driver-too-small"
+    },
+    {
+     "text": {
+      "en": "A shorter wire, with the same driver cell, has a smaller potential gradient.",
+      "si": "එකම ධාවක කෝෂය සමඟ, කෙටි කම්බියක විභව අනුක්‍රමණය කුඩා ය."
+     },
+     "true": false,
+     "tag": "inverted"
+    }
+   ],
+   "conflicts": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     7
+    ],
+    [
+     2,
+     4
+    ]
+   ],
+   "explanation": {
+    "en": "A smaller potential gradient means a longer balance length for the same e.m.f., so the reading is more sensitive.",
+    "si": "කුඩා විභව අනුක්‍රමණයක් යනු එකම වි.ගා.බ. සඳහා දිගු තුලන දිගකි, එබැවින් පාඨාංකය වඩා සංවේදී ය."
+   }
+  }
+ ]
+}
