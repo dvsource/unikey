@@ -1,0 +1,32 @@
+# Cases: LANG-03, LANG-04
+appId: host.exp.exponent
+name: "Settings: Show English app-wide"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "tab-progress"
+# The switches sit below the fold, under the floating tab bar: centre one first.
+- scrollUntilVisible:
+    element:
+      id: "toggle-show-english"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "toggle-show-english"
+- tapOn:
+    id: "tab-learn"
+- assertVisible: "Mechanics"
+- assertVisible: "Range of a resultant force"
+- takeScreenshot: learn-english
+- tapOn:
+    id: "tab-index"
+- tapOn:
+    id: "start-today"
+- assertVisible: "Forces A and B act at one point.*"
+- tapOn:
+    id: "toggle-english"
+- assertNotVisible: "Forces A and B act at one point.*"

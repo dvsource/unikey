@@ -1,0 +1,79 @@
+# Cases: UNIT-03, UNIT-04, UNIT-05, UNIT-06, UNIT-09
+appId: host.exp.exponent
+name: "Units: switch between Mechanics, Thermal Physics and Current Electricity"
+tags:
+  - smoke
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- assertVisible:
+    id: "unit-mechanics-20"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 0 of 91"
+
+# Thermal Physics: Today, review count and session follow the unit chip.
+- tapOn:
+    id: "unit-thermal-physics-20"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 0 of 68"
+- assertVisible: "තාප භෞතිකය.*"
+- takeScreenshot: today-thermal
+- tapOn:
+    id: "start-today"
+- assertVisible: "phy\\.therm\\.c001 .*"
+- takeScreenshot: session-thermal
+- runFlow: subflows/mark-ok.yaml
+- tapOn:
+    id: "close-session"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 1 of 68"
+- assertVisible:
+    id: "reviewed-total"
+    text: ".*all units: 1 of 241"
+
+# Learn follows the same pick; switch to Current Electricity there.
+- tapOn:
+    id: "tab-learn"
+- assertVisible:
+    id: "skill-phy.therm.exp.linear"
+- tapOn:
+    id: "unit-current-electricity-20"
+- assertVisible:
+    id: "skill-phy.elec.res.series-parallel"
+- assertNotVisible:
+    id: "skill-phy.therm.exp.linear"
+- takeScreenshot: learn-electricity
+- tapOn:
+    id: "skill-phy.elec.res.series-parallel"
+- tapOn:
+    id: "item-phy.elec.c001"
+- assertVisible: "phy\\.elec\\.c001 .*"
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- takeScreenshot: session-electricity
+- runFlow: subflows/close-to-home.yaml
+# Today now shows Current Electricity, with its own (untouched) count.
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 0 of 82"
+
+# Progress lists every unit.
+- tapOn:
+    id: "tab-progress"
+- assertVisible:
+    id: "progress-reviewed"
+    text: "Reviewed 1 of 241"
+- assertVisible:
+    id: "progress-reviewed-thermal-physics-20"
+    text: "1 of 68"
+- assertVisible:
+    id: "progress-reviewed-current-electricity-20"
+    text: "0 of 82"
+- takeScreenshot: progress-units

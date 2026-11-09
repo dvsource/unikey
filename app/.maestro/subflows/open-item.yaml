@@ -1,0 +1,29 @@
+# Learn → skill ${SKILL} → item ${ITEM}. Works from a tab or from a skill screen.
+appId: host.exp.exponent
+---
+# On a skill screen (no tab bar): hardware Back. The screen's own Back button
+# may be scrolled off-screen, so test for the missing tab bar instead.
+- runFlow:
+    when:
+      notVisible:
+        id: "tab-learn"
+    commands:
+      - back
+- tapOn:
+    id: "tab-learn"
+- scrollUntilVisible:
+    element:
+      id: "skill-${SKILL}"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "skill-${SKILL}"
+- scrollUntilVisible:
+    element:
+      id: "item-${ITEM}"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "item-${ITEM}"
+- assertVisible:
+    id: "session-counter"

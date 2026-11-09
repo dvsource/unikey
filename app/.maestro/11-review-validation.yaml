@@ -1,0 +1,46 @@
+# Cases: REV-06, REV-07, REV-08, REV-09
+appId: host.exp.exponent
+name: "Review: Save needs name, verdict and a distractor pick"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+- tapOn:
+    id: "review-open"
+# No verdict, no name: Save does nothing.
+- tapOn:
+    id: "review-save"
+- assertVisible:
+    id: "review-name"
+# OK but no name: still nothing.
+- tapOn:
+    id: "review-ok"
+- tapOn:
+    id: "review-save"
+- assertVisible:
+    id: "review-name"
+- tapOn:
+    id: "review-name"
+- inputText: "Maestro Reviewer"
+- pressKey: Enter
+# Bad distractor without an option: nothing. Option B is the correct one and is disabled.
+- tapOn:
+    id: "review-bad-distractor"
+- tapOn:
+    id: "review-save"
+- assertVisible: "Which option\\?"
+- tapOn:
+    id: "review-distractor-1"
+- tapOn:
+    id: "review-save"
+- assertVisible: "Which option\\?"
+- takeScreenshot: review-validation
+- tapOn:
+    id: "review-distractor-0"
+- tapOn:
+    id: "review-save"
+- assertVisible: "Reviewed · issues"

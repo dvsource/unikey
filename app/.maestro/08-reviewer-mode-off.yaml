@@ -1,0 +1,53 @@
+# Cases: PRG-02, PRG-03, HOME-05
+appId: host.exp.exponent
+name: "Settings: reviewer mode off and on"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "tab-progress"
+# The switches sit below the fold, under the floating tab bar: centre one first.
+- scrollUntilVisible:
+    element:
+      id: "toggle-reviewer-mode"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "toggle-reviewer-mode"
+- tapOn:
+    id: "tab-index"
+- assertNotVisible:
+    id: "reviewed-count"
+- takeScreenshot: home-student-mode
+- tapOn:
+    id: "start-today"
+- assertNotVisible:
+    id: "review-open"
+- assertNotVisible:
+    id: "item-meta"
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- assertNotVisible:
+    id: "review-open-sheet"
+- takeScreenshot: session-student-mode
+- tapOn:
+    id: "close-session"
+- tapOn:
+    id: "tab-progress"
+# The switches sit below the fold, under the floating tab bar: centre one first.
+- scrollUntilVisible:
+    element:
+      id: "toggle-reviewer-mode"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "toggle-reviewer-mode"
+- tapOn:
+    id: "tab-index"
+- assertVisible:
+    id: "reviewed-count"

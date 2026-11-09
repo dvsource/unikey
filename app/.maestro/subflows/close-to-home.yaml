@@ -1,0 +1,22 @@
+# Leave a session and any skill screen, ending on the Today tab.
+appId: host.exp.exponent
+---
+- runFlow:
+    when:
+      visible:
+        id: "close-session"
+    commands:
+      - tapOn:
+          id: "close-session"
+# On a skill screen (no tab bar): hardware Back. The screen's own Back button
+# may be scrolled off-screen, so test for the missing tab bar instead.
+- runFlow:
+    when:
+      notVisible:
+        id: "tab-index"
+    commands:
+      - back
+- tapOn:
+    id: "tab-index"
+- assertVisible:
+    id: "start-today"

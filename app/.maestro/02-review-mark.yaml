@@ -1,0 +1,63 @@
+# Cases: HOME-02, REV-01, REV-02, REV-03
+appId: host.exp.exponent
+name: "Review: bad distractor + OK are counted"
+tags:
+  - smoke
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 0 of 91"
+- tapOn:
+    id: "start-today"
+# Item 1: Bad distractor on option A, with a note.
+- tapOn:
+    id: "review-open"
+- assertVisible: "Review this item"
+- tapOn:
+    id: "review-name"
+- inputText: "Maestro Reviewer"
+# Enter closes the keyboard (Back would close the review panel).
+- pressKey: Enter
+- tapOn:
+    id: "review-bad-distractor"
+- tapOn:
+    id: "review-distractor-0"
+# Small screens: the panel scrolls; bring each control into view first.
+- scrollUntilVisible:
+    element:
+      id: "review-note"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "review-note"
+- inputText: "Too easy to rule out"
+- pressKey: Enter
+- takeScreenshot: review-panel
+- scrollUntilVisible:
+    element:
+      id: "review-save"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "review-save"
+- assertVisible: "Reviewed · issues"
+# Item 2: answer, then OK from the feedback sheet.
+- runFlow: subflows/answer-next.yaml
+- tapOn:
+    id: "option-0"
+- tapOn:
+    id: "review-open-sheet"
+- tapOn:
+    id: "review-ok"
+- tapOn:
+    id: "review-save"
+- assertVisible: "Reviewed · OK"
+- tapOn:
+    id: "close-session"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 2 of 91"

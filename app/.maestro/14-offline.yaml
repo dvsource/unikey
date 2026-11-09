@@ -1,0 +1,38 @@
+# Cases: ENV-01
+appId: host.exp.exponent
+name: "Offline: play, mark and export in airplane mode"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- setAirplaneMode: enabled
+- tapOn:
+    id: "start-today"
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- runFlow: subflows/mark-ok.yaml
+- runFlow: subflows/answer-next.yaml
+- assertVisible:
+    id: "session-counter"
+    text: "2 / 10"
+- tapOn:
+    id: "close-session"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 1 of 91"
+- tapOn:
+    id: "tab-progress"
+- tapOn:
+    id: "send-results"
+- extendedWaitUntil:
+    notVisible:
+      id: "send-results"
+    timeout: 15000
+- assertVisible: ".*unikey-review.*"
+- takeScreenshot: offline-share
+- back
+- setAirplaneMode: disabled

@@ -1,0 +1,111 @@
+# Cases: LRN-01, LRN-02, SES-03, SES-04, SES-08, SES-09, SES-11, SI-04
+appId: host.exp.exponent
+name: "Item types: T/F, pictures, F44 figure, bank, L3 scenario via Learn"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "tab-learn"
+- assertVisible: "යාන්ත්‍ර විද්‍යාව"
+- assertVisible: "18 skills"
+- assertVisible: "3 items · reviewed 0"
+- takeScreenshot: learn
+- tapOn:
+    id: "skill-phy.mech.vec.resultant-range"
+- assertVisible:
+    id: "item-phy.mech.c001"
+- takeScreenshot: skill-items
+# True/false card: exactly 2 options.
+- tapOn:
+    id: "item-phy.mech.c002"
+- assertVisible:
+    id: "option-1"
+- assertNotVisible:
+    id: "option-2"
+- assertVisible: ".*සත්‍ය.*"
+- tapOn:
+    id: "close-session"
+# Picture options (F15).
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.kin.graph-slope-area
+      ITEM: phy.mech.c006
+- assertVisible:
+    id: "layer-label"
+    text: "Concept"
+- scrollUntilVisible:
+    element:
+      id: "option-3"
+    direction: DOWN
+    centerElement: true
+- assertVisible:
+    id: "option-3"
+- takeScreenshot: picture-options
+# Tapping the drawing itself (the centre of the option) must answer (BUG-03).
+- scrollUntilVisible:
+    element:
+      id: "option-0"
+    direction: UP
+    centerElement: true
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- tapOn:
+    id: "close-session"
+# F44 template: engine-drawn figure and constants chip.
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.kin.average-velocity
+      ITEM: phy.mech.t03
+- assertVisible:
+    id: "figure"
+- assertVisible:
+    id: "constants"
+- assertVisible: "g = 10 m s⁻²"
+- scrollUntilVisible:
+    element:
+      id: "option-4"
+    direction: DOWN
+    centerElement: true
+- assertVisible:
+    id: "option-4"
+- takeScreenshot: template-figure
+- tapOn:
+    id: "close-session"
+# Statement bank (F42).
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.newton.n3-pairs
+      ITEM: phy.mech.b01
+- assertVisible: "(?s)A: .*B: .*C: .*"
+- scrollUntilVisible:
+    element:
+      id: "option-4"
+    direction: DOWN
+    centerElement: true
+- assertVisible:
+    id: "option-4"
+- takeScreenshot: statement-bank
+- tapOn:
+    id: "close-session"
+# L3 scenario.
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.mom.momentum-vs-energy
+      ITEM: phy.mech.p01-01
+- assertVisible:
+    id: "layer-label"
+    text: "Which method\\?"
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- takeScreenshot: scenario-l3

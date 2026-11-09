@@ -1,0 +1,5 @@
+# Workspace config: run the numbered flows; subflows/ only via runFlow.
+flows:
+  - "*.yaml"
+executionOrder:
+  continueOnFailure: true

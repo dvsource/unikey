@@ -1,0 +1,25 @@
+{
+  "_comment": "Content packs bundled into the app, in syllabus order. Paths are relative to the repo root. Run `npm run content` after editing a pack or this list. name_si for Thermal Physics and Current Electricity is a draft: confirm against the NIE Sinhala syllabus.",
+  "spec_doc": "docs/living/content-authoring.md",
+  "proposed_tag_docs": [
+    "content/tags/thermal-physics-proposed.md",
+    "content/tags/current-electricity-proposed.md"
+  ],
+  "packs": [
+    {
+      "id": "mechanics-20",
+      "dir": "content/samples/mechanics-20",
+      "unit": { "id": "phy.mech", "name_en": "Mechanics", "name_si": "යාන්ත්‍ර විද්‍යාව" }
+    },
+    {
+      "id": "thermal-physics-20",
+      "dir": "content/samples/thermal-physics-20",
+      "unit": { "id": "phy.therm", "name_en": "Thermal Physics", "name_si": "තාප භෞතිකය" }
+    },
+    {
+      "id": "current-electricity-20",
+      "dir": "content/samples/current-electricity-20",
+      "unit": { "id": "phy.elec", "name_en": "Current Electricity", "name_si": "ධාරා විද්‍යුතය" }
+    }
+  ]
+}

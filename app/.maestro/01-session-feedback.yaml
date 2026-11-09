@@ -1,0 +1,46 @@
+# Cases: HOME-01, SES-01, FB-01, LANG-01, LANG-02
+appId: host.exp.exponent
+name: "Session: wrong answer feedback and EN"
+tags:
+  - smoke
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- assertVisible: "Good (morning|afternoon|evening)"
+- assertVisible:
+    id: "today-skill"
+- assertVisible:
+    id: "tab-learn"
+- takeScreenshot: home
+- tapOn:
+    id: "start-today"
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 10"
+- assertVisible:
+    id: "layer-label"
+    text: "Recall"
+- assertVisible:
+    id: "option-3"
+- takeScreenshot: session-sinhala
+# Option A of phy.mech.c001 is wrong (recall-gap → "Concept trap").
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback-title"
+    text: "Concept trap"
+- assertVisible:
+    id: "mistake-message"
+- assertVisible:
+    id: "explanation"
+- assertVisible:
+    id: "continue"
+    text: "Continue"
+- takeScreenshot: session-feedback
+- tapOn:
+    id: "toggle-english"
+# assertVisible text is a regex: match the start of the English stem.
+- assertVisible: "Forces A and B act at one point.*"
+- takeScreenshot: session-english

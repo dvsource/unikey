@@ -1,0 +1,68 @@
+# Cases: SES-02, FB-04, DONE-01, DONE-02, DONE-03, HOME-04
+appId: host.exp.exponent
+name: "Session: play 10, Done, 5 more, Done for today"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+# Item 1: the correct answer (B) → "Correct".
+- tapOn:
+    id: "option-1"
+- assertVisible:
+    id: "feedback-title"
+    text: "Correct"
+- assertNotVisible:
+    id: "mistake-message"
+- tapOn:
+    id: "continue"
+- repeat:
+    times: 8
+    commands:
+      - runFlow: subflows/answer-next.yaml
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "continue"
+    text: "Finish"
+- tapOn:
+    id: "continue"
+- extendedWaitUntil:
+    visible:
+      id: "done-screen"
+    timeout: 10000
+- assertVisible:
+    id: "done-score"
+    text: ".* of 10 right"
+- assertVisible:
+    id: "done-streak"
+    text: "day in a row"
+- takeScreenshot: session-done
+- tapOn:
+    id: "five-more"
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 5"
+- assertVisible: "phy\\.mech\\.c008.*"
+- repeat:
+    times: 5
+    commands:
+      - runFlow: subflows/answer-next.yaml
+- extendedWaitUntil:
+    visible:
+      id: "done-screen"
+    timeout: 10000
+- assertVisible:
+    id: "done-score"
+    text: ".* of 5 right"
+- tapOn:
+    id: "done-for-today"
+- assertVisible:
+    id: "start-today"
+- assertVisible:
+    id: "week-days"
+    text: "1 of 7 days"
+- takeScreenshot: home-after-session

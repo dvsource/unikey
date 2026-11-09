@@ -1,0 +1,19 @@
+# In a session: Review → (name, first time) → OK → Save.
+appId: host.exp.exponent
+---
+- tapOn:
+    id: "review-open"
+- runFlow:
+    when:
+      visible:
+        id: "review-name"
+    commands:
+      - tapOn:
+          id: "review-name"
+      - inputText: "Maestro Reviewer"
+      - pressKey: Enter
+- tapOn:
+    id: "review-ok"
+- tapOn:
+    id: "review-save"
+- assertVisible: "Reviewed · OK"

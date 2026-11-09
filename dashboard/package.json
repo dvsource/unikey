@@ -1,0 +1,30 @@
+{
+  "name": "unikey-dashboard-prototype",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Throwaway teacher dashboard prototype (P0) with fake data. See docs/living/teacher-dashboard.md.",
+  "scripts": {
+    "skills": "node scripts/build-skills.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "serve": "serve -l 4322 out",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "qa": "npm run build && npm test && npm run test:e2e"
+  },
+  "dependencies": {
+    "next": "15.5.19",
+    "qrcode-generator": "1.4.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "22.15.3",
+    "@types/react": "19.1.12",
+    "serve": "^14.2.4",
+    "typescript": "5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,7 @@
+# Answer with option A, then Continue (or Finish on the last item).
+appId: host.exp.exponent
+---
+- tapOn:
+    id: "option-0"
+- tapOn:
+    id: "continue"

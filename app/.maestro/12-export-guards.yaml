@@ -1,0 +1,34 @@
+# Cases: HOME-08, PRG-01, EXP-04, EXP-05, EDGE-01
+appId: host.exp.exponent
+name: "Export guards and Progress on a fresh install"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "today-send-results"
+- assertVisible:
+    id: "progress-reviewed"
+    text: "Reviewed 0 of 241"
+- assertVisible: "0 questions answered · 0 right"
+- assertVisible:
+    id: "progress-flagged"
+    text: "0 with issues"
+- assertVisible: "mechanics-20 · spec 0\\.5 · draft.*"
+- takeScreenshot: progress
+- tapOn:
+    id: "send-results"
+- assertVisible: "Add your name first"
+- tapOn: "OK"
+- tapOn:
+    id: "progress-name"
+- inputText: "Maestro Reviewer"
+- pressKey: Enter
+- tapOn:
+    id: "send-results"
+- assertVisible: "Nothing to send yet"
+- tapOn: "OK"
+- assertVisible:
+    id: "send-results"

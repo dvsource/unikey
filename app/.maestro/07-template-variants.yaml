@@ -1,0 +1,43 @@
+# Cases: SES-05, SES-06, LRN-03, REV-12
+appId: host.exp.exponent
+name: "Template: example stepping, per-variant marks"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.vec.resultant-range
+      ITEM: phy.mech.t01
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 1"
+- assertVisible:
+    id: "layer-label"
+    text: "Problem"
+- assertVisible: ".*Example 1 of 3 \\(v1\\).*"
+- assertVisible:
+    id: "option-4"
+- runFlow: subflows/mark-ok.yaml
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "feedback"
+- tapOn:
+    id: "variant-next"
+- assertVisible: ".*Example 2 of 3 \\(v56\\).*"
+- assertNotVisible:
+    id: "feedback"
+- assertNotVisible: "Reviewed · OK"
+- takeScreenshot: template-example-2
+- tapOn:
+    id: "variant-prev"
+- assertVisible: ".*Example 1 of 3 \\(v1\\).*"
+- assertVisible: "Reviewed · OK"
+- runFlow: subflows/close-to-home.yaml
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 1 of 91"

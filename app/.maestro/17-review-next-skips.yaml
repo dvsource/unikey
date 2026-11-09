@@ -1,0 +1,20 @@
+# Cases: REV-13
+appId: host.exp.exponent
+name: "Review: Review next 10 skips reviewed items"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+- runFlow: subflows/mark-ok.yaml
+- tapOn:
+    id: "close-session"
+- tapOn:
+    id: "review-next"
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 10"
+- assertVisible: "phy\\.mech\\.c002 .*"

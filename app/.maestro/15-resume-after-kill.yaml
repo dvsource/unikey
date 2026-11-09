@@ -1,0 +1,30 @@
+# Cases: EDGE-02, SES-12
+appId: host.exp.exponent
+name: "Edge: Today resumes after the app is killed mid-session"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+- repeat:
+    times: 3
+    commands:
+      - runFlow: subflows/answer-next.yaml
+- assertVisible:
+    id: "session-counter"
+    text: "4 / 10"
+- runFlow: subflows/relaunch.yaml
+- tapOn:
+    id: "start-today"
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 10"
+- assertVisible: "phy\\.mech\\.c003 .*"
+- tapOn:
+    id: "close-session"
+- tapOn:
+    id: "tab-progress"
+- assertVisible: "3 questions answered.*"

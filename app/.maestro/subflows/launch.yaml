@@ -1,0 +1,21 @@
+# Fresh start: wipe Expo Go's data (so the app's AsyncStorage is empty), then
+# open the dev server's project. APP_URL comes from the calling flow's env.
+appId: host.exp.exponent
+---
+- clearState
+- openLink: ${APP_URL}
+# A fresh Expo Go opens its developer menu over the app, which hides the app's
+# elements from Maestro. Wait for it, then close it with Back.
+- extendedWaitUntil:
+    visible: "Go home"
+    timeout: 90000
+    optional: true
+- runFlow:
+    when:
+      visible: "Go home"
+    commands:
+      - back
+- extendedWaitUntil:
+    visible:
+      id: "start-today"
+    timeout: 30000

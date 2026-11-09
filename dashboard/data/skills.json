@@ -1,0 +1,1486 @@
+{
+ "unit": "Mechanics",
+ "topics": [
+  {
+   "id": "phy.mech.2.1",
+   "ref": "2.1",
+   "en": "Kinematics: one- and two-dimensional motion"
+  },
+  {
+   "id": "phy.mech.2.2",
+   "ref": "2.2",
+   "en": "Resultant force, moment of a force and centre of gravity"
+  },
+  {
+   "id": "phy.mech.2.3",
+   "ref": "2.3",
+   "en": "Newton's laws of motion"
+  },
+  {
+   "id": "phy.mech.2.4",
+   "ref": "2.4",
+   "en": "Equilibrium of forces"
+  },
+  {
+   "id": "phy.mech.2.5",
+   "ref": "2.5",
+   "en": "Work, energy and power"
+  },
+  {
+   "id": "phy.mech.2.6",
+   "ref": "2.6",
+   "en": "Rotational motion and circular motion"
+  },
+  {
+   "id": "phy.mech.2.7",
+   "ref": "2.7",
+   "en": "Hydrostatics"
+  },
+  {
+   "id": "phy.mech.2.8",
+   "ref": "2.8",
+   "en": "Fluid dynamics"
+  }
+ ],
+ "skills": [
+  {
+   "id": "phy.mech.kin.motion-quantities",
+   "topic": "phy.mech.2.1",
+   "en": "Displacement, velocity and acceleration",
+   "si": null,
+   "siDraft": false,
+   "mastery": "inferred",
+   "examWeight": 0.1
+  },
+  {
+   "id": "phy.mech.kin.average-velocity",
+   "topic": "phy.mech.2.1",
+   "en": "Average velocity",
+   "si": "සාමාන්‍ය ප්‍රවේගය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.143
+  },
+  {
+   "id": "phy.mech.kin.relative-velocity",
+   "topic": "phy.mech.2.1",
+   "en": "Relative velocity on parallel paths",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.1
+  },
+  {
+   "id": "phy.mech.kin.graph-slope-area",
+   "topic": "phy.mech.2.1",
+   "en": "Gradient and area of motion graphs",
+   "si": "චලිත ප්‍රස්තාරවල අනුක්‍රමණය හා වර්ගඵලය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 1
+  },
+  {
+   "id": "phy.mech.kin.graph-convert",
+   "topic": "phy.mech.2.1",
+   "en": "Converting between s–t, v–t and a–t graphs",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.429
+  },
+  {
+   "id": "phy.mech.kin.suvat",
+   "topic": "phy.mech.2.1",
+   "en": "Equations of motion for constant acceleration",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.1
+  },
+  {
+   "id": "phy.mech.kin.vertical-throw",
+   "topic": "phy.mech.2.1",
+   "en": "Vertical throw symmetry",
+   "si": "සිරස් විසි කිරීමේ සමමිතිය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.214
+  },
+  {
+   "id": "phy.mech.kin.smooth-incline",
+   "topic": "phy.mech.2.1",
+   "en": "Motion down a smooth inclined plane",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.1
+  },
+  {
+   "id": "phy.mech.proj.components",
+   "topic": "phy.mech.2.1",
+   "en": "Projectile velocity components",
+   "si": "ප්‍රක්ෂිප්තයක ප්‍රවේග සංරචක",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.357
+  },
+  {
+   "id": "phy.mech.proj.horizontal-launch",
+   "topic": "phy.mech.2.1",
+   "en": "Horizontal launch from a height",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.429
+  },
+  {
+   "id": "phy.mech.proj.angled-launch",
+   "topic": "phy.mech.2.1",
+   "en": "Time of flight, maximum height and range",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.1
+  },
+  {
+   "id": "phy.mech.proj.ke-at-top",
+   "topic": "phy.mech.2.1",
+   "en": "Kinetic energy at the top of a projectile path",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.286
+  },
+  {
+   "id": "phy.mech.vec.resolve",
+   "topic": "phy.mech.2.2",
+   "en": "Resolving a force into components",
+   "si": "බල විභේදනය",
+   "siDraft": true,
+   "mastery": "practised",
+   "examWeight": 0.256
+  },
+  {
+   "id": "phy.mech.vec.resultant-two",
+   "topic": "phy.mech.2.2",
+   "en": "Resultant of two forces (parallelogram law)",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.085
+  },
+  {
+   "id": "phy.mech.vec.resultant-range",
+   "topic": "phy.mech.2.2",
+   "en": "Range of a resultant force",
+   "si": "සම්ප්‍රයුක්ත බලයේ පරාසය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.342
+  },
+  {
+   "id": "phy.mech.vec.resultant-system",
+   "topic": "phy.mech.2.2",
+   "en": "Resultant of a system of coplanar forces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.342
+  },
+  {
+   "id": "phy.mech.moment.moment-of-force",
+   "topic": "phy.mech.2.2",
+   "en": "Moment of a force about a point",
+   "si": null,
+   "siDraft": false,
+   "mastery": "inferred",
+   "examWeight": 0.085
+  },
+  {
+   "id": "phy.mech.moment.couple",
+   "topic": "phy.mech.2.2",
+   "en": "Moment of a couple",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.085
+  },
+  {
+   "id": "phy.mech.moment.parallel-resultant",
+   "topic": "phy.mech.2.2",
+   "en": "Resultant and line of action of parallel forces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.085
+  },
+  {
+   "id": "phy.mech.cg.regular-bodies",
+   "topic": "phy.mech.2.2",
+   "en": "Centre of gravity of regular bodies and by suspension",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.598
+  },
+  {
+   "id": "phy.mech.cg.composite-bodies",
+   "topic": "phy.mech.2.2",
+   "en": "Centre of gravity of compound bodies and bodies with parts removed",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.854
+  },
+  {
+   "id": "phy.mech.cg.force-through-cm",
+   "topic": "phy.mech.2.2",
+   "en": "Force through or away from the centre of mass",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.085
+  },
+  {
+   "id": "phy.mech.newton.inertia-first-law",
+   "topic": "phy.mech.2.3",
+   "en": "Inertia, mass and Newton's first law",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.071
+  },
+  {
+   "id": "phy.mech.newton.free-body",
+   "topic": "phy.mech.2.3",
+   "en": "Free-body force diagrams",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.071
+  },
+  {
+   "id": "phy.mech.newton.second-law",
+   "topic": "phy.mech.2.3",
+   "en": "Newton's second law for one body",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.285
+  },
+  {
+   "id": "phy.mech.newton.n3-pairs",
+   "topic": "phy.mech.2.3",
+   "en": "Newton's third-law pairs",
+   "si": "නිව්ටන්ගේ තුන්වන නියමයේ බල යුගල",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.427
+  },
+  {
+   "id": "phy.mech.newton.contact-forces",
+   "topic": "phy.mech.2.3",
+   "en": "Self-adjusting forces: tension, normal reaction, thrust",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.285
+  },
+  {
+   "id": "phy.mech.newton.connected-bodies",
+   "topic": "phy.mech.2.3",
+   "en": "Connected bodies: pulleys, strings and blocks in contact",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.712
+  },
+  {
+   "id": "phy.mech.newton.apparent-weight",
+   "topic": "phy.mech.2.3",
+   "en": "Apparent weight in a lift",
+   "si": "සෝපානයක දෘශ්‍ය බර",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.142
+  },
+  {
+   "id": "phy.mech.fric.friction-states",
+   "topic": "phy.mech.2.3",
+   "en": "Static, limiting and dynamic friction",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.071
+  },
+  {
+   "id": "phy.mech.fric.friction-force",
+   "topic": "phy.mech.2.3",
+   "en": "Limiting and dynamic friction force (μR)",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.356
+  },
+  {
+   "id": "phy.mech.fric.stopping-distance",
+   "topic": "phy.mech.2.3",
+   "en": "Stopping distance under friction",
+   "si": "ඝර්ෂණය යටතේ නැවතුම් දුර",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.142
+  },
+  {
+   "id": "phy.mech.fric.traction-limit",
+   "topic": "phy.mech.2.3",
+   "en": "Friction limit on acceleration",
+   "si": "ත්වරණයට ඝර්ෂණයෙන් ඇති සීමාව",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.142
+  },
+  {
+   "id": "phy.mech.fric.rough-incline",
+   "topic": "phy.mech.2.3",
+   "en": "Block on a rough inclined plane",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.214
+  },
+  {
+   "id": "phy.mech.mom.linear-momentum",
+   "topic": "phy.mech.2.3",
+   "en": "Linear momentum and force as rate of change of momentum",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.071
+  },
+  {
+   "id": "phy.mech.imp.impulse",
+   "topic": "phy.mech.2.3",
+   "en": "Impulse and impulsive forces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.142
+  },
+  {
+   "id": "phy.mech.imp.graph-area",
+   "topic": "phy.mech.2.3",
+   "en": "Impulse from a force–time graph",
+   "si": "බල–කාල ප්‍රස්තාරයකින් ආවේගය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.285
+  },
+  {
+   "id": "phy.mech.mom.conservation",
+   "topic": "phy.mech.2.3",
+   "en": "Conservation of linear momentum in one dimension",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.499
+  },
+  {
+   "id": "phy.mech.mom.explosions",
+   "topic": "phy.mech.2.3",
+   "en": "Explosions and fragments, including in flight",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.427
+  },
+  {
+   "id": "phy.mech.mom.elastic-inelastic",
+   "topic": "phy.mech.2.3",
+   "en": "Elastic and inelastic collisions",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.57
+  },
+  {
+   "id": "phy.mech.mom.momentum-vs-energy",
+   "topic": "phy.mech.2.3",
+   "en": "Momentum or energy conservation",
+   "si": "ගම්‍යතා හෝ ශක්ති සංස්ථිතිය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.142
+  },
+  {
+   "id": "phy.mech.eq.conditions",
+   "topic": "phy.mech.2.4",
+   "en": "Conditions for equilibrium",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.25
+  },
+  {
+   "id": "phy.mech.eq.concurrent-forces",
+   "topic": "phy.mech.2.4",
+   "en": "Three non-parallel forces and the triangle of forces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.25
+  },
+  {
+   "id": "phy.mech.eq.resolve-forces",
+   "topic": "phy.mech.2.4",
+   "en": "Equilibrium by resolving forces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.25
+  },
+  {
+   "id": "phy.mech.eq.moment-balance",
+   "topic": "phy.mech.2.4",
+   "en": "Moment balance on a beam",
+   "si": "බාල්කයක සූර්ණ තුලනය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.749
+  },
+  {
+   "id": "phy.mech.eq.stability",
+   "topic": "phy.mech.2.4",
+   "en": "Stable, unstable and neutral equilibrium",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.075
+  },
+  {
+   "id": "phy.mech.work.work-done",
+   "topic": "phy.mech.2.5",
+   "en": "Work done by a force, and its sign",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.533
+  },
+  {
+   "id": "phy.mech.energy.ke-pe",
+   "topic": "phy.mech.2.5",
+   "en": "Kinetic and gravitational potential energy",
+   "si": null,
+   "siDraft": false,
+   "mastery": "inferred",
+   "examWeight": 0.053
+  },
+  {
+   "id": "phy.mech.energy.elastic-pe",
+   "topic": "phy.mech.2.5",
+   "en": "Elastic potential energy",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.32
+  },
+  {
+   "id": "phy.mech.energy.work-energy",
+   "topic": "phy.mech.2.5",
+   "en": "Work–energy principle with friction",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.426
+  },
+  {
+   "id": "phy.mech.energy.mech-conservation",
+   "topic": "phy.mech.2.5",
+   "en": "Conservation of mechanical energy",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.32
+  },
+  {
+   "id": "phy.mech.energy.bounce-height",
+   "topic": "phy.mech.2.5",
+   "en": "Rebound height and speed",
+   "si": "පොළා පැනීමේ උස හා වේගය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.32
+  },
+  {
+   "id": "phy.mech.pow.power-efficiency",
+   "topic": "phy.mech.2.5",
+   "en": "Power and efficiency",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.426
+  },
+  {
+   "id": "phy.mech.pow.force-speed",
+   "topic": "phy.mech.2.5",
+   "en": "Power, force and speed",
+   "si": "ජවය, බලය හා වේගය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.213
+  },
+  {
+   "id": "phy.mech.rot.angular-quantities",
+   "topic": "phy.mech.2.6",
+   "en": "Angular displacement, velocity, acceleration, period and rpm",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.074
+  },
+  {
+   "id": "phy.mech.rot.linear-angular",
+   "topic": "phy.mech.2.6",
+   "en": "Linking linear and angular quantities (v = rω)",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.148
+  },
+  {
+   "id": "phy.mech.rot.rotational-suvat",
+   "topic": "phy.mech.2.6",
+   "en": "Equations of rotational motion",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.074
+  },
+  {
+   "id": "phy.mech.rot.moi-standard",
+   "topic": "phy.mech.2.6",
+   "en": "Moment of inertia of a point mass and standard bodies",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.222
+  },
+  {
+   "id": "phy.mech.rot.moi-factors",
+   "topic": "phy.mech.2.6",
+   "en": "What moment of inertia depends on",
+   "si": "අවස්ථිති සූර්ණය රඳා පවතින දේ",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.443
+  },
+  {
+   "id": "phy.mech.rot.torque-alpha",
+   "topic": "phy.mech.2.6",
+   "en": "Torque and angular acceleration (τ = Iα)",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.591
+  },
+  {
+   "id": "phy.mech.rot.angular-momentum",
+   "topic": "phy.mech.2.6",
+   "en": "Angular momentum conservation",
+   "si": "කෝණික ගම්‍යතා සංස්ථිතිය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.591
+  },
+  {
+   "id": "phy.mech.rot.rotational-ke-work",
+   "topic": "phy.mech.2.6",
+   "en": "Rotational kinetic energy, work and power",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.148
+  },
+  {
+   "id": "phy.mech.rot.rolling-energy",
+   "topic": "phy.mech.2.6",
+   "en": "Energy of a rolling body",
+   "si": "පෙරළෙන වස්තුවක ශක්තිය",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.296
+  },
+  {
+   "id": "phy.mech.rot.rolling-kinematics",
+   "topic": "phy.mech.2.6",
+   "en": "Velocity of points on a rolling wheel",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.148
+  },
+  {
+   "id": "phy.mech.circ.centripetal-accel",
+   "topic": "phy.mech.2.6",
+   "en": "Centripetal acceleration and change of velocity on a circle",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.148
+  },
+  {
+   "id": "phy.mech.circ.centripetal-force",
+   "topic": "phy.mech.2.6",
+   "en": "Which force provides the centripetal force",
+   "si": "කේන්ද්‍රාභිසාරී බලය සපයන බලය",
+   "siDraft": true,
+   "mastery": "practised",
+   "examWeight": 0.059
+  },
+  {
+   "id": "phy.mech.circ.friction-limit",
+   "topic": "phy.mech.2.6",
+   "en": "Friction limit in circular motion",
+   "si": "වෘත්ත චලිතයේ ඝර්ෂණ සීමාව",
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.222
+  },
+  {
+   "id": "phy.mech.circ.inclined-forces",
+   "topic": "phy.mech.2.6",
+   "en": "Horizontal circles with inclined strings or surfaces",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.296
+  },
+  {
+   "id": "phy.mech.circ.vertical-tension",
+   "topic": "phy.mech.2.6",
+   "en": "Forces at the top and bottom of a vertical circle",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.148
+  },
+  {
+   "id": "phy.mech.hydro.pressure-depth",
+   "topic": "phy.mech.2.7",
+   "en": "Pressure at a depth and force on a surface",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.388
+  },
+  {
+   "id": "phy.mech.hydro.compare-densities",
+   "topic": "phy.mech.2.7",
+   "en": "Comparing densities with a U-tube or Hare's apparatus",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.155
+  },
+  {
+   "id": "phy.mech.hydro.pascal",
+   "topic": "phy.mech.2.7",
+   "en": "Pascal's principle and hydraulic systems",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.233
+  },
+  {
+   "id": "phy.mech.hydro.upthrust",
+   "topic": "phy.mech.2.7",
+   "en": "Archimedes' principle and apparent weight in a fluid",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.388
+  },
+  {
+   "id": "phy.mech.hydro.floatation",
+   "topic": "phy.mech.2.7",
+   "en": "Condition for floating and fraction submerged",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.544
+  },
+  {
+   "id": "phy.mech.hydro.float-changes",
+   "topic": "phy.mech.2.7",
+   "en": "What changes when a floating system is rearranged",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.621
+  },
+  {
+   "id": "phy.mech.hydro.hydrometer",
+   "topic": "phy.mech.2.7",
+   "en": "Hydrometer and weighted test tube",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.062
+  },
+  {
+   "id": "phy.mech.hydro.buoyancy-motion",
+   "topic": "phy.mech.2.7",
+   "en": "Motion of a body under upthrust",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.311
+  },
+  {
+   "id": "phy.mech.flow.streamline",
+   "topic": "phy.mech.2.8",
+   "en": "Streamline and turbulent flow",
+   "si": null,
+   "siDraft": false,
+   "mastery": "inferred",
+   "examWeight": 0.072
+  },
+  {
+   "id": "phy.mech.flow.continuity",
+   "topic": "phy.mech.2.8",
+   "en": "Equation of continuity",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.431
+  },
+  {
+   "id": "phy.mech.flow.bernoulli",
+   "topic": "phy.mech.2.8",
+   "en": "Bernoulli's principle in pipes",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.718
+  },
+  {
+   "id": "phy.mech.flow.bernoulli-applications",
+   "topic": "phy.mech.2.8",
+   "en": "Applications of Bernoulli's principle (lift, roofs, sprayers)",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.144
+  },
+  {
+   "id": "phy.mech.flow.efflux",
+   "topic": "phy.mech.2.8",
+   "en": "Speed of efflux and siphons",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.431
+  },
+  {
+   "id": "phy.mech.flow.jet-force",
+   "topic": "phy.mech.2.8",
+   "en": "Force exerted by a fluid jet",
+   "si": null,
+   "siDraft": false,
+   "mastery": "practised",
+   "examWeight": 0.144
+  }
+ ],
+ "requires": [
+  [
+   "phy.mech.kin.motion-quantities",
+   "phy.meas.vec.scalar-vector"
+  ],
+  [
+   "phy.mech.kin.average-velocity",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.kin.relative-velocity",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.kin.graph-slope-area",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.kin.graph-convert",
+   "phy.mech.kin.graph-slope-area"
+  ],
+  [
+   "phy.mech.kin.suvat",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.kin.vertical-throw",
+   "phy.mech.kin.suvat"
+  ],
+  [
+   "phy.mech.kin.smooth-incline",
+   "phy.mech.kin.suvat"
+  ],
+  [
+   "phy.mech.kin.smooth-incline",
+   "phy.mech.vec.resolve"
+  ],
+  [
+   "phy.mech.proj.components",
+   "phy.mech.kin.suvat"
+  ],
+  [
+   "phy.mech.proj.components",
+   "phy.mech.vec.resolve"
+  ],
+  [
+   "phy.mech.proj.horizontal-launch",
+   "phy.mech.proj.components"
+  ],
+  [
+   "phy.mech.proj.angled-launch",
+   "phy.mech.proj.components"
+  ],
+  [
+   "phy.mech.proj.ke-at-top",
+   "phy.mech.proj.components"
+  ],
+  [
+   "phy.mech.proj.ke-at-top",
+   "phy.mech.energy.ke-pe"
+  ],
+  [
+   "phy.mech.vec.resolve",
+   "phy.meas.vec.addition"
+  ],
+  [
+   "phy.mech.vec.resultant-two",
+   "phy.meas.vec.addition"
+  ],
+  [
+   "phy.mech.vec.resultant-range",
+   "phy.mech.vec.resultant-two"
+  ],
+  [
+   "phy.mech.vec.resultant-system",
+   "phy.mech.vec.resolve"
+  ],
+  [
+   "phy.mech.moment.couple",
+   "phy.mech.moment.moment-of-force"
+  ],
+  [
+   "phy.mech.moment.parallel-resultant",
+   "phy.mech.moment.moment-of-force"
+  ],
+  [
+   "phy.mech.cg.composite-bodies",
+   "phy.mech.cg.regular-bodies"
+  ],
+  [
+   "phy.mech.cg.composite-bodies",
+   "phy.mech.moment.parallel-resultant"
+  ],
+  [
+   "phy.mech.cg.force-through-cm",
+   "phy.mech.cg.regular-bodies"
+  ],
+  [
+   "phy.mech.newton.inertia-first-law",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.newton.second-law",
+   "phy.mech.newton.free-body"
+  ],
+  [
+   "phy.mech.newton.contact-forces",
+   "phy.mech.newton.free-body"
+  ],
+  [
+   "phy.mech.newton.connected-bodies",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.newton.connected-bodies",
+   "phy.mech.newton.contact-forces"
+  ],
+  [
+   "phy.mech.newton.apparent-weight",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.newton.apparent-weight",
+   "phy.mech.newton.contact-forces"
+  ],
+  [
+   "phy.mech.fric.friction-states",
+   "phy.mech.newton.contact-forces"
+  ],
+  [
+   "phy.mech.fric.friction-force",
+   "phy.mech.fric.friction-states"
+  ],
+  [
+   "phy.mech.fric.friction-force",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.fric.stopping-distance",
+   "phy.mech.fric.friction-force"
+  ],
+  [
+   "phy.mech.fric.traction-limit",
+   "phy.mech.fric.friction-force"
+  ],
+  [
+   "phy.mech.fric.rough-incline",
+   "phy.mech.fric.friction-force"
+  ],
+  [
+   "phy.mech.fric.rough-incline",
+   "phy.mech.vec.resolve"
+  ],
+  [
+   "phy.mech.mom.linear-momentum",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.imp.impulse",
+   "phy.mech.mom.linear-momentum"
+  ],
+  [
+   "phy.mech.imp.graph-area",
+   "phy.mech.imp.impulse"
+  ],
+  [
+   "phy.mech.imp.graph-area",
+   "phy.mech.kin.graph-slope-area"
+  ],
+  [
+   "phy.mech.mom.conservation",
+   "phy.mech.mom.linear-momentum"
+  ],
+  [
+   "phy.mech.mom.explosions",
+   "phy.mech.mom.conservation"
+  ],
+  [
+   "phy.mech.mom.elastic-inelastic",
+   "phy.mech.mom.conservation"
+  ],
+  [
+   "phy.mech.mom.elastic-inelastic",
+   "phy.mech.energy.ke-pe"
+  ],
+  [
+   "phy.mech.mom.momentum-vs-energy",
+   "phy.mech.mom.elastic-inelastic"
+  ],
+  [
+   "phy.mech.mom.momentum-vs-energy",
+   "phy.mech.energy.mech-conservation"
+  ],
+  [
+   "phy.mech.eq.conditions",
+   "phy.mech.vec.resultant-system"
+  ],
+  [
+   "phy.mech.eq.conditions",
+   "phy.mech.moment.moment-of-force"
+  ],
+  [
+   "phy.mech.eq.concurrent-forces",
+   "phy.mech.eq.conditions"
+  ],
+  [
+   "phy.mech.eq.concurrent-forces",
+   "phy.mech.vec.resultant-two"
+  ],
+  [
+   "phy.mech.eq.resolve-forces",
+   "phy.mech.eq.conditions"
+  ],
+  [
+   "phy.mech.eq.moment-balance",
+   "phy.mech.moment.moment-of-force"
+  ],
+  [
+   "phy.mech.eq.stability",
+   "phy.mech.cg.regular-bodies"
+  ],
+  [
+   "phy.mech.work.work-done",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.energy.elastic-pe",
+   "phy.mech.work.work-done"
+  ],
+  [
+   "phy.mech.energy.work-energy",
+   "phy.mech.energy.ke-pe"
+  ],
+  [
+   "phy.mech.energy.mech-conservation",
+   "phy.mech.energy.ke-pe"
+  ],
+  [
+   "phy.mech.energy.bounce-height",
+   "phy.mech.energy.mech-conservation"
+  ],
+  [
+   "phy.mech.pow.power-efficiency",
+   "phy.mech.work.work-done"
+  ],
+  [
+   "phy.mech.pow.force-speed",
+   "phy.mech.pow.power-efficiency"
+  ],
+  [
+   "phy.mech.pow.force-speed",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.rot.angular-quantities",
+   "phy.mech.kin.motion-quantities"
+  ],
+  [
+   "phy.mech.rot.linear-angular",
+   "phy.mech.rot.angular-quantities"
+  ],
+  [
+   "phy.mech.rot.rotational-suvat",
+   "phy.mech.rot.angular-quantities"
+  ],
+  [
+   "phy.mech.rot.rotational-suvat",
+   "phy.mech.kin.suvat"
+  ],
+  [
+   "phy.mech.rot.moi-factors",
+   "phy.mech.rot.moi-standard"
+  ],
+  [
+   "phy.mech.rot.torque-alpha",
+   "phy.mech.rot.moi-standard"
+  ],
+  [
+   "phy.mech.rot.torque-alpha",
+   "phy.mech.moment.moment-of-force"
+  ],
+  [
+   "phy.mech.rot.torque-alpha",
+   "phy.mech.rot.angular-quantities"
+  ],
+  [
+   "phy.mech.rot.angular-momentum",
+   "phy.mech.rot.moi-standard"
+  ],
+  [
+   "phy.mech.rot.angular-momentum",
+   "phy.mech.rot.angular-quantities"
+  ],
+  [
+   "phy.mech.rot.rotational-ke-work",
+   "phy.mech.rot.moi-standard"
+  ],
+  [
+   "phy.mech.rot.rotational-ke-work",
+   "phy.mech.energy.ke-pe"
+  ],
+  [
+   "phy.mech.rot.rolling-energy",
+   "phy.mech.rot.rotational-ke-work"
+  ],
+  [
+   "phy.mech.rot.rolling-energy",
+   "phy.mech.rot.linear-angular"
+  ],
+  [
+   "phy.mech.rot.rolling-kinematics",
+   "phy.mech.rot.linear-angular"
+  ],
+  [
+   "phy.mech.circ.centripetal-accel",
+   "phy.mech.rot.linear-angular"
+  ],
+  [
+   "phy.mech.circ.centripetal-force",
+   "phy.mech.circ.centripetal-accel"
+  ],
+  [
+   "phy.mech.circ.centripetal-force",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.circ.friction-limit",
+   "phy.mech.circ.centripetal-force"
+  ],
+  [
+   "phy.mech.circ.friction-limit",
+   "phy.mech.fric.friction-force"
+  ],
+  [
+   "phy.mech.circ.inclined-forces",
+   "phy.mech.circ.centripetal-force"
+  ],
+  [
+   "phy.mech.circ.inclined-forces",
+   "phy.mech.vec.resolve"
+  ],
+  [
+   "phy.mech.circ.vertical-tension",
+   "phy.mech.circ.centripetal-force"
+  ],
+  [
+   "phy.mech.hydro.compare-densities",
+   "phy.mech.hydro.pressure-depth"
+  ],
+  [
+   "phy.mech.hydro.pascal",
+   "phy.mech.hydro.pressure-depth"
+  ],
+  [
+   "phy.mech.hydro.upthrust",
+   "phy.mech.hydro.pressure-depth"
+  ],
+  [
+   "phy.mech.hydro.floatation",
+   "phy.mech.hydro.upthrust"
+  ],
+  [
+   "phy.mech.hydro.float-changes",
+   "phy.mech.hydro.floatation"
+  ],
+  [
+   "phy.mech.hydro.hydrometer",
+   "phy.mech.hydro.floatation"
+  ],
+  [
+   "phy.mech.hydro.buoyancy-motion",
+   "phy.mech.hydro.upthrust"
+  ],
+  [
+   "phy.mech.hydro.buoyancy-motion",
+   "phy.mech.newton.second-law"
+  ],
+  [
+   "phy.mech.flow.continuity",
+   "phy.mech.flow.streamline"
+  ],
+  [
+   "phy.mech.flow.bernoulli",
+   "phy.mech.flow.continuity"
+  ],
+  [
+   "phy.mech.flow.bernoulli",
+   "phy.mech.hydro.pressure-depth"
+  ],
+  [
+   "phy.mech.flow.bernoulli",
+   "phy.mech.energy.mech-conservation"
+  ],
+  [
+   "phy.mech.flow.bernoulli-applications",
+   "phy.mech.flow.bernoulli"
+  ],
+  [
+   "phy.mech.flow.efflux",
+   "phy.mech.flow.bernoulli"
+  ],
+  [
+   "phy.mech.flow.jet-force",
+   "phy.mech.flow.continuity"
+  ],
+  [
+   "phy.mech.flow.jet-force",
+   "phy.mech.imp.impulse"
+  ]
+ ],
+ "tags": {
+  "wrong-law": {
+   "meaning": "Chose a principle that doesn't fit",
+   "message": "This law doesn't link what's given to what's asked."
+  },
+  "wrong-conservation-law": {
+   "meaning": "Conserved the wrong quantity",
+   "message": "Check which quantity is conserved here."
+  },
+  "suvat-nonuniform": {
+   "meaning": "Used equations of motion with non-constant a",
+   "message": "suvat needs constant acceleration."
+  },
+  "unknown-not-eliminated": {
+   "meaning": "Chose an equation that keeps an unknown",
+   "message": "Choose an equation that removes the unknown force."
+  },
+  "assumed-symmetry": {
+   "meaning": "Split equally or assumed symmetry that isn't there",
+   "message": "Don't assume an equal share. Calculate it."
+  },
+  "misread-interval": {
+   "meaning": "Used the wrong time or distance interval",
+   "message": "Which interval does the question give?"
+  },
+  "no-resolve": {
+   "meaning": "Didn't resolve into components",
+   "message": "Resolve into components first."
+  },
+  "sign": {
+   "meaning": "Sign or direction error",
+   "message": "Pick a positive direction and stick to it."
+  },
+  "unit-conversion": {
+   "meaning": "Wrong or missing unit conversion",
+   "message": "Convert to SI units before calculating."
+  },
+  "forgot-square": {
+   "meaning": "Missed a square",
+   "message": "Check the power: v², ω², r²."
+  },
+  "wrong-power": {
+   "meaning": "Wrong power (other than a missed square)",
+   "message": "Check how the quantity scales."
+  },
+  "inverted": {
+   "meaning": "Ratio or formula upside down",
+   "message": "Check which goes on top."
+  },
+  "sin-cos-swap": {
+   "meaning": "Swapped sin and cos",
+   "message": "Adjacent → cos, opposite → sin."
+  },
+  "radius-diameter": {
+   "meaning": "Used diameter for radius",
+   "message": "r is the radius."
+  },
+  "forgot-g": {
+   "meaning": "Used mass instead of weight, or dropped g",
+   "message": "Weight = mg."
+  },
+  "forgot-mass": {
+   "meaning": "Dropped or used the wrong mass",
+   "message": "Which mass is moving?"
+  },
+  "forgot-half": {
+   "meaning": "Dropped a ½ (KE, area of a triangle)",
+   "message": "Check the ½."
+  },
+  "area-shape": {
+   "meaning": "Wrong area under a graph",
+   "message": "Split the area into simple shapes."
+  },
+  "stopped-early": {
+   "meaning": "Gave a middle step as the answer",
+   "message": "That's a middle step. Carry on to what's asked."
+  },
+  "wrong-quantity": {
+   "meaning": "Found a different quantity than asked",
+   "message": "Reread what the question asks for."
+  },
+  "ignored-condition": {
+   "meaning": "Missed a condition (smooth, at rest, equal mass)",
+   "message": "Underline the conditions in the question."
+  },
+  "missed-true-statement": {
+   "meaning": "Rejected a true statement in a grid",
+   "message": "Check each statement separately."
+  },
+  "recall-gap": {
+   "meaning": "Didn't know a fact (L1 only)",
+   "message": "This one needs learning. It will come back soon."
+  },
+  "slope-area-swap": {
+   "meaning": "Confused gradient and area of a graph",
+   "message": "Gradient = rate. Area = accumulation."
+  },
+  "boundary": {
+   "meaning": "Wrong about whether limits are included",
+   "message": "Check the end values of the range."
+  },
+  "v-zero-at-top": {
+   "meaning": "Thinks the whole velocity is 0 at max height",
+   "message": "Only the vertical part is zero at the top."
+  },
+  "accel-zero-at-top": {
+   "meaning": "Thinks a = 0 when v = 0",
+   "message": "Gravity never switches off: a = g the whole time."
+  },
+  "force-along-motion": {
+   "meaning": "Thinks motion needs a forward force",
+   "message": "Motion doesn't need a forward force."
+  },
+  "motion-vs-accel": {
+   "meaning": "Confuses direction of motion with direction of acceleration",
+   "message": "Acceleration follows the change in velocity, not the motion."
+  },
+  "up-down-time": {
+   "meaning": "Thinks up and down times differ, without air resistance",
+   "message": "Without air resistance, up and down times match."
+  },
+  "mean-of-speeds": {
+   "meaning": "Averages speeds over unequal times",
+   "message": "Use total displacement ÷ total time."
+  },
+  "pair-cancels": {
+   "meaning": "Thinks third-law pairs cancel",
+   "message": "Action and reaction act on different bodies."
+  },
+  "balance-vs-pair": {
+   "meaning": "Confuses balanced forces with a third-law pair",
+   "message": "A pair acts between the same two bodies."
+  },
+  "force-on-wrong-body": {
+   "meaning": "Picks the force acting on the other body",
+   "message": "Ask: which force acts on this body?"
+  },
+  "internal-force": {
+   "meaning": "Thinks an internal force accelerates the system",
+   "message": "Only external forces change the motion."
+  },
+  "friction-direction": {
+   "meaning": "Has friction acting the wrong way",
+   "message": "Friction opposes the sliding that would happen."
+  },
+  "normal-vertical": {
+   "meaning": "Draws the normal reaction as always vertical",
+   "message": "N is perpendicular to the surface."
+  },
+  "forgot-mu": {
+   "meaning": "Used the full weight as the friction force",
+   "message": "Friction depends on μ. Include it."
+  },
+  "centrifugal": {
+   "meaning": "Adds an outward force in circular motion",
+   "message": "Circular motion needs a net inward force."
+  },
+  "ke-conserved-inelastic": {
+   "meaning": "Conserves KE in an inelastic collision or explosion",
+   "message": "Momentum is conserved; KE is not."
+  },
+  "momentum-external-force": {
+   "meaning": "Conserves momentum while an external force acts",
+   "message": "An external force acts, so momentum changes."
+  },
+  "mass-matters": {
+   "meaning": "Keeps mass where it cancels",
+   "message": "Check if mass cancels out."
+  },
+  "linear-vs-angular": {
+   "meaning": "Mixes linear and angular quantities",
+   "message": "Rotating? Use the angular version."
+  },
+  "ke-conserved-rotation": {
+   "meaning": "Conserves KE when I changes",
+   "message": "Angular momentum is conserved here, not KE."
+  },
+  "moi-depends-on-omega": {
+   "meaning": "Thinks I depends on spin rate",
+   "message": "I depends on where the mass is, not on the speed."
+  },
+  "moi-shape-swap": {
+   "meaning": "Swaps which shape has the larger I",
+   "message": "More mass far from the axis gives a larger I."
+  },
+  "moi-mass-only": {
+   "meaning": "Thinks equal mass means equal I",
+   "message": "Where the mass sits matters too."
+  },
+  "moi-axis-free": {
+   "meaning": "Thinks I doesn't depend on the axis",
+   "message": "I depends on the axis."
+  },
+  "pair-unequal": {
+   "meaning": "Thinks the forces of a pair differ in size",
+   "message": "The two forces of a pair are always equal."
+  },
+  "pair-delay": {
+   "meaning": "Thinks the reaction comes after the action",
+   "message": "The two forces exist at the same time."
+  },
+  "pair-contact-only": {
+   "meaning": "Thinks pairs need contact",
+   "message": "Gravity forms pairs without contact."
+  },
+  "pair-wrong-bodies": {
+   "meaning": "Picks a force between other bodies",
+   "message": "A pair involves the same two bodies."
+  },
+  "free-fall-reading": {
+   "meaning": "Expects a zero reading without free fall",
+   "message": "The reading is zero only in free fall."
+  },
+  "force-wrong-source": {
+   "meaning": "Names a force that can't act that way here",
+   "message": "Ask what force actually points that way."
+  },
+  "omitted-friction": {
+   "meaning": "Leaves friction off a block at rest on a slope",
+   "message": "Without friction the block would slide."
+  },
+  "ke-half-at-top": {
+   "meaning": "Thinks KE halves at the top for any angle",
+   "message": "KE at the top depends on the angle."
+  },
+  "ke-pe-confusion": {
+   "meaning": "Ties KE to PE instead of speed",
+   "message": "KE depends on speed."
+  },
+  "gravity-off-in-flight": {
+   "meaning": "Leaves gravity out during flight",
+   "message": "Gravity still acts in flight."
+  },
+  "speed-constant": {
+   "meaning": "Thinks speed stays constant in flight",
+   "message": "Only the horizontal velocity stays constant."
+  },
+  "graph-shape": {
+   "meaning": "Picks the wrong curve shape",
+   "message": "A straight s–t line means constant velocity."
+  },
+  "swapped-support": {
+   "meaning": "Swaps which support takes more load",
+   "message": "Moving towards Q puts more load on Q."
+  },
+  "current-used-up": {
+   "meaning": "Thinks current falls along a series circuit",
+   "message": "Current is the same all the way round a series circuit."
+  },
+  "series-parallel-swap": {
+   "meaning": "Uses the series rule for parallel, or the reverse",
+   "message": "Check how the components are connected."
+  },
+  "meter-placement": {
+   "meaning": "Places an ammeter in parallel or a voltmeter in series",
+   "message": "Ammeters go in series. Voltmeters go in parallel."
+  },
+  "emf-vs-terminal-pd": {
+   "meaning": "Ignores the drop across internal resistance",
+   "message": "Terminal pd = E − Ir when current flows."
+  },
+  "capacitor-rule-swap": {
+   "meaning": "Uses the resistor combination rule for capacitors",
+   "message": "Capacitors combine the opposite way to resistors."
+  },
+  "field-vs-potential": {
+   "meaning": "Confuses electric field with potential",
+   "message": "Field is a vector. Potential is a scalar."
+  },
+  "negative-charge-direction": {
+   "meaning": "Forgets a negative charge feels the opposite force",
+   "message": "A negative charge feels the opposite force."
+  },
+  "hand-rule-direction": {
+   "meaning": "Misapplies the magnetic force or field rule",
+   "message": "Set out the directions, then apply the rule."
+  },
+  "closed-loop-swap": {
+   "meaning": "Confuses electric and magnetic field line shapes",
+   "message": "Only magnetic field lines form closed loops."
+  }
+ }
+}

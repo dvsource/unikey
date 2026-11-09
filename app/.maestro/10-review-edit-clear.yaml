@@ -1,0 +1,46 @@
+# Cases: REV-10, REV-11, LRN-04, EDGE-07
+appId: host.exp.exponent
+name: "Review: change verdict, clear mark, Learn badges"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+- runFlow: subflows/mark-ok.yaml
+- tapOn:
+    id: "review-open"
+- tapOn:
+    id: "review-bad-sinhala"
+- tapOn:
+    id: "review-note"
+- inputText: "Wrong word for resultant"
+- pressKey: Enter
+- tapOn:
+    id: "review-save"
+- assertVisible: "Reviewed · issues"
+- tapOn:
+    id: "close-session"
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 1 of 91"
+- tapOn:
+    id: "tab-learn"
+- assertVisible: "3 items · reviewed 1"
+- tapOn:
+    id: "skill-phy.mech.vec.resultant-range"
+- assertVisible: "!"
+- takeScreenshot: skill-with-badge
+- tapOn:
+    id: "item-phy.mech.c001"
+- tapOn:
+    id: "review-open"
+- tapOn:
+    id: "review-clear"
+- assertNotVisible: "Reviewed · .*"
+- runFlow: subflows/close-to-home.yaml
+- assertVisible:
+    id: "reviewed-count"
+    text: "Reviewed 0 of 91"

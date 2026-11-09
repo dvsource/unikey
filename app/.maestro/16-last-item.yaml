@@ -1,0 +1,35 @@
+# Cases: LRN-06, EDGE-05
+appId: host.exp.exponent
+name: "Edge: last item of the last skill ends with Finish"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- runFlow:
+    file: subflows/open-item.yaml
+    env:
+      SKILL: phy.mech.rot.moi-factors
+      ITEM: phy.mech.b02
+- assertVisible:
+    id: "session-counter"
+    text: "1 / 1"
+- tapOn:
+    id: "option-0"
+- assertVisible:
+    id: "continue"
+    text: "Finish"
+- tapOn:
+    id: "continue"
+- extendedWaitUntil:
+    visible:
+      id: "done-screen"
+    timeout: 10000
+- assertVisible:
+    id: "done-score"
+    text: ".* of 1 right"
+- tapOn:
+    id: "done-for-today"
+- assertVisible:
+    id: "start-today"

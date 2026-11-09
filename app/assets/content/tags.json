@@ -1,0 +1,708 @@
+{
+ "wrong-law": {
+  "group": "Method (M)",
+  "meaning": "Chose a principle that doesn't fit",
+  "message": {
+   "en": "This law doesn't link what's given to what's asked."
+  }
+ },
+ "wrong-conservation-law": {
+  "group": "Method (M)",
+  "meaning": "Conserved the wrong quantity",
+  "message": {
+   "en": "Check which quantity is conserved here."
+  }
+ },
+ "suvat-nonuniform": {
+  "group": "Method (M)",
+  "meaning": "Used equations of motion with non-constant a",
+  "message": {
+   "en": "suvat needs constant acceleration."
+  }
+ },
+ "unknown-not-eliminated": {
+  "group": "Method (M)",
+  "meaning": "Chose an equation that keeps an unknown",
+  "message": {
+   "en": "Choose an equation that removes the unknown force."
+  }
+ },
+ "assumed-symmetry": {
+  "group": "Method (M)",
+  "meaning": "Split equally or assumed symmetry that isn't there",
+  "message": {
+   "en": "Don't assume an equal share. Calculate it."
+  }
+ },
+ "misread-interval": {
+  "group": "Method (M)",
+  "meaning": "Used the wrong time or distance interval",
+  "message": {
+   "en": "Which interval does the question give?"
+  }
+ },
+ "no-resolve": {
+  "group": "Method (M)",
+  "meaning": "Didn't resolve into components",
+  "message": {
+   "en": "Resolve into components first."
+  }
+ },
+ "sign": {
+  "group": "Execution (E)",
+  "meaning": "Sign or direction error",
+  "message": {
+   "en": "Pick a positive direction and stick to it."
+  }
+ },
+ "unit-conversion": {
+  "group": "Execution (E)",
+  "meaning": "Wrong or missing unit conversion",
+  "message": {
+   "en": "Convert to SI units before calculating."
+  }
+ },
+ "forgot-square": {
+  "group": "Execution (E)",
+  "meaning": "Missed a square",
+  "message": {
+   "en": "Check the power: v², ω², r²."
+  }
+ },
+ "wrong-power": {
+  "group": "Execution (E)",
+  "meaning": "Wrong power (other than a missed square)",
+  "message": {
+   "en": "Check how the quantity scales."
+  }
+ },
+ "inverted": {
+  "group": "Execution (E)",
+  "meaning": "Ratio or formula upside down",
+  "message": {
+   "en": "Check which goes on top."
+  }
+ },
+ "sin-cos-swap": {
+  "group": "Execution (E)",
+  "meaning": "Swapped sin and cos",
+  "message": {
+   "en": "Adjacent → cos, opposite → sin."
+  }
+ },
+ "radius-diameter": {
+  "group": "Execution (E)",
+  "meaning": "Used diameter for radius",
+  "message": {
+   "en": "r is the radius."
+  }
+ },
+ "forgot-g": {
+  "group": "Execution (E)",
+  "meaning": "Used mass instead of weight, or dropped g",
+  "message": {
+   "en": "Weight = mg."
+  }
+ },
+ "forgot-mass": {
+  "group": "Execution (E)",
+  "meaning": "Dropped or used the wrong mass",
+  "message": {
+   "en": "Which mass is moving?"
+  }
+ },
+ "forgot-half": {
+  "group": "Execution (E)",
+  "meaning": "Dropped a ½ (KE, area of a triangle)",
+  "message": {
+   "en": "Check the ½."
+  }
+ },
+ "area-shape": {
+  "group": "Execution (E)",
+  "meaning": "Wrong area under a graph",
+  "message": {
+   "en": "Split the area into simple shapes."
+  }
+ },
+ "stopped-early": {
+  "group": "Execution (E)",
+  "meaning": "Gave a middle step as the answer",
+  "message": {
+   "en": "That's a middle step. Carry on to what's asked."
+  }
+ },
+ "wrong-quantity": {
+  "group": "Reading (R)",
+  "meaning": "Found a different quantity than asked",
+  "message": {
+   "en": "Reread what the question asks for."
+  }
+ },
+ "ignored-condition": {
+  "group": "Reading (R)",
+  "meaning": "Missed a condition (smooth, at rest, equal mass)",
+  "message": {
+   "en": "Underline the conditions in the question."
+  }
+ },
+ "missed-true-statement": {
+  "group": "Reading (R)",
+  "meaning": "Rejected a true statement in a grid",
+  "message": {
+   "en": "Check each statement separately."
+  }
+ },
+ "recall-gap": {
+  "group": "Concept (C): general",
+  "meaning": "Didn't know a fact (L1 only)",
+  "message": {
+   "en": "This one needs learning. It will come back soon."
+  }
+ },
+ "slope-area-swap": {
+  "group": "Concept (C): general",
+  "meaning": "Confused gradient and area of a graph",
+  "message": {
+   "en": "Gradient = rate. Area = accumulation."
+  }
+ },
+ "boundary": {
+  "group": "Concept (C): general",
+  "meaning": "Wrong about whether limits are included",
+  "message": {
+   "en": "Check the end values of the range."
+  }
+ },
+ "v-zero-at-top": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks the whole velocity is 0 at max height",
+  "message": {
+   "en": "Only the vertical part is zero at the top."
+  }
+ },
+ "accel-zero-at-top": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks a = 0 when v = 0",
+  "message": {
+   "en": "Gravity never switches off: a = g the whole time."
+  }
+ },
+ "force-along-motion": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks motion needs a forward force",
+  "message": {
+   "en": "Motion doesn't need a forward force."
+  }
+ },
+ "motion-vs-accel": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Confuses direction of motion with direction of acceleration",
+  "message": {
+   "en": "Acceleration follows the change in velocity, not the motion."
+  }
+ },
+ "up-down-time": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks up and down times differ, without air resistance",
+  "message": {
+   "en": "Without air resistance, up and down times match."
+  }
+ },
+ "mean-of-speeds": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Averages speeds over unequal times",
+  "message": {
+   "en": "Use total displacement ÷ total time."
+  }
+ },
+ "pair-cancels": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks third-law pairs cancel",
+  "message": {
+   "en": "Action and reaction act on different bodies."
+  }
+ },
+ "balance-vs-pair": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Confuses balanced forces with a third-law pair",
+  "message": {
+   "en": "A pair acts between the same two bodies."
+  }
+ },
+ "force-on-wrong-body": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Picks the force acting on the other body",
+  "message": {
+   "en": "Ask: which force acts on this body?"
+  }
+ },
+ "internal-force": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks an internal force accelerates the system",
+  "message": {
+   "en": "Only external forces change the motion."
+  }
+ },
+ "friction-direction": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Has friction acting the wrong way",
+  "message": {
+   "en": "Friction opposes the sliding that would happen."
+  }
+ },
+ "normal-vertical": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Draws the normal reaction as always vertical",
+  "message": {
+   "en": "N is perpendicular to the surface."
+  }
+ },
+ "forgot-mu": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Used the full weight as the friction force",
+  "message": {
+   "en": "Friction depends on μ. Include it."
+  }
+ },
+ "centrifugal": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Adds an outward force in circular motion",
+  "message": {
+   "en": "Circular motion needs a net inward force."
+  }
+ },
+ "ke-conserved-inelastic": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Conserves KE in an inelastic collision or explosion",
+  "message": {
+   "en": "Momentum is conserved; KE is not."
+  }
+ },
+ "momentum-external-force": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Conserves momentum while an external force acts",
+  "message": {
+   "en": "An external force acts, so momentum changes."
+  }
+ },
+ "mass-matters": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Keeps mass where it cancels",
+  "message": {
+   "en": "Check if mass cancels out."
+  }
+ },
+ "linear-vs-angular": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Mixes linear and angular quantities",
+  "message": {
+   "en": "Rotating? Use the angular version."
+  }
+ },
+ "ke-conserved-rotation": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Conserves KE when I changes",
+  "message": {
+   "en": "Angular momentum is conserved here, not KE."
+  }
+ },
+ "moi-depends-on-omega": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks I depends on spin rate",
+  "message": {
+   "en": "I depends on where the mass is, not on the speed."
+  }
+ },
+ "moi-shape-swap": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Swaps which shape has the larger I",
+  "message": {
+   "en": "More mass far from the axis gives a larger I."
+  }
+ },
+ "moi-mass-only": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks equal mass means equal I",
+  "message": {
+   "en": "Where the mass sits matters too."
+  }
+ },
+ "moi-axis-free": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks I doesn't depend on the axis",
+  "message": {
+   "en": "I depends on the axis."
+  }
+ },
+ "pair-unequal": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks the forces of a pair differ in size",
+  "message": {
+   "en": "The two forces of a pair are always equal."
+  }
+ },
+ "pair-delay": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks the reaction comes after the action",
+  "message": {
+   "en": "The two forces exist at the same time."
+  }
+ },
+ "pair-contact-only": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks pairs need contact",
+  "message": {
+   "en": "Gravity forms pairs without contact."
+  }
+ },
+ "pair-wrong-bodies": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Picks a force between other bodies",
+  "message": {
+   "en": "A pair involves the same two bodies."
+  }
+ },
+ "free-fall-reading": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Expects a zero reading without free fall",
+  "message": {
+   "en": "The reading is zero only in free fall."
+  }
+ },
+ "force-wrong-source": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Names a force that can't act that way here",
+  "message": {
+   "en": "Ask what force actually points that way."
+  }
+ },
+ "omitted-friction": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Leaves friction off a block at rest on a slope",
+  "message": {
+   "en": "Without friction the block would slide."
+  }
+ },
+ "ke-half-at-top": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks KE halves at the top for any angle",
+  "message": {
+   "en": "KE at the top depends on the angle."
+  }
+ },
+ "ke-pe-confusion": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Ties KE to PE instead of speed",
+  "message": {
+   "en": "KE depends on speed."
+  }
+ },
+ "gravity-off-in-flight": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Leaves gravity out during flight",
+  "message": {
+   "en": "Gravity still acts in flight."
+  }
+ },
+ "speed-constant": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Thinks speed stays constant in flight",
+  "message": {
+   "en": "Only the horizontal velocity stays constant."
+  }
+ },
+ "graph-shape": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Picks the wrong curve shape",
+  "message": {
+   "en": "A straight s–t line means constant velocity."
+  }
+ },
+ "swapped-support": {
+  "group": "Concept (C): Mechanics",
+  "meaning": "Swaps which support takes more load",
+  "message": {
+   "en": "Moving towards Q puts more load on Q."
+  }
+ },
+ "current-used-up": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Thinks current falls along a series circuit",
+  "message": {
+   "en": "Current is the same all the way round a series circuit."
+  }
+ },
+ "series-parallel-swap": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Uses the series rule for parallel, or the reverse",
+  "message": {
+   "en": "Check how the components are connected."
+  }
+ },
+ "meter-placement": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Places an ammeter in parallel or a voltmeter in series",
+  "message": {
+   "en": "Ammeters go in series. Voltmeters go in parallel."
+  }
+ },
+ "emf-vs-terminal-pd": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Ignores the drop across internal resistance",
+  "message": {
+   "en": "Terminal pd = E − Ir when current flows."
+  }
+ },
+ "capacitor-rule-swap": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Uses the resistor combination rule for capacitors",
+  "message": {
+   "en": "Capacitors combine the opposite way to resistors."
+  }
+ },
+ "field-vs-potential": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Confuses electric field with potential",
+  "message": {
+   "en": "Field is a vector. Potential is a scalar."
+  }
+ },
+ "negative-charge-direction": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Forgets a negative charge feels the opposite force",
+  "message": {
+   "en": "A negative charge feels the opposite force."
+  }
+ },
+ "hand-rule-direction": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Misapplies the magnetic force or field rule",
+  "message": {
+   "en": "Set out the directions, then apply the rule."
+  }
+ },
+ "closed-loop-swap": {
+  "group": "Concept (C): Electricity (seed, **TBC with teacher**)",
+  "meaning": "Confuses electric and magnetic field line shapes",
+  "message": {
+   "en": "Only magnetic field lines form closed loops."
+  }
+ },
+ "celsius-in-gas-law": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Used °C instead of kelvin in a gas law",
+  "message": {
+   "en": "Gas laws need the absolute temperature, in kelvin."
+  },
+  "proposed": true
+ },
+ "forgot-latent": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Left out the heat needed to melt or boil",
+  "message": {
+   "en": "Melting or boiling takes heat too: add mL."
+  },
+  "proposed": true
+ },
+ "heat-during-change": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks the temperature rises while a substance melts or boils",
+  "message": {
+   "en": "The temperature stays fixed while it melts or boils."
+  },
+  "proposed": true
+ },
+ "ice-all-melts": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Assumes all the ice melts without checking",
+  "message": {
+   "en": "Check there's enough heat to melt all the ice first."
+  },
+  "proposed": true
+ },
+ "hole-shrinks": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks a hole in a plate gets smaller when the plate is heated",
+  "message": {
+   "en": "A hole expands as if it were made of the plate's metal."
+  },
+  "proposed": true
+ },
+ "expansion-reading": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Gets the direction of a hot or cold scale's reading error wrong",
+  "message": {
+   "en": "A hot scale's marks spread apart, so it reads short."
+  },
+  "proposed": true
+ },
+ "rh-vs-absolute": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks a higher relative humidity always means more water vapour",
+  "message": {
+   "en": "Relative humidity also depends on the temperature."
+  },
+  "proposed": true
+ },
+ "svp-boyle": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Applies Boyle's law to a saturated vapour",
+  "message": {
+   "en": "Saturated vapour pressure doesn't change with volume."
+  },
+  "proposed": true
+ },
+ "ke-depends-on-gas": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks the mean molecular KE depends on the gas, its pressure or volume",
+  "message": {
+   "en": "Mean KE depends only on the absolute temperature."
+  },
+  "proposed": true
+ },
+ "absolute-zero-myth": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks water freezes, or gases liquefy, at absolute zero",
+  "message": {
+   "en": "At 0 K the mean KE of an ideal gas is zero."
+  },
+  "proposed": true
+ },
+ "isothermal-no-heat": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks no heat flows in an isothermal process",
+  "message": {
+   "en": "Isothermal means ΔU = 0, but heat still flows."
+  },
+  "proposed": true
+ },
+ "adiabatic-constant-t": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Thinks an adiabatic process keeps the temperature constant",
+  "message": {
+   "en": "Adiabatic means no heat flows, but the temperature changes."
+  },
+  "proposed": true
+ },
+ "cooling-constant-rate": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Assumes an object cools at a steady rate",
+  "message": {
+   "en": "Cooling slows as the excess temperature falls."
+  },
+  "proposed": true
+ },
+ "room-temp-excess": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Uses the object's temperature, not its excess over the room",
+  "message": {
+   "en": "Newton's law uses the excess over the surroundings."
+  },
+  "proposed": true
+ },
+ "lagged-linear": {
+  "group": "Concept (C): thermal physics (proposed)",
+  "meaning": "Expects a straight-line temperature fall along an unlagged rod",
+  "message": {
+   "en": "An unlagged rod loses heat along it, so the gradient changes."
+  },
+  "proposed": true
+ },
+ "drift-thin-slower": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks drift speed is the same or lower where the wire is thinner",
+  "message": {
+   "en": "Same current through less area: the electrons drift faster."
+  },
+  "proposed": true
+ },
+ "power-formula-choice": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Uses P = I²R when the voltage is fixed, or V²/R when the current is fixed",
+  "message": {
+   "en": "Use the power formula with the quantity that stays fixed."
+  },
+  "proposed": true
+ },
+ "max-power-efficiency": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks maximum power transfer is also maximum efficiency",
+  "message": {
+   "en": "At maximum power, half the power is lost inside the source."
+  },
+  "proposed": true
+ },
+ "pot-draws-current": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks the cell being tested gives current at balance",
+  "message": {
+   "en": "At balance no current flows from the cell being tested."
+  },
+  "proposed": true
+ },
+ "pot-driver-too-small": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks any driver cell gives a balance point",
+  "message": {
+   "en": "The pd across the wire must be larger than the e.m.f. you measure."
+  },
+  "proposed": true
+ },
+ "meter-resistance": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Wants a high-resistance ammeter or a low-resistance voltmeter",
+  "message": {
+   "en": "Ammeters need a tiny resistance. Voltmeters need a huge one."
+  },
+  "proposed": true
+ },
+ "flux-not-change": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Links the e.m.f. to the flux, not to its rate of change",
+  "message": {
+   "en": "E.m.f. depends on how fast the flux changes."
+  },
+  "proposed": true
+ },
+ "forgot-turns": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Left out the number of turns of a coil",
+  "message": {
+   "en": "A coil has N turns: multiply by N."
+  },
+  "proposed": true
+ },
+ "lenz-opposes-field": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Has the induced current oppose the field, not the change in it",
+  "message": {
+   "en": "The induced current opposes the change in flux, not the flux."
+  },
+  "proposed": true
+ },
+ "lenz-same-direction": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Has the induced current help the change in flux",
+  "message": {
+   "en": "If it helped the change, energy would come from nowhere."
+  },
+  "proposed": true
+ },
+ "transformer-dc": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks a transformer works on steady d.c.",
+  "message": {
+   "en": "A transformer needs a changing current."
+  },
+  "proposed": true
+ },
+ "back-emf-start": {
+  "group": "Concept (C): current electricity (proposed)",
+  "meaning": "Thinks a motor's back e.m.f. is largest when it starts",
+  "message": {
+   "en": "Back e.m.f. grows with the motor's speed."
+  },
+  "proposed": true
+ }
+}

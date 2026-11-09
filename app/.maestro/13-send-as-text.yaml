@@ -1,0 +1,44 @@
+# Cases: EXP-03, PRG-04
+appId: host.exp.exponent
+name: "Export: Send as text opens the share sheet"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: "tab-progress"
+- tapOn:
+    id: "progress-name"
+- inputText: "Maestro Reviewer"
+- pressKey: Enter
+- tapOn:
+    id: "tab-index"
+- tapOn:
+    id: "start-today"
+# The name set on Progress is used: the panel doesn't ask for it.
+- tapOn:
+    id: "review-open"
+- assertNotVisible:
+    id: "review-name"
+- tapOn:
+    id: "review-ok"
+- tapOn:
+    id: "review-save"
+- tapOn:
+    id: "close-session"
+- tapOn:
+    id: "tab-progress"
+- scrollUntilVisible:
+    element:
+      id: "send-text"
+    direction: DOWN
+- tapOn:
+    id: "send-text"
+- extendedWaitUntil:
+    notVisible:
+      id: "send-text"
+    timeout: 15000
+- takeScreenshot: share-text
+- back
