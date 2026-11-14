@@ -114,7 +114,7 @@ test("likedSections: liking desc then success rate; fallback is the easiest sect
   expect(likedSections(st(), C)[0]).toBe("u.t1/A");
   const s = st({ a1: rec(2, { attempts: [att(2, true), att(2, false)] }), b1: rec(2, { attempts: [att(2, true)] }) });
   expect(likedSections(s, C)).toEqual(["u.t1/B", "u.t1/A"]);
-  s.sections = { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 2, returned: false, skipTotal: 0 } };
+  s.sections = { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 2, returned: false, skipTotal: 0, lastSkipSeq: null } };
   expect(likedSections(s, C)).toEqual(["u.t1/A", "u.t1/B"]);
 });
 
@@ -186,7 +186,7 @@ test("middle: running rate below comfort → comfort-correction with expectedSuc
 
 test("middle: blocked section never returned", () => {
   const skills = { a1: notDue(2), b1: due(2, 3), b2: due(3, 3) };
-  const skipped = st(skills, { sections: { "u.t1/B": { skipCount: 1, remindDay: D + 3, lastReason: "later", dripStopped: false, liking: 0, returned: false, skipTotal: 1 } } });
+  const skipped = st(skills, { sections: { "u.t1/B": { skipCount: 1, remindDay: D + 3, lastReason: "later", dripStopped: false, liking: 0, returned: false, skipTotal: 1, lastSkipSeq: null } } });
   for (let seed = 1; seed <= 10; seed++) {
     const r = pickMiddle({ ...skipped, rng: { seed, n: 0 } }, C, ctx(), cfg)!;
     expect(r.served.section).toBe("u.t1/A");
@@ -223,7 +223,7 @@ test("middle: h3 card not served when it would pass budget, unless under minimum
 
 test("borrowed strength: returned section names a solid neighbour", () => {
   const s = st({ a1: notDue(3, { solidDays: [D - 5, D - 4] }), a2: due(2, 1) }, {
-    sections: { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: true, skipTotal: 0 } },
+    sections: { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: true, skipTotal: 0, lastSkipSeq: null } },
   });
   const r = pickMiddle(s, C, ctx({ blockedSections: ["u.t1/B"] }), cfg)!;
   expect(r.served).toMatchObject({ skill: "a2", borrowedFrom: "a1" });
@@ -243,7 +243,7 @@ test("open: brand-new student gets height-1 card, reason open:liked", () => {
     a1: notDue(3, { attempts: [att(3, false), att(3, false)] }), // h3: 1/4 → drop to h2
     b1: notDue(2, { attempts: [att(2, true), att(2, true), att(2, true)] }),
   });
-  s.sections = { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 1, returned: false, skipTotal: 0 } };
+  s.sections = { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 1, returned: false, skipTotal: 0, lastSkipSeq: null } };
   expect(pickOpen(s, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2, reason: "open:liked" });
 });
 
@@ -307,7 +307,7 @@ test("pickAny: highest expectedSuccess over every height of every unblocked skil
   const q = pickAny(st({ a1: rec(1) }, { seen: all1 }), C, ctx({ strictBudget: true, remaining: 99 }), cfg, "close:winnable")!;
   expect(q.served).toMatchObject({ skill: "a2", height: 1, reason: "close:winnable" });
   // blocked sections never; the same-skill run only as a second pass
-  const blocked = { "u.t1/A": { skipCount: 1, remindDay: D + 2, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 1 } };
+  const blocked = { "u.t1/A": { skipCount: 1, remindDay: D + 2, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 1, lastSkipSeq: null } };
   const r = pickAny(st({ a1: rec(1) }, { seen: all1, sections: blocked }), C, ctx({ strictBudget: true, remaining: 99 }), cfg, "comfort-correction")!;
   expect(r.served.section).toBe("u.t1/B");
   const only = fixture({ drop: ["a2", "b1", "b2"].flatMap((x) => [`${x}.h1.1`, `${x}.h1.2`, `${x}.h1.3`, `${x}.h2.1`, `${x}.h2.2`, `${x}.h2.3`, `${x}.h3`]) });

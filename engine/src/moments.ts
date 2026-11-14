@@ -9,7 +9,9 @@ const ORDER: Moment["type"][] = ["section-solid", "avoided-now-done", "then-wron
 /** Moments worth keeping for the next session when this one is full. */
 const HELD: Moment["type"][] = ["section-solid", "avoided-now-done"];
 
-export const momentKey = (m: Moment): string => `${m.type}:${"skill" in m ? m.skill : m.section}`;
+/** Once per (type, skill or section); a height-up once per skill and height reached. */
+export const momentKey = (m: Moment): string =>
+  m.type === "height-up" ? `height-up:${m.skill}:${m.to}` : `${m.type}:${"skill" in m ? m.skill : m.section}`;
 
 /**
  * Moments the answer just given (`answered`, `right`) caused: `before` / `after` are the state around it and
@@ -30,7 +32,7 @@ export function detectMoments(
     if (solid.length > 0 && solid.every(Boolean)) out.push({ type: "section-solid", section: sec.id });
     const rs = after.sections[sec.id];
     if (rs && rs.skipTotal >= cfg.moments.avoidedMinSkips) {
-      const last = sec.skills.flatMap((id) => after.skills[id]?.attempts ?? []).sort((a, b) => a.seq - b.seq).slice(-cfg.moments.avoidedOf);
+      const last = sec.skills.flatMap((id) => after.skills[id]?.attempts ?? []).filter((a) => a.seq > (rs.lastSkipSeq ?? -1)).sort((a, b) => a.seq - b.seq).slice(-cfg.moments.avoidedOf);
       if (last.length >= cfg.moments.avoidedOf && last.filter((a) => a.right).length >= cfg.moments.avoidedRight) {
         out.push({ type: "avoided-now-done", section: sec.id });
       }

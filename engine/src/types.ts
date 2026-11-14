@@ -36,6 +36,8 @@ export type SectionRec = {
   dripStopped: boolean; liking: number; returned: boolean;
   /** Lifetime count of skips of this section (never reset, unlike `skipCount`). */
   skipTotal: number;
+  /** `answered` when the section was last skipped (attempts with a higher `seq` came after it), else null. */
+  lastSkipSeq: number | null;
 };
 export type Profile = {
   comfort: number; memory: number; h3Share: number; stamina: number;

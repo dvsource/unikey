@@ -76,7 +76,7 @@ export function rec(height: Height, attempts: Attempt[], extra: Partial<SkillRec
   return { ...newSkillRec(height), attempts, ...extra };
 }
 export function section(extra: Partial<SectionRec> = {}): SectionRec {
-  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: extra.skipCount ?? 0, ...extra };
+  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: extra.skipCount ?? 0, lastSkipSeq: null, ...extra };
 }
 /**
  * A student who has already played. Attempt seqs are numbered 1.. per state (skill-id order, then attempt

@@ -41,11 +41,11 @@ test("then-wrong-now-right: right at the failed height fires, one height lower d
 // ---------- avoided-now-done ----------
 
 /** Section A's last five attempts across a1 and a2 (seq order): `pattern` right/wrong. */
-function sectionAState(pattern: boolean[], skipTotal: number): State {
+function sectionAState(pattern: boolean[], skipTotal: number, lastSkipSeq: number | null = null): State {
   const at = (right: boolean, seq: number) => ({ day: D0 - 1, seq, height: 2 as Height, right, ms: 8000, card: "x" });
   const a1 = pattern.filter((_, i) => i % 2 === 0).map((r, j) => at(r, 1 + 2 * j));
   const a2 = pattern.filter((_, i) => i % 2 === 1).map((r, j) => at(r, 2 + 2 * j));
-  const s = startedState({ a1: rec(2, a1), a2: rec(2, a2) }, { sections: { [A]: section({ skipCount: 0, skipTotal, returned: true }) } });
+  const s = startedState({ a1: rec(2, a1), a2: rec(2, a2) }, { sections: { [A]: section({ skipCount: 0, skipTotal, lastSkipSeq, returned: true }) } });
   return { ...s, skills: { a1: { ...s.skills.a1, attempts: a1 }, a2: { ...s.skills.a2, attempts: a2 } } };
 }
 
@@ -56,6 +56,24 @@ test("avoided-now-done: 4 right of the last 5 after 2 skips fires; 3 of 5 does n
   expect(detect(three, three, sv("a1", 2))).toEqual([]);
   const oneSkip = sectionAState([false, true, true, true, true], 1);
   expect(detect(oneSkip, oneSkip, sv("a1", 2))).toEqual([]);
+});
+
+test("avoided-now-done: the window is the last 5 across the section, not all attempts (interleaved seqs)", () => {
+  const s = sectionAState([true, true, true, true, false, false, false], 2); // 4 of 7 right overall, 2 of the last 5
+  expect(detect(s, s, sv("a1", 2))).toEqual([]);
+  const ok = sectionAState([false, false, true, true, true, true, false], 2); // last 5: t t t t f = 4
+  expect(detect(ok, ok, sv("a1", 2)).map((m) => m.type)).toEqual(["avoided-now-done"]);
+});
+
+test("avoided-now-done counts only attempts after the section's last skip", () => {
+  const before = sectionAState([true, true, true, true, true], 2, 5); // all five predate the last skip
+  expect(detect(before, before, sv("a1", 2))).toEqual([]);
+  const split = sectionAState([true, true, true, true, true], 2, 3); // only 2 after
+  expect(detect(split, split, sv("a1", 2))).toEqual([]);
+  const after = sectionAState([false, true, true, true, true], 2, 0);
+  expect(detect(after, after, sv("a1", 2)).map((m) => m.type)).toEqual(["avoided-now-done"]);
+  const mixed = sectionAState([true, true, true, false, true, true, true, true], 2, 3); // after seq 3: f t t t t
+  expect(detect(mixed, mixed, sv("a1", 2)).map((m) => m.type)).toEqual(["avoided-now-done"]);
 });
 
 test("avoided-now-done counts only the last 5 attempts across the section's skills, and needs 5 of them", () => {
@@ -87,6 +105,19 @@ test("height-up: a rise of the answered skill's height, with from and to; no ris
   expect(detect(before, before, sv("a1", 2))).toEqual([]);
   const down = { ...before, skills: { a1: { ...before.skills.a1, height: 1 as Height } } };
   expect(detect(before, down, sv("a1", 2))).toEqual([]);
+});
+
+test("height-up: each height is announced once per skill; a re-climb to an announced height is not repeated", () => {
+  const rise = (from: Height, to: Height, done: string[]) => {
+    const b = startedState({ a1: rec(from, atts(from, 1, 0, D0 - 1)) }, { momentsDone: done });
+    return detect(b, { ...b, skills: { a1: { ...b.skills.a1, height: to } } }, sv("a1", from));
+  };
+  expect(rise(1, 2, [])).toEqual([{ type: "height-up", skill: "a1", from: 1, to: 2 }]);
+  expect(rise(2, 3, ["height-up:a1:2"])).toEqual([{ type: "height-up", skill: "a1", from: 2, to: 3 }]);
+  expect(rise(2, 3, ["height-up:a1:2", "height-up:a1:3"])).toEqual([]);
+  const s = withSession(startedState({}));
+  recordMoments(s, [{ type: "height-up", skill: "a1", from: 1, to: 2 }], cfg);
+  expect(s.momentsDone).toEqual(["height-up:a1:2"]);
 });
 
 // ---------- missing-piece-fixed ----------
@@ -127,7 +158,7 @@ test("recordMoments: at most 2 emitted per session; the dropped weak ones are go
   expect(out).toEqual([then, up]);
   expect(s.session!.moments).toEqual([then, up]);
   expect(s.pendingMoments).toEqual([solidA]); // third, a held type
-  expect(s.momentsDone).toEqual(["then-wrong-now-right:a1", "height-up:b1", `section-solid:${A}`]);
+  expect(s.momentsDone).toEqual(["then-wrong-now-right:a1", "height-up:b1:2", `section-solid:${A}`]);
 
   const t = withSession(startedState({}), { moments: [up] });
   expect(recordMoments(t, [then, up], cfg)).toEqual([then]);
@@ -158,7 +189,7 @@ test("a step up emits height-up with a moment event right after the answer event
   expect(types[i + 1]).toBe("moment");
   expect(st1.events[i + 1].data).toEqual(st1.moments[0]);
   expect(types.indexOf("card_served")).toBeGreaterThan(i + 1);
-  expect(st1.state.momentsDone).toEqual(["height-up:a1"]);
+  expect(st1.state.momentsDone).toEqual(["height-up:a1:3"]);
   expect(st1.state.session!.moments).toEqual(st1.moments);
   expect(JSON.parse(JSON.stringify(st1.state))).toEqual(st1.state);
   // once: the same key is never emitted again
@@ -183,8 +214,12 @@ test("missing-piece-fixed: wrong, piece right, confidence right, then the return
   expect(prev.kind === "card" && prev.card.reason).toBe("repair:return");
   expect(all[idx].moments).toContainEqual({ type: "missing-piece-fixed", skill: "a1" });
   // a wrong answer on the return card gives none
-  const r2 = run(C, first, T0, (s) => (s.reason === "repair:return" ? "w" : s.reason === "repair:missing-piece" && s.skill === "a1" && first.next.kind === "card" && s.card === card(first).card ? "w" : "r"));
-  expect([first, ...r2.steps].flatMap((st) => st.moments).filter((m) => m.type === "missing-piece-fixed")).toEqual([]);
+  const r2 = run(C, first, T0, (s, i) => (i === 0 || s.reason === "repair:return" ? "w" : "r"));
+  const all2 = [first, ...r2.steps];
+  const served2 = all2.flatMap((st) => (st.next.kind === "card" ? [st.next.card] : []));
+  expect(served2.some((c) => c.reason === "repair:confidence")).toBe(true);
+  expect(served2.some((c) => c.reason === "repair:return")).toBe(true);
+  expect(all2.flatMap((st) => st.moments).filter((m) => m.type === "missing-piece-fixed")).toEqual([]);
 });
 
 test("held moments open the next session's first step, count toward the maximum, and are cleared", () => {

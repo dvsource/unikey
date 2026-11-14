@@ -9,7 +9,7 @@ import type { Content, PickCtx, Picked, SectionRec, Served, SessionState, SkipRe
 
 /** A section with no history yet. */
 export function newSectionRec(): SectionRec {
-  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0 };
+  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null };
 }
 
 function sectionRec(state: State, section: string): SectionRec {
@@ -128,7 +128,7 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
     s.sections = {
       ...s.sections,
       [sec]: {
-        ...rec, skipCount: n, skipTotal: rec.skipTotal + 1, remindDay: day + gaps[Math.min(n - 1, gaps.length - 1)], lastReason: reason ?? "later",
+        ...rec, skipCount: n, skipTotal: rec.skipTotal + 1, lastSkipSeq: s.answered, remindDay: day + gaps[Math.min(n - 1, gaps.length - 1)], lastReason: reason ?? "later",
         dripStopped: false, returned: false, liking: Math.max(-cfg.liking.clamp, rec.liking - cfg.skip.likingPenalty),
       },
     };

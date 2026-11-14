@@ -47,7 +47,7 @@ test("first skip: applies at once, remindDay = day+3, section gone for the rest 
   expect(c0.section).toBe(B);
   const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000);
   expect(sk.next.kind).toBe("card");
-  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false, skipTotal: 1 });
+  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false, skipTotal: 1, lastSkipSeq: 1000 });
   expect(sk.state.session!.blockedSections).toEqual([B]);
   expect(sk.feedback).toBeUndefined();
   expect(sk.events.map((e) => e.type)).toEqual(["skip", "card_served"]);
@@ -94,7 +94,7 @@ test("confirmed second skip → remindDay = day+5; then 8, 13, 14, 14", () => {
     expect(sk.next.kind).toBe("card");
     expect(cardOf(sk).section).toBe(A);
     expect(sk.state.sections[B]).toEqual({
-      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "too-hard", dripStopped: false, liking: 4, returned: false, skipTotal: n + 1,
+      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "too-hard", dripStopped: false, liking: 4, returned: false, skipTotal: n + 1, lastSkipSeq: 1000,
     });
     expect(sk.events[0]).toMatchObject({ type: "skip", data: { skipCount: n + 1, remindDay: D0 + want[n - 1] } });
   }

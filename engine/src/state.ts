@@ -21,7 +21,7 @@ export function migrate(json: unknown): State {
   const s = json as State;
   // Fields added after the first v1 states were stored.
   const session = s.session ? { ...s.session, sideDoor: s.session.sideDoor ?? null, confident: s.session.confident ?? [] } : null;
-  const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, { ...x, skipTotal: x.skipTotal ?? x.skipCount }]));
+  const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, { ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null }]));
   return {
     ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null, session, sections,
     pendingMoments: s.pendingMoments ?? [], momentsDone: s.momentsDone ?? [],
