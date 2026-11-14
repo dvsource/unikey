@@ -237,15 +237,12 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
   const inTopic = (d: SkillDef) => (d.topic === cur ? 0 : 1);
 
   if (correcting) {
-    // Per skill: the highest height ≤ current whose expectedSuccess reaches comfort; skills by that estimate.
-    const rows = withHeight(state, notDue, cfg).map((c) => {
-      const hs = avail(c.def).filter((h) => h <= c.height).reverse()
-        .map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) }))
-        .filter((x) => x.es >= comfort);
-      return hs;
-    }).filter((hs) => hs.length)
-      .sort((x, y) => y[0].es - x[0].es || byId(x[0].def.id, y[0].def.id));
-    return firstOf(state, content, rows.flat(), () => "comfort-correction", ctx, cfg);
+    // Tuning ruling R2: every height ≤ current whose expectedSuccess reaches comfort, lowest height first, then estimate.
+    const rows = withHeight(state, notDue, cfg).flatMap((c) => avail(c.def).filter((h) => h <= c.height)
+      .map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) })))
+      .filter((x) => x.es >= comfort)
+      .sort((x, y) => x.height - y.height || y.es - x.es || byId(x.def.id, y.def.id));
+    return firstOf(state, content, rows, () => "comfort-correction", ctx, cfg);
   }
 
   // (1) due skills
@@ -258,10 +255,8 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
 
   // (2) a new skill
   if (ctx.newSkillsThisSession < cfg.session.maxNewSkills && (rate === null || rate >= comfort)) {
-    const ready = (d: SkillDef) => d.requires.every((r) =>
-      r in state.skills || !content.skills[r] || avail(content.skills[r]).length === 0);
     const fresh = cardSkills(content, Object.keys(content.skills))
-      .filter((d) => !(d.id in state.skills) && ready(d));
+      .filter((d) => !(d.id in state.skills) && isReady(state, content, d));
     const cands = withHeight(state, fresh, cfg)
       .sort((x, y) => inTopic(x.def) - inTopic(y.def) || y.def.weight - x.def.weight
         || h3Rank(x.height, state, ctx) - h3Rank(y.height, state, ctx) || byId(x.def.id, y.def.id));
@@ -269,10 +264,14 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
     if (p2) return p2;
   }
 
-  // (3) the started, not-due skill the student is most likely to get right
+  // (3) the started, not-due skill the student is most likely to get right. A height-3 skill also offers its lower
+  // heights, and height 3 comes last (R2: never a height-3 comfort-correction card while a lower one is eligible);
+  // with the running rate below comfort (any number of answers) the lowest height comes first.
+  const easier = rate !== null && rate < comfort;
   const easy = withHeight(state, notDue, cfg)
-    .map((c) => ({ ...c, es: expectedSuccess(state, c.def.id, c.height, cfg) }))
-    .sort((x, y) => y.es - x.es || byId(x.def.id, y.def.id));
+    .flatMap((c) => (c.height === 3 ? avail(c.def) : [c.height]).map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) })))
+    .sort((x, y) => Number(x.height === 3) - Number(y.height === 3) || (easier ? x.height - y.height : 0)
+      || y.es - x.es || byId(x.def.id, y.def.id));
   return firstOf(state, content, easy, () => "comfort-correction", ctx, cfg);
 }
 
@@ -355,16 +354,19 @@ export function pickReturn(
 
 /**
  * Last-resort sweep, used before any `content-exhausted` end: every non-blocked skill with cards (started
- * first, then not started with `requires` met, then the rest) at every available height; the eligible card
- * with the highest expectedSuccess wins, ties to the lower height, then skill id. A first pass keeps the
- * same-skill run and `excludeSkills`; a second pass drops them.
+ * first, then not started with `requires` met, then the rest) at every available height. Height 3 comes after every
+ * lower height; then the eligible card with the highest expectedSuccess wins, ties to the lower height, then skill id.
+ * With the session's running rate below comfort (R2) the order is lowest height first, then expectedSuccess, then
+ * group. A first pass keeps the same-skill run and `excludeSkills`; a second pass drops them.
  */
 export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Config, reason: Reason): Picked | null {
-  const ready = (d: SkillDef) => d.requires.every((r) =>
-    r in state.skills || !content.skills[r] || avail(content.skills[r]).length === 0);
-  const group = (d: SkillDef) => (d.id in state.skills ? 0 : ready(d) ? 1 : 2);
+  const group = (d: SkillDef) => (d.id in state.skills ? 0 : isReady(state, content, d) ? 1 : 2);
+  const easier = ctx.runningTotal > 0 && ctx.runningRight / ctx.runningTotal < state.profile.comfort;
   const cands = cardSkills(content, Object.keys(content.skills).sort(byId))
     .flatMap((def) => avail(def).map((height) => ({ def, height, g: group(def), es: expectedSuccess(state, def.id, height, cfg) })))
-    .sort((x, y) => x.g - y.g || y.es - x.es || x.height - y.height || byId(x.def.id, y.def.id));
+    .sort((x, y) => (easier
+      ? x.height - y.height || y.es - x.es || x.g - y.g
+      : Number(x.height === 3) - Number(y.height === 3) || x.g - y.g || y.es - x.es || x.height - y.height)
+      || byId(x.def.id, y.def.id));
   return firstOf(state, content, cands, () => reason, ctx, cfg) ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true });
 }
