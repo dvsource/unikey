@@ -15,6 +15,9 @@ export const simParams = {
   // Task 11 fix round 1: real students get interrupted. With this chance an answer takes distractFactor × its normal
   // time, independent of fatigue (so "slow" is no longer the same thing as "fatigued").
   distractChance: 0.05, distractFactor: 3,
+  // Task 11 fix round 1: the effort a student expects "5 more" to take. A student who would be past their stamina by
+  // then declines (slow-reader and smart-impatient took "5 more" at 9 of 10 effort and quit from fatigue two cards later).
+  extendFeel: 5,
   misconceptionDecay: 0.8,
   fiveMinEffort: 12,
   binge: { fast: 5, vanishUntil: 20 },
@@ -197,9 +200,12 @@ export function playsToday(h: Hidden, day0: number, day: number): number {
   }
 }
 
-/** Rule: a student whose session effort went past their stamina (fatigued) never asks for extra; no draw is consumed then. */
+/**
+ * Rule: a student who would be past their stamina within `extendFeel` more effort (so a fatigued one too) never asks
+ * for extra; no draw is consumed then.
+ */
 export function wantsExtend(h: Hidden, sessionEffort?: number): [boolean, Hidden] {
-  if (sessionEffort !== undefined && sessionEffort > h.traits.stamina) return [false, h];
+  if (sessionEffort !== undefined && sessionEffort + simParams.extendFeel > h.traits.stamina) return [false, h];
   const [v, rng] = next(h.rng);
   return [v < h.traits.extendChance, { ...h, rng }];
 }

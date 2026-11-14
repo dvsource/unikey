@@ -274,3 +274,12 @@ test("distraction: with distractChance an answer takes distractFactor × its tim
     for (let i = 0; i < 50; i++) { const r = decide(x, content, card, S, 0); x = r.hidden; if (r.action.kind === "answer") out.push(r.action.ms); } return out; };
   expect(again(3)).toEqual(again(3));
 });
+
+test("wantsExtend: a student who would be past stamina within five more cards' effort declines, with no draw", () => {
+  const h = newHidden(byId("strong"), content, 9); // stamina 25
+  expect(simParams.extendFeel).toBe(5);
+  expect(wantsExtend(h, 25 - simParams.extendFeel + 0.5)).toEqual([false, h]);
+  let yes = 0; let x = h;
+  for (let i = 0; i < 400; i++) { const [w, n] = wantsExtend(x, 25 - simParams.extendFeel); x = n; if (w) yes++; }
+  expect(yes).toBeGreaterThan(200); // extendChance 0.7 still applies below the line
+});
