@@ -2,10 +2,12 @@ import { next, type Rng, type Content, type Served, type SkipReason, type Height
 
 /** Starting values of the hidden-student model; the tuning task changes them here only. */
 export const simParams = {
-  need: { 1: 0.25, 2: 0.5, 3: 0.75 } as Record<Height, number>,
+  // Task 11 (R7): need 0.25/0.5/0.75 → 0.1/0.45/0.75, learn 0.04/0.08 → 0.06/0.10, decay 0.008 → 0.003. With the old
+  // numbers forgetting outpaced any possible practice and the weakest personas sat at pFloor on every card.
+  need: { 1: 0.1, 2: 0.45, 3: 0.75 } as Record<Height, number>,
   pFloor: 0.2, pCeil: 0.97, pBase: 0.5, pSlope: 1.5,
-  learnRight: 0.04, learnWrong: 0.08,
-  decayPerDay: 0.008, decayCurve: 0.5, decayFloor: 0.5,
+  learnRight: 0.06, learnWrong: 0.10,
+  decayPerDay: 0.003, decayCurve: 0.5, decayFloor: 0.5,
   fatigueK: 0.2, fatigueMs: 2.2, quitStaminaFactor: 1.3,
   skipChance: 0.5, fearedK: 0.6, tooHardK: 0.1,
   msHeight: { 1: 1, 2: 1.5, 3: 4 } as Record<Height, number>,

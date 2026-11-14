@@ -33,12 +33,14 @@ test("auto personas resolve against content", () => {
   expect(meanKnowledge(h, content)).toBeCloseTo((0.1 + 0.1 + 0.5 + 0.5) / 4);
 });
 
-test("pRight: k 0.5 at h2 → 0.5; k 1 at h1 → 0.97; k 0 at h3 → 0.2", () => {
+test("pRight: k 0.5 at h2 → 0.575; k 1 at h1 → 0.97; k 0 at h3 → 0.2", () => {
+  // Task 11 R7: need at h2 is 0.45 (was 0.5), so k 0.5 gives 0.5 + 1.5 × 0.05.
   const h = newHidden(byId("average-noclass"), content, 1);
-  expect(pRight(withK(h, "a1", 0.5), served("a1.h2.1"), 0)).toBeCloseTo(0.5);
+  expect(pRight(withK(h, "a1", 0.5), served("a1.h2.1"), 0)).toBeCloseTo(0.575);
   expect(pRight(withK(h, "a1", 1), served("a1.h1.1"), 0)).toBe(0.97);
   expect(pRight(withK(h, "a1", 0), served("a1.h3"), 0)).toBe(0.2);
-  expect(pRight(withK(h, "a1", 0.5), served("a1.h2.1"), 15)).toBeCloseTo(0.5 - 0.3);
+  expect(pRight(withK(h, "a1", 0.15), served("a1.h1.1"), 0)).toBeCloseTo(0.575); // R7: need at h1 0.1
+  expect(pRight(withK(h, "a1", 0.5), served("a1.h2.1"), 15)).toBeCloseTo(0.575 - 0.3);
 });
 
 test("misconception: strength 1, k 0 → always picks the tagged wrong option", () => {
@@ -57,8 +59,8 @@ test("learning raises k more after a wrong answer than a right one; decay lowers
   const h = newHidden(byId("average-noclass"), content, 1);
   const card = served("a1.h1.1");
   const r = learn(h, card, true, 0), w = learn(h, card, false, 0);
-  expect(r.k["a1"]!).toBeCloseTo(0.4 + 0.04 * 0.6);
-  expect(w.k["a1"]!).toBeCloseTo(0.4 + 0.08 * 0.6);
+  expect(r.k["a1"]!).toBeCloseTo(0.4 + 0.06 * 0.6); // Task 11 R7: learnRight 0.06 (was 0.04)
+  expect(w.k["a1"]!).toBeCloseTo(0.4 + 0.10 * 0.6); // learnWrong 0.10 (was 0.08)
   expect(w.k["a1"]!).toBeGreaterThan(r.k["a1"]!);
   expect(w.lastDay["a1"]).toBe(0);
   expect(learn(h, card, false, 0, "sign-error").traits.misconceptions).toEqual({});
@@ -197,7 +199,7 @@ test("ms: height factors, guesser, fatigue, jitter", () => {
 test("right/wrong frequency follows pRight", () => {
   const base = withK(newHidden(byId("average-noclass"), content, 11), "a1", 0.5);
   let h: Hidden = { ...base, traits: { ...base.traits, dontKnowBelow: 0, skipBelow: 0, misconceptions: {} } };
-  const card = served("a1.h2.1"); // p = 0.5
+  const card = served("a1.h2.1"); // p = 0.575
   let right = 0; const N = 2000;
   for (let i = 0; i < N; i++) {
     const r = decide(h, content, card, S, 0); h = r.hidden;
@@ -243,4 +245,7 @@ test("small fixes: hasOwn lookups, no wrong options, learn sets k0, params", () 
   expect(r.kind === "answer" && r.choice).toBe(0);
   expect(simParams.decayCurve).toBe(0.5);
   expect(simParams.fearedK).toBe(0.6);
+  // Task 11 R7 recalibration
+  expect(simParams.need).toEqual({ 1: 0.1, 2: 0.45, 3: 0.75 });
+  expect([simParams.learnRight, simParams.learnWrong, simParams.decayPerDay]).toEqual([0.06, 0.10, 0.003]);
 });
