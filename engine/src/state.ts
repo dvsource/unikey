@@ -9,7 +9,7 @@ export function newState(student: string, seed: number, cfg: Config = defaultCon
       stamina: cfg.budget.staminaDefault, goodStreak: 0, msByHeight: { 1: [], 2: [], 3: [] },
     },
     skills: {}, sections: {}, seen: [], currentTopic: null, day: null,
-    sessionCount: 0, lastSessionDay: null, session: null,
+    sessionCount: 0, lastSessionDay: null, session: null, answered: 0, lastEnd: null,
   };
 }
 

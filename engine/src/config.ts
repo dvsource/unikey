@@ -18,6 +18,8 @@ export const defaultConfig = {
   skill: { attemptsKept: 12, solidDays: 2 },
   estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 },
   tzOffsetMinutes: 330,
+  sessionEnd: { maxExtraClose: 2 },
+  answers: { msKept: 20 },
 };
 
 export type Config = typeof defaultConfig;

@@ -17,11 +17,14 @@ export type Served = {
 /**
  * Everything session-specific a pick needs. `lastSkills` is oldest first, most recent last.
  * `h3Spent` / `spent` are the session's height-3 effort and total effort so far.
+ * `strictBudget`: skip any candidate over `remaining`, even while today's effort is under `minimumDay`
+ * (the session uses it to tell "nothing fits the budget" from "nothing to serve").
+ * `excludeSkills`: skills not to serve now (a repaired skill waiting for its return).
  */
 export type PickCtx = {
   day: number; remaining: number; runningRight: number; runningTotal: number;
   newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
-  h3Spent: number; spent: number;
+  h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
 };
 
 export type Picked = { served: Served; rng: Rng };
@@ -38,7 +41,7 @@ function avail(def: SkillDef): Height[] {
 }
 
 /** The nearest height with cards (ties go lower), or null when the skill has no cards. */
-function servable(def: SkillDef, want: Height): Height | null {
+export function servable(def: SkillDef, want: Height): Height | null {
   const a = avail(def);
   if (!a.length) return null;
   return [...a].sort((x, y) => Math.abs(x - want) - Math.abs(y - want) || x - y)[0];
@@ -150,11 +153,12 @@ type Cand = { def: SkillDef; height: Height };
 function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config): Picked | null {
   const { def, height } = c;
   if (isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
+  if (ctx.excludeSkills?.includes(def.id)) return null;
   const n = cfg.session.maxSameSkillRun;
   const tail = ctx.lastSkills.slice(-n);
   if (tail.length === n && tail.every((s) => s === def.id)) return null;
   const effort = effortOf(height, cfg);
-  if (effort > ctx.remaining && todayEffort(state, ctx.day) >= cfg.budget.minimumDay) return null;
+  if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.day) >= cfg.budget.minimumDay)) return null;
   const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, {}, cfg);
   if (!e) return null;
   const served: Served = { card: e.card, variant: e.variant, skill: def.id, section: def.section, height, reason, effort };

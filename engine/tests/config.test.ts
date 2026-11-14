@@ -20,6 +20,8 @@ test("spec numbers", () => {
   expect(c.skill).toEqual({ attemptsKept: 12, solidDays: 2 });
   expect(c.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 });
   expect(c.tzOffsetMinutes).toBe(330);
+  expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });
+  expect(c.answers).toEqual({ msKept: 20 });
 });
 test("dayOf uses Sri Lanka time", () => {
   expect(dayOf(Date.UTC(2027, 0, 15, 18, 29))).toBe(dayOf(Date.UTC(2027, 0, 15, 0, 0)));
