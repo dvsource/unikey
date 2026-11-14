@@ -270,17 +270,18 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
   const comfort = state.profile.comfort;
   const cur = state.currentTopic?.id ?? null;
   const rate = ctx.runningTotal > 0 ? ctx.runningRight / ctx.runningTotal : null;
-  const correcting = ctx.runningTotal >= cfg.estimate.minRunning && rate !== null && rate < comfort;
+  // Review finding 2: below comfort (any number of answers), middle picks go height first.
+  const correcting = rate !== null && rate < comfort;
   const st = started(state, content);
   const notDue = st.filter((d) => !isDue(state.skills[d.id], ctx.day));
   const inTopic = (d: SkillDef) => (d.topic === cur ? 0 : 1);
 
   if (correcting) {
-    // Tuning ruling R2: every height ≤ current whose expectedSuccess reaches comfort, lowest height first, then estimate.
+    // R2 / finding 2: every height ≤ current of the not-due started skills, lowest height first; within a height those
+    // reaching comfort first, then estimate. Due skills wait (they would come back at their full height).
     const rows = withHeight(state, notDue, cfg).flatMap((c) => avail(c.def).filter((h) => h <= c.height)
       .map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) })))
-      .filter((x) => x.es >= comfort)
-      .sort((x, y) => x.height - y.height || y.es - x.es || byId(x.def.id, y.def.id));
+      .sort((x, y) => x.height - y.height || Number(y.es >= comfort) - Number(x.es >= comfort) || y.es - x.es || byId(x.def.id, y.def.id));
     return firstOf(state, content, rows, () => "comfort-correction", ctx, cfg);
   }
 
@@ -325,34 +326,25 @@ function lowestEligible(state: State, content: Content, def: SkillDef, heights: 
 }
 
 /**
- * Close (spec §8, tuning ruling R1): each skill at the LOWEST height with an eligible card, height 3 only when no
- * height-1/2 card is eligible anywhere outside blocked sections. Order: started skills that reach `session.winnable`
- * (liked order, then expectedSuccess), the other started skills (expectedSuccess, then liked order), skills not
- * started yet whose `requires` are met (liked order, then expectedSuccess); then the same three groups at height 3.
+ * Close (spec §8; R1 and review finding 2): height first ACROSS skills. Every unblocked started skill, and every not
+ * started skill whose `requires` are met (it gets a SkillRec at the served height), at its lowest eligible height;
+ * all height-1 cards before any height-2 card, height 3 only when nothing lower is eligible. Within a height: liked
+ * sections first, then highest expectedSuccess, then liked order, started skills before new ones, then id.
  */
 export function pickClose(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
   const liked = likedSections(state, content, cfg).filter((s) => !isBlocked(state, s, ctx.day, ctx.blockedSections));
   const si = (sec: string) => { const i = liked.indexOf(sec); return i < 0 ? liked.length : i; };
-  const open = (d: SkillDef) => !isBlocked(state, d.section, ctx.day, ctx.blockedSections);
-  const st = started(state, content).filter(open);
-  const fresh = cardSkills(content, Object.keys(content.skills).sort(byId))
-    .filter((d) => !(d.id in state.skills) && isReady(state, content, d) && open(d));
-  const reason = () => "close:winnable" as const;
-  for (const heights of [[1, 2], [3]] as Height[][]) {
-    const rows = (defs: SkillDef[]) => defs.flatMap((def) => {
-      const height = lowestEligible(state, content, def, heights, ctx, cfg);
-      return height === null ? [] : [{ def, height, es: expectedSuccess(state, def.id, height, cfg), si: si(def.section) }];
-    });
-    const a = rows(st);
-    const win = a.filter((x) => x.es >= cfg.session.winnable)
-      .sort((x, y) => x.si - y.si || y.es - x.es || byId(x.def.id, y.def.id));
-    const rest = a.filter((x) => x.es < cfg.session.winnable)
-      .sort((x, y) => y.es - x.es || x.si - y.si || byId(x.def.id, y.def.id));
-    const b = rows(fresh).sort((x, y) => x.si - y.si || y.es - x.es || byId(x.def.id, y.def.id));
-    const p = firstOf(state, content, [...win, ...rest, ...b], reason, ctx, cfg);
-    if (p) return p;
-  }
-  return null;
+  const rows = cardSkills(content, Object.keys(content.skills).sort(byId))
+    .filter((d) => !isBlocked(state, d.section, ctx.day, ctx.blockedSections) && (d.id in state.skills || isReady(state, content, d)))
+    .flatMap((def) => {
+      const height = lowestEligible(state, content, def, avail(def), ctx, cfg);
+      return height === null ? [] : [{
+        def, height, es: expectedSuccess(state, def.id, height, cfg), si: si(def.section), fresh: def.id in state.skills ? 0 : 1,
+      }];
+    })
+    .sort((x, y) => x.height - y.height || Number(x.si === liked.length) - Number(y.si === liked.length)
+      || y.es - x.es || x.si - y.si || x.fresh - y.fresh || byId(x.def.id, y.def.id));
+  return firstOf(state, content, rows, () => "close:winnable", ctx, cfg);
 }
 
 /**

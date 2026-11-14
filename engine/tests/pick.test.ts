@@ -58,7 +58,7 @@ test("expectedSuccess: student's own prior once ≥ 10 attempts at that height a
   const s = st({ a2: rec(1, { attempts: nine }), b2: rec(1, { attempts: [att(1, false)] }) });
   // 3 right of 10 → own prior 0.3 for a skill with no history
   expect(expectedSuccess(s, "b1", 1, cfg)).toBeCloseTo(0.3, 10);
-  expect(cfg.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 });
+  expect(cfg.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8 });
 });
 
 test("usualMs: median of last ms, null under 5 samples", () => {
@@ -181,8 +181,9 @@ test("middle: running rate below comfort → comfort-correction with expectedSuc
   // Nothing reaches comfort → b1 dropped to h1 (0.85) once a1 is unavailable.
   const r2 = pickMiddle(s, C, ctx({ runningRight: 1, runningTotal: 4, blockedSections: ["u.t1/A"] }), cfg)!;
   expect(r2.served).toMatchObject({ skill: "b1", height: 1, reason: "comfort-correction" });
+  // Fix round 1 (finding 2): nothing reaches comfort → still the lowest height (it returned null before).
   const hard = { ...s, profile: { ...s.profile, comfort: 0.95 } };
-  expect(pickMiddle(hard, C, ctx({ runningRight: 1, runningTotal: 4 }), cfg)).toBeNull();
+  expect(pickMiddle(hard, C, ctx({ runningRight: 1, runningTotal: 4 }), cfg)!.served).toMatchObject({ height: 1, reason: "comfort-correction" });
 });
 
 test("middle: blocked section never returned", () => {
@@ -335,9 +336,12 @@ test("close (R1): the lowest available height of a skill, highest expectedSucces
   const s = st({ a1: notDue(3, { attempts: tenH3 }), b1: notDue(2, { attempts: b1Weak }) });
   const r = pickClose(s, C, ctx(), cfg)!;
   expect(r.served).toMatchObject({ skill: "a1", height: 1, reason: "close:winnable" });
-  // a1's h1 cards all seen → its next height (h2, 0.7 over b1's h1 0.425), not its h3.
+  // a1's h1 cards all seen → another skill's height-1 card (fix round 1, finding 2: height first across skills; it was
+  // a1's h2); with every other h1 card out of reach, a1's next height (h2), never its h3.
   const h1Seen = { ...s, seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3"], D - 1) };
-  expect(pickClose(h1Seen, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
+  expect(pickClose(h1Seen, C, ctx(), cfg)!.served).toMatchObject({ skill: "a2", height: 1 });
+  const noH1 = { ...s, seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3", "a2.h1.1", "a2.h1.2", "a2.h1.3"], D - 1) };
+  expect(pickClose(noH1, C, ctx({ blockedSections: ["u.t1/B"] }), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
   // Only h3 left on every started skill → an unstarted skill's height-1 card beats any height-3 card.
   const onlyH3 = st({ a1: notDue(3, { attempts: tenH3 }) }, {
     seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3"], D - 1),
@@ -362,7 +366,7 @@ test("comfort correction (R2): lower height first, then expectedSuccess; never h
   const r2 = pickMiddle(s, C, ctx({ runningRight: 4, runningTotal: 4, newSkillsThisSession: 2 }), cfg)!;
   expect(r2.served.reason).toBe("comfort-correction");
   expect(r2.served.height).toBeLessThan(3);
-  // After two "I don't know" (below the minRunning count): the fallback goes lowest height first.
+  // After two "I don't know" (fewer than three answers): the fallback goes lowest height first.
   const r3 = pickMiddle(s, C, ctx({ runningRight: 0, runningTotal: 2, newSkillsThisSession: 2 }), cfg)!;
   expect(r3.served).toMatchObject({ skill: "a1", height: 1, reason: "comfort-correction" });
 });
@@ -403,4 +407,25 @@ test("open, fresh student (finding 1): height first across skills; height 3 only
   // Every height-1/2 card seen → height 3.
   const allLow = ["a1", "a2", "b1", "b2"].flatMap((x) => [1, 2, 3].flatMap((i) => [`${x}.h1.${i}`, `${x}.h2.${i}`]));
   expect(pickOpen({ ...s, seen: seenAll(allLow, D - 1) }, C, ctx(), cfg)!.served.height).toBe(3);
+});
+
+test("close (finding 2): height first across skills — any eligible height-1 card before any height-2 card", () => {
+  // a1 has no height-1 cards; started, h2 0.9. b1 is not started (ready): its h1 card comes first.
+  const noA1h1 = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3"] });
+  const s = st({ a1: notDue(2, { attempts: Array.from({ length: 4 }, () => att(2, true)) }) },
+    { seen: seenAll(["a2.h1.1", "a2.h1.2", "a2.h1.3"], D - 1) });
+  const r = pickClose(s, noA1h1, ctx(), cfg)!;
+  expect(r.served).toMatchObject({ height: 1, reason: "close:winnable" });
+  expect(r.served.section).toBe("u.t1/B");
+  // liked section first among height-1 cards: a2 (section A, liked) before B's skills
+  const s2 = st({ a1: notDue(2, { attempts: Array.from({ length: 4 }, () => att(2, true)) }) });
+  expect(pickClose(s2, noA1h1, ctx(), cfg)!.served).toMatchObject({ skill: "a2", height: 1 });
+});
+
+test("middle below comfort (finding 2): height first, even with fewer than three answers and a due height-3 skill", () => {
+  const s = st({ a1: notDue(2), b2: due(3, 2) });
+  // at comfort: the due skill at its height
+  expect(pickMiddle(s, C, ctx({ runningRight: 2, runningTotal: 2 }), cfg)!.served).toMatchObject({ skill: "b2", height: 3, reason: "due-review" });
+  const r = pickMiddle(s, C, ctx({ runningRight: 1, runningTotal: 2 }), cfg)!;
+  expect(r.served).toMatchObject({ height: 1, reason: "comfort-correction" });
 });

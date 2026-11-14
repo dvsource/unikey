@@ -101,7 +101,7 @@ function withReason(p: Picked | null, reason: Reason): Picked | null {
   return p && { ...p, served: { ...p.served, reason } };
 }
 
-/** `sweep`: a not-started skill served by the last-resort sweep starts at the served height. */
+/** `sweep`: a not-started skill served by the last-resort sweep or a close pick starts at the served height. */
 function serve(r: Run, p: Picked, sweep = false): Next {
   const ss = r.s.session!;
   const sv = p.served;
@@ -134,7 +134,7 @@ function decide(r: Run, last: Last): Next {
     if (ss.extendLeft > 0) {
       const ctx = ctxOf(r, true, Infinity);
       const p = withReason(pickOpen(r.s, r.content, ctx, r.cfg) ?? pickClose(r.s, r.content, ctx, r.cfg), "extend:liked");
-      if (p) return serve(r, p);
+      if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
       const any = pickAny(r.s, r.content, ctx, r.cfg, "comfort-correction");
       if (any) return serve(r, any, true);
       ss.extendLeft = 0; // nothing fits: "5 more" is over
@@ -201,7 +201,7 @@ function normal(r: Run, last: Last): Next {
   if (pickMiddle(s, content, loose(r), cfg)) return toClosing(r, last, false); // something to serve, nothing that fits
   // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
-  if (pc) return serve(r, pc);
+  if (pc) return serve(r, pc, true);
   const any = pickAny(s, content, strict(), cfg, "comfort-correction");
   if (any) return serve(r, any, true);
   const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
@@ -248,7 +248,7 @@ function closing(r: Run, last: Last, forced: boolean): Next {
   const any = p ? null : pickAny(s, content, capped, cfg, "close:winnable");
   if (p || any) {
     ss.closeServed += 1;
-    return serve(r, (p ?? any)!, any !== null);
+    return serve(r, (p ?? any)!, true);
   }
   return finish(r, last?.right || anyLeft(r) ? pending : "content-exhausted");
 }
