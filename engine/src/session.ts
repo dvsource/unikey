@@ -6,6 +6,7 @@ import { expectedSuccess, usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
+import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { afterSectionAnswer, applySkip, pickSkipCard, valueMessage } from "./skip.js";
 import type {
   Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
@@ -46,18 +47,28 @@ function stale(state: State): Step {
   return { state, events: [], moments: [], next: currentNext(state) };
 }
 
-// ---------- profile hooks (Task 7 extends these) ----------
+// ---------- profile hooks ----------
 
-/** Per answer. Here: keep the last `answers.msKept` answer times per height. */
-function onAnswerProfile(s: State, sv: Served, _right: boolean, ms: number, cfg: Config): State {
-  const by = s.profile.msByHeight;
-  return { ...s, profile: { ...s.profile, msByHeight: { ...by, [sv.height]: [...(by[sv.height] ?? []), ms].slice(-cfg.answers.msKept) } } };
+/** Per answer: memory, section liking and the answer times (see profile.ts). `usual` is from before this answer. */
+function onAnswerProfile(r: Run, sv: Served, right: boolean, ms: number, usual: number | null): void {
+  const s = r.s;
+  const old = s.sections[sv.section] ?? { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false };
+  const out = onAnswer(s.profile, old, {
+    height: sv.height, right, ms, wasDueReviewFirstCard: sv.reason === "due-review", usualMs: usual, extend: s.session!.phase === "extend",
+  }, r.cfg);
+  s.profile = out.profile;
+  if (out.section !== old) s.sections = { ...s.sections, [sv.section]: out.section };
 }
 
-/** Per session end. Here: nothing (comfort, memory, stamina, liking and h3Share are Task 7). */
-function onSessionEndProfile(s: State, _end: EndInfo, _session: SessionState, _cfg: Config): State {
-  return s;
+/** Per session end: the profile numbers move (profile.ts). Returns them when any of the four changed since the start. */
+function onSessionEndProfile(r: Run, end: EndInfo, session: SessionState): ReturnType<typeof pickNumbers> | null {
+  r.s = onSessionEnd(r.s, end, session, r.cfg);
+  const n = pickNumbers(r.s.profile);
+  const o = session.startProfile;
+  return o.comfort !== n.comfort || o.memory !== n.memory || o.h3Share !== n.h3Share || o.stamina !== n.stamina ? n : null;
 }
+
+const pickNumbers = (p: State["profile"]) => ({ comfort: p.comfort, memory: p.memory, h3Share: p.h3Share, stamina: p.stamina });
 
 // ---------- picking ----------
 
@@ -145,15 +156,21 @@ function normal(r: Run, last: Last): Next {
       ss.repair = null;
     }
   }
+  if (ss.ramp) { // the height-3 card the ramp card was served for
+    const q = ss.ramp;
+    ss.ramp = null;
+    if (!ss.blockedSections.includes(q.section) && q.effort <= room) return serve(r, { served: q, rng: s.rng });
+  }
+  const main = (p: Picked) => serveMain(r, p, room);
   if (last?.avoid !== undefined) {
     const p = pickOpen(s, content, strict([last.avoid]), cfg);
-    if (p) return serve(r, p);
+    if (p) return main(p);
   }
   const open = ss.history.length < cfg.session.openCards;
   ss.phase = open ? "open" : "middle";
   if (open) {
     const p = (ss.comeback ? pickComeback(s, content, strict(), cfg) : null) ?? pickOpen(s, content, strict(), cfg);
-    if (p) return serve(r, p);
+    if (p) return main(p);
   } else {
     const p = pickReturn(s, content, strict(), ss.returns, ss.history.length, cfg);
     if (p) {
@@ -165,7 +182,7 @@ function normal(r: Run, last: Last): Next {
     if (sk) return serve(r, sk);
   }
   const pm = pickMiddle(s, content, strict(), cfg);
-  if (pm) return serve(r, pm);
+  if (pm) return main(pm);
   if (pickMiddle(s, content, loose(r), cfg)) return toClosing(r, last, false); // something to serve, nothing that fits
   // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
@@ -177,11 +194,21 @@ function normal(r: Run, last: Last): Next {
   return anyLeft(r) ? toClosing(r, last, false) : finish(r, "content-exhausted");
 }
 
+/** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
+function serveMain(r: Run, p: Picked, room: number): Next {
+  const ss = r.s.session!;
+  const ramp = rampBefore(r.s, r.content, p, ss.history.map((h) => h.skill), r.day, room, r.cfg);
+  if (!ramp) return serve(r, p);
+  ss.ramp = p.served;
+  return serve(r, ramp);
+}
+
 function toClosing(r: Run, last: Last, forced: boolean): Next {
   const ss = r.s.session!;
   ss.phase = "closing";
   ss.closeServed = 0;
   ss.repair = null;
+  ss.ramp = null;
   return closing(r, last, forced);
 }
 
@@ -234,8 +261,9 @@ function closeSession(r: Run, kind: EndKind): Next {
     kind, effort: ss.spent, cards, right: ss.history.filter((h) => h.right === true).length, fixed: ss.fixed,
     streakKept: today.streakKept,
   };
-  r.s = onSessionEndProfile(r.s, end, ss, r.cfg);
+  const changed = onSessionEndProfile(r, end, ss);
   emit(r, "session_end", { ...end, fadeEffort: ss.fadeEffort });
+  if (changed) emit(r, "profile", changed);
   r.s.lastSessionDay = dayOf(ss.startedAt);
   r.s.session = null;
   r.s.lastEnd = end;
@@ -261,6 +289,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null,
+    startProfile: pickNumbers(r.s.profile), ramp: null,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
   return step(r, decide(r, null));
@@ -302,7 +331,7 @@ export function answer(
     steppedDown = out.steppedDown;
   }
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
-  r.s = onAnswerProfile(r.s, sv, right, input.ms, cfg);
+  onAnswerProfile(r, sv, right, input.ms, usual);
 
   const ss = r.s.session!;
   ss.spent += cost;
@@ -341,6 +370,7 @@ export function answer(
       };
     }
   }
+  if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
   return step(r, decide(r, { right, winnable, ...(avoid !== undefined ? { avoid } : {}) }), feedback);
 }
 

@@ -125,7 +125,7 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
       ...s.sections,
       [sec]: {
         ...rec, skipCount: n, remindDay: day + gaps[Math.min(n - 1, gaps.length - 1)], lastReason: reason ?? "later",
-        dripStopped: false, returned: false, liking: rec.liking - cfg.skip.likingPenalty,
+        dripStopped: false, returned: false, liking: Math.max(-cfg.liking.clamp, rec.liking - cfg.skip.likingPenalty),
       },
     };
     const inSec = (skill: string) => content.skills[skill]?.section === sec;

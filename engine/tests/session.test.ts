@@ -199,7 +199,7 @@ test("declining the offer → end budget", () => {
   const end = endOf(e);
   expect(end.kind).toBe("budget");
   expect(e.state.session).toBeNull();
-  expect(e.events.map((x) => x.type)).toEqual(["session_end"]);
+  expect(e.events.map((x) => x.type)).toEqual(["session_end", "profile"]);
   // a stale answer while the offer is pending keeps the offer
   const st = answer(last.state, C, { card: "a1.h1.1", choice: 0, ms: 1 }, p.now + 6000);
   expect(st.next).toEqual({ kind: "offer-extend" });
@@ -372,7 +372,7 @@ test("endSession left: kind left, fadeEffort recorded; endSession with no sessio
   const spent = p.state.session!.spent;
   const e = endSession(p.state, C, p.now + 1000);
   expect(endOf(e)).toMatchObject({ kind: "left", cards: 2, right: 2 });
-  expect(e.events.map((x) => x.type)).toEqual(["session_end"]);
+  expect(e.events.map((x) => x.type)).toEqual(["session_end", "profile"]);
   expect(e.events[0].data).toMatchObject({ kind: "left", fadeEffort: spent });
   expect(spent).toBeGreaterThan(0);
   expect(e.state.session).toBeNull();

@@ -58,6 +58,10 @@ export type SessionState = {
   phase: "open" | "middle" | "closing" | "extend"; comeback: boolean; fixed: number;
   blockedSections: string[]; dripDone: boolean; moments: Moment[]; fadeEffort: number | null;
   closeServed: number; sideDoor: string | null;
+  /** The four profile numbers when the session began (a `profile` event is emitted only if they changed). */
+  startProfile: { comfort: number; memory: number; h3Share: number; stamina: number };
+  /** A height-3 card waiting behind the height-2 ramp card just served, else null. */
+  ramp: Served | null;
 };
 
 export type Choice = number | "dont-know";
