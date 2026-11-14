@@ -4,10 +4,10 @@ import { defaultConfig, type Config } from "./config.js";
 import { byId } from "./util.js";
 import { isSolid } from "./skill.js";
 import { expectedSuccess } from "./estimate.js";
-import { avail, servable, solidNeighbour, tryServe, type Cand } from "./pick.js";
+import { avail, firstOf, servable, solidNeighbour } from "./pick.js";
 import type { Content, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage } from "./types.js";
 
-export function sectionRec(state: State, section: string): SectionRec {
+function sectionRec(state: State, section: string): SectionRec {
   return state.sections[section]
     ?? { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false };
 }
@@ -38,13 +38,20 @@ function awaiting(rec: SectionRec | undefined): rec is SectionRec {
   return !!rec && rec.skipCount > 0 && !rec.returned;
 }
 
-/** Time for the side door: the remind day has come, or (not learned yet) the class is teaching its topic now. */
-function sideDoorDue(state: State, content: Content, section: string, day: number): boolean {
+/**
+ * Time for the side door: the remind day has come, or (not learned yet) the class is teaching its topic now
+ * and at least `skip.classReturnMinDays` have passed since the skip. The skip day is recovered from the
+ * remind day: `remindDay − skipRemindDays[min(skipCount − 1, last)]`.
+ */
+function sideDoorDue(state: State, content: Content, section: string, day: number, cfg: Config): boolean {
   const rec = state.sections[section];
   if (!awaiting(rec)) return false;
+  if (rec.remindDay === null || rec.remindDay <= day) return true;
   const t = state.currentTopic;
-  const classNow = rec.lastReason === "not-learned" && t !== null && t.source === "class" && t.id === content.sections[section]?.topic;
-  return rec.remindDay === null || rec.remindDay <= day || classNow;
+  if (rec.lastReason !== "not-learned" || t === null || t.source !== "class" || t.id !== content.sections[section]?.topic) return false;
+  const gaps = cfg.skipRemindDays;
+  const skipDay = rec.remindDay - gaps[Math.min(rec.skipCount - 1, gaps.length - 1)];
+  return day >= skipDay + cfg.skip.classReturnMinDays;
 }
 
 /** Skipped sections in content, not skipped this session, matching `keep`; earliest remind day first, then id. */
@@ -55,27 +62,19 @@ function skippedSections(state: State, content: Content, ctx: PickCtx, keep: (s:
     .sort((x, y) => rd(x) - rd(y) || byId(x, y));
 }
 
-function firstIn(state: State, content: Content, section: string, cs: Cand[], reason: "side-door" | "skipped-drip", ctx: PickCtx, cfg: Config): Picked | null {
-  for (const c of cs) {
-    const p = tryServe(state, content, c, reason, ctx, cfg, false, section);
-    if (p) return p;
-  }
-  return null;
-}
-
 /**
  * Side door: one section whose time has come; its card at the lowest available height, preferring a skill
  * with a solid `requires`/`helps` neighbour, then the highest expectedSuccess (then id). Higher heights
  * are tried only when nothing lower is eligible, so the section never fails to come back.
  */
 function pickSideDoor(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
-  for (const sec of skippedSections(state, content, ctx, (s) => sideDoorDue(state, content, s, ctx.day))) {
+  for (const sec of skippedSections(state, content, ctx, (s) => sideDoorDue(state, content, s, ctx.day, cfg))) {
     const cs = content.sections[sec].skills.map((id) => content.skills[id]).filter((d) => !!d)
       .flatMap((def) => avail(def).map((height) => ({
         def, height, nb: solidNeighbour(state, content, def, cfg) !== undefined ? 0 : 1, es: expectedSuccess(state, def.id, height, cfg),
       })))
       .sort((x, y) => x.height - y.height || x.nb - y.nb || y.es - x.es || byId(x.def.id, y.def.id));
-    const p = firstIn(state, content, sec, cs, "side-door", ctx, cfg);
+    const p = firstOf(state, content, cs, () => "side-door", ctx, cfg, { unblock: sec });
     if (p) return p;
   }
   return null;
@@ -83,12 +82,12 @@ function pickSideDoor(state: State, content: Content, ctx: PickCtx, cfg: Config)
 
 /** Drip: a height-1 card from a skipped section still waiting for its remind day, drips not stopped. */
 function pickDrip(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
-  const keep = (s: string) => !state.sections[s].dripStopped && !sideDoorDue(state, content, s, ctx.day);
+  const keep = (s: string) => !state.sections[s].dripStopped && !sideDoorDue(state, content, s, ctx.day, cfg);
   for (const sec of skippedSections(state, content, ctx, keep)) {
     const cs = content.sections[sec].skills.map((id) => content.skills[id]).filter((d) => !!d && d.cards[1].length > 0)
       .map((def) => ({ def, height: 1 as const, es: expectedSuccess(state, def.id, 1, cfg) }))
       .sort((x, y) => y.es - x.es || byId(x.def.id, y.def.id));
-    const p = firstIn(state, content, sec, cs, "skipped-drip", ctx, cfg);
+    const p = firstOf(state, content, cs, () => "skipped-drip", ctx, cfg, { unblock: sec });
     if (p) return p;
   }
   return null;
@@ -134,6 +133,8 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
     ss.returns = ss.returns.filter((q) => !inSec(q.skill));
   }
   if (!ss.blockedSections.includes(sec)) ss.blockedSections = [...ss.blockedSections, sec];
+  // Only answered close cards count toward `sessionEnd.maxExtraClose`.
+  if (ss.phase === "closing" && ss.closeServed > 0) ss.closeServed -= 1;
   ss.served = null;
   const out = s.sections[sec];
   return {

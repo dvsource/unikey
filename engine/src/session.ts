@@ -297,10 +297,9 @@ export function answer(
     const comfortLow = r.s.profile.comfort >= cfg.estimate.comfortLowMark;
     const rec0 = r.s.skills[sv.skill] ?? newSkillRec(startHeight(def, comfortLow, r.s.sections[def.section]?.returned === true));
     const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card }, r.s.profile.memory, cfg);
-    // A wrong drip shows feedback only: no step down.
-    const keep = drip && out.steppedDown;
-    r.s.skills[sv.skill] = keep ? { ...out.rec, height: rec0.height, windowStartSeq: rec0.windowStartSeq } : out.rec;
-    steppedDown = out.steppedDown && !keep;
+    // A drip is a height-1 card, the lowest height, so a wrong drip can never step its skill down.
+    r.s.skills[sv.skill] = out.rec;
+    steppedDown = out.steppedDown;
   }
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
   r.s = onAnswerProfile(r.s, sv, right, input.ms, cfg);

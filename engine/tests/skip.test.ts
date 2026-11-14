@@ -308,25 +308,44 @@ test("borrowedFrom set when a solid neighbour exists", () => {
   expect(sd.borrowedFrom).toBeUndefined();
 });
 
-test("not-learned + class topic set to that topic → side door today", () => {
-  const dayZero = (reason: "not-learned" | "later") => {
-    const st = startSession(startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } }), C, T0);
+test("not-learned + class topic set to that topic → side door from skip day + 2, never sooner", () => {
+  // No drips here, so "nothing from B" is literal; a 1-day no-repeat window keeps the tiny fixture serving.
+  const c = { ...cfg, noRepeatDays: 1, session: { ...cfg.session, dripEverySessions: 99 } };
+  const H = 3_600_000;
+  const dayZero = (reason: "not-learned" | "later", topicFirst = false) => {
+    const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } });
+    const st = startSession(topicFirst ? setCurrentTopic(s0, "u.t1", "class") : s0, C, T0, c);
     expect(cardOf(st).section).toBe(B);
-    const sk = skip(st.state, C, { card: cardOf(st).card, reason }, T0 + 10_000);
-    return run(C, sk, T0 + 10_000, allR).state;
+    const sk = skip(st.state, C, { card: cardOf(st).card, reason }, T0 + 10_000, c);
+    return run(C, sk, T0 + 10_000, allR, { cfg: c }).state;
+  };
+  const fromB = (st: State, now: number) => {
+    const p = play(C, st, now, allR, { cfg: c });
+    return { state: p.state, b: cardsOf(p.steps).filter((x) => x.section === B) };
+  };
+  /** Later on day 0, then day 1: nothing from B; day 2: B's side door. */
+  const check = (st: State) => {
+    const later0 = fromB(st, T0 + 2 * H);
+    expect(later0.b, "day 0, later session").toEqual([]);
+    const d1 = fromB(later0.state, T0 + 86_400_000);
+    expect(d1.b, "day 1").toEqual([]);
+    const d2 = fromB(d1.state, T0 + 2 * 86_400_000);
+    expect(d2.b.filter(isSide).map((x) => x.section), "day 2").toEqual([B]);
+    expect(d2.b[0].reason).toBe("side-door");
   };
   const nl = dayZero("not-learned");
   expect(nl.sections[B]).toMatchObject({ lastReason: "not-learned", remindDay: D0 + 3 });
   const cls = setCurrentTopic(nl, "u.t1", "class");
   expect(cls.currentTopic).toEqual({ id: "u.t1", source: "class" });
   expect(nl.currentTopic).toBeNull(); // input untouched
-  const day1 = play(C, cls, nextDay(T0), allR);
-  expect(cardsOf(day1.steps).filter(isSide).map((c) => c.section)).toEqual([B]);
-  // Not when the topic came from the student, nor for another reason.
-  const stu = play(C, setCurrentTopic(nl, "u.t1", "student"), nextDay(T0), allR);
-  expect(cardsOf(stu.steps).filter(isSide)).toEqual([]);
-  const later = play(C, setCurrentTopic(dayZero("later"), "u.t1", "class"), nextDay(T0), allR);
-  expect(cardsOf(later.steps).filter(isSide)).toEqual([]);
+  check(cls);
+  // The class topic was already B's topic when the student skipped: same rule.
+  check(dayZero("not-learned", true));
+  // Not when the topic came from the student, nor for another reason: the normal remind day (day 3).
+  const stu = fromB(fromB(setCurrentTopic(nl, "u.t1", "student"), T0 + 86_400_000).state, T0 + 2 * 86_400_000);
+  expect(stu.b).toEqual([]);
+  const later = fromB(fromB(setCurrentTopic(dayZero("later"), "u.t1", "class"), T0 + 86_400_000).state, T0 + 2 * 86_400_000);
+  expect(later.b).toEqual([]);
   expect(setCurrentTopic(cls, null, "class").currentTopic).toBeNull();
 });
 
@@ -403,13 +422,55 @@ test("drip wrong → no repair, no bad moment", () => {
   const drip = cardOf(last);
   const w = answer(last.state, C, { card: drip.card, choice: choiceFor(C, drip, "w"), ms: 8000 }, p.now + 10_000);
   expect(w.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap" });
-  const ss = w.state.session;
-  if (ss) {
-    expect(ss.repair).toBeNull();
-    expect(ss.badMoments).toEqual([]);
-    expect(ss.history[ss.history.length - 1].bad).toBe(false);
-  }
-  if (w.next.kind === "card") expect(w.next.card.reason.startsWith("repair")).toBe(false);
+  expect(w.state.session).not.toBeNull(); // still open, so the checks below run
+  const ss = w.state.session!;
+  expect(ss.repair).toBeNull();
+  expect(ss.badMoments).toEqual([]);
+  expect(ss.history[ss.history.length - 1].bad).toBe(false);
+  expect(cardOf(w).reason.startsWith("repair")).toBe(false);
   expect(w.state.skills[drip.skill].height).toBe(1);
   expect(w.state.sections[B]).toMatchObject({ skipCount: 1, remindDay: D0 + 10, returned: false });
+});
+
+// ---------- skips in other phases, side-door fallbacks ----------
+
+/** The startSession card, with the session patched into another phase. */
+function inPhase(patch: Partial<NonNullable<State["session"]>>): { state: State; card: Served } {
+  const st = startSession(startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } }), C, T0);
+  expect(cardOf(st).section).toBe(B);
+  return { state: { ...st.state, session: { ...st.state.session!, ...patch } }, card: cardOf(st) };
+}
+
+test("skipping a close card: another close card; skipped ones do not count toward maxExtraClose", () => {
+  const { state, card } = inPhase({ phase: "closing", closeServed: 1 });
+  const sk = skip(state, C, { card: card.card }, T0 + 10_000);
+  expect(sk.state.sections[B]).toMatchObject({ skipCount: 1 });
+  const c1 = cardOf(sk);
+  expect(c1).toMatchObject({ reason: "close:winnable", section: A });
+  expect(sk.state.session!.closeServed).toBe(1);
+  // Answered wrong: the usual 1 + maxExtraClose close cards are answered before the end.
+  const r = run(C, sk, T0 + 10_000, () => "w");
+  expect(r.steps.length).toBe(1 + cfg.sessionEnd.maxExtraClose);
+  expect(lastStep(r.steps).next.kind).toBe("end");
+  expect(cardsOf([sk, ...r.steps]).every((x) => x.reason === "close:winnable" && x.section === A)).toBe(true);
+});
+
+test("skipping a \"5 more\" card: another extend card, extendLeft unchanged", () => {
+  const { state, card } = inPhase({ phase: "extend", extended: true, extendLeft: 3 });
+  const sk = skip(state, C, { card: card.card }, T0 + 10_000);
+  expect(cardOf(sk)).toMatchObject({ reason: "extend:liked", section: A });
+  expect(sk.state.session).toMatchObject({ phase: "extend", extendLeft: 3, spent: 0 });
+});
+
+test("side door falls back to a higher height when the section has no height-1 card", () => {
+  const noH1 = fixture({ drop: ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"] });
+  const p = play(noH1, startedAll(2, {}, { sections: waitingB(D0) }), T0, until(isSide));
+  expect(cardOf(lastStep(p.steps))).toMatchObject({ reason: "side-door", section: B, height: 2 });
+});
+
+test("a due side door is served before a content-exhausted end", () => {
+  // A waits for a later remind day; B's side door is due. Nothing else at all is eligible, even in the open.
+  const s0 = startedAll(2, {}, { sections: { [A]: section({ skipCount: 1, remindDay: D0 + 5, lastReason: "later" }), ...waitingB(D0) } });
+  const st = startSession(s0, C, T0);
+  expect(cardOf(st)).toMatchObject({ reason: "side-door", section: B, height: 1 });
 });

@@ -20,8 +20,11 @@ export const defaultConfig = {
   tzOffsetMinutes: 330,
   sessionEnd: { maxExtraClose: 2 },
   answers: { msKept: 20 },
-  /** Skip (spec §6): drip only after this many answered cards; liking lost per skip; skills named in the value message. */
-  skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3 },
+  /**
+   * Skip (spec §6): drip only after this many answered cards; liking lost per skip; skills named in the value
+   * message; class timing brings a not-learned section back no sooner than this many days after the skip.
+   */
+  skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 },
 };
 
 export type Config = typeof defaultConfig;

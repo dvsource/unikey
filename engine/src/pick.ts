@@ -139,16 +139,19 @@ function borrowedFrom(state: State, content: Content, def: SkillDef, reason: Rea
 export type Cand = { def: SkillDef; height: Height };
 
 /**
- * The shared candidate check: section not blocked, not excluded, no over-long same-skill run, fits the budget,
- * and an eligible (card, variant). `relax`: ignore `excludeSkills` and the same-skill run (the last-resort
- * sweep's second pass). `unblock`: a skipped section this pick may serve anyway (the drip and the side door).
+ * `relax`: ignore `excludeSkills` and the same-skill run (the last-resort sweep's second pass).
+ * `unblock`: a skipped section this pick may serve anyway (the drip and the side door).
  */
-export function tryServe(
-  state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, relax = false, unblock?: string,
-): Picked | null {
+export type ServeOpts = { relax?: boolean; unblock?: string };
+
+/**
+ * The shared candidate check: section not blocked, not excluded, no over-long same-skill run, fits the budget,
+ * and an eligible (card, variant).
+ */
+function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, opts: ServeOpts = {}): Picked | null {
   const { def, height } = c;
-  if (def.section !== unblock && isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
-  if (!relax) {
+  if (def.section !== opts.unblock && isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
+  if (opts.relax !== true) {
     if (ctx.excludeSkills?.includes(def.id)) return null;
     const n = cfg.session.maxSameSkillRun;
     const tail = ctx.lastSkills.slice(-n);
@@ -164,9 +167,12 @@ export function tryServe(
   return { served, rng: e.rng };
 }
 
-function firstOf(state: State, content: Content, cs: Cand[], reason: (c: Cand) => Reason, ctx: PickCtx, cfg: Config): Picked | null {
+/** The first candidate, in order, that passes the shared check. */
+export function firstOf(
+  state: State, content: Content, cs: Cand[], reason: (c: Cand) => Reason, ctx: PickCtx, cfg: Config, opts: ServeOpts = {},
+): Picked | null {
   for (const c of cs) {
-    const p = tryServe(state, content, c, reason(c), ctx, cfg);
+    const p = tryServe(state, content, c, reason(c), ctx, cfg, opts);
     if (p) return p;
   }
   return null;
@@ -327,7 +333,7 @@ export function pickReturn(
     if (historyLength < q.afterCard || !def || !rec) continue;
     const height = servable(def, rec.height);
     if (height === null) continue;
-    const p = tryServe(state, content, { def, height }, "repair:return", own, cfg);
+    const p = firstOf(state, content, [{ def, height }], () => "repair:return", own, cfg);
     if (p) return p;
   }
   return null;
@@ -346,11 +352,5 @@ export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Confi
   const cands = cardSkills(content, Object.keys(content.skills).sort(byId))
     .flatMap((def) => avail(def).map((height) => ({ def, height, g: group(def), es: expectedSuccess(state, def.id, height, cfg) })))
     .sort((x, y) => x.g - y.g || y.es - x.es || x.height - y.height || byId(x.def.id, y.def.id));
-  for (const relax of [false, true]) {
-    for (const c of cands) {
-      const p = tryServe(state, content, c, reason, ctx, cfg, relax);
-      if (p) return p;
-    }
-  }
-  return null;
+  return firstOf(state, content, cands, () => reason, ctx, cfg) ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true });
 }
