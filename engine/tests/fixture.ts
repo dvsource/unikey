@@ -36,7 +36,7 @@ export function fixture(opts: { drop?: string[] } = {}): Content {
     },
   };
   const c = buildContent([pack]);
-  c.cards["a2.h3"].noteRef = "n1";
+  if (c.cards["a2.h3"]) c.cards["a2.h3"].noteRef = "n1";
   if (c.cards["a2.h2.2"]) c.cards["a2.h2.2"].noteRef = "n1";
   return c;
 }
