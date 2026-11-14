@@ -77,7 +77,9 @@ test("interrupted session changes no profile number and emits no profile event",
 test("stamina: fade at 6 effort → 0.7×13.34+0.3×6; clean end +0.5; never below 8/0.9", () => {
   expect(close({}, endOf("left", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.7 * 13.34 + 0.3 * 6, 10);
   expect(close({}, endOf("bad-day", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.7 * 13.34 + 0.3 * 6, 10);
-  expect(close({}, endOf("budget", 10, 9)).stamina).toBeCloseTo(13.84, 10);
+  // Task 11 R4a: a clean budget end raises stamina only on a good day (this session has no fast answers): unchanged.
+  // The good-day case is in session.test.ts ("stamina (R4a)").
+  expect(close({}, endOf("budget", 10, 9)).stamina).toBe(13.34);
   expect(close({}, endOf("extended-done", 10, 9)).stamina).toBeCloseTo(14.34, 10);
   expect(close({}, endOf("budget", 10, 5)).stamina).toBe(13.34); // budget reached but missing a lot: not clean
   expect(close({ stamina: 9 }, endOf("bad-day", 10, 5), { fadeEffort: 0 }).stamina).toBeCloseTo(8 / 0.9, 10);
@@ -197,7 +199,8 @@ test("liking: cards answered in an extended session raise the section's liking",
 });
 
 test("profile event: one per session end that changed a number, carrying the four numbers", () => {
-  const s0 = startedAt(2, 12, 0);
+  // goodStreak 2: this all-right finish is the third good one, so comfort moves (before Task 11 R4a stamina moved too).
+  const s0 = withProfile(startedAt(2, 12, 0), { goodStreak: 2 });
   const { state, steps } = play(C, s0, T0, () => "r");
   const ev = steps.flatMap((s) => s.events).filter((e) => e.type === "profile");
   const last = steps.at(-1)!;
@@ -213,12 +216,15 @@ test("profile event: one per session end that changed a number, carrying the fou
 });
 
 /** `pattern` gets the answer number across all sessions, so "40% right" is 40% over the whole run. */
-function lived(pattern: (i: number) => "r" | "w", sessions: number): State {
+function lived(pattern: (i: number) => "r" | "w", sessions: number, fast = false): State {
   let state = newState("s", 3);
   let now = T0;
   let i = 0;
+  let k = 0;
+  // `fast`: each answer a little quicker than the last, so every session is faster than usual (a good day, R4a)
+  const ms = fast ? () => 9000 - 50 * k++ : undefined;
   for (let n = 0; n < sessions; n++) {
-    const r = play(C, state, now, () => pattern(i++));
+    const r = play(C, state, now, () => pattern(i++), ms ? { ms } : {});
     state = r.state;
     if (state.session) state = endSession(state, C, r.now + 1000).state;
     now = nextDay(now);
@@ -229,7 +235,7 @@ const nextBudget = (s: State, days: number) => startSession(s, C, T0 + days * 86
 
 test("weak never asked more: after 5 sessions answering 40% right, budget ≤ budget of a 90%-right student", () => {
   const weak = lived((i) => (i % 5 === 1 || i % 5 === 4 ? "r" : "w"), 5);
-  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5);
+  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5, true); // Task 11 R4a: stamina grows only on fast good days
   expect(weak.profile.stamina).toBeLessThanOrEqual(cfg.budget.staminaDefault);
   expect(weak.profile.stamina).toBeGreaterThanOrEqual(8 / 0.9);
   expect(strong.profile.stamina).toBeGreaterThan(cfg.budget.staminaDefault);
@@ -237,7 +243,7 @@ test("weak never asked more: after 5 sessions answering 40% right, budget ≤ bu
 });
 
 test("dials differ: 7 sessions each for an all-right and a half-wrong student → their profiles and next session's first 5 Served differ", () => {
-  const good = lived(() => "r", 7);
+  const good = lived(() => "r", 7, true); // Task 11 R4a: stamina grows only on fast good days
   const half = lived((i) => (i % 2 === 0 ? "r" : "w"), 7);
   expect(good.profile).not.toEqual(half.profile);
   expect(good.profile.stamina).toBeGreaterThan(half.profile.stamina);

@@ -70,6 +70,10 @@ export type SessionState = {
   ramp: Served | null;
   /** The height-3 card last served as the second half of a ramp (its due-review reason is not a new first card back). */
   tailCard: string | null;
+  /** The bad-day rule fired (spec §8): the session closes as `bad-day`. */
+  badDay: boolean;
+  /** The session's effort spent before each slow answer, in order (fade detection, R4b). */
+  slowBefore: number[];
 };
 
 export type Choice = number | "dont-know";

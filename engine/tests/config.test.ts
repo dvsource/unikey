@@ -2,7 +2,8 @@ import { expect, test } from "vitest";
 import { defaultConfig as c, dayOf, next } from "../src/index.js";
 test("spec numbers", () => {
   expect(c.effort).toEqual({ h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 });
-  expect(c.budget).toEqual({ staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5 });
+  expect(c.budget).toEqual({ staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3 });
+  expect(c.fade).toEqual({ slowAnswers: 2 });
   expect(c.reviewGapsDays).toEqual([1, 3, 7, 14, 30]);
   expect(c.memory).toEqual({ default: 1, min: 0.5, max: 2, up: 1.05, down: 0.85 });
   expect(c.skipRemindDays).toEqual([3, 5, 8, 13, 14]);

@@ -374,7 +374,7 @@ test("drip: one skipped-drip height-1 card every second session, not first 3 car
     const p = play(C, state, T0 + (n - 1) * 86_400_000, allR, { cfg: short });
     const cards = cardsOf(p.steps);
     const drips = cards.filter(isDrip);
-    expect(p.state.sessionCount).toBe(n);
+    expect(p.state.sessionCount).toBe(4 + n); // startedState begins at sessionCount 4 (Task 11 R4c)
     expect(cards.filter((c) => c.section === B && !isDrip(c)), `session ${n}`).toEqual([]);
     expect(lastStep(p.steps).next.kind).toBe("end");
     if (n % 2 === 0) {

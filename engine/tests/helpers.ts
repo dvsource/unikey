@@ -80,13 +80,14 @@ export function section(extra: Partial<SectionRec> = {}): SectionRec {
 }
 /**
  * A student who has already played. Attempt seqs are numbered 1.. per state (skill-id order, then attempt
- * order), and `answered` is set above them so new attempts come after.
+ * order), and `answered` is set above them so new attempts come after. `sessionCount` 4: past the
+ * `budget.firstSessions` small first sessions (Task 11 R4c), with the same drip parity as 0.
  */
 export function startedState(skills: Record<string, SkillRec>, patch: Partial<State> = {}): State {
   let n = 0;
   const numbered = Object.fromEntries(Object.keys(skills).sort().map((id) =>
     [id, { ...skills[id], attempts: skills[id].attempts.map((a) => ({ ...a, seq: ++n })) }]));
-  return { ...newState("s", 7), answered: 1000, skills: numbered, ...patch };
+  return { ...newState("s", 7), answered: 1000, sessionCount: 4, skills: numbered, ...patch };
 }
 /** Is any card variant in content servable at `day` (section not blocked, not seen within noRepeatDays)? */
 export function anyEligible(state: State, content: Content, day: number, cfg: Config = defaultConfig): boolean {

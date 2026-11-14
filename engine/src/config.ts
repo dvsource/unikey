@@ -1,6 +1,8 @@
 export const defaultConfig = {
   effort: { h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 },
-  budget: { staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5 },
+  budget: { staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3 },
+  /** Fade (R4b): this many slow answers in a session (not necessarily in a row) record a fade at the first one. */
+  fade: { slowAnswers: 2 },
   reviewGapsDays: [1, 3, 7, 14, 30],
   memory: { default: 1, min: 0.5, max: 2, up: 1.05, down: 0.85 },
   skipRemindDays: [3, 5, 8, 13, 14],

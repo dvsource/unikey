@@ -5,7 +5,7 @@ import { newSkillRec, recordAttempt, startHeight } from "./skill.js";
 import { expectedSuccess, usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
-import { capRoom, closeReserve, dayRoom, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
+import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
@@ -139,7 +139,8 @@ function decide(r: Run, last: Last): Next {
   }
   if (ss.phase === "closing") return closing(r, last, false);
   if (isBadDay(ss, r.cfg)) {
-    ss.fadeEffort = ss.spent;
+    ss.badDay = true;
+    ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
     return toClosing(r, last, true);
   }
   return normal(r, last);
@@ -148,7 +149,10 @@ function decide(r: Run, last: Last): Next {
 function normal(r: Run, last: Last): Next {
   const { s, content, cfg } = r;
   const ss = s.session!;
-  const room = Math.min(ss.budget - ss.spent - closeReserve(cfg), capRoom(s, cfg)); // keep a wrong close card's worth
+  // Keep a wrong close card's worth; but while today is under the minimum day, the session may use its budget up to
+  // the minimum day (a minimum-day budget, R4c / comeback, still keeps the streak).
+  const left = ss.budget - ss.spent;
+  const room = Math.min(Math.max(left - closeReserve(cfg), Math.min(left, cfg.budget.minimumDay - s.day!.effort)), capRoom(s, cfg));
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
 
   while (ss.repair) {
@@ -260,7 +264,7 @@ function closeSession(r: Run, kind: EndKind): Next {
   const today = r.s.day!;
   const cards = ss.history.length;
   if (kind === "bad-day" || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
-  if (kind === "left") ss.fadeEffort = ss.spent;
+  if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
   for (const q of ss.returns) {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
   }
@@ -296,7 +300,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [],
-    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null,
+    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
   const held = releasePending(r.s, cfg);
@@ -343,6 +347,10 @@ export function answer(
   onAnswerProfile(r, sv, right, input.ms, usual);
 
   const ss = r.s.session!;
+  if (slow) {
+    ss.slowBefore = [...ss.slowBefore, ss.spent];
+    ss.fadeEffort = ss.fadeEffort ?? fadeFromSlow(ss, cfg);
+  }
   ss.spent += cost;
   if (sv.height === 3) ss.h3Spent += sv.effort;
   ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow });

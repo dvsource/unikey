@@ -27,9 +27,14 @@ export function capRoom(state: State, cfg: Config): number {
   return cfg.budget.dailyCap - (state.day?.effort ?? 0) - answerExtra(cfg);
 }
 
-/** max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; capped by `dayRoom`. */
+/**
+ * max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; the student's first `budget.firstSessions` sessions
+ * (`state.sessionCount` already counts the new one) use `minimumDay`: start small, grow on evidence (R4c). Capped by `dayRoom`.
+ */
 export function sessionBudget(state: State, comeback: boolean, cfg: Config): number {
-  const b = comeback ? cfg.budget.comeback : Math.max(cfg.budget.minimumDay, state.profile.stamina * (1 - cfg.budget.margin));
+  const b = comeback ? cfg.budget.comeback
+    : state.sessionCount <= cfg.budget.firstSessions ? cfg.budget.minimumDay
+    : Math.max(cfg.budget.minimumDay, state.profile.stamina * (1 - cfg.budget.margin));
   return Math.min(b, dayRoom(state, cfg));
 }
 
@@ -44,7 +49,7 @@ export function isBadDay(ss: SessionState, cfg: Config): boolean {
 /** The kind a session in `closing` ends with once its close card is done. */
 export function pendingKind(ss: SessionState): EndKind {
   if (ss.extended && ss.extendLeft <= 0) return "extended-done";
-  if (ss.fadeEffort !== null) return "bad-day";
+  if (ss.badDay) return "bad-day";
   return "budget";
 }
 
@@ -64,15 +69,11 @@ function usualBefore(state: State, height: Height, inSession: number, cfg: Confi
   return before.length >= cfg.estimate.minMsSamples ? median(before) : null;
 }
 
-/**
- * Good day (spec §8.3): success above comfort, the session's median ms under the usual ms at every height
- * played, not already extended, and "5 more" (at height-1 cost) fits under the daily cap.
- */
-export function offersExtend(state: State, ss: SessionState, cfg: Config): boolean {
+/** Good day (spec §8.3): success above comfort and the session's median ms under the usual ms at every height played. */
+export function isGoodDay(state: State, ss: SessionState, cfg: Config): boolean {
   const n = ss.history.length;
-  if (ss.extended || n === 0) return false;
+  if (n === 0) return false;
   if (ss.history.filter((h) => h.right === true).length / n <= state.profile.comfort) return false;
-  if ((state.day?.effort ?? 0) + cfg.budget.extendCards * cfg.effort.h1 > cfg.budget.dailyCap) return false;
   for (const h of [1, 2, 3] as Height[]) {
     const ms = ss.history.filter((x) => x.height === h).map((x) => x.ms);
     if (!ms.length) continue;
@@ -80,4 +81,19 @@ export function offersExtend(state: State, ss: SessionState, cfg: Config): boole
     if (usual === null || median(ms) >= usual) return false;
   }
   return true;
+}
+
+/** "5 more" is offered on a good day, when not already extended and the extra cards (at height-1 cost) fit under the daily cap. */
+export function offersExtend(state: State, ss: SessionState, cfg: Config): boolean {
+  if (ss.extended) return false;
+  if ((state.day?.effort ?? 0) + cfg.budget.extendCards * cfg.effort.h1 > cfg.budget.dailyCap) return false;
+  return isGoodDay(state, ss, cfg);
+}
+
+/**
+ * Fade (R4b): after `fade.slowAnswers` slow answers in the session (not necessarily in a row), the effort spent before
+ * the first of them; null before that. Does not end the session by itself.
+ */
+export function fadeFromSlow(ss: SessionState, cfg: Config): number | null {
+  return ss.slowBefore.length >= cfg.fade.slowAnswers ? ss.slowBefore[0] : null;
 }

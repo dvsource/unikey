@@ -250,7 +250,9 @@ test("comeback after 3+ days: budget 8, first cards comeback:solid at height 1",
   for (const c of cards.slice(0, cfg.session.openCards)) {
     expect(c).toMatchObject({ reason: "comeback:solid", height: 1, section: "u.t1/A" });
   }
-  expect(endOf(lastStep(steps)).effort).toBeLessThanOrEqual(8);
+  // Budget 8 is the minimum day: the session may use its close reserve to reach it (Task 11), then one close card.
+  expect(endOf(lastStep(steps)).effort).toBeLessThanOrEqual(8 + cfg.effort.h1 + cfg.effort.wrong);
+  expect(endOf(lastStep(steps)).streakKept).toBe(true);
 
   // 2 days away: a normal session
   const normal = startSession({ ...start, lastSessionDay: D0 - 2 }, C, T0);
@@ -398,10 +400,56 @@ test("extend: a wrong answer on the last extra card is followed by a close card"
 
 test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => {
   const custom = { ...cfg, budget: { ...cfg.budget, minimumDay: 4, staminaDefault: 4 } };
-  const s = withProfile(newState("s", 1), { stamina: 4 });
+  // sessionCount 4: past the budget.firstSessions small first sessions (Task 11 R4c)
+  const s = withProfile({ ...newState("s", 1), sessionCount: 4 }, { stamina: 4 });
   const first = startSession(s, C, T0, custom);
   expect(first.state.session!.budget).toBe(4);
-  const big = startSession(withProfile(newState("s", 1), { stamina: 100 }), C, T0);
+  const big = startSession(withProfile({ ...newState("s", 1), sessionCount: 4 }, { stamina: 100 }), C, T0);
   // capped by dailyCap − day.effort − (1 + maxExtraClose) × (effort.h1 + effort.wrong)
   expect(big.state.session!.budget).toBe(cfg.budget.dailyCap - 3 * (cfg.effort.h1 + cfg.effort.wrong));
+});
+
+// ---------- tuning pass (Task 11) ----------
+
+test("stamina (R4a): a clean budget end raises stamina only on a good day (above comfort and faster than usual)", () => {
+  const before = fastStart().profile.stamina;
+  // fast and all right: the good day that offers "5 more"; declined → budget end, stamina + cleanStep
+  const p = play(C, fastStart(), T0, allR);
+  const e = endSession(lastStep(p.steps).state, C, p.now + 5000);
+  expect(endOf(e).kind).toBe("budget");
+  expect(e.state.profile.stamina).toBeCloseTo(before + cfg.staminaUpdate.cleanStep, 10);
+  // all right at the usual pace: a clean budget end, but no evidence of more stamina → unchanged
+  const slow = play(C, fastStart(), T0, allR, { ms: () => 20_000 });
+  expect(endOf(lastStep(slow.steps)).kind).toBe("budget");
+  expect(slow.state.profile.stamina).toBe(before);
+});
+
+test("fade (R4b): fade.slowAnswers slow answers, not in a row → fadeEffort is the effort before the first; the session goes on", () => {
+  const usual = { 1: Array(10).fill(8000), 2: Array(10).fill(8000), 3: Array(10).fill(8000) };
+  const start = withProfile(startedAt(2, 4, 1), { msByHeight: usual });
+  const slowAt = [2, 4];
+  const { steps, state } = play(C, start, T0, allR, { ms: (_s, i) => (slowAt.includes(i) ? 17_000 : 8000) });
+  const cards = served(steps);
+  const before = cards.slice(0, slowAt[0]).reduce((a, c) => a + c.effort, 0);
+  const endEv = lastStep(steps).events.find((x) => x.type === "session_end")!;
+  expect(endEv.data).toMatchObject({ kind: "budget", fadeEffort: before });
+  expect(state.profile.stamina).toBeCloseTo(Math.min(start.profile.stamina, 0.7 * start.profile.stamina + 0.3 * before), 10);
+  // one slow answer is not a fade
+  const one = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
+  expect(lastStep(one.steps).events.find((x) => x.type === "session_end")!.data).toMatchObject({ fadeEffort: null });
+});
+
+test("budget (R4c): a student's first budget.firstSessions sessions use the minimum-day budget", () => {
+  let s = newState("s", 1);
+  let now = T0;
+  const budgets: number[] = [];
+  for (let i = 0; i < cfg.budget.firstSessions + 1; i++) {
+    const r = play(C, s, now, allR, { ms: () => 8000 });
+    budgets.push(r.steps[0].state.session!.budget);
+    s = r.state;
+    now = nextDay(now);
+  }
+  expect(budgets.slice(0, cfg.budget.firstSessions)).toEqual(Array(cfg.budget.firstSessions).fill(cfg.budget.minimumDay));
+  expect(budgets[cfg.budget.firstSessions]).toBeCloseTo(s.profile.stamina * (1 - cfg.budget.margin), 1);
+  expect(budgets[cfg.budget.firstSessions]).toBeGreaterThan(cfg.budget.minimumDay);
 });
