@@ -187,7 +187,13 @@ test("ms: height factors, guesser, fatigue, jitter", () => {
     for (let i = 0; i < 60; i++) { const r = decide(x, content, served(id), { effort, recentWrong: 0 }, 0); x = r.hidden; if (r.action.kind === "answer") out.push(r.action.ms); }
     return out;
   };
-  const within = (v: number[], f: number) => { for (const m of v) { expect(m).toBeGreaterThanOrEqual(9000 * f * 0.8 - 1); expect(m).toBeLessThanOrEqual(9000 * f * 1.2 + 1); } expect(new Set(v).size).toBeGreaterThan(5); };
+  // Task 11 fix round 1: a distracted answer (distractChance) takes distractFactor × the normal time.
+  const inBand = (m: number, f: number) => m >= 9000 * f * 0.8 - 1 && m <= 9000 * f * 1.2 + 1;
+  const within = (v: number[], f: number) => {
+    for (const m of v) expect(inBand(m, f) || inBand(m, f * simParams.distractFactor), `${m} for factor ${f}`).toBe(true);
+    expect(v.filter((m) => inBand(m, f)).length).toBeGreaterThan(v.length * 0.8);
+    expect(new Set(v).size).toBeGreaterThan(5);
+  };
   within(msFor(h, "a1.h1.1"), 1);
   within(msFor(h, "a1.h2.1"), 1.5);
   within(msFor(h, "a1.h3"), 4);
@@ -248,4 +254,23 @@ test("small fixes: hasOwn lookups, no wrong options, learn sets k0, params", () 
   // Task 11 R7 recalibration
   expect(simParams.need).toEqual({ 1: 0.1, 2: 0.45, 3: 0.75 });
   expect([simParams.learnRight, simParams.learnWrong, simParams.decayPerDay]).toEqual([0.06, 0.10, 0.003]);
+});
+
+test("distraction: with distractChance an answer takes distractFactor × its time, independent of fatigue; seeded", () => {
+  expect([simParams.distractChance, simParams.distractFactor]).toEqual([0.05, 3]);
+  const base = newHidden(byId("average-noclass"), content, 21);
+  let h: Hidden = { ...base, traits: { ...base.traits, dontKnowBelow: 0, skipBelow: 0, misconceptions: {} } };
+  const card = served("a1.h1.1"); // msHeight 1, baseMs 9000: normal time 7200..10800
+  let long = 0; const N = 4000; const maxNormal = 9000 * (simParams.msJitterBase + simParams.msJitterSpan);
+  for (let i = 0; i < N; i++) {
+    const r = decide(h, content, card, S, 0); h = r.hidden;
+    if (r.action.kind === "answer" && r.action.ms > maxNormal) {
+      long++;
+      expect(r.action.ms).toBeGreaterThanOrEqual(Math.round(9000 * simParams.msJitterBase * simParams.distractFactor) - 1);
+    }
+  }
+  expect(Math.abs(long / N - simParams.distractChance)).toBeLessThan(0.015);
+  const again = (seed: number) => { let x: Hidden = { ...h, rng: { seed, n: 0 } }; const out: number[] = [];
+    for (let i = 0; i < 50; i++) { const r = decide(x, content, card, S, 0); x = r.hidden; if (r.action.kind === "answer") out.push(r.action.ms); } return out; };
+  expect(again(3)).toEqual(again(3));
 });

@@ -12,6 +12,9 @@ export const simParams = {
   skipChance: 0.5, fearedK: 0.6, tooHardK: 0.1,
   msHeight: { 1: 1, 2: 1.5, 3: 4 } as Record<Height, number>,
   msJitterBase: 0.8, msJitterSpan: 0.4, guesserMs: 0.4,
+  // Task 11 fix round 1: real students get interrupted. With this chance an answer takes distractFactor × its normal
+  // time, independent of fatigue (so "slow" is no longer the same thing as "fatigued").
+  distractChance: 0.05, distractFactor: 3,
   misconceptionDecay: 0.8,
   fiveMinEffort: 12,
   binge: { fast: 5, vanishUntil: 20 },
@@ -141,6 +144,7 @@ export function decide(h: Hidden, content: Content, card: Served,
     let ms = t.baseMs * simParams.msHeight[card.height] * jitter;
     if (t.guesser) ms *= simParams.guesserMs;
     if (session.effort > t.stamina) ms *= simParams.fatigueMs;
+    if (draw() < simParams.distractChance) ms *= simParams.distractFactor;
     return Math.round(ms);
   };
 
