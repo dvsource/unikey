@@ -28,23 +28,26 @@ function telling(content: Content, def: SkillDef, tag: string | undefined): stri
  * The next card of a repair stage, or null when the stage has nothing eligible (the caller then skips it).
  * piece: height 1 preferring tag then note → height 2 only on a tag/note match → any height 1 →
  * height 1 of the weakest `requires` skill outside blocked sections (`blocked`: the session's skipped ones). confidence: same skill, `failedHeight − 1` (min 1), nearest at or below.
+ * `recent`: card ids not to serve (R5: the session's last `session.returnAfterCards` serves). The failed card was the
+ * last card served, so it is always among them: the missing piece is a different card.
  */
 export function nextRepairCard(
-  state: State, content: Content, repair: RepairState, day: number, cfg: Config, blocked: string[] = [],
+  state: State, content: Content, repair: RepairState, day: number, cfg: Config, blocked: string[] = [], recent: string[] = [],
 ): { served: Served; rng: Rng } | null {
+  const ex = { exclude: recent };
   const def = content.skills[repair.skill];
   if (!def) return null;
   if (repair.stage === "confidence") {
     const want = Math.max(1, repair.failedHeight - 1);
     for (let h = want; h >= 1; h--) {
-      const e = eligibleCard(state, content, def.id, h as Height, day, state.rng, {}, cfg);
+      const e = eligibleCard(state, content, def.id, h as Height, day, state.rng, ex, cfg);
       if (e) return { served: build(content, e.card, e.variant, "repair:confidence", cfg), rng: e.rng };
     }
     return null;
   }
   const tag = telling(content, def, repair.tag);
   const note = repair.note;
-  const prefs = { ...(tag !== undefined ? { preferTag: tag } : {}), ...(note !== undefined ? { preferNote: note } : {}) };
+  const prefs = { ...ex, ...(tag !== undefined ? { preferTag: tag } : {}), ...(note !== undefined ? { preferNote: note } : {}) };
   const matches = (id: string) =>
     (tag !== undefined && hasTag(content, id, tag)) || (note !== undefined && content.cards[id].noteRef === note);
   const piece = (e: { card: string; variant: number; rng: Rng }) =>
@@ -60,7 +63,7 @@ export function nextRepairCard(
     .map((r) => ({ id: r, es: expectedSuccess(state, r, 1, cfg) }))
     .sort((x, y) => x.es - y.es || byId(x.id, y.id));
   for (const r of reqs) {
-    const e = eligibleCard(state, content, r.id, 1, day, state.rng, {}, cfg);
+    const e = eligibleCard(state, content, r.id, 1, day, state.rng, ex, cfg);
     if (e) return piece(e);
   }
   return null;

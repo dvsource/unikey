@@ -42,7 +42,7 @@ test("first session: opens open:liked, ends by budget, effort ≤ 12 and ≥ 8, 
   expect(state.lastSessionDay).toBe(D0);
 });
 
-test("all right at height 2: the budget keeps a wrong close card in reserve; a height-3 skill → fewer cards", () => {
+test("all right at height 2: the budget keeps a wrong close card in reserve; a height-3 skill costs more", () => {
   // Budget 12.006, reserve effort.h1 + effort.wrong = 2: six height-2 cards (9), then 1.006 left fits nothing
   // plus the reserve → closing; the last card was right and winnable, so no close card is needed.
   const { steps } = play(C, startedAt(2, 4, 1), T0, allR);
@@ -55,7 +55,9 @@ test("all right at height 2: the budget keeps a wrong close card in reserve; a h
   const r3 = play(C, h3, T0, allR);
   const c3 = served(r3.steps);
   expect(c3.some((c) => c.height === 3)).toBe(true);
-  expect(c3.length).toBeLessThan(6);
+  // Before Task 11 the height-3 card came back with new variants card after card (so fewer cards); R5 keeps a card
+  // away for session.returnAfterCards serves, so the height-3 card is served once here and costs 4 of the budget.
+  expect(c3.filter((c) => c.height === 3).length).toBe(1);
   const e3 = endOf(lastStep(r3.steps));
   expect(e3.kind).toBe("budget");
   expect(e3.effort).toBeLessThanOrEqual(12);
@@ -452,4 +454,27 @@ test("budget (R4c): a student's first budget.firstSessions sessions use the mini
   expect(budgets.slice(0, cfg.budget.firstSessions)).toEqual(Array(cfg.budget.firstSessions).fill(cfg.budget.minimumDay));
   expect(budgets[cfg.budget.firstSessions]).toBeCloseTo(s.profile.stamina * (1 - cfg.budget.margin), 1);
   expect(budgets[cfg.budget.firstSessions]).toBeGreaterThan(cfg.budget.minimumDay);
+});
+
+test("no same card back-to-back (R5): a card id (any variant) is not served again within session.returnAfterCards serves", () => {
+  // Every card has many variants, so only the rule (not the 14-day no-repeat) keeps a card from coming straight back.
+  const many = structuredClone(C);
+  for (const card of Object.values(many.cards)) card.variants = Array.from({ length: 30 }, () => card.variants[0]);
+  const patterns: ((s: Served, i: number) => "r" | "w" | "dk" | "s")[] = [
+    () => "r", (_s, i) => (i % 2 ? "w" : "r"), (_s, i) => (i % 3 === 0 ? "dk" : i % 3 === 1 ? "w" : "r"), () => "w",
+  ];
+  for (const [pi, fn] of patterns.entries()) {
+    let state = withProfile(startedAt(2, 3, 1), { stamina: 30 });
+    let now = T0;
+    for (let d = 0; d < 6; d++) {
+      const r = play(many, state, now, fn);
+      const ids = served(r.steps).map((x) => x.card);
+      ids.forEach((id, i) => {
+        const back = ids.slice(Math.max(0, i - cfg.session.returnAfterCards), i);
+        expect(back.includes(id), `pattern ${pi} day ${d} serve ${i}: ${id} in ${back.join(",")}`).toBe(false);
+      });
+      state = r.state;
+      now = nextDay(now);
+    }
+  }
 });

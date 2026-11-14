@@ -146,7 +146,7 @@ export type ServeOpts = { relax?: boolean; unblock?: string };
 
 /**
  * The shared candidate check: section not blocked, not excluded, no over-long same-skill run, fits the budget,
- * and an eligible (card, variant).
+ * and an eligible (card, variant) whose card is not one of `ctx.recentCards` (R5: no same card back-to-back).
  */
 function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, opts: ServeOpts = {}): Picked | null {
   const { def, height } = c;
@@ -159,7 +159,7 @@ function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: 
   }
   const effort = effortOf(height, cfg);
   if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.day) >= cfg.budget.minimumDay)) return null;
-  const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, {}, cfg);
+  const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, { exclude: ctx.recentCards ?? [] }, cfg);
   if (!e) return null;
   const served: Served = { card: e.card, variant: e.variant, skill: def.id, section: def.section, height, reason, effort };
   const b = borrowedFrom(state, content, def, reason, cfg);

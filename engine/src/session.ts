@@ -88,8 +88,11 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
     excludeSkills: strict ? ss.returns.map((q) => q.skill) : [],
+    recentCards: recentCards(r),
   };
 }
+/** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
+const recentCards = (r: Run) => r.s.session!.servedCards.slice(-r.cfg.session.returnAfterCards);
 const loose = (r: Run) => ctxOf(r, false, Infinity);
 /** Anything at all eligible in content (ignoring budget, runs and exclusions)? */
 const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "comfort-correction") !== null;
@@ -108,6 +111,7 @@ function serve(r: Run, p: Picked, sweep = false): Next {
     if (sweep) r.s.skills[sv.skill] = newSkillRec(sv.height);
   }
   ss.served = sv;
+  ss.servedCards = [...ss.servedCards, sv.card];
   if (sv.reason === "side-door") ss.sideDoor = sv.section;
   if (sv.reason === "skipped-drip") ss.dripDone = true;
   r.s.seen = [...r.s.seen.filter((x) => r.day - x.day < r.cfg.noRepeatDays), { card: sv.card, variant: sv.variant, day: r.day }];
@@ -156,7 +160,7 @@ function normal(r: Run, last: Last): Next {
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
 
   while (ss.repair) {
-    const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections);
+    const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections, recentCards(r));
     if (rc) return rc.served.effort <= room ? serve(r, rc) : toClosing(r, last, false);
     if (ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
     else {
@@ -208,7 +212,7 @@ function normal(r: Run, last: Last): Next {
 /** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
 function serveMain(r: Run, p: Picked, room: number): Next {
   const ss = r.s.session!;
-  const ramp = rampBefore(r.s, r.content, p, ss.history.map((h) => h.skill), r.day, room, r.cfg);
+  const ramp = rampBefore(r.s, r.content, p, ss.history.map((h) => h.skill), r.day, room, r.cfg, recentCards(r));
   if (!ramp) return serve(r, p);
   ss.ramp = p.served;
   return serve(r, ramp);
@@ -300,7 +304,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [],
-    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [],
+    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
   const held = releasePending(r.s, cfg);

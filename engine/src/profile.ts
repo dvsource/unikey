@@ -103,9 +103,12 @@ export function onSessionEnd(state: State, end: EndInfo, session: SessionState, 
 /**
  * The ramp (spec §7): for a height-3 pick of a started skill while the student is calculation-weak, a height-2
  * card of the same skill (the pick's reason kept) to serve first. Null unless an eligible height-2 card exists,
- * both cards fit in `room`, and the two would not make the skill's same-skill run too long.
+ * both cards fit in `room`, and the two would not make the skill's same-skill run too long. `recent`: card ids not to
+ * serve (R5).
  */
-export function rampBefore(state: State, content: Content, p: Picked, lastSkills: string[], day: number, room: number, cfg: Config): Picked | null {
+export function rampBefore(
+  state: State, content: Content, p: Picked, lastSkills: string[], day: number, room: number, cfg: Config, recent: string[] = [],
+): Picked | null {
   const sv = p.served;
   if (sv.height !== 3 || !isCalcWeak(state, cfg) || !(sv.skill in state.skills)) return null;
   if (effortOf(2, cfg) + sv.effort > room) return null;
@@ -113,7 +116,7 @@ export function rampBefore(state: State, content: Content, p: Picked, lastSkills
   let run = 0; // the skill's current run, then the ramp card and the height-3 card: all within the limit
   while (run < lastSkills.length && lastSkills[lastSkills.length - 1 - run] === sv.skill) run++;
   if (run + 2 > n) return null;
-  const e = eligibleCard(state, content, sv.skill, 2, day, p.rng, {}, cfg);
+  const e = eligibleCard(state, content, sv.skill, 2, day, p.rng, { exclude: [...recent, sv.card] }, cfg);
   if (!e) return null;
   const { borrowedFrom: _b, ...rest } = sv;
   return { served: { ...rest, card: e.card, variant: e.variant, height: 2, effort: effortOf(2, cfg) }, rng: e.rng };

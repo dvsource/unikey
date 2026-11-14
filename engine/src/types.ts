@@ -74,6 +74,8 @@ export type SessionState = {
   badDay: boolean;
   /** The session's effort spent before each slow answer, in order (fade detection, R4b). */
   slowBefore: number[];
+  /** Every card id served this session, in order (skipped and left-open ones too): R5, no same card back-to-back. */
+  servedCards: string[];
 };
 
 export type Choice = number | "dont-know";

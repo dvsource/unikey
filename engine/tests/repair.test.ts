@@ -130,3 +130,19 @@ test("wrong inside repair → no second repair; height drops; next card from ano
   expect(c2.state.session!.returns).toEqual([]);
   expect(card(c2)).toMatchObject({ reason: "open:liked", section: "u.t1/B" });
 });
+
+test("missing piece (R5): never the failed card itself, nor any card of the session's last returnAfterCards serves", () => {
+  // a1.h1.2 carries the sign-error tag; with four variants it could come straight back as its own "missing piece".
+  const c = structuredClone(C);
+  c.cards["a1.h1.2"].variants = Array.from({ length: 4 }, () => c.cards["a1.h1.2"].variants[0]);
+  const s = leadState("a1");
+  const repair = { skill: "a1", failedHeight: 1 as const, tag: "sign-error", stage: "piece" as const };
+  expect(nextRepairCard(s, c, repair, D0, cfg)!.served.card).toBe("a1.h1.2"); // without the rule
+  for (let seed = 1; seed <= 10; seed++) {
+    const p = nextRepairCard({ ...s, rng: { seed, n: 0 } }, c, repair, D0, cfg, [], ["a1.h1.2"])!;
+    expect(p.served.card).not.toBe("a1.h1.2");
+    expect(p.served.reason).toBe("repair:missing-piece");
+  }
+  const conf = nextRepairCard(s, c, { ...repair, failedHeight: 2, stage: "confidence" }, D0, cfg, [], ["a1.h1.1", "a1.h1.2"])!;
+  expect(conf.served.card).toBe("a1.h1.3");
+});

@@ -246,7 +246,8 @@ test("deepMerge (--config): objects merge, arrays and values replace", () => {
 
 test("runner: quit reasons are logged; I don't know weighs half toward recentWrong", () => {
   const content = fixture();
-  const log = runStudent(byId("steady-five-min"), content, opts(4, 5));
+  // Seed 1 (was 5): after Task 11 (small first sessions, no card back-to-back) seed 5 runs the tiny fixture dry before a time-up quit.
+  const log = runStudent(byId("steady-five-min"), content, opts(4, 1));
   const quits = log.lines.filter((l) => l.kind === "quit");
   expect(quits.length).toBeGreaterThan(0);
   for (const q of quits) expect(["time-up", "frustration", "fatigue"]).toContain(q.quitReason);
