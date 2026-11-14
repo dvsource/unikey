@@ -29,3 +29,12 @@ test("migrate defaults answered and lastEnd on an older stored v1 state", () => 
   const kept = migrate({ ...newState("s", 1), answered: 7 });
   expect(kept.answered).toBe(7);
 });
+
+test("migrate gives an open session from before Task 11 badDay, slowBefore and servedCards", () => {
+  const s = newState("s", 1);
+  const ss = { phase: "middle", fadeEffort: 3, sideDoor: null, confident: [] } as unknown as NonNullable<typeof s.session>;
+  const m = migrate(JSON.parse(JSON.stringify({ ...s, session: ss })));
+  expect(m.session).toMatchObject({ badDay: true, slowBefore: [], servedCards: [] }); // an old fadeEffort meant bad day
+  const m2 = migrate(JSON.parse(JSON.stringify({ ...s, session: { ...ss, fadeEffort: null } })));
+  expect(m2.session).toMatchObject({ badDay: false, slowBefore: [], servedCards: [] });
+});
