@@ -7,9 +7,10 @@ import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } fr
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
+import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
 import type {
-  Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
+  Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Moment, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
 
 /** One public call in progress: a private copy of the state, the clock, and the events emitted so far. */
@@ -31,8 +32,8 @@ function emit(r: Run, type: EngineEvent["type"], data: Record<string, unknown>):
   r.events.push({ id: `${r.s.student}:${r.s.seq}`, student: r.s.student, at: r.now, session: r.s.session?.id ?? null, type, data });
 }
 
-function step(r: Run, next: Next, feedback?: Feedback): Step {
-  return feedback ? { state: r.s, events: r.events, feedback, moments: [], next } : { state: r.s, events: r.events, moments: [], next };
+function step(r: Run, next: Next, feedback?: Feedback, moments: Moment[] = []): Step {
+  return feedback ? { state: r.s, events: r.events, feedback, moments, next } : { state: r.s, events: r.events, moments, next };
 }
 
 /** What the caller was last told: the open card, the pending offer, or the last end. */
@@ -116,8 +117,10 @@ function serve(r: Run, p: Picked, sweep = false): Next {
 
 // ---------- the loop ----------
 
-function queueReturn(r: Run, skill: string): void {
+/** `confident`: the repair's confidence card was answered right (for missing-piece-fixed on the return). */
+function queueReturn(r: Run, skill: string, confident = false): void {
   const ss = r.s.session!;
+  ss.confident = [...ss.confident.filter((x) => x !== skill), ...(confident ? [skill] : [])];
   ss.returns = [...ss.returns, { skill, afterCard: ss.history.length + r.cfg.session.returnAfterCards }];
 }
 
@@ -292,11 +295,13 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null,
+    sideDoor: null, confident: [],
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
-  return step(r, decide(r, null));
+  const held = releasePending(r.s, cfg);
+  for (const m of held) emit(r, "moment", { ...m });
+  return step(r, decide(r, null), undefined, held);
 }
 
 export function answer(
@@ -345,6 +350,8 @@ export function answer(
   if (sv.reason === "repair:return" && right) ss.fixed += 1;
   if (ss.phase === "extend") ss.extendLeft -= 1;
   emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null });
+  const moments = recordMoments(r.s, detectMoments(state, r.s, content, sv, right, r.day, cfg), cfg);
+  for (const m of moments) emit(r, "moment", { ...m });
   const feedback: Feedback = {
     right, correctIndex: opts.findIndex((o) => o.correct), ...(tag !== undefined ? { tag } : {}), ...(reveal ? { reveal } : {}),
   };
@@ -354,7 +361,7 @@ export function answer(
     if (ss.repair) {
       if (right && ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
       else if (right) {
-        queueReturn(r, ss.repair.skill);
+        queueReturn(r, ss.repair.skill, true);
         ss.repair = null;
       } else {
         // A failed repair: a bad moment, one step down, and away to another liked section. No second repair.
@@ -375,7 +382,7 @@ export function answer(
     }
   }
   if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
-  return step(r, decide(r, { right, winnable, ...(avoid !== undefined ? { avoid } : {}) }), feedback);
+  return step(r, decide(r, { right, winnable, ...(avoid !== undefined ? { avoid } : {}) }), feedback, moments);
 }
 
 /**

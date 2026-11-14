@@ -10,6 +10,7 @@ export function newState(student: string, seed: number, cfg: Config = defaultCon
     },
     skills: {}, sections: {}, seen: [], currentTopic: null, day: null,
     sessionCount: 0, lastSessionDay: null, session: null, answered: 0, lastEnd: null,
+    pendingMoments: [], momentsDone: [],
   };
 }
 
@@ -19,8 +20,12 @@ export function migrate(json: unknown): State {
   }
   const s = json as State;
   // Fields added after the first v1 states were stored.
-  const session = s.session ? { ...s.session, sideDoor: s.session.sideDoor ?? null } : null;
-  return { ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null, session };
+  const session = s.session ? { ...s.session, sideDoor: s.session.sideDoor ?? null, confident: s.session.confident ?? [] } : null;
+  const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, { ...x, skipTotal: x.skipTotal ?? x.skipCount }]));
+  return {
+    ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null, session, sections,
+    pendingMoments: s.pendingMoments ?? [], momentsDone: s.momentsDone ?? [],
+  };
 }
 
 export function effectiveNow(state: State, now: number): number {

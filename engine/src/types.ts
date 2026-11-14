@@ -34,6 +34,8 @@ export type SkipReason = "not-learned" | "too-hard" | "later";
 export type SectionRec = {
   skipCount: number; remindDay: number | null; lastReason: SkipReason | null;
   dripStopped: boolean; liking: number; returned: boolean;
+  /** Lifetime count of skips of this section (never reset, unlike `skipCount`). */
+  skipTotal: number;
 };
 export type Profile = {
   comfort: number; memory: number; h3Share: number; stamina: number;
@@ -58,6 +60,8 @@ export type SessionState = {
   phase: "open" | "middle" | "closing" | "extend"; comeback: boolean; fixed: number;
   blockedSections: string[]; dripDone: boolean; moments: Moment[]; fadeEffort: number | null;
   closeServed: number; sideDoor: string | null;
+  /** Skills whose repair ended with the confidence card right (their return card can fix a missing piece). */
+  confident: string[];
   /** The four profile numbers when the session began (a `profile` event is emitted only if they changed). */
   startProfile: { comfort: number; memory: number; h3Share: number; stamina: number };
   /** A height-3 card waiting behind the height-2 ramp card just served, else null. */
@@ -98,6 +102,10 @@ export type State = {
   sessionCount: number; lastSessionDay: number | null; session: SessionState | null;
   /** Lifetime answered cards; each answer's `Attempt.seq`. */
   answered: number;
+  /** Section-solid / avoided-now-done moments held for the next session's first step. */
+  pendingMoments: Moment[];
+  /** Moments already shown, keyed `${type}:${skill or section}`. */
+  momentsDone: string[];
   /** How the last session (or daily-cap start) ended; replayed for a stale call with no open session. */
   lastEnd: EndInfo | null;
 };

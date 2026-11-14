@@ -47,7 +47,7 @@ test("first skip: applies at once, remindDay = day+3, section gone for the rest 
   expect(c0.section).toBe(B);
   const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000);
   expect(sk.next.kind).toBe("card");
-  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false });
+  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false, skipTotal: 1 });
   expect(sk.state.session!.blockedSections).toEqual([B]);
   expect(sk.feedback).toBeUndefined();
   expect(sk.events.map((e) => e.type)).toEqual(["skip", "card_served"]);
@@ -94,7 +94,7 @@ test("confirmed second skip → remindDay = day+5; then 8, 13, 14, 14", () => {
     expect(sk.next.kind).toBe("card");
     expect(cardOf(sk).section).toBe(A);
     expect(sk.state.sections[B]).toEqual({
-      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "too-hard", dripStopped: false, liking: 4, returned: false,
+      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "too-hard", dripStopped: false, liking: 4, returned: false, skipTotal: n + 1,
     });
     expect(sk.events[0]).toMatchObject({ type: "skip", data: { skipCount: n + 1, remindDay: D0 + want[n - 1] } });
   }
@@ -112,7 +112,7 @@ test("answering after confirm-skip continues the card with no skip applied", () 
   expect(a.state.session!.blockedSections).toEqual([]);
   expect(a.state.session!.spent).toBe(1.5);
   // A right answer on a section that has returned resets its skip count; nothing else changed.
-  expect(a.state.sections[B]).toEqual(section({ liking: 5, skipCount: 0, returned: true }));
+  expect(a.state.sections[B]).toEqual(section({ liking: 5, skipCount: 0, returned: true, skipTotal: 1 }));
   // The confirm is replayable: confirming the same card applies the skip.
   const ok = skip(cs.state, C, { card: c0.card, confirmed: true }, T0 + 20_000);
   expect(ok.state.sections[B]).toMatchObject({ skipCount: 2, remindDay: D0 + 5 });
