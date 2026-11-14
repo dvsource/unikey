@@ -203,8 +203,13 @@ function newcomer(state: State, content: Content, section: string, reason: Reaso
   return firstOf(state, content, defs.map((def) => ({ def, height: avail(def)[0] })), () => reason, ctx, cfg);
 }
 
+/**
+ * Open: a liked section, at a height the student usually gets right. R3: until the student has
+ * `estimate.minOwnPrior` answers overall (no evidence yet), the chosen skill's lowest eligible height.
+ */
 export function pickOpen(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
   const comfort = state.profile.comfort;
+  const fresh = state.answered < cfg.estimate.minOwnPrior;
   for (const sec of likedSections(state, content, cfg)) {
     if (isBlocked(state, sec, ctx.day, ctx.blockedSections)) continue;
     const st = started(state, content).filter((d) => d.section === sec);
@@ -217,6 +222,7 @@ export function pickOpen(state: State, content: Content, ctx: PickCtx, cfg: Conf
       .map((c) => ({ ...c, es: expectedSuccess(state, c.def.id, c.height, cfg) }))
       .sort((x, y) => y.es - x.es || byId(x.def.id, y.def.id))
       .map((c) => {
+        if (fresh) return { ...c, height: lowestEligible(state, content, c.def, avail(c.def), ctx, cfg) ?? c.height };
         if (c.es >= comfort) return c;
         const lower = [...avail(c.def)].reverse().find((h) => h < c.height);
         return lower === undefined ? c : { ...c, height: lower };

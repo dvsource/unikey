@@ -245,6 +245,7 @@ test("open: brand-new student gets height-1 card, reason open:liked", () => {
     b1: notDue(2, { attempts: [att(2, true), att(2, true), att(2, true)] }),
   });
   s.sections = { "u.t1/A": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 1, returned: false, skipTotal: 0, lastSkipSeq: null } };
+  s.answered = 1000; // a student with history (Task 11 R3 starts students with fewer answers at the lowest height)
   expect(pickOpen(s, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2, reason: "open:liked" });
 });
 
@@ -375,4 +376,15 @@ test("pickAny (R2): below comfort → lowest height first, then expectedSuccess"
   // At comfort: started skills first, highest estimate → a1 height 2.
   const ok = pickAny(s, C, ctx({ strictBudget: true, remaining: 99, runningRight: 3, runningTotal: 3 }), cfg, "comfort-correction")!;
   expect(ok.served).toMatchObject({ skill: "a1", height: 2 });
+});
+
+test("open (R3): fewer than estimate.minOwnPrior answers overall → the chosen skill's lowest eligible height", () => {
+  const good = Array.from({ length: 4 }, () => att(2, true)); // h2 0.9 ≥ comfort
+  const s = st({ a1: notDue(2, { attempts: good }) }, { answered: cfg.estimate.minOwnPrior - 1 });
+  expect(pickOpen(s, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 1, reason: "open:liked" });
+  // h1 cards all seen → the next height up.
+  const seen = { ...s, seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3"], D - 1) };
+  expect(pickOpen(seen, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
+  // With enough answers, the skill's own height again.
+  expect(pickOpen({ ...s, answered: cfg.estimate.minOwnPrior }, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
 });
