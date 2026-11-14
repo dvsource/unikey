@@ -138,3 +138,109 @@ test("same seed → same decisions", () => {
   expect(run(7)).toEqual(run(7));
   expect(JSON.stringify(run(7))).not.toBe(JSON.stringify(run(8)));
 });
+
+import { simParams, wantsExtend } from "../sim/student.js";
+
+test("quit boundaries and reasons", () => {
+  const card = served("a1.h1.1");
+  const a = newHidden(byId("average-noclass"), content, 1);
+  expect(decide(a, content, card, { effort: 15, recentWrong: 0 }, 0).action.kind).not.toBe("quit");
+  expect(decide(a, content, card, { effort: 14 * 1.3 - 0.01, recentWrong: 0 }, 0).action.kind).not.toBe("quit");
+  expect(decide(a, content, card, { effort: 14 * 1.3 + 0.01, recentWrong: 0 }, 0).action).toEqual({ kind: "quit", reason: "fatigue" });
+  expect(decide(a, content, card, { effort: 0, recentWrong: 4 }, 0).action).toEqual({ kind: "quit", reason: "frustration" });
+  const f = newHidden(byId("steady-five-min"), content, 1);
+  expect(decide(f, content, card, { effort: 11, recentWrong: 0 }, 0).action.kind).not.toBe("quit");
+  expect(decide(f, content, card, { effort: 12, recentWrong: 0 }, 0).action).toEqual({ kind: "quit", reason: "time-up" });
+});
+
+test("five-min: frustration quits count toward app quit, time-up does not", () => {
+  let f = newHidden(byId("steady-five-min"), content, 1); // patienceSessions 4
+  for (let i = 0; i < 10; i++) f = sessionEnded(f, true, "time-up");
+  expect(f.badSessions).toBe(0);
+  for (let i = 0; i < 3; i++) f = sessionEnded(f, true, "frustration");
+  expect(f.quitApp).toBe(false);
+  f = sessionEnded(f, true, "fatigue");
+  expect(f.quitApp).toBe(true);
+  const a = sessionEnded(newHidden(byId("average-noclass"), content, 1), true, "time-up");
+  expect(a.badSessions).toBe(0);
+});
+
+test("dont-know below dontKnowBelow unless guesser", () => {
+  const h = withK(newHidden(byId("average-noclass"), content, 1), "a1", 0); // p 0.2 < 0.3
+  const r = decide({ ...h, traits: { ...h.traits, skipBelow: 0 } }, content, served("a1.h3"), S, 0).action;
+  expect(r.kind === "answer" && r.choice).toBe("dont-know");
+  const g = withK(newHidden(byId("fast-guesser"), content, 1), "a1", 0);
+  let gh = { ...g, traits: { ...g.traits, skipBelow: 0, dontKnowBelow: 0.9 } };
+  for (let i = 0; i < 50; i++) {
+    const x = decide(gh, content, served("a1.h3"), S, 0); gh = x.hidden;
+    expect(x.action.kind === "answer" && x.action.choice).not.toBe("dont-know");
+  }
+});
+
+test("ms: height factors, guesser, fatigue, jitter", () => {
+  const base = newHidden(byId("average-noclass"), content, 4);
+  const h = { ...base, traits: { ...base.traits, dontKnowBelow: 0, skipBelow: 0 } };
+  const msFor = (hh: Hidden, id: string, effort = 0) => {
+    let x = hh; const out: number[] = [];
+    for (let i = 0; i < 60; i++) { const r = decide(x, content, served(id), { effort, recentWrong: 0 }, 0); x = r.hidden; if (r.action.kind === "answer") out.push(r.action.ms); }
+    return out;
+  };
+  const within = (v: number[], f: number) => { for (const m of v) { expect(m).toBeGreaterThanOrEqual(9000 * f * 0.8 - 1); expect(m).toBeLessThanOrEqual(9000 * f * 1.2 + 1); } expect(new Set(v).size).toBeGreaterThan(5); };
+  within(msFor(h, "a1.h1.1"), 1);
+  within(msFor(h, "a1.h2.1"), 1.5);
+  within(msFor(h, "a1.h3"), 4);
+  within(msFor(h, "a1.h1.1", 15), 2.2);
+  const g = { ...h, traits: { ...h.traits, guesser: true } };
+  within(msFor(g, "a1.h1.1"), 0.4);
+});
+
+test("right/wrong frequency follows pRight", () => {
+  const base = withK(newHidden(byId("average-noclass"), content, 11), "a1", 0.5);
+  let h: Hidden = { ...base, traits: { ...base.traits, dontKnowBelow: 0, skipBelow: 0, misconceptions: {} } };
+  const card = served("a1.h2.1"); // p = 0.5
+  let right = 0; const N = 2000;
+  for (let i = 0; i < N; i++) {
+    const r = decide(h, content, card, S, 0); h = r.hidden;
+    if (r.action.kind === "answer" && r.action.choice === 0) right++;
+  }
+  expect(Math.abs(right / N - pRight(h, card, 0))).toBeLessThan(0.04);
+  const c2 = served("a1.h3"); // p = 0.5 + 1.5*(0.5-0.75) = 0.125 -> 0.2
+  right = 0;
+  for (let i = 0; i < N; i++) { const r = decide(h, content, c2, S, 0); h = r.hidden; if (r.action.kind === "answer" && r.action.choice === 0) right++; }
+  expect(Math.abs(right / N - 0.2)).toBeLessThan(0.04);
+});
+
+test("misconception (1 - k) factor", () => {
+  const base = withK(newHidden(byId("confident-misconceptions"), content, 5), "a1", 0.5);
+  let h: Hidden = { ...base, traits: { ...base.traits, misconceptions: { "sign-error": 1 }, skipBelow: 0 } };
+  const card = served("a1.h3", { variant: 0 }); // option 1 is sign-error; p(right)=0.2 so the rest is mostly wrong
+  let picked = 0; const N = 2000;
+  for (let i = 0; i < N; i++) { const r = decide(h, content, card, S, 0); h = r.hidden; if (r.action.kind === "answer" && r.action.choice === 1) picked++; }
+  // 0.5 direct + remaining 0.5 * (0.2 right -> 0 | 0.8 wrong -> 1/3 to option 1)
+  const expected = 0.5 + 0.5 * 0.8 / 3;
+  expect(Math.abs(picked / N - expected)).toBeLessThan(0.04);
+});
+
+test("wantsExtend follows extendChance; never when fatigued", () => {
+  let h = newHidden(byId("strong"), content, 9); // 0.7
+  let yes = 0; const N = 2000;
+  for (let i = 0; i < N; i++) { const [w, n] = wantsExtend(h); h = n; if (w) yes++; }
+  expect(Math.abs(yes / N - 0.7)).toBeLessThan(0.04);
+  for (let i = 0; i < 100; i++) expect(wantsExtend(h, 26)[0]).toBe(false);
+  expect(wantsExtend(h, 26)[1]).toBe(h);
+});
+
+test("small fixes: hasOwn lookups, no wrong options, learn sets k0, params", () => {
+  const h = newHidden(byId("average-noclass"), content, 1);
+  expect(learn(h, served("a1.h1.1"), false, 0, "constructor").traits.misconceptions).toEqual({});
+  const noK = { ...h, k: {}, k0: {} };
+  const l = learn(noK, served("a1.h1.1"), true, 0);
+  expect(l.k0["a1"]).toBe(0);
+  const orig = content.cards["a1.h1.1"]!.variants[0]!;
+  content.cards["a1.h1.1"]!.variants[0] = [{ correct: true }];
+  const r = decide({ ...h, traits: { ...h.traits, skipBelow: 0, dontKnowBelow: 0 } }, content, served("a1.h1.1"), S, 0).action;
+  content.cards["a1.h1.1"]!.variants[0] = orig;
+  expect(r.kind === "answer" && r.choice).toBe(0);
+  expect(simParams.decayCurve).toBe(0.5);
+  expect(simParams.fearedK).toBe(0.6);
+});

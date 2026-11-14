@@ -5,9 +5,9 @@ export const simParams = {
   need: { 1: 0.25, 2: 0.5, 3: 0.75 } as Record<Height, number>,
   pFloor: 0.2, pCeil: 0.97, pBase: 0.5, pSlope: 1.5,
   learnRight: 0.04, learnWrong: 0.08,
-  decayPerDay: 0.008, decayFloor: 0.5,
+  decayPerDay: 0.008, decayCurve: 0.5, decayFloor: 0.5,
   fatigueK: 0.2, fatigueMs: 2.2, quitStaminaFactor: 1.3,
-  skipChance: 0.5, featedK: 0.6, tooHardK: 0.1,
+  skipChance: 0.5, fearedK: 0.6, tooHardK: 0.1,
   msHeight: { 1: 1, 2: 1.5, 3: 4 } as Record<Height, number>,
   msJitterBase: 0.8, msJitterSpan: 0.4, guesserMs: 0.4,
   misconceptionDecay: 0.8,
@@ -43,10 +43,11 @@ export type Hidden = {
   lastDay: Record<string, number | undefined>;
   badSessions: number; quitApp: boolean; rng: Rng;
 };
+export type QuitReason = "time-up" | "frustration" | "fatigue";
 export type Action =
   | { kind: "answer"; choice: number | "dont-know"; ms: number }
   | { kind: "skip"; reason?: SkipReason }
-  | { kind: "quit" };
+  | { kind: "quit"; reason: QuitReason };
 
 const clamp = (lo: number, hi: number, x: number) => Math.min(hi, Math.max(lo, x));
 
@@ -120,14 +121,15 @@ export function decide(h: Hidden, content: Content, card: Served,
   const draw = (): number => { const [v, r] = next(rng); rng = r; return v; };
   const done = (action: Action) => ({ action, hidden: { ...h, rng } });
 
-  if (session.recentWrong >= t.patienceWrongs || session.effort > simParams.quitStaminaFactor * t.stamina
-    || (t.habit === "five-min" && session.effort >= simParams.fiveMinEffort)) return done({ kind: "quit" });
+  if (session.recentWrong >= t.patienceWrongs) return done({ kind: "quit", reason: "frustration" });
+  if (session.effort > simParams.quitStaminaFactor * t.stamina) return done({ kind: "quit", reason: "fatigue" });
+  if (t.habit === "five-min" && session.effort >= simParams.fiveMinEffort) return done({ kind: "quit", reason: "time-up" });
 
   const p = pRight(h, card, session.effort);
   const k = h.k[card.skill] ?? 0;
   const protectedCard = card.reason.startsWith("repair:") || card.reason === "close:winnable";
   if (!protectedCard) {
-    const feared = t.fearedSections.includes(card.section) && k < simParams.featedK;
+    const feared = t.fearedSections.includes(card.section) && k < simParams.fearedK;
     if (feared || (p < t.skipBelow && draw() < simParams.skipChance))
       return done({ kind: "skip", reason: k > simParams.tooHardK ? "too-hard" : "not-learned" });
   }
@@ -145,11 +147,12 @@ export function decide(h: Hidden, content: Content, card: Served,
   const options = content.cards[card.card]!.variants[card.variant]!;
   for (let i = 0; i < options.length; i++) {
     const o = options[i]!;
-    const s = !o.correct && o.tag ? t.misconceptions[o.tag] : undefined;
+    const s = !o.correct && o.tag && Object.hasOwn(t.misconceptions, o.tag) ? t.misconceptions[o.tag] : undefined;
     if (s !== undefined && draw() < s * (1 - k)) return done({ kind: "answer", choice: i, ms: msOf() });
   }
   const right = draw() < p;
-  const idx = options.map((o, i) => (o.correct === right ? i : -1)).filter((i) => i >= 0);
+  let idx = options.map((o, i) => (o.correct === right ? i : -1)).filter((i) => i >= 0);
+  if (idx.length === 0) idx = options.map((_, i) => i);
   const choice = idx[Math.min(idx.length - 1, Math.floor(draw() * idx.length))]!;
   return done({ kind: "answer", choice, ms: msOf() });
 }
@@ -159,9 +162,9 @@ export function learn(h: Hidden, card: Served, right: boolean, day: number, tag?
   const k = h.k[card.skill] ?? 0;
   const nk = clamp(0, 1, k + h.traits.learn * (right ? simParams.learnRight : simParams.learnWrong) * (1 - k));
   let traits = h.traits;
-  if (!right && tag && traits.misconceptions[tag] !== undefined)
+  if (!right && tag && Object.hasOwn(traits.misconceptions, tag))
     traits = { ...traits, misconceptions: { ...traits.misconceptions, [tag]: traits.misconceptions[tag]! * simParams.misconceptionDecay } };
-  return { ...h, traits, k: { ...h.k, [card.skill]: nk }, lastDay: { ...h.lastDay, [card.skill]: day } };
+  return { ...h, traits, k: { ...h.k, [card.skill]: nk }, k0: { ...h.k0, [card.skill]: h.k0[card.skill] ?? k }, lastDay: { ...h.lastDay, [card.skill]: day } };
 }
 
 export function decay(h: Hidden, day: number): Hidden {
@@ -170,7 +173,7 @@ export function decay(h: Hidden, day: number): Hidden {
   for (const s of Object.keys(k)) {
     if (h.lastDay[s] === undefined) continue;
     const floor = (h.k0[s] ?? 0) * simParams.decayFloor;
-    k[s] = Math.max(floor, k[s]! - h.traits.forget * simParams.decayPerDay * (1 - 0.5 * k[s]!));
+    k[s] = Math.max(floor, k[s]! - h.traits.forget * simParams.decayPerDay * (1 - simParams.decayCurve * k[s]!));
   }
   return { ...h, k };
 }
@@ -188,15 +191,20 @@ export function playsToday(h: Hidden, day0: number, day: number): number {
   }
 }
 
-export function wantsExtend(h: Hidden): [boolean, Hidden] {
+/** Rule: a student whose session effort went past their stamina (fatigued) never asks for extra; no draw is consumed then. */
+export function wantsExtend(h: Hidden, sessionEffort?: number): [boolean, Hidden] {
+  if (sessionEffort !== undefined && sessionEffort > h.traits.stamina) return [false, h];
   const [v, rng] = next(h.rng);
   return [v < h.traits.extendChance, { ...h, rng }];
 }
 
-/** Call when a session ends: `quit` true if the student walked out. A five-min student's quit is not a bad session. */
-export function sessionEnded(h: Hidden, quit: boolean): Hidden {
+/**
+ * Call when a session ends: `quit` true if the student walked out. With `reason`, a "time-up" quit is not a bad session
+ * and "frustration" / "fatigue" are. Without `reason`, a five-min student's quit is not a bad session (old behaviour).
+ */
+export function sessionEnded(h: Hidden, quit: boolean, reason?: QuitReason): Hidden {
   if (!quit) return { ...h, badSessions: 0 };
-  if (h.traits.habit === "five-min") return h;
+  if (reason === undefined ? h.traits.habit === "five-min" : reason === "time-up") return h;
   const badSessions = h.badSessions + 1;
   return { ...h, badSessions, quitApp: h.quitApp || badSessions >= h.traits.patienceSessions };
 }
