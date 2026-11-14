@@ -16,6 +16,7 @@ export const defaultConfig = {
   moments: { thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 },
   returning: { noFullDays: 2, awayDays: 3 },
   skill: { attemptsKept: 12, solidDays: 2 },
+  estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 },
   tzOffsetMinutes: 330,
 };
 
