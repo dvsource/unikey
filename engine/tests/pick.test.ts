@@ -318,3 +318,29 @@ test("pickAny: highest expectedSuccess over every height of every unblocked skil
     ...["a2", "b1", "b2"].flatMap((x) => Array.from({ length: 20 }, (_, v) => ({ card: `${x}.h3`, variant: v, day: D - 1 })))];
   expect(pickAny(st({}, { seen: none }), C, ctx({ remaining: 99 }), cfg, "comfort-correction")).toBeNull();
 });
+
+// ---------- tuning pass (Task 11) ----------
+
+test("close (R1): the lowest available height of a skill, highest expectedSuccess first; never h3 while h1/h2 is eligible", () => {
+  // a1 at height 3 with ten right h3 answers (h3 ≈ 0.92): the close card is still its height-1 card.
+  const tenH3 = Array.from({ length: 10 }, () => att(3, true));
+  const b1Weak = [att(2, false), att(2, false), att(1, false), att(1, false)];
+  const s = st({ a1: notDue(3, { attempts: tenH3 }), b1: notDue(2, { attempts: b1Weak }) });
+  const r = pickClose(s, C, ctx(), cfg)!;
+  expect(r.served).toMatchObject({ skill: "a1", height: 1, reason: "close:winnable" });
+  // a1's h1 cards all seen → its next height (h2, 0.7 over b1's h1 0.425), not its h3.
+  const h1Seen = { ...s, seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3"], D - 1) };
+  expect(pickClose(h1Seen, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
+  // Only h3 left on every started skill → an unstarted skill's height-1 card beats any height-3 card.
+  const onlyH3 = st({ a1: notDue(3, { attempts: tenH3 }) }, {
+    seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3"], D - 1),
+  });
+  const q = pickClose(onlyH3, C, ctx(), cfg)!;
+  expect(q.served.height).toBe(1);
+  expect(q.served.skill).not.toBe("a1");
+  // Every other section blocked → the height-3 card is the last resort.
+  const alone = pickClose(onlyH3, C, ctx({ blockedSections: ["u.t1/B"] }), cfg);
+  const a2Seen = { ...onlyH3, seen: [...onlyH3.seen, ...seenAll(["a2.h1.1", "a2.h1.2", "a2.h1.3", "a2.h2.1", "a2.h2.2", "a2.h2.3"], D - 1)] };
+  expect(alone!.served.height).toBe(1); // a2 (same section, ready) at height 1
+  expect(pickClose(a2Seen, C, ctx({ blockedSections: ["u.t1/B"] }), cfg)!.served).toMatchObject({ skill: "a1", height: 3 });
+});

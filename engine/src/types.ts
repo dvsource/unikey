@@ -127,11 +127,13 @@ export type Served = {
  * `strictBudget`: skip any candidate over `remaining`, even while today's effort is under `minimumDay`
  * (the session uses it to tell "nothing fits the budget" from "nothing to serve").
  * `excludeSkills`: skills not to serve now (a repaired skill waiting for its return).
+ * `recentCards`: card ids (any variant) not to serve now: the session's last `session.returnAfterCards` serves.
  */
 export type PickCtx = {
   day: number; remaining: number; runningRight: number; runningTotal: number;
   newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
   h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
+  recentCards?: string[];
 };
 
 export type Picked = { served: Served; rng: Rng };
