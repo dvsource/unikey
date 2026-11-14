@@ -5,7 +5,7 @@ import { defaultConfig, type Served } from "../src/index.js";
 import { loadFromRepo } from "../src/node/load.js";
 import { personas } from "../sim/personas.js";
 import { resolvePersona, type PersonaSpec } from "../sim/student.js";
-import { runStudent, personaSeed, SIM_START, type LogLine, type StudentLog } from "../sim/run.js";
+import { runStudent, personaSeed, deepMerge, recentWrongOf, DONT_KNOW_WEIGHT, SIM_START, type LogLine, type StudentLog } from "../sim/run.js";
 import { runChecks } from "../sim/checks.js";
 
 const byId = (id: string): PersonaSpec => personas.find((p) => p.id === id)!;
@@ -91,93 +91,171 @@ function mk(persona: string, lines: LogLine[], o: Partial<StudentLog> = {}): Stu
     contentExhausted: 0, ...o,
   };
 }
-const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up"];
+const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card"];
 function result(logs: StudentLog[], name: string) {
   const all = runChecks(logs, defaultConfig);
   expect(all.map((c) => c.name)).toEqual(NAMES);
   return all.find((c) => c.name === name)!;
 }
-const others = (logs: StudentLog[], name: string) =>
-  runChecks(logs, defaultConfig).filter((c) => c.name !== name).every((c) => c.pass);
+/** The named check fails, every other check passes (isolation); returns the failing detail. */
+function onlyFails(logs: StudentLog[], name: string): string {
+  const all = runChecks(logs, defaultConfig);
+  expect(all.map((c) => c.name)).toEqual(NAMES);
+  for (const c of all) expect(c.pass, `${c.name}: ${c.detail}`).toBe(c.name !== name);
+  const d = all.find((c) => c.name === name)!.detail;
+  expect(d).toMatch(/^\d+ violations?; first: /);
+  return d;
+}
+const allPass = (logs: StudentLog[]) => { for (const c of runChecks(logs, defaultConfig)) expect(c.pass, `${c.name}: ${c.detail}`).toBe(true); };
+const skipLine = (day: number, card: string, section: string, remindDay: number | null | undefined, o: Partial<LogLine> = {}): LogLine =>
+  ({ day, session: day + 1, n: 2, kind: "skip", served: sv(card, { section }), skipReason: "too-hard", ...(remindDay !== undefined ? { remindDay } : {}), hiddenFatigued: false, ...o });
+/** Days of cleanLines with the day-`d` card replaced by `served` (and `extra` fields). */
+function withCard(lines: LogLine[], d: number, served: Served, extra: Partial<LogLine> = {}): LogLine[] {
+  return lines.map((l) => (l.day === d && l.kind === "card" ? { ...l, served, ...extra } : l));
+}
+/** cleanLines with a skip of `section` (card `k<day>s`) inserted before the end of day `d`. */
+function withSkip(lines: LogLine[], d: number, section: string, remindDay: number | null | undefined, o: Partial<LogLine> = {}): LogLine[] {
+  const i = lines.findIndex((l) => l.day === d && l.kind === "end");
+  return [...lines.slice(0, i), skipLine(d, `k${d}s`, section, remindDay, o), ...lines.slice(i)];
+}
 
-test("each check catches a planted violation", () => {
+test("each check catches a planted violation, and only its own check fails", () => {
   const clean = [mk("strong", cleanLines(12)), mk("weak-stubborn", cleanLines(12, 8)), mk("weak-impatient", cleanLines(12, 8))];
-  for (const c of runChecks(clean, defaultConfig)) expect(c, c.name).toMatchObject({ pass: true });
+  allPass(clean);
 
   // end after wrong
   const wrong = cleanLines(12);
   wrong[4] = { ...wrong[4]!, right: false, choice: 1 };
-  let r = result([mk("strong", wrong)], "no-end-on-wrong");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong/);
-  expect(r.detail).toMatch(/day 1/);
-  expect(r.detail).toMatch(/c1/);
-  expect(others([mk("strong", wrong)], "no-end-on-wrong")).toBe(true);
+  let d = onlyFails([mk("strong", wrong)], "no-end-on-wrong");
+  expect(d).toMatch(/strong day 1 .*c1/);
   // ...but a student who walked out after a wrong answer is not the engine's end
   const left = cleanLines(12);
   left[4] = { ...left[4]!, right: false, choice: 1 };
   left[5] = { ...left[5]!, end: { ...end(5), kind: "left" } };
-  expect(result([mk("strong", left)], "no-end-on-wrong").pass).toBe(true);
+  allPass([mk("strong", left)]);
 
   // repeat on day 5 (c0 again, 5 days after day 0)
   const rep = cleanLines(12);
   rep[16] = { ...rep[16]!, served: sv("c0") };
-  r = result([mk("strong", rep)], "no-repeat-14d");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong.*day 5.*c0/);
-  // a different variant of the same card is fine
+  d = onlyFails([mk("strong", rep)], "no-repeat-14d");
+  expect(d).toMatch(/strong day 5.*c0/);
+  // a different variant of the same card on another day is fine
   rep[16] = { ...rep[16]!, served: sv("c0", { variant: 1 }) };
-  expect(result([mk("strong", rep)], "no-repeat-14d").pass).toBe(true);
+  allPass([mk("strong", rep)]);
 
   // 45 effort on one day
   const big = cleanLines(12);
   big[8] = { ...big[8]!, end: end(45) };
-  r = result([mk("strong", big)], "effort-cap-and-fairness");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong.*day 2.*45/);
+  d = onlyFails([mk("strong", big)], "effort-cap-and-fairness");
+  expect(d).toMatch(/strong day 2.*45/);
   // two sessions on one day adding to 41 also break the cap
-  const two = [...cleanLines(12, 10, 20).slice(0, 3), ...cleanLines(12, 10, 21).slice(0, 3).map((l) => ({ ...l, session: 99 }))];
-  expect(result([mk("strong", two)], "effort-cap-and-fairness").pass).toBe(false);
+  const two = [...cleanLines(1, 10, 20), ...cleanLines(1, 10, 21).map((l) => ({ ...l, session: 99, ...(l.served ? { served: sv("other") } : {}) }))];
+  onlyFails([mk("strong", two)], "effort-cap-and-fairness");
   // fairness: a weak student asked more than the strong one
-  r = result([mk("strong", cleanLines(12, 8)), mk("weak-stubborn", cleanLines(12, 12)), mk("weak-impatient", cleanLines(12, 8))], "effort-cap-and-fairness");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/weak-stubborn/);
-
-  // side door on day 1 after a skip on day 0 (remind day 3)
-  const sd = cleanLines(12);
-  sd.splice(2, 0, { day: 0, session: 1, n: 2, kind: "skip", served: sv("k0", { section: "B" }), skipReason: "too-hard", remindDay: 3, hiddenFatigued: false });
-  const onTime = sd.map((l) => l);
-  sd[5] = { ...sd[5]!, served: sv("k1", { section: "B", reason: "side-door" }) };
-  r = result([mk("strong", sd)], "skip-timing");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong.*day 1.*k1/);
-  // a drip card before the remind day is fine; the side door on day 3 is on time
-  sd[5] = { ...sd[5]!, served: sv("k1", { section: "B", reason: "skipped-drip" }) };
-  onTime[11] = { ...onTime[11]!, served: sv("k3", { section: "B", reason: "side-door" }) };
-  sd[11] = onTime[11]!;
-  expect(result([mk("strong", sd)], "skip-timing").pass).toBe(true);
-  // a skipped section that never comes back while the student plays on
-  r = result([mk("strong", [...onTime.slice(0, 11), ...cleanLines(18).slice(10)])], "skip-timing");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong.*B/);
-  // ...unless the student stopped playing before the cap
-  expect(result([mk("strong", onTime.slice(0, 11))], "skip-timing").pass).toBe(true);
+  d = onlyFails([mk("strong", cleanLines(12, 8)), mk("weak-stubborn", cleanLines(12, 12)), mk("weak-impatient", cleanLines(12, 8))], "effort-cap-and-fairness");
+  expect(d).toMatch(/weak-stubborn/);
 
   // hidden fatigue on 3 of 12 days (> 20%)
   const tired = cleanLines(12).map((l, i) => (l.kind === "card" && i < 9 ? { ...l, hiddenFatigued: true } : l));
-  r = result([mk("strong", tired)], "ends-before-fade");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong.*3.*12/);
-  const twoTired = cleanLines(12).map((l, i) => (l.kind === "card" && i < 6 ? { ...l, hiddenFatigued: true } : l));
-  expect(result([mk("strong", twoTired)], "ends-before-fade").pass).toBe(true);
+  d = onlyFails([mk("strong", tired)], "ends-before-fade");
+  expect(d).toMatch(/strong.*3 of 12/);
+  allPass([mk("strong", cleanLines(12).map((l, i) => (l.kind === "card" && i < 6 ? { ...l, hiddenFatigued: true } : l)))]);
 
   // flat knowledge
-  r = result([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })], "knowledge-up");
-  expect(r.pass).toBe(false);
-  expect(r.detail).toMatch(/strong/);
+  d = onlyFails([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })], "knowledge-up");
+  expect(d).toMatch(/strong/);
   // not required for a student who quit the app, or who played fewer than 10 days
-  expect(result([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 }, quitAppDay: 11 })], "knowledge-up").pass).toBe(true);
-  expect(result([mk("strong", cleanLines(9), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })], "knowledge-up").pass).toBe(true);
+  allPass([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 }, quitAppDay: 11 })]);
+  allPass([mk("strong", cleanLines(9), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })]);
+
+  // the same card again two serves later in one session (another variant, so no-repeat-14d is untouched)
+  const b2b = cleanLines(12);
+  const i3 = b2b.findIndex((l) => l.day === 3 && l.kind === "card");
+  const day3 = (cards: Served[]): LogLine[] => cards.map((s, j) => ({ ...b2b[i3]!, n: j + 1, served: s }));
+  const x0 = sv("x", { variant: 0 }), x1 = sv("x", { variant: 1 });
+  const near = [...b2b.slice(0, i3), ...day3([x0, sv("y1"), x1]), ...b2b.slice(i3 + 1)];
+  d = onlyFails([mk("strong", near)], "no-back-to-back-card");
+  expect(d).toMatch(/strong day 3 .*x/);
+  // five serves apart is fine
+  allPass([mk("strong", [...b2b.slice(0, i3), ...day3([x0, sv("y1"), sv("y2"), sv("y3"), sv("y4"), x1]), ...b2b.slice(i3 + 1)])]);
+  // a skip counts as a serve too
+  const nearSkip = [...b2b.slice(0, i3), ...day3([x0]), { ...b2b[i3]!, n: 2, kind: "skip" as const, served: { ...x1, section: "Z" }, remindDay: 6, skipReason: "too-hard" as const }, ...b2b.slice(i3 + 1)];
+  expect(result([mk("strong", nearSkip)], "no-back-to-back-card").pass).toBe(false);
+});
+
+test("skip-timing checks remind days against skipRemindDays, not the engine's own word", () => {
+  const plays = cleanLines(22);
+  // on time: skip day 0 (count 1 → 3 days), side door on day 3 skipped again (count 2 → +5 = day 8),
+  // side door on day 8 answered right (back: count resets), skip day 10 (count 1 → day 13), side door day 13
+  let on = withSkip(plays, 0, "B", 3);
+  on = withCard(on, 3, sv("k3", { section: "B", reason: "side-door" }));
+  on = on.map((l) => (l.day === 3 && l.kind === "card" ? { ...l, kind: "skip" as const, remindDay: 8, skipReason: "too-hard" as const, choice: undefined, right: undefined, ms: undefined } : l));
+  on = withCard(on, 8, sv("k8", { section: "B", reason: "side-door" }));
+  on = withSkip(on, 10, "B", 13);
+  on = withCard(on, 13, sv("k13", { section: "B", reason: "side-door" }));
+  allPass([mk("strong", on)]);
+
+  // a remind day sooner than the schedule (skipDay + 1), even if the engine kept to it
+  let d = onlyFails([mk("strong", withSkip(plays, 0, "B", 1))], "skip-timing");
+  expect(d).toMatch(/strong day 0 .*B.*remind day 1.*expected 3/);
+  // the second skip must use the second gap: day 3 + 3 is too early
+  const second = on.map((l) => (l.day === 3 && l.kind === "skip" ? { ...l, remindDay: 6 } : l));
+  expect(onlyFails([mk("strong", second)], "skip-timing")).toMatch(/day 3 .*expected 8/);
+  // a null or missing remind day on a skip
+  expect(onlyFails([mk("strong", withSkip(plays, 0, "B", null))], "skip-timing")).toMatch(/no remind day/);
+  onlyFails([mk("strong", withSkip(plays, 0, "B", undefined))], "skip-timing");
+
+  // a card from the section before its remind day (the side door on day 1)
+  d = onlyFails([mk("strong", withCard(withSkip(plays, 0, "B", 3), 1, sv("k1", { section: "B", reason: "side-door" })))], "skip-timing");
+  expect(d).toMatch(/strong day 1 .*k1/);
+  // a drip card is allowed before the remind day
+  allPass([mk("strong", withCard(withCard(withSkip(plays, 0, "B", 3), 1, sv("k1", { section: "B", reason: "skipped-drip" })), 3, sv("k3", { section: "B", reason: "side-door" })))]);
+
+  // class timing: a not-learned skip may come back through the side door from skipDay + classReturnMinDays
+  const cls = plays.map((l) => (l.kind === "start" ? { ...l, topic: { id: "T", source: "class" as const } } : l));
+  const early = (reason: "not-learned" | "later", day: number) =>
+    withCard(withSkip(cls, 0, "T/B", 3, { skipReason: reason }), day, sv(`k${day}`, { section: "T/B", reason: "side-door" }));
+  allPass([mk("strong", early("not-learned", 2))]);
+  expect(onlyFails([mk("strong", early("not-learned", 1))], "skip-timing")).toMatch(/day 1 .*k1/); // too soon even for class timing
+  expect(onlyFails([mk("strong", early("later", 2))], "skip-timing")).toMatch(/day 2 .*k2/); // only not-learned skips
+  // a student-chosen topic does not bring it forward
+  const own = withCard(withSkip(plays.map((l) => (l.kind === "start" ? { ...l, topic: { id: "T", source: "student" as const } } : l)), 0, "T/B", 3, { skipReason: "not-learned" }), 2, sv("k2", { section: "T/B", reason: "side-door" }));
+  onlyFails([mk("strong", own)], "skip-timing");
+
+  // never back: skipped on day 0, the student plays on to day 21
+  d = onlyFails([mk("strong", withSkip(plays, 0, "B", 3))], "skip-timing");
+  expect(d).toMatch(/strong day 0 .*section B .*no side door by day 14/);
+  // ...unless the student stopped playing before the cap
+  allPass([mk("strong", withSkip(cleanLines(12), 0, "B", 3), { knowledge: { day0: 0.4, day14: 0.5, dayEnd: 0.5 } })]);
+  // a side door on day 15 (the student skipped day 14) is the first played day at the cap: on time
+  const gap = withSkip(plays.filter((l) => l.day !== 14), 0, "B", 3);
+  allPass([mk("strong", withCard(gap, 15, sv("k15", { section: "B", reason: "side-door" })))]);
+  onlyFails([mk("strong", withCard(gap, 16, sv("k16", { section: "B", reason: "side-door" })))], "skip-timing");
+});
+
+test("deepMerge (--config): objects merge, arrays and values replace", () => {
+  const cfg = deepMerge(defaultConfig, { budget: { dailyCap: 10 }, skipRemindDays: [1, 2], noRepeatDays: 7, extra: { a: 1 } });
+  expect(cfg.budget).toEqual({ ...defaultConfig.budget, dailyCap: 10 });
+  expect(cfg.skipRemindDays).toEqual([1, 2]);
+  expect(cfg.noRepeatDays).toBe(7);
+  expect(cfg.effort).toEqual(defaultConfig.effort);
+  expect((cfg as unknown as { extra: unknown }).extra).toEqual({ a: 1 });
+  expect(defaultConfig.budget.dailyCap).toBe(40); // the default is not changed
+  expect(deepMerge(defaultConfig, undefined)).toBe(defaultConfig);
+});
+
+test("runner: quit reasons are logged; I don't know weighs half toward recentWrong", () => {
+  const content = fixture();
+  const log = runStudent(byId("steady-five-min"), content, opts(4, 5));
+  const quits = log.lines.filter((l) => l.kind === "quit");
+  expect(quits.length).toBeGreaterThan(0);
+  for (const q of quits) expect(["time-up", "frustration", "fatigue"]).toContain(q.quitReason);
+  expect(quits.some((q) => q.quitReason === "time-up")).toBe(true);
+  expect(log.quitAppDay).toBeNull(); // time-up quits are not bad sessions
+  expect(DONT_KNOW_WEIGHT).toBe(0.5);
+  expect(recentWrongOf([true, false, "dk", "dk"], 8)).toBe(2);
+  expect(recentWrongOf([false, false, false, true, true], 2)).toBe(0);
+  expect(recentWrongOf(["dk", "dk", "dk"], 2)).toBe(1);
 });
 
 test("real content, 3 personas, 10 days: no throw; checks run", () => {

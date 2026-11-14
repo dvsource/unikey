@@ -8,7 +8,7 @@ import {
 } from "../src/index.js";
 import {
   decay, decide, learn, meanKnowledge, newHidden, playsToday, resolvePersona, sessionEnded, wantsExtend,
-  type Hidden, type Persona, type PersonaSpec, type Traits,
+  type Hidden, type Persona, type PersonaSpec, type QuitReason, type Traits,
 } from "./student.js";
 
 /** Simulated day 0: 2027-01-18 18:00 Sri Lanka time. */
@@ -17,8 +17,18 @@ export const SIM_START = Date.UTC(2027, 0, 18, 12, 30);
 export const SESSION_GAP_MS = 3 * 3_600_000;
 /** Time a "Not now" tap takes. */
 export const SKIP_MS = 3000;
-/** "Wrong answers close together": wrongs (and "I don't know") among this many last answers of the session. */
-export const RECENT_WINDOW = 8;
+/**
+ * How much one "I don't know" adds to the hidden student's `recentWrong` (a wrong answer adds 1). It carries no
+ * negative message in the app, so it frustrates less. The window is the last `badDay.withinCards` answers.
+ */
+export const DONT_KNOW_WEIGHT = 0.5;
+
+/** One answer of the session for `recentWrong`: right, wrong, or "I don't know". */
+export type RecentAnswer = boolean | "dk";
+/** "Wrong answers close together": wrongs (1 each) and "I don't know" (`DONT_KNOW_WEIGHT`) among the last `window` answers. */
+export function recentWrongOf(answers: RecentAnswer[], window: number): number {
+  return answers.slice(-window).reduce((a, x) => a + (x === "dk" ? DONT_KNOW_WEIGHT : x ? 0 : 1), 0);
+}
 /** Safety stop: more steps than this in one session is a runner or engine bug. */
 const MAX_STEPS = 1000;
 
@@ -45,6 +55,8 @@ export type LogLine = {
   kBefore?: number; kAfter?: number;
   /** card: the wrong option's error tag, if any. */
   tag?: string;
+  /** quit: why the hidden student walked out. */
+  quitReason?: QuitReason;
 };
 
 export type StudentLog = {
@@ -122,8 +134,8 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
   let h = h0;
   let now = startAt;
   let n = 0;
-  let quit = false;
-  const recent: boolean[] = [];
+  let quit: QuitReason | null = null;
+  const recent: RecentAnswer[] = [];
   const log = (l: Omit<LogLine, "day" | "session" | "n">) => lines.push({ day, session, n, ...l });
   const logMoments = (st: Step) => { for (const m of st.moments) log({ kind: "moment", moment: m }); };
 
@@ -138,11 +150,11 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     const nx = st.next;
     if (nx.kind === "end") {
       log({ kind: "end", end: nx.end });
-      if (started) h = sessionEnded(h, quit);
+      if (started) h = quit === null ? sessionEnded(h, false) : sessionEnded(h, true, quit);
       return { state: st.state, hidden: h, end: nx.end };
     }
     if (nx.kind === "offer-extend") {
-      const [want, h2] = wantsExtend(h);
+      const [want, h2] = wantsExtend(h, st.state.session?.spent ?? 0);
       h = h2;
       log({ kind: "offer-extend", accepted: want });
       st = want ? extend(st.state, content, now, cfg) : endSession(st.state, content, now, cfg);
@@ -153,13 +165,13 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     n += 1;
     const effort = st.state.session?.spent ?? 0;
     const hiddenFatigued = effort > h.traits.stamina;
-    const recentWrong = recent.slice(-RECENT_WINDOW).filter((r) => !r).length;
+    const recentWrong = recentWrongOf(recent, cfg.badDay.withinCards);
     const out = decide(h, content, sv, { effort, recentWrong }, day);
     h = out.hidden;
     const a = out.action;
     if (a.kind === "quit") {
-      log({ kind: "quit", served: sv, hiddenFatigued });
-      quit = true;
+      log({ kind: "quit", served: sv, quitReason: a.reason, hiddenFatigued });
+      quit = a.reason;
       st = endSession(st.state, content, now, cfg, { left: true });
       continue;
     }
@@ -182,7 +194,7 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     const right = st.feedback.right;
     const tag = st.feedback.tag;
     h = learn(h, sv, right, day, tag);
-    recent.push(right);
+    recent.push(a.choice === "dont-know" ? "dk" : right);
     log({ kind: "card", served: sv, choice: a.choice, right, ms: a.ms, hiddenFatigued, kBefore, kAfter: h.k[sv.skill] ?? 0, ...(tag !== undefined ? { tag } : {}) });
   }
 }

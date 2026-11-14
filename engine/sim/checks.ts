@@ -45,16 +45,23 @@ function noEndOnWrong(logs: StudentLog[]): CheckResult {
 }
 
 /**
- * No card from a skipped section before its remind day (drip cards excepted; a side door brought forward by class
- * timing, spec §6, is on time), and every skip is followed by a side door for its section by the first played day
- * on or after the cap (skip day + the last remind gap), when the student plays that late.
+ * Skips, checked against the schedule rather than the engine's word:
+ * - every non-drip skip has a remind day exactly `skipRemindDays[min(count − 1, last)]` after the skip day, where
+ *   `count` is the section's skip count tracked from the log (reset, as in the engine, when the section has come back
+ *   through the side door and is then answered right);
+ * - no card from the section before that remind day, except drip cards, and a side door brought forward by class
+ *   timing (spec §6: a not-learned skip, the class topic contains the section, from skip day + `classReturnMinDays`);
+ * - every skip is followed by a side door for its section by the first played day on or after skip day + the last
+ *   remind gap (the cap), when the student plays that late.
  */
 function skipTiming(logs: StudentLog[], cfg: Config): CheckResult {
   const bad: string[] = [];
-  const cap = Math.max(...cfg.skipRemindDays);
+  const gaps = cfg.skipRemindDays;
+  const cap = Math.max(...gaps);
   let skips = 0;
   for (const log of logs) {
-    const blocks = new Map<string, { remind: number; skipDay: number; reason: string | undefined }>();
+    const blocks = new Map<string, { remind: number; skipDay: number; reason: string }>();
+    const sec = new Map<string, { count: number; returned: boolean }>();
     let topic: LogLine["topic"] = null;
     const played = playedDays(log);
     log.lines.forEach((l, i) => {
@@ -70,16 +77,56 @@ function skipTiming(logs: StudentLog[], cfg: Config): CheckResult {
         if (classEarly) blocks.delete(sv.section);
         else bad.push(`${where(log, l)}: ${sv.card} (${sv.reason}) from skipped section ${sv.section} before its remind day ${b.remind}`);
       }
+      const rec = sec.get(sv.section) ?? { count: 0, returned: false };
+      if (l.kind === "card") { // the engine's afterSectionAnswer
+        if (sv.reason === "side-door" && rec.count > 0 && !rec.returned) rec.returned = true;
+        if (l.right === true && rec.returned && rec.count > 0) rec.count = 0;
+        sec.set(sv.section, rec);
+        return;
+      }
       if (l.kind !== "skip" || sv.reason === "skipped-drip") return;
       skips++;
-      if (l.remindDay !== undefined && l.remindDay !== null) blocks.set(sv.section, { remind: l.remindDay, skipDay: l.day, reason: l.skipReason });
+      rec.count += 1;
+      rec.returned = false;
+      sec.set(sv.section, rec);
+      const want = l.day + gaps[Math.min(rec.count - 1, gaps.length - 1)]!;
+      const reason = l.skipReason ?? "later";
+      if (l.remindDay === undefined || l.remindDay === null) {
+        bad.push(`${where(log, l)}: section ${sv.section} skipped (${sv.card}, skip ${rec.count}) with no remind day (expected ${want})`);
+        blocks.set(sv.section, { remind: want, skipDay: l.day, reason });
+      } else {
+        if (l.remindDay !== want) bad.push(`${where(log, l)}: section ${sv.section} skipped (${sv.card}, skip ${rec.count}): remind day ${l.remindDay}, expected ${want}`);
+        blocks.set(sv.section, { remind: Math.max(l.remindDay, want), skipDay: l.day, reason });
+      }
       const deadline = played.find((d) => d >= l.day + cap);
       if (deadline === undefined) return; // the student stopped playing before the cap
       const back = log.lines.slice(i + 1).some((x) => x.day <= deadline && isServe(x) && x.served!.section === sv.section && x.served!.reason === "side-door");
       if (!back) bad.push(`${where(log, l)}: section ${sv.section} skipped (${sv.card}) and no side door by day ${deadline}`);
     });
   }
-  return verdict("skip-timing", bad, `${skips} skips, all kept away until their remind day and back by the cap`);
+  return verdict("skip-timing", bad, `${skips} skips, remind days on schedule, kept away until then and back by the cap`);
+}
+
+/** Within one session, the same card (any variant) is not served again within the next `session.returnAfterCards` serves. */
+function noBackToBack(logs: StudentLog[], cfg: Config): CheckResult {
+  const bad: string[] = [];
+  const gap = cfg.session.returnAfterCards;
+  let serves = 0;
+  for (const log of logs) {
+    let session = -1;
+    let recent: string[] = [];
+    for (const l of log.lines) {
+      if (!isServe(l)) continue;
+      if (l.session !== session) { session = l.session; recent = []; }
+      serves++;
+      const card = l.served!.card;
+      const j = recent.lastIndexOf(card);
+      if (j >= 0 && recent.length - j <= gap)
+        bad.push(`${where(log, l)}: ${card} (${l.served!.reason}) again ${recent.length - j} serve${recent.length - j > 1 ? "s" : ""} after the last`);
+      recent.push(card);
+    }
+  }
+  return verdict("no-back-to-back-card", bad, `${serves} serves, no card again within ${gap} serves in a session`);
 }
 
 /** Mean over played days of the day's asked effort (the sum of session budgets at start). */
@@ -171,6 +218,6 @@ function knowledgeUp(logs: StudentLog[]): CheckResult {
 export function runChecks(logs: StudentLog[], cfg: Config): CheckResult[] {
   return [
     noEndOnWrong(logs), skipTiming(logs, cfg), effortCapAndFairness(logs, cfg),
-    noRepeat(logs, cfg), endsBeforeFade(logs), knowledgeUp(logs),
+    noRepeat(logs, cfg), endsBeforeFade(logs), knowledgeUp(logs), noBackToBack(logs, cfg),
   ];
 }
