@@ -1,27 +1,53 @@
 # First tuning pass (Task 11): 28-day runs, seeds 1–3
 
-_Date: 2026-11-14. Command: `npm run sim -- --days 28 --seed N --packs all --out runs/<name>`. 16 personas, all three content packs. The `runs/` folders are not committed; every number below can be reproduced from the commits listed here._
+_Date: 2026-11-14. Command: `npm run sim -- --days 28 --seed N --packs all --out runs/<name>`. 16 personas, all three content packs._
 
+`runs/` is not committed. Every number below can be reproduced from the commits and the scripts in `engine/sim/tools/`:
+
+| script | what it reports |
+|---|---|
+| `personas.mjs` | per-persona tables |
+| `end-on-wrong.mjs` | classifies the no-end-on-wrong violations and the close loop |
+| `heights.mjs` | heights by week, close accuracy, height-up moments |
+| `fatigue.mjs` | days past the hidden stamina, by card reason |
+| `distraction.mjs` | stamina after sessions with one slow answer |
+| `h1-left.ts` | height-1 supply at each height-2 close card |
+| `day.mjs` | one day of one log |
+
+The scripts only read run folders. They do not change `run.ts` or `checks.ts`.
+
+**Runs:**
 - **Before:** `runs/t0-sN`, engine at `bcfb4de`.
-- **After R1–R5 and R7:** `runs/t1-sN`.
-- **After the side-door cap fix:** `runs/t2-sN`.
-- **After the fade numbers (final):** `runs/t3-sN`, engine at `1b2fdf8`.
+- **First pass, final:** `runs/t3-sN`, at `1b2fdf8`. Its numbers are kept below as history.
+- **Fix round 1 (current):** `runs/f2-sN`, at `745a035`. Round 1 of fix round 1 is `runs/f1-sN`.
 
-## Summary
+## Summary (current: fix round 1)
 
-| seed | before: pass / fail | after: pass / fail | still failing |
+| seed | before: pass / fail | first pass | fix round 1 | still failing |
+|---|---|---|---|---|
+| 1 | 3 / 4 | 6 / 1 | **6 / 1** | no-end-on-wrong 8 |
+| 2 | 2 / 5 | 6 / 1 | **6 / 1** | no-end-on-wrong 12 |
+| 3 | 3 / 4 | 6 / 1 | **5 / 2** | no-end-on-wrong 8; ends-before-fade (weak-impatient, 1 of its 2 days) |
+
+- **Every remaining no-end-on-wrong violation is the `maxExtraClose` last resort:** the close card and both extra close cards were wrong. 26 of the 28 are weak-stubborn; fast-guesser has the other 2.
+- **On weak-stubborn's late sessions all height-1 cards are used up.** The content has 53 height-1 cards, each with one variant, and none may come back within 14 days. weak-stubborn has served all 53 by then, so its close cards fall back to height 2. Its close cards are right about 55% of the time at h1 and 0–7% at h2.
+- **`maxExtraClose` was not changed.** That decision goes to the owner.
+
+**Effort spent per session (current):**
+
+| | seed 1 | seed 2 | seed 3 |
 |---|---|---|---|
-| 1 | 3 / 4 | 6 / 1 | no-end-on-wrong (10) |
-| 2 | 2 / 5 | 6 / 1 | no-end-on-wrong (8) |
-| 3 | 3 / 4 | 6 / 1 | no-end-on-wrong (10) |
+| strong | 19.1 | 18.7 | 13.2 |
+| weak-stubborn | 10.7 | 11.2 | 11.5 |
+| weak-impatient | 5.8 | 7.2 | 8.0 |
 
-Every remaining no-end-on-wrong violation is one documented last resort: the close card and both extra close cards (`sessionEnd.maxExtraClose` 2) were all answered wrong. weak-stubborn accounts for 20 of the 28. See "What still fails" below.
+The weak personas no longer spend more than strong. In the first pass strong spent 11.1 / 12.1 / 14.9 against weak-stubborn's 12.4 / 12.5 / 13.0.
 
-## The checks table per seed
+## Checks per seed
 
 ### Seed 1
 
-Before (`runs/t0-s1`, engine at bcfb4de):
+Before (`runs/t0-s1`):
 
 | check | result | detail |
 |---|---|---|
@@ -33,7 +59,7 @@ Before (`runs/t0-s1`, engine at bcfb4de):
 | knowledge-up | FAIL | 1 violation; first: underconfident-skipper: knowledge 0.650 → 0.643 after 28 days played |
 | no-back-to-back-card | FAIL | 395 violations; first: average-noclass day 1 session 2: phy.elec.b01 (close:winnable) again 2 serves after the last |
 
-After (`runs/t3-s1`, final engine):
+First pass, final (`runs/t3-s1`):
 
 | check | result | detail |
 |---|---|---|
@@ -45,9 +71,21 @@ After (`runs/t3-s1`, final engine):
 | knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge |
 | no-back-to-back-card | PASS | 2549 serves, no card again within 4 serves in a session |
 
+Fix round 1 (`runs/f2-s1`, current):
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 8 violations; first: weak-stubborn day 0 session 1: ended (budget) after a wrong answer on phy.elec.c046 |
+| skip-timing | PASS | 32 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 29.5 ≤ 40; mean asked/day strong 17.23, weak-stubborn 10.32, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2694 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 14% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge |
+| no-back-to-back-card | PASS | 2694 serves, no card again within 4 serves in a session |
+
 ### Seed 2
 
-Before (`runs/t0-s2`, engine at bcfb4de):
+Before (`runs/t0-s2`):
 
 | check | result | detail |
 |---|---|---|
@@ -59,7 +97,7 @@ Before (`runs/t0-s2`, engine at bcfb4de):
 | knowledge-up | FAIL | 1 violation; first: underconfident-skipper: knowledge 0.650 → 0.636 after 28 days played |
 | no-back-to-back-card | FAIL | 416 violations; first: average-noclass day 4 session 5: phy.mech.t02 (repair:missing-piece) again 1 serve after the last |
 
-After (`runs/t3-s2`, final engine):
+First pass, final (`runs/t3-s2`):
 
 | check | result | detail |
 |---|---|---|
@@ -71,9 +109,21 @@ After (`runs/t3-s2`, final engine):
 | knowledge-up | PASS | 14 students kept practising, all ended above their day-0 knowledge |
 | no-back-to-back-card | PASS | 2536 serves, no card again within 4 serves in a session |
 
+Fix round 1 (`runs/f2-s2`, current):
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 12 violations; first: weak-stubborn day 7 session 8: ended (budget) after a wrong answer on phy.therm.c030 |
+| skip-timing | PASS | 34 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 32.5 ≤ 40; mean asked/day strong 17.56, weak-stubborn 9.64, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2755 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 14% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge |
+| no-back-to-back-card | PASS | 2755 serves, no card again within 4 serves in a session |
+
 ### Seed 3
 
-Before (`runs/t0-s3`, engine at bcfb4de):
+Before (`runs/t0-s3`):
 
 | check | result | detail |
 |---|---|---|
@@ -85,7 +135,7 @@ Before (`runs/t0-s3`, engine at bcfb4de):
 | knowledge-up | PASS | 13 students kept practising, all ended above their day-0 knowledge |
 | no-back-to-back-card | FAIL | 413 violations; first: average-noclass day 2 session 3: phy.mech.t02 (close:winnable) again 2 serves after the last |
 
-After (`runs/t3-s3`, final engine):
+First pass, final (`runs/t3-s3`):
 
 | check | result | detail |
 |---|---|---|
@@ -97,249 +147,245 @@ After (`runs/t3-s3`, final engine):
 | knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge |
 | no-back-to-back-card | PASS | 2586 serves, no card again within 4 serves in a session |
 
-## Per persona (after)
+Fix round 1 (`runs/f2-s3`, current):
 
-### Seed 1 (after)
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 8 violations; first: weak-stubborn day 8 session 9: ended (budget) after a wrong answer on phy.elec.c045 |
+| skip-timing | PASS | 16 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 27.5 ≤ 40; mean asked/day strong 12.31, weak-stubborn 10.55, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2559 serves, no variant repeated within 14 days |
+| ends-before-fade | FAIL | 1 violation; first: weak-impatient: 1 of 2 days past hidden stamina (first weak-impatient day 1 session 2, phy.elec.c039) |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge |
+| no-back-to-back-card | PASS | 2559 serves, no card again within 4 serves in a session |
 
-| persona | days | quit day | sess | cards/s | effort/s | success | k day0→end | final profile (comfort, memory, h3Share, stamina) | hidden stamina | fatigued days | CE | skips |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| average-fastclass | 28 | - | 28 | 6.3 | 10.5 | 70% | 0.400→0.489 | c0.75 m0.60 h3 0.40 st 13.8 | 14 | 0 | 0 | 5 |
-| average-noclass | 28 | - | 28 | 6.8 | 11.8 | 77% | 0.400→0.479 | c0.71 m0.77 h3 0.40 st 15.3 | 14 | 1 | 0 | 1 |
-| binge-quit | 14 | - | 20 | 6.3 | 10.4 | 75% | 0.400→0.461 | c0.76 m0.50 h3 0.40 st 13.4 | 30 | 0 | 0 | 0 |
-| calc-strong-memory-poor | 28 | - | 28 | 6.4 | 11.2 | 73% | 0.500→0.549 | c0.76 m0.55 h3 0.40 st 13.3 | 14 | 2 | 0 | 0 |
-| comeback-10 | 18 | - | 18 | 6.4 | 10.6 | 77% | 0.450→0.497 | c0.73 m0.68 h3 0.40 st 14.3 | 14 | 0 | 0 | 0 |
-| confident-misconceptions | 28 | - | 28 | 5.9 | 10.9 | 74% | 0.500→0.558 | c0.72 m0.50 h3 0.50 st 15.3 | 16 | 0 | 0 | 0 |
-| fast-guesser | 28 | - | 28 | 6.5 | 11.9 | 57% | 0.300→0.355 | c0.75 m0.50 h3 0.40 st 13.3 | 18 | 0 | 0 | 0 |
-| memory-good-calc-weak | 28 | - | 28 | 7.4 | 12.3 | 86% | 0.500→0.579 | c0.69 m1.34 h3 0.40 st 15.8 | 14 | 4 | 0 | 8 |
-| one-feared-section | 28 | - | 28 | 6.3 | 11.1 | 82% | 0.464→0.522 | c0.72 m1.48 h3 0.20 st 14.3 | 14 | 0 | 0 | 9 |
-| slow-reader | 28 | - | 28 | 5.8 | 9.8 | 72% | 0.450→0.518 | c0.76 m0.50 h3 0.40 st 12.1 | 10 | 5 | 0 | 4 |
-| smart-impatient | 14 | - | 14 | 4.9 | 8.6 | 93% | 0.700→0.719 | c0.76 m1.50 h3 0.50 st 11.4 | 10 | 0 | 0 | 0 |
-| steady-five-min | 28 | - | 28 | 6.0 | 10.6 | 72% | 0.400→0.476 | c0.80 m0.50 h3 0.40 st 12.3 | 12 | 1 | 0 | 2 |
-| strong | 28 | - | 28 | 6.1 | 11.1 | 94% | 0.800→0.831 | c0.66 m2.00 h3 0.40 st 15.8 | 25 | 0 | 0 | 0 |
-| underconfident-skipper | 28 | - | 28 | 6.6 | 10.7 | 88% | 0.650→0.690 | c0.67 m1.00 h3 0.50 st 14.3 | 12 | 2 | 0 | 18 |
-| weak-impatient | 2 | 1 | 2 | 3.5 | 5.8 | 14% | 0.150→0.151 | c0.81 m1.00 h3 0.40 st 8.9 | 9 | 0 | 0 | 2 |
-| weak-stubborn | 28 | - | 28 | 7.4 | 12.4 | 36% | 0.150→0.259 | c0.75 m0.50 h3 0.40 st 13.3 | 14 | 1 | 0 | 0 |
+## Per persona (current, fix round 1)
 
-### Seed 2 (after)
+### Seed 1
 
 | persona | days | quit day | sess | cards/s | effort/s | success | k day0→end | final profile (comfort, memory, h3Share, stamina) | hidden stamina | fatigued days | CE | skips |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| average-fastclass | 28 | - | 28 | 6.4 | 11.2 | 72% | 0.400→0.483 | c0.76 m0.51 h3 0.40 st 14.7 | 14 | 0 | 0 | 6 |
-| average-noclass | 28 | - | 28 | 6.4 | 10.7 | 77% | 0.400→0.478 | c0.72 m0.71 h3 0.40 st 14.3 | 14 | 0 | 0 | 3 |
-| binge-quit | 5 | 4 | 10 | 5.9 | 10.3 | 68% | 0.400→0.426 | c0.81 m0.76 h3 0.40 st 11.1 | 30 | 0 | 0 | 1 |
-| calc-strong-memory-poor | 28 | - | 28 | 6.1 | 10.7 | 75% | 0.500→0.535 | c0.82 m0.82 h3 0.40 st 12.9 | 14 | 1 | 0 | 0 |
-| comeback-10 | 18 | - | 18 | 6.3 | 10.2 | 73% | 0.450→0.497 | c0.78 m0.91 h3 0.40 st 13.7 | 14 | 0 | 0 | 4 |
-| confident-misconceptions | 28 | - | 28 | 6.6 | 11.4 | 77% | 0.500→0.562 | c0.72 m0.61 h3 0.40 st 14.3 | 16 | 1 | 0 | 0 |
-| fast-guesser | 28 | - | 28 | 6.6 | 11.9 | 60% | 0.300→0.355 | c0.75 m0.50 h3 0.40 st 13.3 | 18 | 0 | 0 | 0 |
-| memory-good-calc-weak | 28 | - | 28 | 6.8 | 11.0 | 88% | 0.500→0.573 | c0.68 m1.43 h3 0.40 st 15.3 | 14 | 1 | 0 | 10 |
-| one-feared-section | 28 | - | 28 | 6.6 | 11.1 | 81% | 0.464→0.527 | c0.71 m0.85 h3 0.40 st 14.8 | 14 | 0 | 0 | 9 |
-| slow-reader | 28 | - | 28 | 5.5 | 9.5 | 74% | 0.450→0.511 | c0.74 m0.70 h3 0.40 st 13.2 | 10 | 1 | 0 | 3 |
-| smart-impatient | 14 | - | 14 | 5.4 | 8.9 | 88% | 0.700→0.721 | c0.83 m1.09 h3 0.40 st 10.2 | 10 | 1 | 0 | 0 |
-| steady-five-min | 28 | - | 28 | 6.3 | 10.6 | 77% | 0.400→0.476 | c0.78 m1.00 h3 0.40 st 14.6 | 12 | 1 | 0 | 1 |
-| strong | 28 | - | 28 | 7.1 | 12.1 | 98% | 0.800→0.835 | c0.66 m1.70 h3 0.20 st 17.3 | 25 | 0 | 0 | 0 |
-| underconfident-skipper | 28 | - | 28 | 6.9 | 11.0 | 86% | 0.650→0.693 | c0.73 m0.85 h3 0.40 st 15.1 | 12 | 2 | 0 | 10 |
-| weak-impatient | 2 | 1 | 2 | 3.5 | 5.8 | 14% | 0.150→0.152 | c0.81 m1.00 h3 0.40 st 8.9 | 9 | 0 | 0 | 3 |
-| weak-stubborn | 28 | - | 28 | 7.7 | 12.5 | 40% | 0.150→0.266 | c0.75 m0.50 h3 0.40 st 13.3 | 14 | 0 | 0 | 0 |
+| average-fastclass | 28 | - | 28 | 6.9 | 10.3 | 79% | 0.400→0.482 | c0.72 m0.66 h3 0.40 st 13.7 | 14 | 0 | 0 | 3 |
+| average-noclass | 28 | - | 28 | 6.2 | 10.2 | 82% | 0.400→0.471 | c0.70 m0.57 h3 0.40 st 12.3 | 14 | 1 | 0 | 2 |
+| binge-quit | 14 | - | 20 | 7.3 | 11.3 | 80% | 0.400→0.455 | c0.78 m0.57 h3 0.40 st 10.6 | 30 | 0 | 0 | 0 |
+| calc-strong-memory-poor | 28 | - | 28 | 6.0 | 9.8 | 77% | 0.500→0.525 | c0.73 m0.50 h3 0.40 st 10.3 | 14 | 0 | 0 | 0 |
+| comeback-10 | 18 | - | 18 | 6.3 | 9.6 | 84% | 0.450→0.484 | c0.72 m0.89 h3 0.40 st 10.3 | 14 | 1 | 0 | 1 |
+| confident-misconceptions | 28 | - | 28 | 7.2 | 11.6 | 81% | 0.500→0.565 | c0.71 m0.64 h3 0.40 st 15.3 | 16 | 2 | 0 | 0 |
+| fast-guesser | 28 | - | 28 | 6.8 | 11.0 | 62% | 0.300→0.343 | c0.75 m0.50 h3 0.40 st 9.9 | 18 | 1 | 0 | 0 |
+| memory-good-calc-weak | 28 | - | 28 | 6.2 | 9.8 | 89% | 0.500→0.565 | c0.67 m0.77 h3 0.50 st 13.3 | 14 | 0 | 0 | 8 |
+| one-feared-section | 28 | - | 28 | 6.9 | 10.9 | 83% | 0.464→0.527 | c0.71 m0.65 h3 0.40 st 14.3 | 14 | 1 | 0 | 8 |
+| slow-reader | 28 | - | 28 | 5.6 | 8.6 | 81% | 0.450→0.507 | c0.70 m0.53 h3 0.40 st 9.3 | 10 | 0 | 0 | 1 |
+| smart-impatient | 14 | - | 14 | 6.4 | 9.6 | 99% | 0.700→0.724 | c0.71 m2.00 h3 0.40 st 13.3 | 10 | 1 | 0 | 0 |
+| steady-five-min | 28 | - | 28 | 6.2 | 10.1 | 82% | 0.400→0.469 | c0.71 m0.54 h3 0.40 st 10.2 | 12 | 0 | 0 | 3 |
+| strong | 28 | - | 28 | 11.0 | 19.1 | 95% | 0.800→0.845 | c0.66 m2.00 h3 0.40 st 23.3 | 25 | 4 | 0 | 0 |
+| underconfident-skipper | 28 | - | 28 | 6.4 | 9.6 | 91% | 0.650→0.687 | c0.66 m1.73 h3 0.40 st 10.2 | 12 | 0 | 0 | 8 |
+| weak-impatient | 2 | 1 | 2 | 3.5 | 5.8 | 29% | 0.150→0.150 | c0.81 m1.00 h3 0.40 st 9.4 | 9 | 0 | 0 | 0 |
+| weak-stubborn | 28 | - | 28 | 6.7 | 10.7 | 28% | 0.150→0.252 | c0.75 m0.52 h3 0.40 st 11.3 | 14 | 0 | 0 | 0 |
 
-### Seed 3 (after)
+### Seed 2
 
 | persona | days | quit day | sess | cards/s | effort/s | success | k day0→end | final profile (comfort, memory, h3Share, stamina) | hidden stamina | fatigued days | CE | skips |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| average-fastclass | 28 | - | 28 | 5.7 | 10.1 | 70% | 0.400→0.478 | c0.75 m0.63 h3 0.40 st 12.2 | 14 | 0 | 0 | 3 |
-| average-noclass | 28 | - | 28 | 5.8 | 9.6 | 74% | 0.400→0.477 | c0.76 m0.50 h3 0.40 st 12.2 | 14 | 1 | 0 | 6 |
-| binge-quit | 14 | - | 20 | 6.7 | 10.7 | 80% | 0.400→0.455 | c0.75 m0.50 h3 0.40 st 13.9 | 30 | 0 | 0 | 4 |
-| calc-strong-memory-poor | 28 | - | 28 | 5.1 | 9.7 | 71% | 0.500→0.536 | c0.76 m0.73 h3 0.20 st 12.2 | 14 | 0 | 0 | 0 |
-| comeback-10 | 18 | - | 18 | 6.8 | 11.0 | 77% | 0.450→0.499 | c0.76 m1.07 h3 0.40 st 14.4 | 14 | 0 | 0 | 2 |
-| confident-misconceptions | 28 | - | 28 | 6.5 | 11.0 | 73% | 0.500→0.568 | c0.74 m0.50 h3 0.40 st 13.8 | 16 | 0 | 0 | 0 |
-| fast-guesser | 28 | - | 28 | 6.6 | 12.4 | 52% | 0.300→0.358 | c0.75 m0.50 h3 0.40 st 13.3 | 18 | 0 | 0 | 0 |
-| memory-good-calc-weak | 28 | - | 28 | 6.9 | 11.3 | 88% | 0.500→0.574 | c0.67 m1.46 h3 0.40 st 16.3 | 14 | 0 | 0 | 14 |
-| one-feared-section | 28 | - | 28 | 6.4 | 11.1 | 77% | 0.464→0.529 | c0.75 m0.70 h3 0.40 st 13.4 | 14 | 1 | 0 | 7 |
-| slow-reader | 28 | - | 28 | 5.4 | 9.6 | 77% | 0.450→0.511 | c0.72 m0.58 h3 0.40 st 12.2 | 10 | 4 | 0 | 4 |
-| smart-impatient | 14 | - | 14 | 5.2 | 9.4 | 86% | 0.700→0.722 | c0.71 m0.84 h3 0.50 st 12.9 | 10 | 1 | 0 | 0 |
-| steady-five-min | 28 | - | 28 | 6.4 | 10.5 | 76% | 0.400→0.480 | c0.76 m0.55 h3 0.40 st 13.7 | 12 | 1 | 0 | 5 |
-| strong | 28 | - | 28 | 8.3 | 14.9 | 95% | 0.800→0.841 | c0.66 m1.45 h3 0.50 st 20.8 | 25 | 0 | 0 | 0 |
-| underconfident-skipper | 28 | - | 28 | 7.3 | 11.4 | 86% | 0.650→0.692 | c0.69 m0.89 h3 0.40 st 15.0 | 12 | 4 | 0 | 7 |
-| weak-impatient | 2 | 1 | 2 | 3.0 | 6.3 | 0% | 0.150→0.152 | c0.81 m1.00 h3 0.40 st 8.9 | 9 | 0 | 0 | 1 |
-| weak-stubborn | 28 | - | 28 | 7.7 | 13.0 | 38% | 0.150→0.262 | c0.75 m0.50 h3 0.40 st 13.3 | 14 | 4 | 0 | 0 |
+| average-fastclass | 28 | - | 28 | 6.8 | 10.3 | 75% | 0.400→0.487 | c0.77 m0.50 h3 0.40 st 13.6 | 14 | 1 | 0 | 1 |
+| average-noclass | 28 | - | 28 | 7.0 | 10.2 | 80% | 0.400→0.482 | c0.75 m1.47 h3 0.40 st 9.9 | 14 | 4 | 0 | 1 |
+| binge-quit | 14 | - | 20 | 7.9 | 12.9 | 78% | 0.400→0.464 | c0.76 m0.54 h3 0.40 st 17.3 | 30 | 0 | 0 | 1 |
+| calc-strong-memory-poor | 28 | - | 28 | 5.9 | 9.9 | 78% | 0.500→0.534 | c0.71 m0.53 h3 0.40 st 8.9 | 14 | 1 | 0 | 0 |
+| comeback-10 | 18 | - | 18 | 6.7 | 9.9 | 83% | 0.450→0.490 | c0.73 m1.07 h3 0.40 st 10.2 | 14 | 0 | 0 | 2 |
+| confident-misconceptions | 28 | - | 28 | 6.5 | 9.8 | 74% | 0.500→0.561 | c0.75 m0.61 h3 0.40 st 11.1 | 16 | 0 | 0 | 0 |
+| fast-guesser | 28 | - | 28 | 6.1 | 9.7 | 61% | 0.300→0.336 | c0.75 m0.50 h3 0.40 st 11.8 | 18 | 1 | 0 | 0 |
+| memory-good-calc-weak | 28 | - | 28 | 7.0 | 10.3 | 94% | 0.500→0.571 | c0.66 m1.67 h3 0.40 st 12.4 | 14 | 4 | 0 | 7 |
+| one-feared-section | 28 | - | 28 | 6.6 | 10.2 | 81% | 0.464→0.528 | c0.71 m0.50 h3 0.40 st 13.3 | 14 | 0 | 0 | 7 |
+| slow-reader | 28 | - | 28 | 6.2 | 9.4 | 82% | 0.450→0.513 | c0.69 m1.32 h3 0.40 st 8.9 | 10 | 1 | 0 | 4 |
+| smart-impatient | 14 | - | 14 | 5.6 | 8.0 | 92% | 0.700→0.724 | c0.74 m1.48 h3 0.40 st 11.6 | 10 | 0 | 0 | 0 |
+| steady-five-min | 28 | - | 28 | 6.5 | 10.0 | 74% | 0.400→0.488 | c0.74 m0.50 h3 0.40 st 13.3 | 12 | 0 | 0 | 8 |
+| strong | 28 | - | 28 | 11.3 | 18.7 | 96% | 0.800→0.853 | c0.66 m1.78 h3 0.40 st 20.5 | 25 | 2 | 0 | 0 |
+| underconfident-skipper | 28 | - | 28 | 6.3 | 9.8 | 89% | 0.650→0.685 | c0.66 m1.49 h3 0.40 st 9.8 | 12 | 0 | 0 | 5 |
+| weak-impatient | 3 | 2 | 3 | 5.0 | 7.2 | 47% | 0.150→0.150 | c0.81 m1.00 h3 0.40 st 9.9 | 9 | 0 | 0 | 1 |
+| weak-stubborn | 28 | - | 28 | 7.2 | 11.2 | 30% | 0.150→0.263 | c0.75 m0.53 h3 0.40 st 9.8 | 14 | 0 | 0 | 0 |
+
+### Seed 3
+
+| persona | days | quit day | sess | cards/s | effort/s | success | k day0→end | final profile (comfort, memory, h3Share, stamina) | hidden stamina | fatigued days | CE | skips |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| average-fastclass | 28 | - | 28 | 6.6 | 10.3 | 82% | 0.400→0.472 | c0.69 m0.61 h3 0.40 st 9.2 | 14 | 0 | 0 | 0 |
+| average-noclass | 28 | - | 28 | 6.3 | 9.7 | 78% | 0.400→0.468 | c0.75 m0.74 h3 0.40 st 9.9 | 14 | 2 | 0 | 0 |
+| binge-quit | 14 | - | 20 | 6.3 | 9.8 | 78% | 0.400→0.443 | c0.76 m0.53 h3 0.40 st 13.6 | 30 | 0 | 0 | 0 |
+| calc-strong-memory-poor | 28 | - | 28 | 5.6 | 9.1 | 73% | 0.500→0.528 | c0.73 m0.50 h3 0.40 st 12.0 | 14 | 0 | 0 | 0 |
+| comeback-10 | 18 | - | 18 | 6.8 | 10.4 | 78% | 0.450→0.495 | c0.73 m0.50 h3 0.40 st 13.3 | 14 | 0 | 0 | 0 |
+| confident-misconceptions | 28 | - | 28 | 6.5 | 10.1 | 75% | 0.500→0.563 | c0.74 m0.60 h3 0.40 st 9.4 | 16 | 2 | 0 | 0 |
+| fast-guesser | 28 | - | 28 | 7.0 | 11.6 | 58% | 0.300→0.341 | c0.78 m0.50 h3 0.40 st 13.3 | 18 | 0 | 0 | 0 |
+| memory-good-calc-weak | 28 | - | 28 | 6.7 | 10.2 | 93% | 0.500→0.566 | c0.66 m1.22 h3 0.40 st 13.1 | 14 | 3 | 0 | 5 |
+| one-feared-section | 28 | - | 28 | 6.1 | 9.9 | 81% | 0.464→0.518 | c0.70 m0.50 h3 0.40 st 13.3 | 14 | 0 | 0 | 7 |
+| slow-reader | 28 | - | 28 | 6.1 | 9.7 | 83% | 0.450→0.509 | c0.69 m0.70 h3 0.40 st 9.8 | 10 | 3 | 0 | 0 |
+| smart-impatient | 14 | - | 14 | 6.0 | 9.3 | 94% | 0.700→0.724 | c0.71 m1.39 h3 0.40 st 9.3 | 10 | 0 | 0 | 0 |
+| steady-five-min | 28 | - | 28 | 6.2 | 9.8 | 80% | 0.400→0.469 | c0.72 m0.82 h3 0.40 st 8.9 | 12 | 0 | 0 | 1 |
+| strong | 28 | - | 28 | 7.6 | 13.2 | 95% | 0.800→0.834 | c0.66 m2.00 h3 0.40 st 14.3 | 25 | 0 | 0 | 0 |
+| underconfident-skipper | 28 | - | 28 | 5.9 | 8.8 | 90% | 0.650→0.681 | c0.67 m1.42 h3 0.40 st 9.3 | 12 | 0 | 0 | 6 |
+| weak-impatient | 2 | 1 | 2 | 5.5 | 8.0 | 45% | 0.150→0.150 | c0.81 m1.00 h3 0.40 st 10.8 | 9 | 1 | 0 | 0 |
+| weak-stubborn | 28 | - | 28 | 7.5 | 11.5 | 36% | 0.150→0.259 | c0.81 m0.63 h3 0.40 st 11.3 | 14 | 2 | 0 | 0 |
 
 **Columns:**
-- cards/s and effort/s are the mean per engine-opened session.
+- cards/s and effort/s are means per engine-opened session; effort/s is effort *spent*.
 - success is the share of answered cards that were right.
-- k is the mean hidden knowledge on day 0 and at the end.
+- k is the hidden knowledge on day 0 and at the end.
 - The final profile is the engine's profile after the last day.
-- fatigued days is the number of days with any card served past the hidden stamina.
-- CE is the count of `content-exhausted` ends.
+- fatigued days is the number of days with a card served past the hidden stamina.
+- CE is the number of `content-exhausted` ends.
 
-**Close-card accuracy by height** (before → after, as right / served):
+**Close-card accuracy, right / served:**
 
-| | h1 | h2 | h3 |
+| seed | h1 | h2 | h3 |
 |---|---|---|---|
-| seed 1, before | 30/40 | 115/251 | 4/56 |
-| seed 1, after | 116/126 | 138/202 | 0/0 |
-| seed 2, after | 92/97 | 123/180 | 0/0 |
-| seed 3, after | 115/122 | 133/208 | 0/0 |
+| 1 | 235/262 | 6/22 | 0 |
+| 2 | 234/256 | 6/36 | 0 |
+| 3 | 256/289 | 4/31 | 0 |
 
-**Weak against strong:**
-- Asked per day (the budgets): strong 12.40 / 13.31 / 14.84, against weak-stubborn 11.58 and weak-impatient 8.00. Before, strong was asked 18.3–19.3.
-- Spent per session: strong 11.1 / 12.1 / 14.9, against weak-stubborn 12.4 / 12.5 / 13.0. On seeds 1 and 2 the weak student spends more than the strong one. The extra comes from the +1 for each wrong answer and from the close loop. See Concerns.
+On seed 1, the first pass had h1 116/126 and h2 138/202, and before any change h1 was 30/40, h2 115/251 and h3 4/56. Height-2 close cards now appear almost only when height 1 has run out. Of 36 h2 close cards on seed 2, 32 were served with no height-1 card unseen in the last 14 days (`h1-left.ts`).
 
-## Engine rules changed (each with a failing unit test first)
+## Rule, config and simParams changes
 
-| # | Rule | Why (log evidence) | Commit |
+### First pass (commits d107c76 … 1b2fdf8)
+
+**Engine rules:**
+- **R1:** close cards at the lowest eligible height; height 3 last.
+- **R2:** comfort correction and the sweep go lowest height first.
+- **R3:** a fresh student's open cards at the lowest height.
+- **R4a:** stamina grows only on a good day.
+- **R4b:** a fade is recorded from slow answers.
+- **R4c:** the first 3 sessions use a budget of 8.
+- **Minimum-day top-up:** a session under the minimum day may use its close reserve to reach it.
+- **R5:** no card is served again within 4 serves of the same session.
+- **Side door at the cap:** a skipped section whose 14-day cap has come may take a second side door in a session.
+- **migrate:** old open sessions get the new session fields.
+
+**Config:**
+- `budget.firstSessions` 3 (new).
+- `fade.slowAnswers` 2 → 1 and `staminaUpdate` keep/take 0.7/0.3 → 0.5/0.5. Fix round 1 reverts both (finding 3).
+
+**simParams (R7):**
+- `need` {0.25, 0.5, 0.75} → {0.1, 0.45, 0.75}.
+- `learnRight` 0.04 → 0.06, `learnWrong` 0.08 → 0.10.
+- `decayPerDay` 0.008 → 0.003.
+- Reason: the weakest personas sat at `pFloor` on every card, and forgetting outpaced practice.
+
+### Fix round 1
+
+| finding | change | type | commit |
 |---|---|---|---|
-| R1 | Close cards: each skill at its **lowest** height with an eligible card. Height 3 only when no height-1/2 card is eligible outside blocked sections. Order: started skills that reach `session.winnable` (liked order, then estimate); then the other started skills (by estimate); then ready, not-started skills; then the same three groups at height 3. | Close cards were right 31/37 at h1, 113/241 at h2 and 4/52 at h3 (Task 10 report). The engine served h3 cards as close cards, even to weak students. | d107c76 |
-| R2 | Comfort correction (running rate below comfort): every height up to the current one that reaches comfort, **lowest height first**, then estimate. The fallback comfort-correction pick puts height 3 last, and goes lowest-first whenever the running rate is below comfort (even before `minRunning` answers). `pickAny` puts height 3 after every lower height; below comfort it orders by height, then estimate. | An h3 `comfort-correction` card was served right after two "I don't know" answers (Task 10, finding 4). | af593b4 |
-| R3 | Open cards go at the chosen skill's lowest eligible height until the student has `estimate.minOwnPrior` (10) answers. | Day-0 `open:liked` cards were at height 2 for the weakest personas. | 0ca9e1b |
-| R4a | A clean `budget` end raises stamina only on a good day (`isGoodDay`: above comfort and faster than usual, the "5 more" condition). | Engine stamina went 13.34 → 22.75 for memory-good-calc-weak, whose hidden stamina is 14. | 96f6682 |
-| R4b | Fade from slow answers: `fade.slowAnswers` slow answers in a session (not necessarily in a row) set `fadeEffort` to the effort before the first of them. This does not end the session. `badDay` is now its own session flag (it was read from `fadeEffort`). A later bad-day or `left` end keeps an earlier fade. | The bad-day rule needs 3 slow answers in a row, but the hidden student is fatigued for only 1–2 cards. | 96f6682 |
-| R4c | The first `budget.firstSessions` (3) sessions use the `minimumDay` budget. | Students with hidden stamina near 10 were over their limit from day 0. | 96f6682 |
-| R4c (my addition) | While today's effort is below `minimumDay`, the session may spend its close reserve to reach it. Without this, a budget-8 session (first sessions, comeback) ends at about 6 effort and does not keep the streak (spec §8 "Minimum day"). | The `first session` unit test ended at 6 effort with `streakKept` false once R4c was in. | 96f6682 |
-| R5 | No card id (any variant) is served again within `session.returnAfterCards` (4) serves of the same session. This holds in every picker (`PickCtx.recentCards` via `tryServe`/`firstOf`, and `lowestEligible`), in the repair cards (`nextRepairCard(…, recent)`) and in the ramp card. The failed card is always among the recent serves, so the missing piece is a different card. With nothing left, the existing fallbacks apply, and only then `content-exhausted`. | 395 back-to-back serves on seed 1. Examples: comfort-correction 3 times in a row, and repair:missing-piece re-serving the failed card. | d8330e7 |
-| R6 | Every remaining wrong-answer end is the `maxExtraClose` last resort (all 28 over three seeds). No other path ends on a wrong answer. | `eow.mjs` classification of every violation: "budget, 3 close cards, last close wrong". | – |
-| new | A skipped section whose cap has come (skip day + 14 ≤ today) may take a side door even when the session already had one. | Seed 2 comeback-10 and seed 3 binge-quit: after a gap, two sections were due at once. Only one side door is allowed per session, so Kinematics came back one day past the cap (skip-timing failed). | f8019fd |
-| new | `migrate` gives open sessions from before this pass `badDay`, `slowBefore` and `servedCards`. | State robustness. | 1b2fdf8 |
+| 3a | `fade.slowAnswers` 1 → **2**, `staminaUpdate` keep/take 0.5/0.5 → **0.7/0.3** (back to the ruling). In the first pass, slow and fatigued were the same thing in the sim. | config | 80c9e99 |
+| 3b | `simParams.distractChance` **0.05**, `distractFactor` **3**: an answer sometimes takes 3× its time, independent of fatigue. Reason: real students get interrupted. | student model | 47ad347 |
+| 4 | "5 more" is offered at a budget end when success ≥ comfort, there was no slow answer, and the session is not already extended and fits the cap ("faster than usual" is dropped). Stamina grows **only** on `extended-done` with no fade (+`extendStep` 1). `staminaUpdate.cleanStep` 0.5 → **0**. A fade still blends down and never raises. | rule + config | 8a1bd5b |
+| 1 | A fresh student's open pick is **height first across skills**: all candidates at their lowest eligible height, then the usual open order, then any other unblocked started or ready skill. Height 3 only when no h1/h2 card is eligible anywhere. The new-skill allowance does not apply. | rule | 42fcef4 |
+| 2 | The close pick is **height first across skills**: any eligible h1 card outside blocked sections before any h2. Within a height: liked first, then estimate, then liked order, then started before new. A ready not-started skill gets a SkillRec at the served height. Below comfort (any number of answers), middle picks go lowest height first. `estimate.minRunning` is no longer read and is removed. | rule + config | 9cf8308 |
+| 5 | A close card the daily cap blocks after a wrong answer ends `daily-cap`, not `budget`. When only the session's R5-recent cards are left, the least recent one is served instead of ending `content-exhausted`. | rule | 3af00f5 |
+| round 2 | "5 more" needs a usual time from before the session at every height played; otherwise a slow answer could not have been seen. Evidence: first sessions (no usual times) were extended and credited +1 stamina although the student was past stamina on the extra cards (slow-reader and smart-impatient, day 0, seed 1). | rule | 83dfcbb |
+| round 2 | `simParams.extendFeel` **5**: a student declines "5 more" when session effort + 5 would pass their hidden stamina. Reason: slow-reader ("I get tired sooner") and smart-impatient ("if … the session drags on, I am done") took "5 more" at 9 of 10 effort and quit from fatigue two cards later. That quit the app for slow-reader on day 4 and smart-impatient on day 14, on seed 1 of round 1. | student model | 7edcb83 |
 
-**Tried and rejected** (not committed; numbers from 3-seed runs):
-- **Close: let not-started skills compete with started ones on the estimate.** No-end-on-wrong got worse: 15 / 12 / 9, against 9 / 7 / 10. Close h1 accuracy fell from 94% to 87% and h2 from 70% to 52%. A not-started skill's estimate is the student's own prior, which overstates it, because the hidden student has not practised that skill yet.
-- **Step 4 "final card"** (after a right answer, spend the reserve on one more middle card and end without a close card if it is right). Strong's mean unused budget at a budget end fell from 1.63 to 0.56, but ends-before-fade then failed for:
-  - slow-reader: 7/28 days (seed 1), 9/28 (seed 2);
-  - underconfident-skipper: 7/28 (seed 3);
-  - steady-five-min: 6/28 (seed 2).
+**Round 1 (`runs/f1-sN`: findings 1–5, before the two round-2 changes):**
+- no-end-on-wrong: 9 / 11 / 8.
+- ends-before-fade failed on all seeds, with 3–4 personas over the limit. 80–100% of their fatigued cards were `extend:liked`.
+- slow-reader quit the app on day 4 (seed 1), and smart-impatient on day 14.
+- Round 2 fixed both causes.
 
-  That held even when limited to students whose stamina had grown past the default. The reserve is what keeps the 10–12-stamina personas under their limit, so I did not apply the fix. Strong students still leave about 1–1.6 effort of the budget unused per session.
+### Tried and rejected
 
-## Config values changed (old → new), pinned in `tests/config.test.ts`
+**In the first pass:**
+- **Started and not-started skills on equal terms in the close ranking, ordered by estimate.** No-end-on-wrong got worse (15 / 12 / 9). Finding 2's rule is different: it goes height first.
+- **The step-4 "final card".** It broke ends-before-fade for 3 personas. Details are in git history, commit fa7b633.
 
-| value | old → new | reason |
-|---|---|---|
-| `budget.firstSessions` | new → 3 | R4c |
-| `fade.slowAnswers` | new (R4b ruling: 2) → **1** | See the fade evidence below. |
-| `staminaUpdate.keep / take` | 0.7 / 0.3 → **0.5 / 0.5** | A fade moves stamina halfway to the fade point, so a student whose real limit is far below the default is found within a few sessions. |
+**In fix round 1:** nothing else was tried.
 
-**Fade evidence** (seed 2, after R1–R5, R7 and the side-door fix):
-- slow-reader (hidden stamina 10) was past stamina on 12/28 days. The engine kept stamina at 13.3–14.6, so the budget was 12.
-- In 10 of 12 fatigued sessions only **one** card was past the stamina, so `slowAnswers` 2 could never fire.
-- Across all personas, 0 of about 2,500 non-fatigued answers were slower than 2× usual.
-- Results of the variants:
-  - `slowAnswers` 1 alone: 6/28, still failing.
-  - `take` 0.5 alone: 11/28.
-  - Both: 1/28 on seed 2, and the check passes on all seeds.
-- Other personas were barely affected: strong and the averages have identical rows.
+## Step-4 examinations (current runs)
 
-**Concern:** in a real app one slow answer may be noise (a phone call). The sim has no such noise.
-
-## Hidden-student (`simParams`) changes (old → new)
-
-| param | old → new | reason |
-|---|---|---|
-| `need` | {1: 0.25, 2: 0.5, 3: 0.75} → {1: 0.1, 2: 0.45, 3: 0.75} | R7. A weak student still gets some easy recall right. weak-stubborn's h1 p was 0.2 (the floor); it is now 0.425. |
-| `learnRight` | 0.04 → 0.06 | R7. |
-| `learnWrong` | 0.08 → 0.10 | R7. |
-| `decayPerDay` | 0.008 → 0.003 | R7. With the old numbers forgetting outpaced any practice: strong gained 0.013 in 28 days. strong now gains 0.031–0.041, and weak-stubborn 0.11. |
-
-No further student-model change was made.
-
-## Existing unit tests whose expectations changed
-
-1. **pick "middle: running rate below comfort"** (R2): a1 is served at height 1 instead of 2, because the lowest height comes first.
-2. **pick "pickAny …"** (R2): when a started skill has only height 3 left, a ready unstarted skill's height-1 card wins (before, the started skill's h3 won). A new case adds a1 h3 for when only height 3 is left anywhere.
-3. **pick "open: brand-new student"** (R3): the started-student part sets `answered: 1000`, so the student has history.
-4. **helpers `startedState`** (R4c): starts at `sessionCount` 4, past the small first sessions, with the same drip parity as 0. As a result, **skip "drip"** checks `sessionCount` 4 + n.
-5. **profile "stamina …"**:
-   - R4a: a clean budget end with no good-day evidence leaves stamina at 13.34 (was 13.84).
-   - The config change: the fade blend uses 0.5 / 0.5.
-6. **profile "profile event"** (R4a): stamina no longer moves on that session, so the test uses `goodStreak` 2 to make comfort move.
-7. **profile "weak never asked more" and "dials differ"** (R4a): the strong/good student answers a little faster each card (`lived(…, fast)`), so its stamina grows on good days.
-8. **session "comeback"** (R4c and the minimum-day top-up): effort ≤ 8 + reserve (was ≤ 8), and the streak is kept.
-9. **session "budget comes from cfg"** (R4c): `sessionCount` 4.
-10. **session "all right at height 2 … height-3 skill"** (R5): the h3 card is served once. The old "fewer cards" relied on the h3 card coming back with new variants card after card.
-11. **run "runner: quit reasons"** (R4c + R5 on the tiny fixture): seed 1 instead of 5. Seed 5 now runs the fixture dry before a time-up quit. This is a one-line change in `tests/run.test.ts`; the file had no uncommitted edits.
-12. **student "pRight" and "learning"** (R7): the new `need` and learn numbers. The R7 values are pinned in "small fixes".
-
-## Step 4 examinations
-
-**Personas quitting the app before day 7:**
-
-- **weak-impatient: quits the app on day 1 on every seed.**
-  - Seed 1, day 0:
-    - The first card is `phy.mech.c007`, an h2 `open:liked` card. Its skill has no height-1 card, so R3's "lowest height of the chosen skill" is still h2.
-    - The student says "I don't know" (h2 p = 0.2).
-    - Next, h1 `comfort-correction`: wrong.
-    - Then an h2 `repair:missing-piece` (that skill has no h1 either): "I don't know".
-    - The student quits from frustration on the next card (recentWrong 2 = patience 2).
-  - Day 1:
-    - The student skips two h3 `open:liked` cards.
-    - Then h2 dk, h1 wrong, h1 right, h1 wrong, and quits.
-  - With hidden k 0.05, this persona's best case is h1 at 42%. Its patience (2 wrongs) runs out within 4–5 cards even on all-h1 sessions.
-  - The engine makes it worse by opening with skills that have no h1 card, and by repair pieces at h2.
-  - **Suggested next rule:** for a student under `minOwnPrior` answers, open (and look for repair pieces) in skills that have a height-1 card.
-- **binge-quit, seed 2 only: quits the app on day 4.**
-  - Day 4, session 9: due-review h2 wrong, repair piece h2 wrong, side door h2 wrong, then a quit on an h2 repair piece. Those skills (`phy.elec.p03`/`p02`) have no h1 cards.
-  - Session 10: comfort-correction h2 wrong, close h2 wrong, then a quit on an h2 close card.
-  - On seeds 1 and 3 this persona plays through its vanish and does not quit.
+**Personas quitting the app before day 7:** only **weak-impatient**, on day 1 (seeds 1 and 3) or day 2 (seed 2).
+- Its open cards are now height 1. In the first pass, the h3 `open:liked` cards it got came from R5 excluding the just-served card, not from missing h1 content as the first-pass notes said.
+- Its success rate is 29–47%: its h1 p is 0.425 and its patience is 2 wrongs in 8 cards.
+- **Seed 1:**
+  - Day 0: h1 wrong, then an h2 missing piece "I don't know" (that skill has no h1 card), h1 right, h1 wrong, then a quit.
+  - Day 1: h1 wrong, h1 piece right, h1 wrong, then a quit on an h2 piece.
+- The remaining height-2 cards are repair pieces of skills without an h1 card.
+- binge-quit, slow-reader and smart-impatient no longer quit early on any seed.
 
 **Is a weak persona's knowledge flat?**
-- **No.** weak-stubborn goes 0.150 → 0.259 / 0.266 / 0.262. Its success rate is 36–40%, against 21% before.
-- weak-impatient is flat (0.150 → 0.152), but it stops after 2 days.
+- **No.** weak-stubborn goes 0.150 → 0.252 / 0.263 / 0.259.
+- weak-impatient is flat (0.150 → 0.150), but it plays only 2–3 days.
 
-**Do weak and strong students get visibly different sessions?**
+**Weak against strong:**
 
-| | strong | weak-stubborn | weak-impatient |
-|---|---|---|---|
-| cards per session | 6.1 / 7.1 / 8.3 | 7.4–7.7 | 3.0–3.5 |
-| effort per session | 11.1 / 12.1 / 14.9 | 12.4–13.0 | 5.8–6.3 |
-| success rate | 94–98% | | |
-| heights served | mostly h2/h3, extended 1–7 times | mostly h1/h2, never extended | |
-
-- Differences between the two students: the session size is similar, and the content and heights differ.
-- Against the other personas: the averages sit at 5.7–6.8 cards and 9.6–11.8 effort, close to strong on seeds 1 and 2.
-- So the strong student's sessions are no longer longer than average ones. See Concerns.
-
-**The all-right height-2 session that stopped at 9 of 12:**
-- It still happens. The unit test shows 6 cards, effort 9 of a 12.006 budget.
-- In the runs, strong leaves 1.63 effort unused per budget end (seed 1).
-- The ruled fix was tried and rejected (see above).
-
-**`maxExtraClose` exhaustion (R6 question):**
-
-| seed | engine-ended sessions | with a close card | first close wrong | all 3 close cards wrong |
+| | strong | weak-stubborn | weak-impatient | averages |
 |---|---|---|---|---|
-| 1 | 379 | 262 | 42 | 10 (weak-stubborn 7) |
-| 2 | 361 | 222 | 36 | 8 (weak-stubborn 6) |
-| 3 | 377 | 256 | 45 | 10 (weak-stubborn 7) |
+| cards per session | 7.6–11.3 | 6.7–7.5 | 3.5–5.5 | 5.6–7.0 |
+| effort per session | 13.2–19.1 | 10.7–11.5 | 5.8–8.0 | 9.7–10.2 |
+| success rate | 95–96% | 28–36% | | |
+| extended sessions | 9–13 per run | none | | |
+| engine stamina at the end | 14.3–23.3 (hidden 25) | | | |
 
-- That is more than a handful.
-- With `maxExtraClose` 3 the violations are 6 / 4 / 11, and ends-before-fade fails for weak-stubborn on seed 3 (11/28 days).
-- With `maxExtraClose` 4 they are 3 / 4 / 4.
-- Raising the constant does not remove the failure and costs fatigue. weak-stubborn is right on about 42% of the easiest cards, so no fixed number of extra close cards guarantees a right last answer.
-- **Question for the controller:** accept this last resort for students below ~50% on height 1 (and change the spec line), or design a different ending for them? One option: after a wrong close card, show an explanation card, a "worked example" that is not a question, and count it as the end. That needs a design decision.
+**Is strong served too-easy sessions?** Partly, in the first two weeks. Its comfort sits at the floor (0.66), and it is right on 95–96%. Cards by week, h1 / h2 / h3:
 
-**Content limits seen:**
-- 56 of 175 skills have cards.
-- 53 height-1 cards, each with one variant. 16 skills with cards have no height-1 card.
-- h1 is not exhausted at close time: a median of about 35 h1 cards were unseen in the last 14 days whenever an h2 close card was served. The h2 close cards come from the ranking (started skills first), not from a shortage.
-- No `content-exhausted` end in any run.
+| seed | week 1 | week 2 | week 3 | week 4 |
+|---|---|---|---|---|
+| 1 | 13/58/0 | 9/69/3 | 11/64/10 | 9/42/19 |
+| 2 | 21/54/0 | 8/70/3 | 18/62/8 | 11/45/16 |
+| 3 | 10/45/0 | 13/51/2 | 5/34/8 | 5/28/12 |
+
+- The heights do step up: there are 14–20 height-up moments per run.
+- They step up slowly, because a step up needs two right answers at the current height on different days or 5 cards apart. With 56 skills each one is seen rarely.
+- New skills start at height 2. 33 h3 cards cover only the skills that have h3.
+- Height 3 reaches about a quarter of strong's cards only in week 4. That is below its h3Share target of 0.4 of effort.
+- **Recommendation for the owner:** after N right at height 2 with comfort at the floor, start new skills at height 3 or step faster.
+
+**R4c's cost to strong:** its first 3 sessions use the budget of 8, against 12.9–14.7 for the next sessions on seed 1. That is about 15 effort fewer over days 0–2.
+
+**Does a distracted answer shorten later sessions?** No. Sessions with exactly one slow answer and no fatigue, and the engine's stamina at the next start (`distraction.mjs`):
+
+| seed | such sessions | stamina lowered after |
+|---|---|---|
+| 1 | 91 | 1 |
+| 2 | 89 | 2 |
+| 3 | 94 | 0 |
+
+- The few drops are sessions ending `left`, where the fade is the walk-out point.
+- Sessions with two or more slow answers do lower stamina, by design: 9 / 11 / 17 sessions per seed. Some of those are two distractions, which is the noise cost of `slowAnswers` 2.
+- Slow answers when not fatigued are now about 4% of answers (114 of 2,641 on seed 1), so the sim can fail the fade rule.
+
+**The 9-of-12 session** (an all-right height-2 session that stops at 9 effort of a 12 budget): still as in the first pass. The fix was rejected; see above.
 
 ## What still fails and why
 
-- **no-end-on-wrong** (10 / 8 / 10): only the `maxExtraClose` last resort, mostly weak-stubborn. It cannot pass by tuning without a design decision; see the R6 question above.
+**no-end-on-wrong:** 8 / 12 / 8, all `maxExtraClose` exhaustion.
 
-## Spec §13 "design must change" lines
+| seed | weak-stubborn | fast-guesser | close-card heights in the violating sessions |
+|---|---|---|---|
+| 1 | 8 | – | h1+h1+h1 3, h1+h2+h2 2, h2+h2+h2 3 |
+| 2 | 11 | 1 | h2+h2+h2 7, h1+h2+h2 2, h1+h1+h2 1, h1+h1+h1 1, h1+h2+h2+h2 1 (in an extended session) |
+| 3 | 7 | 1 | h2+h2+h2 6, h1+h2+h2 1, h1+h1+h1 1 |
+
+**Correction to the first-pass notes:** weak-stubborn is right on about 55% of h1 close cards (19/36, 17/31, 21/37), not 42%. The 42% figure was weak-impatient's h1 p.
+
+Why it still fails:
+- With h1 available, three wrong in a row is about 9% of entered close loops (0.45³).
+- Most remaining violations are h2-only close loops after weak-stubborn has used up all 53 height-1 cards within 14 days (h2 close 0/14, 0/26, 0/19). This is a **content limit**. More height-1 cards, or more variants of the h1 cards, would remove most of it.
+- `maxExtraClose` is not changed (owner decision). First-pass measurements: with 3 the violations were 6 / 4 / 11, with 4 they were 3 / 4 / 4.
+
+**ends-before-fade, seed 3: weak-impatient, 1 of 2 days played.**
+- On day 1 its budget was 8 (R4c) against a hidden stamina of 9. A wrong comfort-correction card and a wrong close card pushed it to 10.5; it walked out on the extra close card.
+- With 2 days played, one day is 50%.
+- The engine has no evidence about this student before day 1. The minimum-day budget of 8 plus a two-card close loop goes past 9.
+
+## Spec §13 "design must change" lines (current runs)
 
 | line | from the data |
 |---|---|
-| any persona would quit before day 7 | **Yes.** weak-impatient (day 1, all seeds) and binge-quit (day 4, seed 2). |
-| two different personas get near-identical sessions | **Needs the AI judges** (blind comparison). Code-side note: session sizes are close across personas (strong 6.1–8.3 cards against averages 5.7–6.8), and the content and heights differ. |
-| a weak persona's hidden knowledge is flat after 4 weeks | **No.** weak-stubborn +0.11 on all seeds. weak-impatient is flat but quit on day 1. |
-| a skipped section returns the next day, or never | **No.** skip-timing passes on all seeds (48 / 49 / 52 skips, every one on schedule and back by the cap). |
+| any persona would quit before day 7 | **Yes.** weak-impatient (day 1–2, all seeds). No other persona. |
+| two different personas get near-identical sessions | **Needs the AI judges** (blind comparison). Code side: strong now gets clearly longer sessions (13–19 effort, 9–13 extensions) than the averages (≈10) and the weak personas (6–11.5). |
+| a weak persona's hidden knowledge is flat after 4 weeks | **No.** weak-stubborn +0.10 to +0.11. |
+| a skipped section returns the next day, or never | **No.** skip-timing passes on all seeds (32 / 34 / 16 skips). |
 | the blind comparison fails for more than a quarter of pairs | **Needs the AI judges.** |
 
 ## Concerns
 
-1. **Strong students are now under-asked.**
-   - R4a lets stamina grow only on days faster than the student's own usual. A steady strong student is rarely faster than their own median.
-   - strong's engine stamina ends at 15.8 / 17.3 / 20.8 (hidden 25). Its sessions are about as long as the averages', and on seeds 1 and 2 shorter in effort spent than weak-stubborn's (11.1 against 12.4; 12.1 against 12.5).
-   - The fairness check passes on budgets asked, but spec §2 and §8 ("being weak never means more work") are only just met.
-   - A growth signal that is not about speed (for example a session finished at or above comfort with no slow answer) would fix this, but it reopens R4a.
-2. **`fade.slowAnswers` 1** relies on the sim having no slow-answer noise.
-3. **weak-impatient cannot be kept.** The engine could start it on skills with h1 cards, but its patience is 2 wrongs and its best p is 0.42.
+1. **no-end-on-wrong** needs an owner decision (`maxExtraClose`, or more height-1 content) and cannot pass by tuning.
+2. **weak-impatient cannot be kept** by this engine with this content: its best p is 0.42 and its patience is 2.
+3. **Strong's heights step up slowly.** It gets little height 3 before week 3.
+4. **Weak students' stamina is now underestimated** (weak-stubborn 9.8–11.3 against a hidden 14). Distraction fades pull it down, and it can only grow through "5 more", which a weak student is rarely offered. That is safe ("weak never more work"), but their sessions may be shorter than they could take.
+5. **The `extendFeel` change** makes extension depend on the hidden stamina. Personas with a hidden stamina of 14 or less rarely accept "5 more" now, so their engine stamina mostly does not grow.
