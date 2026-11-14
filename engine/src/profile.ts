@@ -34,18 +34,31 @@ export function onAnswer(profile: Profile, section: SectionRec, a: AnswerInfo, c
   return { profile: next, section: liking === section.liking ? section : { ...section, liking } };
 }
 
-/** The share of height-3 effort to aim for, from the last `window.cards` attempts: default unless one side is clearly weaker. */
-function h3ShareOf(state: State, cfg: Config): number {
+/**
+ * Success at heights 1-2 minus success at height 3 minus the baseline, over the last `window.cards` attempts,
+ * or null with too little data (`calc.minH3` / `calc.minH12`).
+ */
+function calcGap(state: State, cfg: Config): number | null {
   const all = Object.keys(state.skills).sort().flatMap((k) => state.skills[k].attempts).sort((x, y) => x.seq - y.seq).slice(-cfg.window.cards);
   const hi = all.filter((x) => x.height === 3);
   const lo = all.filter((x) => x.height !== 3);
+  if (hi.length < cfg.calc.minH3 || lo.length < cfg.calc.minH12) return null;
   const rate = (xs: typeof all) => xs.filter((x) => x.right).length / xs.length;
+  return rate(lo) - rate(hi) - cfg.calc.gapBaseline;
+}
+
+/** Calculation-weak: heights 1-2 clearly ahead of height 3 (the gap is above `calc.band`). */
+export function isCalcWeak(state: State, cfg: Config): boolean {
+  const g = calcGap(state, cfg);
+  return g !== null && g > cfg.calc.band;
+}
+
+/** The share of height-3 effort to aim for: default unless one side is clearly weaker. */
+function h3ShareOf(state: State, cfg: Config): number {
+  const g = calcGap(state, cfg);
   let share = cfg.calc.h3ShareDefault;
-  if (hi.length >= cfg.calc.minH3 && lo.length >= cfg.calc.minH12) {
-    const gap = rate(lo) - rate(hi) - cfg.calc.gapBaseline;
-    if (gap > cfg.calc.band) share = cfg.calc.h3ShareCalcWeak;
-    else if (gap < -cfg.calc.band) share = cfg.calc.h3ShareConceptWeak;
-  }
+  if (g !== null && g > cfg.calc.band) share = cfg.calc.h3ShareCalcWeak;
+  else if (g !== null && g < -cfg.calc.band) share = cfg.calc.h3ShareConceptWeak;
   return clamp(share, cfg.calc.minWeakerShare, 1 - cfg.calc.minWeakerShare);
 }
 
@@ -74,7 +87,7 @@ export function onSessionEnd(state: State, end: EndInfo, session: SessionState, 
   } else goodStreak = 0;
   const U = cfg.staminaUpdate;
   let stamina = p.stamina;
-  if (session.fadeEffort !== null) stamina = U.keep * stamina + U.take * session.fadeEffort;
+  if (session.fadeEffort !== null) stamina = Math.min(stamina, U.keep * stamina + U.take * session.fadeEffort); // a fade never raises stamina
   else if (end.kind === "budget" && success >= p.comfort) stamina += U.cleanStep;
   else if (end.kind === "extended-done") stamina += U.extendStep;
   const lo = cfg.budget.minimumDay / (1 - cfg.budget.margin);
@@ -93,11 +106,12 @@ export function onSessionEnd(state: State, end: EndInfo, session: SessionState, 
  */
 export function rampBefore(state: State, content: Content, p: Picked, lastSkills: string[], day: number, room: number, cfg: Config): Picked | null {
   const sv = p.served;
-  if (sv.height !== 3 || state.profile.h3Share <= cfg.calc.h3ShareDefault || !(sv.skill in state.skills)) return null;
+  if (sv.height !== 3 || !isCalcWeak(state, cfg) || !(sv.skill in state.skills)) return null;
   if (effortOf(2, cfg) + sv.effort > room) return null;
   const n = cfg.session.maxSameSkillRun;
-  const tail = lastSkills.slice(-(n - 2));
-  if (n < 2 || (tail.length === n - 2 && tail.every((x) => x === sv.skill))) return null;
+  let run = 0; // the skill's current run, then the ramp card and the height-3 card: all within the limit
+  while (run < lastSkills.length && lastSkills[lastSkills.length - 1 - run] === sv.skill) run++;
+  if (run + 2 > n) return null;
   const e = eligibleCard(state, content, sv.skill, 2, day, p.rng, {}, cfg);
   if (!e) return null;
   const { borrowedFrom: _b, ...rest } = sv;

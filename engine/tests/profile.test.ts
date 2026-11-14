@@ -3,7 +3,7 @@ import { defaultConfig as cfg } from "../src/config.js";
 import { newState } from "../src/state.js";
 import { dayOf } from "../src/time.js";
 import { answer, endSession, extend, skip, startSession } from "../src/session.js";
-import { onAnswer, onSessionEnd } from "../src/profile.js";
+import { isCalcWeak, onAnswer, onSessionEnd, rampBefore } from "../src/profile.js";
 import { usualMs } from "../src/estimate.js";
 import type { EndInfo, Height, SectionRec, SessionState, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -94,9 +94,22 @@ const h3After = (s: State) => {
   return onSessionEnd({ ...o.s, skills: s.skills }, endOf("budget", 10, 9), o.ss, cfg).profile.h3Share;
 };
 
+/**
+ * Calculation-weak, with b1 a skill the student does well at height 3: a1/a2 hold 12 height-2 attempts (11 right),
+ * b1 12 attempts at height 3 (10 right), b2 12 at height 3 (none right). All due.
+ */
+function calcWeakState(): State {
+  const due = { nextReviewDay: D0 - 1, noFullUntilDay: D0 - 1 };
+  return startedState({
+    a1: rec(3, atts(2, 11, 1, D0 - 2), due), a2: rec(3, atts(2, 11, 1, D0 - 2), due),
+    b1: rec(3, atts(3, 10, 2, D0 - 2), due), b2: rec(3, atts(3, 0, 12, D0 - 2), due),
+  });
+}
+
 test("calc weak (r12 0.9, r3 0.3) → h3Share 0.5 and a height-2 ramp card before each height-3 card", () => {
   expect(h3After(withAttempts(9, 10, 3, 10))).toBe(0.5);
-  const s0 = withProfile(startedAt(3, 10, 0, { nextReviewDay: D0 - 1, noFullUntilDay: D0 - 1 }), { h3Share: 0.5, stamina: 30 });
+  const s0 = withProfile(calcWeakState(), { stamina: 30 });
+  expect(isCalcWeak(s0, cfg)).toBe(true);
   const { steps } = play(C, s0, T0, () => "r");
   const budget = steps[0].state.session!.budget;
   const sv = served(steps);
@@ -106,23 +119,24 @@ test("calc weak (r12 0.9, r3 0.3) → h3Share 0.5 and a height-2 ramp card befor
   let ramps = 0;
   for (const { x, i } of h3) {
     const spent = sv.slice(0, i).reduce((a, y) => a + y.effort, 0); // all answers right: effort is the card costs
-    if (budget - spent - 2 < 1.5 + 4) continue; // a ramp card plus this card would not fit the budget: no ramp
-    expect(i).toBeGreaterThan(0);
-    expect(sv[i - 1].height).toBe(2);
-    expect(sv[i - 1].skill).toBe(x.skill);
-    expect(sv[i - 1].reason).toBe(x.reason);
-    ramps++;
+    const prev = i > 0 ? sv[i - 1] : null;
+    if (prev && prev.height === 2 && prev.skill === x.skill && prev.reason === x.reason) {
+      ramps++;
+      continue;
+    }
+    // no ramp: only when no longer calculation-weak, or a ramp card plus this card would not fit
+    expect(!isCalcWeak(steps[i].state, cfg) || budget - spent - 2 < 1.5 + 4).toBe(true);
   }
-  expect(ramps).toBeGreaterThanOrEqual(2);
-  // not calculation-weak: no ramp is forced
+  expect(ramps).toBeGreaterThanOrEqual(1);
+  // not calculation-weak: the first height-3 card is served as it is
   const base = withProfile(startedAt(3, 10, 0, { nextReviewDay: D0 - 1, noFullUntilDay: D0 - 1 }), { h3Share: 0.4 });
-  const sv2 = served(play(C, base, T0, () => "r").steps);
-  expect(sv2[0].height).toBe(3);
+  expect(isCalcWeak(base, cfg)).toBe(false);
+  expect(served(play(C, base, T0, () => "r").steps)[0].height).toBe(3);
 });
 
 test("calc weak, no eligible height-2 card → no ramp", () => {
   const c2 = fixture({ drop: ["a1.h2.1", "a1.h2.2", "a1.h2.3", "a2.h2.1", "a2.h2.2", "a2.h2.3", "b1.h2.1", "b1.h2.2", "b1.h2.3", "b2.h2.1", "b2.h2.2", "b2.h2.3"] });
-  const s0 = withProfile(startedAt(3, 10, 0, { nextReviewDay: D0 - 1, noFullUntilDay: D0 - 1 }), { h3Share: 0.5 });
+  const s0 = calcWeakState();
   const sv = served(play(c2, s0, T0, () => "r").steps);
   expect(sv.some((x) => x.height === 2)).toBe(false);
   expect(sv.some((x) => x.height === 3)).toBe(true);
@@ -198,11 +212,12 @@ test("profile event: one per session end that changed a number, carrying the fou
   expect(JSON.parse(JSON.stringify(state))).toEqual(state);
 });
 
+/** `pattern` gets the answer number across all sessions, so "40% right" is 40% over the whole run. */
 function lived(pattern: (i: number) => "r" | "w", sessions: number): State {
   let state = newState("s", 3);
   let now = T0;
+  let i = 0;
   for (let n = 0; n < sessions; n++) {
-    let i = 0;
     const r = play(C, state, now, () => pattern(i++));
     state = r.state;
     if (state.session) state = endSession(state, C, r.now + 1000).state;
@@ -213,11 +228,12 @@ function lived(pattern: (i: number) => "r" | "w", sessions: number): State {
 const nextBudget = (s: State, days: number) => startSession(s, C, T0 + days * 86_400_000).state.session!.budget;
 
 test("weak never asked more: after 5 sessions answering 40% right, budget ≤ budget of a 90%-right student", () => {
-  const weak = lived((i) => (i % 10 < 4 ? "r" : "w"), 5);
+  const weak = lived((i) => (i % 5 === 1 || i % 5 === 4 ? "r" : "w"), 5);
   const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5);
-  expect(nextBudget(weak, 5)).toBeLessThanOrEqual(nextBudget(strong, 5));
-  expect(weak.profile.stamina).toBeLessThanOrEqual(strong.profile.stamina);
+  expect(weak.profile.stamina).toBeLessThanOrEqual(cfg.budget.staminaDefault);
   expect(weak.profile.stamina).toBeGreaterThanOrEqual(8 / 0.9);
+  expect(strong.profile.stamina).toBeGreaterThan(cfg.budget.staminaDefault);
+  expect(nextBudget(weak, 5)).toBeLessThan(nextBudget(strong, 5));
 });
 
 test("dials differ: 7 sessions each for an all-right and a half-wrong student → their profiles and next session's first 5 Served differ", () => {
@@ -228,4 +244,49 @@ test("dials differ: 7 sessions each for an all-right and a half-wrong student �
   const first5 = (s: State) => served(play(C, s, T0 + 7 * 86_400_000, () => "r").steps).slice(0, 5).map((x) => `${x.card}#${x.variant}:${x.reason}:${x.height}`);
   expect(first5(good)).not.toEqual(first5(half));
   expect(nextBudget(good, 7)).toBeGreaterThan(nextBudget(half, 7));
+});
+
+test("memory moves once when a ramp precedes a due-review height-3 card", () => {
+  const s0 = withProfile(calcWeakState(), { stamina: 30 });
+  const { steps } = play(C, s0, T0, () => "r");
+  const sv = served(steps);
+  const i = sv.findIndex((x, k) => x.height === 3 && x.reason === "due-review" && k > 0 && sv[k - 1].height === 2 && sv[k - 1].reason === "due-review" && sv[k - 1].skill === x.skill);
+  expect(i).toBeGreaterThan(0);
+  const mem = (k: number) => steps[k].state.profile.memory;
+  expect(mem(i) / mem(i - 1)).toBeCloseTo(1.05, 10); // the ramp card (first back)
+  expect(mem(i + 1)).toBeCloseTo(mem(i), 10); // the height-3 card: unchanged
+});
+
+test("interrupted end after answering a due-review card emits no profile event", () => {
+  const st = startedAt(2, 6, 0, { nextReviewDay: D0 - 1, noFullUntilDay: D0 - 1 });
+  let cur = startSession(st, C, T0);
+  let n = 0;
+  let answeredDue = false;
+  while (cur.next.kind === "card" && !answeredDue) {
+    const c = cur.next.card;
+    answeredDue = c.reason === "due-review";
+    cur = answer(cur.state, C, { card: c.card, choice: choiceFor(C, c, "r"), ms: 8000 }, T0 + 1000 * ++n);
+  }
+  expect(answeredDue).toBe(true);
+  expect(cur.state.profile.memory).not.toBe(1); // memory moved, so the start snapshot differs
+  const end = endSession(cur.state, C, T0 + 100_000, cfg, { left: false });
+  expect(end.next.kind === "end" && end.next.end.kind).toBe("interrupted");
+  expect(end.events.map((e) => e.type)).toEqual(["session_end"]);
+});
+
+test("a fade never raises stamina", () => {
+  expect(close({ stamina: 10 }, endOf("left", 10, 5), { fadeEffort: 20 }).stamina).toBe(10);
+  expect(close({ stamina: 10 }, endOf("bad-day", 10, 5), { fadeEffort: 10 }).stamina).toBe(10);
+});
+
+test("ramp same-skill run: no ramp when the skill already ran maxSameSkillRun - 1 cards", () => {
+  const s0 = withProfile(calcWeakState(), { stamina: 30 });
+  const o = startSession(s0, C, T0).state;
+  const mk = (skill: string) => ({ served: { card: `${skill}.h3`, variant: 0, skill, section: "x", height: 3 as Height, reason: "due-review" as const, effort: 4 }, rng: o.rng });
+  const room = 20;
+  const run = (last: string[]) => rampBefore(s0, C, mk("b1"), last, D0, room, cfg);
+  expect(run([])).not.toBeNull();
+  expect(run(["b1", "a1"])).not.toBeNull(); // run 0 + ramp + h3 = 2
+  expect(run(["a1", "b1"])).not.toBeNull(); // run 1 + 2 = 3, at the limit
+  expect(run(["b1", "b1"])).toBeNull(); // run 2 + 2 = 4, over the limit
 });

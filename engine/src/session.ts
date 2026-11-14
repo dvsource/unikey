@@ -7,7 +7,7 @@ import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } fr
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
-import { afterSectionAnswer, applySkip, pickSkipCard, valueMessage } from "./skip.js";
+import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
 import type {
   Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
@@ -52,9 +52,9 @@ function stale(state: State): Step {
 /** Per answer: memory, section liking and the answer times (see profile.ts). `usual` is from before this answer. */
 function onAnswerProfile(r: Run, sv: Served, right: boolean, ms: number, usual: number | null): void {
   const s = r.s;
-  const old = s.sections[sv.section] ?? { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false };
+  const old = s.sections[sv.section] ?? newSectionRec();
   const out = onAnswer(s.profile, old, {
-    height: sv.height, right, ms, wasDueReviewFirstCard: sv.reason === "due-review", usualMs: usual, extend: s.session!.phase === "extend",
+    height: sv.height, right, ms, wasDueReviewFirstCard: sv.reason === "due-review" && s.session!.tailCard !== sv.card, usualMs: usual, extend: sv.reason === "extend:liked",
   }, r.cfg);
   s.profile = out.profile;
   if (out.section !== old) s.sections = { ...s.sections, [sv.section]: out.section };
@@ -63,6 +63,7 @@ function onAnswerProfile(r: Run, sv: Served, right: boolean, ms: number, usual: 
 /** Per session end: the profile numbers move (profile.ts). Returns them when any of the four changed since the start. */
 function onSessionEndProfile(r: Run, end: EndInfo, session: SessionState): ReturnType<typeof pickNumbers> | null {
   r.s = onSessionEnd(r.s, end, session, r.cfg);
+  if (end.kind === "interrupted") return null;
   const n = pickNumbers(r.s.profile);
   const o = session.startProfile;
   return o.comfort !== n.comfort || o.memory !== n.memory || o.h3Share !== n.h3Share || o.stamina !== n.stamina ? n : null;
@@ -159,7 +160,10 @@ function normal(r: Run, last: Last): Next {
   if (ss.ramp) { // the height-3 card the ramp card was served for
     const q = ss.ramp;
     ss.ramp = null;
-    if (!ss.blockedSections.includes(q.section) && q.effort <= room) return serve(r, { served: q, rng: s.rng });
+    if (!ss.blockedSections.includes(q.section) && q.effort <= room) {
+      ss.tailCard = q.card; // the second half of a ramp: not a first card back for memory
+      return serve(r, { served: q, rng: s.rng });
+    }
   }
   const main = (p: Picked) => serveMain(r, p, room);
   if (last?.avoid !== undefined) {
@@ -289,7 +293,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null,
-    startProfile: pickNumbers(r.s.profile), ramp: null,
+    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
   return step(r, decide(r, null));

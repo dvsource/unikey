@@ -7,9 +7,13 @@ import { expectedSuccess } from "./estimate.js";
 import { avail, firstOf, servable, solidNeighbour } from "./pick.js";
 import type { Content, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage } from "./types.js";
 
+/** A section with no history yet. */
+export function newSectionRec(): SectionRec {
+  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false };
+}
+
 function sectionRec(state: State, section: string): SectionRec {
-  return state.sections[section]
-    ?? { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false };
+  return state.sections[section] ?? newSectionRec();
 }
 
 /**

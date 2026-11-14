@@ -62,6 +62,8 @@ export type SessionState = {
   startProfile: { comfort: number; memory: number; h3Share: number; stamina: number };
   /** A height-3 card waiting behind the height-2 ramp card just served, else null. */
   ramp: Served | null;
+  /** The height-3 card last served as the second half of a ramp (its due-review reason is not a new first card back). */
+  tailCard: string | null;
 };
 
 export type Choice = number | "dont-know";
