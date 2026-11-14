@@ -48,6 +48,7 @@ export type SessionHistoryEntry = {
 /**
  * The open session. Invariant: `served === null` while a session is open only when "5 more" is on offer.
  * `closeServed` counts close cards served since `phase` became "closing".
+ * `sideDoor`: the section served through the side door this session (at most one), else null.
  */
 export type SessionState = {
   id: string; startedAt: number; budget: number; spent: number; h3Spent: number;
@@ -56,14 +57,14 @@ export type SessionState = {
   newSkills: number; badMoments: number[]; extended: boolean; extendLeft: number;
   phase: "open" | "middle" | "closing" | "extend"; comeback: boolean; fixed: number;
   blockedSections: string[]; dripDone: boolean; moments: Moment[]; fadeEffort: number | null;
-  closeServed: number;
+  closeServed: number; sideDoor: string | null;
 };
 
 export type Choice = number | "dont-know";
 export type EndKind = "budget" | "bad-day" | "extended-done" | "daily-cap" | "content-exhausted" | "left" | "interrupted";
 export type EndInfo = { kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean };
 export type Feedback = { right: boolean; correctIndex: number; tag?: string; reveal?: { section: string } };
-/** Implemented in Task 6 (skip). */
+/** Shown before a second (or later) skip of a section: its share of the unit's weight and its top skills. */
 export type ValueMessage = { section: string; sharePct: number; topSkills: { skill: string; solid: boolean }[] };
 /** Implemented in Task 8 (moments). */
 export type Moment =

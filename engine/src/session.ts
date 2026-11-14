@@ -6,8 +6,9 @@ import { expectedSuccess, usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
+import { afterSectionAnswer, applySkip, pickSkipCard, valueMessage } from "./skip.js";
 import type {
-  Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, State, Step,
+  Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
 
 /** One public call in progress: a private copy of the state, the clock, and the events emitted so far. */
@@ -94,6 +95,8 @@ function serve(r: Run, p: Picked, sweep = false): Next {
     if (sweep) r.s.skills[sv.skill] = newSkillRec(sv.height);
   }
   ss.served = sv;
+  if (sv.reason === "side-door") ss.sideDoor = sv.section;
+  if (sv.reason === "skipped-drip") ss.dripDone = true;
   r.s.seen = [...r.s.seen.filter((x) => r.day - x.day < r.cfg.noRepeatDays), { card: sv.card, variant: sv.variant, day: r.day }];
   emit(r, "card_served", { ...sv });
   return { kind: "card", card: sv };
@@ -134,7 +137,7 @@ function normal(r: Run, last: Last): Next {
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
 
   while (ss.repair) {
-    const rc = nextRepairCard(s, content, ss.repair, r.day, cfg);
+    const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections);
     if (rc) return rc.served.effort <= room ? serve(r, rc) : toClosing(r, last, false);
     if (ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
     else {
@@ -158,6 +161,8 @@ function normal(r: Run, last: Last): Next {
       ss.returns = ss.returns.filter((_, j) => j !== i);
       return serve(r, p);
     }
+    const sk = pickSkipCard(s, content, ss, strict(), cfg); // side door or drip
+    if (sk) return serve(r, sk);
   }
   const pm = pickMiddle(s, content, strict(), cfg);
   if (pm) return serve(r, pm);
@@ -167,6 +172,8 @@ function normal(r: Run, last: Last): Next {
   if (pc) return serve(r, pc);
   const any = pickAny(s, content, strict(), cfg, "comfort-correction");
   if (any) return serve(r, any, true);
+  const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
+  if (side) return serve(r, side);
   return anyLeft(r) ? toClosing(r, last, false) : finish(r, "content-exhausted");
 }
 
@@ -253,6 +260,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
+    sideDoor: null,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
   return step(r, decide(r, null));
@@ -272,7 +280,9 @@ export function answer(
   const picked = input.choice === "dont-know" ? null : opts[input.choice];
   const right = picked !== null && picked.correct;
   const tag = picked !== null && !right ? picked.tag : undefined;
-  const winnable = expectedSuccess(r.s, sv.skill, sv.height, cfg) >= cfg.session.winnable;
+  const drip = sv.reason === "skipped-drip";
+  // A drip or side-door card is never the session's winning last card: a close card follows it.
+  const winnable = !drip && sv.reason !== "side-door" && expectedSuccess(r.s, sv.skill, sv.height, cfg) >= cfg.session.winnable;
   const usual = usualMs(r.s, sv.height, cfg);
   const slow = usual !== null && input.ms > cfg.badDay.slowFactor * usual;
   const cost = sv.effort + (picked === null ? cfg.effort.dontKnow : right ? 0 : cfg.effort.wrong);
@@ -287,9 +297,12 @@ export function answer(
     const comfortLow = r.s.profile.comfort >= cfg.estimate.comfortLowMark;
     const rec0 = r.s.skills[sv.skill] ?? newSkillRec(startHeight(def, comfortLow, r.s.sections[def.section]?.returned === true));
     const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card }, r.s.profile.memory, cfg);
-    r.s.skills[sv.skill] = out.rec;
-    steppedDown = out.steppedDown;
+    // A wrong drip shows feedback only: no step down.
+    const keep = drip && out.steppedDown;
+    r.s.skills[sv.skill] = keep ? { ...out.rec, height: rec0.height, windowStartSeq: rec0.windowStartSeq } : out.rec;
+    steppedDown = out.steppedDown && !keep;
   }
+  const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
   r.s = onAnswerProfile(r.s, sv, right, input.ms, cfg);
 
   const ss = r.s.session!;
@@ -300,7 +313,9 @@ export function answer(
   if (sv.reason === "repair:return" && right) ss.fixed += 1;
   if (ss.phase === "extend") ss.extendLeft -= 1;
   emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null });
-  const feedback: Feedback = { right, correctIndex: opts.findIndex((o) => o.correct), ...(tag !== undefined ? { tag } : {}) };
+  const feedback: Feedback = {
+    right, correctIndex: opts.findIndex((o) => o.correct), ...(tag !== undefined ? { tag } : {}), ...(reveal ? { reveal } : {}),
+  };
 
   let avoid: string | undefined;
   if (ss.phase === "open" || ss.phase === "middle") {
@@ -320,7 +335,7 @@ export function answer(
         avoid = rdef?.section;
         ss.repair = null;
       }
-    } else if (!right) {
+    } else if (!right && !drip) {
       ss.repair = {
         skill: sv.skill, failedHeight: sv.height, ...(tag !== undefined ? { tag } : {}),
         ...(card.noteRef !== undefined ? { note: card.noteRef } : {}), stage: "piece",
@@ -328,6 +343,24 @@ export function answer(
     }
   }
   return step(r, decide(r, { right, winnable, ...(avoid !== undefined ? { avoid } : {}) }), feedback);
+}
+
+/**
+ * "Not now" on the current card (spec §6). A second or later skip of the section first returns
+ * `confirm-skip` with its value message and changes nothing; the caller then skips again with
+ * `confirmed: true` or answers the card. A skip for any other card is stale.
+ */
+export function skip(
+  state: State, content: Content, input: { card: string; reason?: SkipReason; confirmed?: boolean }, now: number, cfg: Config = defaultConfig,
+): Step {
+  const sv0 = state.session?.served;
+  if (!sv0 || sv0.card !== input.card) return stale(state);
+  if (sv0.reason !== "skipped-drip" && (state.sections[sv0.section]?.skipCount ?? 0) >= 1 && input.confirmed !== true) {
+    return { state, events: [], moments: [], next: { kind: "confirm-skip", value: valueMessage(state, content, sv0.section, cfg) } };
+  }
+  const r = begin(state, content, now, cfg);
+  emit(r, "skip", applySkip(r.s, content, r.s.session!.served!, input.reason, r.day, cfg));
+  return step(r, decide(r, null));
 }
 
 /** The student took "5 more". Only valid while the offer is pending. */

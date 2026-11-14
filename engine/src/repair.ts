@@ -27,10 +27,10 @@ function telling(content: Content, def: SkillDef, tag: string | undefined): stri
 /**
  * The next card of a repair stage, or null when the stage has nothing eligible (the caller then skips it).
  * piece: height 1 preferring tag then note → height 2 only on a tag/note match → any height 1 →
- * height 1 of the weakest `requires` skill. confidence: same skill, `failedHeight − 1` (min 1), nearest at or below.
+ * height 1 of the weakest `requires` skill outside blocked sections (`blocked`: the session's skipped ones). confidence: same skill, `failedHeight − 1` (min 1), nearest at or below.
  */
 export function nextRepairCard(
-  state: State, content: Content, repair: RepairState, day: number, cfg: Config,
+  state: State, content: Content, repair: RepairState, day: number, cfg: Config, blocked: string[] = [],
 ): { served: Served; rng: Rng } | null {
   const def = content.skills[repair.skill];
   if (!def) return null;
@@ -56,7 +56,7 @@ export function nextRepairCard(
   if (e2 && matches(e2.card)) return piece(e2);
   if (e1) return piece(e1);
   const reqs = def.requires
-    .filter((r) => content.skills[r] && !isBlocked(state, content.skills[r].section, day))
+    .filter((r) => content.skills[r] && !isBlocked(state, content.skills[r].section, day, blocked))
     .map((r) => ({ id: r, es: expectedSuccess(state, r, 1, cfg) }))
     .sort((x, y) => x.es - y.es || byId(x.id, y.id));
   for (const r of reqs) {

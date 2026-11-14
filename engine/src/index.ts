@@ -8,4 +8,5 @@ export * from "./skill.js";
 export * from "./estimate.js";
 export * from "./pick.js";
 export * from "./repair.js";
-export { startSession, answer, extend, endSession } from "./session.js";
+export { startSession, answer, skip, extend, endSession } from "./session.js";
+export { setCurrentTopic, valueMessage } from "./skip.js";

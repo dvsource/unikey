@@ -19,7 +19,8 @@ export function migrate(json: unknown): State {
   }
   const s = json as State;
   // Fields added after the first v1 states were stored.
-  return { ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null };
+  const session = s.session ? { ...s.session, sideDoor: s.session.sideDoor ?? null } : null;
+  return { ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null, session };
 }
 
 export function effectiveNow(state: State, now: number): number {

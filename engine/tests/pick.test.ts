@@ -191,8 +191,10 @@ test("middle: blocked section never returned", () => {
     const r = pickMiddle({ ...skipped, rng: { seed, n: 0 } }, C, ctx(), cfg)!;
     expect(r.served.section).toBe("u.t1/A");
   }
-  // On the remind day itself the section is back.
-  expect(pickMiddle(skipped, C, ctx({ day: D + 3 }), cfg)!.served.section).toBe("u.t1/B");
+  // On the remind day it is still kept for the side door (Task 6); once it has returned it is back.
+  expect(pickMiddle(skipped, C, ctx({ day: D + 3 }), cfg)!.served.section).toBe("u.t1/A");
+  const back = { ...skipped, sections: { "u.t1/B": { ...skipped.sections["u.t1/B"], remindDay: null, returned: true } } };
+  expect(pickMiddle(back, C, ctx({ day: D + 3 }), cfg)!.served.section).toBe("u.t1/B");
   // ctx.blockedSections blocks too.
   expect(pickMiddle(st(skills), C, ctx({ blockedSections: ["u.t1/B"] }), cfg)!.served.section).toBe("u.t1/A");
   expect(pickMiddle(st({ b1: due(2) }), C, ctx({ blockedSections: ["u.t1/B", "u.t1/A"] }), cfg)).toBeNull();

@@ -1,13 +1,15 @@
 import { defaultConfig, type Config } from "../src/config.js";
 import { DAY_MS } from "../src/time.js";
-import { answer, startSession } from "../src/session.js";
+import { answer, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
 import { newState } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import type { Attempt, Choice, Content, Height, SectionRec, SkillRec, State, Step } from "../src/types.js";
 
-export type Ans = "r" | "w" | "dk";
-export type Answers = Ans[] | ((s: Served, i: number) => Ans);
+export type Choose = "r" | "w" | "dk";
+/** "s": "Not now" (a confirmed skip). A function returning undefined stops the run with that card open. */
+export type Ans = Choose | "s";
+export type Answers = Ans[] | ((s: Served, i: number) => Ans | undefined);
 export type PlayOpts = { ms?: (s: Served, i: number) => number; cfg?: Config };
 
 /** 08:30 Sri Lanka time on 2027-01-04. */
@@ -18,13 +20,13 @@ export function nextDay(now: number): number {
 }
 
 /** The correct option ("r"), the first wrong option ("w") or "dont-know". */
-export function choiceFor(content: Content, s: Served, a: Ans): Choice {
+export function choiceFor(content: Content, s: Served, a: Choose): Choice {
   if (a === "dk") return "dont-know";
   return content.cards[s.card].variants[s.variant].findIndex((o) => (a === "r" ? o.correct : !o.correct));
 }
 
 /**
- * Answers every served card from `step` on (ms 8000 unless `opts.ms`), advancing now by 10 s per card,
+ * Answers (or skips) every served card from `step` on (ms 8000 unless `opts.ms`), advancing now by 10 s per card,
  * until `next.kind` is not `card` or the answers run out.
  */
 export function run(content: Content, step: Step, now: number, answers: Answers, opts: PlayOpts = {}):
@@ -38,7 +40,9 @@ export function run(content: Content, step: Step, now: number, answers: Answers,
     const a = typeof answers === "function" ? answers(s, i) : answers[i];
     if (a === undefined) break;
     now += 10_000;
-    cur = answer(cur.state, content, { card: s.card, choice: choiceFor(content, s, a), ms: opts.ms ? opts.ms(s, i) : 8000 }, now, cfg);
+    cur = a === "s"
+      ? skip(cur.state, content, { card: s.card, confirmed: true }, now, cfg)
+      : answer(cur.state, content, { card: s.card, choice: choiceFor(content, s, a), ms: opts.ms ? opts.ms(s, i) : 8000 }, now, cfg);
     steps.push(cur);
     i++;
   }

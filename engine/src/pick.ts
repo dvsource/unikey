@@ -12,7 +12,8 @@ export function effortOf(height: Height, cfg: Config): number {
   return height === 1 ? cfg.effort.h1 : height === 2 ? cfg.effort.h2 : cfg.effort.h3;
 }
 
-function avail(def: SkillDef): Height[] {
+/** The heights at which the skill has cards, lowest first. */
+export function avail(def: SkillDef): Height[] {
   return HEIGHTS.filter((h) => def.cards[h].length > 0);
 }
 
@@ -32,9 +33,15 @@ function currentHeight(state: State, def: SkillDef, cfg: Config): Height | null 
   return servable(def, want);
 }
 
+/**
+ * Kept out of normal picks: before its remind day, or skipped and not yet back through the side door
+ * (spec §6), or in `extra` (the session's skipped sections). Only the drip and the side door bypass it.
+ */
 export function isBlocked(state: State, section: string, day: number, extra: string[] = []): boolean {
-  const rd = state.sections[section]?.remindDay;
-  return (rd != null && rd > day) || extra.includes(section);
+  if (extra.includes(section)) return true;
+  const rec = state.sections[section];
+  if (!rec) return false;
+  return (rec.remindDay != null && rec.remindDay > day) || (rec.skipCount > 0 && !rec.returned);
 }
 
 function todayEffort(state: State, day: number): number {
@@ -115,21 +122,32 @@ export function likedSections(state: State, content: Content, cfg: Config = defa
   return scored.sort((x, y) => y.mean - x.mean || x.weight - y.weight || byId(x.id, y.id)).map((s) => s.id);
 }
 
-/** First solid `requires`/`helps` neighbour when the skill's section has returned from a skip. */
-function borrowedFrom(state: State, content: Content, def: SkillDef, cfg: Config): string | undefined {
-  if (state.sections[def.section]?.returned !== true) return undefined;
+/** The first `requires`/`helps` neighbour the student is solid on, if any. */
+export function solidNeighbour(state: State, content: Content, def: SkillDef, cfg: Config): string | undefined {
   return [...def.requires, ...def.helps].find((n) => {
     const r = state.skills[n]; const d = content.skills[n];
     return !!r && !!d && isSolid(r, d, cfg);
   });
 }
 
-type Cand = { def: SkillDef; height: Height };
+/** Borrowed strength: named on side-door cards and on cards of a section that has returned from a skip. */
+function borrowedFrom(state: State, content: Content, def: SkillDef, reason: Reason, cfg: Config): string | undefined {
+  if (reason !== "side-door" && state.sections[def.section]?.returned !== true) return undefined;
+  return solidNeighbour(state, content, def, cfg);
+}
 
-/** `relax`: ignore `excludeSkills` and the same-skill run (the last-resort sweep's second pass). */
-function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, relax = false): Picked | null {
+export type Cand = { def: SkillDef; height: Height };
+
+/**
+ * The shared candidate check: section not blocked, not excluded, no over-long same-skill run, fits the budget,
+ * and an eligible (card, variant). `relax`: ignore `excludeSkills` and the same-skill run (the last-resort
+ * sweep's second pass). `unblock`: a skipped section this pick may serve anyway (the drip and the side door).
+ */
+export function tryServe(
+  state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, relax = false, unblock?: string,
+): Picked | null {
   const { def, height } = c;
-  if (isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
+  if (def.section !== unblock && isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
   if (!relax) {
     if (ctx.excludeSkills?.includes(def.id)) return null;
     const n = cfg.session.maxSameSkillRun;
@@ -141,7 +159,7 @@ function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: 
   const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, {}, cfg);
   if (!e) return null;
   const served: Served = { card: e.card, variant: e.variant, skill: def.id, section: def.section, height, reason, effort };
-  const b = borrowedFrom(state, content, def, cfg);
+  const b = borrowedFrom(state, content, def, reason, cfg);
   if (b !== undefined) served.borrowedFrom = b;
   return { served, rng: e.rng };
 }

@@ -22,6 +22,7 @@ test("spec numbers", () => {
   expect(c.tzOffsetMinutes).toBe(330);
   expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });
   expect(c.answers).toEqual({ msKept: 20 });
+  expect(c.skip).toEqual({ dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3 });
 });
 test("dayOf uses Sri Lanka time", () => {
   expect(dayOf(Date.UTC(2027, 0, 15, 18, 29))).toBe(dayOf(Date.UTC(2027, 0, 15, 0, 0)));
