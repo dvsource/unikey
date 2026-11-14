@@ -204,12 +204,46 @@ function newcomer(state: State, content: Content, section: string, reason: Reaso
 }
 
 /**
- * Open: a liked section, at a height the student usually gets right. R3: until the student has
- * `estimate.minOwnPrior` answers overall (no evidence yet), the chosen skill's lowest eligible height.
+ * Open for a fresh student (R3, review finding 1): height first ACROSS skills. Every candidate at its lowest eligible
+ * height, in the usual open order (liked sections; in each, started skills by estimate, then the section's new skills
+ * as `newcomer` orders them), then any other unblocked started or ready skill (by estimate); sorted by that height first.
+ * A height-3 card only when no height-1/2 card is eligible anywhere outside blocked sections. The new-skill allowance
+ * does not apply (nearly every card of a fresh student is a new skill).
+ */
+function pickOpenFresh(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
+  const open = (d: SkillDef) => !isBlocked(state, d.section, ctx.day, ctx.blockedSections);
+  const rows: { def: SkillDef; height: Height; k: number }[] = [];
+  const done = new Set<string>();
+  const add = (def: SkillDef) => {
+    if (done.has(def.id)) return;
+    done.add(def.id);
+    const height = lowestEligible(state, content, def, avail(def), ctx, cfg);
+    if (height !== null) rows.push({ def, height, k: rows.length });
+  };
+  const st = started(state, content).filter(open);
+  const esAt = (d: SkillDef) => expectedSuccess(state, d.id, currentHeight(state, d, cfg)!, cfg);
+  for (const sec of likedSections(state, content, cfg)) {
+    if (isBlocked(state, sec, ctx.day, ctx.blockedSections)) continue;
+    st.filter((d) => d.section === sec).sort((x, y) => esAt(y) - esAt(x) || byId(x.id, y.id)).forEach(add);
+    cardSkills(content, content.sections[sec]?.skills ?? []).filter((d) => !(d.id in state.skills))
+      .sort((x, y) => Number(x.requires.length > 0) - Number(y.requires.length > 0) || y.weight - x.weight || byId(x.id, y.id))
+      .forEach(add);
+  }
+  cardSkills(content, Object.keys(content.skills).sort(byId))
+    .filter((d) => open(d) && (d.id in state.skills || isReady(state, content, d)))
+    .sort((x, y) => Number(x.id in state.skills ? 0 : 1) - Number(y.id in state.skills ? 0 : 1) || esAt(y) - esAt(x) || byId(x.id, y.id))
+    .forEach(add);
+  rows.sort((x, y) => x.height - y.height || x.k - y.k);
+  return firstOf(state, content, rows, () => "open:liked", ctx, cfg);
+}
+
+/**
+ * Open: a liked section, at a height the student usually gets right. A fresh student (fewer than
+ * `estimate.minOwnPrior` answers overall) goes through `pickOpenFresh`.
  */
 export function pickOpen(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
   const comfort = state.profile.comfort;
-  const fresh = state.answered < cfg.estimate.minOwnPrior;
+  if (state.answered < cfg.estimate.minOwnPrior) return pickOpenFresh(state, content, ctx, cfg);
   for (const sec of likedSections(state, content, cfg)) {
     if (isBlocked(state, sec, ctx.day, ctx.blockedSections)) continue;
     const st = started(state, content).filter((d) => d.section === sec);
@@ -222,7 +256,6 @@ export function pickOpen(state: State, content: Content, ctx: PickCtx, cfg: Conf
       .map((c) => ({ ...c, es: expectedSuccess(state, c.def.id, c.height, cfg) }))
       .sort((x, y) => y.es - x.es || byId(x.def.id, y.def.id))
       .map((c) => {
-        if (fresh) return { ...c, height: lowestEligible(state, content, c.def, avail(c.def), ctx, cfg) ?? c.height };
         if (c.es >= comfort) return c;
         const lower = [...avail(c.def)].reverse().find((h) => h < c.height);
         return lower === undefined ? c : { ...c, height: lower };
