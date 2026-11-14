@@ -429,16 +429,24 @@ test("stamina (R4a): a clean budget end raises stamina only on a good day (above
 test("fade (R4b): fade.slowAnswers slow answers, not in a row → fadeEffort is the effort before the first; the session goes on", () => {
   const usual = { 1: Array(10).fill(8000), 2: Array(10).fill(8000), 3: Array(10).fill(8000) };
   const start = withProfile(startedAt(2, 4, 1), { msByHeight: usual });
-  const slowAt = [2, 4];
-  const { steps, state } = play(C, start, T0, allR, { ms: (_s, i) => (slowAt.includes(i) ? 17_000 : 8000) });
-  const cards = served(steps);
-  const before = cards.slice(0, slowAt[0]).reduce((a, c) => a + c.effort, 0);
-  const endEv = lastStep(steps).events.find((x) => x.type === "session_end")!;
-  expect(endEv.data).toMatchObject({ kind: "budget", fadeEffort: before });
-  expect(state.profile.stamina).toBeCloseTo(Math.min(start.profile.stamina, 0.7 * start.profile.stamina + 0.3 * before), 10);
-  // one slow answer is not a fade
-  const one = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
-  expect(lastStep(one.steps).events.find((x) => x.type === "session_end")!.data).toMatchObject({ fadeEffort: null });
+  const U = cfg.staminaUpdate;
+  const endData = (steps: Step[]) => lastStep(steps).events.find((x) => x.type === "session_end")!.data;
+  const effortBefore = (steps: Step[], i: number) => served(steps).slice(0, i).reduce((a, c) => a + c.effort, 0);
+  // The rule with slowAnswers 2: two slow answers apart record the fade at the first; one alone does not.
+  const two = { ...cfg, fade: { slowAnswers: 2 } };
+  const p2 = play(C, start, T0, allR, { cfg: two, ms: (_s, i) => (i === 2 || i === 4 ? 17_000 : 8000) });
+  expect(endData(p2.steps)).toMatchObject({ kind: "budget", fadeEffort: effortBefore(p2.steps, 2) });
+  const p1 = play(C, start, T0, allR, { cfg: two, ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
+  expect(endData(p1.steps)).toMatchObject({ fadeEffort: null });
+  // Default (slowAnswers 1): one slow answer is a fade; stamina blends toward it.
+  const d = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
+  const before = effortBefore(d.steps, 2);
+  expect(endData(d.steps)).toMatchObject({ kind: "budget", fadeEffort: before });
+  const floor = cfg.budget.minimumDay / (1 - cfg.budget.margin);
+  expect(d.state.profile.stamina).toBeCloseTo(Math.max(floor, Math.min(start.profile.stamina, U.keep * start.profile.stamina + U.take * before)), 10);
+  expect(d.state.profile.stamina).toBeLessThan(start.profile.stamina);
+  // No slow answer: no fade.
+  expect(endData(play(C, start, T0, allR).steps)).toMatchObject({ fadeEffort: null });
 });
 
 test("budget (R4c): a student's first budget.firstSessions sessions use the minimum-day budget", () => {
