@@ -71,13 +71,17 @@ function usualBefore(state: State, height: Height, inSession: number, cfg: Confi
 
 /**
  * Good day (spec §8.3, fix round 1): the session's success rate at or above comfort and no slow answer in it
- * (`slowBefore` empty). "Faster than usual" is no longer required: a steady student is rarely faster than their own median.
+ * (`slowBefore` empty). "Faster than usual" is no longer required: a steady student is rarely faster than their own
+ * median. A usual time from before the session must exist at every height played, or a slow answer could not be seen.
  */
 export function isGoodDay(state: State, ss: SessionState, cfg: Config): boolean {
-  void cfg;
   const n = ss.history.length;
   if (n === 0) return false;
-  return ss.history.filter((h) => h.right === true).length / n >= state.profile.comfort && ss.slowBefore.length === 0;
+  if (ss.history.filter((h) => h.right === true).length / n < state.profile.comfort || ss.slowBefore.length > 0) return false;
+  return ([1, 2, 3] as Height[]).every((h) => {
+    const k = ss.history.filter((x) => x.height === h).length;
+    return k === 0 || usualBefore(state, h, k, cfg) !== null;
+  });
 }
 
 /** "5 more" is offered on a good day, when not already extended and the extra cards (at height-1 cost) fit under the daily cap. */

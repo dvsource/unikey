@@ -520,3 +520,11 @@ test("finding 5: when only the session's recent cards are left, the least recent
   expect(cards.every((c) => c.card === "a1.h3")).toBe(true);
   expect(endOf(lastStep(steps)).kind).not.toBe("content-exhausted");
 });
+
+test("\"5 more\" needs a usual time at every height played (otherwise a slow answer could not have been seen)", () => {
+  // A brand-new student has no usual times: all right, but no offer and no stamina growth.
+  const p = play(C, newState("s", 1), T0, allR, { offer: "stop" });
+  expect(lastStep(p.steps).next.kind).toBe("end");
+  // With usual times known: offered.
+  expect(lastStep(play(C, fastStart(), T0, allR, { ms: () => 20_000, offer: "stop" }).steps).next.kind).toBe("offer-extend");
+});
