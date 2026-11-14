@@ -187,7 +187,7 @@ test("liking: fast right +0.5; slow −0.5; extend +2; clamp", () => {
 test("liking: cards answered in an extended session raise the section's liking", () => {
   const fast = { 1: Array(8).fill(8000), 2: Array(8).fill(8000), 3: [] as number[] };
   const s0 = withProfile(startedAt(2, 12, 0), { msByHeight: fast });
-  const r1 = run(C, startSession(s0, C, T0), T0, () => "r", { ms: () => 4000 });
+  const r1 = run(C, startSession(s0, C, T0), T0, () => "r", { ms: () => 4000, offer: "stop" });
   expect(r1.steps.at(-1)!.next.kind).toBe("offer-extend");
   const ext = extend(r1.state, C, r1.now + 1000);
   const card = ext.next.kind === "card" ? ext.next.card : null;
@@ -216,16 +216,18 @@ test("profile event: one per session end that changed a number, carrying the fou
 });
 
 /** `pattern` gets the answer number across all sessions, so "40% right" is 40% over the whole run. */
-function lived(pattern: (i: number) => "r" | "w", sessions: number, fast = false): State {
+function lived(pattern: (i: number) => "r" | "w", sessions: number, takesMore = false): State {
   let state = newState("s", 3);
   let now = T0;
   let i = 0;
-  let k = 0;
-  // `fast`: each answer a little quicker than the last, so every session is faster than usual (a good day, R4a)
-  const ms = fast ? () => 9000 - 50 * k++ : undefined;
   for (let n = 0; n < sessions; n++) {
-    const r = play(C, state, now, () => pattern(i++), ms ? { ms } : {});
+    const r = play(C, state, now, () => pattern(i++), { offer: "stop" });
     state = r.state;
+    // `takesMore`: accepts "5 more" when offered (fix round 1: stamina grows only on an extended session)
+    if (state.session && takesMore) {
+      const x = run(C, extend(state, C, r.now + 1000), r.now + 1000, () => pattern(i++), { offer: "stop" });
+      state = x.state;
+    }
     if (state.session) state = endSession(state, C, r.now + 1000).state;
     now = nextDay(now);
   }
@@ -235,7 +237,7 @@ const nextBudget = (s: State, days: number) => startSession(s, C, T0 + days * 86
 
 test("weak never asked more: after 5 sessions answering 40% right, budget ≤ budget of a 90%-right student", () => {
   const weak = lived((i) => (i % 5 === 1 || i % 5 === 4 ? "r" : "w"), 5);
-  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5, true); // Task 11 R4a: stamina grows only on fast good days
+  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5, true); // stamina grows only on an accepted "5 more"
   expect(weak.profile.stamina).toBeLessThanOrEqual(cfg.budget.staminaDefault);
   expect(weak.profile.stamina).toBeGreaterThanOrEqual(8 / 0.9);
   expect(strong.profile.stamina).toBeGreaterThan(cfg.budget.staminaDefault);
@@ -243,7 +245,7 @@ test("weak never asked more: after 5 sessions answering 40% right, budget ≤ bu
 });
 
 test("dials differ: 7 sessions each for an all-right and a half-wrong student → their profiles and next session's first 5 Served differ", () => {
-  const good = lived(() => "r", 7, true); // Task 11 R4a: stamina grows only on fast good days
+  const good = lived(() => "r", 7, true); // stamina grows only on an accepted "5 more"
   const half = lived((i) => (i % 2 === 0 ? "r" : "w"), 7);
   expect(good.profile).not.toEqual(half.profile);
   expect(good.profile.stamina).toBeGreaterThan(half.profile.stamina);

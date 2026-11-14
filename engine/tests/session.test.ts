@@ -173,7 +173,7 @@ const fastStart = () =>
   withProfile(startedAt(2, 4, 1), { msByHeight: { 1: Array(10).fill(20_000), 2: Array(10).fill(20_000), 3: Array(10).fill(20_000) } });
 
 test("fast + above comfort at budget → offer-extend; extend → exactly 5 cards → extended-done", () => {
-  const p = play(C, fastStart(), T0, allR);
+  const p = play(C, fastStart(), T0, allR, { offer: "stop" });
   const last = lastStep(p.steps);
   expect(last.next).toEqual({ kind: "offer-extend" });
   expect(last.state.session).not.toBeNull();
@@ -188,20 +188,27 @@ test("fast + above comfort at budget → offer-extend; extend → exactly 5 card
   expect(end.kind).toBe("extended-done");
   expect(end.cards).toBe(served(p.steps).length + 5);
 
-  // slow at the usual pace: no offer
-  const slow = play(C, fastStart(), T0, allR, { ms: () => 25_000 });
+  // Fix round 1 (finding 4b): "5 more" no longer needs answers faster than usual. At the usual pace it is offered;
+  // with a slow answer (> 2× usual) in the session it is not.
+  const usualPace = play(C, fastStart(), T0, allR, { ms: () => 25_000, offer: "stop" });
+  expect(lastStep(usualPace.steps).next).toEqual({ kind: "offer-extend" });
+  const slow = play(C, fastStart(), T0, allR, { ms: (_s, i) => (i === 1 ? 41_000 : 20_000) });
   expect(endOf(lastStep(slow.steps)).kind).toBe("budget");
+  // below comfort: no offer
+  const half = play(C, fastStart(), T0, (_s, i) => (i % 2 ? "w" : "r"));
+  expect(lastStep(half.steps).next.kind).toBe("end");
 });
 
 test("declining the offer → end budget", () => {
-  const p = play(C, fastStart(), T0, allR);
+  const p = play(C, fastStart(), T0, allR, { offer: "stop" });
   const last = lastStep(p.steps);
   expect(last.next.kind).toBe("offer-extend");
   const e = endSession(last.state, C, p.now + 5000);
   const end = endOf(e);
   expect(end.kind).toBe("budget");
   expect(e.state.session).toBeNull();
-  expect(e.events.map((x) => x.type)).toEqual(["session_end", "profile"]);
+  // Fix round 1 (finding 4a): a declined offer leaves stamina as it was, so no profile number moves here.
+  expect(e.events.map((x) => x.type)).toEqual(["session_end"]);
   // a stale answer while the offer is pending keeps the offer
   const st = answer(last.state, C, { card: "a1.h1.1", choice: 0, ms: 1 }, p.now + 6000);
   expect(st.next).toEqual({ kind: "offer-extend" });
@@ -390,7 +397,7 @@ test("endSession left: kind left, fadeEffort recorded; endSession with no sessio
 });
 
 test("extend: a wrong answer on the last extra card is followed by a close card", () => {
-  const p = play(C, fastStart(), T0, allR);
+  const p = play(C, fastStart(), T0, allR, { offer: "stop" });
   const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
   const r = run(C, ex, p.now + 5000, (s: Served, i: number) => (i === 4 ? "w" : "r"));
   const cards = served([ex, ...r.steps]);
@@ -413,17 +420,24 @@ test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => 
 
 // ---------- tuning pass (Task 11) ----------
 
-test("stamina (R4a): a clean budget end raises stamina only on a good day (above comfort and faster than usual)", () => {
+test("stamina (finding 4a): grows only after an accepted \"5 more\" finished with no fade; a clean budget end leaves it", () => {
   const before = fastStart().profile.stamina;
-  // fast and all right: the good day that offers "5 more"; declined → budget end, stamina + cleanStep
-  const p = play(C, fastStart(), T0, allR);
+  // offered and declined → budget end: unchanged (cleanStep 0)
+  const p = play(C, fastStart(), T0, allR, { offer: "stop" });
+  expect(lastStep(p.steps).next.kind).toBe("offer-extend");
   const e = endSession(lastStep(p.steps).state, C, p.now + 5000);
   expect(endOf(e).kind).toBe("budget");
-  expect(e.state.profile.stamina).toBeCloseTo(before + cfg.staminaUpdate.cleanStep, 10);
-  // all right at the usual pace: a clean budget end, but no evidence of more stamina → unchanged
-  const slow = play(C, fastStart(), T0, allR, { ms: () => 20_000 });
-  expect(endOf(lastStep(slow.steps)).kind).toBe("budget");
-  expect(slow.state.profile.stamina).toBe(before);
+  expect(e.state.profile.stamina).toBe(before);
+  expect(cfg.staminaUpdate.cleanStep).toBe(0);
+  // accepted and finished, no slow answer → + extendStep
+  const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
+  const done = run(C, ex, p.now + 5000, allR, { ms: () => 20_000 });
+  expect(endOf(lastStep(done.steps)).kind).toBe("extended-done");
+  expect(done.state.profile.stamina).toBeCloseTo(before + cfg.staminaUpdate.extendStep, 10);
+  // accepted, but two slow answers in the extra cards → a fade: never raised
+  const tired = run(C, ex, p.now + 5000, allR, { ms: (_s, i) => (i >= 2 ? 50_000 : 20_000) });
+  expect(endOf(lastStep(tired.steps)).kind).toBe("extended-done");
+  expect(tired.state.profile.stamina).toBeLessThan(before);
 });
 
 test("fade (R4b): fade.slowAnswers slow answers, not in a row → fadeEffort is the effort before the first; the session goes on", () => {

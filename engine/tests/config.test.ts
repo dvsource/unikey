@@ -20,7 +20,7 @@ test("spec numbers", () => {
   expect(c.returning).toEqual({ noFullDays: 2, awayDays: 3 });
   expect(c.skill).toEqual({ attemptsKept: 12, solidDays: 2 });
   expect(c.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 });
-  expect(c.staminaUpdate).toEqual({ keep: 0.7, take: 0.3, cleanStep: 0.5, extendStep: 1 });
+  expect(c.staminaUpdate).toEqual({ keep: 0.7, take: 0.3, cleanStep: 0, extendStep: 1 });
   expect(c.liking).toEqual({ fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 });
   expect(c.tzOffsetMinutes).toBe(330);
   expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });

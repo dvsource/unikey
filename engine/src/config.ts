@@ -20,7 +20,7 @@ export const defaultConfig = {
   skill: { attemptsKept: 12, solidDays: 2 },
   estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, minRunning: 3, comfortLowMark: 0.8 },
   /** Stamina (spec §7): blend toward the effort at which the student faded; steps after a clean end / extended session. */
-  staminaUpdate: { keep: 0.7, take: 0.3, cleanStep: 0.5, extendStep: 1 },
+  staminaUpdate: { keep: 0.7, take: 0.3, cleanStep: 0, extendStep: 1 },
   /** Section liking: steps for a fast right / slow answer / extend card, the slow factor over usual ms, and the ± clamp. */
   liking: { fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 },
   tzOffsetMinutes: 330,

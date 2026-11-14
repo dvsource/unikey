@@ -1,6 +1,6 @@
 import { defaultConfig, type Config } from "../src/config.js";
 import { DAY_MS } from "../src/time.js";
-import { answer, skip, startSession } from "../src/session.js";
+import { answer, endSession, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
 import { newState } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
@@ -10,7 +10,11 @@ export type Choose = "r" | "w" | "dk";
 /** "s": "Not now" (a confirmed skip). A function returning undefined stops the run with that card open. */
 export type Ans = Choose | "s";
 export type Answers = Ans[] | ((s: Served, i: number) => Ans | undefined);
-export type PlayOpts = { ms?: (s: Served, i: number) => number; cfg?: Config };
+/**
+ * `offer`: what to do with an offer of "5 more" at the end. "decline" (default since fix round 1, when "5 more" became
+ * common: it no longer needs answers faster than usual) ends the session `budget`; "stop" leaves the offer open.
+ */
+export type PlayOpts = { ms?: (s: Served, i: number) => number; cfg?: Config; offer?: "decline" | "stop" };
 
 /** 08:30 Sri Lanka time on 2027-01-04. */
 export const T0 = Date.UTC(2027, 0, 4, 3, 0);
@@ -45,6 +49,11 @@ export function run(content: Content, step: Step, now: number, answers: Answers,
       : answer(cur.state, content, { card: s.card, choice: choiceFor(content, s, a), ms: opts.ms ? opts.ms(s, i) : 8000 }, now, cfg);
     steps.push(cur);
     i++;
+  }
+  if (cur.next.kind === "offer-extend" && opts.offer !== "stop") {
+    now += 1000;
+    cur = endSession(cur.state, content, now, cfg);
+    steps.push(cur);
   }
   return { state: cur.state, steps, now };
 }

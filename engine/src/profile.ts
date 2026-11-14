@@ -66,8 +66,9 @@ function h3ShareOf(state: State, cfg: Config): number {
 /**
  * Comfort, stamina and h3Share at a session end. `interrupted` (and a session with no answers) change nothing.
  * `left` below `comfort + quitMargin` raises comfort; `streakSessions` good finishes in a row lower it; any other
- * end resets the streak. Stamina blends toward `session.fadeEffort` when set, grows after a clean budget end only on a
- * good day (above comfort and faster than usual, the "5 more" condition; R4a) and after an extended session.
+ * end resets the streak. Stamina blends toward `session.fadeEffort` when set (never up); otherwise it grows only after
+ * an accepted "5 more" finished with no fade (`extendStep`). A clean budget end adds `cleanStep` on a good day (0 since
+ * fix round 1: stamina grows on the evidence of an extended session only).
  */
 export function onSessionEnd(state: State, end: EndInfo, session: SessionState, cfg: Config): State {
   if (end.kind === "interrupted" || end.cards === 0) return state;
