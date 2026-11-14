@@ -58,6 +58,20 @@ function sideDoorDue(state: State, content: Content, section: string, day: numbe
   return day >= skipDay + cfg.skip.classReturnMinDays;
 }
 
+/**
+ * The skip's cap has come: at least the last (largest) remind gap has passed since the skip day (recovered as in
+ * `sideDoorDue`). Such a section may take a side door even when the session already had one, so it never comes back
+ * later than the cap (spec §6, §13: "every one returns by the cap").
+ */
+function atCap(state: State, section: string, day: number, cfg: Config): boolean {
+  const rec = state.sections[section];
+  if (!awaiting(rec)) return false;
+  if (rec.remindDay === null) return true;
+  const gaps = cfg.skipRemindDays;
+  const skipDay = rec.remindDay - gaps[Math.min(rec.skipCount - 1, gaps.length - 1)];
+  return day >= skipDay + Math.max(...gaps);
+}
+
 /** Skipped sections in content, not skipped this session, matching `keep`; earliest remind day first, then id. */
 function skippedSections(state: State, content: Content, ctx: PickCtx, keep: (s: string) => boolean): string[] {
   const rd = (s: string) => state.sections[s].remindDay ?? ctx.day;
@@ -71,8 +85,9 @@ function skippedSections(state: State, content: Content, ctx: PickCtx, keep: (s:
  * with a solid `requires`/`helps` neighbour, then the highest expectedSuccess (then id). Higher heights
  * are tried only when nothing lower is eligible, so the section never fails to come back.
  */
-function pickSideDoor(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
-  for (const sec of skippedSections(state, content, ctx, (s) => sideDoorDue(state, content, s, ctx.day, cfg))) {
+function pickSideDoor(state: State, content: Content, ctx: PickCtx, cfg: Config, capOnly = false): Picked | null {
+  const due = (s: string) => sideDoorDue(state, content, s, ctx.day, cfg) && (!capOnly || atCap(state, s, ctx.day, cfg));
+  for (const sec of skippedSections(state, content, ctx, due)) {
     const cs = content.sections[sec].skills.map((id) => content.skills[id]).filter((d) => !!d)
       .flatMap((def) => avail(def).map((height) => ({
         def, height, nb: solidNeighbour(state, content, def, cfg) !== undefined ? 0 : 1, es: expectedSuccess(state, def.id, height, cfg),
@@ -98,12 +113,13 @@ function pickDrip(state: State, content: Content, ctx: PickCtx, cfg: Config): Pi
 }
 
 /**
- * A middle-of-session card for a skipped section: the side door (at most one section per session), else the
+ * A middle-of-session card for a skipped section: the side door (one section per session, plus any section whose
+ * cap has come: `atCap`), else the
  * drip (once per session, every `dripEverySessions`-th session, after `skip.dripAfterCards` answered cards).
  * `fallback`: only the side door, at any point (used before ending for lack of cards).
  */
 export function pickSkipCard(state: State, content: Content, ss: SessionState, ctx: PickCtx, cfg: Config, fallback = false): Picked | null {
-  const side = ss.sideDoor === null ? pickSideDoor(state, content, ctx, cfg) : null;
+  const side = pickSideDoor(state, content, ctx, cfg, ss.sideDoor !== null);
   if (side || fallback) return side;
   const dripTime = !ss.dripDone && state.sessionCount % cfg.session.dripEverySessions === 0
     && ss.history.length >= cfg.skip.dripAfterCards;

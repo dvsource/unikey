@@ -474,3 +474,18 @@ test("a due side door is served before a content-exhausted end", () => {
   const st = startSession(s0, C, T0);
   expect(cardOf(st)).toMatchObject({ reason: "side-door", section: B, height: 1 });
 });
+
+test("side door at the cap: a section whose cap day has come returns even after another side door this session", () => {
+  // A and B both skipped once (remind gap 3). capAgo: days since the skip day, measured against the cap (14).
+  const both = (skipAgo: number) => startedAll(2, {}, {
+    sections: {
+      [A]: section({ skipCount: 1, remindDay: D0 - skipAgo + 3, lastReason: "later" }),
+      [B]: section({ skipCount: 1, remindDay: D0 - skipAgo + 3, lastReason: "later" }),
+    },
+  });
+  const cap = Math.max(...cfg.skipRemindDays);
+  const sides = (s: State) => served(play(C, s, T0, allR).steps).filter(isSide).map((c) => c.section).sort();
+  expect(sides(both(cap))).toEqual([A, B]);
+  // Remind day passed but the cap not reached: still one side door per session.
+  expect(sides(both(cap - 1)).length).toBe(1);
+});
