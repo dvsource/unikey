@@ -1,13 +1,9 @@
 import type { Config } from "./config.js";
 import type { Rng } from "./rng.js";
 import { expectedSuccess } from "./estimate.js";
-import { effortOf, eligibleCard, isBlocked, type Reason, type Served } from "./pick.js";
-import type { Content, Height, SkillDef, SkillRec, State } from "./types.js";
-
-/** A repair in flight (spec §5). `tag` / `note` are absent (never undefined) when unknown. */
-export type RepairState = { skill: string; failedHeight: Height; tag?: string; note?: string; stage: "piece" | "confidence" };
-
-const byId = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+import { byId } from "./util.js";
+import { effortOf, eligibleCard, isBlocked } from "./pick.js";
+import type { Content, Height, Reason, RepairState, Served, SkillDef, SkillRec, State } from "./types.js";
 
 function build(content: Content, card: string, variant: number, reason: Reason, cfg: Config): Served {
   const c = content.cards[card];

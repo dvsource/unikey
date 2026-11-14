@@ -1,7 +1,7 @@
 import { defaultConfig, type Config } from "../src/config.js";
 import { DAY_MS } from "../src/time.js";
 import { answer, startSession } from "../src/session.js";
-import type { Served } from "../src/pick.js";
+import type { Served } from "../src/types.js";
 import { newState } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import type { Attempt, Choice, Content, Height, SectionRec, SkillRec, State, Step } from "../src/types.js";
@@ -63,11 +63,10 @@ export function lastStep(steps: Step[]): Step {
 }
 
 // ---------- building states ----------
-let seqN = 0;
-/** `right` right then `wrong` wrong attempts at `height` on `day`. */
+/** `right` right then `wrong` wrong attempts at `height` on `day`. `seq` is 0 here; `startedState` numbers them. */
 export function atts(height: Height, right: number, wrong: number, day: number): Attempt[] {
   return [...Array.from({ length: right }, () => true), ...Array.from({ length: wrong }, () => false)]
-    .map((r) => ({ day, seq: ++seqN, height, right: r, ms: 8000, card: "x" }));
+    .map((r) => ({ day, seq: 0, height, right: r, ms: 8000, card: "x" }));
 }
 export function rec(height: Height, attempts: Attempt[], extra: Partial<SkillRec> = {}): SkillRec {
   return { ...newSkillRec(height), attempts, ...extra };
@@ -75,9 +74,22 @@ export function rec(height: Height, attempts: Attempt[], extra: Partial<SkillRec
 export function section(extra: Partial<SectionRec> = {}): SectionRec {
   return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, ...extra };
 }
-/** A student who has already played: `answered` is set high so new attempt seqs come after the given ones. */
+/**
+ * A student who has already played. Attempt seqs are numbered 1.. per state (skill-id order, then attempt
+ * order), and `answered` is set above them so new attempts come after.
+ */
 export function startedState(skills: Record<string, SkillRec>, patch: Partial<State> = {}): State {
-  return { ...newState("s", 7), answered: 1000, skills, ...patch };
+  let n = 0;
+  const numbered = Object.fromEntries(Object.keys(skills).sort().map((id) =>
+    [id, { ...skills[id], attempts: skills[id].attempts.map((a) => ({ ...a, seq: ++n })) }]));
+  return { ...newState("s", 7), answered: 1000, skills: numbered, ...patch };
+}
+/** Is any card variant in content servable at `day` (section not blocked, not seen within noRepeatDays)? */
+export function anyEligible(state: State, content: Content, day: number, cfg: Config = defaultConfig): boolean {
+  const recent = new Set(state.seen.filter((x) => day - x.day < cfg.noRepeatDays).map((x) => `${x.card}#${x.variant}`));
+  const blocked = (sec: string) => { const rd = state.sections[sec]?.remindDay; return rd != null && rd > day; };
+  return Object.values(content.cards).some((c) => content.skills[c.skill] && !blocked(c.section)
+    && c.variants.some((_, v) => !recent.has(`${c.id}#${v}`)));
 }
 export function withProfile(s: State, p: Partial<State["profile"]>): State {
   return { ...s, profile: { ...s.profile, ...p } };

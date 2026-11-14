@@ -3,11 +3,11 @@ import { defaultConfig as cfg } from "../src/config.js";
 import { newState } from "../src/state.js";
 import { dayOf } from "../src/time.js";
 import { answer, endSession, extend, startSession } from "../src/session.js";
-import type { Served } from "../src/pick.js";
+import type { Served } from "../src/types.js";
 import type { EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import {
-  T0, atts, choiceFor, lastStep, nextDay, play, rec, run, served, startedState, withProfile,
+  T0, anyEligible, atts, choiceFor, lastStep, nextDay, play, rec, run, served, startedState, withProfile,
 } from "./helpers.js";
 
 const C = fixture();
@@ -42,24 +42,20 @@ test("first session: opens open:liked, ends by budget, effort ≤ 12 and ≥ 8, 
   expect(state.lastSessionDay).toBe(D0);
 });
 
-test("all right at height 2 → 8 cards for 12 effort; a height-3 skill → fewer cards", () => {
+test("all right at height 2: the budget keeps a wrong close card in reserve; a height-3 skill → fewer cards", () => {
+  // Budget 12.006, reserve effort.h1 + effort.wrong = 2: six height-2 cards (9), then 1.006 left fits nothing
+  // plus the reserve → closing; the last card was right and winnable, so no close card is needed.
   const { steps } = play(C, startedAt(2, 4, 1), T0, allR);
   const cards = served(steps);
-  expect(cards.length).toBe(8);
-  // 7 middle cards at height 2 (10.5), then the close card: the fixture's winnable card left in the liked
-  // section is height 1, so the session spends 11.5 of its 12.
-  expect(cards.slice(0, 7).every((c) => c.height === 2)).toBe(true);
-  expect(cards[7].reason).toBe("close:winnable");
-  const end = endOf(lastStep(steps));
-  expect(end).toMatchObject({ kind: "budget", cards: 8, right: 8 });
-  expect(end.effort).toBeGreaterThanOrEqual(11.5);
-  expect(end.effort).toBeLessThanOrEqual(12);
+  expect(cards.length).toBe(6);
+  expect(cards.every((c) => c.height === 2)).toBe(true);
+  expect(endOf(lastStep(steps))).toMatchObject({ kind: "budget", effort: 9, cards: 6, right: 6 });
 
   const h3 = startedAt(2, 4, 1, { b2: { height: 3, attempts: atts(3, 10, 0, D0 - 2), noFullUntilDay: null } });
   const r3 = play(C, h3, T0, allR);
   const c3 = served(r3.steps);
   expect(c3.some((c) => c.height === 3)).toBe(true);
-  expect(c3.length).toBeLessThan(8);
+  expect(c3.length).toBeLessThan(6);
   const e3 = endOf(lastStep(r3.steps));
   expect(e3.kind).toBe("budget");
   expect(e3.effort).toBeLessThanOrEqual(12);
@@ -85,18 +81,60 @@ test("no session ends on a wrong answer", () => {
   const fn = (s: Served) => (s.reason === "close:winnable" || s.reason === "repair:confidence" ? "r" : "w");
   let state = startedAt(2, 2, 1);
   let now = T0;
-  const kinds: string[] = [];
   for (let i = 0; i < 5; i++) {
     const r = play(C, state, now, fn);
+    expect(served(r.steps).length, `session ${i} served nothing`).toBeGreaterThanOrEqual(1);
     const last = lastStep(r.steps);
     const end = endOf(last);
-    kinds.push(end.kind);
-    expect(last.feedback?.right === true || end.kind === "content-exhausted", `session ${i}: ${end.kind}`).toBe(true);
+    // a wrong last answer is only allowed when nothing at all is left to serve
+    if (last.feedback?.right !== true) {
+      expect(end.kind, `session ${i}`).toBe("content-exhausted");
+      expect(anyEligible(r.state, C, dayOf(r.now))).toBe(false);
+    }
     state = r.state;
     now = nextDay(now);
   }
-  expect(kinds.length).toBe(5);
-  expect(kinds[0]).toBe("bad-day"); // the first wrong-heavy session ends early on a won close card
+});
+
+test("a weak student over 5 sessions always gets ≥ 1 card while any card is eligible", () => {
+  let state = startedAt(2, 1, 2);
+  let now = T0;
+  let cards = 0;
+  for (let i = 0; i < 5; i++) {
+    const eligible = anyEligible(state, C, dayOf(now));
+    const r = play(C, state, now, () => "w");
+    const n = served(r.steps).length;
+    if (eligible) expect(n, `session ${i}`).toBeGreaterThanOrEqual(1);
+    else expect(endOf(lastStep(r.steps)).kind).toBe("content-exhausted");
+    cards += n;
+    state = r.state;
+    now = nextDay(now);
+  }
+  expect(cards).toBeGreaterThan(10);
+});
+
+/** The bad-day run of the next test, answering the first `wrongCloses` close cards wrong. */
+function badDayRun(wrongCloses: number) {
+  const start = withProfile(startedAt(2, 2, 1), { stamina: 30 });
+  let closes = 0;
+  return play(C, start, T0, (s: Served) => {
+    if (s.reason !== "close:winnable") return "w";
+    return closes++ < wrongCloses ? "w" : "r";
+  });
+}
+
+test("close card answered wrong once / twice → one more close card each time, then the end", () => {
+  for (const k of [1, 2]) {
+    const { steps } = badDayRun(k);
+    const cards = served(steps);
+    expect(cards.filter((c) => c.reason === "close:winnable").length, `k=${k}`).toBe(k + 1);
+    expect(endOf(lastStep(steps)).kind).toBe("bad-day");
+    expect(lastStep(steps).feedback?.right).toBe(true);
+  }
+  // every close card wrong: 1 + maxExtraClose close cards, then the session ends regardless
+  const { steps } = badDayRun(99);
+  expect(served(steps).filter((c) => c.reason === "close:winnable").length).toBe(1 + cfg.sessionEnd.maxExtraClose);
+  expect(endOf(lastStep(steps)).kind).toBe("bad-day");
 });
 
 test("three bad moments in 8 cards → one winnable card → end bad-day, streakKept true", () => {
@@ -168,31 +206,34 @@ test("declining the offer → end budget", () => {
   expect(st.state).toBe(last.state);
 });
 
-test("daily cap: sessions on one day stop at 40 effort; next start → end daily-cap", () => {
+test("daily cap: total effort for the day never exceeds 40; next start → end daily-cap", () => {
   const skills: Record<string, SkillRec> = {};
   for (const id of ["a1", "a2", "b1", "b2"]) skills[id] = rec(3, atts(3, 10, 0, D0 - 2), { nextReviewDay: D0 + 20 });
-  let state = startedState(skills);
-  let now = T0;
-  const efforts: number[] = [];
-  let capped: Step | null = null;
-  for (let i = 0; i < 12 && !capped; i++) {
-    const r = play(C, state, now, allR);
-    const end = endOf(lastStep(r.steps));
-    if (end.kind === "daily-cap") capped = lastStep(r.steps);
-    else efforts.push(end.effort);
-    state = r.state;
-    now = r.now + 60_000;
+  const wrongHeavy = (s: Served, i: number) => (s.reason === "close:winnable" || i % 3 === 0 ? "r" : "w");
+  for (const answers of [allR, wrongHeavy]) {
+    let state = startedState(skills);
+    let now = T0;
+    const efforts: number[] = [];
+    let capped: Step | null = null;
+    for (let i = 0; i < 20 && !capped; i++) {
+      const r = play(C, state, now, answers);
+      for (const st of r.steps) expect(st.state.day!.effort).toBeLessThanOrEqual(cfg.budget.dailyCap);
+      const end = endOf(lastStep(r.steps));
+      if (end.kind === "daily-cap") capped = lastStep(r.steps);
+      else efforts.push(end.effort);
+      state = r.state;
+      now = r.now + 60_000;
+    }
+    expect(capped).not.toBeNull();
+    expect(efforts.length).toBeGreaterThan(1);
+    expect(efforts.reduce((a, b) => a + b, 0)).toBe(state.day!.effort);
+    // no session starts once the cap less every possible close card leaves less than a height-1 card
+    expect(cfg.budget.dailyCap - state.day!.effort - (1 + cfg.sessionEnd.maxExtraClose) * 2).toBeLessThan(cfg.effort.h1);
+    expect(capped!.events).toEqual([]);
+    expect(capped!.state.session).toBeNull();
+    expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true });
+    expect(startSession(state, C, nextDay(T0)).next.kind).toBe("card");
   }
-  expect(capped).not.toBeNull();
-  expect(state.day!.effort).toBe(40);
-  expect(efforts.reduce((a, b) => a + b, 0)).toBe(40);
-  expect(efforts.length).toBeGreaterThan(1);
-  expect(capped!.events).toEqual([]);
-  expect(capped!.state.session).toBeNull();
-  expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true });
-  // the next day the cap is gone
-  const tomorrow = startSession(state, C, nextDay(T0));
-  expect(tomorrow.next.kind).toBe("card");
 });
 
 test("comeback after 3+ days: budget 8, first cards comeback:solid at height 1", () => {
@@ -328,13 +369,31 @@ test("state.day resets on a new local day; seen gets each served card", () => {
 
 test("endSession left: kind left, fadeEffort recorded; endSession with no session changes nothing", () => {
   const p = play(C, newState("s", 1), T0, ["r", "r"]);
-  const e = endSession(p.state, C, p.now + 1000, undefined, { left: true });
+  const spent = p.state.session!.spent;
+  const e = endSession(p.state, C, p.now + 1000);
   expect(endOf(e)).toMatchObject({ kind: "left", cards: 2, right: 2 });
   expect(e.events.map((x) => x.type)).toEqual(["session_end"]);
+  expect(e.events[0].data).toMatchObject({ kind: "left", fadeEffort: spent });
+  expect(spent).toBeGreaterThan(0);
   expect(e.state.session).toBeNull();
+  expect(endSession(p.state, C, p.now + 1000, undefined, { left: true }).events[0].data).toMatchObject({ kind: "left", fadeEffort: spent });
+  // explicit left: false → interrupted, no fade
+  const i = endSession(p.state, C, p.now + 1000, undefined, { left: false });
+  expect(i.events[0].data).toMatchObject({ kind: "interrupted", fadeEffort: null });
   const again = endSession(e.state, C, p.now + 2000);
   expect(again.state).toBe(e.state);
   expect(again.events).toEqual([]);
+});
+
+test("extend: a wrong answer on the last extra card is followed by a close card", () => {
+  const p = play(C, fastStart(), T0, allR);
+  const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
+  const r = run(C, ex, p.now + 5000, (s: Served, i: number) => (i === 4 ? "w" : "r"));
+  const cards = served([ex, ...r.steps]);
+  expect(cards.map((c) => c.reason)).toEqual([...Array(5).fill("extend:liked"), "close:winnable"]);
+  const last = lastStep(r.steps);
+  expect(last.feedback?.right).toBe(true);
+  expect(endOf(last).kind).toBe("extended-done");
 });
 
 test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => {
@@ -343,5 +402,6 @@ test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => 
   const first = startSession(s, C, T0, custom);
   expect(first.state.session!.budget).toBe(4);
   const big = startSession(withProfile(newState("s", 1), { stamina: 100 }), C, T0);
-  expect(big.state.session!.budget).toBe(cfg.budget.dailyCap); // capped by dailyCap − day.effort
+  // capped by dailyCap − day.effort − (1 + maxExtraClose) × (effort.h1 + effort.wrong)
+  expect(big.state.session!.budget).toBe(cfg.budget.dailyCap - 3 * (cfg.effort.h1 + cfg.effort.wrong));
 });

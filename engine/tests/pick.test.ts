@@ -4,7 +4,8 @@ import { newState, effectiveNow } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import { dayOf, DAY_MS } from "../src/time.js";
 import { expectedSuccess, usualMs } from "../src/estimate.js";
-import { eligibleCard, likedSections, pickOpen, pickMiddle, pickClose, type PickCtx } from "../src/pick.js";
+import { eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
+import type { PickCtx } from "../src/types.js";
 import type { Attempt, Content, Height, Seen, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
 
@@ -288,4 +289,30 @@ test("deterministic: same state twice → same Served", () => {
     expect(x).toEqual(y);
   }
   expect(s).toEqual(frozen); // inputs not mutated
+});
+
+// ---------- last-resort sweep ----------
+
+test("pickAny: highest expectedSuccess over every height of every unblocked skill; started skills first", () => {
+  // a1 started at height 2 with every h1/h2 card seen: only its h3 is left, and it still beats unstarted skills
+  const seen = seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3"], D - 1);
+  const s = st({ a1: rec(1, { attempts: [att(1, false), att(1, false)] }) }, { seen });
+  const p = pickAny(s, C, ctx({ strictBudget: true, remaining: 99 }), cfg, "comfort-correction")!;
+  expect(p.served).toMatchObject({ skill: "a1", height: 3, reason: "comfort-correction" });
+  // nothing of a1 left: an unstarted skill whose requires are met (a1 started → a2 is ready too), best estimate,
+  // lower height on ties, then id → a1-free choice at height 1
+  const all1 = [...seen, ...Array.from({ length: 20 }, (_, v) => ({ card: "a1.h3", variant: v, day: D - 1 }))];
+  const q = pickAny(st({ a1: rec(1) }, { seen: all1 }), C, ctx({ strictBudget: true, remaining: 99 }), cfg, "close:winnable")!;
+  expect(q.served).toMatchObject({ skill: "a2", height: 1, reason: "close:winnable" });
+  // blocked sections never; the same-skill run only as a second pass
+  const blocked = { "u.t1/A": { skipCount: 1, remindDay: D + 2, lastReason: null, dripStopped: false, liking: 0, returned: false } };
+  const r = pickAny(st({ a1: rec(1) }, { seen: all1, sections: blocked }), C, ctx({ strictBudget: true, remaining: 99 }), cfg, "comfort-correction")!;
+  expect(r.served.section).toBe("u.t1/B");
+  const only = fixture({ drop: ["a2", "b1", "b2"].flatMap((x) => [`${x}.h1.1`, `${x}.h1.2`, `${x}.h1.3`, `${x}.h2.1`, `${x}.h2.2`, `${x}.h2.3`, `${x}.h3`]) });
+  const run3 = pickAny(st({ a1: rec(1) }), only, ctx({ lastSkills: ["a1", "a1", "a1"], strictBudget: true, remaining: 99 }), cfg, "comfort-correction");
+  expect(run3!.served.skill).toBe("a1");
+  // empty only when nothing is eligible
+  const none = [...all1, ...["a2", "b1", "b2"].flatMap((x) => [`${x}.h1.1`, `${x}.h1.2`, `${x}.h1.3`, `${x}.h2.1`, `${x}.h2.2`, `${x}.h2.3`].map((card) => ({ card, variant: 0, day: D - 1 }))),
+    ...["a2", "b1", "b2"].flatMap((x) => Array.from({ length: 20 }, (_, v) => ({ card: `${x}.h3`, variant: v, day: D - 1 })))];
+  expect(pickAny(st({}, { seen: none }), C, ctx({ remaining: 99 }), cfg, "comfort-correction")).toBeNull();
 });

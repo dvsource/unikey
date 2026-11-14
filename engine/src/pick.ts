@@ -1,36 +1,12 @@
 import { defaultConfig, type Config } from "./config.js";
 import { next, type Rng } from "./rng.js";
+import { byId } from "./util.js";
 import { knownSkills } from "./state.js";
 import { isDue, isSolid, startHeight } from "./skill.js";
 import { expectedSuccess, priorOf } from "./estimate.js";
-import type { Content, Height, SkillDef, State } from "./types.js";
-
-export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
-  | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"
-  | "comfort-correction" | "extend:liked" | "comeback:solid";
-
-export type Served = {
-  card: string; variant: number; skill: string; section: string; height: Height;
-  reason: Reason; effort: number; borrowedFrom?: string;
-};
-
-/**
- * Everything session-specific a pick needs. `lastSkills` is oldest first, most recent last.
- * `h3Spent` / `spent` are the session's height-3 effort and total effort so far.
- * `strictBudget`: skip any candidate over `remaining`, even while today's effort is under `minimumDay`
- * (the session uses it to tell "nothing fits the budget" from "nothing to serve").
- * `excludeSkills`: skills not to serve now (a repaired skill waiting for its return).
- */
-export type PickCtx = {
-  day: number; remaining: number; runningRight: number; runningTotal: number;
-  newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
-  h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
-};
-
-export type Picked = { served: Served; rng: Rng };
+import type { Content, Height, PickCtx, Picked, Reason, Served, SkillDef, State } from "./types.js";
 
 const HEIGHTS: Height[] = [1, 2, 3];
-const byId = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 
 export function effortOf(height: Height, cfg: Config): number {
   return height === 1 ? cfg.effort.h1 : height === 2 ? cfg.effort.h2 : cfg.effort.h3;
@@ -150,13 +126,16 @@ function borrowedFrom(state: State, content: Content, def: SkillDef, cfg: Config
 
 type Cand = { def: SkillDef; height: Height };
 
-function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config): Picked | null {
+/** `relax`: ignore `excludeSkills` and the same-skill run (the last-resort sweep's second pass). */
+function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, relax = false): Picked | null {
   const { def, height } = c;
   if (isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
-  if (ctx.excludeSkills?.includes(def.id)) return null;
-  const n = cfg.session.maxSameSkillRun;
-  const tail = ctx.lastSkills.slice(-n);
-  if (tail.length === n && tail.every((s) => s === def.id)) return null;
+  if (!relax) {
+    if (ctx.excludeSkills?.includes(def.id)) return null;
+    const n = cfg.session.maxSameSkillRun;
+    const tail = ctx.lastSkills.slice(-n);
+    if (tail.length === n && tail.every((s) => s === def.id)) return null;
+  }
   const effort = effortOf(height, cfg);
   if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.day) >= cfg.budget.minimumDay)) return null;
   const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, {}, cfg);
@@ -296,6 +275,64 @@ export function pickClose(state: State, content: Content, ctx: PickCtx, cfg: Con
     if (st.some((d) => d.section === sec)) continue;
     const p = newcomer(state, content, sec, "close:winnable", ctx, cfg);
     if (p) return p;
+  }
+  return null;
+}
+
+/**
+ * Comeback open (spec §8): height-1 cards of started skills in sections where some skill is solid,
+ * sections in liked order, solid skills first, then by height-1 estimate.
+ */
+export function pickComeback(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
+  const st = started(state, content);
+  const solid = (d: SkillDef) => isSolid(state.skills[d.id], d, cfg);
+  const secs = new Set(st.filter(solid).map((d) => d.section));
+  const order = [...new Set([...likedSections(state, content, cfg).filter((x) => secs.has(x)), ...[...secs].sort(byId)])];
+  const cands: Cand[] = order.flatMap((sec) => st.filter((d) => d.section === sec && d.cards[1].length > 0)
+    .map((def) => ({ def, solid: solid(def), es: expectedSuccess(state, def.id, 1, cfg) }))
+    .sort((x, y) => Number(y.solid) - Number(x.solid) || y.es - x.es || byId(x.def.id, y.def.id))
+    .map(({ def }) => ({ def, height: 1 as Height })));
+  return firstOf(state, content, cands, () => "comeback:solid", ctx, cfg);
+}
+
+/**
+ * The first queued repair return whose time has come (`historyLength ≥ afterCard`), at the skill's current
+ * height, as a variant not seen lately. The skill's own exclusion in `ctx.excludeSkills` does not apply.
+ */
+export function pickReturn(
+  state: State, content: Content, ctx: PickCtx, returns: { skill: string; afterCard: number }[], historyLength: number, cfg: Config,
+): Picked | null {
+  const own = { ...ctx, excludeSkills: [] };
+  for (const q of returns) {
+    const def = content.skills[q.skill];
+    const rec = state.skills[q.skill];
+    if (historyLength < q.afterCard || !def || !rec) continue;
+    const height = servable(def, rec.height);
+    if (height === null) continue;
+    const p = tryServe(state, content, { def, height }, "repair:return", own, cfg);
+    if (p) return p;
+  }
+  return null;
+}
+
+/**
+ * Last-resort sweep, used before any `content-exhausted` end: every non-blocked skill with cards (started
+ * first, then not started with `requires` met, then the rest) at every available height; the eligible card
+ * with the highest expectedSuccess wins, ties to the lower height, then skill id. A first pass keeps the
+ * same-skill run and `excludeSkills`; a second pass drops them.
+ */
+export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Config, reason: Reason): Picked | null {
+  const ready = (d: SkillDef) => d.requires.every((r) =>
+    r in state.skills || !content.skills[r] || avail(content.skills[r]).length === 0);
+  const group = (d: SkillDef) => (d.id in state.skills ? 0 : ready(d) ? 1 : 2);
+  const cands = cardSkills(content, Object.keys(content.skills).sort(byId))
+    .flatMap((def) => avail(def).map((height) => ({ def, height, g: group(def), es: expectedSuccess(state, def.id, height, cfg) })))
+    .sort((x, y) => x.g - y.g || y.es - x.es || x.height - y.height || byId(x.def.id, y.def.id));
+  for (const relax of [false, true]) {
+    for (const c of cands) {
+      const p = tryServe(state, content, c, reason, ctx, cfg, relax);
+      if (p) return p;
+    }
   }
   return null;
 }

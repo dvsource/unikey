@@ -1,6 +1,4 @@
 import type { Rng } from "./rng.js";
-import type { Served } from "./pick.js";
-import type { RepairState } from "./repair.js";
 export type Height = 1 | 2 | 3;
 export type CardOption = { correct: boolean; tag?: string };
 export type Card = {
@@ -96,3 +94,30 @@ export type State = {
   /** How the last session (or daily-cap start) ended; replayed for a stale call with no open session. */
   lastEnd: EndInfo | null;
 };
+
+export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
+  | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"
+  | "comfort-correction" | "extend:liked" | "comeback:solid";
+
+export type Served = {
+  card: string; variant: number; skill: string; section: string; height: Height;
+  reason: Reason; effort: number; borrowedFrom?: string;
+};
+
+/**
+ * Everything session-specific a pick needs. `lastSkills` is oldest first, most recent last.
+ * `h3Spent` / `spent` are the session's height-3 effort and total effort so far.
+ * `strictBudget`: skip any candidate over `remaining`, even while today's effort is under `minimumDay`
+ * (the session uses it to tell "nothing fits the budget" from "nothing to serve").
+ * `excludeSkills`: skills not to serve now (a repaired skill waiting for its return).
+ */
+export type PickCtx = {
+  day: number; remaining: number; runningRight: number; runningTotal: number;
+  newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
+  h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
+};
+
+export type Picked = { served: Served; rng: Rng };
+
+/** A repair in flight (spec §5). `tag` / `note` are absent (never undefined) when unknown. */
+export type RepairState = { skill: string; failedHeight: Height; tag?: string; note?: string; stage: "piece" | "confidence" };

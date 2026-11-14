@@ -3,7 +3,7 @@ import { dayOf } from "../src/time.js";
 import { answer, startSession } from "../src/session.js";
 import { nextRepairCard } from "../src/repair.js";
 import { defaultConfig as cfg } from "../src/config.js";
-import type { Served } from "../src/pick.js";
+import type { Served } from "../src/types.js";
 import type { Content, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import { T0, atts, choiceFor, rec, run, section, served, startedState, withProfile } from "./helpers.js";

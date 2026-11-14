@@ -7,10 +7,30 @@ export function isComeback(state: State, day: number, cfg: Config): boolean {
   return state.lastSessionDay !== null && day - state.lastSessionDay >= cfg.returning.awayDays;
 }
 
-/** max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; capped by what is left of the daily cap. */
+/** The most one answer can add to a card's cost (a wrong answer, or "I don't know"). */
+export function answerExtra(cfg: Config): number {
+  return Math.max(cfg.effort.wrong, cfg.effort.dontKnow);
+}
+
+/** Room kept at the end of a session: one height-1 close card answered wrong. */
+export function closeReserve(cfg: Config): number {
+  return cfg.effort.h1 + answerExtra(cfg);
+}
+
+/** Effort a new session may plan for today: the daily cap less today's effort and every possible close card. */
+export function dayRoom(state: State, cfg: Config): number {
+  return cfg.budget.dailyCap - (state.day?.effort ?? 0) - (1 + cfg.sessionEnd.maxExtraClose) * closeReserve(cfg);
+}
+
+/** The largest card cost that, even answered wrong, keeps today's effort within the daily cap. */
+export function capRoom(state: State, cfg: Config): number {
+  return cfg.budget.dailyCap - (state.day?.effort ?? 0) - answerExtra(cfg);
+}
+
+/** max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; capped by `dayRoom`. */
 export function sessionBudget(state: State, comeback: boolean, cfg: Config): number {
   const b = comeback ? cfg.budget.comeback : Math.max(cfg.budget.minimumDay, state.profile.stamina * (1 - cfg.budget.margin));
-  return Math.min(b, cfg.budget.dailyCap - (state.day?.effort ?? 0));
+  return Math.min(b, dayRoom(state, cfg));
 }
 
 /** `badDay.moments` bad moments within the last `withinCards` cards, or `slowRun` slow answers running. */

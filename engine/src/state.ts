@@ -17,7 +17,9 @@ export function migrate(json: unknown): State {
   if (typeof json !== "object" || json === null || (json as { v?: unknown }).v !== 1) {
     throw new Error("unsupported state version");
   }
-  return json as State;
+  const s = json as State;
+  // Fields added after the first v1 states were stored.
+  return { ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null };
 }
 
 export function effectiveNow(state: State, now: number): number {

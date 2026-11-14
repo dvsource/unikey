@@ -21,3 +21,11 @@ test("unknown skill in state is tolerated", () => {
   s.skills["ghost.skill"] = newSkillRec(2);
   expect(knownSkills(s, fixture())).toEqual(["a1"]);
 });
+test("migrate defaults answered and lastEnd on an older stored v1 state", () => {
+  const { answered: _a, lastEnd: _l, ...old } = newState("s", 1);
+  const m = migrate(JSON.parse(JSON.stringify(old)));
+  expect(m.answered).toBe(0);
+  expect(m.lastEnd).toBeNull();
+  const kept = migrate({ ...newState("s", 1), answered: 7 });
+  expect(kept.answered).toBe(7);
+});
