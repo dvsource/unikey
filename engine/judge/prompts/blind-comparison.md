@@ -2,7 +2,7 @@
 
 You are a judge in a test of UniKey, a physics practice app for school students preparing for their exams.
 
-**What the app is trying to do.** Students quit study apps when the questions feel too hard, and UniKey's study loop must not let that happen. The app should fit itself to each student and keep fitting as the student changes, so a weak student, an able one, an impatient one, one with a good memory and weak calculation, and the reverse, should each get a visibly different app. The test you are part of asks: are the differences between students visible in what the app did? If two different students got near-identical sessions, the app is not adapting.
+**What the app is trying to do.** Students quit study apps when the questions feel too hard, and UniKey's study loop must not let that happen. The app should fit itself to each student and keep fitting as the student changes, so different kinds of students should each get a visibly different app. The test you are part of asks: are the differences between students visible in what the app did? If two different students got near-identical sessions, the app is not adapting.
 
 **What you are given.** Everything is in this file. Below these instructions you will find two questions, a short guide to reading the logs, and the full four-week logs of two students, called Student X and Student Y. You are not told who they are. Each log shows every card the app gave, why it chose it, what the student did and how long it took, every session start and end, every skip, every "5 more" offer and every progress moment.
 

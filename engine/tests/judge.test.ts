@@ -1,13 +1,14 @@
 import { test, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { defaultConfig } from "../src/index.js";
 import { loadFromRepo } from "../src/node/load.js";
 import { personas } from "../sim/personas.js";
 import { runStudent, personaSeed, SIM_START } from "../sim/run.js";
 import { runChecks } from "../sim/checks.js";
 import {
-  BLIND_PAIRS, buildPackets, collect, eventLines, loadPrompts, parseReport, type RunFiles,
+  BLIND_PAIRS, blindName, buildPackets, collect, eventLines, loadPrompts, parseReport, readRun, type RunFiles,
 } from "../sim/judge.js";
 
 const engineDir = join(import.meta.dirname, "..");
@@ -15,28 +16,34 @@ const content = loadFromRepo(join(engineDir, ".."));
 const prompts = loadPrompts(join(engineDir, "judge", "prompts"));
 const DAYS = 9;
 
-const runs = new Map<number, RunFiles>();
-/** All 16 personas for a few days on the real content, as the CLI would read them back from disk. */
-function runOf(seed: number): RunFiles {
-  const hit = runs.get(seed);
+const runs = new Map<string, RunFiles>();
+/** All 16 personas for a few days (or the full 28) on the real content, as the CLI would read them back from disk. */
+function runOf(seed: number, days = DAYS): RunFiles {
+  const hit = runs.get(`${seed}/${days}`);
   if (hit) return hit;
-  const logs = personas.map((p, i) => runStudent(p, content, { days: DAYS, seed: personaSeed(seed, i), start: SIM_START, cfg: defaultConfig }));
+  const logs = personas.map((p, i) => runStudent(p, content, { days, seed: personaSeed(seed, i), start: SIM_START, cfg: defaultConfig }));
   const r: RunFiles = {
     summaries: logs.map(({ lines: _l, ...s }) => s),
     lines: Object.fromEntries(logs.map((l) => [l.persona, l.lines])),
     checks: runChecks(logs, defaultConfig),
   };
-  runs.set(seed, r);
+  runs.set(`${seed}/${days}`, r);
   return r;
 }
 
 const TRAIT_KEYS = Object.keys(personas[0]!.traits).concat(["priorBySection", "fearedPrior"]);
 /** Words the brief and the rulings say may never appear in a student or blind packet. */
 const HIDDEN_WORDS = ["knowledge", "stamina", "comfort", "h3Share", "budget", "hiddenFatigued", "kBefore", "kAfter", "quitAppDay", "profileByDay", "traits"];
+/** Why a hidden student walked out is hidden state: these words of the runner's quit reasons must never show. */
+const QUIT_PHRASES = ["fed up", "too tired", "out of time", "frustration", "fatigue", "time-up"];
 const CHECK_NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card"];
 
-function leaks(text: string): string[] {
+function leaks(packet: string, opts: { blind?: boolean } = {}): string[] {
   const found: string[] = [];
+  // a persona's own sheet is theirs to see ("I get fed up quickly"); scan everything else
+  const text = personas.reduce((t, p) => t.split(p.sheet).join(""), packet);
+  for (const q of QUIT_PHRASES) if (new RegExp(`\\b${q}\\b`, "i").test(text)) found.push(`quit reason ${q}`);
+  if (opts.blind) for (const p of personas) if (new RegExp(`\\b${p.id}\\b`).test(text)) found.push(`persona id ${p.id}`);
   for (const k of TRAIT_KEYS) {
     // Short trait keys are ordinary English ("I learn slowly"); as a key they would appear as `key:` or `"key"`.
     const asKey = new RegExp(`(["']${k}["']|\\b${k}\\s*[:=])`);
@@ -91,8 +98,9 @@ test("blind packet has no persona id or sheet text; key file maps X/Y; order dif
   const b = buildPackets(runOf(2), content, prompts);
   const blind = Object.keys(a).filter((f) => f.startsWith("blind-") && f.endsWith(".input.md"));
   expect(blind.length).toBe(8);
-  for (const [x, y] of BLIND_PAIRS) {
-    const name = `blind-${x}-${y}`;
+  BLIND_PAIRS.forEach(([x, y], i) => {
+    const name = blindName(i);
+    expect(name).toBe(`blind-${i + 1}`);
     const text = a[`${name}.input.md`]!;
     expect(text).toContain("## Student X");
     expect(text).toContain("## Student Y");
@@ -101,17 +109,21 @@ test("blind packet has no persona id or sheet text; key file maps X/Y; order dif
       expect(text).not.toContain(p.sheet.slice(0, 40));
     }
     expect(text).not.toContain(".key.json");
-    expect(leaks(text)).toEqual([]);
-    const key = JSON.parse(a[`${name}.key.json`]!) as { X: string; Y: string; questions: { id: string; answer: string }[] };
+    expect(leaks(text, { blind: true })).toEqual([]);
+    const key = JSON.parse(a[`${name}.key.json`]!) as { pair: string[]; X: string; Y: string; questions: { id: string; answer: string }[] };
+    expect(key.pair).toEqual([x, y]);
     expect([key.X, key.Y].sort()).toEqual([x, y].sort());
     expect(key.questions.map((q) => q.id)).toEqual(["Q1", "Q2"]);
     for (const q of key.questions) expect(["X", "Y"]).toContain(q.answer);
     // the X log in the packet is the X persona's log
     const xLog = eventLines(text.split("## Student Y")[0]!);
     const xOwn = eventLines(a[`student-${key.X}.input.md`]!);
-    expect(xLog.slice(0, 5)).toEqual(xOwn.slice(0, 5).map((l) => l.replace(/ \((fed up|too tired to go on|out of time)\)$/, "")));
-  }
-  const order = (f: Record<string, string>) => BLIND_PAIRS.map(([x, y]) => (JSON.parse(f[`blind-${x}-${y}.key.json`]!) as { X: string }).X);
+    expect(xLog).toEqual(xOwn);
+  });
+  // no blind file name (input, key, or the report a judge writes) names a persona
+  for (const f of Object.keys(a).filter((f) => f.startsWith("blind-")).concat(BLIND_PAIRS.map((_, i) => `${blindName(i)}.report.md`)))
+    for (const p of personas) expect(f).not.toContain(p.id);
+  const order = (f: Record<string, string>) => BLIND_PAIRS.map((_, i) => (JSON.parse(f[`${blindName(i)}.key.json`]!) as { X: string }).X);
   expect(order(a)).not.toEqual(order(b));
   expect(order(buildPackets(runOf(1), content, prompts))).toEqual(order(a));
   // truth packets carry the hidden side
@@ -119,6 +131,37 @@ test("blind packet has no persona id or sheet text; key file maps X/Y; order dif
   expect(a["truth-strong.input.md"]).toContain("patienceWrongs");
   expect(a["truth-strong.input.md"]).toContain("Day 0");
 });
+
+test("leak scan on full 28-day packets, including students who close the app and leave it", () => {
+  const run = runOf(1, 28);
+  const files = buildPackets(run, content, prompts);
+  const quitLines = Object.entries(files).filter(([f]) => f.startsWith("student-"))
+    .flatMap(([, t]) => eventLines(t).filter((l) => l.includes("closed the app without answering")));
+  expect(quitLines.length).toBeGreaterThan(0);
+  for (const l of quitLines) expect(l).toMatch(/closed the app without answering$/);
+  // weak-impatient gives up quickly: its packet has quit lines and is scanned like every other
+  expect(files["student-weak-impatient.input.md"]).toContain("closed the app without answering");
+  for (const [f, t] of Object.entries(files)) {
+    if (f.startsWith("student-")) expect([f, leaks(t)]).toEqual([f, []]);
+    if (f.startsWith("blind-") && f.endsWith(".input.md")) expect([f, leaks(t, { blind: true })]).toEqual([f, []]);
+  }
+  // the truth packet is given the hidden side, quit reasons included
+  const truthAll = Object.entries(files).filter(([f]) => f.startsWith("truth-")).map(([, t]) => t).join("\n");
+  expect(truthAll).toMatch(/frustration|fatigue|time-up/);
+});
+
+/** Valid reports for all 16 students (so judge-dependent design lines can be decided), with overrides. */
+function allStudents(files: Record<string, string>, over: Record<string, string> = {}): Record<string, string> {
+  const out: Record<string, string> = { ...files };
+  for (const p of personas) out[`student-${p.id}.report.md`] = studentReport(files[`student-${p.id}.input.md`]!, null);
+  return { ...out, ...over };
+}
+/** A blind report: every answer right, wrong, or "cannot tell". */
+function blindReport(files: Record<string, string>, i: number, how: "right" | "wrong" | "cannot"): string {
+  const key = JSON.parse(files[`${blindName(i)}.key.json`]!) as { questions: { id: string; answer: "X" | "Y" }[] };
+  const answers = Object.fromEntries(key.questions.map((q) => [q.id, how === "cannot" ? "cannot tell" : how === "right" ? q.answer : q.answer === "X" ? "Y" : "X"]));
+  return "```json\n" + JSON.stringify({ answers, evidence: { Q1: ["x"], Q2: ["y"] } }) + "\n```\n";
+}
 
 /** A valid student report quoting real lines of the packet. */
 function studentReport(packet: string, quitPoint: string | null, over: Record<string, unknown> = {}): string {
@@ -148,14 +191,9 @@ test("collect: valid report scored; a score without quotes is listed invalid; bl
   judge["student-fast-guesser.report.md"] = "```json\n{ not json\n```";
   // blind: first pair all right, second pair all wrong, third "cannot tell"
   const [p0, p1, p2] = BLIND_PAIRS;
-  const answer = (pair: readonly [string, string], how: "right" | "wrong" | "cannot") => {
-    const key = JSON.parse(files[`blind-${pair[0]}-${pair[1]}.key.json`]!) as { questions: { id: string; answer: "X" | "Y" }[] };
-    const answers = Object.fromEntries(key.questions.map((q) => [q.id, how === "cannot" ? "cannot tell" : how === "right" ? q.answer : q.answer === "X" ? "Y" : "X"]));
-    return "```json\n" + JSON.stringify({ answers, evidence: { Q1: ["x"], Q2: ["y"] } }) + "\n```\n";
-  };
-  judge[`blind-${p0![0]}-${p0![1]}.report.md`] = answer(p0!, "right");
-  judge[`blind-${p1![0]}-${p1![1]}.report.md`] = answer(p1!, "wrong");
-  judge[`blind-${p2![0]}-${p2![1]}.report.md`] = answer(p2!, "cannot");
+  judge["blind-1.report.md"] = blindReport(files, 0, "right");
+  judge["blind-2.report.md"] = blindReport(files, 1, "wrong");
+  judge["blind-3.report.md"] = blindReport(files, 2, "cannot");
   judge["truth-strong.report.md"] = "```json\n" + JSON.stringify({ wrong: [{ number: "stamina", engine: 13.3, truth: "25 effort", by_day: 9 }], right: [] }) + "\n```\n";
 
   const out = collect(run, judge, prompts.summary);
@@ -172,12 +210,15 @@ test("collect: valid report scored; a score without quotes is listed invalid; bl
   expect(inv).toMatch(/student-fast-guesser\.report\.md: invalid JSON/);
   expect(inv).toMatch(/student-average-noclass\.report\.md: missing/);
   // blind accuracy from the keys
-  expect(s).toContain(`| ${p0![0]} / ${p0![1]} | 2 / 2 |`);
-  expect(s).toContain(`| ${p1![0]} / ${p1![1]} | 0 / 2 |`);
-  expect(s).toContain(`| ${p2![0]} / ${p2![1]} | 0 / 2 |`);
+  expect(s).toContain(`| 1 | ${p0![0]} / ${p0![1]} | 2 / 2 |`);
+  expect(s).toContain(`| 2 | ${p1![0]} / ${p1![1]} | 0 / 2 |`);
+  expect(s).toContain(`| 3 | ${p2![0]} / ${p2![1]} | 0 / 2 |`);
   expect(s).toMatch(/^- \*\*met\*\* — two different personas get near-identical sessions/m);
   // three pairs judged, two failed: 67% > 25%
-  expect(s).toMatch(/^- \*\*met\*\* — the blind comparison fails for more than a quarter of pairs/m);
+  // only 3 of 8 pairs judged, 2 failed: 2 of 8 is not more than a quarter, the rest are unknown
+  expect(s).toMatch(/^- \*\*unknown\*\* — the blind comparison fails for more than a quarter of pairs.*only 3 of 8 pairs judged/m);
+  expect(s).toContain("| 4 | ");
+  expect(s).toMatch(/\| 1 \| strong \/ weak-stubborn \| 2 \/ 2 \|/);
   // truth-check misses and all seven code checks
   expect(s).toMatch(/strong.*stamina.*13\.3.*25 effort/);
   for (const c of CHECK_NAMES) expect(s).toContain(`| ${c} |`);
@@ -192,13 +233,17 @@ test("collect flags 'quit before day 7' when a quit_point is D05", () => {
   const quiet: RunFiles = { ...run, summaries: run.summaries.map((s) => ({ ...s, quitAppDay: null })) };
   const files = buildPackets(quiet, content, prompts);
   const packet = files["student-strong.input.md"]!;
-  const before = collect(quiet, { ...files, "student-strong.report.md": studentReport(packet, null) }, prompts.summary).summaryInput;
+  // one report of 16 and no quit seen: cannot say "not met"
+  const one = collect(quiet, { ...files, "student-strong.report.md": studentReport(packet, null) }, prompts.summary).summaryInput;
+  expect(one).toMatch(/^- \*\*unknown\*\* — any persona would quit before day 7.*only 1 of 16 students judged/m);
+  const before = collect(quiet, allStudents(files), prompts.summary).summaryInput;
   expect(before).toMatch(/^- \*\*not met\*\* — any persona would quit before day 7/m);
+  // a single early quit point is enough, however many reports are in
   const after = collect(quiet, { ...files, "student-strong.report.md": studentReport(packet, "D05 S1 #3") }, prompts.summary).summaryInput;
   expect(after).toMatch(/^- \*\*met\*\* — any persona would quit before day 7/m);
   expect(after).toMatch(/strong: judge's quit point D05 S1 #3/);
   // D07 is not before day 7
-  const d7 = collect(quiet, { ...files, "student-strong.report.md": studentReport(packet, "D07 S1 #3") }, prompts.summary).summaryInput;
+  const d7 = collect(quiet, allStudents(files, { "student-strong.report.md": studentReport(packet, "D07 S1 #3") }), prompts.summary).summaryInput;
   expect(d7).toMatch(/^- \*\*not met\*\* — any persona would quit before day 7/m);
   // the hidden student leaving the app on day index 1 (D02) also triggers it
   const left: RunFiles = { ...quiet, summaries: quiet.summaries.map((s) => (s.persona === "weak-impatient" ? { ...s, quitAppDay: 1 } : s)) };
@@ -213,4 +258,64 @@ test("importing the module does not run the CLI; prompts are readable on their o
   expect(runbook).toContain("npm run judge -- collect --run runs/");
   expect(runbook).toContain("Do not read any other file in this folder.");
   expect(runbook).toMatch(/Viraj/);
+});
+
+test("blind lines with all 8 pairs judged: 2 failed is not met, 3 failed is met", () => {
+  const run = runOf(1);
+  const files = buildPackets(run, content, prompts);
+  const judged = (wrong: number) => {
+    const f = { ...files };
+    BLIND_PAIRS.forEach((_, i) => { f[`${blindName(i)}.report.md`] = blindReport(files, i, i < wrong ? "wrong" : "right"); });
+    return collect(run, f, prompts.summary).summaryInput;
+  };
+  expect(judged(0)).toMatch(/^- \*\*not met\*\* — two different personas get near-identical sessions/m);
+  expect(judged(2)).toMatch(/^- \*\*not met\*\* — the blind comparison fails for more than a quarter of pairs.*2 of 8 pairs failed/m);
+  expect(judged(3)).toMatch(/^- \*\*met\*\* — the blind comparison fails for more than a quarter of pairs.*3 of 8 pairs failed/m);
+  // 3 failed among only 3 judged is already more than a quarter of all 8
+  const f3 = { ...files };
+  for (const i of [0, 1, 2]) f3[`${blindName(i)}.report.md`] = blindReport(files, i, "wrong");
+  expect(collect(run, f3, prompts.summary).summaryInput).toMatch(/^- \*\*met\*\* — the blind comparison fails for more than a quarter/m);
+});
+
+test("collect lists the remaining invalid cases", () => {
+  const run = runOf(1);
+  const files = buildPackets(run, content, prompts);
+  const packet = files["student-strong.input.md"]!;
+  const base = JSON.parse(parseReport(studentReport(packet, null)).json!) as Record<string, Record<string, unknown>>;
+  const report = (o: Record<string, unknown>, prose = "voice") => "```json\n" + JSON.stringify({ ...base, ...o }) + "\n```\n" + prose + "\n";
+  const judge: Record<string, string> = {
+    ...files,
+    "student-strong.report.md": report({ scores: { ...base.scores, fit: 2.5, reaction: 0 }, quit_point: "day 7" }),
+    "student-weak-stubborn.report.md": studentReport(files["student-weak-stubborn.input.md"]!, "D01 S1 #99").replace(/\n\n[^\n]*\n$/, "\n\n" + "word ".repeat(250) + "\n"),
+    "student-average-noclass.report.md": report({ quit_point: "D01 S1 #0" }),
+    "blind-1.report.md": "```json\n" + JSON.stringify({ answers: { Q1: "Student X", Q2: "Y" } }) + "\n```\n",
+    "blind-2.report.md": blindReport(files, 1, "right"),
+    "blind-2.key.json": "{ not json",
+    "truth-strong.report.md": "```json\n" + JSON.stringify({ wrong: [{ number: "patience", engine: 1, truth: "x", by_day: 1 }], right: [] }) + "\n```\n",
+  };
+  const out = collect(run, judge, prompts.summary);
+  const inv = out.invalid.map((i) => `${i.file}: ${i.reason}`).join("\n");
+  expect(inv).toMatch(/student-strong\.report\.md: fit: score 2\.5 is not 1–5/);
+  expect(inv).toMatch(/student-strong\.report\.md: reaction: score 0 is not 1–5/);
+  expect(inv).toMatch(/student-strong\.report\.md: quit_point "day 7" is not like "D07 S1 #5"/);
+  expect(inv).toMatch(/student-weak-stubborn\.report\.md: quit_point D01 S1 #99 is not a card or skip line/);
+  expect(inv).toMatch(/student-average-noclass\.report\.md: quit_point D01 S1 #0 is not a card or skip line/);
+  // over 200 words: a note, not invalid; the scores still count
+  expect(out.notes.map((n) => `${n.file}: ${n.reason}`).join("\n")).toMatch(/student-weak-stubborn\.report\.md: voice text is 250 words/);
+  expect(inv).not.toMatch(/250 words/);
+  expect(out.summaryInput).toMatch(/\| weak-stubborn \| 4 \| 4 \| 4 \| 4 \| 4 \| 4 \| 4 \|/);
+  expect(inv).toMatch(/blind-1\.report\.md: Q1: answer "Student X" is not "X", "Y" or "cannot tell"/);
+  expect(inv).toMatch(/blind-2\.report\.md: key file blind-2\.key\.json is not valid JSON/);
+  expect(inv).toMatch(/truth-strong\.report\.md: wrong entry .*"number" must be one of comfort, memory, h3Share, stamina/);
+  // no checks.json in the run folder
+  expect(collect({ ...run, checks: null }, files, prompts.summary).summaryInput).toContain("No checks.json found in the run folder.");
+});
+
+test("readRun names a missing log file", () => {
+  const dir = mkdtempSync(join(tmpdir(), "judge-"));
+  try {
+    const { lines: _l, ...summary } = runStudent(personas[0]!, content, { days: 2, seed: 1, start: SIM_START, cfg: defaultConfig });
+    writeFileSync(join(dir, `${summary.persona}.summary.json`), JSON.stringify(summary));
+    expect(() => readRun(dir)).toThrow(new RegExp(`${summary.persona}\\.log\\.jsonl`));
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });

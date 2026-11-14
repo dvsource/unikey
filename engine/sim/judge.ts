@@ -1,6 +1,6 @@
 // Judge packets, report collector and summary input (spec §13 "What each judge agent is told", "Two extra judges",
 // "Output", "The design changes when..."). Pure functions first; the thin CLI at the bottom reads and writes files.
-//   npm run judge -- packets --run runs/<name>   → runs/<name>/judge/*.input.md (+ blind *.key.json)
+//   npm run judge -- packets --run runs/<name>   → runs/<name>/judge/*.input.md (+ blind-N.key.json)
 //   npm run judge -- collect --run runs/<name>   → runs/<name>/judge/summary-input.md
 // No clock and no randomness: the same run folder gives byte-identical packets.
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
@@ -13,9 +13,12 @@ import { personas } from "./personas.js";
 
 export type Summary = Omit<StudentLog, "lines">;
 /** A run folder as read from disk: `<id>.summary.json`, `<id>.log.jsonl`, `checks.json`. */
-export type RunFiles = { summaries: Summary[]; lines: Record<string, LogLine[]>; checks: CheckResult[] };
+export type RunFiles = { summaries: Summary[]; lines: Record<string, LogLine[]>; checks: CheckResult[] | null };
 export type Prompts = { student: string; blind: string; truth: string; summary: string };
 export type Invalid = { file: string; reason: string };
+
+/** Blind files are numbered (`blind-1` … `blind-8`, in BLIND_PAIRS order) so no file name names a persona. */
+export const blindName = (i: number) => `blind-${i + 1}`;
 
 /** The eight blind pairs (brief, Task 12). Their two questions each live in `blind-comparison.md`. */
 export const BLIND_PAIRS = [
@@ -63,7 +66,6 @@ const END_WORDS: Record<EndInfo["kind"], string> = {
   "interrupted": "interrupted",
 };
 const SKIP_WORDS = { "not-learned": "not learned yet", "too-hard": "too hard", "later": "later" } as const;
-const QUIT_WORDS = { "frustration": "fed up", "fatigue": "too tired to go on", "time-up": "out of time" } as const;
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 /** Simulated day index (0-based) as the packets show it: D01 is the first day. */
@@ -85,10 +87,10 @@ function namer(content: Content) {
 }
 
 /**
- * One student's log as readable text, one event per line. `blind`: leave out what only the hidden student knows
- * (why they walked out). Never shows budgets, profile numbers, hidden knowledge or fatigue flags.
+ * One student's log as readable text, one event per line: the same for student and blind packets. Shows only what
+ * the app saw: never budgets, profile numbers, hidden knowledge, fatigue flags, or why a student walked out.
  */
-export function readableLog(lines: LogLine[], content: Content, days: number, opts: { blind: boolean }): string[] {
+export function readableLog(lines: LogLine[], content: Content, days: number): string[] {
   const nm = namer(content);
   const out: string[] = [];
   // session number within its day, in order of appearance
@@ -147,8 +149,7 @@ export function readableLog(lines: LogLine[], content: Content, days: number, op
         break;
       }
       case "quit": {
-        const why = !opts.blind && l.quitReason ? ` (${QUIT_WORDS[l.quitReason]})` : "";
-        out.push(`${at(l)} ${n}  ${cardText(l)} — closed the app without answering${why}`);
+        out.push(`${at(l)} ${n}  ${cardText(l)} — closed the app without answering`);
         break;
       }
       case "offer-extend":
@@ -187,6 +188,7 @@ export const LOG_LEGEND = `How to read the log. One line per event.
 - \`H1 easy\`, \`H2 guided\`, \`H3 full\` is how demanding the card is: an easy theory or recall card, a guided problem, or a full exam-style problem.
 - Then the section of the syllabus › the skill, what the student did (right, wrong, "I don't know", skipped with "Not now", or closed the app), and how many seconds it took.
 - Session ends give how the session ended, the effort it took (an easy card costs 1, a guided card 1.5, a full problem 4, a wrong answer 1 more, "I don't know" nothing extra; the app allows at most 40 a day), the cards answered, how many were right, and how many missing pieces were fixed.
+- After every answer the app shows whether it was right. After a wrong answer it shows the mistake's message and the explanation; "I don't know" gets the explanation with no negative message and costs no extra effort. Then the next card comes. The app shows no score, no backlog and no "due" count.
 - "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of five extra cards at the end.
 
 The app's reasons:
@@ -271,19 +273,19 @@ export function truthPacket(prompt: string, s: Summary, lines: LogLine[]): strin
   const r = (x: number) => (Math.round(x * 1000) / 1000).toString();
   const rows = s.profileByDay.map((p) => `| ${p.day} | ${r(p.comfort)} | ${r(p.memory)} | ${r(p.h3Share)} | ${r(p.stamina)} |`);
   // what the student did each day, from the log (so the judge can see what the engine was looking at)
-  const act = new Map<number, { sessions: Set<number>; cards: number; right: number; dk: number; skips: number; left: number; tired: number; ms: number[] }>();
+  const act = new Map<number, { sessions: Set<number>; cards: number; right: number; dk: number; skips: number; left: number; why: string[]; tired: number; ms: number[] }>();
   for (const l of lines) {
-    const a = act.get(l.day) ?? { sessions: new Set<number>(), cards: 0, right: 0, dk: 0, skips: 0, left: 0, tired: 0, ms: [] };
+    const a = act.get(l.day) ?? { sessions: new Set<number>(), cards: 0, right: 0, dk: 0, skips: 0, left: 0, why: [], tired: 0, ms: [] };
     act.set(l.day, a);
     a.sessions.add(l.session);
     if (l.kind === "card") { a.cards++; if (l.right) a.right++; if (l.choice === "dont-know") a.dk++; a.ms.push(l.ms ?? 0); }
     if (l.kind === "skip") a.skips++;
-    if (l.kind === "quit") a.left++;
+    if (l.kind === "quit") { a.left++; if (l.quitReason) a.why.push(l.quitReason); }
     if ((l.kind === "card" || l.kind === "skip") && l.hiddenFatigued) a.tired++;
   }
   const med = (xs: number[]) => { if (!xs.length) return "–"; const s2 = [...xs].sort((a, b) => a - b); return secs(s2[Math.floor(s2.length / 2)]!); };
   const actRows = [...act.entries()].map(([d, a]) =>
-    `| ${d} | ${a.sessions.size} | ${a.cards} | ${a.right} | ${a.dk} | ${a.skips} | ${a.left} | ${a.tired} | ${med(a.ms)} |`);
+    `| ${d} | ${a.sessions.size} | ${a.cards} | ${a.right} | ${a.dk} | ${a.skips} | ${a.left}${a.why.length ? ` (${a.why.join(", ")})` : ""} | ${a.tired} | ${med(a.ms)} |`);
   return [
     promptPart(prompt).trimEnd(), "",
     `## Student: ${s.persona}`, "",
@@ -294,7 +296,7 @@ export function truthPacket(prompt: string, s: Summary, lines: LogLine[]): strin
     "### What the engine learned: the four profile numbers at the end of each day", "",
     "| Day | comfort | memory | h3Share | stamina |", "|---|---|---|---|---|", ...rows, "",
     "### What the student did each day (from the log)", "",
-    "| Day | Sessions | Cards | Right | \"I don't know\" | Skips | Left mid-session | Answers past real stamina | Median answer time |",
+    "| Day | Sessions | Cards | Right | \"I don't know\" | Skips | Left mid-session (hidden reason) | Answers past real stamina | Median answer time |",
     "|---|---|---|---|---|---|---|---|---|", ...actRows, "",
   ].join("\n");
 }
@@ -303,23 +305,23 @@ export function truthPacket(prompt: string, s: Summary, lines: LogLine[]): strin
 export function buildPackets(run: RunFiles, content: Content, prompts: Prompts): Record<string, string> {
   const files: Record<string, string> = {};
   const byId = new Map(ordered(run).map((s) => [s.persona, s]));
-  const log = (id: string, blind: boolean) => readableLog(run.lines[id] ?? [], content, daysOf(byId.get(id)!), { blind });
+  const log = (id: string) => readableLog(run.lines[id] ?? [], content, daysOf(byId.get(id)!));
   for (const s of byId.values()) {
     const sheet = sheetOf(s.persona);
     if (sheet === undefined) throw new Error(`no persona sheet for ${s.persona}`);
-    files[`student-${s.persona}.input.md`] = studentPacket(prompts.student, sheet, log(s.persona, false));
+    files[`student-${s.persona}.input.md`] = studentPacket(prompts.student, sheet, log(s.persona));
   }
   const questions = blindQuestions(prompts.blind);
-  for (const [a, b] of BLIND_PAIRS) {
+  for (const [i, [a, b]] of BLIND_PAIRS.entries()) {
     const sa = byId.get(a), sb = byId.get(b);
     if (!sa || !sb) continue;
     const aIsX = (mix32(sa.seed, sb.seed) & 1) === 0;
     const [x, y] = aIsX ? [a, b] : [b, a];
     const qs = questions[`${a}/${b}`]!;
-    const name = `blind-${a}-${b}`;
-    files[`${name}.input.md`] = blindPacket(prompts.blind, qs, log(x, true), log(y, true));
+    const name = blindName(i);
+    files[`${name}.input.md`] = blindPacket(prompts.blind, qs, log(x), log(y));
     files[`${name}.key.json`] = JSON.stringify({
-      pair: [a, b], X: x, Y: y,
+      blind: i + 1, pair: [a, b], X: x, Y: y,
       questions: qs.map((q) => ({ id: q.id, text: q.text, answerId: q.answerId, answer: q.answerId === x ? "X" : "Y" })),
     }, null, 2) + "\n";
   }
@@ -348,13 +350,15 @@ export type StudentScore = {
   quitPoint: string | null; worst: string | null; prose: string;
 };
 
+/** A served card's line: answered, skipped with "Not now", or left by closing the app (not the value-message line). */
+const isCardOrSkip = (l: string) => / \[[a-z:-]+\] H[123] /.test(l);
 const isObj = (x: unknown): x is Record<string, unknown> => typeof x === "object" && x !== null && !Array.isArray(x);
 const QUIT_POINT = /^D(\d\d) S(\d+) #(\d+)$/;
 
 /** Validates one student report against that student's packet. Each bad score is listed and left out; the rest count. */
 export function validateStudent(persona: string, file: string, text: string | undefined, packet: string | undefined):
-  { score: StudentScore | null; invalid: Invalid[] } {
-  const bad = (reason: string): { score: null; invalid: Invalid[] } => ({ score: null, invalid: [{ file, reason }] });
+  { score: StudentScore | null; invalid: Invalid[]; notes: Invalid[] } {
+  const bad = (reason: string): { score: null; invalid: Invalid[]; notes: Invalid[] } => ({ score: null, invalid: [{ file, reason }], notes: [] });
   if (text === undefined) return bad("missing");
   if (packet === undefined) return bad(`its packet student-${persona}.input.md is missing, quotes cannot be checked`);
   const p = parseReport(text);
@@ -380,15 +384,16 @@ export function validateStudent(persona: string, file: string, text: string | un
   }
   if (typeof j.quit_point === "string") {
     const m = QUIT_POINT.exec(j.quit_point.trim());
-    const line = m ? events.find((l) => l.startsWith(`D${m[1]} S${m[2]} #${m[3]} `)) : undefined;
+    const line = m ? events.find((l) => l.startsWith(`D${m[1]} S${m[2]} #${m[3]} `) && isCardOrSkip(l)) : undefined;
     if (!m) invalid.push({ file, reason: `quit_point ${JSON.stringify(j.quit_point)} is not like "D07 S1 #5"` });
-    else if (!line) invalid.push({ file, reason: `quit_point ${j.quit_point} is not a card in the packet log` });
+    else if (!line) invalid.push({ file, reason: `quit_point ${j.quit_point} is not a card or skip line in the packet log` });
     else s.quitPoint = j.quit_point.trim();
   } else if (j.quit_point !== null && j.quit_point !== undefined) invalid.push({ file, reason: "quit_point must be a string or null" });
   if (typeof j.worst_moment === "string") s.worst = j.worst_moment;
   const words = p.prose.split(/\s+/).filter(Boolean).length;
-  if (words > 200) invalid.push({ file, reason: `voice text is ${words} words (limit 200); scores still counted` });
-  return { score: s, invalid };
+  // Over 200 words is a note, not invalid: the length rule is for readability, the scores and quotes still count.
+  const notes: Invalid[] = words > 200 ? [{ file, reason: `voice text is ${words} words (limit 200); scores still counted` }] : [];
+  return { score: s, invalid, notes };
 }
 
 type Key = { pair: [string, string]; X: string; Y: string; questions: { id: string; text: string; answerId: string; answer: "X" | "Y" }[] };
@@ -397,7 +402,8 @@ export type BlindResult = { pair: [string, string]; asked: number; correct: numb
 export function validateBlind(file: string, text: string | undefined, keyText: string | undefined): { result: BlindResult | null; invalid: Invalid[] } {
   const bad = (reason: string) => ({ result: null, invalid: [{ file, reason }] });
   if (keyText === undefined) return bad("its key file is missing");
-  const key = JSON.parse(keyText) as Key;
+  let key: Key;
+  try { key = JSON.parse(keyText) as Key; } catch { return bad(`key file ${file.replace(/\.report\.md$/, ".key.json")} is not valid JSON`); }
   if (text === undefined) return bad("missing");
   const p = parseReport(text);
   if (p.error) return bad(p.error);
@@ -448,25 +454,28 @@ const signed = (x: number) => { const r = Math.round(x * 1000) / 1000; return `$
 const cell = (s: string) => s.replace(/\|/g, "\\|").replace(/\n/g, " ");
 
 /** Reads every report among `files` (judge folder, by file name) and writes the summary agent's input. */
-export function collect(run: RunFiles, files: Record<string, string>, summaryPrompt: string): { summaryInput: string; invalid: Invalid[] } {
+export function collect(run: RunFiles, files: Record<string, string>, summaryPrompt: string): { summaryInput: string; invalid: Invalid[]; notes: Invalid[] } {
   const sums = ordered(run);
   const invalid: Invalid[] = [];
+  const notes: Invalid[] = [];
   const students: StudentScore[] = [];
   for (const s of sums) {
     const name = `student-${s.persona}`;
     const v = validateStudent(s.persona, `${name}.report.md`, files[`${name}.report.md`], files[`${name}.input.md`]);
     invalid.push(...v.invalid);
+    notes.push(...v.notes);
     if (v.score) students.push(v.score);
   }
   const blind: BlindResult[] = [];
-  const blindNames: string[] = [];
-  for (const [a, b] of BLIND_PAIRS) {
-    const name = `blind-${a}-${b}`;
+  /** Pairs with a packet (both personas in the run): number, pair, result if valid. */
+  const pairs: { n: number; a: string; b: string; result: BlindResult | null }[] = [];
+  for (const [i, [a, b]] of BLIND_PAIRS.entries()) {
+    const name = blindName(i);
     if (files[`${name}.input.md`] === undefined) continue;
-    blindNames.push(name);
     const v = validateBlind(`${name}.report.md`, files[`${name}.report.md`], files[`${name}.key.json`]);
     invalid.push(...v.invalid);
     if (v.result) blind.push(v.result);
+    pairs.push({ n: i + 1, a, b, result: v.result });
   }
   const truth: { persona: string; wrong: Miss[] }[] = [];
   for (const s of sums) {
@@ -491,16 +500,24 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
   const failed = blind.filter((b) => b.correct < b.asked);
   const flat = sums.filter((s) => s.traits.prior <= WEAK_PRIOR).map((s) => ({ s, gain: s.knowledge.dayEnd - s.knowledge.day0 }));
   const flatHit = flat.filter((f) => f.gain < FLAT_GAIN);
-  const skipCheck = run.checks.find((c) => c.name === "skip-timing");
+  const skipCheck = run.checks?.find((c) => c.name === "skip-timing");
   const mark = (met: boolean | null) => (met === null ? "**unknown**" : met ? "**met**" : "**not met**");
   const pairName = (b: BlindResult) => `${b.pair[0]} / ${b.pair[1]}`;
+  // A line that depends on judge reports is "not met" only when every report it needs is valid; a hit is a hit.
+  const allStudents = students.length === sums.length;
+  const nPairs = pairs.length;
+  const allPairs = nPairs > 0 && blind.length === nPairs;
+  const judgedStudents = `${students.length} of ${sums.length} students judged`;
+  const judgedPairs = `${blind.length} of ${nPairs} pairs judged`;
   out.push("## The five \"design must change\" lines (spec §13)", "");
-  out.push(`- ${mark(quitEarly.length > 0)} — any persona would quit before day 7. Evidence: ${quitEarly.length ? quitEarly.join("; ") : `no valid quit point before D07 and no student stopped using the app before D07 (${students.length} valid student reports)`}.`);
-  out.push(`- ${mark(blind.length ? allMissed.length > 0 : null)} — two different personas get near-identical sessions. Evidence: ${blind.length === 0 ? "no valid blind report" : allMissed.length ? `every answer wrong or "cannot tell" for ${allMissed.map(pairName).join("; ")}` : `every judged pair had at least one answer right (${blind.length} pairs)`}.`);
+  out.push(`- ${mark(quitEarly.length > 0 ? true : allStudents ? false : null)} — any persona would quit before day 7. Evidence: ${quitEarly.length ? `${quitEarly.join("; ")} (${judgedStudents})` : allStudents ? `no quit point before D07 and no student stopped using the app before D07 (${judgedStudents})` : `no quit before D07 seen so far, but only ${judgedStudents}`}.`);
+  out.push(`- ${mark(allMissed.length > 0 ? true : allPairs ? false : null)} — two different personas get near-identical sessions. Evidence: ${allMissed.length ? `every answer wrong or "cannot tell" for ${allMissed.map(pairName).join("; ")} (${judgedPairs})` : allPairs ? `every pair had at least one answer right (${judgedPairs})` : `no pair with every answer missed so far, but only ${judgedPairs}`}.`);
   out.push(`- ${mark(flat.length ? flatHit.length > 0 : null)} — a weak persona's hidden knowledge is flat after 4 weeks (weak: prior ≤ ${WEAK_PRIOR}; flat: gain < ${FLAT_GAIN}). Evidence: ${flat.length ? flat.map((f) => `${f.s.persona} ${f.s.knowledge.day0.toFixed(2)} → ${f.s.knowledge.dayEnd.toFixed(2)} (${f.gain < FLAT_GAIN ? "flat" : "not flat"}, ${signed(f.gain)})${f.s.quitAppDay !== null ? ` (stopped using the app on ${dayLabel(f.s.quitAppDay)})` : ""}`).join("; ") : "no weak persona in the run"}.`);
-  out.push(`- ${mark(skipCheck ? !skipCheck.pass : null)} — a skipped section returns the next day, or never. Evidence: ${skipCheck ? `code check skip-timing ${skipCheck.pass ? "passed" : "failed"}: ${skipCheck.detail}` : "no skip-timing check in checks.json"}.`);
-  const share = blind.length ? failed.length / blind.length : 0;
-  out.push(`- ${mark(blind.length ? share > 0.25 : null)} — the blind comparison fails for more than a quarter of pairs (a pair fails unless every answer is right). Evidence: ${blind.length ? `${failed.length} of ${blind.length} judged pairs failed (${Math.round(share * 100)}%)${failed.length ? `: ${failed.map(pairName).join("; ")}` : ""}` : "no valid blind report"}.`);
+  out.push(`- ${mark(skipCheck ? !skipCheck.pass : null)} — a skipped section returns the next day, or never. Evidence: ${skipCheck ? `code check skip-timing ${skipCheck.pass ? "passed" : "failed"}: ${skipCheck.detail}` : run.checks === null ? "no checks.json found in the run folder" : "no skip-timing check in checks.json"}.`);
+  // The share is over all pairs in the run: missing reports never shrink the denominator.
+  const overQuarter = nPairs > 0 && failed.length / nPairs > 0.25;
+  const failedText = `${failed.length} of ${nPairs} pairs failed (${nPairs ? Math.round((failed.length / nPairs) * 100) : 0}%)${failed.length ? `: ${failed.map(pairName).join("; ")}` : ""}`;
+  out.push(`- ${mark(overQuarter ? true : allPairs ? false : null)} — the blind comparison fails for more than a quarter of pairs (a pair fails unless every answer is right). Evidence: ${allPairs || overQuarter ? `${failedText} (${judgedPairs})` : `only ${judgedPairs}; ${failed.length} failed so far`}.`);
   out.push("");
 
   out.push("## Rubric scores (1 = the app failed me, 5 = it did this well; — = invalid or missing, n/a = does not apply)", "");
@@ -514,17 +531,14 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
   out.push("");
 
   out.push("## Blind comparison accuracy", "");
-  out.push("| Pair | Correct / asked | Answers (given → right answer) |", "|---|---|---|");
-  for (const name of blindNames) {
-    const b = blind.find((x) => `blind-${x.pair[0]}-${x.pair[1]}` === name);
-    const pair = name.slice("blind-".length);
-    const [a, bb] = BLIND_PAIRS.find(([x, y]) => `${x}-${y}` === pair)!;
-    out.push(b ? `| ${a} / ${bb} | ${b.correct} / ${b.asked} | ${b.rows.map((r) => `${r.q.id} ${r.given} → ${r.q.answer} (${r.q.answerId})`).join("; ")} |` : `| ${a} / ${bb} | — | no valid report |`);
-  }
+  out.push("| Blind file | Pair | Correct / asked | Answers (given → right answer) |", "|---|---|---|---|");
+  for (const { n, a, b: bb, result: b } of pairs)
+    out.push(b ? `| ${n} | ${a} / ${bb} | ${b.correct} / ${b.asked} | ${b.rows.map((r) => `${r.q.id} ${r.given} → ${r.q.answer} (${r.q.answerId})`).join("; ")} |` : `| ${n} | ${a} / ${bb} | — | no valid report |`);
   const tot = blind.reduce((t, b) => [t[0]! + b.correct, t[1]! + b.asked], [0, 0]);
   out.push("", `All pairs: ${tot[0]} / ${tot[1]} answers right.`, "");
-  for (const b of blind) {
-    out.push(`### ${pairName(b)}`, "");
+  for (const { n, result: b } of pairs) {
+    if (!b) continue;
+    out.push(`### blind-${n}: ${pairName(b)}`, "");
     for (const r of b.rows) out.push(`- ${r.q.id} (${r.q.text}) answered ${r.given}, right answer ${r.q.answer} = ${r.q.answerId}${r.ok ? "" : " (missed)"}. Evidence: ${r.evidence || "none given"}`);
     out.push("");
   }
@@ -539,7 +553,8 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
   out.push("");
 
   out.push("## Code checks (run before any judge)", "", "| Check | Result | Detail |", "|---|---|---|");
-  for (const c of run.checks) out.push(`| ${c.name} | ${c.pass ? "pass" : "FAIL"} | ${cell(c.detail)} |`);
+  if (run.checks === null) out.splice(out.length - 2, 2, "No checks.json found in the run folder.");
+  else for (const c of run.checks) out.push(`| ${c.name} | ${c.pass ? "pass" : "FAIL"} | ${cell(c.detail)} |`);
   out.push("");
 
   out.push("## Hidden knowledge (mean over all skills)", "", "| Persona | Day 0 | Day 14 | End | Left the app | Content ran out (sessions) |", "|---|---|---|---|---|---|");
@@ -550,6 +565,11 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
   if (invalid.length === 0) out.push("None.");
   for (const i of invalid) out.push(`- ${i.file}: ${i.reason}`);
   out.push("");
+  if (notes.length) {
+    out.push("## Notes (counted, but outside the report rules)", "");
+    for (const i of notes) out.push(`- ${i.file}: ${i.reason}`);
+    out.push("");
+  }
 
   out.push("## Each student's report", "");
   for (const s of sums) {
@@ -563,7 +583,7 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
     }
     out.push(`- Quit point: ${sc.quitPoint ?? "none"}`, `- Worst moment: ${sc.worst ?? ""}`, "", "In the student's voice:", "", sc.prose || "(none)", "");
   }
-  return { summaryInput: out.join("\n"), invalid };
+  return { summaryInput: out.join("\n"), invalid, notes };
 }
 
 // ---------- file IO ----------
@@ -580,9 +600,20 @@ const readFile = (p: string) => readFileSync(p, "utf8");
 export function readRun(dir: string): RunFiles {
   const ids = readdirSync(dir).filter((f) => f.endsWith(".summary.json")).map((f) => f.slice(0, -".summary.json".length)).sort();
   if (ids.length === 0) throw new Error(`${dir}: no <id>.summary.json files; run \`npm run sim -- --out ${dir}\` first`);
-  const summaries = ids.map((id) => JSON.parse(readFile(join(dir, `${id}.summary.json`))) as Summary);
-  const lines = Object.fromEntries(ids.map((id) => [id, readFile(join(dir, `${id}.log.jsonl`)).split("\n").filter(Boolean).map((l) => JSON.parse(l) as LogLine)]));
-  const checks = existsSync(join(dir, "checks.json")) ? JSON.parse(readFile(join(dir, "checks.json"))) as CheckResult[] : [];
+  const readJson = <T>(f: string): T => {
+    const path = join(dir, f);
+    if (!existsSync(path)) throw new Error(`${path}: file is missing (the run folder is incomplete; re-run \`npm run sim\`)`);
+    try { return JSON.parse(readFile(path)) as T; } catch (e) { throw new Error(`${path}: not valid JSON (${e instanceof Error ? e.message : String(e)})`); }
+  };
+  const summaries = ids.map((id) => readJson<Summary>(`${id}.summary.json`));
+  const lines = Object.fromEntries(ids.map((id) => {
+    const path = join(dir, `${id}.log.jsonl`);
+    if (!existsSync(path)) throw new Error(`${path}: file is missing (the run folder is incomplete; re-run \`npm run sim\`)`);
+    return [id, readFile(path).split("\n").filter(Boolean).map((l, k) => {
+      try { return JSON.parse(l) as LogLine; } catch { throw new Error(`${path}: line ${k + 1} is not valid JSON`); }
+    })];
+  }));
+  const checks = existsSync(join(dir, "checks.json")) ? readJson<CheckResult[]>("checks.json") : null;
   return { summaries, lines, checks };
 }
 
@@ -611,10 +642,12 @@ async function main(argv: string[]): Promise<number> {
   const files: Record<string, string> = {};
   for (const f of readdirSync(out)) if (/\.(input\.md|report\.md|key\.json)$/.test(f)) files[f] = readFile(join(out, f));
   if (!Object.keys(files).some((f) => f.endsWith(".input.md"))) throw new Error(`${out}: no packets; run \`npm run judge -- packets --run ${runDir}\` first`);
-  const { summaryInput, invalid } = collect(run, files, prompts.summary);
+  if (run.checks === null) console.log(`no checks.json found in ${runDir}`);
+  const { summaryInput, invalid, notes } = collect(run, files, prompts.summary);
   writeFileSync(join(out, "summary-input.md"), summaryInput);
   console.log(`summary input → ${join(out, "summary-input.md")} (${invalid.length} invalid entries)`);
   for (const i of invalid) console.log(`  invalid  ${i.file}: ${i.reason}`);
+  for (const i of notes) console.log(`  note     ${i.file}: ${i.reason}`);
   return 0;
 }
 

@@ -25,11 +25,11 @@ This writes into `runs/<name>/judge/`:
 | File | Count | For | Contains |
 |---|---|---|---|
 | `student-<id>.input.md` | 16 | one student judge each | the student-judge prompt, the persona sheet, the four-week log as readable lines |
-| `blind-<a>-<b>.input.md` | 8 | one blind judge each | the blind prompt, two questions, two logs labelled Student X and Student Y (no sheets, no persona ids) |
-| `blind-<a>-<b>.key.json` | 8 | `collect` only | which persona is X and which is Y, and the right answer to each question. **Never give a key to an agent.** |
+| `blind-1.input.md` … `blind-8.input.md` | 8 | one blind judge each | the blind prompt, two questions, two logs labelled Student X and Student Y (no sheets, no persona ids, and file names that name no persona) |
+| `blind-1.key.json` … `blind-8.key.json` | 8 | `collect` only | which pair the number is, which persona is X and which is Y, and the right answer to each question. **Never give a key to an agent.** |
 | `truth-<id>.input.md` | 16 | one truth-check judge each | the truth-check prompt, the hidden traits, hidden knowledge at day 0 / 14 / end, the engine's four profile numbers by day |
 
-Student and blind packets contain no hidden traits, no knowledge numbers, no profile numbers and no check results; `tests/judge.test.ts` checks this on real packets. The same run folder always gives byte-identical packets. Before asking for the go-ahead, open one student packet and one blind packet and read them as a judge would.
+Student and blind packets contain no hidden traits, no knowledge numbers, no profile numbers, no reason why a student closed the app, and no check results; `tests/judge.test.ts` checks this on real 28-day packets. The number → pair mapping of the blind files is only in the key files and in `summary-input.md`. The same run folder always gives byte-identical packets. Before asking for the go-ahead, open one student packet and one blind packet and read them as a judge would.
 
 **Stop here and ask Viraj** whether to launch the judges (about 40 agent runs).
 
@@ -43,7 +43,7 @@ Rules for the judge agents:
 - **Fresh:** a new agent with no context from this session. Do not fork this conversation, do not summarise the run, the personas, the traits or the design for them, and do not answer their questions about other students. Everything a judge needs is in its packet.
 - **No access to keys, traits or other students' files:** a student or blind judge must never see a `*.key.json`, a `truth-*` packet, `*.summary.json`, `*.log.jsonl`, `checks.json`, `engine/sim/personas.ts` or another student's packet or report. A truth-check judge sees only its own `truth-<id>.input.md` (which does hold that student's traits, by design).
 - One packet per agent. Do not reuse an agent for a second packet.
-- The blind packets' file names name the two personas of the pair (the brief's naming); the X/Y order inside is set from the run seed and is only in the key file, which the agent never sees.
+- Use the blind file's own neutral name in its instruction (`blind-3.input.md` → `blind-3.report.md`). Do not tell a blind judge which pair it has.
 
 ## 4. Collect the reports
 
@@ -51,7 +51,7 @@ Rules for the judge agents:
 npm run judge -- collect --run runs/<name>
 ```
 
-This reads every `*.report.md`, validates its JSON block, marks blind answers against the keys and writes `runs/<name>/judge/summary-input.md`. It prints the invalid entries: a missing report, a report without a fenced `json` block, invalid JSON, a score outside 1–5, a score with no quote, a quote that is not a line of that student's packet log, a malformed quit point or blind answer. Invalid entries are listed in the summary input and not scored; the rest of the same report still counts.
+This reads every `*.report.md`, validates its JSON block, marks blind answers against the keys and writes `runs/<name>/judge/summary-input.md`. It prints the invalid entries: a missing report, a report without a fenced `json` block, invalid JSON, a score outside 1–5 or not a whole number, a score with no quote, a quote that is not a line of that student's packet log, a quit point that is not a card or skip line, a blind answer other than X / Y / "cannot tell", a truth-check `number` that is not one of the four, a broken key file. Invalid entries are listed in the summary input and not scored; the rest of the same report still counts. Voice text over 200 words is listed as a note and still counts. A "design must change" line that needs judge reports is marked **unknown** ("only N of 16 students judged", "only N of 8 pairs judged") until every report it needs is valid, unless the reports already in decide it.
 
 If a report is invalid, you may delete it and dispatch one more fresh agent for that packet (same instruction), then run `collect` again. Say in your hand-over which ones were re-run.
 
