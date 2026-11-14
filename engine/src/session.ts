@@ -97,6 +97,19 @@ const loose = (r: Run) => ctxOf(r, false, Infinity);
 /** Anything at all eligible in content (ignoring budget, runs and exclusions)? */
 const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "comfort-correction") !== null;
 
+/**
+ * Review finding 5: when nothing outside the session's recent cards (R5) is eligible, the least recent of them: the
+ * sweep is retried with the recent window shortened from its oldest end, down to none.
+ */
+function leastRecent(r: Run, base: PickCtx, reason: Reason): Picked | null {
+  const recent = base.recentCards ?? [];
+  for (let k = recent.length - 1; k >= 0; k--) {
+    const p = pickAny(r.s, r.content, { ...base, recentCards: recent.slice(recent.length - k) }, r.cfg, reason);
+    if (p) return p;
+  }
+  return null;
+}
+
 function withReason(p: Picked | null, reason: Reason): Picked | null {
   return p && { ...p, served: { ...p.served, reason } };
 }
@@ -206,7 +219,10 @@ function normal(r: Run, last: Last): Next {
   if (any) return serve(r, any, true);
   const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
   if (side) return serve(r, side);
-  return anyLeft(r) ? toClosing(r, last, false) : finish(r, "content-exhausted");
+  if (anyLeft(r)) return toClosing(r, last, false);
+  const lr = leastRecent(r, strict(), "comfort-correction");
+  if (lr) return serve(r, lr, true);
+  return leastRecent(r, loose(r), "comfort-correction") ? toClosing(r, last, false) : finish(r, "content-exhausted");
 }
 
 /** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
@@ -231,7 +247,8 @@ function toClosing(r: Run, last: Last, forced: boolean): Next {
  * One close card, then the end. Skipped when the last answer was right on a winnable card (and today already
  * reached the minimum day), or when "5 more" ended right; `forced` (bad day) always serves it. A wrong close
  * answer gets another close card, at most `sessionEnd.maxExtraClose` extra. A close card is never served past
- * the daily cap; when the cap blocks it the session ends with its pending kind. `content-exhausted` only when
+ * the daily cap; when the cap blocks it after a wrong answer the session ends `daily-cap` (a right last answer ends
+ * with its pending kind). When only the session's recent cards are left, the least recent is served. `content-exhausted` only when
  * nothing at all is eligible.
  */
 function closing(r: Run, last: Last, forced: boolean): Next {
@@ -250,7 +267,13 @@ function closing(r: Run, last: Last, forced: boolean): Next {
     ss.closeServed += 1;
     return serve(r, (p ?? any)!, true);
   }
-  return finish(r, last?.right || anyLeft(r) ? pending : "content-exhausted");
+  if (last?.right) return finish(r, pending);
+  const lr = leastRecent(r, capped, "close:winnable");
+  if (lr) {
+    ss.closeServed += 1;
+    return serve(r, lr, true);
+  }
+  return finish(r, anyLeft(r) || leastRecent(r, loose(r), "close:winnable") ? "daily-cap" : "content-exhausted");
 }
 
 /** A `budget` end may become an offer of "5 more"; everything else closes the session. */

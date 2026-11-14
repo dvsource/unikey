@@ -498,3 +498,25 @@ test("no same card back-to-back (R5): a card id (any variant) is not served agai
     }
   }
 });
+
+test("finding 5: a close card blocked by the daily cap ends the session daily-cap, not budget", () => {
+  // No height-1 cards: every close card is height 2 (1.5, +1 wrong), so the cap can block the next one.
+  const noH1 = fixture({ drop: ["a1", "a2", "b1", "b2"].flatMap((x) => [1, 2, 3].map((i) => `${x}.h1.${i}`)) });
+  const s0 = { ...startedAt(2, 2, 1), day: { day: D0, effort: 33, streakKept: true } };
+  const { steps } = play(noH1, s0, T0, () => "w");
+  const last = lastStep(steps);
+  expect(last.feedback?.right).toBe(false);
+  expect(endOf(last).kind).toBe("daily-cap");
+  expect(last.state.day!.effort).toBeLessThanOrEqual(cfg.budget.dailyCap);
+});
+
+test("finding 5: when only the session's recent cards are left, the least recent is served (not content-exhausted)", () => {
+  const drop = ["a2", "b1", "b2"].flatMap((x) => [1, 2, 3].flatMap((i) => [`${x}.h1.${i}`, `${x}.h2.${i}`]).concat(`${x}.h3`));
+  const one = fixture({ drop: [...drop, "a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3"] }); // a1.h3 only, 20 variants
+  const s0 = startedState({ a1: rec(3, atts(3, 4, 0, D0 - 2), { nextReviewDay: D0 + 20 }) });
+  const { steps } = play(one, s0, T0, allR);
+  const cards = served(steps);
+  expect(cards.length).toBeGreaterThan(1);
+  expect(cards.every((c) => c.card === "a1.h3")).toBe(true);
+  expect(endOf(lastStep(steps)).kind).not.toBe("content-exhausted");
+});
