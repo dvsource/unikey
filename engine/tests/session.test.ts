@@ -432,14 +432,12 @@ test("fade (R4b): fade.slowAnswers slow answers, not in a row → fadeEffort is 
   const U = cfg.staminaUpdate;
   const endData = (steps: Step[]) => lastStep(steps).events.find((x) => x.type === "session_end")!.data;
   const effortBefore = (steps: Step[], i: number) => served(steps).slice(0, i).reduce((a, c) => a + c.effort, 0);
-  // The rule with slowAnswers 2: two slow answers apart record the fade at the first; one alone does not.
-  const two = { ...cfg, fade: { slowAnswers: 2 } };
-  const p2 = play(C, start, T0, allR, { cfg: two, ms: (_s, i) => (i === 2 || i === 4 ? 17_000 : 8000) });
-  expect(endData(p2.steps)).toMatchObject({ kind: "budget", fadeEffort: effortBefore(p2.steps, 2) });
-  const p1 = play(C, start, T0, allR, { cfg: two, ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
+  // Two slow answers apart record the fade at the first; one alone does not.
+  expect(cfg.fade.slowAnswers).toBe(2);
+  const p1 = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
   expect(endData(p1.steps)).toMatchObject({ fadeEffort: null });
-  // Default (slowAnswers 1): one slow answer is a fade; stamina blends toward it.
-  const d = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 ? 17_000 : 8000) });
+  // Stamina blends toward the fade.
+  const d = play(C, start, T0, allR, { ms: (_s, i) => (i === 2 || i === 4 ? 17_000 : 8000) });
   const before = effortBefore(d.steps, 2);
   expect(endData(d.steps)).toMatchObject({ kind: "budget", fadeEffort: before });
   const floor = cfg.budget.minimumDay / (1 - cfg.budget.margin);

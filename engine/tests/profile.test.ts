@@ -74,10 +74,9 @@ test("interrupted session changes no profile number and emits no profile event",
   expect(s1.events.map((e) => e.type)).toEqual(["session_end"]);
 });
 
-test("stamina: fade at 6 effort → 0.5×13.34+0.5×6; clean end +0.5; never below 8/0.9", () => {
-  // Task 11: staminaUpdate keep/take 0.7/0.3 → 0.5/0.5
-  expect(close({}, endOf("left", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.5 * 13.34 + 0.5 * 6, 10);
-  expect(close({}, endOf("bad-day", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.5 * 13.34 + 0.5 * 6, 10);
+test("stamina: fade at 6 effort → 0.7×13.34+0.3×6; clean end +0.5; never below 8/0.9", () => {
+  expect(close({}, endOf("left", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.7 * 13.34 + 0.3 * 6, 10);
+  expect(close({}, endOf("bad-day", 10, 5), { fadeEffort: 6 }).stamina).toBeCloseTo(0.7 * 13.34 + 0.3 * 6, 10);
   // Task 11 R4a: a clean budget end raises stamina only on a good day (this session has no fast answers): unchanged.
   // The good-day case is in session.test.ts ("stamina (R4a)").
   expect(close({}, endOf("budget", 10, 9)).stamina).toBe(13.34);
