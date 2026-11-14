@@ -17,6 +17,7 @@ test("spec numbers", () => {
   expect(c.window).toEqual({ cards: 60, sessions: 7 });
   expect(c.moments).toEqual({ thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 });
   expect(c.returning).toEqual({ noFullDays: 2, awayDays: 3 });
+  expect(c.skill).toEqual({ attemptsKept: 12, solidDays: 2 });
   expect(c.tzOffsetMinutes).toBe(330);
 });
 test("dayOf uses Sri Lanka time", () => {

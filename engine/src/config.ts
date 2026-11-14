@@ -15,6 +15,7 @@ export const defaultConfig = {
   window: { cards: 60, sessions: 7 },
   moments: { thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 },
   returning: { noFullDays: 2, awayDays: 3 },
+  skill: { attemptsKept: 12, solidDays: 2 },
   tzOffsetMinutes: 330,
 };
 

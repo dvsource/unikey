@@ -64,21 +64,21 @@ test("blocked from height 3 before noFullUntilDay", () => {
 test("solid after top-height right on two days; skill topping at 2 is solid at 2; topping at 1 never", () => {
   let r = newSkillRec(3);
   r = recordAttempt(r, def, att(1, 1, 3, true), 1, cfg).rec;
-  expect(isSolid(r, def)).toBe(false);
+  expect(isSolid(r, def, cfg)).toBe(false);
   r = recordAttempt(r, def, att(1, 2, 3, true), 1, cfg).rec;
   expect(r.solidDays).toEqual([1]);
   r = recordAttempt(r, def, att(2, 3, 3, true), 1, cfg).rec;
-  expect(isSolid(r, def)).toBe(true);
+  expect(isSolid(r, def, cfg)).toBe(true);
   const d2 = fixture({ drop: ["a1.h3"] }).skills["a1"];
   let r2 = newSkillRec(2);
   r2 = recordAttempt(r2, d2, att(1, 1, 2, true), 1, cfg).rec;
   r2 = recordAttempt(r2, d2, att(2, 2, 2, true), 1, cfg).rec;
-  expect(isSolid(r2, d2)).toBe(true);
+  expect(isSolid(r2, d2, cfg)).toBe(true);
   const d1 = fixture({ drop: ["a1.h3", "a1.h2.1", "a1.h2.2", "a1.h2.3"] }).skills["a1"];
   let r1 = newSkillRec(1);
   r1 = recordAttempt(r1, d1, att(1, 1, 1, true), 1, cfg).rec;
   r1 = recordAttempt(r1, d1, att(2, 2, 1, true), 1, cfg).rec;
-  expect(r1.solidDays).toEqual([1, 2]); expect(isSolid(r1, d1)).toBe(false);
+  expect(r1.solidDays).toEqual([1, 2]); expect(isSolid(r1, d1, cfg)).toBe(false);
 });
 test("keeps last 12 attempts and does not mutate input", () => {
   const rec = newSkillRec(2); const snap = JSON.stringify(rec);
@@ -94,4 +94,19 @@ test("startHeight: default 2; comfortLow → 1; returning → 1; missing height 
   expect(startHeight(no2, false, false)).toBe(1);
   const no1 = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3"] }).skills["a1"];
   expect(startHeight(no1, true, false)).toBe(2);
+});
+test("in a row: right, wrong, right does not step up", () => {
+  const o = run(newSkillRec(2), [att(1, 1, 2, true), att(2, 2, 2, false), att(3, 3, 2, true)]);
+  expect(o.rec.height).toBe(2); expect(o.up).toBe(false);
+});
+test("last 4 window: wrong, right, right, right, wrong does not step down", () => {
+  const o = run(newSkillRec(3), [att(1, 1, 3, false), att(1, 2, 3, true), att(1, 3, 3, true), att(1, 4, 3, true), att(1, 5, 3, false)]);
+  expect(o.rec.height).toBe(3); expect(o.down).toBe(false);
+});
+test("wrong at a lower height than current resets the gap to 1 day", () => {
+  let r = newSkillRec(3);
+  r = recordAttempt(r, def, att(10, 1, 3, true), 1, cfg).rec;
+  expect(r.gapIndex).toBe(1);
+  r = recordAttempt(r, def, att(20, 2, 1, false), 1, cfg).rec;
+  expect(r.gapIndex).toBe(0); expect(r.nextReviewDay).toBe(21);
 });

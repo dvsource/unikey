@@ -2,7 +2,6 @@ import type { Config } from "./config.js";
 import type { Attempt, Height, SkillDef, SkillRec } from "./types.js";
 
 const HEIGHTS: Height[] = [1, 2, 3];
-const KEEP = 12;
 
 export function newSkillRec(height: Height): SkillRec {
   return {
@@ -19,7 +18,7 @@ export function recordAttempt(
   rec: SkillRec, def: SkillDef, a: Attempt, memory: number, cfg: Config,
 ): { rec: SkillRec; steppedUp: boolean; steppedDown: boolean } {
   const out: SkillRec = {
-    ...rec, attempts: [...rec.attempts, a].slice(-KEEP), solidDays: [...rec.solidDays],
+    ...rec, attempts: [...rec.attempts, a].slice(-cfg.skill.attemptsKept), solidDays: [...rec.solidDays],
   };
   const avail = available(def);
   const top = avail.length ? avail[avail.length - 1] : null;
@@ -38,12 +37,12 @@ export function recordAttempt(
     }
   } else {
     out.gapIndex = 0;
-    out.nextReviewDay = a.day + 1;
+    out.nextReviewDay = a.day + cfg.reviewGapsDays[0];
   }
 
   // Solid days.
   if (a.right && top !== null && a.height === top && !out.solidDays.includes(a.day)) {
-    out.solidDays = [...out.solidDays, a.day].slice(-2);
+    out.solidDays = [...out.solidDays, a.day].slice(-cfg.skill.solidDays);
   }
 
   // Steps, judged on attempts at the current height since the window start.
@@ -80,10 +79,10 @@ export function recordAttempt(
   return { rec: out, steppedUp, steppedDown };
 }
 
-export function isSolid(rec: SkillRec, def: SkillDef): boolean {
+export function isSolid(rec: SkillRec, def: SkillDef, cfg: Config): boolean {
   const avail = available(def);
   const top = avail.length ? avail[avail.length - 1] : 1;
-  return top >= 2 && rec.solidDays.length >= 2;
+  return top >= 2 && rec.solidDays.length >= cfg.skill.solidDays;
 }
 
 export function isDue(rec: SkillRec, day: number): boolean {
