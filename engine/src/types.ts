@@ -1,3 +1,4 @@
+import type { Rng } from "./rng.js";
 export type Height = 1 | 2 | 3;
 export type CardOption = { correct: boolean; tag?: string };
 export type Card = {
@@ -14,4 +15,37 @@ export type Content = {
   skills: Record<string, SkillDef>;
   sections: Record<string, SectionDef>;
   topics: Record<string, { id: string; unit: string; sections: string[] }>;
+};
+
+export type Attempt = { day: number; seq: number; height: Height; right: boolean; ms: number; card: string };
+export type SkillRec = {
+  height: Height;
+  attempts: Attempt[]; // last 12 kept
+  gapIndex: number;
+  nextReviewDay: number | null;
+  firstFailedDay: number | null;
+  firstFailedHeight: Height | null;
+  solidDays: number[];
+  noFullUntilDay: number | null;
+  /** Attempts with seq below this no longer count toward step up/down (set after a step). */
+  windowStartSeq: number;
+};
+export type SkipReason = "not-learned" | "too-hard" | "later";
+export type SectionRec = {
+  skipCount: number; remindDay: number | null; lastReason: SkipReason | null;
+  dripStopped: boolean; liking: number; returned: boolean;
+};
+export type Profile = {
+  comfort: number; memory: number; h3Share: number; stamina: number;
+  goodStreak: number; msByHeight: Record<Height, number[]>; // last 20 ms per height
+};
+export type Seen = { card: string; variant: number; day: number };
+// Placeholder: Task 5 defines the real session state.
+export type SessionState = { id: string };
+export type State = {
+  v: 1; student: string; rng: Rng; seq: number; lastNow: number;
+  profile: Profile; skills: Record<string, SkillRec>; sections: Record<string, SectionRec>;
+  seen: Seen[]; currentTopic: { id: string; source: "class" | "student" } | null;
+  day: { day: number; effort: number; streakKept: boolean } | null;
+  sessionCount: number; lastSessionDay: number | null; session: SessionState | null;
 };
