@@ -51,7 +51,7 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
   const ss = r.s.session!;
   const done = ss.history.filter((h) => h.right !== null);
   return {
-    day: r.day, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
+    day: r.day, sessionDay: r.dayOfSession, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
     runningRight: done.filter((h) => h.right).length, runningTotal: done.length,
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,

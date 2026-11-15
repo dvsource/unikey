@@ -158,7 +158,7 @@ function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: 
     if (tail.length === n && tail.every((s) => s === def.id)) return null;
   }
   const effort = effortOf(height, cfg);
-  if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.day) >= cfg.budget.minimumDay)) return null;
+  if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.sessionDay ?? ctx.day) >= cfg.budget.minimumDay)) return null;
   const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, { exclude: ctx.recentCards ?? [] }, cfg);
   if (!e) return null;
   const served: Served = { card: e.card, variant: e.variant, skill: def.id, section: def.section, height, reason, effort };

@@ -136,7 +136,8 @@ export type Served = {
  * `recentCards`: card ids (any variant) not to serve now: the session's last `session.returnAfterCards` serves.
  */
 export type PickCtx = {
-  day: number; remaining: number; runningRight: number; runningTotal: number;
+  /** The real local day (cards, sections). `sessionDay`: the day the session started on, for today's effort; default `day`. */
+  day: number; sessionDay?: number; remaining: number; runningRight: number; runningTotal: number;
   newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
   h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
   recentCards?: string[];

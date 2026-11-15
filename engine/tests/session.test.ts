@@ -2,7 +2,7 @@ import { test, expect } from "vitest";
 import { defaultConfig as cfg } from "../src/config.js";
 import { newState } from "../src/state.js";
 import { DAY_MS, dayOf } from "../src/time.js";
-import { answer, endSession, extend, startSession } from "../src/session.js";
+import { answer, endSession, extend, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
 import type { EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -674,4 +674,47 @@ test("streak: a `budget` end that really spent its budget keeps it even under th
   expect(end.effort).toBeLessThan(cfg.budget.minimumDay);
   expect(end.effort).toBeGreaterThanOrEqual(8 - (cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)));
   expect(end.streakKept).toBe(true);
+});
+
+// ---------- follow-up: a card or a skip after midnight belongs to the day it happens on ----------
+
+/** 23:56 Sri Lanka time on the day of T0. */
+const LATE = Date.UTC(2027, 0, 4, 18, 26);
+
+test("midnight: a card answered after midnight is dated on the new day; the effort and streak stay on the start day", () => {
+  expect(dayOf(LATE)).toBe(D0);
+  const first = startSession(startedAt(2, 4, 1), C, LATE);
+  expect(first.state.seen.at(-1)!.day).toBe(D0); // served before midnight
+  const afterMidnight = LATE + 5 * 60_000; // 00:01
+  expect(dayOf(afterMidnight)).toBe(D0 + 1);
+  const sv = (first.next as { card: Served }).card;
+  const second = answer(first.state, C, { card: sv.card, choice: choiceFor(C, sv, "r"), ms: 8000 }, afterMidnight);
+  expect(second.state.skills[sv.skill].attempts.at(-1)!.day).toBe(D0 + 1);
+  expect(second.state.skills[sv.skill].nextReviewDay).toBeGreaterThanOrEqual(D0 + 2);
+  if (second.next.kind === "card") expect(second.state.seen.at(-1)).toMatchObject({ card: second.next.card.card, day: D0 + 1 });
+  const done = run(C, second, afterMidnight, allR);
+  const end = endOf(lastStep(done.steps));
+  expect(end.streakKept).toBe(true);
+  // The day record, the minimum day, the cap and lastSessionDay stay on the day the session started.
+  expect(done.state.day).toEqual({ day: D0, effort: end.effort, streakKept: true });
+  expect(done.state.lastSessionDay).toBe(D0);
+  for (const a of Object.values(done.state.skills).flatMap((r) => r.attempts).filter((a) => a.seq > 1000)) expect(a.day).toBe(D0 + 1);
+});
+
+test("midnight: a skip after midnight sets remindDay = the new day + 3", () => {
+  const first = startSession(startedAt(2, 4, 1), C, LATE);
+  const sv = (first.next as { card: Served }).card;
+  const sk = skip(first.state, C, { card: sv.card, confirmed: true }, LATE + 5 * 60_000);
+  expect(sk.state.sections[sv.section].remindDay).toBe(D0 + 1 + cfg.skipRemindDays[0]);
+  expect(sk.state.day!.day).toBe(D0);
+});
+
+test("a session left open and answered three days later: the attempt is dated on the day of the answer, the day record stays", () => {
+  const first = startSession(startedAt(2, 4, 1), C, T0);
+  const sv = (first.next as { card: Served }).card;
+  const later = T0 + 3 * DAY_MS;
+  const st = answer(first.state, C, { card: sv.card, choice: choiceFor(C, sv, "r"), ms: 8000 }, later);
+  expect(st.state.skills[sv.skill].attempts.at(-1)!.day).toBe(D0 + 3);
+  expect(st.state.day).toMatchObject({ day: D0 });
+  if (st.next.kind === "card") expect(st.state.seen.at(-1)!.day).toBe(D0 + 3);
 });
