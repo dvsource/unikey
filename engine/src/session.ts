@@ -1,7 +1,7 @@
 import { defaultConfig, type Config } from "./config.js";
 import { dayOf } from "./time.js";
 import { effectiveNow } from "./state.js";
-import { newSkillRec, recordAttempt, startHeight } from "./skill.js";
+import { newSkillRec, recordAttempt } from "./skill.js";
 import { usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
@@ -114,7 +114,10 @@ function withReason(p: Picked | null, reason: Reason): Picked | null {
   return p && { ...p, served: { ...p.served, reason } };
 }
 
-/** `sweep`: a not-started skill served by the last-resort sweep or a close pick starts at the served height. */
+/**
+ * `sweep`: a not-started skill served by the last-resort sweep or a close pick gets its SkillRec (at the served height)
+ * when served, so it counts as started even if skipped; any other new skill gets it, at the served height, on its answer.
+ */
 function serve(r: Run, p: Picked, sweep = false): Next {
   const ss = r.s.session!;
   const sv = p.served;
@@ -361,8 +364,8 @@ export function answer(
   let steppedDown = false;
   const def = content.skills[sv.skill];
   if (def) {
-    const comfortLow = r.s.profile.comfort >= cfg.estimate.comfortLowMark;
-    const rec0 = r.s.skills[sv.skill] ?? newSkillRec(startHeight(def, comfortLow, r.s.sections[def.section]?.returned === true));
+    // F3: a new skill starts at the height actually served (below it, a right answer would never schedule a review).
+    const rec0 = r.s.skills[sv.skill] ?? newSkillRec(sv.height);
     const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card }, r.s.profile.memory, cfg);
     // A drip is a height-1 card, the lowest height, so a wrong drip can never step its skill down.
     r.s.skills[sv.skill] = out.rec;

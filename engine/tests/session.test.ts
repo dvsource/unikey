@@ -27,13 +27,15 @@ function startedAt(height: Height, r: number, w: number, over: Record<string, Pa
   return startedState(skills);
 }
 
-test("first session: opens open:liked, ends by budget, effort ≤ 12 and ≥ 8, streak kept", () => {
+test("first session: opens open:liked, ends by budget, effort ≤ 12 and within one card of 8, streak kept", () => {
   const { state, steps } = play(C, newState("s", 1), T0, allR);
   expect(served(steps)[0].reason).toBe("open:liked");
   const end = endOf(lastStep(steps));
   expect(end.kind).toBe("budget");
   expect(end.effort).toBeLessThanOrEqual(12);
-  expect(end.effort).toBeGreaterThanOrEqual(8);
+  // F1: a right last answer ends the session with no close card, so a minimum-day budget may end a card short of 8;
+  // the budget end keeps the streak anyway.
+  expect(end.effort).toBeGreaterThan(cfg.budget.minimumDay - cfg.effort.h2);
   expect(end.streakKept).toBe(true);
   expect(end.cards).toBe(served(steps).length);
   expect(state.day).toEqual({ day: D0, effort: end.effort, streakKept: true });
@@ -567,4 +569,18 @@ test("\"5 more\" needs a usual time at every height played (otherwise a slow ans
   expect(lastStep(p.steps).next.kind).toBe("end");
   // With usual times known: offered.
   expect(lastStep(play(C, fastStart(), T0, allR, { ms: () => 20_000, offer: "stop" }).steps).next.kind).toBe("offer-extend");
+});
+
+// ---------- final review F3, F5 ----------
+
+test("F3: a new skill's SkillRec starts at the height actually served, so a right answer schedules its review", () => {
+  const first = startSession(newState("s", 1), C, T0);
+  if (first.next.kind !== "card") throw new Error("no card");
+  const c = first.next.card;
+  expect(c.height).toBe(1); // a fresh student's open card is the easiest eligible, below the default start height 2
+  const a = answer(first.state, C, { card: c.card, choice: choiceFor(C, c, "r"), ms: 8000 }, T0 + 10_000);
+  const r = a.state.skills[c.skill];
+  expect(r.height).toBe(c.height);
+  expect(r.nextReviewDay).not.toBeNull();
+  expect(r.nextReviewDay!).toBeGreaterThan(D0);
 });
