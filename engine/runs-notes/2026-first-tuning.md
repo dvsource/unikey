@@ -19,7 +19,8 @@ The scripts only read run folders. They do not change `run.ts` or `checks.ts`.
 **Runs:**
 - **Before:** `runs/t0-sN`, engine at `bcfb4de`.
 - **First pass, final:** `runs/t3-sN`, at `1b2fdf8`. Its numbers are kept below as history.
-- **Fix round 1 (current):** `runs/f2-sN`, at `745a035`. Round 1 of fix round 1 is `runs/f1-sN`.
+- **Fix round 1:** `runs/f2-sN`, at `745a035`. Round 1 of fix round 1 was `runs/f1-sN` (since overwritten).
+- **Final review fixes (current):** before `runs/f0-sN` (at `a8726b7`, the same engine as fix round 1), after `runs/f1-sN` (at `d6c93fe`). See "After the final review fixes" at the end.
 
 ## Summary (current: fix round 1)
 
@@ -32,6 +33,8 @@ The scripts only read run folders. They do not change `run.ts` or `checks.ts`.
 - **Every remaining no-end-on-wrong violation is the `maxExtraClose` last resort:** the close card and both extra close cards were wrong. 26 of the 28 are weak-stubborn; fast-guesser has the other 2.
 - **On weak-stubborn's late sessions all height-1 cards are used up.** The content has 53 height-1 cards, each with one variant, and none may come back within 14 days. weak-stubborn has served all 53 by then, so its close cards fall back to height 2. Its close cards are right about 55% of the time at h1 and 0–7% at h2.
 - **`maxExtraClose` was not changed.** That decision goes to the owner.
+
+**Correction (final review, 2026-11-15): the end-on-wrong cause was half engine-made.** The two points above are not the whole story. In 11 of the 28 violations (seed 1: 4 of 8, seed 2: 4 of 12, seed 3: 3 of 8) the answer just before the close loop was **right**. The engine still served a close card, because "won" needed an estimate ≥ 0.85 and today's effort ≥ 8. Those close cards then went wrong three times, and the loop pushed the session 1.3 to 5.5 effort over its budget (one ended 1.3 under). Fix F1 ends a session on a right answer with no close card, and a budget end keeps the streak under 8. After F1, 0 of 22 violations have a right answer before the close loop (seed 1: 0 of 9, seed 2: 0 of 6, seed 3: 0 of 7). The rest are close loops entered after a wrong answer: the student-made part.
 
 **Effort spent per session (current):**
 
@@ -352,7 +355,7 @@ On seed 1, the first pass had h1 116/126 and h2 138/202, and before any change h
 
 ## What still fails and why
 
-**no-end-on-wrong:** 8 / 12 / 8, all `maxExtraClose` exhaustion.
+**no-end-on-wrong:** 8 / 12 / 8, all `maxExtraClose` exhaustion. (Final review correction: 11 of these 28 loops started after a right answer, an engine choice that F1 removed; see the correction in the summary.)
 
 | seed | weak-stubborn | fast-guesser | close-card heights in the violating sessions |
 |---|---|---|---|
@@ -389,3 +392,107 @@ Why it still fails:
 3. **Strong's heights step up slowly.** It gets little height 3 before week 3.
 4. **Weak students' stamina is now underestimated** (weak-stubborn 9.8–11.3 against a hidden 14). Distraction fades pull it down, and it can only grow through "5 more", which a weak student is rarely offered. That is safe ("weak never more work"), but their sessions may be shorter than they could take.
 5. **The `extendFeel` change** makes extension depend on the hidden stamina. Personas with a hidden stamina of 14 or less rarely accept "5 more" now, so their engine stamina mostly does not grow.
+
+## What the simulation cannot show (final review)
+
+- **`knowledge-up` passes for almost any scheduler.** The hidden student learns from every answer, right or wrong, so any card served raises knowledge. The check proves the run did not break, not that this engine teaches better than another. Its detail now gives the mean gain (+0.053 to +0.054 after the fixes).
+- **Strong students are never pushed up.** The strong personas sit far above the comfort target (95–97% right against 0.66–0.75). Nothing in the engine raises difficulty when the running rate is above target: comfort correction only goes down. `h3Share` stays at its default 0.40 for most personas. **Parked for the owner:** it needs a new selection rule with its own tuning rounds.
+- **Sim students decline "5 more" using their hidden limit** (`simParams.extendFeel`). A real student does not know their stamina. Stamina growth in the sim is therefore partly read from the hidden trait.
+- **The blind comparison can be passed from the student's own behaviour.** Blind packets show right and wrong, times, skips and "I don't know". A judge can tell two students apart without the app adapting at all. Fix F13 asks judges to label each piece of evidence `app` or `student`, and the summary counts only `app` evidence toward "the app adapts".
+
+## After the final review fixes
+
+_Date: 2026-11-15. Engine at `d6c93fe` (fixes F1–F10, F13, F14 of the final whole-branch review). Before: `runs/f0-sN` (engine `a8726b7`). After: `runs/f1-sN`. Same command, seeds 1–3. `simParams` and `maxExtraClose` unchanged._
+
+What changed in the engine, in short: no close card after a right answer, and a budget end keeps the streak (F1); a new skill's record starts at the height served (F3); clock corrections (F4); a session stays on the day it started (F5); memory moves only on height-1/2 reviews (F6); `phy.therm.c043` excluded, 240 cards (F8); `fallback:any` reason (F9). F2 made `no-end-on-wrong` count `daily-cap` ends of real sessions.
+
+### Checks
+
+| check | seed 1 before | seed 1 after | seed 2 before | seed 2 after | seed 3 before | seed 3 after |
+|---|---|---|---|---|---|---|
+| no-end-on-wrong | FAIL 8 | FAIL 9 | FAIL 12 | FAIL 6 | FAIL 8 | FAIL 7 |
+| skip-timing | PASS (32 skips) | PASS (25) | PASS (34) | PASS (21) | PASS (16) | PASS (27) |
+| effort-cap-and-fairness | PASS (max 29.5) | PASS (max 32.5) | PASS (32.5) | PASS (34) | PASS (27.5) | PASS (27.5) |
+| no-repeat-14d | PASS | PASS | PASS | PASS | PASS | PASS |
+| ends-before-fade | PASS (14%) | PASS (14%) | PASS (14%) | PASS (18%) | FAIL (weak-impatient) | FAIL (weak-impatient) |
+| knowledge-up | PASS (+0.056) | PASS (+0.054) | PASS (+0.061) | PASS (+0.054) | PASS (+0.054) | PASS (+0.053) |
+| no-back-to-back-card | PASS | PASS | PASS | PASS | PASS | PASS |
+
+Pass / fail after: 6 / 1, 6 / 1, 5 / 2 (the same as before). Before-run knowledge gains are computed the same way as the new detail.
+
+Full detail, after:
+
+| seed | check | detail |
+|---|---|---|
+| 1 | no-end-on-wrong | 9 violations; first: weak-stubborn day 6 session 7: ended (budget) after a wrong answer on phy.therm.c002 |
+| 1 | effort-cap-and-fairness | max day effort 32.5 ≤ 40; mean asked/day strong 15.02, weak-stubborn 9.06, weak-impatient 8.00 |
+| 2 | no-end-on-wrong | 6 violations; first: weak-stubborn day 11 session 12: ended (budget) after a wrong answer on phy.mech.c025 |
+| 2 | effort-cap-and-fairness | max day effort 34 ≤ 40; mean asked/day strong 15.66, weak-stubborn 8.50, weak-impatient 8.00 |
+| 3 | no-end-on-wrong | 7 violations; first: weak-stubborn day 2 session 3: ended (budget) after a wrong answer on phy.elec.c009 |
+| 3 | effort-cap-and-fairness | max day effort 27.5 ≤ 40; mean asked/day strong 12.73, weak-stubborn 11.22, weak-impatient 8.00 |
+| 3 | ends-before-fade | 1 violation; first: weak-impatient: 1 of 2 days past hidden stamina (first weak-impatient day 1 session 2, phy.elec.c039) |
+
+### no-end-on-wrong
+
+| seed | before | after | after, right answer before the close loop | after, by persona | close-card heights in the violating sessions (after) |
+|---|---|---|---|---|---|
+| 1 | 8 (4 engine-made) | 9 | 0 | weak-stubborn 9 | h1+h1+h1 3, h1+h2+h2 4, h2+h2+h2 2 |
+| 2 | 12 (4 engine-made) | 6 | 0 | weak-stubborn 5, fast-guesser 1 | weak-stubborn h2+h2+h2 4, h1+h1+h1 1; fast-guesser h2+h2+h2 1 |
+| 3 | 8 (3 engine-made) | 7 | 0 | weak-stubborn 6, confident-misconceptions 1 | weak-stubborn h2+h2+h2 3, h1+h1+h1 2, h1+h2+h2+h2 1 (a skip inside the loop); confident-misconceptions h2+h2+h2 1 |
+
+- Every violation is now the `maxExtraClose` last resort after a wrong answer: three close cards wrong in a row. No violation is a `daily-cap` end (F2 would now count one).
+- Sessions with a close card fell from 249 / 249 / 264 to 130 / 120 / 117: about half of all close loops were served after a right answer.
+- The total did not halve. The runs are different trajectories (F3 changes which skills get scheduled from day 0), and weak-stubborn's student-made loops went 4 → 9 on seed 1. The owner question stays: accept, raise `maxExtraClose`, add more easy cards, or a non-question ending.
+
+### Effort per session spent / asked per day
+
+| persona | seed 1 before | seed 1 after | seed 2 before | seed 2 after | seed 3 before | seed 3 after |
+|---|---|---|---|---|---|---|
+| strong | 19.1 / 17.2 | 16.6 / 15.0 | 18.7 / 17.6 | 18.5 / 15.7 | 13.2 / 12.3 | 14.0 / 12.7 |
+| weak-stubborn | 10.7 / 10.3 | 10.9 / 9.1 | 11.2 / 9.6 | 9.7 / 8.5 | 11.5 / 10.5 | 11.1 / 11.2 |
+| weak-impatient | 5.8 / 8.0 | 5.8 / 8.0 | 7.2 / 8.0 | 7.0 / 8.0 | 8.0 / 8.0 | 8.0 / 8.0 |
+
+Weak personas are still asked less than strong on every seed. strong took "5 more" 11 / 13 / 10 times (offered 15 / 17 / 16); weak-stubborn was offered it once in three runs and declined.
+
+### Personas quitting the app before day 7
+
+Only **weak-impatient**, on day 1 on all three seeds (before: day 1, 2, 1). No other persona.
+
+### Memory (F6)
+
+Engine memory at the end of the run against the hidden `forget` (lower forget = remembers better; higher memory = longer review gaps).
+
+| persona | hidden forget | before s1 | before s2 | before s3 | after s1 | after s2 | after s3 |
+|---|---|---|---|---|---|---|---|
+| memory-good-calc-weak | 0.3 | 0.77 | 1.67 | 1.22 | 2.00 | 2.00 | 2.00 |
+| strong | 0.5 | 2.00 | 1.78 | 2.00 | 2.00 | 2.00 | 2.00 |
+| smart-impatient | 0.7 | 2.00 | 1.48 | 1.39 | 1.70 | 2.00 | 1.78 |
+| average-fastclass | 1 | 0.66 | 0.50 | 0.61 | 0.79 | 0.60 | 1.50 |
+| average-noclass | 1 | 0.57 | 1.47 | 0.74 | 0.88 | 1.06 | 0.50 |
+| confident-misconceptions | 1 | 0.64 | 0.61 | 0.60 | 0.76 | 1.05 | 0.78 |
+| fast-guesser | 1 | 0.50 | 0.50 | 0.50 | 0.50 | 0.50 | 0.50 |
+| one-feared-section | 1 | 0.65 | 0.50 | 0.50 | 1.12 | 2.00 | 1.30 |
+| slow-reader | 1 | 0.53 | 1.32 | 0.70 | 0.74 | 1.12 | 1.78 |
+| steady-five-min | 1 | 0.54 | 0.50 | 0.82 | 1.05 | 0.81 | 0.94 |
+| underconfident-skipper | 1 | 1.73 | 1.49 | 1.42 | 1.70 | 2.00 | 1.65 |
+| weak-impatient | 1.2 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 |
+| weak-stubborn | 1.2 | 0.52 | 0.53 | 0.63 | 0.58 | 0.50 | 0.50 |
+| comeback-10 | 1.3 | 0.89 | 1.07 | 0.50 | 1.70 | 1.41 | 1.66 |
+| binge-quit | 1.5 | 0.57 | 0.54 | 0.53 | 0.78 | 0.84 | 1.12 |
+| calc-strong-memory-poor | 2.5 | 0.50 | 0.53 | 0.50 | 0.52 | 0.61 | 0.66 |
+
+- The ends are now right: memory-good-calc-weak (forget 0.3) reads 2.00 on every seed, against 0.77–1.67 before; calc-strong-memory-poor (2.5) stays at 0.52–0.66.
+- The middle is noise. The ten forget-1 personas spread from 0.50 to 2.00, and the spread depends on the seed.
+- Memory still mixes ability with forgetting at heights 1–2: fast-guesser (forget 1, 58–68% right) is pinned at 0.50, and weak-stubborn at 0.50–0.58.
+- comeback-10 (forget 1.3) reads 1.41–1.70, better than average: its reviews after the 10-day gap are few, and its height-1/2 reviews in between go right.
+- weak-impatient's 1.00 is the default: it quits before any review is due.
+
+### What got worse
+
+- **Shorter sessions for most personas.** No close card after a right answer saves about one card. Seed 1: average-fastclass 10.3 → 8.3 effort per session, confident-misconceptions 11.6 → 9.6, strong 19.1 → 16.6. strong is asked 15.0 / 15.7 / 12.7 a day against 17.2 / 17.6 / 12.3.
+- **Mean knowledge gain slightly lower:** +0.054 / +0.054 / +0.053 against +0.056 / +0.061 / +0.054.
+- **no-end-on-wrong on seed 1:** 8 → 9 (all student-made now, against 4 student-made before).
+- **ends-before-fade on seed 2:** worst share 14% → 18% (still under 20%).
+- **Calculation-weak detection.** memory-good-calc-weak's final `h3Share` is 0.40 on all seeds (0.50 on seed 1 before), so the ramp and the higher height-3 share no longer reach it by day 28. strong ends at 0.20 on seed 1 (marked concept-weak). Not examined further; the parked `h3Share` item covers it.
+- **weak-stubborn's engine stamina on seeds 1–2:** 8.9 at the end (11.3 / 9.8 before), against a hidden 14.
+- Sim students may skip a closing card labelled `fallback:any` (they never skip `close:winnable`). Only 2 `fallback:any` cards were served in all three runs, so this did not move the numbers.

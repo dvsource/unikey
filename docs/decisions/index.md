@@ -53,5 +53,6 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0047](0047-simulator-as-engine-acceptance-test.md) | Simulator is the learning-engine acceptance test (r ≥ 0.7, cap, insights); soft gate | Tech/Process | Accepted | 2026-11-09 | 2027-02-01 |
 | [0048](0048-pilot-engine-simple-skill-schedule.md) | Pilot engine: simple skill-level schedule replaces FSRS + Elo (supersedes DR-0022 in part) | Tech/Product | Accepted | 2026-11-14 | 2027-02-01 |
 | [0049](0049-effort-based-day-and-skip.md) | Day measured in effort; bad-day early end keeps streak; "Not now" skip (amends DR-0019) | Product/Retention | Accepted | 2026-11-14 | 2027-02-01 |
+| [0050](0050-session-length-rules-from-first-tuning.md) | Session-length rules from the first tuning pass (extends DR-0049) | Product/Retention | Proposed | 2026-11-15 | 2027-02-01 |
 
 New record: copy [`../templates/decision.md`](../templates/decision.md) to `00NN-short-slug.md` and add a row here.
