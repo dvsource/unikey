@@ -2,7 +2,7 @@ import { defaultConfig, type Config } from "./config.js";
 import { dayOf } from "./time.js";
 import { effectiveNow } from "./state.js";
 import { newSkillRec, recordAttempt, startHeight } from "./skill.js";
-import { expectedSuccess, usualMs } from "./estimate.js";
+import { usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
@@ -15,8 +15,8 @@ import type {
 
 /** One public call in progress: a private copy of the state, the clock, and the events emitted so far. */
 type Run = { s: State; content: Content; cfg: Config; now: number; day: number; events: EngineEvent[] };
-/** The answer just given, for deciding what comes next. `avoid`: a section to leave after a failed repair. */
-type Last = { right: boolean; winnable: boolean; avoid?: string } | null;
+/** After an answer: `avoid`, a section to leave after a failed repair. */
+type Last = { avoid?: string } | null;
 
 function begin(state: State, content: Content, now: number, cfg: Config): Run {
   const s = JSON.parse(JSON.stringify(state)) as State; // State is JSON by contract; the copy is ours to change
@@ -152,13 +152,13 @@ function decide(r: Run, last: Last): Next {
       if (any) return serve(r, any, true);
       ss.extendLeft = 0; // nothing fits: "5 more" is over
     }
-    return toClosing(r, last, false);
+    return toClosing(r, false);
   }
-  if (ss.phase === "closing") return closing(r, last, false);
+  if (ss.phase === "closing") return closing(r, false);
   if (isBadDay(ss, r.cfg)) {
     ss.badDay = true;
     ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
-    return toClosing(r, last, true);
+    return toClosing(r, true);
   }
   return normal(r, last);
 }
@@ -167,14 +167,14 @@ function normal(r: Run, last: Last): Next {
   const { s, content, cfg } = r;
   const ss = s.session!;
   // Keep a wrong close card's worth; but while today is under the minimum day, the session may use its budget up to
-  // the minimum day (a minimum-day budget, R4c / comeback, still keeps the streak).
+  // the minimum day (a minimum-day budget, R4c / comeback, is spent in full).
   const left = ss.budget - ss.spent;
   const room = Math.min(Math.max(left - closeReserve(cfg), Math.min(left, cfg.budget.minimumDay - s.day!.effort)), capRoom(s, cfg));
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
 
   while (ss.repair) {
     const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections, recentCards(r));
-    if (rc) return rc.served.effort <= room ? serve(r, rc) : toClosing(r, last, false);
+    if (rc) return rc.served.effort <= room ? serve(r, rc) : toClosing(r, false);
     if (ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
     else {
       queueReturn(r, ss.repair.skill);
@@ -211,7 +211,7 @@ function normal(r: Run, last: Last): Next {
   }
   const pm = pickMiddle(s, content, strict(), cfg);
   if (pm) return main(pm);
-  if (pickMiddle(s, content, loose(r), cfg)) return toClosing(r, last, false); // something to serve, nothing that fits
+  if (pickMiddle(s, content, loose(r), cfg)) return toClosing(r, false); // something to serve, nothing that fits
   // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
   if (pc) return serve(r, pc, true);
@@ -219,10 +219,10 @@ function normal(r: Run, last: Last): Next {
   if (any) return serve(r, any, true);
   const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
   if (side) return serve(r, side);
-  if (anyLeft(r)) return toClosing(r, last, false);
+  if (anyLeft(r)) return toClosing(r, false);
   const lr = leastRecent(r, strict(), "comfort-correction");
   if (lr) return serve(r, lr, true);
-  return leastRecent(r, loose(r), "comfort-correction") ? toClosing(r, last, false) : finish(r, "content-exhausted");
+  return leastRecent(r, loose(r), "comfort-correction") ? toClosing(r, false) : finish(r, "content-exhausted");
 }
 
 /** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
@@ -234,32 +234,31 @@ function serveMain(r: Run, p: Picked, room: number): Next {
   return serve(r, ramp);
 }
 
-function toClosing(r: Run, last: Last, forced: boolean): Next {
+function toClosing(r: Run, forced: boolean): Next {
   const ss = r.s.session!;
   ss.phase = "closing";
   ss.closeServed = 0;
   ss.repair = null;
   ss.ramp = null;
-  return closing(r, last, forced);
+  return closing(r, forced);
 }
 
 /**
- * One close card, then the end. Skipped when the last answer was right on a winnable card (and today already
- * reached the minimum day), or when "5 more" ended right; `forced` (bad day) always serves it. A wrong close
- * answer gets another close card, at most `sessionEnd.maxExtraClose` extra. A close card is never served past
- * the daily cap; when the cap blocks it after a wrong answer the session ends `daily-cap` (a right last answer ends
- * with its pending kind). When only the session's recent cards are left, the least recent is served. `content-exhausted` only when
- * nothing at all is eligible.
+ * The end of a session (final review F1). When the last answer was right the session ends there, whatever the
+ * estimate and today's effort; a close card is served only when the last answer was not right, or when `forced`
+ * (bad day). A wrong close answer gets another close card, at most `sessionEnd.maxExtraClose` extra. A close card is
+ * never served past the daily cap; when the cap blocks it after a wrong answer the session ends `daily-cap`. When only
+ * the session's recent cards are left, the least recent is served. `content-exhausted` only when nothing at all is
+ * eligible.
  */
-function closing(r: Run, last: Last, forced: boolean): Next {
+function closing(r: Run, forced: boolean): Next {
   const { s, content, cfg } = r;
   const ss = s.session!;
   const pending = pendingKind(ss);
   const first = ss.closeServed === 0;
-  if (first) {
-    const won = last !== null && last.right && (pending === "extended-done" || (last.winnable && s.day!.effort >= cfg.budget.minimumDay));
-    if (won && !forced) return finish(r, pending);
-  } else if (last?.right || ss.closeServed > cfg.sessionEnd.maxExtraClose) return finish(r, pending);
+  const lastRight = ss.history.length > 0 && ss.history[ss.history.length - 1].right === true;
+  if (lastRight && !(first && forced)) return finish(r, pending);
+  if (ss.closeServed > cfg.sessionEnd.maxExtraClose) return finish(r, pending);
   const capped = ctxOf(r, true, Infinity);
   const p = (first ? pickClose(s, content, ctxOf(r, true, ss.budget - ss.spent), cfg) : null) ?? pickClose(s, content, capped, cfg);
   const any = p ? null : pickAny(s, content, capped, cfg, "close:winnable");
@@ -267,7 +266,7 @@ function closing(r: Run, last: Last, forced: boolean): Next {
     ss.closeServed += 1;
     return serve(r, (p ?? any)!, true);
   }
-  if (last?.right) return finish(r, pending);
+  if (lastRight) return finish(r, pending);
   const lr = leastRecent(r, capped, "close:winnable");
   if (lr) {
     ss.closeServed += 1;
@@ -290,7 +289,8 @@ function closeSession(r: Run, kind: EndKind): Next {
   const ss = r.s.session!;
   const today = r.s.day!;
   const cards = ss.history.length;
-  if (kind === "bad-day" || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
+  // F1: a session the engine ended by its budget keeps the streak even under `budget.minimumDay`.
+  if (kind === "bad-day" || kind === "budget" || kind === "extended-done" || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
   if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
   for (const q of ss.returns) {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
@@ -350,8 +350,6 @@ export function answer(
   const right = picked !== null && picked.correct;
   const tag = picked !== null && !right ? picked.tag : undefined;
   const drip = sv.reason === "skipped-drip";
-  // A drip or side-door card is never the session's winning last card: a close card follows it.
-  const winnable = !drip && sv.reason !== "side-door" && expectedSuccess(r.s, sv.skill, sv.height, cfg) >= cfg.session.winnable;
   const usual = usualMs(r.s, sv.height, cfg);
   const slow = usual !== null && input.ms > cfg.badDay.slowFactor * usual;
   const cost = sv.effort + (picked === null ? cfg.effort.dontKnow : right ? 0 : cfg.effort.wrong);
@@ -417,7 +415,7 @@ export function answer(
     }
   }
   if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
-  return step(r, decide(r, { right, winnable, ...(avoid !== undefined ? { avoid } : {}) }), feedback, moments);
+  return step(r, decide(r, avoid !== undefined ? { avoid } : {}), feedback, moments);
 }
 
 /**

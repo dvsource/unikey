@@ -63,6 +63,32 @@ test("all right at height 2: the budget keeps a wrong close card in reserve; a h
   expect(e3.effort).toBeLessThanOrEqual(12);
 });
 
+// ---------- final review F1: no close card after a right answer ----------
+
+/** A student in their first sessions (minimum-day budget 8), all four skills started at height 2. */
+const firstSessions = () => ({ ...startedAt(2, 4, 1), sessionCount: 0 });
+
+test("F1: budget spent after a right answer → the session ends there (budget), no close card, streak kept under the minimum day", () => {
+  const { steps } = play(C, firstSessions(), T0, allR);
+  const cards = served(steps);
+  expect(cards.some((c) => c.reason === "close:winnable")).toBe(false);
+  const end = endOf(lastStep(steps));
+  expect(end.kind).toBe("budget");
+  expect(end.effort).toBeLessThan(cfg.budget.minimumDay);
+  expect(end.streakKept).toBe(true);
+  expect(lastStep(steps).state.day!.streakKept).toBe(true);
+});
+
+test("F1: budget spent after a wrong answer → a close card as before", () => {
+  const n = served(play(C, firstSessions(), T0, allR).steps).length;
+  const { steps } = play(C, firstSessions(), T0, (_s, i) => (i === n - 1 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards.length).toBe(n + 1);
+  expect(cards[n].reason).toBe("close:winnable");
+  expect(lastStep(steps).feedback?.right).toBe(true);
+  expect(endOf(lastStep(steps)).kind).toBe("budget");
+});
+
 test("dont-know costs card effort only; wrong costs +1", () => {
   const first = startSession(newState("s", 1), C, T0);
   if (first.next.kind !== "card") throw new Error("no card");
@@ -79,23 +105,37 @@ test("dont-know costs card effort only; wrong costs +1", () => {
   expect(s2.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap" });
 });
 
-test("no session ends on a wrong answer", () => {
-  const fn = (s: Served) => (s.reason === "close:winnable" || s.reason === "repair:confidence" ? "r" : "w");
-  let state = startedAt(2, 2, 1);
-  let now = T0;
-  for (let i = 0; i < 5; i++) {
-    const r = play(C, state, now, fn);
-    expect(served(r.steps).length, `session ${i} served nothing`).toBeGreaterThanOrEqual(1);
-    const last = lastStep(r.steps);
-    const end = endOf(last);
-    // a wrong last answer is only allowed when nothing at all is left to serve
-    if (last.feedback?.right !== true) {
-      expect(end.kind, `session ${i}`).toBe("content-exhausted");
-      expect(anyEligible(r.state, C, dayOf(r.now))).toBe(false);
+test("no session ends on a wrong answer, except after 1 + maxExtraClose close cards all wrong (close cards answered by the pattern too)", () => {
+  // F14: close cards are answered as the pattern says, not always right.
+  const patterns: ((s: Served, i: number) => "r" | "w" | "dk")[] = [
+    () => "w", (_s, i) => (i % 2 ? "w" : "r"), (_s, i) => (i % 3 === 0 ? "dk" : i % 3 === 1 ? "w" : "r"), (_s, i) => (i % 4 === 3 ? "r" : "w"),
+  ];
+  let onRight = 0;
+  let afterCloses = 0;
+  for (const [pi, fn] of patterns.entries()) {
+    let state = startedAt(2, 2, 1);
+    let now = T0;
+    for (let i = 0; i < 5; i++) {
+      const r = play(C, state, now, fn);
+      const cards = served(r.steps);
+      expect(cards.length, `pattern ${pi} session ${i} served nothing`).toBeGreaterThanOrEqual(1);
+      const end = endOf(lastStep(r.steps));
+      const answered = r.steps.filter((st) => st.feedback !== undefined);
+      if (answered[answered.length - 1]?.feedback?.right === true) onRight++;
+      else {
+        const tail = cards.slice(-(1 + cfg.sessionEnd.maxExtraClose));
+        const closesAllWrong = tail.length === 1 + cfg.sessionEnd.maxExtraClose && tail.every((c) => c.reason === "close:winnable")
+          && answered.slice(-tail.length).every((st) => st.feedback!.right === false);
+        const exhausted = end.kind === "content-exhausted" && !anyEligible(r.state, C, dayOf(r.now));
+        expect(closesAllWrong || exhausted || end.kind === "daily-cap", `pattern ${pi} session ${i}: ${end.kind} after ${cards.map((c) => c.reason).join(",")}`).toBe(true);
+        if (closesAllWrong) afterCloses++;
+      }
+      state = r.state;
+      now = nextDay(now);
     }
-    state = r.state;
-    now = nextDay(now);
   }
+  expect(onRight).toBeGreaterThan(0);
+  expect(afterCloses).toBeGreaterThan(0); // the all-wrong pattern reaches the close-card limit
 });
 
 test("a weak student over 5 sessions always gets ≥ 1 card while any card is eligible", () => {

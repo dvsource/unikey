@@ -11,7 +11,7 @@ export const defaultConfig = {
   stepUp: { rightInRow: 2, minCardsApart: 5 },
   stepDown: { wrongs: 2, window: 4 },
   badDay: { moments: 3, withinCards: 8, slowFactor: 2, slowRun: 3 },
-  session: { openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, winnable: 0.85, dripEverySessions: 2, maxMoments: 2 },
+  session: { openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 },
   priors: { h1: 0.85, h2: 0.7, h3: 0.5 },
   calc: { h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 },
   window: { cards: 60, sessions: 7 },

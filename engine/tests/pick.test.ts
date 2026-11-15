@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { defaultConfig as cfg, type Config } from "../src/config.js";
+import { defaultConfig as cfg } from "../src/config.js";
 import { newState, effectiveNow } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import { dayOf, DAY_MS } from "../src/time.js";
@@ -258,11 +258,9 @@ test("close: winnable ≥ 0.85 from liked section, reason close:winnable", () =>
   expect(likedSections(s, C)).toEqual(["u.t1/A", "u.t1/B"]);
   const r = pickClose(s, C, ctx(), cfg)!;
   expect(r.served).toMatchObject({ skill: "a1", height: 1, reason: "close:winnable", section: "u.t1/A" });
-  expect(expectedSuccess(s, "a1", 1, cfg)).toBeGreaterThanOrEqual(cfg.session.winnable);
-  // Nothing reaches a 0.99 bar → highest expected success available (a1 h1 ≈ 0.95 over b1 h1 0.85).
-  const strict: Config = { ...cfg, session: { ...cfg.session, winnable: 0.99 } };
-  const r2 = pickClose(s, C, ctx(), strict)!;
-  expect(r2.served).toMatchObject({ skill: "a1", height: 1, reason: "close:winnable" });
+  // Highest expected success at the lowest height (a1 h1 ≈ 0.95 over b1 h1 0.85). F1 removed the unused 0.85 bar
+  // (config session.winnable): it only decided whether a close card followed a right answer.
+  expect(expectedSuccess(s, "a1", 1, cfg)).toBeGreaterThan(expectedSuccess(s, "b1", 1, cfg));
   // Never above current height.
   expect(pickClose(st({ a1: notDue(1) }), C, ctx(), cfg)!.served.height).toBe(1);
 });

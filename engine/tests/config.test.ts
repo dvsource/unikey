@@ -12,7 +12,7 @@ test("spec numbers", () => {
   expect(c.stepUp).toEqual({ rightInRow: 2, minCardsApart: 5 });
   expect(c.stepDown).toEqual({ wrongs: 2, window: 4 });
   expect(c.badDay).toEqual({ moments: 3, withinCards: 8, slowFactor: 2, slowRun: 3 });
-  expect(c.session).toEqual({ openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, winnable: 0.85, dripEverySessions: 2, maxMoments: 2 });
+  expect(c.session).toEqual({ openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 });
   expect(c.priors).toEqual({ h1: 0.85, h2: 0.7, h3: 0.5 });
   expect(c.calc).toEqual({ h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 });
   expect(c.window).toEqual({ cards: 60, sessions: 7 });
