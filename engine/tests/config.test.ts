@@ -25,6 +25,7 @@ test("spec numbers", () => {
   expect(c.tzOffsetMinutes).toBe(330);
   expect(c.clock).toEqual({ correctionDays: 2 });
   expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });
+  expect(c.content).toEqual({ exclude: ["phy.therm.c043"] });
   expect(c.answers).toEqual({ msKept: 20 });
   expect(c.skip).toEqual({ dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 });
 });

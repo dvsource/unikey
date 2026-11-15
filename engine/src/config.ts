@@ -27,6 +27,8 @@ export const defaultConfig = {
   /** F4: a call whose time is more than this many days behind the last one is a clock correction (accepted as the new time). */
   clock: { correctionDays: 2 },
   sessionEnd: { maxExtraClose: 2 },
+  /** Cards left out of the content (spec §11): `phy.therm.c043` ("the same copper bar") depends on another card. */
+  content: { exclude: ["phy.therm.c043"] as string[] },
   answers: { msKept: 20 },
   /**
    * Skip (spec §6): drip only after this many answered cards; liking lost per skip; skills named in the value

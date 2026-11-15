@@ -1,3 +1,4 @@
+import { defaultConfig } from "./config.js";
 import type { Card, Content, Height, SectionDef, SkillDef } from "./types.js";
 
 // Only the fields of app/assets/content/packs/*.json that the engine reads.
@@ -21,11 +22,18 @@ function heightOf(layer: string, form: string): Height {
   return 2;
 }
 
-export function buildContent(packs: RawPack[], noteRefs: Record<string, string> = {}): Content {
+/**
+ * The engine's content from built packs. Every pack needs its skill graph (F7: a pack without one is an error, not
+ * skipped). `exclude`: card ids left out (default `content.exclude` of the config, F8).
+ */
+export function buildContent(
+  packs: RawPack[], noteRefs: Record<string, string> = {}, exclude: readonly string[] = defaultConfig.content.exclude,
+): Content {
   const out: Content = { cards: {}, skills: {}, sections: {}, topics: {} };
+  const skip = new Set(exclude);
   for (const pack of packs) {
     const g = pack.graph;
-    if (!g) continue;
+    if (!g) throw new Error(`pack ${pack.id} has no skill graph`);
     const unit = pack.unit.id;
     for (const s of g.skills) {
       const section = `${s.topic}/${s.subtopic}`;
@@ -46,7 +54,7 @@ export function buildContent(packs: RawPack[], noteRefs: Record<string, string> 
     }
     for (const it of pack.items) {
       const skill = out.skills[it.skills[0]];
-      if (!skill) continue;
+      if (!skill || skip.has(it.id)) continue;
       const card: Card = {
         id: it.id, skill: skill.id, section: skill.section, height: heightOf(it.layer, it.form),
         variants: it.variants.map(v => v.options.map(o => (o.tag === undefined ? { correct: o.correct } : { correct: o.correct, tag: o.tag }))),
