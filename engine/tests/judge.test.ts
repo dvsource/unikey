@@ -161,7 +161,8 @@ function allStudents(files: Record<string, string>, over: Record<string, string>
 function blindReport(files: Record<string, string>, i: number, how: "right" | "wrong" | "cannot"): string {
   const key = JSON.parse(files[`${blindName(i)}.key.json`]!) as { questions: { id: string; answer: "X" | "Y" }[] };
   const answers = Object.fromEntries(key.questions.map((q) => [q.id, how === "cannot" ? "cannot tell" : how === "right" ? q.answer : q.answer === "X" ? "Y" : "X"]));
-  return "```json\n" + JSON.stringify({ answers, evidence: { Q1: ["x"], Q2: ["y"] } }) + "\n```\n";
+  const ev = (source: "app" | "student") => [{ source, line: "X: D01 S1 #1 ...", shows: "something" }];
+  return "```json\n" + JSON.stringify({ answers, evidence: { Q1: ev("app"), Q2: ev("student") } }) + "\n```\n";
 }
 
 /** A valid student report quoting real lines of the packet. */
@@ -219,7 +220,11 @@ test("collect: valid report scored; a score without quotes is listed invalid; bl
   // only 3 of 8 pairs judged, 2 failed: 2 of 8 is not more than a quarter, the rest are unknown
   expect(s).toMatch(/^- \*\*unknown\*\* — the blind comparison fails for more than a quarter of pairs.*only 3 of 8 pairs judged/m);
   expect(s).toContain("| 4 | ");
-  expect(s).toMatch(/\| 1 \| strong \/ weak-stubborn \| 2 \/ 2 \|/);
+  expect(s).toMatch(/\| 1 \| strong \/ weak-stubborn \| 2 \/ 2 \| 1 \|/);
+  // F13: each piece of blind evidence is labelled app or student; only app evidence counts toward "the app adapts"
+  expect(s).toMatch(/^- Q1 .* Evidence \(app 1, student 0\): \[app\] X: D01 S1 #1/m);
+  expect(s).toMatch(/^- Q2 .* Evidence \(app 0, student 1\): \[student\] X: D01 S1 #1/m);
+  expect(s).toMatch(/Right answers with app evidence: 1 of 2 right answers/);
   // truth-check misses and all seven code checks
   expect(s).toMatch(/strong.*stamina.*13\.3.*25 effort/);
   for (const c of CHECK_NAMES) expect(s).toContain(`| ${c} |`);

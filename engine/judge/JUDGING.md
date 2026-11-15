@@ -67,6 +67,10 @@ One more fresh subagent, with exactly this instruction:
 
 Give Viraj `runs/<name>/judge/report.md` (the final report: one ranked summary page, "where the app failed which kind of student", then one page per student). It is under the git-ignored `runs/` folder; copying it into the docs is his call. If any "design must change" line is met, the change goes back to the design spec first, then to a new plan, not straight into code.
 
+## Limits
+
+Blind packets show the students' own right and wrong answers, times, skips and "I don't know" answers. A blind judge can tell two students apart from that alone, which does not prove the app adapted. So the blind prompt asks the judge to label every piece of evidence `app` (heights, reasons, session lengths, "5 more" offers, repairs) or `student` (what the student did); `collect` counts both per answer and gives, per pair, the right answers backed by app evidence. The summary prompt reports, for each pair, where the evidence came from, and counts only app evidence toward "the app adapts". The "design must change" line on the blind comparison is still marked from right and wrong answers alone, as spec §13 says. Whether to hide right and wrong in blind packets is Viraj's call.
+
 ## Prompts
 
 `engine/judge/prompts/` holds the four prompts: `student-judge.md` (spec §13 "What each judge agent is told" and the rubric, verbatim), `blind-comparison.md` (below its builder marker, the table of the two questions per pair and their answers, which the packet builder reads), `truth-check.md` and `summary.md`. Edit a prompt, then rebuild the packets (step 2).

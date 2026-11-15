@@ -8,6 +8,10 @@ You are writing the final report of a test of UniKey, a physics practice app for
 
 **What you are given.** Everything is below the line in this file: the five "design must change" lines already marked met or not met with their evidence, the table of rubric scores, the blind comparison results, the truth-check misses, the code checks, the students' hidden knowledge at day 0, 14 and the end, the invalid entries, and each student's report with its quotes and their own words.
 
+## Limits
+
+The blind packets show each student's own right and wrong answers, times, skips and "I don't know" answers. So a judge can tell two students apart from what the students did, and that alone does not prove the app adapted. Every piece of blind evidence in the input is labelled `app` (what the app did: heights, reasons, session lengths, "5 more" offers, repairs) or `student` (what the student did). For each blind pair, report whether the judge's evidence came from the app or from the student, and count only answers backed by `app` evidence toward "the app adapts". The input gives, per pair, "Right with app evidence".
+
 ## What to produce
 
 Write `report.md` in the same folder as this file. It has:

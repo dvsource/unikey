@@ -398,7 +398,28 @@ export function validateStudent(persona: string, file: string, text: string | un
 }
 
 type Key = { pair: [string, string]; X: string; Y: string; questions: { id: string; text: string; answerId: string; answer: "X" | "Y" }[] };
-export type BlindResult = { pair: [string, string]; asked: number; correct: number; rows: { q: Key["questions"][number]; given: string; ok: boolean; evidence: string }[] };
+/**
+ * One blind answer. `app` / `student`: how many pieces of its evidence the judge labelled as what the app did or what
+ * the student did (F13); `evidence` the pieces as text, each with its label.
+ */
+export type BlindRow = { q: Key["questions"][number]; given: string; ok: boolean; evidence: string; app: number; student: number };
+export type BlindResult = { pair: [string, string]; asked: number; correct: number; rows: BlindRow[] };
+
+/** F13: the evidence of one blind answer: a list of `{ source: "app" | "student", line, shows }` (or plain strings). */
+function blindEvidence(ev: unknown): { text: string; app: number; student: number } {
+  if (ev === undefined) return { text: "", app: 0, student: 0 };
+  const items = Array.isArray(ev) ? ev : [ev];
+  let app = 0, student = 0;
+  const text = items.map((x) => {
+    if (!isObj(x)) return typeof x === "string" ? x : JSON.stringify(x);
+    const src = x.source === "app" || x.source === "student" ? x.source : null;
+    if (src === "app") app++;
+    if (src === "student") student++;
+    const body = [x.line, x.shows].filter((y) => typeof y === "string" && y.length > 0).join(" — ");
+    return `${src ? `[${src}] ` : "[unlabelled] "}${body || JSON.stringify(x)}`;
+  }).join(" / ");
+  return { text, app, student };
+}
 
 export function validateBlind(file: string, text: string | undefined, keyText: string | undefined): { result: BlindResult | null; invalid: Invalid[] } {
   const bad = (reason: string) => ({ result: null, invalid: [{ file, reason }] });
@@ -426,7 +447,8 @@ export function validateBlind(file: string, text: string | undefined, keyText: s
     res.asked++;
     const ok = given === q.answer;
     if (ok) res.correct++;
-    res.rows.push({ q, given, ok, evidence: ev === undefined ? "" : typeof ev === "string" ? ev : JSON.stringify(ev) });
+    const e = blindEvidence(ev);
+    res.rows.push({ q, given, ok, evidence: e.text, app: e.app, student: e.student });
   }
   return { result: res.asked ? res : null, invalid };
 }
@@ -532,15 +554,17 @@ export function collect(run: RunFiles, files: Record<string, string>, summaryPro
   out.push("");
 
   out.push("## Blind comparison accuracy", "");
-  out.push("| Blind file | Pair | Correct / asked | Answers (given → right answer) |", "|---|---|---|---|");
+  // F13: a right answer counts toward "the app adapts" only with evidence from what the app did.
+  const appRight = (b: BlindResult) => b.rows.filter((r) => r.ok && r.app > 0).length;
+  out.push("| Blind file | Pair | Correct / asked | Right with app evidence | Answers (given → right answer) |", "|---|---|---|---|---|");
   for (const { n, a, b: bb, result: b } of pairs)
-    out.push(b ? `| ${n} | ${a} / ${bb} | ${b.correct} / ${b.asked} | ${b.rows.map((r) => `${r.q.id} ${r.given} → ${r.q.answer} (${r.q.answerId})`).join("; ")} |` : `| ${n} | ${a} / ${bb} | — | no valid report |`);
-  const tot = blind.reduce((t, b) => [t[0]! + b.correct, t[1]! + b.asked], [0, 0]);
-  out.push("", `All pairs: ${tot[0]} / ${tot[1]} answers right.`, "");
+    out.push(b ? `| ${n} | ${a} / ${bb} | ${b.correct} / ${b.asked} | ${appRight(b)} | ${b.rows.map((r) => `${r.q.id} ${r.given} → ${r.q.answer} (${r.q.answerId})`).join("; ")} |` : `| ${n} | ${a} / ${bb} | — | — | no valid report |`);
+  const tot = blind.reduce((t, b) => [t[0]! + b.correct, t[1]! + b.asked, t[2]! + appRight(b)], [0, 0, 0]);
+  out.push("", `All pairs: ${tot[0]} / ${tot[1]} answers right. Right answers with app evidence: ${tot[2]} of ${tot[0]} right answers (the rest rest only on what the students did).`, "");
   for (const { n, result: b } of pairs) {
     if (!b) continue;
     out.push(`### blind-${n}: ${pairName(b)}`, "");
-    for (const r of b.rows) out.push(`- ${r.q.id} (${r.q.text}) answered ${r.given}, right answer ${r.q.answer} = ${r.q.answerId}${r.ok ? "" : " (missed)"}. Evidence: ${r.evidence || "none given"}`);
+    for (const r of b.rows) out.push(`- ${r.q.id} (${r.q.text}) answered ${r.given}, right answer ${r.q.answer} = ${r.q.answerId}${r.ok ? "" : " (missed)"}. Evidence (app ${r.app}, student ${r.student}): ${r.evidence || "none given"}`);
     out.push("");
   }
 

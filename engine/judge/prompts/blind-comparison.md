@@ -6,7 +6,9 @@ You are a judge in a test of UniKey, a physics practice app for school students 
 
 **What you are given.** Everything is in this file. Below these instructions you will find two questions, a short guide to reading the logs, and the full four-week logs of two students, called Student X and Student Y. You are not told who they are. Each log shows every card the app gave, why it chose it, what the student did and how long it took, every session start and end, every skip, every "5 more" offer and every progress moment.
 
-**Your task.** Answer each of the two questions with "X", "Y" or "cannot tell", and give the evidence: the log lines that decided it. Look at both what the students did (accuracy, time per answer, "I don't know", skips, leaving early, which days they studied, whether they took "5 more") and how the app responded (heights of cards, its reasons, session lengths, how sessions ended). Say "cannot tell" when the logs do not give you a real reason to choose; do not toss a coin.
+**Your task.** Answer each of the two questions with "X", "Y" or "cannot tell", and give the evidence: the log lines that decided it. Look at both what the students did (accuracy, time per answer, "I don't know", skips, leaving early, which days they studied, whether they took "5 more") and how the app responded (heights of cards, its reasons, session lengths, how sessions ended, "5 more" offers, repairs). Say "cannot tell" when the logs do not give you a real reason to choose; do not toss a coin.
+
+**Label every piece of evidence.** Mark each one `app` when it shows something the app chose (a card's height, its reason, a session's length or how it ended, an offer of "5 more", a repair), or `student` when it shows something the student did (right or wrong, time, "I don't know", a skip, leaving, which days they studied, taking "5 more"). Telling two students apart from their own behaviour alone does not show that the app adapted, so give `app` evidence wherever the log has it.
 
 ## What to produce
 
@@ -16,13 +18,16 @@ Write your report as a Markdown file: the name of this file with `.input.md` rep
 {
   "answers": { "Q1": "X", "Q2": "cannot tell" },
   "evidence": {
-    "Q1": ["<log line copied exactly, with the student it belongs to, e.g. X: D03 S1 #4 ...>", "<one sentence on what it shows>"],
-    "Q2": ["<why the logs do not separate them>"]
+    "Q1": [
+      { "source": "app", "line": "<log line copied exactly, with the student it belongs to, e.g. X: D03 S1 #4 ...>", "shows": "<one sentence on what it shows>" },
+      { "source": "student", "line": "<another log line>", "shows": "<one sentence>" }
+    ],
+    "Q2": [{ "source": "student", "line": "", "shows": "<why the logs do not separate them>" }]
   }
 }
 ```
 
-Each answer is exactly `"X"`, `"Y"` or `"cannot tell"`. After the JSON block you may add up to 150 words on how different the two students' experiences of the app were overall.
+Each answer is exactly `"X"`, `"Y"` or `"cannot tell"`. Each piece of evidence has `"source"` exactly `"app"` or `"student"`. After the JSON block you may add up to 150 words on how different the two students' experiences of the app were overall.
 
 ## What not to do
 
