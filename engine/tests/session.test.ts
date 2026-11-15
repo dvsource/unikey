@@ -632,3 +632,46 @@ test("F5: a session that crosses local midnight belongs to the day it started on
   const next = startSession(left.state, C, start + 34 * 60_000); // 00:30
   expect(next.state.day).toEqual({ day: D + 1, effort: 0, streakKept: false });
 });
+
+// ---------- follow-up: streak on short sessions, and the dead end after a repair ----------
+
+/**
+ * Only a1 is started (height 2, not due, no recent wrongs), and it has no second height-1 card, so its repair has no
+ * confidence stage. A wrong open card, a right missing-piece card: a1 now waits for its return (4 cards later).
+ */
+const oneSkill = () => startedState({ a1: rec(2, atts(2, 8, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }) }, { sessionCount: 4 });
+const CR = fixture({ drop: ["a1.h1.2", "a1.h1.3"] });
+
+test("repair leaves its skill waiting for the return and nothing else is eligible: the return is served early, not a dead end", () => {
+  const { steps } = play(CR, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
+  const cards = served(steps);
+  const end = endOf(lastStep(steps));
+  // Before the fix: wrong open card, right repair card, `budget` after 2 cards, effort 3.5 of 12.
+  expect(cards.length).toBeGreaterThan(2);
+  expect(cards[2].reason).toBe("repair:return");
+  expect(end.effort).toBeGreaterThanOrEqual(8);
+});
+
+test("streak: a `budget` end far below the minimum day with the budget mostly unspent does not keep the streak", () => {
+  // After the dead-end fix such an end is no longer reached by play; the state is built directly: two answered cards
+  // (effort 3.5 of a 12 budget), no card open, and the student closes the session.
+  const first = startSession(oneSkill(), CR, T0);
+  let st = answer(first.state, CR, { card: first.state.session!.served!.card, choice: choiceFor(CR, first.state.session!.served!, "w"), ms: 8000 }, T0 + 10_000);
+  const sv = st.state.session!.served!;
+  st = answer(st.state, CR, { card: sv.card, choice: choiceFor(CR, sv, "r"), ms: 8000 }, T0 + 20_000);
+  const open = JSON.parse(JSON.stringify(st.state)) as State;
+  open.session!.served = null; // as at an offer of "5 more"
+  expect(open.session!.spent).toBe(3.5);
+  const ended = endSession(open, CR, T0 + 30_000);
+  expect(endOf(ended)).toMatchObject({ kind: "budget", effort: 3.5, streakKept: false });
+  expect(ended.state.day).toEqual({ day: D0, effort: 3.5, streakKept: false });
+});
+
+test("streak: a `budget` end that really spent its budget keeps it even under the minimum day (first session, budget 8)", () => {
+  const { steps } = play(C, firstSessions(), T0, allR);
+  const end = endOf(lastStep(steps));
+  expect(end.kind).toBe("budget");
+  expect(end.effort).toBeLessThan(cfg.budget.minimumDay);
+  expect(end.effort).toBeGreaterThanOrEqual(8 - (cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)));
+  expect(end.streakKept).toBe(true);
+});

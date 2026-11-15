@@ -182,7 +182,17 @@ function normal(r: Run, last: Last): Next {
   }
   const pm = pickMiddle(s, content, strict(), cfg);
   if (pm) return main(pm);
-  if (pickMiddle(s, content, loose(r), cfg)) return toClosing(r, false); // something to serve, nothing that fits
+  if (pickMiddle(s, content, loose(r), cfg)) {
+    // Something to serve and nothing that fits, or only a skill waiting for its repair return, which `strict` leaves
+    // alone: when a waiting return fits the budget it is served now (early), so the session does not dead-end after
+    // a repair with most of its budget unspent.
+    const early = pickReturn(s, content, strict(), ss.returns, Infinity, cfg);
+    if (early) {
+      ss.returns = ss.returns.filter((q) => q.skill !== early.served.skill);
+      return serve(r, early);
+    }
+    return toClosing(r, false);
+  }
   // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
   if (pc) return serve(r, pc, true);
@@ -262,8 +272,11 @@ function closeSession(r: Run, kind: EndKind): Next {
   const ss = r.s.session!;
   const today = r.s.day!;
   const cards = ss.history.length;
-  // F1: a session the engine ended by its budget keeps the streak even under `budget.minimumDay`.
-  if (kind === "bad-day" || kind === "budget" || kind === "extended-done" || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
+  // Spec §8: the minimum day keeps the streak (the answers did that already); a bad-day end and a content-exhausted end
+  // with an answered card keep it; a budget end keeps it only when the session really spent its budget.
+  const spentBudget = ss.spent >= ss.budget - closeReserve(r.cfg);
+  if (kind === "bad-day" || ((kind === "budget" || kind === "extended-done") && (today.effort >= r.cfg.budget.minimumDay || spentBudget))
+    || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
   if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
   for (const q of ss.returns) {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
