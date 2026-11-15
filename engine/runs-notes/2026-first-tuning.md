@@ -556,3 +556,15 @@ A repair queues its skill for a return `session.returnAfterCards` cards later, a
 - Under-8 budget ends that do not keep the streak remain (8, 9, 9 on the three seeds): mostly a first session of the day at 7-7.5 of a 9.8 budget, or 6.5 of 12 after `W W R` where the only card left was a height-3 (cost 4 + reserve 2 does not fit). The rule is as specified (spent >= budget - 2); these are nearly complete sessions that lose the streak when they are the only one of the day.
 - no-end-on-wrong improved 9/6/7 to 9/4/6 violations; ends-before-fade on seed 3 fails before and after (1 violation, weak-impatient, unchanged).
 - Serves rose a little (2560/2612/2587 to 2650/2637/2603): the sessions no longer end early.
+
+### Streak rule revised (same day)
+
+A budget or extended-done end now keeps the streak when the day's effort reached `budget.minimumDay`, or `spent >= budget - (effort.h3 + closeReserve)` (budget 12: 6; budget 9.8: 3.8), so a student who did all the engine asked is not penalised because the next card would not fit. Runs `runs/g2-s1..3` (same code otherwise, checks identical to the table above, serves unchanged):
+
+| seed | budget ends under 8 effort | keep streak | lose streak |
+|---|---|---|---|
+| 1 | 45 | 45 | 0 |
+| 2 | 52 | 52 | 0 |
+| 3 | 44 | 44 | 0 |
+
+No under-8 budget end loses the streak any more. The 3.5-of-12 dead end (unit-tested directly, 2 cards) would still lose it, but is no longer reachable in the simulator.

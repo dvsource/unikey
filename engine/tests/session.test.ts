@@ -718,3 +718,22 @@ test("a session left open and answered three days later: the attempt is dated on
   expect(st.state.day).toMatchObject({ day: D0 });
   if (st.next.kind === "card") expect(st.state.seen.at(-1)!.day).toBe(D0 + 3);
 });
+
+/** A session at an offer of "5 more" (nothing open) with `spent` of `budget` effort used, closed with endSession. */
+function budgetEnd(spent: number, budget: number): EndInfo {
+  const first = startSession(oneSkill(), CR, T0);
+  const open = JSON.parse(JSON.stringify(first.state)) as State;
+  open.session!.served = null;
+  open.session!.spent = spent;
+  open.session!.budget = budget;
+  open.day = { day: D0, effort: spent, streakKept: false };
+  return endOf(endSession(open, CR, T0 + 30_000));
+}
+
+test("streak: a budget end keeps it when the unspent part is at most the largest card plus the close reserve", () => {
+  const reach = cfg.effort.h3 + cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow);
+  expect(reach).toBe(6);
+  expect(budgetEnd(6.5, 12)).toMatchObject({ kind: "budget", streakKept: true }); // only a height-3 card was left
+  expect(budgetEnd(7, 9.8)).toMatchObject({ kind: "budget", streakKept: true });
+  expect(budgetEnd(3.5, 12)).toMatchObject({ kind: "budget", streakKept: false }); // the old dead end
+});
