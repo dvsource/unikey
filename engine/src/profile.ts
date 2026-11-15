@@ -16,12 +16,12 @@ export type AnswerInfo = {
 };
 
 /**
- * Memory moves on the first card back of a due review; the section's liking on speed and on extend cards;
- * the last `answers.msKept` times per height are kept.
+ * Memory moves on the first card back of a due review at height 1 or 2 (F6: a height-3 miss is calculation, not
+ * forgetting); the section's liking on speed and on extend cards; the last `answers.msKept` times per height are kept.
  */
 export function onAnswer(profile: Profile, section: SectionRec, a: AnswerInfo, cfg: Config): { profile: Profile; section: SectionRec } {
   let memory = profile.memory;
-  if (a.wasDueReviewFirstCard) memory = clamp(memory * (a.right ? cfg.memory.up : cfg.memory.down), cfg.memory.min, cfg.memory.max);
+  if (a.wasDueReviewFirstCard && a.height <= 2) memory = clamp(memory * (a.right ? cfg.memory.up : cfg.memory.down), cfg.memory.min, cfg.memory.max);
   const by = profile.msByHeight;
   const next: Profile = { ...profile, memory, msByHeight: { ...by, [a.height]: [...(by[a.height] ?? []), a.ms].slice(-cfg.answers.msKept) } };
   const L = cfg.liking;

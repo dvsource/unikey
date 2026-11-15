@@ -49,6 +49,16 @@ test("memory: due-review first card right ×1.05, wrong ×0.85, clamped 0.5..2",
   for (const i of dues) expect(steps[i + 1].state.profile.memory / steps[i].state.profile.memory).toBeCloseTo(1.05, 10);
 });
 
+test("F6: memory moves only on due-review first cards at heights 1 and 2 (a height-3 miss is calculation, not forgetting)", () => {
+  const due = { ...ans, wasDueReviewFirstCard: true };
+  for (const h of [1, 2] as Height[]) {
+    expect(onAnswer(prof(), sec0, { ...due, height: h, right: false }, cfg).profile.memory).toBeCloseTo(cfg.memory.down, 10);
+    expect(onAnswer(prof(), sec0, { ...due, height: h }, cfg).profile.memory).toBeCloseTo(cfg.memory.up, 10);
+  }
+  expect(onAnswer(prof(), sec0, { ...due, height: 3, right: false }, cfg).profile.memory).toBe(1);
+  expect(onAnswer(prof(), sec0, { ...due, height: 3 }, cfg).profile.memory).toBe(1);
+});
+
 test("comfort: left early at low success → +0.03; three good finishes → −0.01; clamps", () => {
   expect(close({}, endOf("left", 10, 5)).comfort).toBeCloseTo(0.78, 10);
   expect(close({}, endOf("left", 10, 9)).comfort).toBe(0.75); // left but doing well: no change
