@@ -4,7 +4,7 @@ import { fixture } from "./fixture.js";
 import { defaultConfig, type Served } from "../src/index.js";
 import { loadFromRepo } from "../src/node/load.js";
 import { personas } from "../sim/personas.js";
-import { resolvePersona, type PersonaSpec } from "../sim/student.js";
+import { resolvePersona, simParams, type PersonaSpec } from "../sim/student.js";
 import { runStudent, personaSeed, deepMerge, recentWrongOf, DONT_KNOW_WEIGHT, SIM_START, type LogLine, type StudentLog } from "../sim/run.js";
 import { runChecks } from "../sim/checks.js";
 
@@ -259,14 +259,19 @@ test("deepMerge (--config): objects merge, arrays and values replace", () => {
 
 test("runner: quit reasons are logged; I don't know weighs half toward recentWrong", () => {
   const content = fixture();
-  // Seed 3 (was 5, then 1): Task 11 changes (small first sessions, no card back-to-back, "5 more" offered more often)
-  // move this 4-day run on the tiny fixture; with seed 3 the student still has time-up quits.
-  const log = runStudent(byId("steady-five-min"), content, opts(4, 3));
-  const quits = log.lines.filter((l) => l.kind === "quit");
-  expect(quits.length).toBeGreaterThan(0);
-  for (const q of quits) expect(["time-up", "frustration", "fatigue"]).toContain(q.quitReason);
-  expect(quits.some((q) => q.quitReason === "time-up")).toBe(true);
-  expect(log.quitAppDay).toBeNull(); // time-up quits are not bad sessions
+  // F14: the condition is set up directly (it used to depend on the seed, bent 5 → 1 → 3). A five-minute student who
+  // is never frustrated or tired, and sessions long enough to pass simParams.fiveMinEffort from the first one.
+  const base = byId("steady-five-min");
+  const fiveMin: PersonaSpec = { ...base, traits: { ...base.traits, prior: 0.95, patienceWrongs: 99, stamina: 40, skipBelow: 0, dontKnowBelow: 0 } };
+  const long = deepMerge(defaultConfig, { budget: { firstSessions: 0, staminaDefault: 30 } });
+  expect(long.budget.staminaDefault * (1 - long.budget.margin)).toBeGreaterThan(simParams.fiveMinEffort);
+  for (const seed of [1, 2, 3]) {
+    const log = runStudent(fiveMin, content, { ...opts(3, seed), cfg: long });
+    const quits = log.lines.filter((l) => l.kind === "quit");
+    expect(quits.length, `seed ${seed}`).toBeGreaterThan(0);
+    expect(quits.every((q) => q.quitReason === "time-up"), `seed ${seed}`).toBe(true);
+    expect(log.quitAppDay).toBeNull(); // time-up quits are not bad sessions
+  }
   expect(DONT_KNOW_WEIGHT).toBe(0.5);
   expect(recentWrongOf([true, false, "dk", "dk"], 8)).toBe(2);
   expect(recentWrongOf([false, false, false, true, true], 2)).toBe(0);
