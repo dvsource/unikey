@@ -1,6 +1,6 @@
 import { defaultConfig, type Config } from "./config.js";
 import { dayOf } from "./time.js";
-import { effectiveNow } from "./state.js";
+import { begin, emit, rollDay, stale, step, type Run } from "./step.js";
 import { newSkillRec, recordAttempt } from "./skill.js";
 import { usualMs } from "./estimate.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
@@ -10,43 +10,11 @@ import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
 import type {
-  Choice, Content, EndInfo, EndKind, EngineEvent, Feedback, Moment, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
+  Choice, Content, EndInfo, EndKind, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
 
-/** One public call in progress: a private copy of the state, the clock, and the events emitted so far. */
-type Run = { s: State; content: Content; cfg: Config; now: number; day: number; events: EngineEvent[] };
 /** After an answer: `avoid`, a section to leave after a failed repair. */
 type Last = { avoid?: string } | null;
-
-function begin(state: State, content: Content, now: number, cfg: Config): Run {
-  const s = JSON.parse(JSON.stringify(state)) as State; // State is JSON by contract; the copy is ours to change
-  const at = effectiveNow(s, now);
-  s.lastNow = at;
-  const day = dayOf(at);
-  if (!s.day || s.day.day !== day) s.day = { day, effort: 0, streakKept: false };
-  return { s, content, cfg, now: at, day, events: [] };
-}
-
-function emit(r: Run, type: EngineEvent["type"], data: Record<string, unknown>): void {
-  r.s.seq += 1;
-  r.events.push({ id: `${r.s.student}:${r.s.seq}`, student: r.s.student, at: r.now, session: r.s.session?.id ?? null, type, data });
-}
-
-function step(r: Run, next: Next, feedback?: Feedback, moments: Moment[] = []): Step {
-  return feedback ? { state: r.s, events: r.events, feedback, moments, next } : { state: r.s, events: r.events, moments, next };
-}
-
-/** What the caller was last told: the open card, the pending offer, or the last end. */
-function currentNext(state: State): Next {
-  const ss = state.session;
-  if (ss && ss.served) return { kind: "card", card: ss.served };
-  if (ss) return { kind: "offer-extend" };
-  return { kind: "end", end: state.lastEnd ?? { kind: "interrupted", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: false } };
-}
-
-function stale(state: State): Step {
-  return { state, events: [], moments: [], next: currentNext(state) };
-}
 
 // ---------- profile hooks ----------
 
@@ -315,7 +283,10 @@ function closeSession(r: Run, kind: EndKind): Next {
 
 export function startSession(state: State, content: Content, now: number, cfg: Config = defaultConfig): Step {
   const r = begin(state, content, now, cfg);
-  if (r.s.session) closeSession(r, "interrupted");
+  if (r.s.session) {
+    closeSession(r, "interrupted");
+    rollDay(r); // the new session belongs to today, not to the left-open session's day
+  }
   const today = r.s.day!;
   if (dayRoom(r.s, cfg) < cfg.effort.h1) {
     const end: EndInfo = { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: today.streakKept };

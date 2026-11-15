@@ -23,6 +23,7 @@ test("spec numbers", () => {
   expect(c.staminaUpdate).toEqual({ keep: 0.7, take: 0.3, cleanStep: 0, extendStep: 1 });
   expect(c.liking).toEqual({ fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 });
   expect(c.tzOffsetMinutes).toBe(330);
+  expect(c.clock).toEqual({ correctionDays: 2 });
   expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });
   expect(c.answers).toEqual({ msKept: 20 });
   expect(c.skip).toEqual({ dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 });

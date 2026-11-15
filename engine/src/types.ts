@@ -98,7 +98,7 @@ export type Next =
   | { kind: "confirm-skip"; value: ValueMessage };
 export type EngineEvent = {
   id: string; student: string; at: number; session: string | null;
-  type: "session_start" | "card_served" | "answer" | "skip" | "session_end" | "profile" | "moment";
+  type: "session_start" | "card_served" | "answer" | "skip" | "session_end" | "profile" | "moment" | "clock_corrected" | "skip_reason";
   data: Record<string, unknown>;
 };
 export type Step = { state: State; events: EngineEvent[]; feedback?: Feedback; moments: Moment[]; next: Next };

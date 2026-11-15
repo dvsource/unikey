@@ -1,6 +1,8 @@
 import { test, expect } from "vitest";
 import { newState, migrate, effectiveNow, knownSkills } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
+import { defaultConfig } from "../src/config.js";
+import { DAY_MS } from "../src/time.js";
 import { fixture } from "./fixture.js";
 
 test("newState defaults", () => {
@@ -10,10 +12,14 @@ test("newState defaults", () => {
   expect(JSON.parse(JSON.stringify(s))).toEqual(s);
 });
 test("migrate rejects unknown version", () => expect(() => migrate({ v: 9 })).toThrow("unsupported state version"));
-test("effectiveNow never goes back", () => {
+test("effectiveNow never goes back by up to clock.correctionDays; further back is a clock correction (F4)", () => {
   const s = { ...newState("s", 1), lastNow: 5000 };
   expect(effectiveNow(s, 1000)).toBe(5000);
   expect(effectiveNow(s, 9000)).toBe(9000);
+  const late = { ...newState("s", 1), lastNow: 100 * DAY_MS };
+  const lim = defaultConfig.clock.correctionDays * DAY_MS;
+  expect(effectiveNow(late, 100 * DAY_MS - lim)).toBe(100 * DAY_MS); // exactly the limit: still never back
+  expect(effectiveNow(late, 100 * DAY_MS - lim - 1)).toBe(100 * DAY_MS - lim - 1); // beyond it: the new time
 });
 test("unknown skill in state is tolerated", () => {
   const s = newState("s", 1);

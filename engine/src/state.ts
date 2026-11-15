@@ -1,4 +1,5 @@
 import { defaultConfig, type Config } from "./config.js";
+import { DAY_MS } from "./time.js";
 import type { Content, State } from "./types.js";
 
 export function newState(student: string, seed: number, cfg: Config = defaultConfig): State {
@@ -32,8 +33,18 @@ export function migrate(json: unknown): State {
   };
 }
 
-export function effectiveNow(state: State, now: number): number {
-  return Math.max(now, state.lastNow);
+/**
+ * The time a call runs at: never before the last call's (a small backwards step of the device clock), unless `now` is
+ * more than `clock.correctionDays` behind it. That is a clock correction (the phone's date was set ahead, then fixed):
+ * `now` is accepted as the new time (F4).
+ */
+export function effectiveNow(state: State, now: number, cfg: Config = defaultConfig): number {
+  return isClockCorrection(state, now, cfg) ? now : Math.max(now, state.lastNow);
+}
+
+/** `now` is more than `clock.correctionDays` behind the last call. */
+export function isClockCorrection(state: State, now: number, cfg: Config = defaultConfig): boolean {
+  return state.lastNow - now > cfg.clock.correctionDays * DAY_MS;
 }
 
 /** Skill ids present in state that still exist in content (drops ghosts). */

@@ -269,7 +269,8 @@ test("close: winnable ≥ 0.85 from liked section, reason close:winnable", () =>
 
 test("clock backwards: picks made with effectiveNow never return a card seen 'in the future'", () => {
   const later = Date.UTC(2027, 2, 10, 9, 0);
-  const naiveNow = later - 3 * DAY_MS; // device clock moved back three days
+  // F4: two days back (was three): further than clock.correctionDays back is now a clock correction, accepted.
+  const naiveNow = later - 2 * DAY_MS; // device clock moved back two days
   const L = dayOf(later);
   const base = st({}, { lastNow: later, seen: seenAll(["a1.h1.1", "a1.h1.2"], L) });
   const day = dayOf(effectiveNow(base, naiveNow));

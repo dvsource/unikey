@@ -24,6 +24,8 @@ export const defaultConfig = {
   /** Section liking: steps for a fast right / slow answer / extend card, the slow factor over usual ms, and the ± clamp. */
   liking: { fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 },
   tzOffsetMinutes: 330,
+  /** F4: a call whose time is more than this many days behind the last one is a clock correction (accepted as the new time). */
+  clock: { correctionDays: 2 },
   sessionEnd: { maxExtraClose: 2 },
   answers: { msKept: 20 },
   /**

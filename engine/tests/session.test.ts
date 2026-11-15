@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
 import { defaultConfig as cfg } from "../src/config.js";
 import { newState } from "../src/state.js";
-import { dayOf } from "../src/time.js";
+import { DAY_MS, dayOf } from "../src/time.js";
 import { answer, endSession, extend, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
 import type { EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
@@ -583,4 +583,51 @@ test("F3: a new skill's SkillRec starts at the height actually served, so a righ
   expect(r.height).toBe(c.height);
   expect(r.nextReviewDay).not.toBeNull();
   expect(r.nextReviewDay!).toBeGreaterThan(D0);
+});
+
+test("F4: a clock more than clock.correctionDays behind is a correction: accepted, one clock_corrected event, nothing moved", () => {
+  const ahead = play(C, newState("s", 1), T0 + 365 * DAY_MS, allR).state; // the phone's date was a year ahead
+  const fixed = startSession(ahead, C, T0);
+  const ev = fixed.events.filter((e) => e.type === "clock_corrected");
+  expect(ev).toHaveLength(1);
+  expect(ev[0].data).toEqual({ from: ahead.lastNow, to: T0 });
+  expect(fixed.events[0].type).toBe("clock_corrected");
+  expect(fixed.state.lastNow).toBe(T0);
+  expect(fixed.state.day!.day).toBe(D0);
+  expect(fixed.state.session!.startedAt).toBe(T0);
+  // review dates, seen entries and the last session day stay as they were (never moved earlier or deleted)
+  for (const [id, r] of Object.entries(ahead.skills)) expect(fixed.state.skills[id].nextReviewDay).toBe(r.nextReviewDay);
+  expect(fixed.state.seen.slice(0, ahead.seen.length)).toEqual(ahead.seen);
+  // the next call goes on from the corrected time
+  if (fixed.next.kind !== "card") throw new Error("no card");
+  const c = fixed.next.card;
+  const a = answer(fixed.state, C, { card: c.card, choice: choiceFor(C, c, "r"), ms: 8000 }, T0 + 10_000);
+  expect(a.state.lastNow).toBe(T0 + 10_000);
+  expect(a.events.some((e) => e.type === "clock_corrected")).toBe(false);
+  // up to clock.correctionDays back: today's behaviour (the time never goes back), no event
+  const small = startSession(ahead, C, ahead.lastNow - cfg.clock.correctionDays * DAY_MS);
+  expect(small.events.some((e) => e.type === "clock_corrected")).toBe(false);
+  expect(small.state.lastNow).toBe(ahead.lastNow);
+});
+
+test("F5: a session that crosses local midnight belongs to the day it started on (minimum day, streak, cap)", () => {
+  const start = Date.UTC(2027, 0, 4, 18, 26); // 23:56 Sri Lanka time
+  const D = dayOf(start);
+  let st = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, start);
+  let now = start;
+  while (st.next.kind === "card" && st.state.session!.spent < cfg.budget.minimumDay) {
+    const c = st.next.card;
+    now += 60_000;
+    st = answer(st.state, C, { card: c.card, choice: choiceFor(C, c, "r"), ms: 8000 }, now);
+  }
+  expect(dayOf(now)).toBe(D + 1); // midnight has passed
+  const spent = st.state.session!.spent;
+  expect(spent).toBeGreaterThanOrEqual(cfg.budget.minimumDay);
+  expect(st.state.day).toEqual({ day: D, effort: spent, streakKept: true });
+  const left = endSession(st.state, C, now + 1000);
+  expect(endOf(left)).toMatchObject({ kind: "left", streakKept: true });
+  expect(left.state.lastSessionDay).toBe(D);
+  // the next session, after midnight, starts a fresh day
+  const next = startSession(left.state, C, start + 34 * 60_000); // 00:30
+  expect(next.state.day).toEqual({ day: D + 1, effort: 0, streakKept: false });
 });
