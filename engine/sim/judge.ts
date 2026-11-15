@@ -205,6 +205,7 @@ The app's reasons:
 - comfort-correction: an easier (or more fitting) card because recent answers went worse or better than planned
 - extend:liked: one of the "5 more" cards
 - comeback:solid: after time away, a skill the student was solid on, to restart with a win
+- fallback:any: nothing the plan wanted was left to give, so the app gave any card it still could
 `;
 
 /** The event lines of a packet: lines that start with a day label (the legend and prose are not quotable). */

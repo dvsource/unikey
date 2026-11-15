@@ -2,7 +2,6 @@
 // Pure functions; session.ts calls `onAnswer` per answer and `onSessionEnd` once per session end.
 import type { Config } from "./config.js";
 import { eligibleCard, effortOf } from "./pick.js";
-import { isGoodDay } from "./budget.js";
 import type { Content, EndInfo, Picked, Height, Profile, SectionRec, SessionState, State } from "./types.js";
 
 const clamp = (x: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, x));
@@ -67,8 +66,7 @@ function h3ShareOf(state: State, cfg: Config): number {
  * Comfort, stamina and h3Share at a session end. `interrupted` (and a session with no answers) change nothing.
  * `left` below `comfort + quitMargin` raises comfort; `streakSessions` good finishes in a row lower it; any other
  * end resets the streak. Stamina blends toward `session.fadeEffort` when set (never up); otherwise it grows only after
- * an accepted "5 more" finished with no fade (`extendStep`). A clean budget end adds `cleanStep` on a good day (0 since
- * fix round 1: stamina grows on the evidence of an extended session only).
+ * an accepted "5 more" finished with no fade (`extendStep`). A clean budget end leaves it as it was.
  */
 export function onSessionEnd(state: State, end: EndInfo, session: SessionState, cfg: Config): State {
   if (end.kind === "interrupted" || end.cards === 0) return state;
@@ -90,7 +88,6 @@ export function onSessionEnd(state: State, end: EndInfo, session: SessionState, 
   const U = cfg.staminaUpdate;
   let stamina = p.stamina;
   if (session.fadeEffort !== null) stamina = Math.min(stamina, U.keep * stamina + U.take * session.fadeEffort); // a fade never raises stamina
-  else if (end.kind === "budget" && isGoodDay(state, session, cfg)) stamina += U.cleanStep;
   else if (end.kind === "extended-done") stamina += U.extendStep;
   const lo = cfg.budget.minimumDay / (1 - cfg.budget.margin);
   return {

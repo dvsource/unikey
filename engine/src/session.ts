@@ -3,7 +3,7 @@ import { dayOf } from "./time.js";
 import { begin, emit, rollDay, stale, step, type Run } from "./step.js";
 import { newSkillRec, recordAttempt } from "./skill.js";
 import { usualMs } from "./estimate.js";
-import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
+import { closeSweepReason, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
@@ -63,7 +63,7 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
 const recentCards = (r: Run) => r.s.session!.servedCards.slice(-r.cfg.session.returnAfterCards);
 const loose = (r: Run) => ctxOf(r, false, Infinity);
 /** Anything at all eligible in content (ignoring budget, runs and exclusions)? */
-const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "comfort-correction") !== null;
+const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "fallback:any") !== null;
 
 /**
  * Review finding 5: when nothing outside the session's recent cards (R5) is eligible, the least recent of them: the
@@ -119,7 +119,7 @@ function decide(r: Run, last: Last): Next {
       const ctx = ctxOf(r, true, Infinity);
       const p = withReason(pickOpen(r.s, r.content, ctx, r.cfg) ?? pickClose(r.s, r.content, ctx, r.cfg), "extend:liked");
       if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
-      const any = pickAny(r.s, r.content, ctx, r.cfg, "comfort-correction");
+      const any = pickAny(r.s, r.content, ctx, r.cfg, "fallback:any");
       if (any) return serve(r, any, true);
       ss.extendLeft = 0; // nothing fits: "5 more" is over
     }
@@ -186,14 +186,14 @@ function normal(r: Run, last: Last): Next {
   // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
   if (pc) return serve(r, pc, true);
-  const any = pickAny(s, content, strict(), cfg, "comfort-correction");
+  const any = pickAny(s, content, strict(), cfg, "fallback:any");
   if (any) return serve(r, any, true);
   const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
   if (side) return serve(r, side);
   if (anyLeft(r)) return toClosing(r, false);
-  const lr = leastRecent(r, strict(), "comfort-correction");
+  const lr = leastRecent(r, strict(), "fallback:any");
   if (lr) return serve(r, lr, true);
-  return leastRecent(r, loose(r), "comfort-correction") ? toClosing(r, false) : finish(r, "content-exhausted");
+  return leastRecent(r, loose(r), "fallback:any") ? toClosing(r, false) : finish(r, "content-exhausted");
 }
 
 /** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
@@ -232,18 +232,20 @@ function closing(r: Run, forced: boolean): Next {
   if (ss.closeServed > cfg.sessionEnd.maxExtraClose) return finish(r, pending);
   const capped = ctxOf(r, true, Infinity);
   const p = (first ? pickClose(s, content, ctxOf(r, true, ss.budget - ss.spent), cfg) : null) ?? pickClose(s, content, capped, cfg);
-  const any = p ? null : pickAny(s, content, capped, cfg, "close:winnable");
+  // F9: a sweep pick keeps close:winnable only when it is an easy card (see closeSweepReason).
+  const sweep = (q: Picked | null) => withReason(q, q ? closeSweepReason(s, content, capped, cfg, q.served.height) : "fallback:any");
+  const any = p ? null : sweep(pickAny(s, content, capped, cfg, "close:winnable"));
   if (p || any) {
     ss.closeServed += 1;
     return serve(r, (p ?? any)!, true);
   }
   if (lastRight) return finish(r, pending);
-  const lr = leastRecent(r, capped, "close:winnable");
+  const lr = sweep(leastRecent(r, capped, "close:winnable"));
   if (lr) {
     ss.closeServed += 1;
     return serve(r, lr, true);
   }
-  return finish(r, anyLeft(r) || leastRecent(r, loose(r), "close:winnable") ? "daily-cap" : "content-exhausted");
+  return finish(r, anyLeft(r) || leastRecent(r, loose(r), "fallback:any") ? "daily-cap" : "content-exhausted");
 }
 
 /** A `budget` end may become an offer of "5 more"; everything else closes the session. */

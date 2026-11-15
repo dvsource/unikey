@@ -120,7 +120,7 @@ export type State = {
 
 export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
   | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"
-  | "comfort-correction" | "extend:liked" | "comeback:solid";
+  | "comfort-correction" | "extend:liked" | "comeback:solid" | "fallback:any";
 
 export type Served = {
   card: string; variant: number; skill: string; section: string; height: Height;

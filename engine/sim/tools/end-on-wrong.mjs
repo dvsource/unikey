@@ -13,7 +13,11 @@ for (const f of readdirSync(dir).filter((x) => x.endsWith(".log.jsonl")).sort())
     // the same exclusions as the no-end-on-wrong check: the student's own ends and a start-time daily cap (0 cards)
     if (l.kind !== "end" || ["left", "interrupted"].includes(l.end.kind) || (l.end.kind === "daily-cap" && l.end.cards === 0)) continue;
     sessions++;
-    const closes = sess.filter((x) => x.kind === "card" && x.served.reason === "close:winnable");
+    // close cards: close:winnable, plus a sweep pick while closing (fallback:any) in the session's trailing run (F9)
+    const cards = sess.filter((x) => x.kind === "card");
+    let t = cards.length;
+    while (t > 0 && ["close:winnable", "fallback:any"].includes(cards[t - 1].served.reason)) t--;
+    const closes = cards.filter((x, i) => x.served.reason === "close:winnable" || (i >= t && cards.slice(t).some((c) => c.served.reason === "close:winnable")));
     if (closes.length) withClose++;
     if (closes.length && !closes[0].right) firstWrong++;
     const last = [...sess].reverse().find((x) => x.kind === "card" || x.kind === "skip");

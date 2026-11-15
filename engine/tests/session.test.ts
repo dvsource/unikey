@@ -464,13 +464,12 @@ test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => 
 
 test("stamina (finding 4a): grows only after an accepted \"5 more\" finished with no fade; a clean budget end leaves it", () => {
   const before = fastStart().profile.stamina;
-  // offered and declined → budget end: unchanged (cleanStep 0)
+  // offered and declined → budget end: unchanged
   const p = play(C, fastStart(), T0, allR, { offer: "stop" });
   expect(lastStep(p.steps).next.kind).toBe("offer-extend");
   const e = endSession(lastStep(p.steps).state, C, p.now + 5000);
   expect(endOf(e).kind).toBe("budget");
   expect(e.state.profile.stamina).toBe(before);
-  expect(cfg.staminaUpdate.cleanStep).toBe(0);
   // accepted and finished, no slow answer → + extendStep
   const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
   const done = run(C, ex, p.now + 5000, allR, { ms: () => 20_000 });
@@ -561,6 +560,8 @@ test("finding 5: when only the session's recent cards are left, the least recent
   expect(cards.length).toBeGreaterThan(1);
   expect(cards.every((c) => c.card === "a1.h3")).toBe(true);
   expect(endOf(lastStep(steps)).kind).not.toBe("content-exhausted");
+  // F9: the least-recent fallback is labelled for what it is, not comfort-correction
+  expect(cards.slice(1).every((c) => c.reason === "fallback:any")).toBe(true);
 });
 
 test("\"5 more\" needs a usual time at every height played (otherwise a slow answer could not have been seen)", () => {

@@ -15,12 +15,12 @@ test("spec numbers", () => {
   expect(c.session).toEqual({ openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 });
   expect(c.priors).toEqual({ h1: 0.85, h2: 0.7, h3: 0.5 });
   expect(c.calc).toEqual({ h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 });
-  expect(c.window).toEqual({ cards: 60, sessions: 7 });
+  expect(c.window).toEqual({ cards: 60 }); // F9: window.sessions was never read
   expect(c.moments).toEqual({ thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 });
   expect(c.returning).toEqual({ noFullDays: 2, awayDays: 3 });
   expect(c.skill).toEqual({ attemptsKept: 12, solidDays: 2 });
   expect(c.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8 });
-  expect(c.staminaUpdate).toEqual({ keep: 0.7, take: 0.3, cleanStep: 0, extendStep: 1 });
+  expect(c.staminaUpdate).toEqual({ keep: 0.7, take: 0.3, extendStep: 1 }); // F9: cleanStep (0, a no-op) removed
   expect(c.liking).toEqual({ fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 });
   expect(c.tzOffsetMinutes).toBe(330);
   expect(c.clock).toEqual({ correctionDays: 2 });

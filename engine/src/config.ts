@@ -14,13 +14,13 @@ export const defaultConfig = {
   session: { openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 },
   priors: { h1: 0.85, h2: 0.7, h3: 0.5 },
   calc: { h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 },
-  window: { cards: 60, sessions: 7 },
+  window: { cards: 60 },
   moments: { thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 },
   returning: { noFullDays: 2, awayDays: 3 },
   skill: { attemptsKept: 12, solidDays: 2 },
   estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8 },
-  /** Stamina (spec §7): blend toward the effort at which the student faded; steps after a clean end / extended session. */
-  staminaUpdate: { keep: 0.7, take: 0.3, cleanStep: 0, extendStep: 1 },
+  /** Stamina (spec §7): blend toward the effort at which the student faded; the step after an extended session. */
+  staminaUpdate: { keep: 0.7, take: 0.3, extendStep: 1 },
   /** Section liking: steps for a fast right / slow answer / extend card, the slow factor over usual ms, and the ± clamp. */
   liking: { fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 },
   tzOffsetMinutes: 330,

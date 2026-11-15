@@ -4,7 +4,7 @@ import { newState, effectiveNow } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import { dayOf, DAY_MS } from "../src/time.js";
 import { expectedSuccess, usualMs } from "../src/estimate.js";
-import { eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
+import { closeSweepReason, eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
 import type { PickCtx } from "../src/types.js";
 import type { Attempt, Content, Height, Seen, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -427,4 +427,17 @@ test("middle below comfort (finding 2): height first, even with fewer than three
   expect(pickMiddle(s, C, ctx({ runningRight: 2, runningTotal: 2 }), cfg)!.served).toMatchObject({ skill: "b2", height: 3, reason: "due-review" });
   const r = pickMiddle(s, C, ctx({ runningRight: 1, runningTotal: 2 }), cfg)!;
   expect(r.served).toMatchObject({ height: 1, reason: "comfort-correction" });
+});
+
+// ---------- final review F9: fallback:any ----------
+
+test("F9: closeSweepReason: a height-1/2 sweep pick while closing is close:winnable; a height-3 one only when nothing lower is eligible", () => {
+  const s = st({ a1: notDue(1) });
+  expect(closeSweepReason(s, C, ctx(), cfg, 1)).toBe("close:winnable");
+  expect(closeSweepReason(s, C, ctx(), cfg, 2)).toBe("close:winnable");
+  // lower cards exist (even if only the session's recent cards or a run limit kept them out): not the easiest
+  expect(closeSweepReason(s, C, ctx({ recentCards: Object.keys(C.cards).filter((id) => !id.endsWith(".h3")) }), cfg, 3)).toBe("fallback:any");
+  // every height-1/2 card seen lately: the height-3 card is the easiest eligible
+  const lowSeen = seenAll(Object.keys(C.cards).filter((id) => !id.endsWith(".h3")), D);
+  expect(closeSweepReason(st({ a1: notDue(1) }, { seen: lowSeen }), C, ctx(), cfg, 3)).toBe("close:winnable");
 });

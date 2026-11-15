@@ -305,13 +305,11 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
   }
 
   // (3) the started, not-due skill the student is most likely to get right. A height-3 skill also offers its lower
-  // heights, and height 3 comes last (R2: never a height-3 comfort-correction card while a lower one is eligible);
-  // with the running rate below comfort (any number of answers) the lowest height comes first.
-  const easier = rate !== null && rate < comfort;
+  // heights, and height 3 comes last (R2: never a height-3 comfort-correction card while a lower one is eligible).
+  // (A running rate below comfort never gets here: the correcting branch above returned.)
   const easy = withHeight(state, notDue, cfg)
     .flatMap((c) => (c.height === 3 ? avail(c.def) : [c.height]).map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) })))
-    .sort((x, y) => Number(x.height === 3) - Number(y.height === 3) || (easier ? x.height - y.height : 0)
-      || y.es - x.es || byId(x.def.id, y.def.id));
+    .sort((x, y) => Number(x.height === 3) - Number(y.height === 3) || y.es - x.es || byId(x.def.id, y.def.id));
   return firstOf(state, content, easy, () => "comfort-correction", ctx, cfg);
 }
 
@@ -400,4 +398,17 @@ export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Confi
       : Number(x.height === 3) - Number(y.height === 3) || x.g - y.g || y.es - x.es || x.height - y.height)
       || byId(x.def.id, y.def.id));
   return firstOf(state, content, cands, () => reason, ctx, cfg) ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true });
+}
+
+/**
+ * F9: the reason for a last-resort sweep pick while closing. A height-1/2 card is `close:winnable`; a height-3 card is
+ * `close:winnable` only when it really is the easiest eligible: no lower card of any unblocked skill fits `ctx`, even
+ * with the same-skill run, waiting skills and the session's recent cards set aside. Otherwise `fallback:any`.
+ */
+export function closeSweepReason(state: State, content: Content, ctx: PickCtx, cfg: Config, height: Height): Reason {
+  if (height <= 2) return "close:winnable";
+  const open = { ...ctx, recentCards: [] };
+  const lower = cardSkills(content, Object.keys(content.skills).sort(byId)).some((def) => avail(def)
+    .some((h) => h < height && tryServe(state, content, { def, height: h }, "fallback:any", open, cfg, { relax: true }) !== null));
+  return lower ? "fallback:any" : "close:winnable";
 }
