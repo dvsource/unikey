@@ -7,8 +7,10 @@ export type CheckResult = { name: string; pass: boolean; detail: string };
 /** Lines that close one serve of a card (a served card ends in exactly one of these). */
 const SERVE_KINDS: LogLine["kind"][] = ["card", "skip", "quit"];
 const isServe = (l: LogLine) => SERVE_KINDS.includes(l.kind) && l.served !== undefined;
-/** Ends the student caused, or that close no real session: not the engine ending a session. */
-const NOT_ENGINE_ENDS = ["left", "interrupted", "daily-cap"];
+/** Ends the student caused: not the engine ending a session. */
+const NOT_ENGINE_ENDS = ["left", "interrupted"];
+/** Not the engine ending a real session: the student's own ends, and a daily cap at start time (no card served). */
+const notEngineEnd = (e: NonNullable<LogLine["end"]>) => NOT_ENGINE_ENDS.includes(e.kind) || (e.kind === "daily-cap" && e.cards === 0);
 
 /** Days with a session opened (a start line). */
 export function playedDays(log: StudentLog): number[] {
@@ -32,7 +34,7 @@ function noEndOnWrong(logs: StudentLog[]): CheckResult {
       if (l.kind === "start") last = null;
       else if (l.kind === "card" || l.kind === "skip") last = l;
       else if (l.kind === "end") {
-        if (!NOT_ENGINE_ENDS.includes(l.end!.kind)) {
+        if (!notEngineEnd(l.end!)) {
           ends++;
           if (last?.kind === "card" && last.right === false)
             bad.push(`${where(log, l)}: ended (${l.end!.kind}) after a wrong answer on ${last.served!.card}`);
@@ -202,17 +204,24 @@ function endsBeforeFade(logs: StudentLog[]): CheckResult {
   return verdict("ends-before-fade", bad, `worst share of days past hidden stamina ${(100 * worst).toFixed(0)}% ≤ 20%`);
 }
 
-/** Hidden knowledge at the end above day 0 for every student who kept practising (no app quit, ≥ 10 days). */
+/**
+ * Hidden knowledge at the end above day 0 for every student who kept practising (no app quit, ≥ 10 days). The detail
+ * also gives their mean gain, pass or fail (the pass rule is only "above day 0").
+ */
 function knowledgeUp(logs: StudentLog[]): CheckResult {
   const bad: string[] = [];
   let n = 0;
+  let gain = 0;
   for (const log of logs) {
     if (log.quitAppDay !== null || playedDays(log).length < 10) continue;
     n++;
     const k = log.knowledge;
+    gain += k.dayEnd - k.day0;
     if (!(k.dayEnd > k.day0)) bad.push(`${log.persona}: knowledge ${k.day0.toFixed(3)} → ${k.dayEnd.toFixed(3)} after ${playedDays(log).length} days played`);
   }
-  return verdict("knowledge-up", bad, `${n} students kept practising, all ended above their day-0 knowledge`);
+  const mean = n ? gain / n : 0;
+  const v = verdict("knowledge-up", bad, `${n} students kept practising, all ended above their day-0 knowledge`);
+  return { ...v, detail: `${v.detail}; mean knowledge gain ${mean >= 0 ? "+" : "−"}${Math.abs(mean).toFixed(3)}` };
 }
 
 export function runChecks(logs: StudentLog[], cfg: Config): CheckResult[] {

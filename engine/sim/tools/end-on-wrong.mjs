@@ -10,7 +10,8 @@ for (const f of readdirSync(dir).filter((x) => x.endsWith(".log.jsonl")).sort())
   let sess = [];
   for (const l of lines) {
     if (l.kind === "start") sess = [l]; else sess.push(l);
-    if (l.kind !== "end" || ["left", "interrupted", "daily-cap"].includes(l.end.kind)) continue;
+    // the same exclusions as the no-end-on-wrong check: the student's own ends and a start-time daily cap (0 cards)
+    if (l.kind !== "end" || ["left", "interrupted"].includes(l.end.kind) || (l.end.kind === "daily-cap" && l.end.cards === 0)) continue;
     sessions++;
     const closes = sess.filter((x) => x.kind === "card" && x.served.reason === "close:winnable");
     if (closes.length) withClose++;

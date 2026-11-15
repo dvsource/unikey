@@ -133,6 +133,15 @@ test("each check catches a planted violation, and only its own check fails", () 
   left[4] = { ...left[4]!, right: false, choice: 1 };
   left[5] = { ...left[5]!, end: { ...end(5), kind: "left" } };
   allPass([mk("strong", left)]);
+  // F2: a real session the engine ended daily-cap after a wrong answer counts...
+  const capped = cleanLines(12);
+  capped[4] = { ...capped[4]!, right: false, choice: 1 };
+  capped[5] = { ...capped[5]!, end: { ...end(5), kind: "daily-cap" } };
+  expect(onlyFails([mk("strong", capped)], "no-end-on-wrong")).toMatch(/strong day 1 .*daily-cap.*c1/);
+  // ...a start-time cap (0 cards, no start line) does not
+  const startCap = cleanLines(12);
+  startCap.splice(6, 0, { day: 1, session: 99, n: 0, kind: "end", end: { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true } });
+  allPass([mk("strong", startCap)]);
 
   // repeat on day 5 (c0 again, 5 days after day 0)
   const rep = cleanLines(12);
@@ -164,6 +173,10 @@ test("each check catches a planted violation, and only its own check fails", () 
   // flat knowledge
   d = onlyFails([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })], "knowledge-up");
   expect(d).toMatch(/strong/);
+  // F2: the mean knowledge gain is reported, pass or fail
+  expect(d).toMatch(/mean knowledge gain \+0\.000/);
+  expect(result([mk("strong", cleanLines(12)), mk("weak-stubborn", cleanLines(12, 8), { knowledge: { day0: 0.2, day14: 0.25, dayEnd: 0.4 } })], "knowledge-up").detail)
+    .toMatch(/2 students kept practising.*mean knowledge gain \+0\.150/);
   // not required for a student who quit the app, or who played fewer than 10 days
   allPass([mk("strong", cleanLines(12), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 }, quitAppDay: 11 })]);
   allPass([mk("strong", cleanLines(9), { knowledge: { day0: 0.4, day14: 0.4, dayEnd: 0.4 } })]);
