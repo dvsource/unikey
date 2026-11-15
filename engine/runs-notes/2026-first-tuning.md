@@ -496,3 +496,63 @@ Engine memory at the end of the run against the hidden `forget` (lower forget = 
 - **Calculation-weak detection.** memory-good-calc-weak's final `h3Share` is 0.40 on all seeds (0.50 on seed 1 before), so the ramp and the higher height-3 share no longer reach it by day 28. strong ends at 0.20 on seed 1 (marked concept-weak). Not examined further; the parked `h3Share` item covers it.
 - **weak-stubborn's engine stamina on seeds 1–2:** 8.9 at the end (11.3 / 9.8 before), against a hidden 14.
 - Sim students may skip a closing card labelled `fallback:any` (they never skip `close:winnable`). Only 2 `fallback:any` cards were served in all three runs, so this did not move the numbers.
+
+## After the streak and midnight fixes (2026-11-15)
+
+Two follow-up fixes (commits 6210e1f, cc701bb). Runs: `runs/g0-sN` (before, HEAD 83c2160) and `runs/g1-sN` (after), 28 days, `--packs all`, seeds 1-3. The sim exits non-zero when a check fails, as expected.
+
+### Seed 1 checks (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 9 violations; first: weak-stubborn day 6 session 7: ended (budget) after a wrong answer on phy.therm.c002 |
+| skip-timing | PASS | 27 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 32.5 ≤ 40; mean asked/day strong 15.02, weak-stubborn 9.06, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2650 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 14% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.055 |
+| no-back-to-back-card | PASS | 2650 serves, no card again within 4 serves in a session |
+
+### Seed 2 checks (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 4 violations; first: weak-stubborn day 10 session 11: ended (budget) after a wrong answer on phy.therm.c016 |
+| skip-timing | PASS | 21 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 34 ≤ 40; mean asked/day strong 15.66, weak-stubborn 8.67, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2637 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 18% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.054 |
+| no-back-to-back-card | PASS | 2637 serves, no card again within 4 serves in a session |
+
+### Seed 3 checks (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | FAIL | 6 violations; first: weak-stubborn day 2 session 3: ended (budget) after a wrong answer on phy.elec.c009 |
+| skip-timing | PASS | 27 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 26.5 ≤ 40; mean asked/day strong 12.73, weak-stubborn 11.22, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2603 serves, no variant repeated within 14 days |
+| ends-before-fade | FAIL | 1 violation; first: weak-impatient: 1 of 2 days past hidden stamina (first weak-impatient day 1 session 2, phy.elec.c039) |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.053 |
+| no-back-to-back-card | PASS | 2603 serves, no card again within 4 serves in a session |
+
+### Budget ends under 8 effort (session effort), all 16 personas
+
+| seed | budget ends | before: under 8 | before: keep streak | after: under 8 | after: keep streak |
+|---|---|---|---|---|---|
+| 1 | 382 | 55 | 55 | 45 | 37 |
+| 2 | 381 / 382 | 67 | 67 | 52 | 43 |
+| 3 | 383 / 381 | 52 | 52 | 44 | 35 |
+
+The streak is kept by an under-8 session when the day's effort reached 8 (an earlier session that day) or the session spent budget - closeReserve.
+
+### Cause of the short sessions (1a)
+
+A repair queues its skill for a return `session.returnAfterCards` cards later, and the strict picker leaves such a skill alone (`excludeSkills`). Below comfort, `pickMiddle` only offers started, not-due skills, so for a student with one or few such skills, the one just repaired was the only candidate. `normal()` then saw strict = nothing, loose = something (the loose context has no exclusion) and took the "something to serve, nothing that fits" path to `closing`; the last answer was right, so `finish(budget)` ended the session. Evidence (fast-guesser day 9, budget 12.0): `W:new:exam-weight/h2, R:repair:missing-piece/h1`, end budget, effort 3.5, 2 cards; instrumented, room was 5.1-6.5 and the loose card (e.g. `phy.elec.c042`, h2, effort 1.5) fit, but belonged to the skill waiting for its return. The repair's confidence stage had no card (the skill's other h1 cards were in the recent window), so the return was queued at once. Fix: in that branch a waiting return that fits the budget is served early (`pickReturn` with the afterCard wait lifted) before going to closing. A unit test reproduces it with a one-skill student.
+
+### What got worse / residual
+
+- Under-8 budget ends that do not keep the streak remain (8, 9, 9 on the three seeds): mostly a first session of the day at 7-7.5 of a 9.8 budget, or 6.5 of 12 after `W W R` where the only card left was a height-3 (cost 4 + reserve 2 does not fit). The rule is as specified (spent >= budget - 2); these are nearly complete sessions that lose the streak when they are the only one of the day.
+- no-end-on-wrong improved 9/6/7 to 9/4/6 violations; ends-before-fade on seed 3 fails before and after (1 violation, weak-impatient, unchanged).
+- Serves rose a little (2560/2612/2587 to 2650/2637/2603): the sessions no longer end early.
