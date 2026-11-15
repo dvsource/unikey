@@ -5,7 +5,8 @@ import { byId } from "./util.js";
 import { isSolid } from "./skill.js";
 import { expectedSuccess } from "./estimate.js";
 import { avail, firstOf, servable, solidNeighbour } from "./pick.js";
-import type { Content, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage } from "./types.js";
+import { begin, emit } from "./step.js";
+import type { Content, EngineEvent, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage } from "./types.js";
 
 /** A section with no history yet. */
 export function newSectionRec(): SectionRec {
@@ -35,6 +36,21 @@ export function valueMessage(state: State, content: Content, section: string, cf
 /** The "teaching now" topic, from the class or chosen by the student; null clears it. */
 export function setCurrentTopic(state: State, topic: string | null, source: "class" | "student"): State {
   return { ...state, currentTopic: topic === null ? null : { id: topic, source } };
+}
+
+/**
+ * F10 (spec §6): the one-tap reason, given on the toast after a skip. Sets the reason of the section's most recent
+ * skip (`lastReason`) and appends one `skip_reason` event. Nothing else changes now: a too-hard skip's lower heights are
+ * applied when the section returns, and the remind day never changes. A section never skipped: no change, no event.
+ */
+export function setSkipReason(
+  state: State, content: Content, section: string, reason: SkipReason, now: number, cfg: Config = defaultConfig,
+): { state: State; events: EngineEvent[] } {
+  if ((state.sections[section]?.skipTotal ?? 0) === 0) return { state, events: [] };
+  const r = begin(state, content, now, cfg);
+  r.s.sections = { ...r.s.sections, [section]: { ...r.s.sections[section], lastReason: reason } };
+  emit(r, "skip_reason", { section, reason });
+  return { state: r.s, events: r.events };
 }
 
 /** Skipped and not yet back through the side door. */

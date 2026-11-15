@@ -10,5 +10,5 @@ export * from "./pick.js";
 export * from "./repair.js";
 export { detectMoments, recordMoments } from "./moments.js";
 export { startSession, answer, skip, extend, endSession } from "./session.js";
-export { setCurrentTopic, valueMessage } from "./skip.js";
+export { setCurrentTopic, setSkipReason, valueMessage } from "./skip.js";
 export { onAnswer, onSessionEnd, rampBefore, type AnswerInfo } from "./profile.js";

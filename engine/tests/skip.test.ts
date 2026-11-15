@@ -3,7 +3,7 @@ import { defaultConfig as cfg } from "../src/config.js";
 import { migrate, newState } from "../src/state.js";
 import { dayOf } from "../src/time.js";
 import { answer, skip, startSession } from "../src/session.js";
-import { setCurrentTopic, valueMessage } from "../src/skip.js";
+import { setCurrentTopic, setSkipReason, valueMessage } from "../src/skip.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "../src/pick.js";
 import type { PickCtx, Served, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -488,4 +488,31 @@ test("side door at the cap: a section whose cap day has come returns even after 
   expect(sides(both(cap))).toEqual([A, B]);
   // Remind day passed but the cap not reached: still one side door per session.
   expect(sides(both(cap - 1)).length).toBe(1);
+});
+
+// ---------- final review F10: the reason comes after the skip ----------
+
+test("F10: setSkipReason sets the section's last skip reason after the skip; remind day and everything else stay", () => {
+  const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s0, C, T0);
+  const c0 = cardOf(st);
+  expect(c0.section).toBe(B);
+  const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000); // no reason yet: "later"
+  const before = sk.state.sections[B];
+  const frozen = JSON.stringify(sk.state);
+  for (const reason of ["not-learned", "too-hard"] as const) {
+    const out = setSkipReason(sk.state, C, B, reason, T0 + 12_000);
+    expect(out.state.sections[B]).toEqual({ ...before, lastReason: reason });
+    expect(out.state.sections[B].remindDay).toBe(before.remindDay);
+    expect(out.events).toHaveLength(1);
+    expect(out.events[0]).toMatchObject({ type: "skip_reason", session: sk.state.session!.id, data: { section: B, reason } });
+    expect(out.state.seq).toBe(sk.state.seq + 1);
+    // nothing else moves: the open card, the skills, the session
+    expect({ ...out.state, sections: {}, seq: 0, lastNow: 0 }).toEqual({ ...sk.state, sections: {}, seq: 0, lastNow: 0 });
+  }
+  expect(JSON.stringify(sk.state)).toBe(frozen); // input not mutated
+  // a section never skipped: nothing changes
+  const none = setSkipReason(sk.state, C, A, "too-hard", T0 + 12_000);
+  expect(none.state).toBe(sk.state);
+  expect(none.events).toEqual([]);
 });
