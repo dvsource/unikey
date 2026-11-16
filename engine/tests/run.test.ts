@@ -443,3 +443,39 @@ test("amendment: skip-timing treats a rejoin as the section's return and ignores
   onlyFails([mk("strong", withSkip(plays, 0, "B", undefined, { scope: "section" }))], "skip-timing");
   onlyFails([mk("strong", withSkip(plays, 0, "B", undefined))], "skip-timing");
 });
+
+// ---------- change 6: card-level "too hard" and the silent rejoin ----------
+
+test("runner logs scope on skips and a rejoin line", () => {
+  // B has only full problems, so a skipped B card can never come back through the side door (never level 3): it rejoins.
+  // The student fears B (knowledge 0.05: "not learned yet", a section skip) and skips some A cards (knowledge 0.3: "too hard").
+  const B = "u.t1/B";
+  const content = fixture({ drop: ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3", "b1.h2.1", "b1.h2.2", "b1.h2.3", "b2.h2.1", "b2.h2.2", "b2.h2.3"] });
+  const base = byId("average-noclass");
+  const spec: PersonaSpec = {
+    ...base, id: "t6",
+    traits: { ...base.traits, fearedSections: [B], priorBySection: { [B]: 0.05, "u.t1/A": 0.3 }, skipBelow: 0.6, patienceWrongs: 99, patienceSessions: 99, dontKnowBelow: 0 },
+  };
+  const log = runStudent(spec, content, opts(14, 5));
+  const skips = log.lines.filter((l) => l.kind === "skip");
+  expect(skips.every((l) => l.scope === "card" || l.scope === "section")).toBe(true);
+  const card = skips.filter((l) => l.scope === "card");
+  const sec = skips.filter((l) => l.scope === "section");
+  expect(card.length).toBeGreaterThan(0);
+  expect(sec.length).toBeGreaterThan(0);
+  expect(card.every((l) => l.skipReason === "too-hard")).toBe(true);
+  expect(sec.every((l) => l.skipReason !== "too-hard")).toBe(true);
+  // a card-level skip is never asked to confirm
+  log.lines.forEach((l, i) => { if (l.kind === "skip" && l.scope === "card") expect(log.lines[i - 1]?.kind).not.toBe("confirm-skip"); });
+  const rejoins = log.lines.filter((l) => l.kind === "rejoin");
+  expect(rejoins.length).toBeGreaterThan(0);
+  for (const l of rejoins) {
+    expect(l.section).toBe(B);
+    expect(typeof l.day).toBe("number");
+    expect(typeof l.session).toBe("number");
+  }
+  // no side door for B ever (it has no card below level 3); the log passes the skip checks
+  expect(log.lines.some((l) => l.served?.reason === "side-door" && l.served.section === B)).toBe(false);
+  const checks = runChecks([log], defaultConfig);
+  for (const name of ["skip-timing", "side-door-not-full"]) expect(checks.find((c) => c.name === name), name).toMatchObject({ pass: true });
+});

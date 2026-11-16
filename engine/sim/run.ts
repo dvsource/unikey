@@ -144,6 +144,10 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
   const recent: RecentAnswer[] = [];
   const log = (l: Omit<LogLine, "day" | "session" | "n">) => lines.push({ day, session, n, ...l });
   const logMoments = (st: Step) => { for (const m of st.moments) log({ kind: "moment", moment: m }); };
+  // Change 6: a section that came back without a side-door card (logged before the card that step served).
+  const logRejoins = (st: Step) => {
+    for (const e of st.events) if (e.type === "section_rejoined") log({ kind: "rejoin", section: e.data.section as string });
+  };
 
   let st = startSession(state0, content, now, cfg);
   const started = st.events.find((e) => e.type === "session_start");
@@ -153,6 +157,7 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
   for (let steps = 0; ; steps++) {
     if (steps > MAX_STEPS) throw new Error(`runner: session ${session} on day ${day} did not end after ${MAX_STEPS} steps`);
     logMoments(st);
+    logRejoins(st);
     const nx = st.next;
     if (nx.kind === "end") {
       log({ kind: "end", end: nx.end });
@@ -183,6 +188,7 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     }
     if (a.kind === "skip") {
       now += SKIP_MS;
+      // The hidden student's reason goes with the skip: "too-hard" is a card-level skip (change 6), never confirmed.
       const input = { card: sv.card, ...(a.reason !== undefined ? { reason: a.reason } : {}) };
       st = skip(st.state, content, input, now, cfg);
       if (st.next.kind === "confirm-skip") {
@@ -190,7 +196,11 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
         st = skip(st.state, content, { ...input, confirmed: true }, now, cfg);
       }
       const rd = st.state.sections[sv.section]?.remindDay ?? null;
-      log({ kind: "skip", served: sv, ...(a.reason !== undefined ? { skipReason: a.reason } : {}), remindDay: rd === null ? null : rd - engineDay0, hiddenFatigued });
+      const scope = st.events.find((e) => e.type === "skip")?.data.scope as LogLine["scope"];
+      log({
+        kind: "skip", served: sv, ...(a.reason !== undefined ? { skipReason: a.reason } : {}), remindDay: rd === null ? null : rd - engineDay0,
+        ...(scope !== undefined ? { scope } : {}), hiddenFatigued,
+      });
       continue;
     }
     now += a.ms;

@@ -44,7 +44,7 @@ Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSessio
 | `next.kind` | the UI |
 |---|---|
 | `card` | show `next.card` (card id, variant, height). Call `answer` or `skip`. |
-| `confirm-skip` | a second skip of the section: show `next.value` (its share of the unit, its top skills). Then call `skip` again with `confirmed: true`, or `answer` the card. Nothing has changed yet. |
+| `confirm-skip` | a second skip of the section (never for `reason: "too-hard"`): show `next.value` (its share of the unit, its top skills). Then call `skip` again with `confirmed: true`, or `answer` the card. Nothing has changed yet. |
 | `offer-extend` | offer "5 more". Call `extend`, or `endSession` to decline (the session ends `budget`). |
 | `end` | the session is over. `next.end` has the kind, effort, cards, right answers, missing pieces fixed and `streakKept`. |
 
@@ -80,8 +80,11 @@ Every card has a `reason`. The app can log it; the student never sees it.
 
 ## Skip and its reason
 
-- `skip` with no `reason` records "later". The spec shows the one-tap reason on the toast after the skip: call `setSkipReason(state, content, section, "not-learned" | "too-hard" | "later", now)` when the student taps one.
-- It changes only the reason of that section's last skip. The remind day never changes. A "too-hard" skip's easier heights are applied when the section comes back.
+- `skip` with no `reason`, `"later"` or `"not-learned"` is a **section skip**: the section is put away until its remind day (a second skip of it asks first with `confirm-skip`). The `skip` event has `scope: "section"`. The section remembers the level of the skipped card (`skippedLevel`).
+- `skip` with `reason: "too-hard"` is a **card skip** (change 6): the section stays. The card's skill goes down one level that has cards and is not served again this session; at its lowest level it rests for `skip.tooHardRestDays` days instead. No confirm step, no value message, no effort. Its repair and queued return are dropped. The `skip` event has `scope: "card"`, `skill`, `fromLevel`, `toLevel` (equal when the skill rests). A drip or side-door card skipped as too hard leaves its section's skipped state as it was.
+- The spec shows the one-tap reason on the toast after the skip: call `setSkipReason(state, content, section, "not-learned" | "too-hard" | "later", now)` when the student taps one. It changes only the reason of that section's last skip; the remind day never changes.
+- Exception: `"too-hard"` for the session's last section skip (same section, session still open) turns it into a card skip. The section's record goes back to exactly what it was before the skip, the section can be served again this session, and the card skip rule applies to the skipped card's skill. The `skip_reason` event then has `scope: "card"`, `skill`, `fromLevel`, `toLevel`. A repair or queued returns the section skip dropped for other skills of that section are not restored. Passing the reason to `skip` itself avoids this.
+- A skipped section comes back through a side door card below the level that was skipped, never a full problem (level 1 when a level-1 card was skipped). When it has no such card left, it comes back without one: one `section_rejoined` event (`{ section }`), its skills at their lowest level. Then it is served like any other section.
 - A "not-learned" skip can come back early when the class teaches that topic (`setCurrentTopic(..., "class")`).
 
 ## Known gaps

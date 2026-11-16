@@ -8,7 +8,7 @@ import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
-import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
+import { afterSectionAnswer, applyCardSkip, applySkip, newSectionRec, pickSkipCard, rejoinSilently, valueMessage } from "./skip.js";
 import { ladderAfterAnswer, pickLadder } from "./ladder.js";
 import type {
   Choice, Content, EndInfo, EndKind, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
@@ -172,6 +172,7 @@ function normal(r: Run, last: Last): Next {
   const left = ss.budget - ss.spent;
   const room = Math.min(Math.max(left - closeReserve(cfg), Math.min(left, cfg.budget.minimumDay - s.day!.effort)), capRoom(s, cfg));
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
+  rejoinSilently(r, ss.blockedSections); // change 6: a due section with no side-door card comes back without one
 
   while (ss.repair) {
     const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections, recentCards(r));
@@ -367,7 +368,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false,
+    sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
@@ -508,17 +509,21 @@ export function answer(
  * "Not now" on the current card (spec §6). A second or later skip of the section first returns
  * `confirm-skip` with its value message and changes nothing; the caller then skips again with
  * `confirmed: true` or answers the card. A skip for any other card is stale.
+ * Change 6: reason "too-hard" is about the card, not the section (`applyCardSkip`): never a confirm step, the section
+ * is not put away. Any other reason (or none) is a section skip (`applySkip`).
  */
 export function skip(
   state: State, content: Content, input: { card: string; reason?: SkipReason; confirmed?: boolean }, now: number, cfg: Config = defaultConfig,
 ): Step {
   const sv0 = state.session?.served;
   if (!sv0 || sv0.card !== input.card) return stale(state);
-  if (sv0.reason !== "skipped-drip" && (state.sections[sv0.section]?.skipCount ?? 0) >= 1 && input.confirmed !== true) {
+  const tooHard = input.reason === "too-hard";
+  if (!tooHard && sv0.reason !== "skipped-drip" && (state.sections[sv0.section]?.skipCount ?? 0) >= 1 && input.confirmed !== true) {
     return { state, events: [], moments: [], next: { kind: "confirm-skip", value: valueMessage(state, content, sv0.section, cfg) } };
   }
   const r = begin(state, content, now, cfg);
-  emit(r, "skip", applySkip(r.s, content, r.s.session!.served!, input.reason, r.day, cfg));
+  const sv = r.s.session!.served!;
+  emit(r, "skip", tooHard ? applyCardSkip(r.s, content, sv, r.day, cfg) : applySkip(r.s, content, sv, input.reason, r.day, cfg));
   return step(r, decide(r, null));
 }
 

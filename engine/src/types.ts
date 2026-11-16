@@ -38,7 +38,17 @@ export type SectionRec = {
   skipTotal: number;
   /** `answered` when the section was last skipped (attempts with a higher `seq` came after it), else null. */
   lastSkipSeq: number | null;
+  /**
+   * Change 6: the level of the card whose skip put the section away (null: never skipped, or skipped before change 6).
+   * The side door serves only levels below it, never 3 (level 1 when it is 1 or null).
+   */
+  skippedLevel: Height | null;
 };
+/**
+ * Change 6: the session's last section-level skip, so `setSkipReason(…, "too-hard")` can turn it into a card-level skip:
+ * the section, the skipped card's skill, level and id, and a copy of the section's record before the skip (null: none).
+ */
+export type LastSkip = { section: string; skill: string; level: Height; before: SectionRec | null; card: string };
 export type Profile = {
   comfort: number; memory: number; h3Share: number; stamina: number;
   goodStreak: number; msByHeight: Record<Height, number[]>; // last 20 ms per height
@@ -95,6 +105,8 @@ export type SessionState = {
   stretchCard: string | null;
   /** Change 5: the one extra new skill beyond `session.maxNewSkills` has been served this session. */
   extraNew: boolean;
+  /** Change 6: set by a section-level skip; cleared by a later skip, by its conversion to "too hard", and at session end. */
+  lastSkip: LastSkip | null;
 };
 
 export type Choice = number | "dont-know";
@@ -117,7 +129,8 @@ export type Next =
   | { kind: "confirm-skip"; value: ValueMessage };
 export type EngineEvent = {
   id: string; student: string; at: number; session: string | null;
-  type: "session_start" | "card_served" | "answer" | "skip" | "session_end" | "profile" | "moment" | "clock_corrected" | "skip_reason";
+  type: "session_start" | "card_served" | "answer" | "skip" | "session_end" | "profile" | "moment" | "clock_corrected" | "skip_reason"
+    | "section_rejoined";
   data: Record<string, unknown>;
 };
 export type Step = { state: State; events: EngineEvent[]; feedback?: Feedback; moments: Moment[]; next: Next };

@@ -5,7 +5,7 @@ import { dayOf } from "../src/time.js";
 import { answer, skip, startSession } from "../src/session.js";
 import { setCurrentTopic, setSkipReason, valueMessage } from "../src/skip.js";
 import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "../src/pick.js";
-import type { PickCtx, Served, SkillRec, State, Step } from "../src/types.js";
+import type { PickCtx, SectionRec, Served, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import { T0, atts, choiceFor, lastStep, nextDay, play, rec, run, section, served, startedState } from "./helpers.js";
 
@@ -47,7 +47,7 @@ test("first skip: applies at once, remindDay = day+3, section gone for the rest 
   expect(c0.section).toBe(B);
   const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000);
   expect(sk.next.kind).toBe("card");
-  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false, skipTotal: 1, lastSkipSeq: 1000 });
+  expect(sk.state.sections[B]).toEqual({ skipCount: 1, remindDay: D0 + 3, lastReason: "later", dripStopped: false, liking: 4, returned: false, skipTotal: 1, lastSkipSeq: 1000, skippedLevel: c0.height });
   expect(sk.state.session!.blockedSections).toEqual([B]);
   expect(sk.feedback).toBeUndefined();
   expect(sk.events.map((e) => e.type)).toEqual(["skip", "card_served"]);
@@ -67,7 +67,8 @@ test("second skip: confirm-skip with value; sharePct for fixture section B = 60;
   const st = startSession(s0, C, T0);
   const c0 = cardOf(st);
   expect(c0.section).toBe(B);
-  const cs = skip(st.state, C, { card: c0.card, reason: "too-hard" }, T0 + 10_000);
+  // change 6: was reason "too-hard", which is now a card-level skip and never asks first
+  const cs = skip(st.state, C, { card: c0.card, reason: "later" }, T0 + 10_000);
   expect(cs.next).toEqual({
     kind: "confirm-skip",
     value: { section: B, sharePct: 60, topSkills: [{ skill: "b2", solid: true }, { skill: "b1", solid: false }] },
@@ -90,11 +91,13 @@ test("confirmed second skip → remindDay = day+5; then 8, 13, 14, 14", () => {
     const st = startSession(s0, C, T0);
     const c0 = cardOf(st);
     expect(c0.section).toBe(B);
-    const sk = skip(st.state, C, { card: c0.card, reason: "too-hard", confirmed: true }, T0 + 10_000);
+    // change 6: was reason "too-hard" (now a card-level skip): "not-learned" puts the section away
+    const sk = skip(st.state, C, { card: c0.card, reason: "not-learned", confirmed: true }, T0 + 10_000);
     expect(sk.next.kind).toBe("card");
     expect(cardOf(sk).section).toBe(A);
     expect(sk.state.sections[B]).toEqual({
-      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "too-hard", dripStopped: false, liking: 4, returned: false, skipTotal: n + 1, lastSkipSeq: 1000,
+      skipCount: n + 1, remindDay: D0 + want[n - 1], lastReason: "not-learned", dripStopped: false, liking: 4, returned: false, skipTotal: n + 1, lastSkipSeq: 1000,
+      skippedLevel: c0.height,
     });
     expect(sk.events[0]).toMatchObject({ type: "skip", data: { skipCount: n + 1, remindDay: D0 + want[n - 1] } });
   }
@@ -349,12 +352,13 @@ test("not-learned + class topic set to that topic → side door from skip day + 
   expect(setCurrentTopic(cls, null, "class").currentTopic).toBeNull();
 });
 
-test("too-hard returns at height 1", () => {
+// change 6: was "too-hard returns at height 1"; too-hard is now a card-level skip, so a section skip ("not-learned") is used.
+test("a skipped section returns at height 1", () => {
   const st = startSession(startedAll(2, { b1: { height: 3, noFullUntilDay: null } }, { sections: { [B]: section({ liking: 5 }) } }), C, T0);
   expect(cardOf(st).section).toBe(B);
-  const sk = skip(st.state, C, { card: cardOf(st).card, reason: "too-hard" }, T0 + 10_000);
+  const sk = skip(st.state, C, { card: cardOf(st).card, reason: "not-learned" }, T0 + 10_000);
   const d0 = run(C, sk, T0 + 10_000, allR).state;
-  expect(d0.sections[B]).toMatchObject({ lastReason: "too-hard", remindDay: D0 + 3 });
+  expect(d0.sections[B]).toMatchObject({ lastReason: "not-learned", remindDay: D0 + 3 });
   const p = play(C, d0, T0 + 3 * 86_400_000, until(isSide));
   const sd = cardOf(lastStep(p.steps));
   expect(sd).toMatchObject({ section: B, height: 1 });
@@ -462,10 +466,14 @@ test("skipping a \"5 more\" card: another extend card, extendLeft unchanged", ()
   expect(sk.state.session).toMatchObject({ phase: "extend", extendLeft: 3, spent: 0 });
 });
 
-test("side door falls back to a higher height when the section has no height-1 card", () => {
+// change 6: was "side door falls back to a higher height when the section has no height-1 card". The fallback is gone:
+// an old skip (no skippedLevel) allows level 1 only, so the section rejoins silently instead.
+test("no higher-level side door when the section has no height-1 card: the section rejoins silently", () => {
   const noH1 = fixture({ drop: ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"] });
-  const p = play(noH1, startedAll(2, {}, { sections: waitingB(D0) }), T0, until(isSide));
-  expect(cardOf(lastStep(p.steps))).toMatchObject({ reason: "side-door", section: B, height: 2 });
+  const p = play(noH1, startedAll(2, { b1: { nextReviewDay: D0 } }, { sections: waitingB(D0) }), T0, allR);
+  expect(cardsOf(p.steps).filter(isSide)).toEqual([]);
+  expect(p.steps.flatMap((s) => s.events).filter((e) => e.type === "section_rejoined").map((e) => e.data)).toEqual([{ section: B }]);
+  expect(cardsOf(p.steps).some((c) => c.section === B && c.height === 2)).toBe(true);
 });
 
 test("a due side door is served before a content-exhausted end", () => {
@@ -500,7 +508,8 @@ test("F10: setSkipReason sets the section's last skip reason after the skip; rem
   const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000); // no reason yet: "later"
   const before = sk.state.sections[B];
   const frozen = JSON.stringify(sk.state);
-  for (const reason of ["not-learned", "too-hard"] as const) {
+  // change 6: was ["not-learned", "too-hard"]; too-hard right after a section skip now turns it into a card skip
+  for (const reason of ["not-learned", "later"] as const) {
     const out = setSkipReason(sk.state, C, B, reason, T0 + 12_000);
     expect(out.state.sections[B]).toEqual({ ...before, lastReason: reason });
     expect(out.state.sections[B].remindDay).toBe(before.remindDay);
@@ -515,4 +524,270 @@ test("F10: setSkipReason sets the section's last skip reason after the skip; rem
   const none = setSkipReason(sk.state, C, A, "too-hard", T0 + 12_000);
   expect(none.state).toBe(sk.state);
   expect(none.events).toEqual([]);
+});
+
+// ---------- change 6: "too hard" is about the card; the side door is never a full problem ----------
+
+const noH1B = ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"];
+const noH2B = ["b1.h2.1", "b1.h2.2", "b1.h2.3", "b2.h2.1", "b2.h2.2", "b2.h2.3"];
+const tooHard = (st: Step, at: number, c = C) => skip(st.state, c, { card: cardOf(st).card, reason: "too-hard" }, at);
+
+test("too-hard: section record untouched, skill one level down, skill not served again this session, no effort", () => {
+  const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s0, C, T0);
+  const c0 = cardOf(st);
+  expect(c0).toMatchObject({ section: B, height: 2 });
+  const sk = tooHard(st, T0 + 10_000);
+  expect(sk.next.kind).toBe("card"); // never confirm-skip
+  expect(sk.feedback).toBeUndefined();
+  expect(sk.state.sections).toEqual(s0.sections); // no count, remind day, liking or reason change
+  const ss = sk.state.session!;
+  expect(ss.blockedSections).toEqual([]);
+  expect(ss.leftSkills).toEqual([c0.skill]);
+  expect(ss.lastSkip).toBeNull();
+  expect(sk.state.skills[c0.skill]).toEqual({ ...s0.skills[c0.skill], height: 1, windowStartSeq: s0.answered + 1 });
+  // no effort, no answer, no history entry; the skipped card still counts as served (R5)
+  expect({ spent: ss.spent, h3: ss.h3Spent, day: sk.state.day!.effort, answered: sk.state.answered, history: ss.history.length })
+    .toEqual({ spent: 0, h3: 0, day: 0, answered: s0.answered, history: 0 });
+  expect(ss.servedCards[0]).toBe(c0.card);
+  expect(sk.events.map((e) => e.type)).toEqual(["skip", "card_served"]);
+  expect(sk.events[0].data).toMatchObject({
+    card: c0.card, section: B, skill: c0.skill, reason: "too-hard", scope: "card", fromLevel: 2, toLevel: 1, drip: false,
+  });
+  // the section stays: the next card may come from B (another skill); the skipped skill never comes back this session
+  const rest = run(C, sk, T0 + 10_000, allR);
+  const cards = [cardOf(sk), ...cardsOf(rest.steps)];
+  expect(cards.filter((c) => c.skill === c0.skill)).toEqual([]);
+  expect(cards.some((c) => c.section === B)).toBe(true);
+  expect(lastStep(rest.steps).next.kind).toBe("end");
+  // a repair and a queued return of that skill are dropped; another skill's stay
+  const w = answer(st.state, C, { card: c0.card, choice: choiceFor(C, c0, "w"), ms: 8000 }, T0 + 10_000);
+  const rc = cardOf(w);
+  expect(rc).toMatchObject({ reason: "repair:missing-piece", skill: c0.skill });
+  const patched: State = { ...w.state, session: { ...w.state.session!, returns: [{ skill: c0.skill, afterCard: 50 }, { skill: "a1", afterCard: 50 }] } };
+  const sk2 = skip(patched, C, { card: rc.card, reason: "too-hard" }, T0 + 20_000);
+  expect(sk2.state.session!.repair).toBeNull();
+  expect(sk2.state.session!.returns).toEqual([{ skill: "a1", afterCard: 50 }]);
+  expect(sk2.state.sections).toEqual(patched.sections);
+  expect(cardOf(sk2).skill).not.toBe(c0.skill);
+  // deterministic, input untouched, JSON-safe
+  const before = JSON.stringify(st.state);
+  const again = tooHard({ ...st, state: JSON.parse(before) as State }, T0 + 10_000);
+  expect(JSON.stringify(st.state)).toBe(before);
+  expect(JSON.stringify(again)).toBe(JSON.stringify(sk));
+  expect(JSON.parse(JSON.stringify(sk.state))).toEqual(sk.state);
+});
+
+test("too-hard at the lowest level: skill rests 3 days, section stays", () => {
+  const s0 = startedAll(1, {}, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s0, C, T0);
+  const c0 = cardOf(st);
+  expect(c0).toMatchObject({ section: B, height: 1 });
+  const sk = tooHard(st, T0 + 10_000);
+  expect(sk.next.kind).toBe("card");
+  expect(sk.state.sections).toEqual(s0.sections);
+  expect(sk.state.skills[c0.skill]).toEqual({ ...s0.skills[c0.skill], nextReviewDay: D0 + cfg.skip.tooHardRestDays });
+  expect(cfg.skip.tooHardRestDays).toBe(3);
+  expect(sk.state.session!.leftSkills).toEqual([c0.skill]);
+  expect(sk.events[0].data).toMatchObject({ scope: "card", skill: c0.skill, fromLevel: 1, toLevel: 1 });
+  // A brand-new skill's first card (no record yet, section never skipped): the record is created, the section is not.
+  const fresh = startSession(newState("s", 3), C, T0);
+  const f0 = cardOf(fresh);
+  expect(f0.height).toBe(1); // the first-session ladder starts at level 1
+  expect(fresh.state.skills[f0.skill]).toBeUndefined();
+  const fk = tooHard(fresh, T0 + 10_000);
+  expect(fk.state.skills[f0.skill]).toMatchObject({ height: 1, attempts: [], nextReviewDay: D0 + 3 });
+  expect(fk.state.sections).toEqual({});
+  expect(fk.events[0].data).toMatchObject({ scope: "card", skill: f0.skill, fromLevel: 1, toLevel: 1 });
+  // A new skill first served at level 2 starts at the lowest level below it (level 1), with no rest.
+  // (the served card is made a guided card of a skill not started yet)
+  const l0: Served = { ...f0, card: "a2.h2.1", skill: "a2", section: A, variant: 0, height: 2, effort: cfg.effort.h2 };
+  expect(fresh.state.skills.a2).toBeUndefined();
+  const lk = tooHard({ ...fresh, state: { ...fresh.state, session: { ...fresh.state.session!, served: l0 } }, next: { kind: "card", card: l0 } }, T0 + 10_000);
+  expect(lk.state.skills[l0.skill]).toMatchObject({ height: 1, attempts: [], nextReviewDay: null });
+  expect(lk.state.sections).toEqual({});
+  expect(lk.events[0].data).toMatchObject({ fromLevel: 2, toLevel: 1 });
+});
+
+test("too-hard never returns confirm-skip, even on a section skipped before", () => {
+  const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5, skipCount: 1, returned: true }) } });
+  const st = startSession(s0, C, T0);
+  expect(cardOf(st).section).toBe(B);
+  const sk = tooHard(st, T0 + 10_000);
+  expect(sk.next.kind).toBe("card");
+  expect(sk.state.sections).toEqual(s0.sections);
+  // the same section with no reason still asks first
+  expect(skip(st.state, C, { card: cardOf(st).card }, T0 + 10_000).next.kind).toBe("confirm-skip");
+  // a close card skipped as too hard does not count toward maxExtraClose
+  const closing = { ...st.state, session: { ...st.state.session!, phase: "closing" as const, closeServed: 1 } };
+  const ck = skip(closing, C, { card: cardOf(st).card, reason: "too-hard" }, T0 + 10_000);
+  expect(ck.state.session!.closeServed).toBe(1);
+  expect(cardOf(ck)).toMatchObject({ reason: "close:winnable" });
+  // a drip card: card level, the drip is not stopped and the section's skipped state is unchanged
+  const dripS = startedAll(2, {}, { sessionCount: 1, sections: waitingB(D0 + 3) });
+  const p = play(C, dripS, T0, until(isDrip));
+  const dk = tooHard(lastStep(p.steps), p.now + 10_000);
+  expect(dk.next.kind).toBe("card");
+  expect(dk.state.sections[B]).toEqual(lastStep(p.steps).state.sections[B]);
+  expect(dk.state.sections[B].dripStopped).toBe(false);
+  expect(dk.events[0].data).toMatchObject({ scope: "card", drip: true });
+  // a side-door card: card level, the section is still waiting to come back
+  const sideS = startedAll(2, {}, { sections: waitingB(D0) });
+  const q = play(C, sideS, T0, until(isSide));
+  const sdk = tooHard(lastStep(q.steps), q.now + 10_000);
+  expect(sdk.next.kind).toBe("card");
+  expect(sdk.state.sections[B]).toEqual(lastStep(q.steps).state.sections[B]);
+  expect(sdk.state.sections[B]).toMatchObject({ skipCount: 1, returned: false, remindDay: D0 });
+});
+
+test("later / not-learned / no reason: section skip as before, skippedLevel recorded, scope section", () => {
+  for (const reason of ["later", "not-learned", undefined] as const) {
+    const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } });
+    const st = startSession(s0, C, T0);
+    const c0 = cardOf(st);
+    expect(c0.section).toBe(B);
+    const sk = skip(st.state, C, { card: c0.card, ...(reason ? { reason } : {}) }, T0 + 10_000);
+    expect(sk.state.sections[B]).toEqual({
+      skipCount: 1, remindDay: D0 + 3, lastReason: reason ?? "later", dripStopped: false, liking: 4, returned: false,
+      skipTotal: 1, lastSkipSeq: 1000, skippedLevel: c0.height,
+    });
+    expect(sk.state.session!.blockedSections).toEqual([B]);
+    expect(sk.state.session!.leftSkills).toEqual([]);
+    expect(sk.state.skills[c0.skill]).toEqual(s0.skills[c0.skill]);
+    expect(sk.events[0].data).toMatchObject({ scope: "section", section: B, reason: reason ?? "later" });
+    expect(sk.events[0].data.fromLevel).toBeUndefined();
+    expect(sk.state.session!.lastSkip).toEqual({ section: B, skill: c0.skill, level: c0.height, before: section({ liking: 5 }), card: c0.card });
+  }
+  // a skip of a section with no record: lastSkip.before is null
+  const st = startSession(startedAll(2), C, T0);
+  const sk = skip(st.state, C, { card: cardOf(st).card }, T0 + 10_000);
+  expect(st.state.sections[cardOf(st).section]).toBeUndefined();
+  expect(sk.state.session!.lastSkip).toMatchObject({ section: cardOf(st).section, before: null });
+  // session end clears lastSkip
+  expect(run(C, sk, T0 + 10_000, allR).state.session).toBeNull();
+});
+
+test("setSkipReason too-hard after a section skip: section record restored exactly, section unblocked, skill stepped down", () => {
+  for (const sections of [{ [B]: section({ liking: 5, skipCount: 2, skipTotal: 4, returned: true, lastReason: "not-learned", lastSkipSeq: 900, skippedLevel: 3 }) }, {}] as Record<string, SectionRec>[]) {
+    const s0 = startedAll(2, { b1: { attempts: atts(2, 9, 0, D0 - 2) } }, { sections });
+    const st = startSession(s0, C, T0);
+    const c0 = cardOf(st);
+    const sec = c0.section;
+    const sk = skip(st.state, C, { card: c0.card, confirmed: true }, T0 + 10_000);
+    expect(sk.state.session!.blockedSections).toEqual([sec]);
+    const frozen = JSON.stringify(sk.state);
+    const out = setSkipReason(sk.state, C, sec, "too-hard", T0 + 12_000);
+    expect(JSON.stringify(sk.state)).toBe(frozen);
+    if (s0.sections[sec]) expect(out.state.sections[sec]).toEqual(s0.sections[sec]);
+    else expect(sec in out.state.sections).toBe(false);
+    const ss = out.state.session!;
+    expect(ss.blockedSections).toEqual([]);
+    expect(ss.leftSkills).toEqual([c0.skill]);
+    expect(ss.lastSkip).toBeNull();
+    expect(ss.served).toEqual(sk.state.session!.served); // the open card stays
+    expect(out.state.skills[c0.skill]).toEqual({ ...s0.skills[c0.skill], height: 1, windowStartSeq: s0.answered + 1 });
+    expect(out.events).toHaveLength(1);
+    expect(out.events[0]).toMatchObject({
+      type: "skip_reason", data: { section: sec, reason: "too-hard", scope: "card", skill: c0.skill, fromLevel: 2, toLevel: 1 },
+    });
+    expect(JSON.parse(JSON.stringify(out.state))).toEqual(out.state);
+    // a second call: nothing left to convert, the section has no skip (or only its old ones): as today
+    const twice = setSkipReason(out.state, C, sec, "too-hard", T0 + 13_000);
+    expect(twice.state.session!.lastSkip).toBeNull();
+    expect(twice.state.skills[c0.skill]).toEqual(out.state.skills[c0.skill]);
+  }
+});
+
+test("setSkipReason too-hard for an older skip or a closed session: only lastReason changes", () => {
+  const s0 = startedAll(2, {}, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s0, C, T0);
+  expect(cardOf(st).section).toBe(B);
+  const skB = skip(st.state, C, { card: cardOf(st).card }, T0 + 10_000);
+  const only = (from: State, sec: string) => {
+    const out = setSkipReason(from, C, sec, "too-hard", T0 + 30_000);
+    expect(out.state.sections[sec]).toEqual({ ...from.sections[sec], lastReason: "too-hard" });
+    expect({ ...out.state, sections: {}, seq: 0, lastNow: 0 }).toEqual({ ...from, sections: {}, seq: 0, lastNow: 0 });
+    expect(out.events).toHaveLength(1);
+    expect(out.events[0].data).toEqual({ section: sec, reason: "too-hard" });
+  };
+  // the session's last skip is another section's (the fixture has two sections: a real skip of A would end the session)
+  expect(cardOf(skB).section).toBe(A);
+  const ssB = skB.state.session!;
+  only({ ...skB.state, session: { ...ssB, lastSkip: { ...ssB.lastSkip!, section: A } } }, B);
+  // a later card-level skip clears lastSkip too
+  const skC = tooHard(skB, T0 + 20_000);
+  expect(skC.state.session!.lastSkip).toBeNull();
+  only(skC.state, B);
+  // the session has closed
+  const closed = run(C, skB, T0 + 10_000, allR).state;
+  expect(closed.session).toBeNull();
+  only(closed, B);
+});
+
+test("side door after skipping a level-3 card is level 2 or 1; after a level-2 card is level 1; never level 3", () => {
+  // the skipped card's level is recorded by the skip
+  const s3 = startedAll(2, { b1: { height: 3, noFullUntilDay: null }, b2: { height: 3, noFullUntilDay: null } }, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s3, C, T0);
+  expect(cardOf(st).section).toBe(B);
+  // the served card made a full problem (the open pick here is a guided one)
+  const full: Served = { ...cardOf(st), card: "b1.h3", skill: "b1", variant: 0, height: 3, effort: cfg.effort.h3 };
+  const at3 = { ...st.state, session: { ...st.state.session!, served: full } };
+  expect(skip(at3, C, { card: "b1.h3" }, T0 + 10_000).state.sections[B].skippedLevel).toBe(3);
+  expect(skip(st.state, C, { card: cardOf(st).card }, T0 + 10_000).state.sections[B].skippedLevel).toBe(cardOf(st).height);
+  const sideOf = (c: typeof C, skippedLevel: 1 | 2 | 3 | null, over: Record<string, Partial<SkillRec>> = {}) => {
+    const p = play(c, startedAll(2, over, { sections: waitingB(D0, { skippedLevel }) }), T0, allR);
+    return cardsOf(p.steps).filter(isSide);
+  };
+  const b3 = { b1: { height: 3 as const, noFullUntilDay: null }, b2: { height: 3 as const, noFullUntilDay: null } };
+  // after a level-3 card: the lowest level first (1), level 2 when the section has no level-1 card
+  expect(sideOf(C, 3, b3).map((c) => c.height)).toEqual([1]);
+  expect(sideOf(fixture({ drop: noH1B }), 3, b3).map((c) => c.height)).toEqual([2]);
+  // after a level-2 card (and for an old state with no level): level 1
+  expect(sideOf(C, 2, b3).map((c) => c.height)).toEqual([1]);
+  expect(sideOf(C, null, b3).map((c) => c.height)).toEqual([1]);
+  expect(sideOf(C, 1, b3).map((c) => c.height)).toEqual([1]);
+  // never level 3, even when that is all the section has
+  expect(sideOf(fixture({ drop: [...noH1B, ...noH2B] }), 3, b3)).toEqual([]);
+  expect(sideOf(fixture({ drop: noH1B }), 2, b3)).toEqual([]);
+});
+
+test("no card below the skipped level: section rejoins with a section_rejoined event and no side-door card", () => {
+  const noH1 = fixture({ drop: noH1B });
+  const b3 = { b1: { height: 3 as const, noFullUntilDay: null, nextReviewDay: D0 }, b2: { height: 3 as const, noFullUntilDay: null, nextReviewDay: D0 } };
+  const s0 = startedAll(2, b3, { sections: waitingB(D0, { skippedLevel: 2 }) });
+  const p = play(noH1, s0, T0, allR);
+  const ev = p.steps.flatMap((s) => s.events).filter((e) => e.type === "section_rejoined");
+  expect(ev.map((e) => e.data)).toEqual([{ section: B }]);
+  const cards = cardsOf(p.steps);
+  expect(cards.filter(isSide)).toEqual([]);
+  // the session goes on: B's cards are served like any other, at their lowest level, no full problem for 2 days
+  const i = p.steps.findIndex((s) => s.events.some((e) => e.type === "section_rejoined"));
+  const after = p.steps[i].state;
+  expect(after.sections[B]).toMatchObject({ returned: true, remindDay: null, skipCount: 1 });
+  for (const id of ["b1", "b2"]) expect(after.skills[id]).toMatchObject({ height: 2, noFullUntilDay: D0 + cfg.returning.noFullDays });
+  expect(cards.filter((c) => c.section === B).length).toBeGreaterThan(0);
+  expect(cards.filter((c) => c.section === B).every((c) => c.height === 2)).toBe(true);
+  // once per skip cycle: another session the same day rejoins nothing
+  const again = play(noH1, p.state, p.now + 60_000, allR);
+  expect(again.steps.flatMap((s) => s.events).filter((e) => e.type === "section_rejoined")).toEqual([]);
+  // not before the section is due
+  const early = play(noH1, startedAll(2, b3, { sections: waitingB(D0 + 1, { skippedLevel: 2 }) }), T0, allR);
+  expect(early.steps.flatMap((s) => s.events).filter((e) => e.type === "section_rejoined")).toEqual([]);
+  expect(cardsOf(early.steps).filter((c) => c.section === B && !isDrip(c))).toEqual([]);
+  // deterministic
+  expect(JSON.stringify(play(noH1, s0, T0, allR))).toBe(JSON.stringify(p));
+});
+
+test("migrate defaults skippedLevel and lastSkip", () => {
+  const st = startSession(startedAll(2, {}, { sections: { [B]: section({ skipCount: 1, remindDay: D0 + 3, lastReason: "later" }) } }), C, T0);
+  const { lastSkip: _ls, ...oldSession } = st.state.session!;
+  const { skippedLevel: _sl, ...oldSec } = st.state.sections[B];
+  const m = migrate(JSON.parse(JSON.stringify({ ...st.state, session: oldSession, sections: { [B]: oldSec } })));
+  expect(m.session!.lastSkip).toBeNull();
+  expect(m.sections[B].skippedLevel).toBeNull();
+  expect(m.sections[B]).toEqual(st.state.sections[B]);
+  // kept when present
+  const kept = { ...st.state, sections: { [B]: { ...st.state.sections[B], skippedLevel: 3 as const } } };
+  expect(migrate(JSON.parse(JSON.stringify(kept))).sections[B].skippedLevel).toBe(3);
+  expect(newState("s", 1).sections).toEqual({});
 });

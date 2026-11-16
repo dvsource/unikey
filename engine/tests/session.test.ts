@@ -779,7 +779,7 @@ function leadA1(): State {
   return withProfile(s, { stamina: 30 });
 }
 function section() {
-  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null };
+  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null, skippedLevel: null };
 }
 const cardOf = (st: Step): Served => {
   if (st.next.kind !== "card") throw new Error(`expected a card, got ${st.next.kind}`);
@@ -1006,7 +1006,7 @@ test("fix 1/2: a due skill served by the ladder below its record and answered ri
   const s0 = startedState({
     a1: rec(2, atts(2, 1, 0, D0 - 3), nd), a2: rec(3, atts(3, 1, 0, D0 - 3), { nextReviewDay: D0, gapIndex: 1 }),
     b1: rec(2, atts(2, 1, 0, D0 - 3), nd), b2: rec(2, atts(2, 1, 0, D0 - 3), nd),
-  }, { sessionCount: 1, seen, sections: { "u.t1/B": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 2, returned: false, skipTotal: 0, lastSkipSeq: null } } });
+  }, { sessionCount: 1, seen, sections: { "u.t1/B": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 2, returned: false, skipTotal: 0, lastSkipSeq: null, skippedLevel: null } } });
   const { steps } = play(C, s0, T0, allR);
   const cards = served(steps);
   expect(cards.slice(0, 3).map((c) => [c.skill, c.height])).toEqual([["b2", 1], ["b1", 1], ["a2", 2]]);

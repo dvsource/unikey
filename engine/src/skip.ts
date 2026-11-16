@@ -2,15 +2,21 @@
 // the section's return. Internal helpers for session.ts, plus `valueMessage` and `setCurrentTopic`.
 import { defaultConfig, type Config } from "./config.js";
 import { byId } from "./util.js";
-import { isSolid } from "./skill.js";
+import { isSolid, newSkillRec } from "./skill.js";
 import { expectedSuccess } from "./estimate.js";
-import { avail, firstOf, servable, solidNeighbour } from "./pick.js";
-import { begin, emit } from "./step.js";
-import type { Content, EngineEvent, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage } from "./types.js";
+import { avail, eligibleCard, firstOf, servable, solidNeighbour } from "./pick.js";
+import { stepDownOnce } from "./repair.js";
+import { begin, emit, type Run } from "./step.js";
+import type {
+  Content, EngineEvent, Height, PickCtx, Picked, SectionRec, Served, SessionState, SkipReason, State, ValueMessage,
+} from "./types.js";
 
 /** A section with no history yet. */
 export function newSectionRec(): SectionRec {
-  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null };
+  return {
+    skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null,
+    skippedLevel: null,
+  };
 }
 
 function sectionRec(state: State, section: string): SectionRec {
@@ -40,12 +46,31 @@ export function setCurrentTopic(state: State, topic: string | null, source: "cla
 
 /**
  * F10 (spec §6): the one-tap reason, given on the toast after a skip. Sets the reason of the section's most recent
- * skip (`lastReason`) and appends one `skip_reason` event. Nothing else changes now: a too-hard skip's lower heights are
- * applied when the section returns, and the remind day never changes. A section never skipped: no change, no event.
+ * skip (`lastReason`) and appends one `skip_reason` event; the remind day never changes. A section never skipped: no
+ * change, no event.
+ * Change 6: "too-hard" for the session's last section-level skip (`session.lastSkip`, this section, session still open)
+ * undoes that section skip instead: the section's record goes back exactly to what it was before (none, if it had none),
+ * the section is no longer blocked this session, and the card-level rule applies to the skipped card's skill. The event
+ * then has `scope: "card"`, `skill`, `fromLevel`, `toLevel`. A repair or queued returns the section skip dropped for
+ * other skills of the section are not restored.
  */
 export function setSkipReason(
   state: State, content: Content, section: string, reason: SkipReason, now: number, cfg: Config = defaultConfig,
 ): { state: State; events: EngineEvent[] } {
+  const last = state.session?.lastSkip;
+  if (reason === "too-hard" && last && last.section === section) {
+    const r = begin(state, content, now, cfg);
+    const ss = r.s.session!;
+    const sections = { ...r.s.sections };
+    if (last.before === null) delete sections[section];
+    else sections[section] = { ...last.before };
+    r.s.sections = sections;
+    ss.blockedSections = ss.blockedSections.filter((x) => x !== section);
+    ss.lastSkip = null;
+    const out = cardLevelRule(r.s, content, last.skill, last.level, r.day, cfg);
+    emit(r, "skip_reason", { section, reason, scope: "card", ...out });
+    return { state: r.s, events: r.events };
+  }
   if ((state.sections[section]?.skipTotal ?? 0) === 0) return { state, events: [] };
   const r = begin(state, content, now, cfg);
   r.s.sections = { ...r.s.sections, [section]: { ...r.s.sections[section], lastReason: reason } };
@@ -97,15 +122,25 @@ function skippedSections(state: State, content: Content, ctx: PickCtx, keep: (s:
 }
 
 /**
- * Side door: one section whose time has come; its card at the lowest available height, preferring a skill
- * with a solid `requires`/`helps` neighbour, then the highest expectedSuccess (then id). Higher heights
- * are tried only when nothing lower is eligible, so the section never fails to come back.
+ * Change 6: the levels a side door may serve: below the level of the card whose skip put the section away, never 3;
+ * level 1 when that was a level-1 card or is unknown (a skip from before change 6).
+ */
+function sideDoorLevels(rec: SectionRec): Height[] {
+  const below = ([1, 2] as Height[]).filter((h) => h < (rec.skippedLevel ?? 1));
+  return below.length > 0 ? below : [1];
+}
+
+/**
+ * Side door: one section whose time has come; its card at the lowest allowed height (`sideDoorLevels`), preferring a
+ * skill with a solid `requires`/`helps` neighbour, then the highest expectedSuccess (then id). Nothing above the allowed
+ * levels (change 6): a section with no card there rejoins silently instead (`rejoinSilently`).
  */
 function pickSideDoor(state: State, content: Content, ctx: PickCtx, cfg: Config, capOnly = false): Picked | null {
   const due = (s: string) => sideDoorDue(state, content, s, ctx.day, cfg) && (!capOnly || atCap(state, s, ctx.day, cfg));
   for (const sec of skippedSections(state, content, ctx, due)) {
+    const allowed = sideDoorLevels(state.sections[sec]);
     const cs = content.sections[sec].skills.map((id) => content.skills[id]).filter((d) => !!d)
-      .flatMap((def) => avail(def).map((height) => ({
+      .flatMap((def) => avail(def).filter((h) => allowed.includes(h)).map((height) => ({
         def, height, nb: solidNeighbour(state, content, def, cfg) !== undefined ? 0 : 1, es: expectedSuccess(state, def.id, height, cfg),
       })))
       .sort((x, y) => x.height - y.height || x.nb - y.nb || y.es - x.es || byId(x.def.id, y.def.id));
@@ -129,6 +164,26 @@ function pickDrip(state: State, content: Content, ctx: PickCtx, cfg: Config): Pi
 }
 
 /**
+ * Change 6: a skipped section whose time has come (`sideDoorDue`: remind day, class timing; the cap is past the remind
+ * day) but with no eligible card at the side door's allowed levels comes back without a card: `bringBack`, one
+ * `section_rejoined` event. Sections skipped this session (`blocked`) are left out. Once per skip cycle (the section is
+ * then returned); in section-id order.
+ */
+export function rejoinSilently(r: Run, blocked: string[]): void {
+  const { s, content, cfg, day } = r;
+  const ids = Object.keys(s.sections).filter((sec) => content.sections[sec] && awaiting(s.sections[sec]) && !blocked.includes(sec)
+    && sideDoorDue(s, content, sec, day, cfg)).sort(byId);
+  for (const sec of ids) {
+    const allowed = sideDoorLevels(s.sections[sec]);
+    const open = content.sections[sec].skills.some((id) => !!content.skills[id]
+      && allowed.some((h) => eligibleCard(s, content, id, h, day, s.rng, {}, cfg) !== null));
+    if (open) continue;
+    bringBack(s, content, sec, day, cfg);
+    emit(r, "section_rejoined", { section: sec });
+  }
+}
+
+/**
  * A middle-of-session card for a skipped section: the side door (one section per session, plus any section whose
  * cap has come: `atCap`), else the
  * drip (once per session, every `dripEverySessions`-th session, after `skip.dripAfterCards` answered cards).
@@ -143,15 +198,72 @@ export function pickSkipCard(state: State, content: Content, ss: SessionState, c
 }
 
 /**
- * Applies "Not now" to the served card `sv` on the run's own copy `s`. A drip card only stops the drip.
- * Otherwise (side-door cards included) the section's count and remind day move on, it leaves this session,
- * loses liking, and any repair or queued return for its skills is dropped. Costs no effort. Returns event data.
+ * Change 6, the card-level "too hard" rule for `skill` (a card at `level` was too hard), on the run's own copy `s`: the
+ * skill's record goes down one level that has cards (`stepDownOnce`, step window restarted); at its lowest level it
+ * rests instead (`nextReviewDay = day + skip.tooHardRestDays`). A skill with no record gets one at the lowest level with
+ * cards below `level`, or at `level`, resting, when there is none. The skill is left for the session (`leftSkills`); its
+ * repair, waiting ramp card and queued return are dropped. No section changes. Returns the event fields.
+ */
+function cardLevelRule(s: State, content: Content, skill: string, level: Height, day: number, cfg: Config):
+  { skill: string; fromLevel: Height; toLevel: Height } {
+  const ss = s.session!;
+  const def = content.skills[skill];
+  const rec = s.skills[skill];
+  const fromLevel = rec?.height ?? level;
+  let toLevel = fromLevel;
+  const rest = day + cfg.skip.tooHardRestDays;
+  if (def && rec) {
+    const down = stepDownOnce(rec, def, s.answered + 1);
+    if (down.height < rec.height) toLevel = down.height;
+    s.skills[skill] = down.height < rec.height ? down : { ...rec, nextReviewDay: rest };
+  } else if (def) {
+    const low = avail(def).find((h) => h < level);
+    toLevel = low ?? level;
+    s.skills[skill] = low !== undefined ? newSkillRec(low) : { ...newSkillRec(level), nextReviewDay: rest };
+  }
+  ss.leftSkills = [...ss.leftSkills.filter((x) => x !== skill), skill];
+  if (ss.repair && ss.repair.skill === skill) ss.repair = null;
+  if (ss.ramp && ss.ramp.skill === skill) ss.ramp = null;
+  ss.returns = ss.returns.filter((q) => q.skill !== skill);
+  ss.confident = ss.confident.filter((x) => x !== skill);
+  return { skill, fromLevel, toLevel };
+}
+
+/**
+ * Change 6: "Not now" with reason "too-hard" on the served card `sv` (any card: drip and side door included), on the
+ * run's own copy `s`: `cardLevelRule` for its skill. The section is not touched and not blocked; costs no effort; no
+ * history entry; the card stays in `servedCards`; a close card does not count toward `sessionEnd.maxExtraClose`.
+ * Clears `lastSkip`. Returns event data (`scope: "card"`).
+ */
+export function applyCardSkip(s: State, content: Content, sv: Served, day: number, cfg: Config): Record<string, unknown> {
+  const ss = s.session!;
+  const out = cardLevelRule(s, content, sv.skill, sv.height, day, cfg);
+  ss.lastSkip = null;
+  if (ss.phase === "closing" && ss.closeServed > 0) ss.closeServed -= 1;
+  ss.served = null;
+  const rec = s.sections[sv.section];
+  return {
+    card: sv.card, variant: sv.variant, skill: sv.skill, section: sv.section, served: sv.reason, drip: sv.reason === "skipped-drip",
+    reason: "too-hard", scope: "card", fromLevel: out.fromLevel, toLevel: out.toLevel,
+    skipCount: rec?.skipCount ?? 0, remindDay: rec?.remindDay ?? null,
+  };
+}
+
+/**
+ * Applies "Not now" (no reason, "later" or "not-learned") to the served card `sv` on the run's own copy `s`: a
+ * section-level skip. A drip card only stops the drip.
+ * Otherwise (side-door cards included) the section's count and remind day move on, `skippedLevel` is the card's level,
+ * it leaves this session, loses liking, and any repair or queued return for its skills is dropped. Costs no effort.
+ * `session.lastSkip` remembers the section's record from before (for `setSkipReason(…, "too-hard")`). Returns event
+ * data (`scope: "section"`).
  */
 export function applySkip(s: State, content: Content, sv: Served, reason: SkipReason | undefined, day: number, cfg: Config): Record<string, unknown> {
   const ss = s.session!;
   const sec = sv.section;
   const rec = sectionRec(s, sec);
   const drip = sv.reason === "skipped-drip";
+  const old = s.sections[sec];
+  ss.lastSkip = { section: sec, skill: sv.skill, level: sv.height, before: old ? { ...old } : null, card: sv.card };
   if (drip) {
     s.sections = { ...s.sections, [sec]: { ...rec, dripStopped: true } };
   } else {
@@ -162,6 +274,7 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
       [sec]: {
         ...rec, skipCount: n, skipTotal: rec.skipTotal + 1, lastSkipSeq: s.answered, remindDay: day + gaps[Math.min(n - 1, gaps.length - 1)], lastReason: reason ?? "later",
         dripStopped: false, returned: false, liking: Math.max(-cfg.liking.clamp, rec.liking - cfg.skip.likingPenalty),
+        skippedLevel: sv.height,
       },
     };
     const inSec = (skill: string) => content.skills[skill]?.section === sec;
@@ -175,8 +288,23 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
   const out = s.sections[sec];
   return {
     card: sv.card, variant: sv.variant, skill: sv.skill, section: sec, served: sv.reason, drip,
-    reason: out.lastReason, skipCount: out.skipCount, remindDay: out.remindDay,
+    reason: out.lastReason, scope: "section", skipCount: out.skipCount, remindDay: out.remindDay,
   };
+}
+
+/**
+ * A skipped section comes back (through the side door, or silently: change 6): returned, no remind day, its started
+ * skills at their lowest height with no height 3 for `returning.noFullDays`.
+ */
+function bringBack(s: State, content: Content, sec: string, day: number, cfg: Config): void {
+  s.sections = { ...s.sections, [sec]: { ...s.sections[sec], returned: true, remindDay: null } };
+  for (const id of content.sections[sec]?.skills ?? []) {
+    const def = content.skills[id];
+    const rec = s.skills[id];
+    if (!def || !rec) continue;
+    const low = servable(def, 1) ?? rec.height;
+    s.skills[id] = { ...rec, height: low, noFullUntilDay: day + cfg.returning.noFullDays, windowStartSeq: low === rec.height ? rec.windowStartSeq : s.answered + 1 };
+  }
 }
 
 /**
@@ -188,14 +316,7 @@ export function afterSectionAnswer(s: State, content: Content, sv: Served, right
   const sec = sv.section;
   let reveal: { section: string } | undefined;
   if (sv.reason === "side-door" && awaiting(s.sections[sec])) {
-    s.sections = { ...s.sections, [sec]: { ...s.sections[sec], returned: true, remindDay: null } };
-    for (const id of content.sections[sec]?.skills ?? []) {
-      const def = content.skills[id];
-      const rec = s.skills[id];
-      if (!def || !rec) continue;
-      const low = servable(def, 1) ?? rec.height;
-      s.skills[id] = { ...rec, height: low, noFullUntilDay: day + cfg.returning.noFullDays, windowStartSeq: low === rec.height ? rec.windowStartSeq : s.answered + 1 };
-    }
+    bringBack(s, content, sec, day, cfg);
     if (right) reveal = { section: sec };
   }
   const rec = s.sections[sec];

@@ -35,8 +35,9 @@ export const defaultConfig = {
   /**
    * Skip (spec §6): drip only after this many answered cards; liking lost per skip; skills named in the value
    * message; class timing brings a not-learned section back no sooner than this many days after the skip.
+   * `tooHardRestDays` (change 6): a card skipped as "too hard" at its skill's lowest level puts the skill off this long.
    */
-  skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 },
+  skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2, tooHardRestDays: 3 },
   /** Closing (spec §2): a card answered right this many days ago or more may be served again as the close:winnable card. */
   closing: { repeatRightAfterDays: 3 },
   /**
