@@ -59,7 +59,7 @@ test("expectedSuccess: student's own prior once ≥ 10 attempts at that height a
   const s = st({ a2: rec(1, { attempts: nine }), b2: rec(1, { attempts: [att(1, false)] }) });
   // 3 right of 10 → own prior 0.3 for a skill with no history
   expect(expectedSuccess(s, "b1", 1, cfg)).toBeCloseTo(0.3, 10);
-  expect(cfg.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8 });
+  expect(cfg.estimate).toEqual({ priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8, minRunning: 3 });
 });
 
 test("usualMs: median of last ms, null under 5 samples", () => {
@@ -363,7 +363,8 @@ test("comfort correction (R2): lower height first, then expectedSuccess; never h
   const r = pickMiddle(s, C, ctx({ runningRight: 1, runningTotal: 4, newSkillsThisSession: 2 }), cfg)!;
   expect(r.served).toMatchObject({ skill: "a1", height: 1, reason: "comfort-correction" });
   // Nothing due, no new skill allowed, running rate at comfort: the fallback still keeps height 3 last.
-  const r2 = pickMiddle(s, C, ctx({ runningRight: 4, runningTotal: 4, newSkillsThisSession: 2 }), cfg)!;
+  // (Change 5: at comfort, not 4 of 4: well above it, an extra new skill would come first.)
+  const r2 = pickMiddle(s, C, ctx({ runningRight: 3, runningTotal: 4, newSkillsThisSession: 2 }), cfg)!;
   expect(r2.served.reason).toBe("comfort-correction");
   expect(r2.served.height).toBeLessThan(3);
   // After two "I don't know" (fewer than three answers): the fallback goes lowest height first.
@@ -436,4 +437,93 @@ test("F9: closeSweepReason: a height-1/2 sweep pick while closing is close:winna
   // every height-1/2 card seen lately: the height-3 card is the easiest eligible
   const lowSeen = seenAll(Object.keys(C.cards).filter((id) => !id.endsWith(".h3")), D);
   expect(closeSweepReason(st({ a1: notDue(1) }, { seen: lowSeen }), C, ctx(), cfg, 3)).toBe("close:winnable");
+});
+
+// ---------- change 5: stretch cards when a student is well above target ----------
+
+/** a1 record 2 (h2 0.9), b1 record 1 (h1 prior 0.85), b2 record 2 and due (h2 prior 0.7); a2 not started. */
+const stretchState = (over: Record<string, Partial<SkillRec>> = {}) => st({
+  a1: notDue(2, { attempts: [att(2, true), att(2, true), att(2, true), att(2, true)], ...over.a1 }),
+  b1: notDue(1, over.b1), b2: due(2, 1, over.b2),
+});
+const above = (p: Partial<PickCtx> = {}) => ctx({ runningRight: 4, runningTotal: 4, newSkillsThisSession: 2, ...p });
+
+test("4 of 4 right, comfort 0.75 → next middle card is stretch:up one level above the skill's level", () => {
+  expect(cfg.comfort.pushUpBand).toBe(0.1);
+  expect(cfg.estimate.minRunning).toBe(3);
+  const s = stretchState();
+  expect(s.profile.comfort).toBe(0.75);
+  // Before the usual order (b2 is due): the started skill with the highest estimate at its own level, one level up.
+  const r = pickMiddle(s, C, above(), cfg)!;
+  expect(r.served).toMatchObject({ skill: "a1", height: 3, reason: "stretch:up", effort: cfg.effort.h3 });
+  expect(r.extraNew).toBeUndefined();
+  // a1 may not have a level-3 card today (back from a skip) → b1 (h1 0.85 beats b2's h2 0.7) at level 2.
+  const noFull = stretchState({ a1: { noFullUntilDay: D + 1 } });
+  expect(pickMiddle(noFull, C, above(), cfg)!.served).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
+  // noFullUntilDay today or earlier does not forbid it.
+  expect(pickMiddle(stretchState({ a1: { noFullUntilDay: D } }), C, above(), cfg)!.served).toMatchObject({ skill: "a1", height: 3 });
+  // Every standing rule applies: excluded / left skills, the budget, the recent cards, a blocked section, 14 days.
+  expect(pickMiddle(s, C, above({ excludeSkills: ["a1"] }), cfg)!.served).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
+  expect(pickMiddle(s, C, above({ leftSkills: ["a1"] }), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
+  expect(pickMiddle(s, C, above({ remaining: 3, strictBudget: true }), cfg)!.served).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
+  expect(pickMiddle(s, C, above({ recentCards: ["a1.h3"] }), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
+  expect(pickMiddle(s, C, above({ blockedSections: ["u.t1/A"] }), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
+  const a1h3Seen = { ...s, seen: Array.from({ length: 20 }, (_, v) => ({ card: "a1.h3", variant: v, day: D - 1 })) };
+  expect(pickMiddle(a1h3Seen, C, above(), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
+  // Exactly one level above the record: a record-1 skill whose level-2 cards are gone does not jump to 3.
+  const noB1h2 = fixture({ drop: ["b1.h2.1", "b1.h2.2", "b1.h2.3"] });
+  expect(pickMiddle(s, noB1h2, above({ excludeSkills: ["a1"] }), cfg)!.served).toMatchObject({ skill: "b2", height: 3, reason: "stretch:up" });
+  // Weight breaks a tie in the estimate, then id: b1 / b2 both at record 1 with no history (0.85).
+  const tie = st({ b1: notDue(1), b2: notDue(1) });
+  expect(pickMiddle(tie, C, above(), cfg)!.served).toMatchObject({ skill: "b2", height: 2 }); // b2 weight 0.4 > b1 0.2
+  const c2 = structuredClone(C); c2.skills["b1"].weight = 0.4;
+  expect(pickMiddle(tie, c2, above(), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
+  // Deterministic, inputs untouched.
+  const before = JSON.stringify(s);
+  expect(pickMiddle(s, C, above(), cfg)).toEqual(r);
+  expect(JSON.stringify(s)).toBe(before);
+});
+
+test("3 of 4 right (0.75 < 0.85) → no stretch", () => {
+  const s = stretchState();
+  expect(pickMiddle(s, C, above({ runningRight: 3 }), cfg)!.served).toMatchObject({ skill: "b2", height: 2, reason: "due-review" });
+  // At comfort + band exactly (e.g. a higher comfort lowers nothing): 0.85 needs 0.85 of the answers.
+  const hi = { ...s, profile: { ...s.profile, comfort: 0.8 } };
+  expect(pickMiddle(hi, C, above({ runningRight: 8, runningTotal: 9 }), cfg)!.served.reason).toBe("due-review"); // 0.889 < 0.9
+  expect(pickMiddle(hi, C, above({ runningRight: 9, runningTotal: 10 }), cfg)!.served.reason).toBe("stretch:up"); // 0.9
+  // 17 of 20 = 0.85 at comfort 0.75 is enough.
+  expect(pickMiddle(s, C, above({ runningRight: 17, runningTotal: 20 }), cfg)!.served.reason).toBe("stretch:up");
+});
+
+test("fewer than 3 answers → no stretch", () => {
+  const s = stretchState();
+  expect(pickMiddle(s, C, above({ runningRight: 2, runningTotal: 2 }), cfg)!.served).toMatchObject({ skill: "b2", reason: "due-review" });
+  expect(pickMiddle(s, C, above({ runningRight: 0, runningTotal: 0 }), cfg)!.served).toMatchObject({ skill: "b2", reason: "due-review" });
+  expect(pickMiddle(s, C, above({ runningRight: 3, runningTotal: 3 }), cfg)!.served).toMatchObject({ skill: "a1", reason: "stretch:up" });
+  // The session's off switch (open cards, the card after a miss or a stretch card, the ladder) wins.
+  expect(pickMiddle(s, C, above({ stretchOff: true }), cfg)!.served).toMatchObject({ skill: "b2", reason: "due-review" });
+});
+
+test("no skill can go up → one extra new skill beyond maxNewSkills", () => {
+  // a1 at the top (3), nothing else started: no stretch card. The new-skill allowance is used up.
+  const s = st({ a1: notDue(3, { attempts: [att(3, true), att(3, true)] }) });
+  const r = pickMiddle(s, C, above(), cfg)!;
+  expect(r.served).toMatchObject({ skill: "b2", reason: "new:exam-weight" }); // highest weight, ready
+  expect(r.extraNew).toBe(true);
+  // Current topic → new:class-topic.
+  const t = pickMiddle({ ...s, currentTopic: { id: "u.t2", source: "class" } }, twoTopics(), above(), cfg)!;
+  expect(t.served).toMatchObject({ skill: "a2", reason: "new:class-topic" });
+  // One extra per session: once used, the usual order (no new skill).
+  const used = pickMiddle(s, C, above({ extraNewUsed: true }), cfg)!;
+  expect(used.served).toMatchObject({ skill: "a1", reason: "comfort-correction" });
+  expect(used.extraNew).toBeUndefined();
+  // Not above comfort + band → no extra new skill.
+  expect(pickMiddle(s, C, above({ runningRight: 3 }), cfg)!.served.reason).toBe("comfort-correction");
+  // While the allowance is not used up, the usual order serves new skills (not flagged as the extra).
+  const usual = pickMiddle(s, C, above({ newSkillsThisSession: 1 }), cfg)!;
+  expect(usual.served.reason).toBe("new:exam-weight");
+  expect(usual.extraNew).toBeUndefined();
+  // A stretch candidate wins over the extra new skill.
+  const two = st({ a1: notDue(3), b1: notDue(1) });
+  expect(pickMiddle(two, C, above(), cfg)!.served).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
 });

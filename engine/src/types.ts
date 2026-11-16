@@ -87,6 +87,14 @@ export type SessionState = {
   ladderCard: string | null;
   /** Change 4: level-3 cards served by `pickLadder` this session (at most `ladder.maxFullPerSession`). */
   ladderFull: number;
+  /**
+   * Change 5: the card id of the `stretch:up` pick being served, or waiting behind the ramp card just served, else null.
+   * Only a right answer on this card raises the skill's record. Set: the last served card was a stretch card (or its
+   * ramp card), so the next one is not.
+   */
+  stretchCard: string | null;
+  /** Change 5: the one extra new skill beyond `session.maxNewSkills` has been served this session. */
+  extraNew: boolean;
 };
 
 export type Choice = number | "dont-know";
@@ -138,7 +146,7 @@ export type Ladder = { level: Height; rightRun: number };
 
 export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
   | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"
-  | "comfort-correction" | "extend:liked" | "comeback:solid" | "fallback:any";
+  | "comfort-correction" | "extend:liked" | "comeback:solid" | "fallback:any" | "stretch:up";
 
 export type Served = {
   card: string; variant: number; skill: string; section: string; height: Height;
@@ -163,9 +171,17 @@ export type PickCtx = {
   recentCards?: string[]; leftSkills?: string[];
   /** Change 4: level-3 cards `pickLadder` has served this session (default 0). */
   ladderFull?: number;
+  /**
+   * Change 5: no stretch card now (the session's opening cards, the ladder, the card after a miss or after a stretch
+   * card). Repairs, closing and "5 more" never call `pickMiddle`.
+   */
+  stretchOff?: boolean;
+  /** Change 5: the session's one extra new skill (beyond `session.maxNewSkills`) is used. */
+  extraNewUsed?: boolean;
 };
 
-export type Picked = { served: Served; rng: Rng };
+/** `extraNew` (change 5): the pick is the session's one extra new skill beyond `session.maxNewSkills`. */
+export type Picked = { served: Served; rng: Rng; extraNew?: true };
 
 /** A repair in flight (spec §5). `tag` / `note` are absent (never undefined) when unknown. */
 export type RepairState = { skill: string; failedHeight: Height; tag?: string; note?: string; stage: "piece" | "confidence" };

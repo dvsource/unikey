@@ -76,6 +76,7 @@ Every card has a `reason`. The app can log it; the student never sees it.
 | `extend:liked` | one of the "5 more" cards |
 | `comeback:solid` | after 3 or more days away, a skill the student was solid on |
 | `fallback:any` | nothing the plan wanted was left, so any card still eligible |
+| `stretch:up` | a card one level above the student's usual one, because today is going well |
 
 ## Skip and its reason
 

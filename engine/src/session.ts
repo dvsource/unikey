@@ -60,13 +60,17 @@ const pickNumbers = (p: State["profile"]) => ({ comfort: p.comfort, memory: p.me
 function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[] = []): PickCtx {
   const ss = r.s.session!;
   const done = ss.history.filter((h) => h.right !== null);
+  // Change 5: no stretch card among the opening cards, in a ladder session, during a repair, while closing or in
+  // "5 more", right after a miss (wrong or "I don't know"), or right after a stretch card (or the ramp card before one).
+  const stretchOff = ss.history.length < r.cfg.session.openCards || ladderOn(r) || ss.repair !== null
+    || ss.phase === "closing" || ss.phase === "extend" || ss.stretchCard !== null || done.at(-1)?.right === false;
   return {
     day: r.day, sessionDay: r.sessionDay, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
     runningRight: done.filter((h) => h.right).length, runningTotal: done.length,
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
     excludeSkills: [...(strict ? ss.returns.map((q) => q.skill) : []), ...ss.leftSkills],
-    recentCards: recentCards(r), leftSkills: ss.leftSkills, ladderFull: ss.ladderFull,
+    recentCards: recentCards(r), leftSkills: ss.leftSkills, ladderFull: ss.ladderFull, stretchOff, extraNewUsed: ss.extraNew,
   };
 }
 /** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
@@ -97,12 +101,17 @@ function withReason(p: Picked | null, reason: Reason): Picked | null {
  * when served, so it counts as started even if skipped; any other new skill gets it, at the served height, on its answer.
  * `ladder`: the card is a `pickLadder` pick (change 4): its answer moves the ladder. Any other card clears the mark,
  * except a ramp card served in front of a waiting ladder pick.
+ * `stretch`: the card is a `stretch:up` pick (change 5): a right answer raises its skill's record. The mark follows the
+ * ladder's (a ramp card in front of a waiting stretch pick keeps it; any other card clears it). `p.extraNew`: the pick
+ * is the session's one extra new skill.
  */
-function serve(r: Run, p: Picked, sweep = false, ladder = false): Next {
+function serve(r: Run, p: Picked, sweep = false, ladder = false, stretch = false): Next {
   const ss = r.s.session!;
   const sv = p.served;
   r.s.rng = p.rng;
   ss.ladderCard = ladder ? sv.card : ss.ramp !== null && ss.ramp.card === ss.ladderCard ? ss.ladderCard : null;
+  ss.stretchCard = stretch ? sv.card : ss.ramp !== null && ss.ramp.card === ss.stretchCard ? ss.stretchCard : null;
+  if (p.extraNew === true) ss.extraNew = true;
   if (ladder && sv.height === 3) ss.ladderFull += 1;
   if (!(sv.skill in r.s.skills)) {
     ss.newSkills += 1;
@@ -177,7 +186,7 @@ function normal(r: Run, last: Last): Next {
     ss.ramp = null;
     if (!ss.blockedSections.includes(q.section) && q.effort <= room) {
       ss.tailCard = q.card; // the second half of a ramp: not a first card back for memory
-      return serve(r, { served: q, rng: s.rng }, false, ss.ladderCard === q.card);
+      return serve(r, { served: q, rng: s.rng }, false, ss.ladderCard === q.card, ss.stretchCard === q.card);
     }
   }
   // Change 4: while the ladder is active, open and middle picks come from pickLadder (the level follows the answers).
@@ -238,13 +247,16 @@ function normal(r: Run, last: Last): Next {
 /**
  * Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card.
  * `ladder`: a pickLadder pick (change 4); behind a ramp card it is still the ladder card (the ramp card is not).
+ * The same for a `stretch:up` pick (change 5): the ramp card keeps the pick's reason, the mark stays on the pick.
  */
 function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   const ss = r.s.session!;
+  const stretch = p.served.reason === "stretch:up";
   const ramp = rampBefore(r.s, r.content, p, ss.history.map((h) => h.skill), r.day, room, r.cfg, recentCards(r));
-  if (!ramp) return serve(r, p, false, ladder);
+  if (!ramp) return serve(r, p, false, ladder, stretch);
   ss.ramp = p.served;
   ss.ladderCard = ladder ? p.served.card : null;
+  ss.stretchCard = stretch ? p.served.card : null;
   return serve(r, ramp);
 }
 
@@ -351,7 +363,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0,
+    sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
@@ -385,6 +397,8 @@ export function answer(
   r.s.answered += 1;
   // Change 4: only an answer on a pickLadder card moves the ladder.
   const fromLadder = r.s.ladder !== null && r.s.session!.ladderCard === sv.card;
+  // Change 5: an answer on the stretch card itself (not the ramp card in front of it).
+  const fromStretch = sv.reason === "stretch:up" && r.s.session!.stretchCard === sv.card;
   let steppedDown = false;
   let belowRecord = false;
   const def = content.skills[sv.skill];
@@ -398,8 +412,9 @@ export function answer(
     // Fix round 1: a due skill answered right on a ladder card below its record gets its next review as recordAttempt
     // would give it at the record (which reschedules only at or above the record), so it is not served again as due.
     belowRecord = fromLadder && sv.height < rec0.height;
+    // Change 5: a right stretch answer sets the record the same way (a stretch miss leaves it; the repair follows).
     let rec1 = out.rec;
-    if (fromLadder && right && sv.height > rec0.height) rec1 = { ...rec1, height: sv.height, windowStartSeq: r.s.answered + 1 };
+    if ((fromLadder || fromStretch) && right && sv.height > rec0.height) rec1 = { ...rec1, height: sv.height, windowStartSeq: r.s.answered + 1 };
     else if (belowRecord && right && isDue(rec0, r.day)) {
       const gaps = cfg.reviewGapsDays;
       rec1 = {

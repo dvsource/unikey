@@ -2,6 +2,7 @@ import { test, expect } from "vitest";
 import { defaultConfig as cfg } from "../src/config.js";
 import { migrate, newState } from "../src/state.js";
 import { pickAny } from "../src/pick.js";
+import { isCalcWeak } from "../src/profile.js";
 import { DAY_MS, dayOf } from "../src/time.js";
 import { answer, endSession, extend, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
@@ -1030,4 +1031,148 @@ test("fix 3: an all-right session 2 starting at ladder level 3 serves one level-
   expect(cards.length).toBeGreaterThan(3);
   expect(cards.slice(1).every((c) => c.height <= 2)).toBe(true);
   expect(s2.state.ladder!.level).toBe(3); // the ladder's own level stays 3
+});
+
+// ---------- change 5: stretch cards when a student is well above target ----------
+
+/** Each served card with the state it was served in and the last answer before it (null: none, or skips only). */
+function servedIn(steps: Step[]): { sv: Served; at: State; prev: Served | null; lastRight: boolean | null }[] {
+  const out: { sv: Served; at: State; prev: Served | null; lastRight: boolean | null }[] = [];
+  let prev: Served | null = null;
+  for (const st of steps) {
+    if (st.next.kind !== "card") continue;
+    const h = st.state.session!.history;
+    out.push({ sv: st.next.card, at: st.state, prev, lastRight: h.length ? h[h.length - 1].right : null });
+    prev = st.next.card;
+  }
+  return out;
+}
+
+test("right on a stretch card → record moves to that level; miss → record unchanged and repair card is below the stretch level", () => {
+  const s0 = startedAt(1, 4, 0);
+  const p = play(C, s0, T0, allR);
+  const cards = served(p.steps);
+  const k = cards.findIndex((c) => c.reason === "stretch:up");
+  expect(k).toBeGreaterThanOrEqual(cfg.session.openCards);
+  const sv = cards[k];
+  const before = p.steps[k].state;
+  expect(before.session!.stretchCard).toBe(sv.card);
+  expect(sv.height).toBe(before.skills[sv.skill].height + 1);
+  const after = p.steps[k + 1].state;
+  expect(after.skills[sv.skill].height).toBe(sv.height);
+  expect(after.skills[sv.skill].windowStartSeq).toBe(after.answered + 1);
+  // its review is scheduled by recordAttempt as usual (the attempt is above the old record)
+  expect(after.skills[sv.skill].nextReviewDay).toBe(D0 + cfg.reviewGapsDays[0]);
+  expect(after.skills[sv.skill].gapIndex).toBe(1);
+  expect(cards[k + 1].reason).not.toBe("stretch:up"); // never two stretch cards in a row
+
+  for (const miss of ["w", "dk"] as const) {
+    const m = play(C, s0, T0, (_c, i) => (i < k ? "r" : i === k ? miss : undefined));
+    const mc = served(m.steps);
+    expect(mc[k]).toEqual(sv);
+    const rec0 = m.steps[k].state.skills[sv.skill];
+    const rec1 = m.steps[k + 1].state.skills[sv.skill];
+    expect(rec1.height).toBe(rec0.height);
+    expect(rec1.windowStartSeq).toBe(rec0.windowStartSeq);
+    expect(m.steps[k + 1].state.session!.repair).toMatchObject({ skill: sv.skill, failedHeight: sv.height, stage: "piece" });
+    expect(mc[k + 1].reason).toBe("repair:missing-piece");
+    expect(mc[k + 1].height).toBeLessThan(sv.height);
+  }
+});
+
+test("never during repair, closing or '5 more'", () => {
+  const patterns: ((s: Served, i: number) => "r" | "w" | "dk" | "s")[] = [
+    allR, (_s, i) => (i === 4 ? "w" : "r"), (_s, i) => (i === 3 || i === 7 ? "w" : "r"), (_s, i) => (i === 5 ? "dk" : "r"),
+    (_s, i) => (i === 4 ? "s" : "r"), (_s, i) => (i % 5 === 4 ? "w" : "r"), (s) => (s.reason === "stretch:up" ? "w" : "r"),
+  ];
+  let stretched = 0;
+  for (const start of [startedAt(1, 4, 0), startedAt(2, 4, 0, { a1: { noFullUntilDay: null }, b2: { noFullUntilDay: null } }), fastStart()]) {
+    for (const ans of patterns) {
+      for (const { sv, at, prev, lastRight } of servedIn(play(C, start, T0, ans).steps)) {
+        if (sv.reason !== "stretch:up") continue;
+        stretched++;
+        const ss = at.session!;
+        expect(ss.history.length).toBeGreaterThanOrEqual(cfg.session.openCards); // not an opening card
+        expect(ss.phase).toBe("middle"); // not closing, not "5 more"
+        expect(ss.repair).toBeNull(); // not during a repair
+        expect(lastRight).toBe(true); // never after a miss
+        expect(prev?.reason).not.toBe("stretch:up"); // at most one in a row
+        expect(ss.returns.some((q) => q.skill === sv.skill)).toBe(false); // not a skill waiting for its return
+      }
+    }
+  }
+  expect(stretched).toBeGreaterThan(5);
+  // "5 more" after an all-right session (running rate 1): no stretch card among the extra cards.
+  const p = play(C, fastStart(), T0, allR, { offer: "stop" });
+  expect(lastStep(p.steps).next).toEqual({ kind: "offer-extend" });
+  const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
+  const extra = served([ex, ...run(C, ex, p.now + 5000, allR).steps]);
+  expect(extra.length).toBe(5);
+  expect(extra.every((c) => c.reason === "extend:liked")).toBe(true);
+  // Closing after a wrong answer at the end: close cards, no stretch card.
+  const q = play(C, startedAt(1, 4, 0), T0, (_s, i) => (i < 6 ? "r" : "w"));
+  const closing = servedIn(q.steps).filter((x) => x.at.session!.phase === "closing");
+  expect(closing.length).toBeGreaterThan(0);
+  expect(closing.every((x) => x.sv.reason !== "stretch:up")).toBe(true);
+});
+
+test("stretch is off while the ladder is active", () => {
+  const s = startedAt(1, 4, 0);
+  const ladder = play(C, { ...s, sessionCount: 1, ladder: { level: 1, rightRun: 0 } }, T0, allR);
+  expect(ladder.steps[0].state.ladder).not.toBeNull();
+  const lc = served(ladder.steps);
+  expect(lc.length).toBeGreaterThan(cfg.session.openCards + cfg.estimate.minRunning);
+  expect(lc.some((c) => c.reason === "stretch:up")).toBe(false);
+  // The same student past the first sessions gets stretch cards.
+  const later = play(C, s, T0, allR);
+  expect(later.steps[0].state.ladder).toBeNull();
+  expect(served(later.steps).some((c) => c.reason === "stretch:up")).toBe(true);
+});
+
+test("change 5: a stretch card to level 3 for a calculation-weak student keeps its mark behind the ramp card", () => {
+  const nd = { nextReviewDay: D0 + 20 };
+  const s0 = withProfile(startedState({
+    a1: rec(2, atts(2, 11, 1, D0 - 2), nd), a2: rec(2, atts(2, 11, 1, D0 - 2), nd),
+    b1: rec(2, atts(3, 2, 10, D0 - 2), nd), b2: rec(2, atts(3, 2, 10, D0 - 2), nd),
+  }), { stamina: 30 });
+  expect(isCalcWeak(s0, cfg)).toBe(true);
+  const { steps } = play(C, s0, T0, allR);
+  const cards = served(steps);
+  const k = cards.findIndex((c, i) => c.reason === "stretch:up" && c.height === 3 && i > 0 && cards[i - 1].height === 2
+    && cards[i - 1].skill === c.skill && cards[i - 1].reason === "stretch:up");
+  expect(k).toBeGreaterThan(0);
+  const ramp = cards[k - 1];
+  const sv = cards[k];
+  // The ramp card is served with the stretch card's mark waiting behind it.
+  expect(steps[k - 1].state.session!.stretchCard).toBe(sv.card);
+  expect(steps[k - 1].state.session!.ramp).toMatchObject({ card: sv.card, height: 3 });
+  // A right ramp answer does not raise the record; the level-3 card behind it does.
+  expect(steps[k].state.skills[ramp.skill].height).toBe(2);
+  expect(steps[k].state.session!.stretchCard).toBe(sv.card);
+  expect(steps[k + 1].state.skills[sv.skill].height).toBe(3);
+  expect(steps[k + 1].state.skills[sv.skill].windowStartSeq).toBe(steps[k + 1].state.answered + 1);
+  expect(cards[k + 1]?.reason).not.toBe("stretch:up");
+});
+
+test("change 5: one extra new skill per session when no skill can go up; migrate defaults the session's stretch fields", () => {
+  // Only a1 started, at the top level: no stretch card. All right: at most maxNewSkills + 1 new skills.
+  const s0 = withProfile(startedState({ a1: rec(3, atts(3, 4, 0, D0 - 2), { nextReviewDay: D0 + 20 }) }), { stamina: 30 });
+  const { steps } = play(C, s0, T0, allR);
+  // (a new skill picked by pickMiddle gets its SkillRec on its answer, so it is not in state when served)
+  const fresh = servedIn(steps).filter(({ sv, at }) => sv.reason.startsWith("new:") && !(sv.skill in at.skills));
+  expect(fresh.length).toBe(cfg.session.maxNewSkills + 1);
+  const ends = steps.filter((x) => x.state.session).map((x) => x.state.session!);
+  const last = ends[ends.length - 1];
+  expect(last.extraNew).toBe(true);
+  expect(last.newSkills).toBe(cfg.session.maxNewSkills + 1);
+  // Before the extra was served the flag was off.
+  expect(fresh[0].at.session!.extraNew).toBe(false);
+  expect(fresh[fresh.length - 1].at.session!.extraNew).toBe(true);
+  // migrate: a stored open session without the fields gets them.
+  const open = steps.find((x) => x.state.session)!.state;
+  const { stretchCard: _a, extraNew: _b, ...old } = JSON.parse(JSON.stringify(open.session)) as NonNullable<State["session"]>;
+  const m = migrate({ ...JSON.parse(JSON.stringify(open)), session: old });
+  expect(m.session!.stretchCard).toBeNull();
+  expect(m.session!.extraNew).toBe(false);
+  expect(migrate(JSON.parse(JSON.stringify(open)))).toEqual(open);
 });

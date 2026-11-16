@@ -252,6 +252,16 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
     return firstOf(state, content, rows, () => "comfort-correction", ctx, cfg);
   }
 
+  // Change 5: well above comfort, a stretch card (or one extra new skill) before the usual order.
+  if (!ctx.stretchOff && rate !== null && ctx.runningTotal >= cfg.estimate.minRunning && rate >= comfort + cfg.comfort.pushUpBand) {
+    const p = pickStretch(state, content, st, ctx, cfg);
+    if (p) return p;
+    if (ctx.newSkillsThisSession >= cfg.session.maxNewSkills && ctx.extraNewUsed !== true) {
+      const extra = firstOf(state, content, newCands(state, content, ctx, cfg), (c) => newReason(c, cur), ctx, cfg);
+      if (extra) return { ...extra, extraNew: true };
+    }
+  }
+
   // (1) due skills
   const due = withHeight(state, st.filter((d) => isDue(state.skills[d.id], ctx.day)), cfg)
     .sort((x, y) => inTopic(x.def) - inTopic(y.def) || y.def.weight - x.def.weight
@@ -262,12 +272,7 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
 
   // (2) a new skill
   if (ctx.newSkillsThisSession < cfg.session.maxNewSkills && (rate === null || rate >= comfort)) {
-    const fresh = cardSkills(content, Object.keys(content.skills))
-      .filter((d) => !(d.id in state.skills) && isReady(state, content, d));
-    const cands = withHeight(state, fresh, cfg)
-      .sort((x, y) => inTopic(x.def) - inTopic(y.def) || y.def.weight - x.def.weight
-        || h3Rank(x.height, state, ctx) - h3Rank(y.height, state, ctx) || byId(x.def.id, y.def.id));
-    const p2 = firstOf(state, content, cands, (c) => (c.def.topic === cur ? "new:class-topic" : "new:exam-weight"), ctx, cfg);
+    const p2 = firstOf(state, content, newCands(state, content, ctx, cfg), (c) => newReason(c, cur), ctx, cfg);
     if (p2) return p2;
   }
 
@@ -278,6 +283,37 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
     .flatMap((c) => (c.height === 3 ? avail(c.def) : [c.height]).map((h) => ({ def: c.def, height: h, es: expectedSuccess(state, c.def.id, h, cfg) })))
     .sort((x, y) => Number(x.height === 3) - Number(y.height === 3) || y.es - x.es || byId(x.def.id, y.def.id));
   return firstOf(state, content, easy, () => "comfort-correction", ctx, cfg);
+}
+
+/** Not-started, ready skills at their start height: current topic first, then weight, the h3 share, id. */
+function newCands(state: State, content: Content, ctx: PickCtx, cfg: Config): Cand[] {
+  const cur = state.currentTopic?.id ?? null;
+  const inTopic = (d: SkillDef) => (d.topic === cur ? 0 : 1);
+  const fresh = cardSkills(content, Object.keys(content.skills)).filter((d) => !(d.id in state.skills) && isReady(state, content, d));
+  return withHeight(state, fresh, cfg)
+    .sort((x, y) => inTopic(x.def) - inTopic(y.def) || y.def.weight - x.def.weight
+      || h3Rank(x.height, state, ctx) - h3Rank(y.height, state, ctx) || byId(x.def.id, y.def.id));
+}
+
+const newReason = (c: Cand, cur: string | null): Reason => (c.def.topic === cur ? "new:class-topic" : "new:exam-weight");
+
+/**
+ * Change 5: a started skill at exactly one level above its recorded level (`stretch:up`). Level 3 not while the
+ * skill's `noFullUntilDay` is after today. Highest expectedSuccess at the skill's current level first, then higher
+ * weight, then id. The shared check keeps out blocked sections, left and excluded skills (a skill waiting for its
+ * repair return), cards seen lately or over the budget. `pickMiddle` is never called while a repair is in flight.
+ */
+function pickStretch(state: State, content: Content, st: SkillDef[], ctx: PickCtx, cfg: Config): Picked | null {
+  const cands = st.flatMap((def) => {
+    const rec = state.skills[def.id];
+    const cur = currentHeight(state, def, cfg);
+    if (rec.height >= 3 || cur === null) return [];
+    const height = (rec.height + 1) as Height;
+    if (def.cards[height].length === 0) return [];
+    if (height === 3 && rec.noFullUntilDay !== null && rec.noFullUntilDay > ctx.day) return [];
+    return [{ def, height, es: expectedSuccess(state, def.id, cur, cfg) }];
+  }).sort((x, y) => y.es - x.es || y.def.weight - x.def.weight || byId(x.def.id, y.def.id));
+  return firstOf(state, content, cands, () => "stretch:up", ctx, cfg);
 }
 
 /** Ready to introduce: every `requires` skill started, or without cards. */

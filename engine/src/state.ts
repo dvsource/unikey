@@ -26,6 +26,7 @@ export function migrate(json: unknown): State {
     ...s.session, sideDoor: s.session.sideDoor ?? null, confident: s.session.confident ?? [],
     badDay: s.session.badDay ?? s.session.fadeEffort != null, slowBefore: s.session.slowBefore ?? [], servedCards: s.session.servedCards ?? [],
     leftSkills: s.session.leftSkills ?? [], ladderCard: s.session.ladderCard ?? null, ladderFull: s.session.ladderFull ?? 0,
+    stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false,
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, { ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null }]));
   return {
