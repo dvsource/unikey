@@ -536,31 +536,32 @@ test("no skill can go up → one extra new skill beyond maxNewSkills", () => {
   expect(pickMiddle(two, C, above(), cfg)!.served).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
 });
 
-test("change 5 fix: a stretch skill needs its own evidence: estimate at its level ≥ comfort and its last two attempts there right", () => {
-  expect(cfg.stepUp.rightInRow).toBe(2);
+test("change 5 fix: a stretch skill needs its own evidence: estimate at its level ≥ comfort and its most recent attempt there right", () => {
   // Only b1 started (record 1); the session is well above comfort; the extra new skill is used, so no stretch → usual order.
   const only = (attempts: Attempt[], extra: Partial<SkillRec> = {}) => st({ b1: notDue(1, { attempts, ...extra }) });
   const pick = (s: State) => pickMiddle(s, C, above({ extraNewUsed: true }), cfg)!.served;
   const F = (h: Height) => att(h, false);
-  // right, right → stretched
-  expect(pick(only(rights(1, 2)))).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
-  // right, wrong / wrong only / one attempt / none → not
-  expect(pick(only([att(1, true), F(1)])).reason).not.toBe("stretch:up");
-  expect(pick(only([att(1, true)])).reason).not.toBe("stretch:up");
+  const R = (h: Height) => att(h, true);
+  // right → candidate (one attempt is enough; estimate (1 + 1.7) / 3 = 0.9)
+  expect(pick(only([R(1)]))).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
+  // wrong then right → candidate (estimate of right, right, wrong, right: 4.7 / 6 ≈ 0.78)
+  expect(pick(only([R(1), R(1), F(1), R(1)]))).toMatchObject({ skill: "b1", height: 2, reason: "stretch:up" });
+  // right then wrong / wrong as the most recent → not (right ×3, wrong: estimate 0.78, so only the last answer decides)
+  expect(pick(only([R(1), F(1)])).reason).not.toBe("stretch:up");
+  expect(pick(only([R(1), R(1), R(1), F(1)])).reason).not.toBe("stretch:up");
+  // no attempt at the current level → not; attempts at another level do not count
   expect(pick(only([])).reason).not.toBe("stretch:up");
-  // wrong, right, right, right → stretched (the last two count; same day, no "cards apart" rule); estimate 4.7 / 6 ≈ 0.78
-  expect(pick(only([F(1), att(1, true, D), att(1, true, D), att(1, true, D)])).reason).toBe("stretch:up");
-  // Attempts at other levels do not count: right ×3, wrong at level 1 (estimate 0.78), then two right at level 2.
-  expect(pick(only([...rights(1, 3), F(1), ...rights(2, 2)])).reason).not.toBe("stretch:up");
-  // Attempts before the step window do not count (the step-up rule's window).
-  const before = [att(1, true), att(1, true)];
+  expect(pick(only([R(2), R(2)])).reason).not.toBe("stretch:up");
+  expect(pick(only([R(1), R(1), R(1), F(1), R(2), R(2)])).reason).not.toBe("stretch:up");
+  // attempts before the step window do not count (the step-up rule's window)
+  const before = [R(1), R(1)];
   expect(pick(only(before, { windowStartSeq: before[1].seq + 1 })).reason).not.toBe("stretch:up");
-  // Last two right but the estimate at its level below comfort: (2 + 1.7) / 7 ≈ 0.53 < 0.75 → not stretched.
-  const weak = only([F(1), F(1), F(1), att(1, true), att(1, true)]);
+  // most recent right but the estimate at its level below comfort: (2 + 1.7) / 7 ≈ 0.53 < 0.75 → not
+  const weak = only([F(1), F(1), F(1), R(1), R(1)]);
   expect(expectedSuccess(weak, "b1", 1, cfg)).toBeLessThan(weak.profile.comfort);
   expect(pick(weak).reason).not.toBe("stretch:up");
-  // In the full state with a1 and b1 excluded: b2 (estimate (4 + 1.4) / 7 ≈ 0.77, but its last two right, wrong) is not
-  // stretched although the session rate is high: the usual order serves it as due.
+  // In the full state with a1 and b1 excluded: b2 (estimate (4 + 1.4) / 7 ≈ 0.77, most recent wrong) is not stretched
+  // although the session rate is high: the usual order serves it as due.
   const s = stretchState({ b2: { attempts: [...rights(2, 4), F(2)] } });
   expect(pickMiddle(s, C, above({ excludeSkills: ["a1", "b1"], extraNewUsed: true }), cfg)!.served.reason).toBe("due-review");
 });
