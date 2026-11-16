@@ -782,8 +782,8 @@ const cardOf = (st: Step): Served => {
   return st.next.card;
 };
 
-function twoMisses(a: "w" | "dk") {
-  const s0 = startSession(leadA1(), C, T0);
+function twoMisses(a: "w" | "dk", start: State = leadA1()) {
+  const s0 = startSession(start, C, T0);
   expect(cardOf(s0)).toMatchObject({ skill: "a1", height: 3 });
   const s1 = answer(s0.state, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), a), ms: 8000 }, T0 + 10_000);
   expect(cardOf(s1)).toMatchObject({ skill: "a1", reason: "repair:missing-piece" });
@@ -810,7 +810,7 @@ function expectLeft(s2: Step): void {
   expect(r.state.skills["a1"].nextReviewDay).toBe(D0 + 1);
 }
 
-test("two misses in a row on a skill → skill in leftSkills, not served again this session, next card from another section at its easiest", () => {
+test("two misses in a row on a skill → skill in leftSkills, one level down (once), back tomorrow, not served again this session, next card from another section at its easiest", () => {
   expectLeft(twoMisses("w").s2);
   // two misses outside a repair count the same: a miss on a1 already in the session's answers, then a1 missed again
   const s0 = startSession(leadA1(), C, T0);
@@ -856,4 +856,55 @@ test("migrate defaults leftSkills on an open session", () => {
   const kept = migrate(JSON.parse(JSON.stringify({ ...s, session: { ...s.session!, leftSkills: ["a1"] } })));
   expect(kept.session!.leftSkills).toEqual(["a1"]);
   expect(migrate(JSON.parse(JSON.stringify(newState("s", 1)))).session).toBeNull();
+});
+
+test("after a skill is left, closing cards (bad-day path) and \"5 more\" cards never use it", () => {
+  // closing: everything after the leave answered wrong → bad day → close cards; a1 (liked section A, level-1 cards)
+  // would be the first close pick without the leave
+  const { s2 } = twoMisses("w");
+  const bad = run(C, s2, T0 + 20_000, () => "w");
+  const after = served([s2, ...bad.steps]);
+  expect(after.some((c) => c.reason === "close:winnable")).toBe(true);
+  expect(after.every((c) => c.skill !== "a1")).toBe(true);
+  expect(bad.state.session).toBeNull();
+
+  // "5 more": everything right after the leave (a good day) → offer → extend → five extra cards, none on a1
+  // usual times at every height, so a good day can offer "5 more"
+  const usual = withProfile(leadA1(), { msByHeight: { 1: Array(5).fill(8000), 2: Array(5).fill(8000), 3: Array(5).fill(8000) } });
+  const g2 = twoMisses("w", usual).s2;
+  expect(g2.state.session!.leftSkills).toEqual(["a1"]);
+  const good = run(C, g2, T0 + 20_000, allR, { offer: "stop" });
+  expect(lastStep(good.steps).next.kind).toBe("offer-extend");
+  expect(good.state.session!.leftSkills).toEqual(["a1"]);
+  const e0 = extend(good.state, C, good.now + 1000);
+  const more = run(C, e0, good.now + 1000, allR);
+  const extra = served([e0, ...more.steps]).filter((c) => c.reason === "extend:liked" || c.reason === "fallback:any");
+  expect(extra.length).toBeGreaterThan(0);
+  expect(served([e0, ...more.steps]).every((c) => c.skill !== "a1")).toBe(true);
+  expect(endOf(lastStep(more.steps)).kind).toBe("extended-done");
+});
+
+test("leaving a neighbour-piece skill: the repair it was a piece for ends; a repair of another skill not on a repair card runs on", () => {
+  // a2's repair, its piece served from the requires skill a1, after a1 was already missed: two misses on a1
+  const s0 = startSession(leadA1(), C, T0);
+  const piece: Served = { card: "a1.h1.1", variant: 0, skill: "a1", section: "u.t1/A", height: 1, reason: "repair:missing-piece", effort: cfg.effort.h1 };
+  const st = structuredClone(s0.state);
+  st.session!.history = [{ skill: "a1", right: false, ms: 8000, bad: false, height: 3, slow: false }];
+  st.session!.repair = { skill: "a2", failedHeight: 2, stage: "piece" };
+  st.session!.served = piece;
+  const s1 = answer(st, C, { card: piece.card, choice: choiceFor(C, piece, "w"), ms: 8000 }, T0 + 10_000);
+  expect(s1.state.session!.leftSkills).toEqual(["a1"]);
+  expect(s1.state.session!.repair).toBeNull();
+  expect(cardOf(s1)).toMatchObject({ section: "u.t1/B", reason: "comfort-correction" });
+
+  // a repair of a2 in flight while a b1 card (not a repair card) is missed for the second time: b1 is left, a2's runs on
+  const other: Served = { card: "b1.h1.1", variant: 0, skill: "b1", section: "u.t1/B", height: 1, reason: "comfort-correction", effort: cfg.effort.h1 };
+  const so = structuredClone(s0.state);
+  so.session!.history = [{ skill: "b1", right: false, ms: 8000, bad: false, height: 1, slow: false }];
+  so.session!.repair = { skill: "a2", failedHeight: 3, stage: "confidence" };
+  so.session!.served = other;
+  const o1 = answer(so, C, { card: other.card, choice: choiceFor(C, other, "w"), ms: 8000 }, T0 + 10_000);
+  expect(o1.state.session!.leftSkills).toEqual(["b1"]);
+  expect(o1.state.session!.repair).toEqual({ skill: "a2", failedHeight: 3, stage: "confidence" });
+  expect(cardOf(o1)).toMatchObject({ skill: "a2", reason: "repair:confidence" });
 });

@@ -15,7 +15,8 @@ import type {
 
 /**
  * After an answer: `avoid`, a section to leave after a failed repair; `leave`, the section of a skill just left after
- * two misses in a row (change 2): the next card is the easiest eligible one outside it.
+ * two misses in a row (change 2): the next card is the easiest eligible one outside it. `leave` is set only in the
+ * open/middle phases; closing and "5 more" ignore it (their own picks already leave out the session's left skills).
  */
 type Last = { avoid?: string; leave?: string } | null;
 
@@ -400,11 +401,15 @@ export function answer(
     ss.badMoments.push(i);
     ss.history[i].bad = true;
     ss.leftSkills = [...ss.leftSkills.filter((x) => x !== sv.skill), sv.skill];
-    ss.repair = null;
+    // The repair goes when it is the left skill's, or when the missed card was its piece / confidence card (even a
+    // neighbour skill's piece: that repair has failed, and there is no second repair). Any other repair runs on.
+    const repairCard = sv.reason === "repair:missing-piece" || sv.reason === "repair:confidence";
+    if (ss.repair && (ss.repair.skill === sv.skill || repairCard)) ss.repair = null;
     ss.ramp = null;
     ss.returns = ss.returns.filter((q) => q.skill !== sv.skill);
     ss.confident = ss.confident.filter((x) => x !== sv.skill);
     const lrec = r.s.skills[sv.skill];
+    // Ruling (fix round 1): a left skill goes down one level, once: not again when recordAttempt just stepped it down.
     if (def && lrec) r.s.skills[sv.skill] = { ...(steppedDown ? lrec : stepDownOnce(lrec, def, r.s.answered + 1)), nextReviewDay: r.day + 1 };
     if (ss.phase === "open" || ss.phase === "middle") leave = sv.section;
   } else if (ss.phase === "open" || ss.phase === "middle") {
