@@ -327,11 +327,14 @@ test("repair-steps-down: a repair card is easier than the missed card, level 1 â
   allPass([mk("strong", day0([
     { s: sv("m", { height: 3 }), right: false },
     { s: sv("r1", { height: 2, reason: "repair:missing-piece" }), right: false },
-    { s: sv("r2", { height: 1, reason: "repair:missing-piece" }), right: true },
+    { s: sv("r2", { height: 2, reason: "repair:missing-piece" }), right: true }, // passes against m (3), would fail against r1 (2)
   ]))]);
   // a right answer is no anchor: no earlier miss, nothing to compare
   allPass([mk("strong", day0([{ s: sv("m", { height: 1 }), right: true }, { s: sv("r", { height: 3, reason: "repair:missing-piece" }), right: true }]))]);
-  // "I don't know" (right !== true) is a miss; a miss in another session is not the anchor
+  // a miss in another session is not the anchor: miss in session 1, same-level repair in session 2
+  const cross = [...withRecap(session(0, 1, [{ s: sv("m", { height: 2 }), right: false }])), ...session(1, 2, [{ s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]), ...cleanLines(13).filter((l) => l.day >= 2)];
+  allPass([mk("strong", cross)]);
+  // "I don't know" (right !== true) is a miss
   const dk = day0([{ s: sv("m", { height: 2 }), right: false }, { s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]);
   onlyFails([mk("strong", dk)], "repair-steps-down");
 });
@@ -366,6 +369,14 @@ test("day-one-fit: after 5 right in a row in session 1, a level 2 or 3 card at o
   onlyFails([mk("strong", day0([{ s: sv("g", { height: 2 }), right: true }, ...r(5)]))], "day-one-fit");
   // a miss resets the run
   allPass([mk("strong", day0([...r(3), { s: sv("w"), right: false }, ...r(4, 1).map((c, i) => ({ s: sv(`h${i}`), right: true }))]))]);
+  // a skip between right answers neither counts nor breaks the run: 4 right + skip is no run of 5, 5 right around a skip is
+  const cardSkip = (c: Served): { s: Served; kind: "skip" } => ({ s: c, kind: "skip" });
+  const noScope = (lines: LogLine[]): LogLine[] => lines.map((l) => (l.kind === "skip" ? { ...l, scope: "card" as const } : l));
+  allPass([mk("strong", noScope(day0([...r(4), cardSkip(sv("k1"))])))]);
+  const around = [...r(2), cardSkip(sv("k2")), ...r(3, 1).map((c, i) => ({ s: sv(`j${i}`), right: true }))];
+  onlyFails([mk("strong", noScope(day0(around)))], "day-one-fit");
+  // a skipped level-2 card at or after the fifth right answer counts as a guided card seen
+  allPass([mk("strong", noScope(day0([...r(5), cardSkip(sv("k3", { height: 2 }))])))]);
   // only session 1: the same run in session 2 is not checked
   const later = [...cleanLines(1), ...session(1, 2, r(8)), ...cleanLines(12).filter((l) => l.day >= 2)];
   allPass([mk("strong", later)]);
