@@ -34,7 +34,7 @@ function noEndOnWrong(logs: StudentLog[]): CheckResult {
       if (l.kind === "start") last = null;
       else if (l.kind === "card" || l.kind === "skip") last = l;
       else if (l.kind === "end") {
-        if (!notEngineEnd(l.end!)) {
+        if (!notEngineEnd(l.end!) && l.recap !== true) {
           ends++;
           if (last?.kind === "card" && last.right === false)
             bad.push(`${where(log, l)}: ended (${l.end!.kind}) after a wrong answer on ${last.served!.card}`);
@@ -68,6 +68,14 @@ function skipTiming(logs: StudentLog[], cfg: Config): CheckResult {
     const played = playedDays(log);
     log.lines.forEach((l, i) => {
       if (l.kind === "start") topic = l.topic ?? null;
+      if (l.kind === "rejoin") { // the section's return: no longer kept away, counts as back through the side door
+        if (l.section !== undefined) {
+          blocks.delete(l.section);
+          const r = sec.get(l.section);
+          if (r && r.count > 0) r.returned = true;
+        }
+        return;
+      }
       if (!isServe(l)) return;
       const sv = l.served!;
       const b = blocks.get(sv.section);
@@ -86,7 +94,7 @@ function skipTiming(logs: StudentLog[], cfg: Config): CheckResult {
         sec.set(sv.section, rec);
         return;
       }
-      if (l.kind !== "skip" || sv.reason === "skipped-drip") return;
+      if (l.kind !== "skip" || sv.reason === "skipped-drip" || l.scope === "card") return;
       skips++;
       rec.count += 1;
       rec.returned = false;
@@ -102,7 +110,8 @@ function skipTiming(logs: StudentLog[], cfg: Config): CheckResult {
       }
       const deadline = played.find((d) => d >= l.day + cap);
       if (deadline === undefined) return; // the student stopped playing before the cap
-      const back = log.lines.slice(i + 1).some((x) => x.day <= deadline && isServe(x) && x.served!.section === sv.section && x.served!.reason === "side-door");
+      const back = log.lines.slice(i + 1).some((x) => x.day <= deadline
+        && ((isServe(x) && x.served!.section === sv.section && x.served!.reason === "side-door") || (x.kind === "rejoin" && x.section === sv.section)));
       if (!back) bad.push(`${where(log, l)}: section ${sv.section} skipped (${sv.card}) and no side door by day ${deadline}`);
     });
   }
@@ -173,15 +182,17 @@ function noRepeat(logs: StudentLog[], cfg: Config): CheckResult {
   const bad: string[] = [];
   let serves = 0;
   for (const log of logs) {
-    const lastDay = new Map<string, number>();
+    const lastDay = new Map<string, { day: number; right: boolean }>();
     for (const l of log.lines) {
       if (!isServe(l)) continue;
       serves++;
       const key = `${l.served!.card}#${l.served!.variant}`;
       const p = lastDay.get(key);
-      if (p !== undefined && l.day - p < cfg.noRepeatDays)
-        bad.push(`${where(log, l)}: ${l.served!.card} variant ${l.served!.variant} again (first on day ${p})`);
-      lastDay.set(key, l.day);
+      // a close:winnable card may come again when its earlier answer was right at least `repeatRightAfterDays` before
+      const winnable = l.served!.reason === "close:winnable" && p !== undefined && p.right && l.day - p.day >= cfg.closing.repeatRightAfterDays;
+      if (p !== undefined && l.day - p.day < cfg.noRepeatDays && !winnable)
+        bad.push(`${where(log, l)}: ${l.served!.card} variant ${l.served!.variant} again (first on day ${p.day})`);
+      lastDay.set(key, { day: l.day, right: l.kind === "card" && l.right === true });
     }
   }
   return verdict("no-repeat-14d", bad, `${serves} serves, no variant repeated within ${cfg.noRepeatDays} days`);
@@ -224,9 +235,76 @@ function knowledgeUp(logs: StudentLog[]): CheckResult {
   return { ...v, detail: `${v.detail}; mean knowledge gain ${mean >= 0 ? "+" : "−"}${Math.abs(mean).toFixed(3)}` };
 }
 
+/** A repair card (reason `repair:missing-piece`) is easier than the miss it repairs: level 1 → 1 on another card is the only same-level case. */
+function repairStepsDown(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let repairs = 0;
+  for (const log of logs) {
+    const lastMiss = new Map<number, LogLine>(); // session -> nearest earlier answered non-repair miss
+    for (const l of log.lines) {
+      if (l.kind !== "card" || !l.served) continue;
+      const sv = l.served;
+      if (sv.reason === "repair:missing-piece") {
+        repairs++;
+        const m = lastMiss.get(l.session);
+        if (m && sv.height >= m.served!.height && !(sv.height === 1 && m.served!.height === 1 && sv.card !== m.served!.card))
+          bad.push(`${where(log, l)}: repair ${sv.card} at level ${sv.height} after a miss on ${m.served!.card} at level ${m.served!.height}`);
+      }
+      if (l.right !== true && !sv.reason.startsWith("repair:")) lastMiss.set(l.session, l);
+    }
+  }
+  return verdict("repair-steps-down", bad, `${repairs} missing-piece repair cards, each easier than the miss (or level 1 on another card)`);
+}
+
+/** No session with 0 right answers goes on past 5 cards. */
+function noLongZeroSession(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let ends = 0;
+  for (const log of logs) for (const l of log.lines) {
+    if (l.kind !== "end") continue;
+    ends++;
+    if (l.end!.right === 0 && l.end!.cards > 5) bad.push(`${where(log, l)}: ${l.end!.cards} cards, none right`);
+  }
+  return verdict("no-long-zero-session", bad, `${ends} sessions, none with 0 right over 5 cards`);
+}
+
+/** A side-door card is never served at level 3. */
+function sideDoorNotFull(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let doors = 0;
+  for (const log of logs) for (const l of log.lines) {
+    if (!isServe(l) || l.served!.reason !== "side-door") continue;
+    doors++;
+    if (l.served!.height === 3) bad.push(`${where(log, l)}: side door ${l.served!.card} at level 3`);
+  }
+  return verdict("side-door-not-full", bad, `${doors} side-door cards, none at level 3`);
+}
+
+/** Session 1 of each student: after 5 right answers in a row, a level 2 or 3 card is served at or after the fifth. */
+function dayOneFit(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let runs = 0;
+  for (const log of logs) {
+    const ls = log.lines.filter((l) => l.session === 1);
+    let run = 0;
+    let fifth = -1;
+    ls.forEach((l, i) => {
+      if (fifth >= 0 || l.kind !== "card") return; // skips are not answers: they neither count nor break the run
+      run = l.right === true ? run + 1 : 0;
+      if (run === 5) fifth = i;
+    });
+    if (fifth < 0) continue;
+    runs++;
+    if (!ls.slice(fifth).some((l) => isServe(l) && l.served!.height >= 2))
+      bad.push(`${where(log, ls[fifth]!)}: 5 right in a row, no level 2 or 3 card from the fifth (${ls[fifth]!.served?.card})`);
+  }
+  return verdict("day-one-fit", bad, `${runs} first sessions with 5 right in a row, each moved up to level 2 or 3`);
+}
+
 export function runChecks(logs: StudentLog[], cfg: Config): CheckResult[] {
   return [
     noEndOnWrong(logs), skipTiming(logs, cfg), effortCapAndFairness(logs, cfg),
     noRepeat(logs, cfg), endsBeforeFade(logs), knowledgeUp(logs), noBackToBack(logs, cfg),
+    repairStepsDown(logs), noLongZeroSession(logs), sideDoorNotFull(logs), dayOneFit(logs),
   ];
 }

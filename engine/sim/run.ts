@@ -37,7 +37,7 @@ export type LogLine = {
   day: number; session: number;
   /** Cards served so far in this session (0 on the start line). */
   n: number;
-  kind: "start" | "card" | "skip" | "confirm-skip" | "end" | "offer-extend" | "moment" | "quit";
+  kind: "start" | "card" | "skip" | "confirm-skip" | "end" | "offer-extend" | "moment" | "quit" | "rejoin";
   served?: Served; choice?: Choice; right?: boolean; ms?: number; end?: EndInfo; moment?: Moment;
   /** On card / skip / confirm-skip / quit lines: the session's effort was above the hidden stamina when it was served. */
   hiddenFatigued?: boolean;
@@ -47,6 +47,12 @@ export type LogLine = {
   comeback?: boolean; topic?: { id: string; source: "class" | "student" } | null;
   /** skip: the reason given and the section's remind day afterwards (simulated day, null if none). */
   skipReason?: SkipReason; remindDay?: number | null;
+  /** skip: "card" for a single-card "Not now" that leaves the section alone, "section" for a section skip (absent = section). */
+  scope?: "card" | "section";
+  /** end: the session ended on a recap card (the closing recap, not a wrong answer). */
+  recap?: boolean;
+  /** rejoin: the section the student rejoined (the section's return, before its remind day). */
+  section?: string;
   /** confirm-skip: the value message shown. */
   value?: ValueMessage;
   /** offer-extend: whether the student took "5 more". */

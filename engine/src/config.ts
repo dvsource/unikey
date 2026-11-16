@@ -35,6 +35,8 @@ export const defaultConfig = {
    * message; class timing brings a not-learned section back no sooner than this many days after the skip.
    */
   skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 },
+  /** Closing (spec §2): a card answered right this many days ago or more may be served again as the close:winnable card. */
+  closing: { repeatRightAfterDays: 3 },
 };
 
 export type Config = typeof defaultConfig;

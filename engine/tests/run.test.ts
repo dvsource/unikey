@@ -91,7 +91,7 @@ function mk(persona: string, lines: LogLine[], o: Partial<StudentLog> = {}): Stu
     contentExhausted: 0, ...o,
   };
 }
-const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card"];
+const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card", "repair-steps-down", "no-long-zero-session", "side-door-not-full", "day-one-fit"];
 function result(logs: StudentLog[], name: string) {
   const all = runChecks(logs, defaultConfig);
   expect(all.map((c) => c.name)).toEqual(NAMES);
@@ -291,3 +291,144 @@ test("real content, 3 personas, 10 days: no throw; checks run", () => {
   expect(checks.map((c) => c.name)).toEqual(NAMES);
   for (const c of checks) { expect(typeof c.pass).toBe("boolean"); expect(c.detail.length).toBeGreaterThan(0); }
 }, 60_000);
+
+// ---------- Task 2: new checks and amendments (hand-built logs) ----------
+
+/** One session on `day` (session number `session`): start, the given cards (right = true/false, with `served`), end. */
+function session(day: number, sessionNo: number, cards: { s: Served; right?: boolean; kind?: "card" | "skip" }[], endOver: Partial<ReturnType<typeof end>> = {}): LogLine[] {
+  const out: LogLine[] = [{ day, session: sessionNo, n: 0, kind: "start", budget: 10, profile: { comfort: 0.75, memory: 1, h3Share: 0.4, stamina: 13.34 } }];
+  cards.forEach((c, i) => out.push(c.kind === "skip"
+    ? { day, session: sessionNo, n: i + 1, kind: "skip", served: c.s, skipReason: "too-hard", remindDay: day + 3, hiddenFatigued: false }
+    : { day, session: sessionNo, n: i + 1, kind: "card", served: c.s, choice: c.right === false ? 1 : 0, right: c.right ?? true, ms: 5000, hiddenFatigued: false }));
+  out.push({ day, session: sessionNo, n: cards.length, kind: "end", end: { ...end(5), cards: cards.length, right: cards.filter((c) => c.right !== false && c.kind !== "skip").length, ...endOver } });
+  return out;
+}
+/** Plays day 1.. (session 2..) of clean one-card days after `first`, so the student is a normal one. */
+const after = (first: LogLine[], days = 11): LogLine[] => [...first, ...cleanLines(days + 1).filter((l) => l.day >= 1).map((l) => ({ ...l, ...(l.served ? { served: sv(`z${l.day}`) } : {}) }))];
+const withRecap = (lines: LogLine[]): LogLine[] => lines.map((l) => (l.kind === "end" && l.session === 1 ? { ...l, recap: true } : l));
+const day0 = (cards: { s: Served; right?: boolean; kind?: "card" | "skip" }[], endOver: Partial<ReturnType<typeof end>> = {}) => after(session(0, 1, cards, endOver));
+const ok4 = [{ s: sv("a1"), right: true }, { s: sv("a2"), right: true }, { s: sv("a3", { height: 2 }), right: true }];
+
+test("repair-steps-down: a repair card is easier than the missed card, level 1 → 1 on another card is fine", () => {
+  allPass([mk("strong", day0(ok4))]);
+  const rep = (missH: 1 | 2 | 3, repH: 1 | 2 | 3, o: Partial<Served> = {}) => day0([
+    { s: sv("m", { height: missH }), right: false },
+    { s: sv("r", { height: repH, reason: "repair:missing-piece", ...o }), right: true },
+    { s: sv("a3", { height: 2 }), right: true },
+  ]);
+  allPass([mk("strong", rep(3, 2))]);
+  allPass([mk("strong", rep(2, 1))]);
+  allPass([mk("strong", rep(1, 1))]); // level 1 → level 1, different card
+  const d = onlyFails([mk("strong", rep(3, 3))], "repair-steps-down");
+  expect(d).toMatch(/^1 violation; first: strong day 0 session 1.*r/);
+  onlyFails([mk("strong", rep(2, 3))], "repair-steps-down");
+  expect(result([mk("strong", rep(1, 1, { card: "m", variant: 1 }))], "repair-steps-down").pass).toBe(false); // same card at level 1 (also trips no-back-to-back)
+  // compared with the nearest earlier miss that is not itself a repair card
+  allPass([mk("strong", day0([
+    { s: sv("m", { height: 3 }), right: false },
+    { s: sv("r1", { height: 2, reason: "repair:missing-piece" }), right: false },
+    { s: sv("r2", { height: 1, reason: "repair:missing-piece" }), right: true },
+  ]))]);
+  // a right answer is no anchor: no earlier miss, nothing to compare
+  allPass([mk("strong", day0([{ s: sv("m", { height: 1 }), right: true }, { s: sv("r", { height: 3, reason: "repair:missing-piece" }), right: true }]))]);
+  // "I don't know" (right !== true) is a miss; a miss in another session is not the anchor
+  const dk = day0([{ s: sv("m", { height: 2 }), right: false }, { s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]);
+  onlyFails([mk("strong", dk)], "repair-steps-down");
+});
+
+test("no-long-zero-session: right 0 with more than 5 cards", () => {
+  const cards = (n: number) => Array.from({ length: n }, (_, i) => ({ s: sv(`q${i}`), right: false }));
+  // (the sessions end on a recap so no-end-on-wrong stays out of it)
+  allPass([mk("strong", withRecap(day0(cards(5))))]);
+  const d = onlyFails([mk("strong", withRecap(day0(cards(6))))], "no-long-zero-session");
+  expect(d).toMatch(/^1 violation; first: strong day 0 session 1/);
+  // one right answer is not a zero session
+  allPass([mk("strong", day0([...cards(5), { s: sv("q9"), right: true }]))]);
+});
+
+test("side-door-not-full: no side-door card at level 3", () => {
+  allPass([mk("strong", day0([{ s: sv("a1", { reason: "side-door", height: 2 }) }, { s: sv("a2", { reason: "side-door", height: 1 }) }, { s: sv("a3", { height: 3 }) }]))]);
+  const d = onlyFails([mk("strong", day0([{ s: sv("a1", { height: 2 }) }, { s: sv("a2", { reason: "side-door", height: 3 }) }]))], "side-door-not-full");
+  expect(d).toMatch(/^1 violation; first: strong day 0 session 1.*a2/);
+  // a skipped (card scope) side-door card at level 3 was still served
+  const sk = day0([{ s: sv("a2", { reason: "side-door", height: 3 }), kind: "skip" }]).map((l) => (l.kind === "skip" ? { ...l, scope: "card" as const } : l));
+  onlyFails([mk("strong", sk)], "side-door-not-full");
+});
+
+test("day-one-fit: after 5 right in a row in session 1, a level 2 or 3 card at or after the fifth", () => {
+  const r = (n: number, h: 1 | 2 | 3 = 1) => Array.from({ length: n }, (_, i) => ({ s: sv(`f${i}${h}${n}`, { height: h }), right: true }));
+  allPass([mk("strong", day0(r(4)))]); // never reaches 5
+  allPass([mk("strong", day0([...r(5), { s: sv("g", { height: 2 }), right: true }]))]); // 6th card is level 2
+  allPass([mk("strong", day0([...r(4), { s: sv("g", { height: 3 }), right: true }]))]); // the fifth itself is level 3
+  const d = onlyFails([mk("strong", day0(r(6)))], "day-one-fit");
+  expect(d).toMatch(/^1 violation; first: strong day 0 session 1/);
+  // a level 2 card before the fifth does not count
+  onlyFails([mk("strong", day0([{ s: sv("g", { height: 2 }), right: true }, ...r(5)]))], "day-one-fit");
+  // a miss resets the run
+  allPass([mk("strong", day0([...r(3), { s: sv("w"), right: false }, ...r(4, 1).map((c, i) => ({ s: sv(`h${i}`), right: true }))]))]);
+  // only session 1: the same run in session 2 is not checked
+  const later = [...cleanLines(1), ...session(1, 2, r(8)), ...cleanLines(12).filter((l) => l.day >= 2)];
+  allPass([mk("strong", later)]);
+});
+
+test("amendment: no-end-on-wrong ignores an end on a recap", () => {
+  const wrong = cleanLines(12);
+  wrong[4] = { ...wrong[4]!, right: false, choice: 1 };
+  onlyFails([mk("strong", wrong)], "no-end-on-wrong");
+  wrong[5] = { ...wrong[5]!, end: { ...end(5), kind: "budget" }, recap: true };
+  allPass([mk("strong", wrong)]);
+  wrong[5] = { ...wrong[5]!, recap: false };
+  onlyFails([mk("strong", wrong)], "no-end-on-wrong");
+});
+
+test("amendment: no-repeat-14d allows a close:winnable repeat of a card right at least 3 days before", () => {
+  const rep = (reason: Served["reason"], gapDay: number, firstRight = true) => {
+    const l = cleanLines(12);
+    l[1] = { ...l[1]!, right: firstRight, choice: firstRight ? 0 : 1 };
+    const i = l.findIndex((x) => x.day === gapDay && x.kind === "card");
+    l[i] = { ...l[i]!, served: sv("c0", { reason }) };
+    return l;
+  };
+  // (the first answer c0 on day 0 is the earlier answer)
+  onlyFails([mk("strong", rep("due-review", 3))], "no-repeat-14d");
+  allPass([mk("strong", rep("close:winnable", 3))]);
+  allPass([mk("strong", rep("close:winnable", 5))]);
+  onlyFails([mk("strong", rep("close:winnable", 2))], "no-repeat-14d"); // only 2 days before
+  const wrongFirst = rep("close:winnable", 5, false);
+  // a wrong first answer makes the day-0 card end the session on a wrong answer; check only the repeat rule
+  expect(result([mk("strong", wrongFirst)], "no-repeat-14d").pass).toBe(false);
+  // the first serve was a skip: no right answer to rely on
+  const skipFirst = cleanLines(12);
+  skipFirst[1] = { ...skipFirst[1]!, kind: "skip", right: undefined, choice: undefined, ms: undefined, remindDay: 3, skipReason: "too-hard" };
+  const j = skipFirst.findIndex((x) => x.day === 5 && x.kind === "card");
+  skipFirst[j] = { ...skipFirst[j]!, served: sv("c0", { reason: "close:winnable" }) };
+  expect(result([mk("strong", skipFirst)], "no-repeat-14d").pass).toBe(false);
+  // the exemption follows cfg.closing.repeatRightAfterDays
+  const logs = [mk("strong", rep("close:winnable", 2))];
+  const cfg = { ...defaultConfig, closing: { repeatRightAfterDays: 2 } };
+  expect(runChecks(logs, cfg).find((c) => c.name === "no-repeat-14d")!.pass).toBe(true);
+});
+
+test("amendment: skip-timing treats a rejoin as the section's return and ignores card-scope skips", () => {
+  const plays = cleanLines(22);
+  const rejoin = (day: number, section: string): LogLine => ({ day, session: day + 1, n: 1, kind: "rejoin", section });
+  const putRejoin = (lines: LogLine[], day: number, section: string) => {
+    const i = lines.findIndex((l) => l.day === day && l.kind === "card");
+    return [...lines.slice(0, i), rejoin(day, section), ...lines.slice(i)];
+  };
+  // a card from the section on day 1, before the remind day 3: a violation without a rejoin
+  const early = withCard(withSkip(plays, 0, "B", 3), 1, sv("k1", { section: "B", reason: "due-review" }));
+  onlyFails([mk("strong", early)], "skip-timing");
+  // with the section's rejoin first, the card is no violation (and the rejoin counts as the return by the cap)
+  allPass([mk("strong", putRejoin(early, 1, "B"))]);
+  // a rejoin of another section does not help
+  onlyFails([mk("strong", putRejoin(early, 1, "C"))], "skip-timing");
+  // never back: no side door by the cap; a rejoin is the return
+  onlyFails([mk("strong", withSkip(plays, 0, "B", 3))], "skip-timing");
+  allPass([mk("strong", putRejoin(withSkip(plays, 0, "B", 3), 4, "B"))]);
+  // a card-scope skip has no remind-day schedule; a section skip with the same fields still does
+  const cardSkip = withSkip(plays, 0, "B", undefined, { scope: "card" });
+  allPass([mk("strong", cardSkip)]);
+  onlyFails([mk("strong", withSkip(plays, 0, "B", undefined, { scope: "section" }))], "skip-timing");
+  onlyFails([mk("strong", withSkip(plays, 0, "B", undefined))], "skip-timing");
+});
