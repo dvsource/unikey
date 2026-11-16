@@ -14,7 +14,7 @@ Two of the five "design must change" lines were met:
 - The weak, impatient student left on day 2. Knowledge stayed at 0.15.
 - The fast guesser stayed four weeks and gained 0.04.
 
-The app does adapt: judges told 15 of 16 student pairs apart from what the app did. It adapts least where it matters most: after a wrong answer, on the first day, and for the weakest students.
+The app does adapt: judges picked the right answer in 15 of 16 blind answers, from what the app did. It adapts least where it matters most: after a wrong answer, on the first day, and for the weakest students.
 
 ## 2. Changes, in order of expected effect
 
