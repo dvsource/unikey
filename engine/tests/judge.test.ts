@@ -69,6 +69,7 @@ test("student packet contains the sheet and reasons, and none of: traits keys, '
     expect(text).toMatch(/\[(open:liked|due-review|new:class-topic|new:exam-weight|comfort-correction|close:winnable)\]/);
     expect(text).toMatch(/H[123] (easy|guided|full)/);
     expect(text).toContain("- fallback:any: "); // F9: the legend explains every reason the engine gives
+    expect(text).toContain("- stretch:up: a card one level above your usual one, because today is going well"); // change 5
     expect(text).not.toMatch(/phy\.(mech|therm|elec)\.[a-z]/);
     // the rubric from spec §13, verbatim
     for (const row of [

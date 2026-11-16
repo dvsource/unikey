@@ -1035,6 +1035,15 @@ test("fix 3: an all-right session 2 starting at ladder level 3 serves one level-
 
 // ---------- change 5: stretch cards when a student is well above target ----------
 
+/**
+ * Change 5, fix round 1: all four skills at `height` with `r` right attempts there, the step window just restarted (so
+ * only today's attempts count for a step and for a stretch card: a skill gets one after two right today).
+ */
+const windowed = (height: Height, r: number, over: Partial<SkillRec> = {}) => {
+  const o = { windowStartSeq: 1001, ...over };
+  return startedAt(height, r, 0, { a1: o, a2: o, b1: o, b2: o });
+};
+
 /** Each served card with the state it was served in and the last answer before it (null: none, or skips only). */
 function servedIn(steps: Step[]): { sv: Served; at: State; prev: Served | null; lastRight: boolean | null }[] {
   const out: { sv: Served; at: State; prev: Served | null; lastRight: boolean | null }[] = [];
@@ -1049,7 +1058,7 @@ function servedIn(steps: Step[]): { sv: Served; at: State; prev: Served | null; 
 }
 
 test("right on a stretch card → record moves to that level; miss → record unchanged and repair card is below the stretch level", () => {
-  const s0 = startedAt(1, 4, 0);
+  const s0 = windowed(1, 4);
   const p = play(C, s0, T0, allR);
   const cards = served(p.steps);
   const k = cards.findIndex((c) => c.reason === "stretch:up");
@@ -1062,8 +1071,9 @@ test("right on a stretch card → record moves to that level; miss → record un
   expect(after.skills[sv.skill].height).toBe(sv.height);
   expect(after.skills[sv.skill].windowStartSeq).toBe(after.answered + 1);
   // its review is scheduled by recordAttempt as usual (the attempt is above the old record)
-  expect(after.skills[sv.skill].nextReviewDay).toBe(D0 + cfg.reviewGapsDays[0]);
-  expect(after.skills[sv.skill].gapIndex).toBe(1);
+  const g0 = before.skills[sv.skill].gapIndex;
+  expect(after.skills[sv.skill].nextReviewDay).toBe(D0 + Math.max(1, Math.round(cfg.reviewGapsDays[g0] * before.profile.memory)));
+  expect(after.skills[sv.skill].gapIndex).toBe(g0 + 1);
   expect(cards[k + 1].reason).not.toBe("stretch:up"); // never two stretch cards in a row
 
   for (const miss of ["w", "dk"] as const) {
@@ -1086,7 +1096,7 @@ test("never during repair, closing or '5 more'", () => {
     (_s, i) => (i === 4 ? "s" : "r"), (_s, i) => (i % 5 === 4 ? "w" : "r"), (s) => (s.reason === "stretch:up" ? "w" : "r"),
   ];
   let stretched = 0;
-  for (const start of [startedAt(1, 4, 0), startedAt(2, 4, 0, { a1: { noFullUntilDay: null }, b2: { noFullUntilDay: null } }), fastStart()]) {
+  for (const start of [windowed(1, 4), windowed(2, 4, { noFullUntilDay: null }), startedAt(1, 4, 0), fastStart()]) {
     for (const ans of patterns) {
       for (const { sv, at, prev, lastRight } of servedIn(play(C, start, T0, ans).steps)) {
         if (sv.reason !== "stretch:up") continue;
@@ -1110,36 +1120,49 @@ test("never during repair, closing or '5 more'", () => {
   expect(extra.length).toBe(5);
   expect(extra.every((c) => c.reason === "extend:liked")).toBe(true);
   // Closing after a wrong answer at the end: close cards, no stretch card.
-  const q = play(C, startedAt(1, 4, 0), T0, (_s, i) => (i < 6 ? "r" : "w"));
+  const q = play(C, windowed(1, 4), T0, (_s, i) => (i < 6 ? "r" : "w"));
   const closing = servedIn(q.steps).filter((x) => x.at.session!.phase === "closing");
   expect(closing.length).toBeGreaterThan(0);
   expect(closing.every((x) => x.sv.reason !== "stretch:up")).toBe(true);
 });
 
 test("stretch is off while the ladder is active", () => {
-  const s = startedAt(1, 4, 0);
-  const ladder = play(C, { ...s, sessionCount: 1, ladder: { level: 1, rightRun: 0 } }, T0, allR);
+  const s = windowed(1, 4);
+  const big = { ...cfg, budget: { ...cfg.budget, minimumDay: 16 } }; // a first-session budget long enough to stretch
+  const ladder = play(C, { ...s, sessionCount: 1, ladder: { level: 1, rightRun: 0 } }, T0, allR, { cfg: big });
   expect(ladder.steps[0].state.ladder).not.toBeNull();
   const lc = served(ladder.steps);
   expect(lc.length).toBeGreaterThan(cfg.session.openCards + cfg.estimate.minRunning);
   expect(lc.some((c) => c.reason === "stretch:up")).toBe(false);
   // The same student past the first sessions gets stretch cards.
-  const later = play(C, s, T0, allR);
+  const later = play(C, s, T0, allR, { cfg: big });
   expect(later.steps[0].state.ladder).toBeNull();
   expect(served(later.steps).some((c) => c.reason === "stretch:up")).toBe(true);
 });
 
 test("change 5: a stretch card to level 3 for a calculation-weak student keeps its mark behind the ramp card", () => {
   const nd = { nextReviewDay: D0 + 20 };
+  // a1 / a2: one wrong, then 11 right at level 2 (fix round 1: the last two at its level right).
+  const good = [...atts(2, 0, 1, D0 - 2), ...atts(2, 11, 0, D0 - 2)];
   const s0 = withProfile(startedState({
-    a1: rec(2, atts(2, 11, 1, D0 - 2), nd), a2: rec(2, atts(2, 11, 1, D0 - 2), nd),
+    a1: rec(2, good, { ...nd, windowStartSeq: 1001 }), a2: rec(2, good, { ...nd, windowStartSeq: 1001 }),
     b1: rec(2, atts(3, 2, 10, D0 - 2), nd), b2: rec(2, atts(3, 2, 10, D0 - 2), nd),
   }), { stamina: 30 });
   expect(isCalcWeak(s0, cfg)).toBe(true);
-  const { steps } = play(C, s0, T0, allR);
+  // Two more level-2 cards per skill, so a level-2 ramp card is still eligible after two right level-2 answers today.
+  const c5 = structuredClone(C);
+  for (const id of ["a1", "a2", "b1", "b2"]) {
+    for (const n of [4, 5]) {
+      const card = { ...structuredClone(c5.cards[`${id}.h2.1`]), id: `${id}.h2.${n}` };
+      c5.cards[card.id] = card;
+      c5.skills[id].cards[2] = [...c5.skills[id].cards[2], card.id];
+    }
+  }
+  const { steps } = play(c5, s0, T0, allR);
   const cards = served(steps);
+  // Fix round 1: the ramp card is a card at the skill's own level, labelled open:liked.
   const k = cards.findIndex((c, i) => c.reason === "stretch:up" && c.height === 3 && i > 0 && cards[i - 1].height === 2
-    && cards[i - 1].skill === c.skill && cards[i - 1].reason === "stretch:up");
+    && cards[i - 1].skill === c.skill && cards[i - 1].reason === "open:liked");
   expect(k).toBeGreaterThan(0);
   const ramp = cards[k - 1];
   const sv = cards[k];

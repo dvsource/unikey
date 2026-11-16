@@ -206,6 +206,7 @@ The app's reasons:
 - extend:liked: one of the "5 more" cards
 - comeback:solid: after time away, a skill the student was solid on, to restart with a win
 - fallback:any: nothing the plan wanted was left to give, so the app gave any card it still could
+- stretch:up: a card one level above your usual one, because today is going well
 `;
 
 /** The event lines of a packet: lines that start with a day label (the legend and prose are not quotable). */

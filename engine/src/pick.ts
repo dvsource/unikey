@@ -299,7 +299,10 @@ const newReason = (c: Cand, cur: string | null): Reason => (c.def.topic === cur 
 
 /**
  * Change 5: a started skill at exactly one level above its recorded level (`stretch:up`). Level 3 not while the
- * skill's `noFullUntilDay` is after today. Highest expectedSuccess at the skill's current level first, then higher
+ * skill's `noFullUntilDay` is after today. Fix round 1: only a skill with evidence of its own: expectedSuccess at its
+ * current level ≥ comfort, and its last `stepUp.rightInRow` attempts at that level (within the step window, as the
+ * step-up rule counts them, but with no "different days / cards apart" condition) all right; fewer attempts there: not
+ * a candidate. Highest expectedSuccess at the skill's current level first, then higher
  * weight, then id. The shared check keeps out blocked sections, left and excluded skills (a skill waiting for its
  * repair return), cards seen lately or over the budget. `pickMiddle` is never called while a repair is in flight.
  */
@@ -311,7 +314,12 @@ function pickStretch(state: State, content: Content, st: SkillDef[], ctx: PickCt
     const height = (rec.height + 1) as Height;
     if (def.cards[height].length === 0) return [];
     if (height === 3 && rec.noFullUntilDay !== null && rec.noFullUntilDay > ctx.day) return [];
-    return [{ def, height, es: expectedSuccess(state, def.id, cur, cfg) }];
+    const es = expectedSuccess(state, def.id, cur, cfg);
+    if (es < state.profile.comfort) return [];
+    const n = cfg.stepUp.rightInRow;
+    const last = rec.attempts.filter((a) => a.height === cur && a.seq >= rec.windowStartSeq).slice(-n);
+    if (last.length < n || !last.every((a) => a.right)) return [];
+    return [{ def, height, es }];
   }).sort((x, y) => y.es - x.es || y.def.weight - x.def.weight || byId(x.def.id, y.def.id));
   return firstOf(state, content, cands, () => "stretch:up", ctx, cfg);
 }

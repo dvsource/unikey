@@ -60,8 +60,9 @@ const pickNumbers = (p: State["profile"]) => ({ comfort: p.comfort, memory: p.me
 function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[] = []): PickCtx {
   const ss = r.s.session!;
   const done = ss.history.filter((h) => h.right !== null);
-  // Change 5: no stretch card among the opening cards, in a ladder session, during a repair, while closing or in
-  // "5 more", right after a miss (wrong or "I don't know"), or right after a stretch card (or the ramp card before one).
+  // Change 5: no stretch card among the opening cards, right after a miss (wrong or "I don't know"), or right after a
+  // stretch card (or the ramp card before one). The ladder / repair / closing / "5 more" clauses cannot be reached from
+  // pickMiddle today (those paths never call it); they are kept as guards.
   const stretchOff = ss.history.length < r.cfg.session.openCards || ladderOn(r) || ss.repair !== null
     || ss.phase === "closing" || ss.phase === "extend" || ss.stretchCard !== null || done.at(-1)?.right === false;
   return {
@@ -247,7 +248,9 @@ function normal(r: Run, last: Last): Next {
 /**
  * Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card.
  * `ladder`: a pickLadder pick (change 4); behind a ramp card it is still the ladder card (the ramp card is not).
- * The same for a `stretch:up` pick (change 5): the ramp card keeps the pick's reason, the mark stays on the pick.
+ * The same for a `stretch:up` pick (change 5): the mark stays on the pick. Fix round 1: the ramp card in front of a
+ * stretch pick is a card at the skill's own level, so it is labelled `open:liked`; the stretch card behind it keeps
+ * `stretch:up`. A pick's `extraNew` is kept when a ramp card goes first (a new skill gets no ramp today; kept as a guard).
  */
 function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   const ss = r.s.session!;
@@ -257,7 +260,8 @@ function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   ss.ramp = p.served;
   ss.ladderCard = ladder ? p.served.card : null;
   ss.stretchCard = stretch ? p.served.card : null;
-  return serve(r, ramp);
+  if (p.extraNew === true) ss.extraNew = true;
+  return serve(r, stretch ? { ...ramp, served: { ...ramp.served, reason: "open:liked" } } : ramp);
 }
 
 function toClosing(r: Run, forced: boolean): Next {

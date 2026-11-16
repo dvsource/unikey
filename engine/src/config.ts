@@ -20,7 +20,7 @@ export const defaultConfig = {
   returning: { noFullDays: 2, awayDays: 3 },
   skill: { attemptsKept: 12, solidDays: 2 },
   /** `minRunning` (change 5): the session's answers needed before its running rate can call for a stretch card. */
-  estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8, minRunning: 3 },
+  estimate: { priorWeight: 2, minOwnPrior: 10, minMsSamples: 5, comfortLowMark: 0.8, minRunning: 5 },
   /** Stamina (spec §7): blend toward the effort at which the student faded; the step after an extended session. */
   staminaUpdate: { keep: 0.7, take: 0.3, extendStep: 1 },
   /** Section liking: steps for a fast right / slow answer / extend card, the slow factor over usual ms, and the ± clamp. */
