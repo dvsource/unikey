@@ -1,7 +1,7 @@
 import { defaultConfig, type Config } from "./config.js";
 import { dayOf } from "./time.js";
 import { begin, emit, rollDay, stale, step, type Run } from "./step.js";
-import { newSkillRec, recordAttempt } from "./skill.js";
+import { isDue, newSkillRec, recordAttempt } from "./skill.js";
 import { usualMs } from "./estimate.js";
 import { closeSweepReason, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
@@ -23,12 +23,17 @@ type Last = { avoid?: string; leave?: string } | null;
 
 // ---------- profile hooks ----------
 
-/** Per answer: memory, section liking and the answer times (see profile.ts). `usual` is from before this answer. */
-function onAnswerProfile(r: Run, sv: Served, right: boolean, ms: number, usual: number | null): void {
+/**
+ * Per answer: memory, section liking and the answer times (see profile.ts). `usual` is from before this answer.
+ * `belowRecord` (change 4, fix round 1): a ladder card below the skill's recorded level: easier than what is being
+ * remembered, so it does not move memory.
+ */
+function onAnswerProfile(r: Run, sv: Served, right: boolean, ms: number, usual: number | null, belowRecord = false): void {
   const s = r.s;
   const old = s.sections[sv.section] ?? newSectionRec();
   const out = onAnswer(s.profile, old, {
-    height: sv.height, right, ms, wasDueReviewFirstCard: sv.reason === "due-review" && s.session!.tailCard !== sv.card, usualMs: usual, extend: sv.reason === "extend:liked",
+    height: sv.height, right, ms, wasDueReviewFirstCard: sv.reason === "due-review" && s.session!.tailCard !== sv.card && !belowRecord,
+    usualMs: usual, extend: sv.reason === "extend:liked",
   }, r.cfg);
   s.profile = out.profile;
   if (out.section !== old) s.sections = { ...s.sections, [sv.section]: out.section };
@@ -61,7 +66,7 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
     excludeSkills: [...(strict ? ss.returns.map((q) => q.skill) : []), ...ss.leftSkills],
-    recentCards: recentCards(r), leftSkills: ss.leftSkills,
+    recentCards: recentCards(r), leftSkills: ss.leftSkills, ladderFull: ss.ladderFull,
   };
 }
 /** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
@@ -98,6 +103,7 @@ function serve(r: Run, p: Picked, sweep = false, ladder = false): Next {
   const sv = p.served;
   r.s.rng = p.rng;
   ss.ladderCard = ladder ? sv.card : ss.ramp !== null && ss.ramp.card === ss.ladderCard ? ss.ladderCard : null;
+  if (ladder && sv.height === 3) ss.ladderFull += 1;
   if (!(sv.skill in r.s.skills)) {
     ss.newSkills += 1;
     if (sweep) r.s.skills[sv.skill] = newSkillRec(sv.height);
@@ -345,7 +351,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null, confident: [], leftSkills: [], ladderCard: null,
+    sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
@@ -380,6 +386,7 @@ export function answer(
   // Change 4: only an answer on a pickLadder card moves the ladder.
   const fromLadder = r.s.ladder !== null && r.s.session!.ladderCard === sv.card;
   let steppedDown = false;
+  let belowRecord = false;
   const def = content.skills[sv.skill];
   if (def) {
     // F3: a new skill starts at the height actually served (below it, a right answer would never schedule a review).
@@ -388,14 +395,24 @@ export function answer(
     // A drip is a height-1 card, the lowest height, so a wrong drip can never step its skill down.
     // Change 4: a right ladder answer above the skill's record sets the record to that level (the ladder is the
     // step-up rule in these sessions), with a new step window. A right answer below the record leaves it.
-    r.s.skills[sv.skill] = fromLadder && right && sv.height > rec0.height
-      ? { ...out.rec, height: sv.height, windowStartSeq: r.s.answered + 1 }
-      : out.rec;
+    // Fix round 1: a due skill answered right on a ladder card below its record gets its next review as recordAttempt
+    // would give it at the record (which reschedules only at or above the record), so it is not served again as due.
+    belowRecord = fromLadder && sv.height < rec0.height;
+    let rec1 = out.rec;
+    if (fromLadder && right && sv.height > rec0.height) rec1 = { ...rec1, height: sv.height, windowStartSeq: r.s.answered + 1 };
+    else if (belowRecord && right && isDue(rec0, r.day)) {
+      const gaps = cfg.reviewGapsDays;
+      rec1 = {
+        ...rec1, nextReviewDay: r.day + Math.max(1, Math.round(gaps[Math.min(rec0.gapIndex, gaps.length - 1)] * r.s.profile.memory)),
+        gapIndex: Math.min(rec0.gapIndex + 1, gaps.length - 1),
+      };
+    }
+    r.s.skills[sv.skill] = rec1;
     steppedDown = out.steppedDown;
   }
   if (fromLadder) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
-  onAnswerProfile(r, sv, right, input.ms, usual);
+  onAnswerProfile(r, sv, right, input.ms, usual, belowRecord);
 
   const ss = r.s.session!;
   if (slow) {

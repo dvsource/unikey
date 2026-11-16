@@ -247,11 +247,13 @@ const nextBudget = (s: State, days: number) => startSession(s, C, T0 + days * 86
 
 test("weak never asked more: after 5 sessions answering 40% right, budget ≤ budget of a 90%-right student", () => {
   const weak = lived((i) => (i % 5 === 1 || i % 5 === 4 ? "r" : "w"), 5);
-  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 5, true); // stamina grows only on an accepted "5 more"
+  // Stamina grows only on an accepted "5 more", which needs a usual level-3 time (5 samples). Change 4 fix round 1: at
+  // most one level-3 card per ladder session, so the strong student's first offer comes in session 6.
+  const strong = lived((i) => (i % 10 === 9 ? "w" : "r"), 6, true);
   expect(weak.profile.stamina).toBeLessThanOrEqual(cfg.budget.staminaDefault);
   expect(weak.profile.stamina).toBeGreaterThanOrEqual(8 / 0.9);
   expect(strong.profile.stamina).toBeGreaterThan(cfg.budget.staminaDefault);
-  expect(nextBudget(weak, 5)).toBeLessThan(nextBudget(strong, 5));
+  expect(nextBudget(weak, 5)).toBeLessThan(nextBudget(strong, 6));
 });
 
 test("dials differ: 7 sessions each for an all-right and a half-wrong student → their profiles and next session's first 5 Served differ", () => {

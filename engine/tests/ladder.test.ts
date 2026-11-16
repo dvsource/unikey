@@ -155,6 +155,24 @@ test("a ramp card in front of a level-3 ladder pick does not move the ladder; th
   expect(moves[1].after).toEqual({ level: 3, rightRun: 1 });
 });
 
+test("fix 4: no level-3 ladder card of a skill whose noFullUntilDay is after today; it may be served lower", () => {
+  const nd = { nextReviewDay: D0 + 5 };
+  const mk = (until: number | null) => startedState({
+    a1: rec(2, atts(2, 1, 0, D0 - 1), { ...nd, noFullUntilDay: until }), a2: rec(2, atts(2, 1, 0, D0 - 1), { ...nd, noFullUntilDay: until }),
+  }, { ladder: { level: 3, rightRun: 0 } });
+  const only = ctx({ blockedSections: ["u.t1/B"] });
+  expect(pickLadder(mk(D0 + 1), C, only, cfg)!.served.height).toBe(2);
+  expect(pickLadder(mk(D0), C, only, cfg)!.served.height).toBe(3);
+  expect(pickLadder(mk(null), C, only, cfg)!.served.height).toBe(3);
+});
+
+test("fix 3: once maxFullPerSession level-3 ladder cards are served, level 3 is served as level 2", () => {
+  expect(pickLadder(at(3), C, ctx({ ladderFull: 0 }), cfg)!.served.height).toBe(3);
+  expect(pickLadder(at(3), C, ctx({ ladderFull: 1 }), cfg)!.served.height).toBe(2);
+  // not even as the fallback: with levels 1 and 2 all seen, nothing
+  expect(pickLadder(at(3, { seen: seenAll([...cardsAt(1), ...cardsAt(2)]) }), C, ctx({ ladderFull: 1 }), cfg)).toBeNull();
+});
+
 function lastLadder(steps: Step[]) {
   return steps[steps.length - 1].state.ladder;
 }

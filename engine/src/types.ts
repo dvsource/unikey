@@ -85,6 +85,8 @@ export type SessionState = {
    * Only an answer on this card moves `State.ladder`.
    */
   ladderCard: string | null;
+  /** Change 4: level-3 cards served by `pickLadder` this session (at most `ladder.maxFullPerSession`). */
+  ladderFull: number;
 };
 
 export type Choice = number | "dont-know";
@@ -159,6 +161,8 @@ export type PickCtx = {
   newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
   h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
   recentCards?: string[]; leftSkills?: string[];
+  /** Change 4: level-3 cards `pickLadder` has served this session (default 0). */
+  ladderFull?: number;
 };
 
 export type Picked = { served: Served; rng: Rng };

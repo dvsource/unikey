@@ -31,6 +31,8 @@ export function ladderLevels(level: Height): Height[] {
  * eligible. The shared check (`firstOf`) keeps out blocked sections, left and excluded skills, the session's recent
  * cards, an over-long same-skill run and cards seen within `noRepeatDays`. The new-skill allowance does not apply
  * (nearly every first-session card is a new skill); a new skill gets its record at the served level when answered.
+ * Level 3 (fix round 1): never for a skill whose `noFullUntilDay` is after today (back from a skip), and not at all once
+ * `ctx.ladderFull` reaches `ladder.maxFullPerSession`: ladder level 3 is then served as level 2 (the level itself stays 3).
  *
  * Order (one comparator, `ladderOrder`): liked sections first (in `likedSections` order; other sections after), then
  * due skills, then the current topic, then higher weight, then skill id.
@@ -40,7 +42,9 @@ export function ladderLevels(level: Height): Height[] {
  * current topic or not), and `open:liked` for a started skill that is not due.
  */
 export function pickLadder(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
-  const level = state.ladder?.level ?? 1;
+  const fullDone = (ctx.ladderFull ?? 0) >= cfg.ladder.maxFullPerSession;
+  const level = Math.min(state.ladder?.level ?? 1, fullDone ? 2 : 3) as Height;
+  const fullOk = (d: SkillDef) => { const u = state.skills[d.id]?.noFullUntilDay ?? null; return u === null || u <= ctx.day; };
   const liked = likedSections(state, content, cfg);
   const cur = state.currentTopic?.id ?? null;
   const sectionRank = (d: SkillDef) => { const i = liked.indexOf(d.section); return i < 0 ? liked.length : i; };
@@ -57,8 +61,8 @@ export function pickLadder(state: State, content: Content, ctx: PickCtx, cfg: Co
     if (!(d.id in state.skills)) return d.topic === cur ? "new:class-topic" : "new:exam-weight";
     return due(d) === 0 ? "due-review" : "open:liked";
   };
-  for (const height of ladderLevels(level)) {
-    const cands = defs.filter((def) => def.cards[height].length > 0).map((def) => ({ def, height }));
+  for (const height of ladderLevels(level).filter((h) => h < 3 || !fullDone)) {
+    const cands = defs.filter((def) => def.cards[height].length > 0 && (height < 3 || fullOk(def))).map((def) => ({ def, height }));
     const p = firstOf(state, content, cands, (c) => reason(c.def), ctx, cfg);
     if (p) return p;
   }

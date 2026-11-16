@@ -914,9 +914,12 @@ test("leaving a neighbour-piece skill: the repair it was a piece for ends; a rep
 
 // ---------- change 4: the first sessions use a ladder ----------
 
-test("session 1, all right: cards 1–2 easy, card 3 guided, a full card by card 5 when one fits the budget", () => {
-  const { state, steps } = play(C, newState("s", 1), T0, allR);
+test("session 1, all right: levels 1 1 2 2 2 2 (no room for a full card at budget 8), ends budget with no close card; a full card at card 5 when the budget has room", () => {
+  const { state, steps } = play(C, newState("s", 1), T0, allR, { offer: "stop" });
   const cards = served(steps);
+  const last = lastStep(steps).next;
+  expect(last.kind === "offer-extend" || (last.kind === "end" && last.end.kind === "budget")).toBe(true);
+  expect(cards.some((c) => c.reason === "close:winnable")).toBe(false);
   // Budget 8 (minimum day): 1 + 1 + 1.5 + 1.5 = 5 spent at card 5, 3 left: a full card (effort 4) does not fit, so the
   // nearest lower level, 2, until the budget is spent.
   expect(cards.map((c) => c.height)).toEqual([1, 1, 2, 2, 2, 2]);
@@ -939,7 +942,8 @@ test("session 1, all wrong: every non-repair card is easy", () => {
 
 test("session 4 does not use the ladder; ladder is null", () => {
   // Every skill recorded at height 1; the ladder at 3. Session 3 still uses it (a level-3 card first), session 4 does not.
-  const s = { ...startedAt(1, 1, 0), ladder: { level: 3 as Height, rightRun: 0 } };
+  const free = { noFullUntilDay: null }; // fix round 1: a level-3 ladder card needs noFullUntilDay not after today
+  const s = { ...startedAt(1, 1, 0, { a1: free, a2: free, b1: free, b2: free }), ladder: { level: 3 as Height, rightRun: 0 } };
   const third = startSession({ ...s, sessionCount: cfg.budget.firstSessions - 1 }, C, T0);
   expect(third.state.ladder).toEqual({ level: 3, rightRun: 0 });
   expect(third.next.kind === "card" && third.next.card.height).toBe(3);
@@ -976,10 +980,11 @@ test("migrate: old state with answers gets ladder null; an open session continue
   const p = play(C, { ...startedAt(2, 4, 1), sessionCount: 0 }, T0, ["r", "r"]);
   expect(p.state.session).not.toBeNull();
   const { ladder: _l, ...old } = JSON.parse(JSON.stringify(p.state)) as State;
-  const { ladderCard: _c, ...oldSession } = old.session!;
+  const { ladderCard: _c, ladderFull: _n, ...oldSession } = old.session!;
   const m = migrate({ ...old, session: oldSession });
   expect(m.ladder).toBeNull();
   expect(m.session!.ladderCard).toBeNull();
+  expect(m.session!.ladderFull).toBe(0);
   const sv = m.session!.served!;
   const a = answer(m, C, { card: sv.card, choice: choiceFor(C, sv, "r"), ms: 8000 }, p.now + 10_000);
   expect(a.next.kind).toBe("card");
@@ -987,4 +992,42 @@ test("migrate: old state with answers gets ladder null; an open session continue
   // A fresh stored state (no answers) gets the default ladder.
   const { ladder: _f, ...fresh } = newState("s", 1);
   expect(migrate(JSON.parse(JSON.stringify(fresh))).ladder).toEqual({ level: 1, rightRun: 0 });
+});
+
+// ---------- change 4, fix round 1 ----------
+
+test("fix 1/2: a due skill served by the ladder below its record and answered right gets its next review; memory does not move", () => {
+  // Section B liked; only b1.h1.1 / b2.h1.1 left in it. Cards 1–2 take them (ladder 1 → 2); card 3 is a2 (record 3, due)
+  // at level 2: due-review, below its record.
+  const bCards = Object.keys(C.cards).filter((id) => C.cards[id].section === "u.t1/B" && id !== "b1.h1.1" && id !== "b2.h1.1");
+  const seen = bCards.flatMap((card) => C.cards[card].variants.map((_, variant) => ({ card, variant, day: D0 - 1 })));
+  const nd = { nextReviewDay: D0 + 5 };
+  const s0 = startedState({
+    a1: rec(2, atts(2, 1, 0, D0 - 3), nd), a2: rec(3, atts(3, 1, 0, D0 - 3), { nextReviewDay: D0, gapIndex: 1 }),
+    b1: rec(2, atts(2, 1, 0, D0 - 3), nd), b2: rec(2, atts(2, 1, 0, D0 - 3), nd),
+  }, { sessionCount: 1, seen, sections: { "u.t1/B": { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 2, returned: false, skipTotal: 0, lastSkipSeq: null } } });
+  const { steps } = play(C, s0, T0, allR);
+  const cards = served(steps);
+  expect(cards.slice(0, 3).map((c) => [c.skill, c.height])).toEqual([["b2", 1], ["b1", 1], ["a2", 2]]);
+  expect(cards[2].reason).toBe("due-review");
+  const after3 = steps[3].state;
+  expect(after3.skills.a2.height).toBe(3);
+  // gap index 1 → reviewGapsDays[1] = 3 days × memory 1; the index advances
+  expect(after3.skills.a2.nextReviewDay).toBe(D0 + 3);
+  expect(after3.skills.a2.gapIndex).toBe(2);
+  expect(after3.profile.memory).toBe(steps[2].state.profile.memory);
+  expect(cards.slice(3).some((c) => c.skill === "a2" && c.reason === "due-review")).toBe(false);
+});
+
+test("fix 3: an all-right session 2 starting at ladder level 3 serves one level-3 card, then level 2 (more than 3 cards)", () => {
+  expect(cfg.ladder.maxFullPerSession).toBe(1);
+  const s1 = play(C, newState("s", 1), T0, allR);
+  expect(s1.state.ladder).toEqual({ level: 3, rightRun: 0 });
+  const s2 = play(C, s1.state, nextDay(s1.now), allR);
+  const cards = served(s2.steps);
+  expect(cards[0].height).toBe(3);
+  expect(cards.filter((c) => c.height === 3).length).toBe(1);
+  expect(cards.length).toBeGreaterThan(3);
+  expect(cards.slice(1).every((c) => c.height <= 2)).toBe(true);
+  expect(s2.state.ladder!.level).toBe(3); // the ladder's own level stays 3
 });
