@@ -4,7 +4,8 @@ import { migrate, newState } from "../src/state.js";
 import { dayOf } from "../src/time.js";
 import { answer, skip, startSession } from "../src/session.js";
 import { setCurrentTopic, setSkipReason, valueMessage } from "../src/skip.js";
-import { pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "../src/pick.js";
+import { eligibleCard, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "../src/pick.js";
+import { expectedSuccess } from "../src/estimate.js";
 import type { PickCtx, SectionRec, Served, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import { T0, atts, choiceFor, lastStep, nextDay, play, rec, run, section, served, startedState } from "./helpers.js";
@@ -579,7 +580,8 @@ test("too-hard: section record untouched, skill one level down, skill not served
 });
 
 test("too-hard at the lowest level: skill rests 3 days, section stays", () => {
-  const s0 = startedAll(1, {}, { sections: { [B]: section({ liking: 5 }) } });
+  // fix round 1: B's skills are due today, so the rest day is later than their review date (it never moves one earlier)
+  const s0 = startedAll(1, { b1: { nextReviewDay: D0 }, b2: { nextReviewDay: D0 } }, { sections: { [B]: section({ liking: 5 }) } });
   const st = startSession(s0, C, T0);
   const c0 = cardOf(st);
   expect(c0).toMatchObject({ section: B, height: 1 });
@@ -673,6 +675,7 @@ test("setSkipReason too-hard after a section skip: section record restored exact
     const st = startSession(s0, C, T0);
     const c0 = cardOf(st);
     const sec = c0.section;
+    if (Object.keys(sections).length > 0) expect(sec).toBe(B); // fix round 1: the rich-record case really skips B
     const sk = skip(st.state, C, { card: c0.card, confirmed: true }, T0 + 10_000);
     expect(sk.state.session!.blockedSections).toEqual([sec]);
     const frozen = JSON.stringify(sk.state);
@@ -790,4 +793,148 @@ test("migrate defaults skippedLevel and lastSkip", () => {
   const kept = { ...st.state, sections: { [B]: { ...st.state.sections[B], skippedLevel: 3 as const } } };
   expect(migrate(JSON.parse(JSON.stringify(kept))).sections[B].skippedLevel).toBe(3);
   expect(newState("s", 1).sections).toEqual({});
+});
+
+// ---------- change 6, fix round 1 ----------
+
+const rejoinsOf = (steps: Step[]) => steps.flatMap((s) => s.events).filter((e) => e.type === "section_rejoined").map((e) => e.data);
+/** Seen entries for every variant of these cards on `day`. */
+const seenAll = (ids: string[], day: number, c = C) => ids.flatMap((id) => c.cards[id].variants.map((_, v) => ({ card: id, variant: v, day })));
+const bH1 = ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"];
+
+test("fix round 1: allowed cards exist but were all seen recently: no rejoin, no side door; served once one is eligible again", () => {
+  // The simulator case: a level-1 side-door card skipped (skippedLevel 1); every level-1 B card seen within 14 days.
+  // Seen on days D0-13 .. D0-8: card i is eligible again from day (seen day + noRepeatDays).
+  const seen = bH1.map((card, i) => ({ card, variant: 0, day: D0 - 13 + i }));
+  const s0 = startedAll(2, {}, { sections: waitingB(D0 - 2, { skippedLevel: 1 }), seen });
+  const today = play(C, s0, T0, allR);
+  expect(rejoinsOf(today.steps)).toEqual([]);
+  expect(cardsOf(today.steps).filter((c) => c.section === B)).toEqual([]);
+  expect(today.state.sections[B]).toMatchObject({ skipCount: 1, returned: false });
+  // Day +1: b1.h1.1 (seen D0-13) is eligible again: the side door serves it, at level 1.
+  const next = play(C, today.state, nextDay(T0), allR);
+  expect(rejoinsOf(next.steps)).toEqual([]);
+  const sides = cardsOf(next.steps).filter(isSide);
+  expect(sides.map((c) => [c.card, c.height])).toEqual([["b1.h1.1", 1]]);
+  expect(next.state.sections[B]).toMatchObject({ returned: true });
+});
+
+test("fix round 1: a true content gap at the allowed levels still rejoins silently", () => {
+  const p = play(fixture({ drop: noH1B }), startedAll(2, {}, { sections: waitingB(D0, { skippedLevel: 1 }) }), T0, allR);
+  expect(rejoinsOf(p.steps)).toEqual([{ section: B }]);
+  expect(cardsOf(p.steps).filter(isSide)).toEqual([]);
+});
+
+test("fix round 1: for a due section exactly one holds: side-door card served, silent rejoin, or cards exist but none eligible", () => {
+  const drops = [[], noH1B, [...noH1B, ...noH2B]];
+  const levels = [null, 1, 2, 3] as const;
+  const seens = (c: typeof C) => [[], seenAll(bH1.filter((id) => c.cards[id]), D0 - 1, c),
+    seenAll([...bH1, ...noH2B].filter((id) => c.cards[id]), D0 - 1, c)];
+  let n = 0;
+  for (const drop of drops) {
+    const c = fixture({ drop });
+    for (const lvl of levels) {
+      for (const seen of seens(c)) {
+        const s0 = startedAll(2, {}, { sections: waitingB(D0, { skippedLevel: lvl }), seen });
+        const allowed = lvl !== null && lvl > 1 ? ([1, 2] as const).filter((h) => h < lvl) : [1 as const];
+        const hasCards = ["b1", "b2"].some((id) => allowed.some((h) => c.skills[id].cards[h].length > 0));
+        const eligible = ["b1", "b2"].some((id) => allowed.some((h) => eligibleCard(s0, c, id, h, D0, s0.rng, {}, cfg) !== null));
+        const p = play(c, s0, T0, allR);
+        const side = cardsOf(p.steps).filter(isSide);
+        const rejoined = rejoinsOf(p.steps).length > 0;
+        const waiting = side.length === 0 && !rejoined && p.state.sections[B].returned === false && hasCards && !eligible;
+        const tag = `drop ${drop.length} level ${lvl} seen ${seen.length}`;
+        expect([side.length > 0, rejoined, waiting].filter(Boolean).length, tag).toBe(1);
+        expect(side.every((x) => x.height !== 3 && allowed.includes(x.height as 1 | 2)), tag).toBe(true);
+        if (!hasCards) expect(rejoined, tag).toBe(true);
+        else if (eligible) expect(side.length, tag).toBe(1);
+        else expect(waiting, tag).toBe(true);
+        n++;
+      }
+    }
+  }
+  expect(n).toBe(36);
+});
+
+test("fix round 1: too-hard at the lowest level never brings a review date earlier", () => {
+  const s0 = startedAll(1, { b1: { nextReviewDay: D0 + 20 }, b2: { nextReviewDay: D0 + 20 } }, { sections: { [B]: section({ liking: 5 }) } });
+  const st = startSession(s0, C, T0);
+  const c0 = cardOf(st);
+  expect(c0).toMatchObject({ section: B, height: 1 });
+  expect(tooHard(st, T0 + 10_000).state.skills[c0.skill].nextReviewDay).toBe(D0 + 20);
+  // a nearer review date moves out to the rest day
+  const s1 = startedAll(1, { b1: { nextReviewDay: D0 + 1 }, b2: { nextReviewDay: D0 + 1 } }, { sections: { [B]: section({ liking: 5 }) } });
+  const st1 = startSession(s1, C, T0);
+  expect(tooHard(st1, T0 + 10_000).state.skills[cardOf(st1).skill].nextReviewDay).toBe(D0 + cfg.skip.tooHardRestDays);
+});
+
+test("fix round 1: a record created by a too-hard skip of a new skill (no attempts) in later sessions", () => {
+  const base: State = { ...newState("s", 3), sessionCount: 4, ladder: null, answered: 1000 };
+  const st = startSession(base, C, T0);
+  const c0 = cardOf(st);
+  // the served card made a guided card of a skill not started yet → record at level 1, no rest
+  const g: Served = { ...c0, card: "a2.h2.1", skill: "a2", section: A, variant: 0, height: 2, effort: cfg.effort.h2 };
+  const sk = tooHard({ ...st, state: { ...st.state, session: { ...st.state.session!, served: g } }, next: { kind: "card", card: g } }, T0 + 10_000);
+  expect(sk.state.skills.a2).toMatchObject({ height: 1, attempts: [], nextReviewDay: null });
+  const es = expectedSuccess(sk.state, "a2", 1, cfg);
+  expect(es).toBeGreaterThan(0);
+  expect(es).toBeLessThanOrEqual(1);
+  let state = run(C, sk, T0 + 10_000, allR).state;
+  // the first a2 card of the next day is at its recorded level (or one above, as a stretch card)
+  const first = cardsOf(play(C, state, T0 + 86_400_000, allR).steps).find((c) => c.skill === "a2");
+  expect(first).toBeDefined();
+  expect(first!.height).toBe(state.skills.a2.height + (first!.reason === "stretch:up" ? 1 : 0));
+  // the next days: no crash; a2 is never a due review; when served it is served at its recorded level
+  for (const d of [1, 2, 3, 4]) {
+    const p = play(C, state, T0 + d * 86_400_000, allR);
+    const a2 = cardsOf(p.steps).filter((c) => c.skill === "a2");
+    for (const c of a2) {
+      expect(c.reason, `day ${d}`).not.toBe("due-review");
+      // treated as a started skill, never as a new one (the tiny fixture's no-repeat window decides the heights later on)
+      expect(c.reason.startsWith("new:"), `day ${d}`).toBe(false);
+    }
+    expect(lastStep(p.steps).next.kind).toBe("end");
+    state = p.state;
+  }
+  // the resting variant: a new skill's level-1 card → resting record, not due before the rest day
+  const fresh = startSession(newState("s", 3), C, T0);
+  const f0 = cardOf(fresh);
+  const fk = tooHard(fresh, T0 + 10_000);
+  let fs = run(C, fk, T0 + 10_000, allR).state;
+  for (const d of [1, 2]) {
+    const p = play(C, fs, T0 + d * 86_400_000, allR);
+    expect(cardsOf(p.steps).filter((c) => c.skill === f0.skill && c.reason === "due-review"), `day ${d}`).toEqual([]);
+    fs = p.state;
+  }
+});
+
+test("fix round 1: a silent rejoin by class timing (not-learned, class teaching the topic, 2 days after the skip, content gap)", () => {
+  const noH1 = fixture({ drop: noH1B });
+  // skipped on D0-2 (remind day D0+1) as not-learned, a level-2 card: level 1 only, and B has none
+  const waiting = startedAll(2, {}, { sections: waitingB(D0 + 1, { lastReason: "not-learned", skippedLevel: 2 }) });
+  const cls = play(noH1, setCurrentTopic(waiting, "u.t1", "class"), T0, allR);
+  expect(rejoinsOf(cls.steps)).toEqual([{ section: B }]);
+  expect(cls.state.sections[B]).toMatchObject({ returned: true, remindDay: null });
+  // without the class topic: not due yet, nothing happens
+  const plain = play(noH1, waiting, T0, allR);
+  expect(rejoinsOf(plain.steps)).toEqual([]);
+  // class topic but only 1 day after the skip: too soon
+  const soon = startedAll(2, {}, { sections: waitingB(D0 + 2, { lastReason: "not-learned", skippedLevel: 2 }) });
+  expect(rejoinsOf(play(noH1, setCurrentTopic(soon, "u.t1", "class"), T0, allR).steps)).toEqual([]);
+});
+
+test("fix round 1: setSkipReason too-hard after a section skip of a brand-new skill's card: no section record, a record for the skill", () => {
+  const st = startSession(newState("s", 3), C, T0);
+  const c0 = cardOf(st);
+  expect(st.state.skills[c0.skill]).toBeUndefined();
+  expect(st.state.sections).toEqual({});
+  const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000);
+  expect(sk.state.sections[c0.section]).toMatchObject({ skipCount: 1 });
+  expect(sk.state.session!.lastSkip).toMatchObject({ before: null, skill: c0.skill, level: c0.height });
+  const out = setSkipReason(sk.state, C, c0.section, "too-hard", T0 + 12_000);
+  expect(out.state.sections).toEqual({});
+  expect(out.state.session!.blockedSections).toEqual([]);
+  expect(out.state.skills[c0.skill]).toMatchObject({ height: 1, attempts: [], nextReviewDay: D0 + cfg.skip.tooHardRestDays });
+  expect(out.state.session!.leftSkills).toEqual([c0.skill]);
+  expect(out.events[0].data).toMatchObject({ scope: "card", skill: c0.skill, fromLevel: 1, toLevel: 1 });
 });

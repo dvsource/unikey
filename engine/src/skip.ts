@@ -4,7 +4,7 @@ import { defaultConfig, type Config } from "./config.js";
 import { byId } from "./util.js";
 import { isSolid, newSkillRec } from "./skill.js";
 import { expectedSuccess } from "./estimate.js";
-import { avail, eligibleCard, firstOf, servable, solidNeighbour } from "./pick.js";
+import { avail, firstOf, servable, solidNeighbour } from "./pick.js";
 import { stepDownOnce } from "./repair.js";
 import { begin, emit, type Run } from "./step.js";
 import type {
@@ -165,9 +165,11 @@ function pickDrip(state: State, content: Content, ctx: PickCtx, cfg: Config): Pi
 
 /**
  * Change 6: a skipped section whose time has come (`sideDoorDue`: remind day, class timing; the cap is past the remind
- * day) but with no eligible card at the side door's allowed levels comes back without a card: `bringBack`, one
- * `section_rejoined` event. Sections skipped this session (`blocked`) are left out. Once per skip cycle (the section is
- * then returned); in section-id order.
+ * day) but with NO card at all at the side door's allowed levels (a content gap) comes back without a card: `bringBack`,
+ * one `section_rejoined` event. Fix round 1: when such cards exist but none is eligible today (seen within
+ * `noRepeatDays`, the session's recent cards), nothing happens: the section stays skipped and due, and its side-door
+ * card is served in the first session where one is eligible. Sections skipped this session (`blocked`) are left out.
+ * Once per skip cycle (the section is then returned); in section-id order.
  */
 export function rejoinSilently(r: Run, blocked: string[]): void {
   const { s, content, cfg, day } = r;
@@ -175,9 +177,11 @@ export function rejoinSilently(r: Run, blocked: string[]): void {
     && sideDoorDue(s, content, sec, day, cfg)).sort(byId);
   for (const sec of ids) {
     const allowed = sideDoorLevels(s.sections[sec]);
-    const open = content.sections[sec].skills.some((id) => !!content.skills[id]
-      && allowed.some((h) => eligibleCard(s, content, id, h, day, s.rng, {}, cfg) !== null));
-    if (open) continue;
+    const has = content.sections[sec].skills.some((id) => {
+      const def = content.skills[id];
+      return !!def && allowed.some((h) => def.cards[h].length > 0);
+    });
+    if (has) continue;
     bringBack(s, content, sec, day, cfg);
     emit(r, "section_rejoined", { section: sec });
   }
@@ -200,7 +204,7 @@ export function pickSkipCard(state: State, content: Content, ss: SessionState, c
 /**
  * Change 6, the card-level "too hard" rule for `skill` (a card at `level` was too hard), on the run's own copy `s`: the
  * skill's record goes down one level that has cards (`stepDownOnce`, step window restarted); at its lowest level it
- * rests instead (`nextReviewDay = day + skip.tooHardRestDays`). A skill with no record gets one at the lowest level with
+ * rests instead (`nextReviewDay = max(its own, day + skip.tooHardRestDays)`). A skill with no record gets one at the lowest level with
  * cards below `level`, or at `level`, resting, when there is none. The skill is left for the session (`leftSkills`); its
  * repair, waiting ramp card and queued return are dropped. No section changes. Returns the event fields.
  */
@@ -215,7 +219,8 @@ function cardLevelRule(s: State, content: Content, skill: string, level: Height,
   if (def && rec) {
     const down = stepDownOnce(rec, def, s.answered + 1);
     if (down.height < rec.height) toLevel = down.height;
-    s.skills[skill] = down.height < rec.height ? down : { ...rec, nextReviewDay: rest };
+    // Fix round 1: resting never brings a later review date earlier.
+    s.skills[skill] = down.height < rec.height ? down : { ...rec, nextReviewDay: Math.max(rec.nextReviewDay ?? 0, rest) };
   } else if (def) {
     const low = avail(def).find((h) => h < level);
     toLevel = low ?? level;
