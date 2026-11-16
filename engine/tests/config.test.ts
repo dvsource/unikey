@@ -38,3 +38,6 @@ test("rng is repeatable", () => {
   const [a, r1] = next({ seed: 7, n: 0 }); const [b] = next({ seed: 7, n: 0 });
   expect(a).toBe(b); expect(r1).toEqual({ seed: 7, n: 1 }); expect(a).toBeGreaterThanOrEqual(0); expect(a).toBeLessThan(1);
 });
+test("change 4: the ladder steps up after this many right answers in a row", () => {
+  expect(c.ladder).toEqual({ upAfterRight: 2 });
+});

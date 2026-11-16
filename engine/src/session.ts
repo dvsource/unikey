@@ -9,6 +9,7 @@ import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, off
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applySkip, newSectionRec, pickSkipCard, valueMessage } from "./skip.js";
+import { ladderAfterAnswer, pickLadder } from "./ladder.js";
 import type {
   Choice, Content, EndInfo, EndKind, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
@@ -89,11 +90,14 @@ function withReason(p: Picked | null, reason: Reason): Picked | null {
 /**
  * `sweep`: a not-started skill served by the last-resort sweep or a close pick gets its SkillRec (at the served height)
  * when served, so it counts as started even if skipped; any other new skill gets it, at the served height, on its answer.
+ * `ladder`: the card is a `pickLadder` pick (change 4): its answer moves the ladder. Any other card clears the mark,
+ * except a ramp card served in front of a waiting ladder pick.
  */
-function serve(r: Run, p: Picked, sweep = false): Next {
+function serve(r: Run, p: Picked, sweep = false, ladder = false): Next {
   const ss = r.s.session!;
   const sv = p.served;
   r.s.rng = p.rng;
+  ss.ladderCard = ladder ? sv.card : ss.ramp !== null && ss.ramp.card === ss.ladderCard ? ss.ladderCard : null;
   if (!(sv.skill in r.s.skills)) {
     ss.newSkills += 1;
     if (sweep) r.s.skills[sv.skill] = newSkillRec(sv.height);
@@ -115,6 +119,12 @@ function queueReturn(r: Run, skill: string, confident = false): void {
   ss.confident = [...ss.confident.filter((x) => x !== skill), ...(confident ? [skill] : [])];
   ss.returns = [...ss.returns, { skill, afterCard: ss.history.length + r.cfg.session.returnAfterCards }];
 }
+
+/**
+ * Change 4: the ladder is active in this session: `startSession` left `state.ladder` set (the session is one of the
+ * first `budget.firstSessions`) and the session is not a comeback.
+ */
+const ladderOn = (r: Run) => r.s.ladder !== null && !r.s.session!.comeback;
 
 function decide(r: Run, last: Last): Next {
   const ss = r.s.session!;
@@ -161,23 +171,27 @@ function normal(r: Run, last: Last): Next {
     ss.ramp = null;
     if (!ss.blockedSections.includes(q.section) && q.effort <= room) {
       ss.tailCard = q.card; // the second half of a ramp: not a first card back for memory
-      return serve(r, { served: q, rng: s.rng });
+      return serve(r, { served: q, rng: s.rng }, false, ss.ladderCard === q.card);
     }
   }
-  const main = (p: Picked) => serveMain(r, p, room);
+  // Change 4: while the ladder is active, open and middle picks come from pickLadder (the level follows the answers).
+  const ladder = ladderOn(r);
+  const middle = ladder ? pickLadder : pickMiddle;
+  const main = (p: Picked) => serveMain(r, p, room, ladder);
   if (last?.leave !== undefined) {
     // Change 2: the easiest eligible card from a different section (the close order, that section blocked).
     const p = withReason(pickClose(s, content, strict([last.leave]), cfg), "comfort-correction");
     if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
   }
   if (last?.avoid !== undefined) {
-    const p = pickOpen(s, content, strict([last.avoid]), cfg);
+    const p = (ladder ? pickLadder : pickOpen)(s, content, strict([last.avoid]), cfg);
     if (p) return main(p);
   }
   const open = ss.history.length < cfg.session.openCards;
   ss.phase = open ? "open" : "middle";
   if (open) {
-    const p = (ss.comeback ? pickComeback(s, content, strict(), cfg) : null) ?? pickOpen(s, content, strict(), cfg);
+    const p = ladder ? pickLadder(s, content, strict(), cfg)
+      : (ss.comeback ? pickComeback(s, content, strict(), cfg) : null) ?? pickOpen(s, content, strict(), cfg);
     if (p) return main(p);
   } else {
     const p = pickReturn(s, content, strict(), ss.returns, ss.history.length, cfg);
@@ -189,9 +203,9 @@ function normal(r: Run, last: Last): Next {
     const sk = pickSkipCard(s, content, ss, strict(), cfg); // side door or drip
     if (sk) return serve(r, sk);
   }
-  const pm = pickMiddle(s, content, strict(), cfg);
+  const pm = middle(s, content, strict(), cfg);
   if (pm) return main(pm);
-  if (pickMiddle(s, content, loose(r), cfg)) {
+  if (middle(s, content, loose(r), cfg)) {
     // Something to serve and nothing that fits, or only a skill waiting for its repair return, which `strict` leaves
     // alone: when a waiting return fits the budget it is served now (early), so the session does not dead-end after
     // a repair with most of its budget unspent.
@@ -215,12 +229,16 @@ function normal(r: Run, last: Last): Next {
   return leastRecent(r, loose(r), "fallback:any") ? toClosing(r, false) : finish(r, "content-exhausted");
 }
 
-/** Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card. */
-function serveMain(r: Run, p: Picked, room: number): Next {
+/**
+ * Serves an open or middle pick; a height-3 pick for a calculation-weak student goes behind a height-2 ramp card.
+ * `ladder`: a pickLadder pick (change 4); behind a ramp card it is still the ladder card (the ramp card is not).
+ */
+function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   const ss = r.s.session!;
   const ramp = rampBefore(r.s, r.content, p, ss.history.map((h) => h.skill), r.day, room, r.cfg, recentCards(r));
-  if (!ramp) return serve(r, p);
+  if (!ramp) return serve(r, p, false, ladder);
   ss.ramp = p.served;
+  ss.ladderCard = ladder ? p.served.card : null;
   return serve(r, ramp);
 }
 
@@ -320,13 +338,14 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     return step(r, { kind: "end", end });
   }
   r.s.sessionCount += 1;
+  if (r.s.sessionCount > cfg.budget.firstSessions) r.s.ladder = null; // change 4: the ladder is for the first sessions
   const comeback = isComeback(r.s, r.day, cfg);
   const budget = sessionBudget(r.s, comeback, cfg);
   r.s.session = {
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null, confident: [], leftSkills: [],
+    sideDoor: null, confident: [], leftSkills: [], ladderCard: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
@@ -358,6 +377,8 @@ export function answer(
   today.effort += cost;
   if (today.effort >= cfg.budget.minimumDay) today.streakKept = true;
   r.s.answered += 1;
+  // Change 4: only an answer on a pickLadder card moves the ladder.
+  const fromLadder = r.s.ladder !== null && r.s.session!.ladderCard === sv.card;
   let steppedDown = false;
   const def = content.skills[sv.skill];
   if (def) {
@@ -365,9 +386,14 @@ export function answer(
     const rec0 = r.s.skills[sv.skill] ?? newSkillRec(sv.height);
     const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card }, r.s.profile.memory, cfg);
     // A drip is a height-1 card, the lowest height, so a wrong drip can never step its skill down.
-    r.s.skills[sv.skill] = out.rec;
+    // Change 4: a right ladder answer above the skill's record sets the record to that level (the ladder is the
+    // step-up rule in these sessions), with a new step window. A right answer below the record leaves it.
+    r.s.skills[sv.skill] = fromLadder && right && sv.height > rec0.height
+      ? { ...out.rec, height: sv.height, windowStartSeq: r.s.answered + 1 }
+      : out.rec;
     steppedDown = out.steppedDown;
   }
+  if (fromLadder) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
   onAnswerProfile(r, sv, right, input.ms, usual);
 

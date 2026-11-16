@@ -5,6 +5,7 @@ import { newSkillRec } from "../src/skill.js";
 import { dayOf, DAY_MS } from "../src/time.js";
 import { expectedSuccess, usualMs } from "../src/estimate.js";
 import { closeSweepReason, eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
+import { pickLadder } from "../src/ladder.js";
 import type { PickCtx } from "../src/types.js";
 import type { Attempt, Content, Height, Seen, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -381,31 +382,26 @@ test("pickAny (R2): below comfort → lowest height first, then expectedSuccess"
   expect(ok.served).toMatchObject({ skill: "a1", height: 2 });
 });
 
-test("open (R3): fewer than estimate.minOwnPrior answers overall → the chosen skill's lowest eligible height", () => {
+test("change 4: open has no fresh mode: with fewer than estimate.minOwnPrior answers the skill's own height (the ladder sets the level in the first sessions)", () => {
   const good = Array.from({ length: 4 }, () => att(2, true)); // h2 0.9 ≥ comfort
   const s = st({ a1: notDue(2, { attempts: good }) }, { answered: cfg.estimate.minOwnPrior - 1 });
-  expect(pickOpen(s, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 1, reason: "open:liked" });
-  // a1's h1 cards all seen → another skill's height-1 card (fix round 1, finding 1: height first across skills;
-  // before, a1's next height up, h2).
-  const seen = { ...s, seen: seenAll(["a1.h1.1", "a1.h1.2", "a1.h1.3"], D - 1) };
-  expect(pickOpen(seen, C, ctx(), cfg)!.served.height).toBe(1);
-  expect(pickOpen(seen, C, ctx(), cfg)!.served.skill).not.toBe("a1");
-  // With enough answers, the skill's own height again.
-  expect(pickOpen({ ...s, answered: cfg.estimate.minOwnPrior }, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
+  expect(pickOpen(s, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2, reason: "open:liked" });
+  expect(pickOpen({ ...s, answered: 0 }, C, ctx(), cfg)!.served).toMatchObject({ skill: "a1", height: 2 });
 });
 
-test("open, fresh student (finding 1): height first across skills; height 3 only when nothing lower is eligible anywhere", () => {
-  // a1 started (section A is the only liked one), its h1/h2 cards all seen: only a1.h3 is left in it.
+test("change 4: pickLadder replaces fresh mode: the level first across skills; another level only when nothing is eligible at it", () => {
+  // a1 started (section A is the only liked one), its h1/h2 cards all seen: only a1.h3 is left in it. Ladder at 1:
+  // another skill's level-1 card, not a1's level 3.
   const lowA1 = ["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3"];
   const s = st({ a1: notDue(2, { attempts: [att(2, true), att(2, true)] }) }, { answered: 2, seen: seenAll(lowA1, D - 1) });
-  const r = pickOpen(s, C, ctx(), cfg)!;
-  expect(r.served.height).toBe(1);
-  expect(r.served.reason).toBe("open:liked");
-  // Also when the session's new-skill allowance is used up (a fresh student's open cards are all new skills).
-  expect(pickOpen(s, C, ctx({ newSkillsThisSession: 2 }), cfg)!.served.height).toBe(1);
-  // Every height-1/2 card seen → height 3.
+  const r = pickLadder(s, C, ctx(), cfg)!;
+  expect(r.served).toMatchObject({ height: 1, reason: "open:liked" });
+  expect(r.served.skill).not.toBe("a1");
+  // Also when the session's new-skill allowance is used up (nearly every first-session card is a new skill).
+  expect(pickLadder(s, C, ctx({ newSkillsThisSession: 2 }), cfg)!.served.height).toBe(1);
+  // Every height-1/2 card seen → height 3 (the nearest higher level with an eligible card).
   const allLow = ["a1", "a2", "b1", "b2"].flatMap((x) => [1, 2, 3].flatMap((i) => [`${x}.h1.${i}`, `${x}.h2.${i}`]));
-  expect(pickOpen({ ...s, seen: seenAll(allLow, D - 1) }, C, ctx(), cfg)!.served.height).toBe(3);
+  expect(pickLadder({ ...s, seen: seenAll(allLow, D - 1) }, C, ctx(), cfg)!.served.height).toBe(3);
 });
 
 test("close (finding 2): height first across skills — any eligible height-1 card before any height-2 card", () => {

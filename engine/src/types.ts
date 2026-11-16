@@ -80,6 +80,11 @@ export type SessionState = {
   servedCards: string[];
   /** Skills left for the rest of the session after two misses in a row on them (change 2): never served again. */
   leftSkills: string[];
+  /**
+   * Change 4: the card id of the ladder pick being served, or waiting behind the ramp card just served, else null.
+   * Only an answer on this card moves `State.ladder`.
+   */
+  ladderCard: string | null;
 };
 
 export type Choice = number | "dont-know";
@@ -120,7 +125,14 @@ export type State = {
   momentsDone: string[];
   /** How the last session (or daily-cap start) ended; replayed for a stale call with no open session. */
   lastEnd: EndInfo | null;
+  /**
+   * The first-session ladder (change 4): the level open and middle cards are served at, and the right answers in a row
+   * at it. Used while `sessionCount <= budget.firstSessions`; null from the first later session on (and for a stored
+   * state that had answers before the ladder existed).
+   */
+  ladder: Ladder | null;
 };
+export type Ladder = { level: Height; rightRun: number };
 
 export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
   | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"

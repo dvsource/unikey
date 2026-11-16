@@ -108,3 +108,14 @@ export function anyEligible(state: State, content: Content, day: number, cfg: Co
 export function withProfile(s: State, p: Partial<State["profile"]>): State {
   return { ...s, profile: { ...s.profile, ...p } };
 }
+/** Each answered card (skips left out) with the ladder before and after its answer (change 4). */
+export function ladderSteps(steps: Step[]): { served: Served; before: State["ladder"]; after: State["ladder"] }[] {
+  const out: { served: Served; before: State["ladder"]; after: State["ladder"] }[] = [];
+  for (let k = 0; k + 1 < steps.length; k++) {
+    const st = steps[k];
+    const nx = steps[k + 1];
+    if (st.next.kind !== "card" || !nx.events.some((e) => e.type === "answer")) continue;
+    out.push({ served: st.next.card, before: st.state.ladder, after: nx.state.ladder });
+  }
+  return out;
+}

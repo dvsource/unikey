@@ -9,6 +9,7 @@ test("newState defaults", () => {
   const s = newState("s1", 42);
   expect(s.profile).toMatchObject({ comfort: 0.75, memory: 1, h3Share: 0.4, stamina: 13.34 });
   expect(s).toMatchObject({ v: 1, seq: 0, lastNow: 0, rng: { seed: 42, n: 0 }, currentTopic: null, day: null, session: null });
+  expect(s.ladder).toEqual({ level: 1, rightRun: 0 }); // change 4
   expect(JSON.parse(JSON.stringify(s))).toEqual(s);
 });
 test("migrate rejects unknown version", () => expect(() => migrate({ v: 9 })).toThrow("unsupported state version"));

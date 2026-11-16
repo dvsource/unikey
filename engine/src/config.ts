@@ -37,6 +37,8 @@ export const defaultConfig = {
   skip: { dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2 },
   /** Closing (spec §2): a card answered right this many days ago or more may be served again as the close:winnable card. */
   closing: { repeatRightAfterDays: 3 },
+  /** First-session ladder (change 4): this many right ladder answers in a row raise the level by one (max 3). */
+  ladder: { upAfterRight: 2 },
 };
 
 export type Config = typeof defaultConfig;

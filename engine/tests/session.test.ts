@@ -68,8 +68,11 @@ test("all right at height 2: the budget keeps a wrong close card in reserve; a h
 
 // ---------- final review F1: no close card after a right answer ----------
 
-/** A student in their first sessions (minimum-day budget 8), all four skills started at height 2. */
-const firstSessions = () => ({ ...startedAt(2, 4, 1), sessionCount: 0 });
+/**
+ * A student in their first sessions (minimum-day budget 8), all four skills started at height 2. Change 4: ladder off
+ * (as for a stored state from before it), so the cards stay at the records' height 2 and the session ends below 8.
+ */
+const firstSessions = () => ({ ...startedAt(2, 4, 1), sessionCount: 0, ladder: null });
 
 test("F1: budget spent after a right answer → the session ends there (budget), no close card, streak kept under the minimum day", () => {
   const { steps } = play(C, firstSessions(), T0, allR);
@@ -596,7 +599,7 @@ test("F3: a new skill's SkillRec starts at the height actually served, so a righ
   const first = startSession(newState("s", 1), C, T0);
   if (first.next.kind !== "card") throw new Error("no card");
   const c = first.next.card;
-  expect(c.height).toBe(1); // a fresh student's open card is the easiest eligible, below the default start height 2
+  expect(c.height).toBe(1); // change 4: a fresh student starts on the ladder at level 1, below the default start height 2
   const a = answer(first.state, C, { card: c.card, choice: choiceFor(C, c, "r"), ms: 8000 }, T0 + 10_000);
   const r = a.state.skills[c.skill];
   expect(r.height).toBe(c.height);
@@ -907,4 +910,81 @@ test("leaving a neighbour-piece skill: the repair it was a piece for ends; a rep
   expect(o1.state.session!.leftSkills).toEqual(["b1"]);
   expect(o1.state.session!.repair).toEqual({ skill: "a2", failedHeight: 3, stage: "confidence" });
   expect(cardOf(o1)).toMatchObject({ skill: "a2", reason: "repair:confidence" });
+});
+
+// ---------- change 4: the first sessions use a ladder ----------
+
+test("session 1, all right: cards 1–2 easy, card 3 guided, a full card by card 5 when one fits the budget", () => {
+  const { state, steps } = play(C, newState("s", 1), T0, allR);
+  const cards = served(steps);
+  // Budget 8 (minimum day): 1 + 1 + 1.5 + 1.5 = 5 spent at card 5, 3 left: a full card (effort 4) does not fit, so the
+  // nearest lower level, 2, until the budget is spent.
+  expect(cards.map((c) => c.height)).toEqual([1, 1, 2, 2, 2, 2]);
+  expect(cards.slice(0, 2).every((c) => c.reason === "open:liked")).toBe(true);
+  expect(state.ladder).toEqual({ level: 3, rightRun: 0 });
+  // With room for a full card (a larger minimum day), card 5 is level 3.
+  const big = { ...cfg, budget: { ...cfg.budget, minimumDay: 12 } };
+  const wide = served(play(C, newState("s", 1), T0, allR, { cfg: big }).steps);
+  expect(wide.slice(0, 5).map((c) => c.height)).toEqual([1, 1, 2, 2, 3]);
+});
+
+test("session 1, all wrong: every non-repair card is easy", () => {
+  const { state, steps } = play(C, newState("s", 1), T0, () => "w");
+  const cards = served(steps);
+  expect(cards.length).toBeGreaterThan(2);
+  expect(cards.some((c) => c.reason.startsWith("repair:"))).toBe(true);
+  expect(cards.filter((c) => !c.reason.startsWith("repair:")).every((c) => c.height === 1)).toBe(true);
+  expect(state.ladder).toEqual({ level: 1, rightRun: 0 });
+});
+
+test("session 4 does not use the ladder; ladder is null", () => {
+  // Every skill recorded at height 1; the ladder at 3. Session 3 still uses it (a level-3 card first), session 4 does not.
+  const s = { ...startedAt(1, 1, 0), ladder: { level: 3 as Height, rightRun: 0 } };
+  const third = startSession({ ...s, sessionCount: cfg.budget.firstSessions - 1 }, C, T0);
+  expect(third.state.ladder).toEqual({ level: 3, rightRun: 0 });
+  expect(third.next.kind === "card" && third.next.card.height).toBe(3);
+  const fourth = startSession({ ...s, sessionCount: cfg.budget.firstSessions }, C, T0);
+  expect(fourth.state.sessionCount).toBe(cfg.budget.firstSessions + 1);
+  expect(fourth.state.ladder).toBeNull();
+  expect(fourth.next.kind === "card" && fourth.next.card.height).toBe(1);
+  // Played through, a fresh student's ladder is null from session 4 on and stays null.
+  let st = newState("s", 1);
+  let now = T0;
+  for (let i = 0; i < cfg.budget.firstSessions; i++) {
+    st = play(C, st, now, allR).state;
+    expect(st.ladder).not.toBeNull();
+    now = nextDay(now);
+  }
+  const p4 = play(C, st, now, allR);
+  expect(p4.steps[0].state.ladder).toBeNull();
+  expect(p4.state.ladder).toBeNull();
+  expect(play(C, p4.state, nextDay(now), allR).state.ladder).toBeNull();
+});
+
+test("ladder level carries from session 1 to session 2", () => {
+  const s1 = play(C, newState("s", 1), T0, ["r", "r", "r", "r", "w"]);
+  // r r → 2, r r → 3, a miss → 2; the rest (repair and close cards) do not move it.
+  expect(s1.state.ladder).toEqual({ level: 2, rightRun: 0 });
+  const kept = migrate(JSON.parse(JSON.stringify(s1.state)));
+  expect(kept.ladder).toEqual({ level: 2, rightRun: 0 });
+  const s2 = startSession(kept, C, nextDay(s1.now));
+  expect(s2.state.ladder).toEqual({ level: 2, rightRun: 0 });
+  expect(s2.next.kind === "card" && s2.next.card.height).toBe(2);
+});
+
+test("migrate: old state with answers gets ladder null; an open session continues", () => {
+  const p = play(C, { ...startedAt(2, 4, 1), sessionCount: 0 }, T0, ["r", "r"]);
+  expect(p.state.session).not.toBeNull();
+  const { ladder: _l, ...old } = JSON.parse(JSON.stringify(p.state)) as State;
+  const { ladderCard: _c, ...oldSession } = old.session!;
+  const m = migrate({ ...old, session: oldSession });
+  expect(m.ladder).toBeNull();
+  expect(m.session!.ladderCard).toBeNull();
+  const sv = m.session!.served!;
+  const a = answer(m, C, { card: sv.card, choice: choiceFor(C, sv, "r"), ms: 8000 }, p.now + 10_000);
+  expect(a.next.kind).toBe("card");
+  expect(a.state.ladder).toBeNull();
+  // A fresh stored state (no answers) gets the default ladder.
+  const { ladder: _f, ...fresh } = newState("s", 1);
+  expect(migrate(JSON.parse(JSON.stringify(fresh))).ladder).toEqual({ level: 1, rightRun: 0 });
 });
