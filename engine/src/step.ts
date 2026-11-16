@@ -8,10 +8,11 @@ import type { Content, EngineEvent, Feedback, Moment, Next, State, Step } from "
 /**
  * `day`: the real local day of this call. Every date about a CARD or a SECTION (seen, attempts, review / solid / failed
  * days, noFullUntilDay, remindDay, moments, what is due or blocked) uses it.
- * `dayOfSession`: the day the open session STARTED on (else `day`). Only the day record (effort, minimum day, streak),
+ * `sessionDay`: the day the open session STARTED on (else `day`). Only the day record (effort, minimum day, streak),
  * `lastSessionDay` and the daily cap use it.
  */
-export type Run = { s: State; content: Content; cfg: Config; now: number; day: number; dayOfSession: number; events: EngineEvent[] };
+/** `day` is the real local day of the call. */
+export type Run = { s: State; content: Content; cfg: Config; now: number; day: number; sessionDay: number; events: EngineEvent[] };
 
 export function begin(state: State, content: Content, now: number, cfg: Config): Run {
   const s = JSON.parse(JSON.stringify(state)) as State; // State is JSON by contract; the copy is ours to change
@@ -19,7 +20,7 @@ export function begin(state: State, content: Content, now: number, cfg: Config):
   const from = s.lastNow;
   const at = effectiveNow(s, now, cfg);
   s.lastNow = at;
-  const r: Run = { s, content, cfg, now: at, day: 0, dayOfSession: 0, events: [] };
+  const r: Run = { s, content, cfg, now: at, day: 0, sessionDay: 0, events: [] };
   rollDay(r);
   // F4: review dates, seen entries and remind days are left as they are (never moved earlier or deleted).
   if (corrected) emit(r, "clock_corrected", { from, to: at });
@@ -28,14 +29,14 @@ export function begin(state: State, content: Content, now: number, cfg: Config):
 
 /**
  * F5: a session that crosses local midnight belongs, for the day record (minimum day, streak, daily cap), to the day
- * it started on (`dayOfSession`); the day record starts afresh on a new day. Cards and sections are dated by `day`, the
+ * it started on (`sessionDay`); the day record starts afresh on a new day. Cards and sections are dated by `day`, the
  * real local day of the call.
  */
 export function rollDay(r: Run): void {
   const s = r.s;
   r.day = dayOf(r.now);
-  r.dayOfSession = s.session ? dayOf(s.session.startedAt) : r.day;
-  if (!s.day || s.day.day !== r.dayOfSession) s.day = { day: r.dayOfSession, effort: 0, streakKept: false };
+  r.sessionDay = s.session ? dayOf(s.session.startedAt) : r.day;
+  if (!s.day || s.day.day !== r.sessionDay) s.day = { day: r.sessionDay, effort: 0, streakKept: false };
 }
 
 export function emit(r: Run, type: EngineEvent["type"], data: Record<string, unknown>): void {

@@ -672,7 +672,8 @@ test("streak: a `budget` end that really spent its budget keeps it even under th
   const end = endOf(lastStep(steps));
   expect(end.kind).toBe("budget");
   expect(end.effort).toBeLessThan(cfg.budget.minimumDay);
-  expect(end.effort).toBeGreaterThanOrEqual(8 - (cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)));
+  // the unspent part is within h3 + the close reserve, and at least half of the budget was spent
+  expect(end.effort).toBeGreaterThanOrEqual(Math.max(8 - (cfg.effort.h3 + cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)), 8 / 2));
   expect(end.streakKept).toBe(true);
 });
 
@@ -730,10 +731,13 @@ function budgetEnd(spent: number, budget: number): EndInfo {
   return endOf(endSession(open, CR, T0 + 30_000));
 }
 
-test("streak: a budget end keeps it when the unspent part is at most the largest card plus the close reserve", () => {
+test("streak: a budget end keeps it when the unspent part is at most the largest card plus the close reserve, and at least half is spent", () => {
   const reach = cfg.effort.h3 + cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow);
   expect(reach).toBe(6);
   expect(budgetEnd(6.5, 12)).toMatchObject({ kind: "budget", streakKept: true }); // only a height-3 card was left
   expect(budgetEnd(7, 9.8)).toMatchObject({ kind: "budget", streakKept: true });
   expect(budgetEnd(3.5, 12)).toMatchObject({ kind: "budget", streakKept: false }); // the old dead end
+  // at least half of the budget must be spent: with a budget of 8 the slack alone would keep it from 2 effort
+  expect(budgetEnd(3.5, 8)).toMatchObject({ kind: "budget", streakKept: false });
+  expect(budgetEnd(4, 8)).toMatchObject({ kind: "budget", streakKept: true });
 });

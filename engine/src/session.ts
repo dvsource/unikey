@@ -51,7 +51,7 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
   const ss = r.s.session!;
   const done = ss.history.filter((h) => h.right !== null);
   return {
-    day: r.day, sessionDay: r.dayOfSession, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
+    day: r.day, sessionDay: r.sessionDay, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
     runningRight: done.filter((h) => h.right).length, runningTotal: done.length,
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
@@ -274,8 +274,9 @@ function closeSession(r: Run, kind: EndKind): Next {
   const cards = ss.history.length;
   // Spec §8: the minimum day keeps the streak (the answers did that already); a bad-day end and a content-exhausted end
   // with an answered card keep it; a budget end keeps it only when the session really spent its budget.
-  // "Really spent": what is left is no more than the largest card that can fail to fit plus the closing reserve.
-  const spentBudget = ss.spent >= ss.budget - (r.cfg.effort.h3 + closeReserve(r.cfg));
+  // "Really spent": what is left is no more than the largest card that can fail to fit plus the closing reserve, and
+  // at least half of the budget was spent (with a budget of 8 the slack alone would keep the streak from 2 effort).
+  const spentBudget = ss.spent >= Math.max(ss.budget - (r.cfg.effort.h3 + closeReserve(r.cfg)), ss.budget / 2);
   if (kind === "bad-day" || ((kind === "budget" || kind === "extended-done") && (today.effort >= r.cfg.budget.minimumDay || spentBudget))
     || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
   if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
