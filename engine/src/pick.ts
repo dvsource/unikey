@@ -139,7 +139,7 @@ function borrowedFrom(state: State, content: Content, def: SkillDef, reason: Rea
 export type Cand = { def: SkillDef; height: Height };
 
 /**
- * `relax`: ignore `excludeSkills` and the same-skill run (the last-resort sweep's second pass).
+ * `relax`: ignore `excludeSkills` (but not `leftSkills`) and the same-skill run (the last-resort sweep's second pass).
  * `unblock`: a skipped section this pick may serve anyway (the drip and the side door).
  */
 export type ServeOpts = { relax?: boolean; unblock?: string };
@@ -151,6 +151,7 @@ export type ServeOpts = { relax?: boolean; unblock?: string };
 function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, opts: ServeOpts = {}): Picked | null {
   const { def, height } = c;
   if (def.section !== opts.unblock && isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
+  if (ctx.leftSkills?.includes(def.id)) return null; // change 2: even the relaxed sweep and returns leave them alone
   if (opts.relax !== true) {
     if (ctx.excludeSkills?.includes(def.id)) return null;
     const n = cfg.session.maxSameSkillRun;

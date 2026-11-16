@@ -121,7 +121,10 @@ test("wrong inside repair → no second repair; height drops; next card from ano
   expect(sess.badMoments).toEqual([1]);
   expect(sess.history.map((h) => h.bad)).toEqual([false, true]);
   expect(s2.state.skills["a1"].height).toBe(2);
-  expect(card(s2)).toMatchObject({ reason: "open:liked", section: "u.t1/B" });
+  // change 2: a wrong piece after the wrong open card is two misses in a row on a1: a1 is left for the session and the
+  // next card is the easiest of another section (comfort-correction), no longer open:liked
+  expect(sess.leftSkills).toEqual(["a1"]);
+  expect(card(s2)).toMatchObject({ reason: "comfort-correction", section: "u.t1/B", height: 1 });
   // a wrong on the first repair card of a confidence stage does the same
   const c1 = right(C, s1, T0 + 20_000);
   const c2 = wrong(C, c1, T0 + 30_000);
@@ -145,4 +148,109 @@ test("missing piece (R5): never the failed card itself, nor any card of the sess
   }
   const conf = nextRepairCard(s, c, { ...repair, failedHeight: 2, stage: "confidence" }, D0, cfg, [], ["a1.h1.1", "a1.h1.2"])!;
   expect(conf.served.card).toBe("a1.h1.3");
+});
+
+// ---------- changes 1 and 2 (2026-11-16): a repair card always steps down ----------
+
+/** Sets the first wrong option's tag on every variant of `id`. */
+function tagged(c: Content, id: string, tag: string): void {
+  c.cards[id].variants = c.cards[id].variants.map((opts) => opts.map((o, i) => (i === 1 ? { ...o, tag } : o)));
+}
+/** The fixture with `sign-error` moved from a1.h1.2 to the given a1 cards. */
+function signErrorOn(...ids: string[]): Content {
+  const c = structuredClone(C);
+  tagged(c, "a1.h1.2", "recall-gap");
+  for (const id of ids) tagged(c, id, "sign-error");
+  return c;
+}
+const seeds = Array.from({ length: 12 }, (_, i) => i + 1);
+
+test("failed at level 2 → piece is level 1, never level 2, even with a tag match at level 2", () => {
+  const c = signErrorOn("a1.h2.1");
+  const s = leadState("a1");
+  const repair = { skill: "a1", failedHeight: 2 as const, tag: "sign-error", stage: "piece" as const };
+  for (const seed of seeds) {
+    const p = nextRepairCard({ ...s, rng: { seed, n: 0 } }, c, repair, D0, cfg, [], ["a1.h2.3"])!;
+    expect(p.served).toMatchObject({ skill: "a1", height: 1, reason: "repair:missing-piece" });
+  }
+  // a note match at level 2 does not count either
+  c.cards["a1.h2.2"].noteRef = "n9";
+  const n = nextRepairCard(s, c, { skill: "a1", failedHeight: 2, note: "n9", stage: "piece" }, D0, cfg, [], ["a1.h2.3"])!;
+  expect(n.served.height).toBe(1);
+});
+
+test("failed at level 3 → piece prefers a tag match at level 2 or 1, lowest level within the tier", () => {
+  const s = leadState("a1");
+  const repair = { skill: "a1", failedHeight: 3 as const, tag: "sign-error", stage: "piece" as const };
+  // the only tag match is at level 2: it beats every level-1 card, a note match at level 1 included
+  const c2 = signErrorOn("a1.h2.1");
+  c2.cards["a1.h1.1"].noteRef = "n9";
+  for (const seed of seeds) {
+    const p = nextRepairCard({ ...s, rng: { seed, n: 0 } }, c2, { ...repair, note: "n9" }, D0, cfg, [], ["a1.h3"])!;
+    expect(p.served).toMatchObject({ card: "a1.h2.1", height: 2, reason: "repair:missing-piece" });
+  }
+  // tag matches at level 1 and level 2: the level-1 one
+  const c12 = signErrorOn("a1.h1.3", "a1.h2.1");
+  for (const seed of seeds) {
+    expect(nextRepairCard({ ...s, rng: { seed, n: 0 } }, c12, repair, D0, cfg, [], ["a1.h3"])!.served.card).toBe("a1.h1.3");
+  }
+  // no tag match: the note tier, then the rest, each lowest level first
+  const note = nextRepairCard(s, c2, { skill: "a1", failedHeight: 3, note: "n9", stage: "piece" }, D0, cfg, [], ["a1.h3"])!;
+  expect(note.served.card).toBe("a1.h1.1");
+  const rest = nextRepairCard(s, C, { skill: "a1", failedHeight: 3, stage: "piece" }, D0, cfg, [], ["a1.h3"])!;
+  expect(rest.served.height).toBe(1);
+});
+
+test("failed at level 1 → a different level-1 card of the same skill", () => {
+  // a tag match at level 2 is not allowed below a level-1 failure
+  const c = signErrorOn("a1.h2.1");
+  const s = leadState("a1");
+  for (const seed of seeds) {
+    const p = nextRepairCard({ ...s, rng: { seed, n: 0 } }, c, { skill: "a1", failedHeight: 1, tag: "sign-error", stage: "piece" }, D0, cfg, [], ["a1.h1.1"])!;
+    expect(p.served).toMatchObject({ skill: "a1", height: 1, reason: "repair:missing-piece" });
+    expect(p.served.card).not.toBe("a1.h1.1");
+  }
+});
+
+test("skill with only level-2 cards, failed at 2 → piece is a requires skill's level-1 card; none → no piece", () => {
+  // a2 keeps only its level-2 cards, one of which matches the tag; a2 requires a1
+  const only2 = fixture({ drop: ["a2.h1.1", "a2.h1.2", "a2.h1.3", "a2.h3"] });
+  tagged(only2, "a2.h2.1", "sign-error");
+  const s = leadState("a1");
+  const repair = { skill: "a2", failedHeight: 2 as const, tag: "sign-error", stage: "piece" as const };
+  for (const seed of seeds) {
+    const p = nextRepairCard({ ...s, rng: { seed, n: 0 } }, only2, repair, D0, cfg, [], ["a2.h2.3"])!;
+    expect(p.served).toMatchObject({ skill: "a1", height: 1, reason: "repair:missing-piece" });
+  }
+  // the requires skill has no level-1 card, and a2 has no helps neighbour: no piece (the stage is skipped)
+  const none = fixture({ drop: ["a2.h1.1", "a2.h1.2", "a2.h1.3", "a2.h3", "a1.h1.1", "a1.h1.2", "a1.h1.3"] });
+  expect(none.skills["a2"].helps).toEqual([]);
+  expect(nextRepairCard(s, none, repair, D0, cfg, [], ["a2.h2.3"])).toBeNull();
+  // a helps neighbour comes after the requires skills: a1 (no requires) with only level-2 cards → b2's level-1 card
+  const a1only2 = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h3"] });
+  expect(a1only2.skills["a1"].helps).toEqual(["b2"]);
+  const h = nextRepairCard(s, a1only2, { skill: "a1", failedHeight: 2, stage: "piece" }, D0, cfg, [], ["a1.h2.1"])!;
+  expect(h.served).toMatchObject({ skill: "b2", height: 1, reason: "repair:missing-piece" });
+  // the session's left skills are never a piece
+  const open = startSession(leadState("a1"), only2, T0).state;
+  const left = { ...open, session: { ...open.session!, leftSkills: ["a1"] } };
+  expect(nextRepairCard(left, only2, repair, D0, cfg, [], ["a2.h2.3"])).toBeNull();
+});
+
+test("confidence card is below the failed level (or level 1 when failed at 1)", () => {
+  const s = leadState("a1");
+  for (const seed of seeds) {
+    const st = { ...s, rng: { seed, n: 0 } };
+    for (const f of [1, 2, 3] as const) {
+      const p = nextRepairCard(st, C, { skill: "a1", failedHeight: f, stage: "confidence" }, D0, cfg, [], [])!;
+      expect(p.served.reason).toBe("repair:confidence");
+      expect(p.served.height).toBe(f === 1 ? 1 : f - 1);
+    }
+    // failed at 3 with every level-2 card recent: level 1, never level 3
+    const low = nextRepairCard(st, C, { skill: "a1", failedHeight: 3, stage: "confidence" }, D0, cfg, [], ["a1.h2.1", "a1.h2.2", "a1.h2.3"])!;
+    expect(low.served.height).toBe(1);
+  }
+  // nothing below level 2 left: no confidence card (never one at the failed level)
+  const thin = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3"] });
+  expect(nextRepairCard(s, thin, { skill: "a1", failedHeight: 2, stage: "confidence" }, D0, cfg, [], [])).toBeNull();
 });

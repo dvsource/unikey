@@ -13,8 +13,11 @@ import type {
   Choice, Content, EndInfo, EndKind, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
 } from "./types.js";
 
-/** After an answer: `avoid`, a section to leave after a failed repair. */
-type Last = { avoid?: string } | null;
+/**
+ * After an answer: `avoid`, a section to leave after a failed repair; `leave`, the section of a skill just left after
+ * two misses in a row (change 2): the next card is the easiest eligible one outside it.
+ */
+type Last = { avoid?: string; leave?: string } | null;
 
 // ---------- profile hooks ----------
 
@@ -55,8 +58,8 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
     runningRight: done.filter((h) => h.right).length, runningTotal: done.length,
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
-    excludeSkills: strict ? ss.returns.map((q) => q.skill) : [],
-    recentCards: recentCards(r),
+    excludeSkills: [...(strict ? ss.returns.map((q) => q.skill) : []), ...ss.leftSkills],
+    recentCards: recentCards(r), leftSkills: ss.leftSkills,
   };
 }
 /** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
@@ -161,6 +164,11 @@ function normal(r: Run, last: Last): Next {
     }
   }
   const main = (p: Picked) => serveMain(r, p, room);
+  if (last?.leave !== undefined) {
+    // Change 2: the easiest eligible card from a different section (the close order, that section blocked).
+    const p = withReason(pickClose(s, content, strict([last.leave]), cfg), "comfort-correction");
+    if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
+  }
   if (last?.avoid !== undefined) {
     const p = pickOpen(s, content, strict([last.avoid]), cfg);
     if (p) return main(p);
@@ -317,7 +325,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
-    sideDoor: null, confident: [],
+    sideDoor: null, confident: [], leftSkills: [],
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
@@ -369,7 +377,10 @@ export function answer(
   }
   ss.spent += cost;
   if (sv.height === 3) ss.h3Spent += sv.effort;
-  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow });
+  // Change 2: the session's last two answers (skips are not answers) both misses on this skill, neither a drip.
+  const prev = ss.history.filter((h) => h.right !== null).at(-1);
+  const twoMisses = !right && !drip && prev !== undefined && prev.skill === sv.skill && prev.right === false && prev.drip !== true;
+  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}) });
   ss.served = null;
   if (sv.reason === "repair:return" && right) ss.fixed += 1;
   if (ss.phase === "extend") ss.extendLeft -= 1;
@@ -381,14 +392,31 @@ export function answer(
   };
 
   let avoid: string | undefined;
-  if (ss.phase === "open" || ss.phase === "middle") {
+  let leave: string | undefined;
+  if (twoMisses) {
+    // Change 2: leave the skill for the session. A bad moment, one step down (none if this answer already stepped it
+    // down), its repair and queued return dropped, back tomorrow. In open/middle the next card comes from another section.
+    const i = ss.history.length - 1;
+    ss.badMoments.push(i);
+    ss.history[i].bad = true;
+    ss.leftSkills = [...ss.leftSkills.filter((x) => x !== sv.skill), sv.skill];
+    ss.repair = null;
+    ss.ramp = null;
+    ss.returns = ss.returns.filter((q) => q.skill !== sv.skill);
+    ss.confident = ss.confident.filter((x) => x !== sv.skill);
+    const lrec = r.s.skills[sv.skill];
+    if (def && lrec) r.s.skills[sv.skill] = { ...(steppedDown ? lrec : stepDownOnce(lrec, def, r.s.answered + 1)), nextReviewDay: r.day + 1 };
+    if (ss.phase === "open" || ss.phase === "middle") leave = sv.section;
+  } else if (ss.phase === "open" || ss.phase === "middle") {
     if (ss.repair) {
       if (right && ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
       else if (right) {
         queueReturn(r, ss.repair.skill, true);
         ss.repair = null;
       } else {
-        // A failed repair: a bad moment, one step down, and away to another liked section. No second repair.
+        // A failed repair that is not two misses in a row on one skill (a missed confidence card after a right piece,
+        // or a missed piece of a neighbour skill): a bad moment, one step down, and away to another liked section.
+        // No second repair (base design §5 step 5).
         const i = ss.history.length - 1;
         ss.badMoments.push(i);
         ss.history[i].bad = true;
@@ -406,7 +434,7 @@ export function answer(
     }
   }
   if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
-  return step(r, decide(r, avoid !== undefined ? { avoid } : {}), feedback, moments);
+  return step(r, decide(r, { ...(avoid !== undefined ? { avoid } : {}), ...(leave !== undefined ? { leave } : {}) }), feedback, moments);
 }
 
 /**

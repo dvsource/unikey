@@ -1,10 +1,11 @@
 import { test, expect } from "vitest";
 import { defaultConfig as cfg } from "../src/config.js";
-import { newState } from "../src/state.js";
+import { migrate, newState } from "../src/state.js";
+import { pickAny } from "../src/pick.js";
 import { DAY_MS, dayOf } from "../src/time.js";
 import { answer, endSession, extend, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
-import type { EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
+import type { Content, EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import {
   T0, anyEligible, atts, choiceFor, lastStep, nextDay, play, rec, run, served, startedState, withProfile,
@@ -157,11 +158,28 @@ test("a weak student over 5 sessions always gets ≥ 1 card while any card is el
   expect(cards).toBeGreaterThan(10);
 });
 
+/**
+ * The fixture plus b3, a copy of b1 in section B (not started). Change 2: the bad-day run below leaves a1, b1 and a2
+ * (two misses each) and a wrong close card twice on one skill leaves it too, so the four-skill fixture runs out.
+ */
+function withB3(): Content {
+  const c = structuredClone(C);
+  const ids = (h: 1 | 2 | 3) => c.skills["b1"].cards[h].map((id) => id.replace("b1.", "b3."));
+  for (const id of Object.keys(c.cards).filter((x) => x.startsWith("b1."))) {
+    const nid = id.replace("b1.", "b3.");
+    c.cards[nid] = { ...structuredClone(c.cards[id]), id: nid, skill: "b3" };
+  }
+  c.skills["b3"] = { ...c.skills["b1"], id: "b3", name: "b3", cards: { 1: ids(1), 2: ids(2), 3: ids(3) } };
+  c.sections["u.t1/B"] = { ...c.sections["u.t1/B"], skills: [...c.sections["u.t1/B"].skills, "b3"] };
+  return c;
+}
+const C5 = withB3();
+
 /** The bad-day run of the next test, answering the first `wrongCloses` close cards wrong. */
 function badDayRun(wrongCloses: number) {
   const start = withProfile(startedAt(2, 2, 1), { stamina: 30 });
   let closes = 0;
-  return play(C, start, T0, (s: Served) => {
+  return play(C5, start, T0, (s: Served) => {
     if (s.reason !== "close:winnable") return "w";
     return closes++ < wrongCloses ? "w" : "r";
   });
@@ -740,4 +758,102 @@ test("streak: a budget end keeps it when the unspent part is at most the largest
   // at least half of the budget must be spent: with a budget of 8 the slack alone would keep it from 2 effort
   expect(budgetEnd(3.5, 8)).toMatchObject({ kind: "budget", streakKept: false });
   expect(budgetEnd(4, 8)).toMatchObject({ kind: "budget", streakKept: true });
+});
+
+// ---------- change 2 (2026-11-16): two misses in a row on a skill leave it for the session ----------
+
+/** a1 at height 3 and served first (section A liked most); b1, b2 started at height 2 in section B. */
+function leadA1(): State {
+  const skills: Record<string, SkillRec> = {
+    a1: rec(3, atts(3, 10, 0, D0 - 2), { nextReviewDay: D0 + 20 }),
+    b1: rec(2, atts(2, 3, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }),
+    b2: rec(2, atts(2, 3, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }),
+  };
+  const s = startedState(skills, {
+    sections: { "u.t1/A": { ...section(), liking: 2 }, "u.t1/B": section() },
+  });
+  return withProfile(s, { stamina: 30 });
+}
+function section() {
+  return { skipCount: 0, remindDay: null, lastReason: null, dripStopped: false, liking: 0, returned: false, skipTotal: 0, lastSkipSeq: null };
+}
+const cardOf = (st: Step): Served => {
+  if (st.next.kind !== "card") throw new Error(`expected a card, got ${st.next.kind}`);
+  return st.next.card;
+};
+
+function twoMisses(a: "w" | "dk") {
+  const s0 = startSession(leadA1(), C, T0);
+  expect(cardOf(s0)).toMatchObject({ skill: "a1", height: 3 });
+  const s1 = answer(s0.state, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), a), ms: 8000 }, T0 + 10_000);
+  expect(cardOf(s1)).toMatchObject({ skill: "a1", reason: "repair:missing-piece" });
+  const s2 = answer(s1.state, C, { card: cardOf(s1).card, choice: choiceFor(C, cardOf(s1), a), ms: 8000 }, T0 + 20_000);
+  return { s0, s1, s2 };
+}
+
+function expectLeft(s2: Step): void {
+  const ss = s2.state.session!;
+  expect(ss.leftSkills).toEqual(["a1"]);
+  expect(ss.repair).toBeNull();
+  expect(ss.returns).toEqual([]);
+  expect(ss.badMoments).toEqual([1]);
+  expect(ss.history.map((h) => h.bad)).toEqual([false, true]);
+  expect(s2.state.skills["a1"].nextReviewDay).toBe(D0 + 1);
+  expect(s2.state.skills["a1"].height).toBe(2); // one step down, not two
+  // the next card: the easiest eligible card from another section
+  expect(cardOf(s2)).toMatchObject({ section: "u.t1/B", height: 1, reason: "comfort-correction" });
+  // a1 is not served again this session, closing card included
+  const r = run(C, s2, T0 + 20_000, allR);
+  expect(served(r.steps).length).toBeGreaterThan(2);
+  expect(served(r.steps).every((c) => c.skill !== "a1")).toBe(true);
+  expect(r.state.session).toBeNull();
+  expect(r.state.skills["a1"].nextReviewDay).toBe(D0 + 1);
+}
+
+test("two misses in a row on a skill → skill in leftSkills, not served again this session, next card from another section at its easiest", () => {
+  expectLeft(twoMisses("w").s2);
+  // two misses outside a repair count the same: a miss on a1 already in the session's answers, then a1 missed again
+  const s0 = startSession(leadA1(), C, T0);
+  const st = structuredClone(s0.state);
+  st.session!.history = [{ skill: "a1", right: false, ms: 8000, bad: false, height: 3, slow: false }];
+  const s1 = answer(st, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), "w"), ms: 8000 }, T0 + 10_000);
+  expect(s1.state.session!.leftSkills).toEqual(["a1"]);
+  expect(s1.state.session!.repair).toBeNull();
+  expect(cardOf(s1)).toMatchObject({ section: "u.t1/B", reason: "comfort-correction" });
+  // a missed drip card is not one of the two
+  const d = structuredClone(s0.state);
+  d.session!.history = [{ skill: "a1", right: false, ms: 8000, bad: false, height: 1, slow: false, drip: true }];
+  const d1 = answer(d, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), "w"), ms: 8000 }, T0 + 10_000);
+  expect(d1.state.session!.leftSkills).toEqual([]);
+  expect(cardOf(d1).reason).toBe("repair:missing-piece");
+});
+
+test("'I don't know' twice on a skill counts the same", () => {
+  expectLeft(twoMisses("dk").s2);
+  // a right answer in between breaks the run: no leave
+  const { s1 } = twoMisses("w");
+  const r1 = answer(s1.state, C, { card: cardOf(s1).card, choice: choiceFor(C, cardOf(s1), "r"), ms: 8000 }, T0 + 20_000);
+  expect(r1.state.session!.leftSkills).toEqual([]);
+});
+
+test("left skills are honoured by the sweep's relaxed pass", () => {
+  const s0 = startSession(leadA1(), C, T0);
+  const ctx = {
+    day: D0, remaining: Infinity, runningRight: 0, runningTotal: 0, newSkillsThisSession: 0, lastSkills: [],
+    blockedSections: ["u.t1/B"], h3Spent: 0, spent: 0,
+  };
+  // only section A is open; a1 and a2 excluded: the relaxed pass would take them, left skills stay out
+  expect(pickAny(s0.state, C, { ...ctx, excludeSkills: ["a1", "a2"] }, cfg, "fallback:any")!.served.section).toBe("u.t1/A");
+  expect(pickAny(s0.state, C, { ...ctx, excludeSkills: ["a1", "a2"], leftSkills: ["a1", "a2"] }, cfg, "fallback:any")).toBeNull();
+});
+
+test("migrate defaults leftSkills on an open session", () => {
+  const s = startSession(leadA1(), C, T0).state;
+  expect(s.session!.leftSkills).toEqual([]);
+  const { leftSkills: _l, ...old } = s.session!;
+  const m = migrate(JSON.parse(JSON.stringify({ ...s, session: old })));
+  expect(m.session!.leftSkills).toEqual([]);
+  const kept = migrate(JSON.parse(JSON.stringify({ ...s, session: { ...s.session!, leftSkills: ["a1"] } })));
+  expect(kept.session!.leftSkills).toEqual(["a1"]);
+  expect(migrate(JSON.parse(JSON.stringify(newState("s", 1)))).session).toBeNull();
 });

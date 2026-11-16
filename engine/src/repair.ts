@@ -26,8 +26,11 @@ function telling(content: Content, def: SkillDef, tag: string | undefined): stri
 
 /**
  * The next card of a repair stage, or null when the stage has nothing eligible (the caller then skips it).
- * piece: height 1 preferring tag then note → height 2 only on a tag/note match → any height 1 →
- * height 1 of the weakest `requires` skill outside blocked sections (`blocked`: the session's skipped ones). confidence: same skill, `failedHeight − 1` (min 1), nearest at or below.
+ * piece (change 1: always below the failed level F; when F is 1, a different level-1 card): among the skill's cards at
+ * the allowed levels, a tag match first, then a note match, then the rest; within a tier the lowest level first. Then a
+ * level-1 card of the weakest `requires` skill, then of the weakest `helps` neighbour, outside blocked sections
+ * (`blocked`: the session's skipped ones) and the session's left skills. confidence: same skill, `failedHeight − 1`
+ * (min 1), nearest at or below.
  * `recent`: card ids not to serve (R5: the session's last `session.returnAfterCards` serves). The failed card was the
  * last card served, so it is always among them: the missing piece is a different card.
  */
@@ -48,21 +51,25 @@ export function nextRepairCard(
   const tag = telling(content, def, repair.tag);
   const note = repair.note;
   const prefs = { ...ex, ...(tag !== undefined ? { preferTag: tag } : {}), ...(note !== undefined ? { preferNote: note } : {}) };
-  const matches = (id: string) =>
-    (tag !== undefined && hasTag(content, id, tag)) || (note !== undefined && content.cards[id].noteRef === note);
+  /** 0 tag match, 1 note match, 2 the rest (the tiers `eligibleCard` picks within). */
+  const tier = (id: string) =>
+    tag !== undefined && hasTag(content, id, tag) ? 0 : note !== undefined && content.cards[id].noteRef === note ? 1 : 2;
   const piece = (e: { card: string; variant: number; rng: Rng }) =>
     ({ served: build(content, e.card, e.variant, "repair:missing-piece", cfg), rng: e.rng });
 
-  const e1 = eligibleCard(state, content, def.id, 1, day, state.rng, prefs, cfg);
-  if (e1 && matches(e1.card)) return piece(e1);
-  const e2 = eligibleCard(state, content, def.id, 2, day, state.rng, prefs, cfg);
-  if (e2 && matches(e2.card)) return piece(e2);
-  if (e1) return piece(e1);
-  const reqs = def.requires
-    .filter((r) => content.skills[r] && !isBlocked(state, content.skills[r].section, day, blocked))
-    .map((r) => ({ id: r, es: expectedSuccess(state, r, 1, cfg) }))
+  const allowed: Height[] = repair.failedHeight === 1 ? [1] : ([1, 2] as Height[]).filter((h) => h < repair.failedHeight);
+  let best: { e: { card: string; variant: number; rng: Rng }; tier: number } | null = null;
+  for (const h of allowed) { // lowest level first: a lower level wins a tie
+    const e = eligibleCard(state, content, def.id, h, day, state.rng, prefs, cfg);
+    if (e && (best === null || tier(e.card) < best.tier)) best = { e, tier: tier(e.card) };
+  }
+  if (best) return piece(best.e);
+  const left = state.session?.leftSkills ?? [];
+  const weakest = (ids: string[]) => ids
+    .filter((n) => n !== def.id && content.skills[n] && !left.includes(n) && !isBlocked(state, content.skills[n].section, day, blocked))
+    .map((n) => ({ id: n, es: expectedSuccess(state, n, 1, cfg) }))
     .sort((x, y) => x.es - y.es || byId(x.id, y.id));
-  for (const r of reqs) {
+  for (const r of [...weakest(def.requires), ...weakest(def.helps.filter((n) => !def.requires.includes(n)))]) {
     const e = eligibleCard(state, content, r.id, 1, day, state.rng, ex, cfg);
     if (e) return piece(e);
   }

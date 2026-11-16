@@ -48,6 +48,8 @@ export type SessionHistoryEntry = {
   skill: string; right: boolean | null; ms: number; bad: boolean;
   /** Height of the answered card and whether the answer took over `badDay.slowFactor × usualMs(height)`. */
   height: Height; slow: boolean;
+  /** Set on a skipped-drip card's answer: a drip is never one of "two misses in a row" (change 2). */
+  drip?: boolean;
 };
 /**
  * The open session. Invariant: `served === null` while a session is open only when "5 more" is on offer.
@@ -76,6 +78,8 @@ export type SessionState = {
   slowBefore: number[];
   /** Every card id served this session, in order (skipped and left-open ones too): R5, no same card back-to-back. */
   servedCards: string[];
+  /** Skills left for the rest of the session after two misses in a row on them (change 2): never served again. */
+  leftSkills: string[];
 };
 
 export type Choice = number | "dont-know";
@@ -134,13 +138,15 @@ export type Served = {
  * (the session uses it to tell "nothing fits the budget" from "nothing to serve").
  * `excludeSkills`: skills not to serve now (a repaired skill waiting for its return).
  * `recentCards`: card ids (any variant) not to serve now: the session's last `session.returnAfterCards` serves.
+ * `leftSkills`: the session's left skills (change 2), also in `excludeSkills`; unlike it, the sweep's relaxed pass and
+ * the return pick keep them out too.
  */
 export type PickCtx = {
   /** The real local day (cards, sections). `sessionDay`: the day the session started on, for today's effort; default `day`. */
   day: number; sessionDay?: number; remaining: number; runningRight: number; runningTotal: number;
   newSkillsThisSession: number; lastSkills: string[]; blockedSections: string[];
   h3Spent: number; spent: number; strictBudget?: boolean; excludeSkills?: string[];
-  recentCards?: string[];
+  recentCards?: string[]; leftSkills?: string[];
 };
 
 export type Picked = { served: Served; rng: Rng };
