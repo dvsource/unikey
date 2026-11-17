@@ -1,6 +1,13 @@
 export const defaultConfig = {
   effort: { h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 },
-  budget: { staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3 },
+  /**
+   * `lowRight` / `lowRightMinCards` (change 3): after a session of at least this many cards with at most `lowRight` right,
+   * the next session is a minimum day opening on easy cards.
+   */
+  budget: {
+    staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3,
+    lowRight: 2, lowRightMinCards: 3,
+  },
   /** Fade (R4b): this many slow answers in a session (not necessarily in a row) record a fade at the first one. */
   fade: { slowAnswers: 2 },
   reviewGapsDays: [1, 3, 7, 14, 30],
@@ -11,7 +18,8 @@ export const defaultConfig = {
   noRepeatDays: 14,
   stepUp: { rightInRow: 2, minCardsApart: 5 },
   stepDown: { wrongs: 2, window: 4 },
-  badDay: { moments: 3, withinCards: 8, slowFactor: 2, slowRun: 3 },
+  /** `missRun` (change 3): this many misses in a row across the session's answered cards are one bad moment. */
+  badDay: { moments: 2, withinCards: 8, slowFactor: 2, slowRun: 3, missRun: 3 },
   session: { openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 },
   priors: { h1: 0.85, h2: 0.7, h3: 0.5 },
   calc: { h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 },
@@ -28,6 +36,7 @@ export const defaultConfig = {
   tzOffsetMinutes: 330,
   /** F4: a call whose time is more than this many days behind the last one is a clock correction (accepted as the new time). */
   clock: { correctionDays: 2 },
+  /** Change 7: one closing card at most; a missed one ends the session on a recap. */
   sessionEnd: { maxExtraClose: 2 },
   /** Cards left out of the content (spec §11): `phy.therm.c043` ("the same copper bar") depends on another card. */
   content: { exclude: ["phy.therm.c043"] as string[] },

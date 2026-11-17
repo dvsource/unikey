@@ -11,7 +11,7 @@ export function newState(student: string, seed: number, cfg: Config = defaultCon
     },
     skills: {}, sections: {}, seen: [], currentTopic: null, day: null,
     sessionCount: 0, lastSessionDay: null, session: null, answered: 0, lastEnd: null,
-    pendingMoments: [], momentsDone: [], ladder: { level: 1, rightRun: 0 },
+    pendingMoments: [], momentsDone: [], ladder: { level: 1, rightRun: 0 }, lastSession: null,
   };
 }
 
@@ -27,6 +27,7 @@ export function migrate(json: unknown): State {
     badDay: s.session.badDay ?? s.session.fadeEffort != null, slowBefore: s.session.slowBefore ?? [], servedCards: s.session.servedCards ?? [],
     leftSkills: s.session.leftSkills ?? [], ladderCard: s.session.ladderCard ?? null, ladderFull: s.session.ladderFull ?? 0,
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
+    missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, {
     ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null, skippedLevel: x.skippedLevel ?? null, // change 6
@@ -36,6 +37,7 @@ export function migrate(json: unknown): State {
     pendingMoments: s.pendingMoments ?? [], momentsDone: s.momentsDone ?? [],
     // Change 4: a student who answered before the ladder existed is past day one; a fresh one starts on it.
     ladder: s.ladder !== undefined ? s.ladder : (s.answered ?? 0) > 0 ? null : { level: 1, rightRun: 0 },
+    lastSession: s.lastSession ?? null, // change 3
   };
 }
 

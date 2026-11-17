@@ -2,7 +2,10 @@ import { expect, test } from "vitest";
 import { defaultConfig as c, dayOf, next } from "../src/index.js";
 test("spec numbers", () => {
   expect(c.effort).toEqual({ h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 });
-  expect(c.budget).toEqual({ staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3 });
+  expect(c.budget).toEqual({
+    staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3,
+    lowRight: 2, lowRightMinCards: 3, // change 3
+  });
   expect(c.fade).toEqual({ slowAnswers: 2 });
   expect(c.reviewGapsDays).toEqual([1, 3, 7, 14, 30]);
   expect(c.memory).toEqual({ default: 1, min: 0.5, max: 2, up: 1.05, down: 0.85 });
@@ -11,7 +14,7 @@ test("spec numbers", () => {
   expect(c.noRepeatDays).toBe(14);
   expect(c.stepUp).toEqual({ rightInRow: 2, minCardsApart: 5 });
   expect(c.stepDown).toEqual({ wrongs: 2, window: 4 });
-  expect(c.badDay).toEqual({ moments: 3, withinCards: 8, slowFactor: 2, slowRun: 3 });
+  expect(c.badDay).toEqual({ moments: 2, withinCards: 8, slowFactor: 2, slowRun: 3, missRun: 3 }); // change 3
   expect(c.session).toEqual({ openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 });
   expect(c.priors).toEqual({ h1: 0.85, h2: 0.7, h3: 0.5 });
   expect(c.calc).toEqual({ h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 });

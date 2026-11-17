@@ -203,7 +203,7 @@ test("close card answered wrong once / twice → one more close card each time, 
   expect(endOf(lastStep(steps)).kind).toBe("bad-day");
 });
 
-test("three bad moments in 8 cards → one winnable card → end bad-day, streakKept true", () => {
+test("badDay.moments bad moments in 8 cards (change 3: two, was three) → one winnable card → end bad-day, streakKept true", () => {
   const start = withProfile(startedAt(2, 2, 1), { stamina: 30 });
   const fn = (s: Served) => (s.reason === "close:winnable" ? "r" : "w");
   const { steps } = play(C, start, T0, fn);
@@ -1199,3 +1199,113 @@ test("change 5: one extra new skill per session when no skill can go up; migrate
   expect(m.session!.extraNew).toBe(false);
   expect(migrate(JSON.parse(JSON.stringify(open)))).toEqual(open);
 });
+
+// ---------- Task 7: miss runs, near-zero sessions, recap ending (changes 3, 7), "5 more" by effort ----------
+
+/** The open session with `card` served in phase `phase` and no repair / ramp in flight (to control the next answer). */
+function serveAs(st: State, card: string, phase: "open" | "middle" = "middle"): State {
+  const c = C.cards[card];
+  return {
+    ...st, session: {
+      ...st.session!, phase, repair: null, ramp: null,
+      served: { card, variant: 0, skill: c.skill, section: c.section, height: c.height, reason: "due-review", effort: 1 },
+    },
+  };
+}
+function answerAs(st: State, card: string, a: "r" | "w" | "dk", now: number): Step {
+  const s = serveAs(st, card);
+  return answer(s, C, { card, choice: choiceFor(C, s.session!.served!, a), ms: 8000 }, now);
+}
+
+test("change 3: three misses in a row on three skills → one bad moment; a fourth miss does not add another until a new run of three", () => {
+  let st = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
+  let now = T0;
+  const seq: [string, "w" | "dk"][] = [["a1.h1.1", "w"], ["b1.h1.1", "dk"], ["a2.h1.1", "w"], ["b2.h1.1", "w"], ["a1.h2.1", "w"], ["b1.h2.1", "w"]];
+  const after: number[][] = [];
+  for (const [card, a] of seq) {
+    now += 10_000;
+    st = answerAs(st, card, a, now).state;
+    after.push([...st.session!.badMoments]);
+  }
+  expect(after).toEqual([[], [], [2], [2], [2], [2, 5]]);
+  expect(st.session!.history[2].bad).toBe(true);
+  expect(st.session!.badDay).toBe(true); // two bad moments within 8 cards
+  expect(st.session!.phase).toBe("closing");
+
+  // A right answer resets the run; a skip neither counts nor breaks it.
+  let s2 = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
+  for (const [card, a] of [["a1.h1.1", "w"], ["b1.h1.1", "w"], ["a2.h1.1", "r"], ["b2.h1.1", "w"], ["a1.h2.1", "w"]] as const) {
+    now += 10_000;
+    s2 = answerAs(s2, card, a, now).state;
+  }
+  expect(s2.session!.badMoments).toEqual([]);
+  now += 10_000;
+  const sk = skip(serveAs(s2, "b1.h2.2"), C, { card: "b1.h2.2", confirmed: true }, now);
+  now += 10_000;
+  expect(answerAs(sk.state, "a2.h2.1", "w", now).state.session!.badMoments).toEqual([5]);
+
+  // Two misses on one skill that also end a run of three: one bad moment, not two.
+  let s3 = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
+  for (const card of ["a1.h1.1", "b1.h1.1", "b1.h1.2"]) {
+    now += 10_000;
+    s3 = answerAs(s3, card, "w", now).state;
+  }
+  expect(s3.session!.badMoments).toEqual([2]);
+  expect(s3.session!.badDay).toBe(false);
+});
+
+test("change 3: two bad moments within 8 cards → one easy closing card → end bad-day", () => {
+  const start = withProfile(startedAt(2, 2, 1), { stamina: 30 });
+  const { steps } = play(C, start, T0, (s: Served) => (s.reason === "close:winnable" ? "r" : "w"));
+  const cards = served(steps);
+  const closes = cards.filter((c) => c.reason === "close:winnable");
+  expect(closes.length).toBe(1);
+  expect(closes[0].height).toBe(1);
+  expect(cards[cards.length - 1].reason).toBe("close:winnable");
+  expect(cards.length - 1).toBeLessThanOrEqual(cfg.badDay.withinCards);
+  const before = steps[steps.length - 2].state.session!;
+  expect(before.badMoments.length).toBe(2);
+  const end = endOf(lastStep(steps));
+  expect(end).toMatchObject({ kind: "bad-day", streakKept: true });
+});
+
+test("change 3: after a session with 4 cards and 1 right: next budget is 8 and the first two cards are open:easy at the easiest level", () => {
+  // A real session of 4 cards, 1 right, left by the student: lastSession is written.
+  const p = play(C, withProfile(startedAt(2, 4, 1), { stamina: 30 }), T0, ["w", "w", "r", "w"]);
+  const left = endSession(p.state, C, p.now + 1000);
+  expect(left.state.lastSession).toEqual({ cards: 4, right: 1 });
+  const first = startSession(left.state, C, nextDay(T0));
+  expect(first.state.session!.budget).toBe(cfg.budget.minimumDay);
+  const r = run(C, first, nextDay(T0), allR);
+  const cards = served([first, ...r.steps]);
+  expect(cards.slice(0, cfg.session.openCards).map((c) => [c.reason, c.height])).toEqual([["open:easy", 1], ["open:easy", 1]]);
+  expect(cards.slice(cfg.session.openCards).some((c) => c.reason === "open:easy")).toBe(false);
+
+  // The near-zero rule takes priority over a comeback's opening cards.
+  const away = { ...withProfile(startedAt(2, 4, 1), { stamina: 30 }), lastSessionDay: D0 - 3, lastSession: { cards: 4, right: 1 } };
+  const cb = startSession(away, C, T0);
+  expect(cb.state.session).toMatchObject({ budget: 8, comeback: true });
+  expect(served([cb])[0]).toMatchObject({ reason: "open:easy", height: 1 });
+
+  // During the ladder: the level goes down to 1, the open:easy cards do not move it, then the ladder serves.
+  const lad = { ...withProfile(startedAt(2, 4, 1), { stamina: 30 }), sessionCount: 1, ladder: { level: 3 as Height, rightRun: 1 }, lastSession: { cards: 5, right: 2 } };
+  const lp = play(C, lad, T0, allR);
+  const lc = served(lp.steps);
+  expect(lp.steps[0].state.ladder).toEqual({ level: 1, rightRun: 0 });
+  expect(lc.slice(0, 2).map((c) => [c.reason, c.height])).toEqual([["open:easy", 1], ["open:easy", 1]]);
+  expect(lp.steps[2].state.ladder).toEqual({ level: 1, rightRun: 0 });
+  expect(lp.steps[2].state.session!.ladderCard).toBe(lc[2].card); // the third card is the ladder's
+});
+
+test("change 3: after a 2-card session with 0 right: no low-right treatment", () => {
+  const s0 = { ...withProfile(startedAt(2, 4, 1), { stamina: 30 }), lastSession: { cards: 2, right: 0 } };
+  const first = startSession(s0, C, T0);
+  expect(first.state.session!.budget).toBeCloseTo(30 * (1 - cfg.budget.margin), 10);
+  expect(served([first])[0].reason).toBe("open:liked");
+  // 3 cards and 3 right: none either
+  const ok = startSession({ ...s0, lastSession: { cards: 3, right: 3 } }, C, T0);
+  expect(served([ok])[0].reason).toBe("open:liked");
+  // 3 cards, 2 right: the rule applies
+  expect(served([startSession({ ...s0, lastSession: { cards: 3, right: 2 } }, C, T0)])[0].reason).toBe("open:easy");
+});
+

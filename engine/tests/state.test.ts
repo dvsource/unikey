@@ -4,6 +4,7 @@ import { newSkillRec } from "../src/skill.js";
 import { defaultConfig } from "../src/config.js";
 import { DAY_MS } from "../src/time.js";
 import { fixture } from "./fixture.js";
+import type { State } from "../src/types.js";
 
 test("newState defaults", () => {
   const s = newState("s1", 42);
@@ -44,4 +45,16 @@ test("migrate gives an open session from before Task 11 badDay, slowBefore and s
   expect(m.session).toMatchObject({ badDay: true, slowBefore: [], servedCards: [] }); // an old fadeEffort meant bad day
   const m2 = migrate(JSON.parse(JSON.stringify({ ...s, session: { ...ss, fadeEffort: null } })));
   expect(m2.session).toMatchObject({ badDay: false, slowBefore: [], servedCards: [] });
+});
+
+test("change 3/7: migrate defaults lastSession, a stored lastEnd's recap / fixedSkills and the open session's new fields", () => {
+  const { lastSession: _l, ...old } = newState("s", 1);
+  const m = migrate(JSON.parse(JSON.stringify({ ...old, lastEnd: { kind: "budget", effort: 8, cards: 5, right: 4, fixed: 0, streakKept: true } })));
+  expect(m.lastSession).toBeNull();
+  expect(newState("s", 1).lastSession).toBeNull();
+  const ss = { phase: "middle", fadeEffort: null } as unknown as NonNullable<State["session"]>;
+  const ms = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), session: ss })));
+  expect(ms.session).toMatchObject({ missRun: 0, lowStart: false });
+  const kept = migrate({ ...newState("s", 1), lastSession: { cards: 4, right: 1 } });
+  expect(kept.lastSession).toEqual({ cards: 4, right: 1 });
 });

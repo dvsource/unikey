@@ -107,6 +107,16 @@ export type SessionState = {
   extraNew: boolean;
   /** Change 6: set by a section-level skip; cleared by a later skip, by its conversion to "too hard", and at session end. */
   lastSkip: LastSkip | null;
+  /**
+   * Change 3: misses in a row across the session's answered cards (skips are not answers; drips neither count nor
+   * break it; a right answer resets it). Restarts at 0 when it reaches `badDay.missRun` (one bad moment).
+   */
+  missRun: number;
+  /**
+   * Change 3: the session follows a near-zero one (`State.lastSession`): a minimum-day budget whose first
+   * `session.openCards` cards come from the closing order as `open:easy`.
+   */
+  lowStart: boolean;
 };
 
 export type Choice = number | "dont-know";
@@ -154,12 +164,15 @@ export type State = {
    * state that had answers before the ladder existed).
    */
   ladder: Ladder | null;
+  /** Change 3: cards and right answers of the last session that was open (written at its end), else null. */
+  lastSession: { cards: number; right: number } | null;
 };
 export type Ladder = { level: Height; rightRun: number };
 
 export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | "repair:confidence" | "repair:return"
   | "due-review" | "new:class-topic" | "new:exam-weight" | "side-door" | "skipped-drip"
-  | "comfort-correction" | "extend:liked" | "comeback:solid" | "fallback:any" | "stretch:up";
+  | "comfort-correction" | "extend:liked" | "comeback:solid" | "fallback:any" | "stretch:up"
+  | "open:easy";
 
 export type Served = {
   card: string; variant: number; skill: string; section: string; height: Height;

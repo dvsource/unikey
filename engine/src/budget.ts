@@ -28,14 +28,24 @@ export function capRoom(state: State, cfg: Config): number {
 }
 
 /**
- * max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; the student's first `budget.firstSessions` sessions
+ * max(minimumDay, stamina × (1 − margin)), or `budget.comeback`; `minimumDay` after a near-zero session (change 3); the student's first `budget.firstSessions` sessions
  * (`state.sessionCount` already counts the new one) use `minimumDay`: start small, grow on evidence (R4c). Capped by `dayRoom`.
  */
 export function sessionBudget(state: State, comeback: boolean, cfg: Config): number {
-  const b = comeback ? cfg.budget.comeback
+  const b = afterLowRight(state, cfg) ? cfg.budget.minimumDay
+    : comeback ? cfg.budget.comeback
     : state.sessionCount <= cfg.budget.firstSessions ? cfg.budget.minimumDay
     : Math.max(cfg.budget.minimumDay, state.profile.stamina * (1 - cfg.budget.margin));
   return Math.min(b, dayRoom(state, cfg));
+}
+
+/**
+ * Change 3: the last session had at least `budget.lowRightMinCards` cards and at most `budget.lowRight` right: the next
+ * session is a minimum day that opens on easy cards.
+ */
+export function afterLowRight(state: State, cfg: Config): boolean {
+  const l = state.lastSession;
+  return l !== null && l.cards >= cfg.budget.lowRightMinCards && l.right <= cfg.budget.lowRight;
 }
 
 /** `badDay.moments` bad moments within the last `withinCards` cards, or `slowRun` slow answers running. */

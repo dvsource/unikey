@@ -5,7 +5,7 @@ import { isDue, newSkillRec, recordAttempt } from "./skill.js";
 import { usualMs } from "./estimate.js";
 import { closeSweepReason, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
-import { capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
+import { afterLowRight, capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
 import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applyCardSkip, applySkip, newSectionRec, pickSkipCard, rejoinSilently, valueMessage } from "./skip.js";
@@ -200,12 +200,19 @@ function normal(r: Run, last: Last): Next {
     const p = withReason(pickClose(s, content, strict([last.leave]), cfg), "comfort-correction");
     if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
   }
-  if (last?.avoid !== undefined) {
-    const p = (ladder ? pickLadder : pickOpen)(s, content, strict([last.avoid]), cfg);
-    if (p) return main(p);
-  }
   const open = ss.history.length < cfg.session.openCards;
+  // Change 3: after a near-zero session the opening cards come from the closing order (easiest eligible anywhere),
+  // before the ladder or a comeback's opening rule; they never move the ladder.
+  const easy = (extra: string[] = []) => withReason(pickClose(s, content, strict(extra), cfg), "open:easy");
+  if (last?.avoid !== undefined) {
+    const p = open && ss.lowStart ? easy([last.avoid]) : (ladder ? pickLadder : pickOpen)(s, content, strict([last.avoid]), cfg);
+    if (p) return p.served.reason === "open:easy" ? serve(r, p, true) : main(p);
+  }
   ss.phase = open ? "open" : "middle";
+  if (open && ss.lowStart) {
+    const p = easy();
+    if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
+  }
   if (open) {
     const p = ladder ? pickLadder(s, content, strict(), cfg)
       : (ss.comeback ? pickComeback(s, content, strict(), cfg) : null) ?? pickOpen(s, content, strict(), cfg);
@@ -333,16 +340,15 @@ function closeSession(r: Run, kind: EndKind): Next {
   for (const q of ss.returns) {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
   }
-  const end: EndInfo = {
-    kind, effort: ss.spent, cards, right: ss.history.filter((h) => h.right === true).length, fixed: ss.fixed,
-    streakKept: today.streakKept,
-  };
+  const right = ss.history.filter((h) => h.right === true).length;
+  const end: EndInfo = { kind, effort: ss.spent, cards, right, fixed: ss.fixed, streakKept: today.streakKept };
   const changed = onSessionEndProfile(r, end, ss);
   emit(r, "session_end", { ...end, fadeEffort: ss.fadeEffort });
   if (changed) emit(r, "profile", changed);
   r.s.lastSessionDay = dayOf(ss.startedAt);
   r.s.session = null;
   r.s.lastEnd = end;
+  r.s.lastSession = { cards, right }; // change 3: the next session's start reads it
   return { kind: "end", end };
 }
 
@@ -364,14 +370,18 @@ export function startSession(state: State, content: Content, now: number, cfg: C
   if (r.s.sessionCount > cfg.budget.firstSessions) r.s.ladder = null; // change 4: the ladder is for the first sessions
   const comeback = isComeback(r.s, r.day, cfg);
   const budget = sessionBudget(r.s, comeback, cfg);
+  // Change 3: after a near-zero session, start again from easy (the ladder too, when it is still on).
+  const lowStart = afterLowRight(r.s, cfg);
+  if (lowStart && r.s.ladder !== null) r.s.ladder = { level: 1, rightRun: 0 };
   r.s.session = {
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
+    missRun: 0, lowStart,
   };
-  emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount });
+  emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
   const held = releasePending(r.s, cfg);
   for (const m of held) emit(r, "moment", { ...m });
   return step(r, decide(r, null), undefined, held);
@@ -502,6 +512,20 @@ export function answer(
     }
   }
   if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
+  // Change 3: `badDay.missRun` misses in a row (any skills; drips neither count nor break it) are one bad moment at the
+  // last of them, once: the run restarts. When this answer is already a bad moment (a failed repair, a left skill), it
+  // stays one.
+  if (!drip) {
+    ss.missRun = right ? 0 : ss.missRun + 1;
+    if (ss.missRun >= cfg.badDay.missRun) {
+      ss.missRun = 0;
+      const i = ss.history.length - 1;
+      if (!ss.history[i].bad) {
+        ss.badMoments.push(i);
+        ss.history[i].bad = true;
+      }
+    }
+  }
   return step(r, decide(r, { ...(avoid !== undefined ? { avoid } : {}), ...(leave !== undefined ? { leave } : {}) }), feedback, moments);
 }
 
