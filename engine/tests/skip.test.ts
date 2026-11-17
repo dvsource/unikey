@@ -446,18 +446,35 @@ function inPhase(patch: Partial<NonNullable<State["session"]>>): { state: State;
   return { state: { ...st.state, session: { ...st.state.session!, ...patch } }, card: cardOf(st) };
 }
 
-test("skipping a close card: another close card; skipped ones do not count toward maxExtraClose", () => {
-  const { state, card } = inPhase({ phase: "closing", closeServed: 1 });
-  const sk = skip(state, C, { card: card.card }, T0 + 10_000);
-  expect(sk.state.sections[B]).toMatchObject({ skipCount: 1 });
-  const c1 = cardOf(sk);
-  expect(c1).toMatchObject({ reason: "close:winnable", section: A });
-  expect(sk.state.session!.closeServed).toBe(1);
-  // Answered wrong: the usual 1 + maxExtraClose close cards are answered before the end.
-  const r = run(C, sk, T0 + 10_000, () => "w");
-  expect(r.steps.length).toBe(1 + cfg.sessionEnd.maxExtraClose);
-  expect(lastStep(r.steps).next.kind).toBe("end");
-  expect(cardsOf([sk, ...r.steps]).every((x) => x.reason === "close:winnable" && x.section === A)).toBe(true);
+/** One answered card in the history: right or a miss. */
+const answered = (right: boolean) => [{ skill: "a1", right, ms: 8000, bad: false, height: 1 as const, slow: false }];
+
+test("fix round 1 (change 7): skipping a close card ends the session with the pending kind; recap = the last answered card was a miss", () => {
+  for (const [right, recap] of [[false, true], [true, false]] as const) {
+    for (const badDay of [false, true]) {
+      const { state, card } = inPhase({ phase: "closing", closeServed: 1, history: answered(right), badDay });
+      const sk = skip(state, C, { card: card.card, confirmed: true }, T0 + 10_000);
+      expect(sk.state.sections[B]).toMatchObject({ skipCount: 1 }); // the section skip itself still happens
+      expect(sk.next.kind).toBe("end"); // no further closing card
+      if (sk.next.kind !== "end") continue;
+      expect(sk.next.end).toMatchObject({ kind: badDay ? "bad-day" : "budget", recap });
+      expect(sk.state.session).toBeNull();
+      expect(sk.events.map((e) => e.type)).toEqual(["skip", "session_end"]);
+    }
+  }
+  // the pending kind after "5 more": extended-done
+  const { state, card } = inPhase({ phase: "closing", closeServed: 1, history: answered(false), extended: true, extendLeft: 0 });
+  const sk = skip(state, C, { card: card.card, confirmed: true }, T0 + 10_000);
+  expect(sk.next).toMatchObject({ kind: "end", end: { kind: "extended-done", recap: true } });
+});
+
+test("fix round 1 (change 7): a close card skipped as too hard ends the session the same way", () => {
+  for (const [right, recap] of [[false, true], [true, false]] as const) {
+    const { state, card } = inPhase({ phase: "closing", closeServed: 1, history: answered(right) });
+    const sk = skip(state, C, { card: card.card, reason: "too-hard" }, T0 + 10_000);
+    expect(sk.next).toMatchObject({ kind: "end", end: { kind: "budget", recap } });
+    expect(sk.events[0].data).toMatchObject({ scope: "card", reason: "too-hard" });
+  }
 });
 
 test("skipping a \"5 more\" card: another extend card, extendLeft unchanged", () => {
@@ -620,11 +637,10 @@ test("too-hard never returns confirm-skip, even on a section skipped before", ()
   expect(sk.state.sections).toEqual(s0.sections);
   // the same section with no reason still asks first
   expect(skip(st.state, C, { card: cardOf(st).card }, T0 + 10_000).next.kind).toBe("confirm-skip");
-  // a close card skipped as too hard does not count toward maxExtraClose
+  // fix round 1 (change 7): a close card skipped as too hard ends the session (no further close card)
   const closing = { ...st.state, session: { ...st.state.session!, phase: "closing" as const, closeServed: 1 } };
   const ck = skip(closing, C, { card: cardOf(st).card, reason: "too-hard" }, T0 + 10_000);
-  expect(ck.state.session!.closeServed).toBe(1);
-  expect(cardOf(ck)).toMatchObject({ reason: "close:winnable" });
+  expect(ck.next).toMatchObject({ kind: "end", end: { kind: "budget", recap: false } });
   // a drip card: card level, the drip is not stopped and the section's skipped state is unchanged
   const dripS = startedAll(2, {}, { sessionCount: 1, sections: waitingB(D0 + 3) });
   const p = play(C, dripS, T0, until(isDrip));

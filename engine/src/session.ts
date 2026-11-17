@@ -157,7 +157,7 @@ function decide(r: Run, last: Last): Next {
     return toClosing(r, false);
   }
   if (ss.phase === "closing") return closing(r, false);
-  if (isBadDay(ss, r.cfg)) {
+  if (ss.badDay || isBadDay(ss, r.cfg)) { // ss.badDay: set by a zero-right miss run (change 3, fix round 1)
     ss.badDay = true;
     ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
     return toClosing(r, true);
@@ -251,7 +251,7 @@ function normal(r: Run, last: Last): Next {
   if (anyLeft(r)) return toClosing(r, false);
   const lr = leastRecent(r, strict(), "fallback:any");
   if (lr) return serve(r, lr, true);
-  return leastRecent(r, loose(r), "fallback:any") ? toClosing(r, false) : finish(r, "content-exhausted");
+  return leastRecent(r, loose(r), "fallback:any") ? toClosing(r, false) : finish(r, "content-exhausted", lastMiss(ss)); // fix round 1: a recap after a miss
 }
 
 /**
@@ -303,7 +303,7 @@ function closing(r: Run, forced: boolean): Next {
   const win = { repeatRight: true };
   const p = (first ? pickClose(s, content, ctxOf(r, true, ss.budget - ss.spent), cfg, win) : null) ?? pickClose(s, content, capped, cfg, win);
   // F9: a sweep pick keeps close:winnable only when it is an easy card (see closeSweepReason).
-  const sweep = (q: Picked | null) => withReason(q, q ? closeSweepReason(s, content, capped, cfg, q.served.height) : "fallback:any");
+  const sweep = (q: Picked | null) => withReason(q, q ? closeSweepReason(s, content, capped, cfg, q.served.height, win) : "fallback:any");
   const any = p ? null : sweep(pickAny(s, content, capped, cfg, "close:winnable", win));
   if (p || any) {
     ss.closeServed += 1;
@@ -316,7 +316,7 @@ function closing(r: Run, forced: boolean): Next {
     return serve(r, lr, true);
   }
   if (anyLeft(r) || leastRecent(r, loose(r), "fallback:any")) return finish(r, "daily-cap", lastMiss(ss)); // change 7: a recap after a miss
-  return finish(r, "content-exhausted");
+  return finish(r, "content-exhausted", lastMiss(ss)); // fix round 1: a recap after a miss
 }
 
 /** The session's last answered card was a miss (wrong or "I don't know"). */
@@ -537,6 +537,8 @@ export function answer(
     ss.missRun = right ? 0 : ss.missRun + 1;
     if (ss.missRun >= cfg.badDay.missRun) {
       ss.missRun = 0;
+      // Fix round 1: a run with no right answer yet this session makes the session a bad day at once.
+      if (!ss.history.some((h) => h.right === true)) ss.badDay = true;
       const i = ss.history.length - 1;
       if (!ss.history[i].bad) {
         ss.badMoments.push(i);
@@ -565,8 +567,18 @@ export function skip(
   }
   const r = begin(state, content, now, cfg);
   const sv = r.s.session!.served!;
+  const closingCard = r.s.session!.phase === "closing";
   emit(r, "skip", tooHard ? applyCardSkip(r.s, content, sv, r.day, cfg) : applySkip(r.s, content, sv, input.reason, r.day, cfg));
-  return step(r, decide(r, null));
+  return step(r, closingCard ? closeCardSkipped(r) : decide(r, null));
+}
+
+/**
+ * Change 7, fix round 1: a skipped closing card (a section skip or a card-level "too hard" skip) ends the session: no
+ * further closing card, the pending end kind, and a recap when the last answered card was a miss.
+ */
+function closeCardSkipped(r: Run): Next {
+  const ss = r.s.session!;
+  return closeSession(r, pendingKind(ss), lastMiss(ss));
 }
 
 /** The student took "5 more". Only valid while the offer is pending. */

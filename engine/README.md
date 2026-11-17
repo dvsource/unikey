@@ -50,7 +50,7 @@ Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSessio
 
 End kinds: `budget`, `extended-done`, `bad-day`, `daily-cap`, `content-exhausted`, `left`, `interrupted`. A `daily-cap` end with 0 cards means the day's cap was reached before the session could start.
 
-A session has at most one closing card. Two bad moments within 8 cards (a failed repair, a skill left after two misses on it, or three misses in a row anywhere) or three slow answers in a row make a bad day: one easy closing card, then the end `bad-day`. After a session of 3 or more cards with 2 or fewer right, the next session is short (the minimum day) and opens with easy cards (`open:easy`).
+A session has at most one closing card. Skipping the closing card ends the session (a recap when the last answered card was a miss). Two bad moments within 8 cards (a failed repair, a skill left after two misses on it, or three misses in a row anywhere) or three slow answers in a row make a bad day: one easy closing card, then the end `bad-day`. Three misses in a row before any right answer in the session make a bad day at once. After a session of 3 or more cards with 2 or fewer right, the next session is short (the minimum day) and opens with easy cards (`open:easy`); when the first of them is missed, a repair takes over and only that one card is `open:easy`.
 
 ## Feedback and moments
 

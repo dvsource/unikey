@@ -448,20 +448,25 @@ export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Confi
       ? x.height - y.height || y.es - x.es || x.g - y.g
       : Number(x.height === 3) - Number(y.height === 3) || x.g - y.g || y.es - x.es || x.height - y.height)
       || byId(x.def.id, y.def.id));
-  const sweep = (repeatRight: boolean) => firstOf(state, content, cands, () => reason, ctx, cfg, { repeatRight })
-    ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true, repeatRight });
-  return sweep(false) ?? (opts.repeatRight === true ? sweep(true) : null);
+  const sweep = (cs: typeof cands, repeatRight: boolean) => firstOf(state, content, cs, () => reason, ctx, cfg, { repeatRight })
+    ?? firstOf(state, content, cs, () => reason, ctx, cfg, { relax: true, repeatRight });
+  const plain = sweep(cands, false);
+  if (opts.repeatRight !== true || (plain !== null && plain.served.height < 3)) return plain;
+  // Fix round 1: a repeat of a card answered right counts at its level, so a lower repeat comes before a full problem.
+  return sweep(plain === null ? cands : cands.filter((c) => c.height < plain.served.height), true) ?? plain;
 }
 
 /**
  * F9: the reason for a last-resort sweep pick while closing. A height-1/2 card is `close:winnable`; a height-3 card is
  * `close:winnable` only when it really is the easiest eligible: no lower card of any unblocked skill fits `ctx`, even
  * with the same-skill run, waiting skills and the session's recent cards set aside. Otherwise `fallback:any`.
+ * `opts.repeatRight` (fix round 1): a repeat of a card answered right counts as a card of its level, as in `pickClose`.
  */
-export function closeSweepReason(state: State, content: Content, ctx: PickCtx, cfg: Config, height: Height): Reason {
+export function closeSweepReason(state: State, content: Content, ctx: PickCtx, cfg: Config, height: Height, opts: CloseOpts = {}): Reason {
   if (height <= 2) return "close:winnable";
   const open = { ...ctx, recentCards: [] };
   const lower = cardSkills(content, Object.keys(content.skills).sort(byId)).some((def) => avail(def)
-    .some((h) => h < height && tryServe(state, content, { def, height: h }, "fallback:any", open, cfg, { relax: true }) !== null));
+    .some((h) => h < height
+      && tryServe(state, content, { def, height: h }, "fallback:any", open, cfg, { relax: true, repeatRight: opts.repeatRight }) !== null));
   return lower ? "fallback:any" : "close:winnable";
 }

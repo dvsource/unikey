@@ -1226,15 +1226,16 @@ function answerAs(st: State, card: string, a: "r" | "w" | "dk", now: number): St
 test("change 3: three misses in a row on three skills → one bad moment; a fourth miss does not add another until a new run of three", () => {
   let st = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
   let now = T0;
-  const seq: [string, "w" | "dk"][] = [["a1.h1.1", "w"], ["b1.h1.1", "dk"], ["a2.h1.1", "w"], ["b2.h1.1", "w"], ["a1.h2.1", "w"], ["b1.h2.1", "w"]];
+  // Fix round 1: one right answer first (a run with nothing right yet is a bad day at once, tested below).
+  const seq: [string, "r" | "w" | "dk"][] = [["b2.h2.1", "r"], ["a1.h1.1", "w"], ["b1.h1.1", "dk"], ["a2.h1.1", "w"], ["b2.h1.1", "w"], ["a1.h2.1", "w"], ["b1.h2.1", "w"]];
   const after: number[][] = [];
   for (const [card, a] of seq) {
     now += 10_000;
     st = answerAs(st, card, a, now).state;
     after.push([...st.session!.badMoments]);
   }
-  expect(after).toEqual([[], [], [2], [2], [2], [2, 5]]);
-  expect(st.session!.history[2].bad).toBe(true);
+  expect(after).toEqual([[], [], [], [3], [3], [3], [3, 6]]);
+  expect(st.session!.history[3].bad).toBe(true);
   expect(st.session!.badDay).toBe(true); // two bad moments within 8 cards
   expect(st.session!.phase).toBe("closing");
 
@@ -1252,11 +1253,11 @@ test("change 3: three misses in a row on three skills → one bad moment; a four
 
   // Two misses on one skill that also end a run of three: one bad moment, not two.
   let s3 = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
-  for (const card of ["a1.h1.1", "b1.h1.1", "b1.h1.2"]) {
+  for (const [card, a] of [["a2.h2.1", "r"], ["a1.h1.1", "w"], ["b1.h1.1", "w"], ["b1.h1.2", "w"]] as const) {
     now += 10_000;
-    s3 = answerAs(s3, card, "w", now).state;
+    s3 = answerAs(s3, card, a, now).state;
   }
-  expect(s3.session!.badMoments).toEqual([2]);
+  expect(s3.session!.badMoments).toEqual([3]);
   expect(s3.session!.badDay).toBe(false);
 });
 
@@ -1381,4 +1382,93 @@ test("extend ruling: an extension for a student whose skills are all at level 3 
   const we = served([ex, ...w.steps]).filter((c) => c.reason === "extend:liked");
   expect(we.reduce((a, c) => a + c.effort, 0)).toBeLessThanOrEqual(cfg.budget.extendEffort);
   expect(we.length).toBeLessThanOrEqual(cfg.budget.extendCards);
+});
+
+// ---------- Task 7 fix round 1 ----------
+
+test("fix round 1 (change 3): three misses from the start → the fourth card is the closing card → end bad-day (recap when it is missed)", () => {
+  for (const miss of ["w", "dk"] as const) {
+    const { steps } = play(C, withProfile(startedAt(2, 4, 1), { stamina: 30 }), T0, () => miss);
+    const cards = served(steps);
+    expect(cards.length).toBe(4);
+    expect(cards[3].reason).toBe("close:winnable");
+    expect(cards.slice(0, 3).some((c) => c.reason === "close:winnable")).toBe(false);
+    expect(endOf(lastStep(steps))).toMatchObject({ kind: "bad-day", cards: 4, right: 0, recap: true });
+  }
+  // three misses on three skills (no other bad moment): the run alone makes the bad day while nothing is right
+  let st = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
+  let now = T0;
+  let last: Step | null = null;
+  for (const card of ["a1.h1.1", "b1.h1.1", "a2.h1.1"]) {
+    now += 10_000;
+    last = answerAs(st, card, "dk", now);
+    st = last.state;
+  }
+  expect(st.session!.badMoments).toEqual([2]);
+  expect(st.session!.badDay).toBe(true);
+  expect(served([last!])[0].reason).toBe("close:winnable");
+  const end = answer(st, C, { card: served([last!])[0].card, choice: "dont-know", ms: 8000 }, now + 10_000);
+  expect(endOf(end)).toMatchObject({ kind: "bad-day", cards: 4, right: 0, recap: true });
+  const ok = play(C, withProfile(startedAt(2, 4, 1), { stamina: 30 }), T0, (s) => (s.reason === "close:winnable" ? "r" : "w"));
+  expect(served(ok.steps).length).toBe(4);
+  expect(endOf(lastStep(ok.steps))).toMatchObject({ kind: "bad-day", right: 1, recap: false });
+});
+
+test("fix round 1 (change 3): right, miss, miss, miss → one bad moment, the session goes on", () => {
+  let st = startSession(withProfile(startedAt(2, 4, 1), { stamina: 30 }), C, T0).state;
+  let now = T0;
+  let last: Step | null = null;
+  for (const [card, a] of [["a1.h1.1", "r"], ["b1.h1.1", "w"], ["a2.h1.1", "w"], ["b2.h1.1", "w"]] as const) {
+    now += 10_000;
+    last = answerAs(st, card, a, now);
+    st = last.state;
+  }
+  expect(st.session!.badMoments).toEqual([3]);
+  expect(st.session!.badDay).toBe(false);
+  expect(st.session!.phase).not.toBe("closing");
+  expect(last!.next.kind).toBe("card");
+});
+
+test("fix round 1 (change 7): a miss followed by content-exhausted ends on a recap; a right answer does not", () => {
+  // Only a1.h1.1 exists: after its answer nothing is eligible (normal's content-exhausted end).
+  const keep = new Set(["a1.h1.1"]);
+  const one = fixture({ drop: Object.keys(C.cards).filter((id) => !keep.has(id)) });
+  const s0 = startedState({ a1: rec(1, atts(1, 4, 0, D0 - 2), { nextReviewDay: D0 + 20 }) });
+  for (const [a, recap] of [["w", true], ["dk", true], ["r", false]] as const) {
+    const p = play(one, s0, T0, [a]);
+    expect(endOf(lastStep(p.steps))).toMatchObject({ kind: "content-exhausted", cards: 1, recap });
+  }
+  // closing's content-exhausted end: three slow answers (a bad day), the last one wrong, and nothing left to close with.
+  const three = new Set(["a1.h1.1", "b1.h1.1", "b2.h1.1"]);
+  const small = fixture({ drop: Object.keys(C.cards).filter((id) => !three.has(id)) });
+  const usual = { 1: Array(10).fill(8000), 2: Array(10).fill(8000), 3: Array(10).fill(8000) };
+  const nd = { nextReviewDay: D0 + 20 };
+  const s1 = withProfile(startedState({ a1: rec(1, atts(1, 4, 0, D0 - 2), nd), b1: rec(1, atts(1, 4, 0, D0 - 2), nd), b2: rec(1, atts(1, 4, 0, D0 - 2), nd) }), { msByHeight: usual });
+  const q = play(small, s1, T0, ["r", "r", "w"], { ms: () => 17_000 });
+  expect(served(q.steps).length).toBe(3);
+  expect(endOf(lastStep(q.steps))).toMatchObject({ kind: "content-exhausted", recap: true });
+});
+
+test("fix round 1: with one closing card reserved, wrong-heavy play never takes a day past the daily cap", () => {
+  const skills: Record<string, SkillRec> = {};
+  for (const id of ["a1", "a2", "b1", "b2"]) skills[id] = rec(3, atts(3, 10, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: null });
+  const patterns: ((s: Served, i: number) => "r" | "w" | "dk")[] = [
+    () => "w", () => "dk", (_s, i) => (i % 2 ? "w" : "r"), (s, i) => (s.reason === "close:winnable" || i % 3 === 0 ? "r" : "w"),
+    (s) => (s.reason === "close:winnable" ? "w" : "r"), (_s, i) => (i % 4 === 3 ? "r" : "w"),
+  ];
+  for (const [pi, fn] of patterns.entries()) {
+    for (const stamina of [13.34, 30, 60]) {
+      let state = withProfile(startedState(skills), { stamina });
+      let now = T0;
+      let capped = false;
+      for (let k = 0; k < 30 && !capped; k++) {
+        const r = play(C, state, now, fn);
+        for (const st of r.steps) expect(st.state.day!.effort, `pattern ${pi} stamina ${stamina}`).toBeLessThanOrEqual(cfg.budget.dailyCap);
+        capped = endOf(lastStep(r.steps)).kind === "daily-cap" && endOf(lastStep(r.steps)).cards === 0;
+        state = r.state;
+        now = r.now + 60_000;
+      }
+      expect(capped, `pattern ${pi} stamina ${stamina} reached the cap`).toBe(true);
+    }
+  }
 });

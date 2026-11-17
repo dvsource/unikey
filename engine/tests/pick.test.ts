@@ -615,3 +615,16 @@ test("change 7: a repeat closer ranks after an unseen card of the same level and
   // without the option: b1 at height 2
   expect(pickClose(s2, ONLY, ctx(), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
 });
+
+test("fix round 1 (change 7): a repeat closer counts at its level in the closing sweep and its reason", () => {
+  const keep = new Set(["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h3"]);
+  const one3 = fixture({ drop: Object.keys(C.cards).filter((id) => !keep.has(id)) });
+  const s = st({ a1: notDue(1) }, { seen: [seenAt("a1.h1.1", D - 3, true), seenAt("a1.h1.2", D - 1, false), seenAt("a1.h1.3", D - 1, false)] });
+  // plain sweep: the unseen full problem; with repeats: the level-1 repeat comes first (before any higher level)
+  expect(pickAny(s, one3, ctx(), cfg, "close:winnable")!.served.height).toBe(3);
+  expect(pickAny(s, one3, ctx(), cfg, "close:winnable", { repeatRight: true })!.served).toMatchObject({ card: "a1.h1.1", height: 1 });
+  // a level-3 sweep pick is close:winnable only when nothing lower is eligible, the repeat counted as a level-1 card
+  expect(closeSweepReason(s, one3, ctx(), cfg, 3)).toBe("close:winnable");
+  expect(closeSweepReason(s, one3, ctx(), cfg, 3, { repeatRight: true })).toBe("fallback:any");
+  expect(closeSweepReason(s, one3, ctx(), cfg, 1, { repeatRight: true })).toBe("close:winnable");
+});

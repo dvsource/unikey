@@ -237,14 +237,13 @@ function cardLevelRule(s: State, content: Content, skill: string, level: Height,
 /**
  * Change 6: "Not now" with reason "too-hard" on the served card `sv` (any card: drip and side door included), on the
  * run's own copy `s`: `cardLevelRule` for its skill. The section is not touched and not blocked; costs no effort; no
- * history entry; the card stays in `servedCards`; a close card does not count toward `sessionEnd.maxExtraClose`.
+ * history entry; the card stays in `servedCards` (a skipped close card ends the session: see `skip` in session.ts).
  * Clears `lastSkip`. Returns event data (`scope: "card"`).
  */
 export function applyCardSkip(s: State, content: Content, sv: Served, day: number, cfg: Config): Record<string, unknown> {
   const ss = s.session!;
   const out = cardLevelRule(s, content, sv.skill, sv.height, day, cfg);
   ss.lastSkip = null;
-  if (ss.phase === "closing" && ss.closeServed > 0) ss.closeServed -= 1;
   ss.served = null;
   const rec = s.sections[sv.section];
   return {
@@ -287,8 +286,6 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
     ss.returns = ss.returns.filter((q) => !inSec(q.skill));
   }
   if (!ss.blockedSections.includes(sec)) ss.blockedSections = [...ss.blockedSections, sec];
-  // Only answered close cards count toward `sessionEnd.maxExtraClose`.
-  if (ss.phase === "closing" && ss.closeServed > 0) ss.closeServed -= 1;
   ss.served = null;
   const out = s.sections[sec];
   return {
