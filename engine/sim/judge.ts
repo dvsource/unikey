@@ -58,7 +58,7 @@ const HEIGHT_PHRASE: Record<Height, string> = { 1: "easy cards", 2: "guided prob
 const UNIT_NAME: Record<string, string> = { "phy.mech": "Mechanics", "phy.therm": "Thermal physics", "phy.elec": "Current electricity" };
 const END_WORDS: Record<EndInfo["kind"], string> = {
   "budget": "planned session done",
-  "bad-day": "stopped early: a bad day",
+  "bad-day": "the app ended the session early",
   "extended-done": "the 5 extra cards done",
   "daily-cap": "today's limit reached",
   "content-exhausted": "nothing left to ask",
@@ -143,11 +143,19 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
         break;
       }
       case "skip": {
+        if (l.scope === "card") {
+          // change 6: "Too hard" is about the card; the section stays and the skill goes one level down (or rests)
+          out.push(`${at(l)} ${n}  ${cardText(l)} — skipped this card ("Too hard"); the skill moves one level down or rests, the section stays`);
+          break;
+        }
         const why = l.skipReason ? `reason "${SKIP_WORDS[l.skipReason]}"` : "no reason given";
         const back = l.remindDay === null || l.remindDay === undefined ? "no return day set" : `section comes back from ${dayLabel(l.remindDay)}`;
         out.push(`${at(l)} ${n}  ${cardText(l)} — skipped ("Not now"), ${why}; ${back}`);
         break;
       }
+      case "rejoin":
+        out.push(`${at(l)}  ${nm.section(l.section!)} is back in normal practice`);
+        break;
       case "quit": {
         out.push(`${at(l)} ${n}  ${cardText(l)} — closed the app without answering`);
         break;
@@ -160,6 +168,12 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
         break;
       case "end": {
         const e = l.end!;
+        if (e.recap) {
+          const fixedNames = e.fixedSkills.map(nm.skill);
+          const fixedText = fixedNames.length ? `fixed today: ${fixedNames.join(", ")}` : "nothing fixed today";
+          out.push(`${at(l)} end  — end: recap, no question (${fixedText}), ${num(e.effort)} effort, ${e.cards} cards (${e.right} right)${e.streakKept ? ", streak kept" : ""}`);
+          break;
+        }
         out.push(`${at(l)} end  — end: ${END_WORDS[e.kind]}, ${num(e.effort)} effort, ${e.cards} cards (${e.right} right), fixed ${e.fixed}${e.streakKept ? ", streak kept" : ""}`);
         break;
       }
@@ -189,7 +203,11 @@ export const LOG_LEGEND = `How to read the log. One line per event.
 - Then the section of the syllabus › the skill, what the student did (right, wrong, "I don't know", skipped with "Not now", or closed the app), and how many seconds it took.
 - Session ends give how the session ended, the effort it took (an easy card costs 1, a guided card 1.5, a full problem 4, a wrong answer 1 more, "I don't know" nothing extra; the app allows at most 40 a day), the cards answered, how many were right, and how many missing pieces were fixed.
 - After every answer the app shows whether it was right. After a wrong answer it shows the mistake's message and the explanation; "I don't know" gets the explanation with no negative message and costs no extra effort. Then the next card comes. The app shows no score, no backlog and no "due" count.
-- "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of five extra cards at the end.
+- "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of a small extra set at the end, up to five cards; it is limited by effort too, so it may be fewer cards when they are big problems.
+- A session has only one closing card. When it is missed (or skipped after a miss), the session does not end on the wrong answer: it ends with a short recap of what was fixed today and no question (\`end: recap, no question\`).
+- "Too hard" on a card (\`skipped this card ("Too hard")\`) is about that card: the skill goes one level down (or rests if it is already at the lowest level) and the section stays in normal practice. "Not now" with another reason puts the whole section away until its return day.
+- \`<Section> is back in normal practice\`: a section that was put away has no easy card left to return through, so it joins normal practice again.
+- The first sessions start easy, go up one level after two right answers in a row, and down one level after a miss.
 
 The app's reasons:
 - open:liked: an opening card from a section the student does well in or enjoys
@@ -207,6 +225,7 @@ The app's reasons:
 - comeback:solid: after time away, a skill the student was solid on, to restart with a win
 - fallback:any: nothing the plan wanted was left to give, so the app gave any card it still could
 - stretch:up: a card one level above your usual one, because today is going well
+- open:easy: an easy start, because the last session went badly
 `;
 
 /** The event lines of a packet: lines that start with a day label (the legend and prose are not quotable). */

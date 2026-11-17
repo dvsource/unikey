@@ -326,3 +326,74 @@ test("readRun names a missing log file", () => {
     expect(() => readRun(dir)).toThrow(new RegExp(`${summary.persona}\\.log\\.jsonl`));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+// ---------- Task 8: the readable log follows changes 1-7 ----------
+
+import { readableLog, LOG_LEGEND } from "../sim/judge.js";
+import type { LogLine } from "../sim/run.js";
+import type { Served } from "../src/index.js";
+
+const sk = Object.values(content.skills)[0]!;
+const secId = sk.section;
+const served = (reason: Served["reason"], height: 1 | 2 | 3 = 2): Served =>
+  ({ card: "c1", variant: 0, skill: sk.id, section: secId, height, reason, effort: 1.5 });
+const endLine = (over: Partial<LogLine["end"] & object>): LogLine => ({
+  day: 0, session: 1, n: 4, kind: "end",
+  end: { kind: "budget", effort: 6, cards: 4, right: 1, fixed: 1, streakKept: false, recap: false, fixedSkills: [], ...over },
+});
+const startLine: LogLine = { day: 0, session: 1, n: 0, kind: "start" };
+const logOf = (...ls: LogLine[]) => readableLog([startLine, ...ls], content, 1);
+
+test("a recap end says no question and names the fixed skills", () => {
+  const lines = logOf(endLine({ recap: true, fixed: 1, fixedSkills: [sk.id] }));
+  const end = lines.find((l) => l.includes("— end:"))!;
+  expect(end).toContain(`— end: recap, no question (fixed today: ${sk.name}), 6 effort, 4 cards (1 right)`);
+  const none = logOf(endLine({ recap: true, fixed: 0, fixedSkills: [] })).find((l) => l.includes("— end:"))!;
+  expect(none).toContain("end: recap, no question (nothing fixed today)");
+  // a normal end keeps today's wording
+  expect(logOf(endLine({})).find((l) => l.includes("— end:"))).toContain("— end: planned session done, 6 effort, 4 cards (1 right), fixed 1");
+  expect(logOf(endLine({ kind: "bad-day" })).find((l) => l.includes("— end:"))).toContain("the app ended the session early");
+});
+
+test("a card skip differs from a section skip; a rejoin has its own line", () => {
+  const card: LogLine = { day: 0, session: 1, n: 3, kind: "skip", served: served("due-review", 3), skipReason: "too-hard", scope: "card", remindDay: null };
+  const sec: LogLine = { day: 0, session: 1, n: 3, kind: "skip", served: served("due-review", 3), skipReason: "not-learned", scope: "section", remindDay: 5 };
+  const [c, s] = [logOf(card).find((l) => l.includes("skipped"))!, logOf(sec).find((l) => l.includes("skipped"))!];
+  expect(c).toContain('skipped this card ("Too hard")');
+  expect(c).toMatch(/one level down or rests/);
+  expect(c).not.toContain("Not now");
+  expect(c).not.toContain("comes back");
+  expect(s).toContain('skipped ("Not now")');
+  expect(s).toContain("section comes back from D06");
+  expect(s).not.toContain("this card");
+  const rj = logOf({ day: 0, session: 1, n: 0, kind: "rejoin", section: secId }).find((l) => l.includes("back in normal practice"))!;
+  expect(rj).toMatch(/^D01 S1 {2}.+ is back in normal practice$/);
+  expect(rj).toContain(content.sections[secId]!.name);
+  expect(eventLines(rj)).toEqual([rj]);
+  // new reasons print as their code and level words
+  const card2 = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("open:easy", 1), choice: 0, right: true, ms: 4000 });
+  expect(card2.join("\n")).toContain("[open:easy] H1 easy");
+});
+
+test("the legend explains the new reasons and rules", () => {
+  expect(LOG_LEGEND).toContain("- stretch:up: ");
+  expect(LOG_LEGEND).toContain("- open:easy: an easy start, because the last session went badly");
+  expect(LOG_LEGEND).toMatch(/recap/i);
+  expect(LOG_LEGEND).toMatch(/no question/i);
+  expect(LOG_LEGEND).toMatch(/"Too hard".*one level/s);
+  expect(LOG_LEGEND).toMatch(/first sessions/i);
+  expect(LOG_LEGEND).toMatch(/only one closing card/i);
+  expect(LOG_LEGEND).toMatch(/"5 more".*effort/s);
+  for (const w of ["budget", "stamina", "threshold"]) expect(LOG_LEGEND.toLowerCase()).not.toContain(w);
+});
+
+test("new-style lines in a real 28-day run carry no numbers beyond effort and cards", () => {
+  const files = buildPackets(runOf(1, 28), content, prompts);
+  const all = Object.entries(files).filter(([f]) => f.startsWith("student-")).flatMap(([, t]) => eventLines(t));
+  const fresh = all.filter((l) => /end: recap|skipped this card|back in normal practice|ended the session early/.test(l));
+  expect(fresh.length).toBeGreaterThan(0);
+  for (const l of fresh) {
+    expect(l).not.toMatch(/budget|stamina|comfort(?!-correction)|h3Share|knowledge|fatigue|fed up|too tired/i);
+    if (/end: recap/.test(l)) expect(l).toMatch(/^D\d\d S\d+ end {2}— end: recap, no question \([^)]*\), [\d.]+ effort, \d+ cards \(\d+ right\)(, streak kept)?$/);
+  }
+});
