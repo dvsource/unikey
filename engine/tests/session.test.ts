@@ -189,18 +189,18 @@ function badDayRun(wrongCloses: number) {
   });
 }
 
-test("close card answered wrong once / twice → one more close card each time, then the end", () => {
-  for (const k of [1, 2]) {
+test("change 7: one close card only (maxExtraClose 0): right → the end; wrong → the end at once, on a recap", () => {
+  const ok = badDayRun(0);
+  expect(served(ok.steps).filter((c) => c.reason === "close:winnable").length).toBe(1);
+  expect(endOf(lastStep(ok.steps))).toMatchObject({ kind: "bad-day", recap: false });
+  expect(lastStep(ok.steps).feedback?.right).toBe(true);
+  for (const k of [1, 99]) {
+    // the close card wrong: 1 + maxExtraClose (= 1) close card, then the session ends regardless
     const { steps } = badDayRun(k);
-    const cards = served(steps);
-    expect(cards.filter((c) => c.reason === "close:winnable").length, `k=${k}`).toBe(k + 1);
-    expect(endOf(lastStep(steps)).kind).toBe("bad-day");
-    expect(lastStep(steps).feedback?.right).toBe(true);
+    expect(served(steps).filter((c) => c.reason === "close:winnable").length, `k=${k}`).toBe(1 + cfg.sessionEnd.maxExtraClose);
+    expect(endOf(lastStep(steps))).toMatchObject({ kind: "bad-day", recap: true });
+    expect(lastStep(steps).feedback?.right).toBe(false);
   }
-  // every close card wrong: 1 + maxExtraClose close cards, then the session ends regardless
-  const { steps } = badDayRun(99);
-  expect(served(steps).filter((c) => c.reason === "close:winnable").length).toBe(1 + cfg.sessionEnd.maxExtraClose);
-  expect(endOf(lastStep(steps)).kind).toBe("bad-day");
 });
 
 test("badDay.moments bad moments in 8 cards (change 3: two, was three) → one winnable card → end bad-day, streakKept true", () => {
@@ -304,7 +304,7 @@ test("daily cap: total effort for the day never exceeds 40; next start → end d
     expect(cfg.budget.dailyCap - state.day!.effort - (1 + cfg.sessionEnd.maxExtraClose) * 2).toBeLessThan(cfg.effort.h1);
     expect(capped!.events).toEqual([]);
     expect(capped!.state.session).toBeNull();
-    expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true });
+    expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [] }); // change 7: EndInfo shape
     expect(startSession(state, C, nextDay(T0)).next.kind).toBe("card");
   }
 });
@@ -437,7 +437,8 @@ test("determinism: two identical runs give identical JSON", () => {
 test("state.day resets on a new local day; seen gets each served card", () => {
   const p = play(C, newState("s", 1), T0, allR);
   const cards = served(p.steps);
-  expect(p.state.seen.slice(-cards.length)).toEqual(cards.map((c) => ({ card: c.card, variant: c.variant, day: D0 })));
+  // change 7: an answered card's entry carries its answer
+  expect(p.state.seen.slice(-cards.length)).toEqual(cards.map((c) => ({ card: c.card, variant: c.variant, day: D0, right: true })));
   const t = startSession(p.state, C, nextDay(T0));
   expect(t.state.day).toEqual({ day: D0 + 1, effort: 0, streakKept: false });
 });
@@ -479,7 +480,7 @@ test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => 
   expect(first.state.session!.budget).toBe(4);
   const big = startSession(withProfile({ ...newState("s", 1), sessionCount: 4 }, { stamina: 100 }), C, T0);
   // capped by dailyCap − day.effort − (1 + maxExtraClose) × (effort.h1 + effort.wrong)
-  expect(big.state.session!.budget).toBe(cfg.budget.dailyCap - 3 * (cfg.effort.h1 + cfg.effort.wrong));
+  expect(big.state.session!.budget).toBe(cfg.budget.dailyCap - (1 + cfg.sessionEnd.maxExtraClose) * (cfg.effort.h1 + cfg.effort.wrong)); // change 7: one close card
 });
 
 // ---------- tuning pass (Task 11) ----------
@@ -565,11 +566,16 @@ test("no same card back-to-back (R5): a card id (any variant) is not served agai
 test("finding 5: a close card blocked by the daily cap ends the session daily-cap, not budget", () => {
   // No height-1 cards: every close card is height 2 (1.5, +1 wrong), so the cap can block the next one.
   const noH1 = fixture({ drop: ["a1", "a2", "b1", "b2"].flatMap((x) => [1, 2, 3].map((i) => `${x}.h1.${i}`)) });
+  // Change 7: with one close card the cap must block the first one, so today's effort is raised to 36.5 before a wrong
+  // answer on the first card (39.5 after it): no height-2 close card fits under the cap.
   const s0 = { ...startedAt(2, 2, 1), day: { day: D0, effort: 33, streakKept: true } };
-  const { steps } = play(noH1, s0, T0, () => "w");
-  const last = lastStep(steps);
+  const st = startSession(s0, noH1, T0);
+  const c0 = served([st])[0];
+  const high = { ...st.state, day: { ...st.state.day!, effort: 36.5 } };
+  const last = answer(high, noH1, { card: c0.card, choice: choiceFor(noH1, c0, "w"), ms: 8000 }, T0 + 10_000);
   expect(last.feedback?.right).toBe(false);
   expect(endOf(last).kind).toBe("daily-cap");
+  expect(endOf(last).recap).toBe(true); // change 7: the daily-cap end after a miss is a recap
   expect(last.state.day!.effort).toBeLessThanOrEqual(cfg.budget.dailyCap);
 });
 
@@ -1266,7 +1272,7 @@ test("change 3: two bad moments within 8 cards → one easy closing card → end
   const before = steps[steps.length - 2].state.session!;
   expect(before.badMoments.length).toBe(2);
   const end = endOf(lastStep(steps));
-  expect(end).toMatchObject({ kind: "bad-day", streakKept: true });
+  expect(end).toMatchObject({ kind: "bad-day", recap: false, streakKept: true });
 });
 
 test("change 3: after a session with 4 cards and 1 right: next budget is 8 and the first two cards are open:easy at the easiest level", () => {
@@ -1309,3 +1315,50 @@ test("change 3: after a 2-card session with 0 right: no low-right treatment", ()
   expect(served([startSession({ ...s0, lastSession: { cards: 3, right: 2 } }, C, T0)])[0].reason).toBe("open:easy");
 });
 
+
+/** Three slow answers (usual 8 s) open the session: card 0 wrong, its repair cards right → slow-run bad day, one close card. */
+function recapRun(close: "r" | "w" | "dk") {
+  const usual = { 1: Array(10).fill(8000), 2: Array(10).fill(8000), 3: Array(10).fill(8000) };
+  const start = withProfile(startedAt(2, 4, 1), { msByHeight: usual, stamina: 30 });
+  return play(C, start, T0, (s, i) => (s.reason === "close:winnable" ? close : i === 0 ? "w" : "r"), { ms: (_s, i) => (i < 3 ? 17_000 : 8000) });
+}
+
+test("change 7: missed closing card → end with recap true and fixedSkills listing today's fixed skills; no second closing card", () => {
+  for (const miss of ["w", "dk"] as const) {
+    const { steps } = recapRun(miss);
+    const cards = served(steps);
+    expect(cards[1].reason).toBe("repair:missing-piece");
+    expect(cards.filter((c) => c.reason === "close:winnable").length).toBe(1);
+    expect(cards[cards.length - 1].reason).toBe("close:winnable");
+    const last = lastStep(steps);
+    expect(last.feedback?.right).toBe(false);
+    const end = endOf(last);
+    const fixed = [...new Set(cards.filter((c) => c.reason.startsWith("repair:")).map((c) => c.skill))];
+    expect(fixed.length).toBeGreaterThan(0);
+    expect(end).toMatchObject({ kind: "bad-day", recap: true, fixedSkills: fixed, streakKept: true });
+    expect(last.state.lastEnd).toEqual(end);
+    expect(last.events.find((e) => e.type === "session_end")!.data).toMatchObject({ recap: true, fixedSkills: fixed });
+    // a stale call replays the recap end
+    expect(answer(last.state, C, { card: "a1.h1.1", choice: 0, ms: 1 }, T0 + 999_000).next).toEqual({ kind: "end", end });
+  }
+});
+
+test("change 7: right closing card → recap false", () => {
+  const { steps } = recapRun("r");
+  const end = endOf(lastStep(steps));
+  expect(end.kind).toBe("bad-day");
+  expect(end.recap).toBe(false);
+  expect(end.fixedSkills.length).toBeGreaterThan(0); // filled on every end
+  // an all-right session: recap false, nothing fixed
+  expect(endOf(lastStep(play(C, startedAt(2, 4, 1), T0, allR).steps))).toMatchObject({ recap: false, fixedSkills: [] });
+});
+
+test("change 7: Seen.right is set on the answer; a skipped card has none", () => {
+  const p = play(C, withProfile(startedAt(2, 4, 1), { stamina: 30 }), T0, ["r", "w", "s"]);
+  const cards = served(p.steps);
+  const entry = (i: number) => p.state.seen.filter((x) => x.card === cards[i].card && x.variant === cards[i].variant).at(-1)!;
+  expect(entry(0).right).toBe(true);
+  expect(entry(1).right).toBe(false);
+  expect("right" in entry(2)).toBe(false);
+  expect("right" in entry(3)).toBe(false); // served, not answered
+});

@@ -28,12 +28,14 @@ export function migrate(json: unknown): State {
     leftSkills: s.session.leftSkills ?? [], ladderCard: s.session.ladderCard ?? null, ladderFull: s.session.ladderFull ?? 0,
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
     missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
+    fixedSkills: s.session.fixedSkills ?? [], // change 7
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, {
     ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null, skippedLevel: x.skippedLevel ?? null, // change 6
   }]));
   return {
-    ...s, answered: s.answered ?? 0, lastEnd: s.lastEnd ?? null, session, sections,
+    ...s, answered: s.answered ?? 0, session, sections,
+    lastEnd: s.lastEnd ? { ...s.lastEnd, recap: s.lastEnd.recap ?? false, fixedSkills: s.lastEnd.fixedSkills ?? [] } : null, // change 7
     pendingMoments: s.pendingMoments ?? [], momentsDone: s.momentsDone ?? [],
     // Change 4: a student who answered before the ladder existed is past day one; a fresh one starts on it.
     ladder: s.ladder !== undefined ? s.ladder : (s.answered ?? 0) > 0 ? null : { level: 1, rightRun: 0 },

@@ -37,7 +37,7 @@ export const defaultConfig = {
   /** F4: a call whose time is more than this many days behind the last one is a clock correction (accepted as the new time). */
   clock: { correctionDays: 2 },
   /** Change 7: one closing card at most; a missed one ends the session on a recap. */
-  sessionEnd: { maxExtraClose: 2 },
+  sessionEnd: { maxExtraClose: 0 },
   /** Cards left out of the content (spec §11): `phy.therm.c043` ("the same copper bar") depends on another card. */
   content: { exclude: ["phy.therm.c043"] as string[] },
   answers: { msKept: 20 },

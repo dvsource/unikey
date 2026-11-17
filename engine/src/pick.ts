@@ -4,7 +4,7 @@ import { byId } from "./util.js";
 import { knownSkills } from "./state.js";
 import { isDue, isSolid, startHeight } from "./skill.js";
 import { expectedSuccess, priorOf } from "./estimate.js";
-import type { Content, Height, PickCtx, Picked, Reason, Served, SkillDef, State } from "./types.js";
+import type { Content, Height, PickCtx, Picked, Reason, Seen, Served, SkillDef, State } from "./types.js";
 
 const HEIGHTS: Height[] = [1, 2, 3];
 
@@ -57,22 +57,43 @@ function choose<T>(xs: T[], rng: Rng): [T, Rng] {
 /**
  * A card of `skill` at `height` with a (card, variant) not seen within `noRepeatDays` (entries dated after
  * `day` also count as recent). Tiers: `preferTag` on a wrong option → `preferNote` → rest; random within a tier.
+ * `repeatRightAfterDays` (change 7, closing cards only): when no such card is left, a (card, variant) seen within
+ * `noRepeatDays` whose most recent `Seen` entry was answered right (`right === true`) at least this many days ago;
+ * the result then has `repeat: true`.
  */
 export function eligibleCard(
   state: State, content: Content, skill: string, height: Height, day: number, rng: Rng,
-  opts: { preferTag?: string; preferNote?: string; exclude?: string[] } = {}, cfg: Config = defaultConfig,
-): { card: string; variant: number; rng: Rng } | null {
+  opts: { preferTag?: string; preferNote?: string; exclude?: string[]; repeatRightAfterDays?: number } = {}, cfg: Config = defaultConfig,
+): { card: string; variant: number; rng: Rng; repeat?: true } | null {
   const def = content.skills[skill];
   if (!def) return null;
-  const recent = new Set(state.seen.filter((s) => day - s.day < cfg.noRepeatDays).map((s) => `${s.card}#${s.variant}`));
-  const exclude = new Set(opts.exclude ?? []);
-  const open: { id: string; variants: number[] }[] = [];
-  for (const id of def.cards[height]) {
-    const card = content.cards[id];
-    if (!card || exclude.has(id)) continue;
-    const variants = card.variants.map((_, v) => v).filter((v) => !recent.has(`${id}#${v}`));
-    if (variants.length) open.push({ id, variants });
+  // The most recent entry per (card, variant) within the window (a later entry of the same day wins).
+  const last = new Map<string, Seen>();
+  for (const x of state.seen) {
+    if (day - x.day >= cfg.noRepeatDays) continue;
+    const k = `${x.card}#${x.variant}`;
+    const prev = last.get(k);
+    if (!prev || x.day >= prev.day) last.set(k, x);
   }
+  const after = opts.repeatRightAfterDays;
+  const winnable = (k: string) => {
+    const x = last.get(k);
+    return after !== undefined && x !== undefined && x.right === true && day - x.day >= after;
+  };
+  const exclude = new Set(opts.exclude ?? []);
+  const collect = (ok: (k: string) => boolean) => {
+    const out: { id: string; variants: number[] }[] = [];
+    for (const id of def.cards[height]) {
+      const card = content.cards[id];
+      if (!card || exclude.has(id)) continue;
+      const variants = card.variants.map((_, v) => v).filter((v) => ok(`${id}#${v}`));
+      if (variants.length) out.push({ id, variants });
+    }
+    return out;
+  };
+  let open = collect((k) => !last.has(k));
+  const repeat = !open.length && after !== undefined;
+  if (repeat) open = collect(winnable);
   if (!open.length) return null;
   const tagged = (id: string) => opts.preferTag !== undefined &&
     content.cards[id].variants.some((opt) => opt.some((o) => !o.correct && o.tag === opts.preferTag));
@@ -82,7 +103,7 @@ export function eligibleCard(
   const tier = t1.length ? t1 : t2.length ? t2 : open.filter((c) => !tagged(c.id) && !noted(c.id));
   const [pick, r1] = choose(tier, rng);
   const [variant, r2] = choose(pick.variants, r1);
-  return { card: pick.id, variant, rng: r2 };
+  return repeat ? { card: pick.id, variant, rng: r2, repeat: true } : { card: pick.id, variant, rng: r2 };
 }
 
 /** The skills of `ids` that exist in content and have cards. */
@@ -142,8 +163,14 @@ export type Cand = { def: SkillDef; height: Height };
 /**
  * `relax`: ignore `excludeSkills` (but not `leftSkills`) and the same-skill run (the last-resort sweep's second pass).
  * `unblock`: a skipped section this pick may serve anyway (the drip and the side door).
+ * `repeatRight` (change 7): a closing pick: a card answered right `closing.repeatRightAfterDays` or more days ago may be
+ * served again inside `noRepeatDays` (see `eligibleCard`). Only `closing` in session.ts passes it.
  */
-export type ServeOpts = { relax?: boolean; unblock?: string };
+export type ServeOpts = { relax?: boolean; unblock?: string; repeatRight?: boolean };
+export type CloseOpts = { repeatRight?: boolean };
+
+const eligibleOpts = (ctx: PickCtx, cfg: Config, repeatRight: boolean | undefined) =>
+  repeatRight === true ? { exclude: ctx.recentCards ?? [], repeatRightAfterDays: cfg.closing.repeatRightAfterDays } : { exclude: ctx.recentCards ?? [] };
 
 /**
  * The shared candidate check: section not blocked, not excluded, no over-long same-skill run, fits the budget,
@@ -161,7 +188,7 @@ function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: 
   }
   const effort = effortOf(height, cfg);
   if (effort > ctx.remaining && (ctx.strictBudget === true || todayEffort(state, ctx.sessionDay ?? ctx.day) >= cfg.budget.minimumDay)) return null;
-  const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, { exclude: ctx.recentCards ?? [] }, cfg);
+  const e = eligibleCard(state, content, def.id, height, ctx.day, state.rng, eligibleOpts(ctx, cfg, opts.repeatRight), cfg);
   if (!e) return null;
   const served: Served = { card: e.card, variant: e.variant, skill: def.id, section: def.section, height, reason, effort };
   const b = borrowedFrom(state, content, def, reason, cfg);
@@ -328,9 +355,18 @@ export function isReady(state: State, content: Content, d: SkillDef): boolean {
   return d.requires.every((r) => r in state.skills || !content.skills[r] || avail(content.skills[r]).length === 0);
 }
 
-/** The lowest of `heights` (ascending) at which the skill has an eligible card for this pick, else null. */
-function lowestEligible(state: State, content: Content, def: SkillDef, heights: Height[], ctx: PickCtx, cfg: Config): Height | null {
-  return heights.find((h) => eligibleCard(state, content, def.id, h, ctx.day, state.rng, { exclude: ctx.recentCards ?? [] }, cfg) !== null) ?? null;
+/**
+ * The lowest of `heights` (ascending) at which the skill has an eligible card for this pick, else null; `repeat`: the
+ * card there is only a repeat of a card answered right (change 7, `repeatRight` only).
+ */
+function lowestEligible(
+  state: State, content: Content, def: SkillDef, heights: Height[], ctx: PickCtx, cfg: Config, repeatRight?: boolean,
+): { height: Height; repeat: number } | null {
+  for (const h of heights) {
+    const e = eligibleCard(state, content, def.id, h, ctx.day, state.rng, eligibleOpts(ctx, cfg, repeatRight), cfg);
+    if (e) return { height: h, repeat: e.repeat ? 1 : 0 };
+  }
+  return null;
 }
 
 /**
@@ -338,21 +374,24 @@ function lowestEligible(state: State, content: Content, def: SkillDef, heights: 
  * started skill whose `requires` are met (it gets a SkillRec at the served height), at its lowest eligible height;
  * all height-1 cards before any height-2 card, height 3 only when nothing lower is eligible. Within a height: liked
  * sections first, then highest expectedSuccess, then liked order, started skills before new ones, then id.
+ * `opts.repeatRight` (change 7, the closing card only): a card answered right long enough ago may come back; a skill
+ * whose lowest eligible card is such a repeat ranks after every never-seen card of that height, before any higher one.
  */
-export function pickClose(state: State, content: Content, ctx: PickCtx, cfg: Config): Picked | null {
+export function pickClose(state: State, content: Content, ctx: PickCtx, cfg: Config, opts: CloseOpts = {}): Picked | null {
   const liked = likedSections(state, content, cfg).filter((s) => !isBlocked(state, s, ctx.day, ctx.blockedSections));
   const si = (sec: string) => { const i = liked.indexOf(sec); return i < 0 ? liked.length : i; };
   const rows = cardSkills(content, Object.keys(content.skills).sort(byId))
     .filter((d) => !isBlocked(state, d.section, ctx.day, ctx.blockedSections) && (d.id in state.skills || isReady(state, content, d)))
     .flatMap((def) => {
-      const height = lowestEligible(state, content, def, avail(def), ctx, cfg);
-      return height === null ? [] : [{
-        def, height, es: expectedSuccess(state, def.id, height, cfg), si: si(def.section), fresh: def.id in state.skills ? 0 : 1,
+      const low = lowestEligible(state, content, def, avail(def), ctx, cfg, opts.repeatRight);
+      return low === null ? [] : [{
+        def, height: low.height, repeat: low.repeat, es: expectedSuccess(state, def.id, low.height, cfg), si: si(def.section),
+        fresh: def.id in state.skills ? 0 : 1,
       }];
     })
-    .sort((x, y) => x.height - y.height || Number(x.si === liked.length) - Number(y.si === liked.length)
+    .sort((x, y) => x.height - y.height || x.repeat - y.repeat || Number(x.si === liked.length) - Number(y.si === liked.length)
       || y.es - x.es || x.si - y.si || x.fresh - y.fresh || byId(x.def.id, y.def.id));
-  return firstOf(state, content, rows, () => "close:winnable", ctx, cfg);
+  return firstOf(state, content, rows, () => "close:winnable", ctx, cfg, { repeatRight: opts.repeatRight });
 }
 
 /**
@@ -397,8 +436,10 @@ export function pickReturn(
  * lower height; then the eligible card with the highest expectedSuccess wins, ties to the lower height, then skill id.
  * With the session's running rate below comfort (R2) the order is lowest height first, then expectedSuccess, then
  * group. A first pass keeps the same-skill run and `excludeSkills`; a second pass drops them.
+ * `opts.repeatRight` (change 7, the closing sweep only): after both passes found nothing, the same two passes again
+ * with repeats of cards answered right allowed.
  */
-export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Config, reason: Reason): Picked | null {
+export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Config, reason: Reason, opts: CloseOpts = {}): Picked | null {
   const group = (d: SkillDef) => (d.id in state.skills ? 0 : isReady(state, content, d) ? 1 : 2);
   const easier = ctx.runningTotal > 0 && ctx.runningRight / ctx.runningTotal < state.profile.comfort;
   const cands = cardSkills(content, Object.keys(content.skills).sort(byId))
@@ -407,7 +448,9 @@ export function pickAny(state: State, content: Content, ctx: PickCtx, cfg: Confi
       ? x.height - y.height || y.es - x.es || x.g - y.g
       : Number(x.height === 3) - Number(y.height === 3) || x.g - y.g || y.es - x.es || x.height - y.height)
       || byId(x.def.id, y.def.id));
-  return firstOf(state, content, cands, () => reason, ctx, cfg) ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true });
+  const sweep = (repeatRight: boolean) => firstOf(state, content, cands, () => reason, ctx, cfg, { repeatRight })
+    ?? firstOf(state, content, cands, () => reason, ctx, cfg, { relax: true, repeatRight });
+  return sweep(false) ?? (opts.repeatRight === true ? sweep(true) : null);
 }
 
 /**

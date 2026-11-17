@@ -6,6 +6,7 @@ import { dayOf, DAY_MS } from "../src/time.js";
 import { expectedSuccess, usualMs } from "../src/estimate.js";
 import { closeSweepReason, eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
 import { pickLadder } from "../src/ladder.js";
+import { newSectionRec as newSection } from "../src/skip.js";
 import type { PickCtx } from "../src/types.js";
 import type { Attempt, Content, Height, Seen, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
@@ -564,4 +565,53 @@ test("change 5 fix: a stretch skill needs its own evidence: estimate at its leve
   // although the session rate is high: the usual order serves it as due.
   const s = stretchState({ b2: { attempts: [...rights(2, 4), F(2)] } });
   expect(pickMiddle(s, C, above({ excludeSkills: ["a1", "b1"], extraNewUsed: true }), cfg)!.served.reason).toBe("due-review");
+});
+
+// ---------- change 7a: closers that can be won ----------
+
+/** Only a1 (height 1, three cards) and b1 (height 1 and 2) have cards; a2 and b2 none. */
+const ONLY = fixture({ drop: [
+  ...["a2", "b2"].flatMap((x) => [1, 2, 3].flatMap((i) => [`${x}.h1.${i}`, `${x}.h2.${i}`]).concat(`${x}.h3`)),
+  "a1.h2.1", "a1.h2.2", "a1.h2.3", "a1.h3", "b1.h3",
+] });
+const A = "u.t1/A";
+const B = "u.t1/B";
+const seenAt = (card: string, day: number, right?: boolean): Seen => ({ card, variant: 0, day, ...(right !== undefined ? { right } : {}) });
+
+test("change 7: closing card may be a card answered right 3 days ago; not one answered right 2 days ago; not one answered wrong", () => {
+  const base = (seen: Seen[]) => st({ a1: notDue(1) }, { seen });
+  const close = (s: State) => pickClose(s, ONLY, ctx({ blockedSections: [B] }), cfg, { repeatRight: true });
+  const s3 = base([seenAt("a1.h1.1", D - 3, true), seenAt("a1.h1.2", D - 2, true), seenAt("a1.h1.3", D - 5, false)]);
+  expect(close(s3)!.served).toMatchObject({ card: "a1.h1.1", reason: "close:winnable", height: 1 });
+  // without the option (every other picker): nothing
+  expect(pickClose(s3, ONLY, ctx({ blockedSections: [B] }), cfg)).toBeNull();
+  expect(pickOpen(s3, ONLY, ctx({ blockedSections: [B] }), cfg)).toBeNull();
+  expect(pickMiddle(s3, ONLY, ctx({ blockedSections: [B] }), cfg)).toBeNull();
+  expect(eligibleCard(s3, ONLY, "a1", 1, D, s3.rng, {}, cfg)).toBeNull();
+  expect(eligibleCard(s3, ONLY, "a1", 1, D, s3.rng, { repeatRightAfterDays: 3 }, cfg)).toMatchObject({ card: "a1.h1.1", repeat: true });
+  // right 2 days ago only: not yet
+  expect(close(base([seenAt("a1.h1.1", D - 2, true), seenAt("a1.h1.2", D - 2, true), seenAt("a1.h1.3", D - 5, false)]))).toBeNull();
+  // the most recent entry counts: right 6 days ago, then wrong 4 days ago → not
+  expect(close(base([seenAt("a1.h1.1", D - 6, true), seenAt("a1.h1.1", D - 4, false), seenAt("a1.h1.2", D - 1), seenAt("a1.h1.3", D - 1)]))).toBeNull();
+  // Seen without `right` (served, not answered; or skipped) is not right
+  expect(close(base([seenAt("a1.h1.1", D - 5), seenAt("a1.h1.2", D - 5), seenAt("a1.h1.3", D - 5)]))).toBeNull();
+  // never a card among the session's recent cards
+  expect(pickClose(s3, ONLY, ctx({ blockedSections: [B], recentCards: ["a1.h1.1"] }), cfg, { repeatRight: true })).toBeNull();
+  // the sweep in the closing order gets it only with the option
+  expect(pickAny(s3, ONLY, ctx({ blockedSections: [B] }), cfg, "close:winnable")).toBeNull();
+  expect(pickAny(s3, ONLY, ctx({ blockedSections: [B] }), cfg, "close:winnable", { repeatRight: true })!.served.card).toBe("a1.h1.1");
+});
+
+test("change 7: a repeat closer ranks after an unseen card of the same level and before any higher level", () => {
+  const sections = { [A]: { ...newSection(), liking: 5 } }; // a1's section is liked: it would come first
+  const a1Seen = [seenAt("a1.h1.1", D - 3, true), seenAt("a1.h1.2", D - 1, false), seenAt("a1.h1.3", D - 1, false)];
+  const s = st({ a1: notDue(1), b1: notDue(1) }, { sections, seen: a1Seen });
+  // b1 has an unseen height-1 card: it beats a1's repeat
+  expect(pickClose(s, ONLY, ctx(), cfg, { repeatRight: true })!.served).toMatchObject({ skill: "b1", height: 1 });
+  // b1's height-1 cards seen (wrong): a1's height-1 repeat beats b1's unseen height-2 card
+  const b1Seen = ["b1.h1.1", "b1.h1.2", "b1.h1.3"].map((c) => seenAt(c, D - 1, false));
+  const s2 = { ...s, seen: [...a1Seen, ...b1Seen] };
+  expect(pickClose(s2, ONLY, ctx(), cfg, { repeatRight: true })!.served).toMatchObject({ card: "a1.h1.1", height: 1 });
+  // without the option: b1 at height 2
+  expect(pickClose(s2, ONLY, ctx(), cfg)!.served).toMatchObject({ skill: "b1", height: 2 });
 });

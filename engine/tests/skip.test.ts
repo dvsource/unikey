@@ -171,7 +171,7 @@ test("after a skip with nothing else eligible the session ends content-exhausted
   const c0 = cardOf(st);
   expect(c0.section).toBe(B);
   const sk = skip(st.state, C, { card: c0.card }, T0 + 10_000);
-  expect(sk.next).toEqual({ kind: "end", end: { kind: "content-exhausted", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: false } });
+  expect(sk.next).toEqual({ kind: "end", end: { kind: "content-exhausted", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: false, recap: false, fixedSkills: [] } }); // change 7: EndInfo shape
   expect(sk.events.map((e) => e.type)).toEqual(["skip", "session_end"]);
 });
 

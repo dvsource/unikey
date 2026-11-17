@@ -46,9 +46,11 @@ Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSessio
 | `card` | show `next.card` (card id, variant, height). Call `answer` or `skip`. |
 | `confirm-skip` | a second skip of the section (never for `reason: "too-hard"`): show `next.value` (its share of the unit, its top skills). Then call `skip` again with `confirmed: true`, or `answer` the card. Nothing has changed yet. |
 | `offer-extend` | offer "5 more". Call `extend`, or `endSession` to decline (the session ends `budget`). |
-| `end` | the session is over. `next.end` has the kind, effort, cards, right answers, missing pieces fixed and `streakKept`. |
+| `end` | the session is over. `next.end` has the kind, effort, cards, right answers, missing pieces fixed, `streakKept`, `recap` and `fixedSkills`. When `recap` is true the session ended on a missed closing card (or the daily cap blocked one after a miss): show a short recap of `fixedSkills` (the skills fixed today; it may be empty) instead of ending on the wrong answer. |
 
 End kinds: `budget`, `extended-done`, `bad-day`, `daily-cap`, `content-exhausted`, `left`, `interrupted`. A `daily-cap` end with 0 cards means the day's cap was reached before the session could start.
+
+A session has at most one closing card. Two bad moments within 8 cards (a failed repair, a skill left after two misses on it, or three misses in a row anywhere) or three slow answers in a row make a bad day: one easy closing card, then the end `bad-day`. After a session of 3 or more cards with 2 or fewer right, the next session is short (the minimum day) and opens with easy cards (`open:easy`).
 
 ## Feedback and moments
 
@@ -63,7 +65,7 @@ Every card has a `reason`. The app can log it; the student never sees it.
 | reason | in words |
 |---|---|
 | `open:liked` | an opening card from a section the student does well in or likes |
-| `close:winnable` | a closing card, the easiest eligible, after a wrong answer or on a bad day |
+| `close:winnable` | a closing card, the easiest eligible, after a wrong answer or on a bad day; it may be a card the student answered right 3 or more days ago |
 | `repair:missing-piece` | after a wrong answer, an easier card on the probably missing piece |
 | `repair:confidence` | an easy card on the same skill to rebuild confidence |
 | `repair:return` | the skill that went wrong comes back, to check it is fixed |
@@ -77,6 +79,7 @@ Every card has a `reason`. The app can log it; the student never sees it.
 | `comeback:solid` | after 3 or more days away, a skill the student was solid on |
 | `fallback:any` | nothing the plan wanted was left, so any card still eligible |
 | `stretch:up` | a card one level above the student's usual one, because today is going well |
+| `open:easy` | an opening card, the easiest eligible, after a session with very few right answers |
 
 ## Skip and its reason
 

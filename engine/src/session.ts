@@ -84,10 +84,10 @@ const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "fallback:a
  * Review finding 5: when nothing outside the session's recent cards (R5) is eligible, the least recent of them: the
  * sweep is retried with the recent window shortened from its oldest end, down to none.
  */
-function leastRecent(r: Run, base: PickCtx, reason: Reason): Picked | null {
+function leastRecent(r: Run, base: PickCtx, reason: Reason, opts: { repeatRight?: boolean } = {}): Picked | null {
   const recent = base.recentCards ?? [];
   for (let k = recent.length - 1; k >= 0; k--) {
-    const p = pickAny(r.s, r.content, { ...base, recentCards: recent.slice(recent.length - k) }, r.cfg, reason);
+    const p = pickAny(r.s, r.content, { ...base, recentCards: recent.slice(recent.length - k) }, r.cfg, reason, opts);
     if (p) return p;
   }
   return null;
@@ -284,10 +284,11 @@ function toClosing(r: Run, forced: boolean): Next {
 /**
  * The end of a session (final review F1). When the last answer was right the session ends there, whatever the
  * estimate and today's effort; a close card is served only when the last answer was not right, or when `forced`
- * (bad day). A wrong close answer gets another close card, at most `sessionEnd.maxExtraClose` extra. A close card is
- * never served past the daily cap; when the cap blocks it after a wrong answer the session ends `daily-cap`. When only
- * the session's recent cards are left, the least recent is served. `content-exhausted` only when nothing at all is
- * eligible.
+ * (bad day). A wrong close answer gets another close card, at most `sessionEnd.maxExtraClose` extra (change 7: 0); once
+ * they are used up after a miss the session ends at once on a recap (`EndInfo.recap`). A close card is never served past
+ * the daily cap; when the cap blocks it after a miss the session ends `daily-cap`, also on a recap. When only the
+ * session's recent cards are left, the least recent is served. `content-exhausted` only when nothing at all is
+ * eligible. Change 7: closing picks (and only they) may repeat a card answered right `closing.repeatRightAfterDays` ago.
  */
 function closing(r: Run, forced: boolean): Next {
   const { s, content, cfg } = r;
@@ -296,36 +297,41 @@ function closing(r: Run, forced: boolean): Next {
   const first = ss.closeServed === 0;
   const lastRight = ss.history.length > 0 && ss.history[ss.history.length - 1].right === true;
   if (lastRight && !(first && forced)) return finish(r, pending);
-  if (ss.closeServed > cfg.sessionEnd.maxExtraClose) return finish(r, pending);
+  if (ss.closeServed > cfg.sessionEnd.maxExtraClose) return finish(r, pending, true); // the closing card was missed
   const capped = ctxOf(r, true, Infinity);
-  const p = (first ? pickClose(s, content, ctxOf(r, true, ss.budget - ss.spent), cfg) : null) ?? pickClose(s, content, capped, cfg);
+  const win = { repeatRight: true };
+  const p = (first ? pickClose(s, content, ctxOf(r, true, ss.budget - ss.spent), cfg, win) : null) ?? pickClose(s, content, capped, cfg, win);
   // F9: a sweep pick keeps close:winnable only when it is an easy card (see closeSweepReason).
   const sweep = (q: Picked | null) => withReason(q, q ? closeSweepReason(s, content, capped, cfg, q.served.height) : "fallback:any");
-  const any = p ? null : sweep(pickAny(s, content, capped, cfg, "close:winnable"));
+  const any = p ? null : sweep(pickAny(s, content, capped, cfg, "close:winnable", win));
   if (p || any) {
     ss.closeServed += 1;
     return serve(r, (p ?? any)!, true);
   }
   if (lastRight) return finish(r, pending);
-  const lr = sweep(leastRecent(r, capped, "close:winnable"));
+  const lr = sweep(leastRecent(r, capped, "close:winnable", win));
   if (lr) {
     ss.closeServed += 1;
     return serve(r, lr, true);
   }
-  return finish(r, anyLeft(r) || leastRecent(r, loose(r), "fallback:any") ? "daily-cap" : "content-exhausted");
+  if (anyLeft(r) || leastRecent(r, loose(r), "fallback:any")) return finish(r, "daily-cap", lastMiss(ss)); // change 7: a recap after a miss
+  return finish(r, "content-exhausted");
 }
 
-/** A `budget` end may become an offer of "5 more"; everything else closes the session. */
-function finish(r: Run, kind: EndKind): Next {
+/** The session's last answered card was a miss (wrong or "I don't know"). */
+const lastMiss = (ss: SessionState) => ss.history.filter((h) => h.right !== null).at(-1)?.right === false;
+
+/** A `budget` end may become an offer of "5 more" (never on a recap); everything else closes the session. */
+function finish(r: Run, kind: EndKind, recap = false): Next {
   const ss = r.s.session!;
-  if (kind === "budget" && offersExtend(r.s, ss, r.cfg)) {
+  if (kind === "budget" && !recap && offersExtend(r.s, ss, r.cfg)) {
     ss.served = null;
     return { kind: "offer-extend" };
   }
-  return closeSession(r, kind);
+  return closeSession(r, kind, recap);
 }
 
-function closeSession(r: Run, kind: EndKind): Next {
+function closeSession(r: Run, kind: EndKind, recap = false): Next {
   const ss = r.s.session!;
   const today = r.s.day!;
   const cards = ss.history.length;
@@ -341,7 +347,9 @@ function closeSession(r: Run, kind: EndKind): Next {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
   }
   const right = ss.history.filter((h) => h.right === true).length;
-  const end: EndInfo = { kind, effort: ss.spent, cards, right, fixed: ss.fixed, streakKept: today.streakKept };
+  const end: EndInfo = {
+    kind, effort: ss.spent, cards, right, fixed: ss.fixed, streakKept: today.streakKept, recap, fixedSkills: [...ss.fixedSkills],
+  };
   const changed = onSessionEndProfile(r, end, ss);
   emit(r, "session_end", { ...end, fadeEffort: ss.fadeEffort });
   if (changed) emit(r, "profile", changed);
@@ -362,7 +370,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
   }
   const today = r.s.day!;
   if (dayRoom(r.s, cfg) < cfg.effort.h1) {
-    const end: EndInfo = { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: today.streakKept };
+    const end: EndInfo = { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: today.streakKept, recap: false, fixedSkills: [] };
     r.s.lastEnd = end;
     return step(r, { kind: "end", end });
   }
@@ -379,7 +387,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
-    missRun: 0, lowStart,
+    missRun: 0, lowStart, fixedSkills: [],
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
   const held = releasePending(r.s, cfg);
@@ -457,6 +465,12 @@ export function answer(
   ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}) });
   ss.served = null;
   if (sv.reason === "repair:return" && right) ss.fixed += 1;
+  const fixCard = sv.reason === "repair:missing-piece" || sv.reason === "repair:confidence" || sv.reason === "repair:return";
+  if (right && fixCard && !ss.fixedSkills.includes(sv.skill)) ss.fixedSkills = [...ss.fixedSkills, sv.skill]; // change 7
+  // Change 7: the answer is written on the card's latest Seen entry (a closing card may repeat one answered right).
+  let si = r.s.seen.length - 1;
+  while (si >= 0 && !(r.s.seen[si].card === sv.card && r.s.seen[si].variant === sv.variant)) si--;
+  if (si >= 0) r.s.seen = r.s.seen.map((x, j) => (j === si ? { ...x, right } : x));
   if (ss.phase === "extend") ss.extendLeft -= 1;
   emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null });
   const moments = recordMoments(r.s, detectMoments(state, r.s, content, sv, right, r.day, cfg), cfg);

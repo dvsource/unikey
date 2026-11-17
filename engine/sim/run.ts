@@ -160,7 +160,7 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     logRejoins(st);
     const nx = st.next;
     if (nx.kind === "end") {
-      log({ kind: "end", end: nx.end });
+      log({ kind: "end", end: nx.end, recap: nx.end.recap }); // change 7: the end line says whether it was a recap
       if (started) h = quit === null ? sessionEnded(h, false) : sessionEnded(h, true, quit);
       return { state: st.state, hidden: h, end: nx.end };
     }

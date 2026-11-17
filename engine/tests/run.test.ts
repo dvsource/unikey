@@ -69,7 +69,7 @@ test("log has what §13 needs: every card line has served.reason, height, right,
 
 const sv = (card: string, o: Partial<Served> = {}): Served =>
   ({ card, variant: 0, skill: "s1", section: "A", height: 1, reason: "due-review", effort: 1, ...o });
-const end = (effort: number) => ({ kind: "budget" as const, effort, cards: 1, right: 1, fixed: 0, streakKept: true });
+const end = (effort: number) => ({ kind: "budget" as const, effort, cards: 1, right: 1, fixed: 0, streakKept: true, recap: false, fixedSkills: [] as string[] }); // change 7: EndInfo shape
 const prof = { comfort: 0.75, memory: 1, h3Share: 0.4, stamina: 13.34, goodStreak: 0, msByHeight: { 1: [], 2: [], 3: [] } };
 
 /** One session per day for `days` days: start, one right card `c<day>`, end at `effort`. */
@@ -140,7 +140,7 @@ test("each check catches a planted violation, and only its own check fails", () 
   expect(onlyFails([mk("strong", capped)], "no-end-on-wrong")).toMatch(/strong day 1 .*daily-cap.*c1/);
   // ...a start-time cap (0 cards, no start line) does not
   const startCap = cleanLines(12);
-  startCap.splice(6, 0, { day: 1, session: 99, n: 0, kind: "end", end: { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true } });
+  startCap.splice(6, 0, { day: 1, session: 99, n: 0, kind: "end", end: { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [] } });
   allPass([mk("strong", startCap)]);
 
   // repeat on day 5 (c0 again, 5 days after day 0)
@@ -478,4 +478,20 @@ test("runner logs scope on skips and a rejoin line", () => {
   expect(log.lines.some((l) => l.served?.reason === "side-door" && l.served.section === B)).toBe(false);
   const checks = runChecks([log], defaultConfig);
   for (const name of ["skip-timing", "side-door-not-full"]) expect(checks.find((c) => c.name === name), name).toMatchObject({ pass: true });
+});
+
+test("change 7: the runner copies the engine's recap onto every end line", () => {
+  const content = fixture();
+  let recaps = 0;
+  for (const id of ["weak-stubborn", "weak-impatient", "average-noclass"]) {
+    for (const seed of [1, 2, 3]) {
+      const log = runStudent(byId(id), content, opts(8, seed));
+      for (const l of log.lines.filter((x) => x.kind === "end")) {
+        expect(l.recap).toBe(l.end!.recap);
+        expect(typeof l.recap).toBe("boolean");
+        if (l.recap) recaps++;
+      }
+    }
+  }
+  expect(recaps).toBeGreaterThan(0);
 });

@@ -53,7 +53,8 @@ export type Profile = {
   comfort: number; memory: number; h3Share: number; stamina: number;
   goodStreak: number; msByHeight: Record<Height, number[]>; // last 20 ms per height
 };
-export type Seen = { card: string; variant: number; day: number };
+/** `right` (change 7): set when the card is answered (true / false); absent when served and not answered, or skipped. */
+export type Seen = { card: string; variant: number; day: number; right?: boolean };
 export type SessionHistoryEntry = {
   skill: string; right: boolean | null; ms: number; bad: boolean;
   /** Height of the answered card and whether the answer took over `badDay.slowFactor × usualMs(height)`. */
@@ -117,11 +118,20 @@ export type SessionState = {
    * `session.openCards` cards come from the closing order as `open:easy`.
    */
   lowStart: boolean;
+  /** Change 7: the skills fixed today (see `EndInfo.fixedSkills`), in order of first fix. */
+  fixedSkills: string[];
 };
 
 export type Choice = number | "dont-know";
 export type EndKind = "budget" | "bad-day" | "extended-done" | "daily-cap" | "content-exhausted" | "left" | "interrupted";
-export type EndInfo = { kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean };
+/**
+ * `recap` (change 7): the session ended on a recap, not a question (its closing card was missed, or the daily cap
+ * blocked a closing card after a miss). `fixedSkills`: the distinct skills, in order of first fix, with a right answer
+ * this session on a `repair:missing-piece`, `repair:confidence` or `repair:return` card (filled on every end).
+ */
+export type EndInfo = {
+  kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean; recap: boolean; fixedSkills: string[];
+};
 export type Feedback = { right: boolean; correctIndex: number; tag?: string; reveal?: { section: string } };
 /** Shown before a second (or later) skip of a section: its share of the unit's weight and its top skills. */
 export type ValueMessage = { section: string; sharePct: number; topSkills: { skill: string; solid: boolean }[] };

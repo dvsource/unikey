@@ -27,7 +27,7 @@ function open(profile: Partial<State["profile"]> = {}, ss: Partial<SessionState>
   const st = startSession(withProfile(base, profile), C, T0).state;
   return { s: st, ss: { ...st.session!, ...ss } };
 }
-const endOf = (kind: EndInfo["kind"], cards: number, right: number): EndInfo => ({ kind, effort: 10, cards, right, fixed: 0, streakKept: true });
+const endOf = (kind: EndInfo["kind"], cards: number, right: number): EndInfo => ({ kind, effort: 10, cards, right, fixed: 0, streakKept: true, recap: false, fixedSkills: [] }); // change 7: EndInfo shape
 const close = (profile: Partial<State["profile"]>, end: EndInfo, ss: Partial<SessionState> = {}, base?: State) => {
   const o = open(profile, ss, base);
   return onSessionEnd(o.s, end, o.ss, cfg).profile;

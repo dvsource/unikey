@@ -27,7 +27,7 @@ test("spec numbers", () => {
   expect(c.liking).toEqual({ fastStep: 0.5, slowStep: 0.5, slowFactor: 1.5, extendStep: 2, clamp: 5 });
   expect(c.tzOffsetMinutes).toBe(330);
   expect(c.clock).toEqual({ correctionDays: 2 });
-  expect(c.sessionEnd).toEqual({ maxExtraClose: 2 });
+  expect(c.sessionEnd).toEqual({ maxExtraClose: 0 }); // change 7
   expect(c.content).toEqual({ exclude: ["phy.therm.c043"] });
   expect(c.answers).toEqual({ msKept: 20 });
   expect(c.skip).toEqual({ dripAfterCards: 3, likingPenalty: 1, valueTopSkills: 3, classReturnMinDays: 2, tooHardRestDays: 3 }); // change 6: tooHardRestDays
