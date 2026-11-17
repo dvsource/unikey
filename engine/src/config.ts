@@ -2,11 +2,12 @@ export const defaultConfig = {
   effort: { h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 },
   /**
    * `lowRight` / `lowRightMinCards` (change 3): after a session of at least this many cards with at most `lowRight` right,
-   * the next session is a minimum day opening on easy cards.
+   * the next session is a minimum day opening on easy cards. `extendEffort` (extend ruling): the card effort an accepted
+   * "5 more" may serve (five guided cards' worth; the wrong-answer surcharge not counted), next to its `extendCards` limit.
    */
   budget: {
     staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3,
-    lowRight: 2, lowRightMinCards: 3,
+    lowRight: 2, lowRightMinCards: 3, extendEffort: 7.5,
   },
   /** Fade (R4b): this many slow answers in a session (not necessarily in a row) record a fade at the first one. */
   fade: { slowAnswers: 2 },

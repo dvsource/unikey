@@ -1362,3 +1362,23 @@ test("change 7: Seen.right is set on the answer; a skipped card has none", () =>
   expect("right" in entry(2)).toBe(false);
   expect("right" in entry(3)).toBe(false); // served, not answered
 });
+test("extend ruling: an extension for a student whose skills are all at level 3 serves at most one full problem, then cheaper cards or ends", () => {
+  const usual = { 1: Array(10).fill(20_000), 2: Array(10).fill(20_000), 3: Array(10).fill(20_000) };
+  const s0 = withProfile(startedAt(3, 6, 0, Object.fromEntries(["a1", "a2", "b1", "b2"].map((x) => [x, { noFullUntilDay: null }]))), { msByHeight: usual });
+  const p = play(C, s0, T0, allR, { offer: "stop", ms: () => 20_000 });
+  expect(lastStep(p.steps).next).toEqual({ kind: "offer-extend" });
+  const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
+  const r = run(C, ex, p.now + 5000, allR, { ms: () => 20_000 });
+  const extra = served([ex, ...r.steps]).filter((c) => c.reason !== "close:winnable");
+  expect(extra.length).toBeGreaterThan(0);
+  expect(extra.length).toBeLessThanOrEqual(cfg.budget.extendCards);
+  expect(extra.filter((c) => c.height === 3).length).toBeLessThanOrEqual(1);
+  expect(extra.reduce((a, c) => a + c.effort, 0)).toBeLessThanOrEqual(cfg.budget.extendEffort);
+  expect(extra.some((c) => c.height === 3)).toBe(true); // the one full problem fits the allowance
+  expect(endOf(lastStep(r.steps)).kind).toBe("extended-done");
+  // all wrong: the surcharge does not count against the allowance (same cards served as long as each fits)
+  const w = run(C, ex, p.now + 5000, (s) => (s.reason === "extend:liked" ? "w" : "r"), { ms: () => 20_000 });
+  const we = served([ex, ...w.steps]).filter((c) => c.reason === "extend:liked");
+  expect(we.reduce((a, c) => a + c.effort, 0)).toBeLessThanOrEqual(cfg.budget.extendEffort);
+  expect(we.length).toBeLessThanOrEqual(cfg.budget.extendCards);
+});

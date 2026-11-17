@@ -146,12 +146,13 @@ function decide(r: Run, last: Last): Next {
   const ss = r.s.session!;
   if (ss.phase === "extend") {
     if (ss.extendLeft > 0) {
-      const ctx = ctxOf(r, true, Infinity);
+      // Extend ruling: only a card whose effort fits what is left of the allowance (a cheaper one when it does not).
+      const ctx = ctxOf(r, true, ss.extendEffortLeft);
       const p = withReason(pickOpen(r.s, r.content, ctx, r.cfg) ?? pickClose(r.s, r.content, ctx, r.cfg), "extend:liked");
       if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
       const any = pickAny(r.s, r.content, ctx, r.cfg, "fallback:any");
       if (any) return serve(r, any, true);
-      ss.extendLeft = 0; // nothing fits: "5 more" is over
+      ss.extendLeft = 0; // nothing fits (the allowance, the cap or the content): "5 more" is over
     }
     return toClosing(r, false);
   }
@@ -387,7 +388,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
-    missRun: 0, lowStart, fixedSkills: [],
+    missRun: 0, lowStart, fixedSkills: [], extendEffortLeft: 0,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
   const held = releasePending(r.s, cfg);
@@ -471,7 +472,10 @@ export function answer(
   let si = r.s.seen.length - 1;
   while (si >= 0 && !(r.s.seen[si].card === sv.card && r.s.seen[si].variant === sv.variant)) si--;
   if (si >= 0) r.s.seen = r.s.seen.map((x, j) => (j === si ? { ...x, right } : x));
-  if (ss.phase === "extend") ss.extendLeft -= 1;
+  if (ss.phase === "extend") {
+    ss.extendLeft -= 1;
+    ss.extendEffortLeft -= sv.effort; // extend ruling: the card's own effort, not the wrong-answer surcharge
+  }
   emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null });
   const moments = recordMoments(r.s, detectMoments(state, r.s, content, sv, right, r.day, cfg), cfg);
   for (const m of moments) emit(r, "moment", { ...m });
@@ -572,6 +576,7 @@ export function extend(state: State, content: Content, now: number, cfg: Config 
   const ss = r.s.session!;
   ss.extended = true;
   ss.extendLeft = cfg.budget.extendCards;
+  ss.extendEffortLeft = cfg.budget.extendEffort;
   ss.phase = "extend";
   ss.closeServed = 0;
   return step(r, decide(r, null));

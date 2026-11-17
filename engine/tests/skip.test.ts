@@ -461,7 +461,7 @@ test("skipping a close card: another close card; skipped ones do not count towar
 });
 
 test("skipping a \"5 more\" card: another extend card, extendLeft unchanged", () => {
-  const { state, card } = inPhase({ phase: "extend", extended: true, extendLeft: 3 });
+  const { state, card } = inPhase({ phase: "extend", extended: true, extendLeft: 3, extendEffortLeft: cfg.budget.extendEffort }); // extend ruling: the allowance is set by extend()
   const sk = skip(state, C, { card: card.card }, T0 + 10_000);
   expect(cardOf(sk)).toMatchObject({ reason: "extend:liked", section: A });
   expect(sk.state.session).toMatchObject({ phase: "extend", extendLeft: 3, spent: 0 });

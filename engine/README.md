@@ -45,7 +45,7 @@ Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSessio
 |---|---|
 | `card` | show `next.card` (card id, variant, height). Call `answer` or `skip`. |
 | `confirm-skip` | a second skip of the section (never for `reason: "too-hard"`): show `next.value` (its share of the unit, its top skills). Then call `skip` again with `confirmed: true`, or `answer` the card. Nothing has changed yet. |
-| `offer-extend` | offer "5 more". Call `extend`, or `endSession` to decline (the session ends `budget`). |
+| `offer-extend` | offer "5 more". Call `extend`, or `endSession` to decline (the session ends `budget`). "5 more" is at most 5 cards and at most 7.5 effort (five guided cards' worth), so it may be fewer cards when they are full problems. |
 | `end` | the session is over. `next.end` has the kind, effort, cards, right answers, missing pieces fixed, `streakKept`, `recap` and `fixedSkills`. When `recap` is true the session ended on a missed closing card (or the daily cap blocked one after a miss): show a short recap of `fixedSkills` (the skills fixed today; it may be empty) instead of ending on the wrong answer. |
 
 End kinds: `budget`, `extended-done`, `bad-day`, `daily-cap`, `content-exhausted`, `left`, `interrupted`. A `daily-cap` end with 0 cards means the day's cap was reached before the session could start.

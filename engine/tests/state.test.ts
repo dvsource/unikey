@@ -55,7 +55,7 @@ test("change 3/7: migrate defaults lastSession, a stored lastEnd's recap / fixed
   expect(newState("s", 1).lastSession).toBeNull();
   const ss = { phase: "middle", fadeEffort: null } as unknown as NonNullable<State["session"]>;
   const ms = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), session: ss })));
-  expect(ms.session).toMatchObject({ missRun: 0, lowStart: false, fixedSkills: [] });
+  expect(ms.session).toMatchObject({ missRun: 0, lowStart: false, fixedSkills: [], extendEffortLeft: 0 });
   const kept = migrate({ ...newState("s", 1), lastSession: { cards: 4, right: 1 } });
   expect(kept.lastSession).toEqual({ cards: 4, right: 1 });
 });

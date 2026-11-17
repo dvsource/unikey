@@ -120,6 +120,11 @@ export type SessionState = {
   lowStart: boolean;
   /** Change 7: the skills fixed today (see `EndInfo.fixedSkills`), in order of first fix. */
   fixedSkills: string[];
+  /**
+   * Extend ruling: the card effort an accepted "5 more" may still serve (`budget.extendEffort` at `extend`, less each
+   * extra card's own effort when answered; 0 outside "5 more"). An extra card is served only if its effort fits it.
+   */
+  extendEffortLeft: number;
 };
 
 export type Choice = number | "dont-know";

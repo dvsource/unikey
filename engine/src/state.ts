@@ -29,6 +29,7 @@ export function migrate(json: unknown): State {
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
     missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
     fixedSkills: s.session.fixedSkills ?? [], // change 7
+    extendEffortLeft: s.session.extendEffortLeft ?? 0, // extend ruling
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, {
     ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null, skippedLevel: x.skippedLevel ?? null, // change 6

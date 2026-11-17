@@ -4,7 +4,7 @@ test("spec numbers", () => {
   expect(c.effort).toEqual({ h1: 1, h2: 1.5, h3: 4, wrong: 1, dontKnow: 0 });
   expect(c.budget).toEqual({
     staminaDefault: 13.34, margin: 0.1, minimumDay: 8, dailyCap: 40, comeback: 8, extendCards: 5, firstSessions: 3,
-    lowRight: 2, lowRightMinCards: 3, // change 3
+    lowRight: 2, lowRightMinCards: 3, extendEffort: 7.5, // change 3: lowRight, lowRightMinCards; extend ruling: extendEffort
   });
   expect(c.fade).toEqual({ slowAnswers: 2 });
   expect(c.reviewGapsDays).toEqual([1, 3, 7, 14, 30]);
