@@ -1,5 +1,7 @@
 # Study Loop Changes 1–7 Implementation Plan
 
+Status: built 2026-11-18 (commits 05be055..f2f2ce1); see the notes section "After changes 1–7".
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Change the study-loop engine so the two failed "design must change" lines stop failing: no simulated student quits before day 7, and no weak student stays flat.

@@ -1,6 +1,6 @@
 # Study loop and scheduler: design changes after the first judge pass
 
-_Date: 2026-11-16 · Status: changes 1–7 accepted (Viraj, 2026-11-16), see DR-0051; changes 8–15 draft · Nothing here is built._
+_Date: 2026-11-16 · Status: changes 1–7 accepted (Viraj, 2026-11-16, DR-0051) and built (engine, 2026-11-18); changes 8–15 draft_
 
 Changes to the [study loop design](2026-11-12-study-loop-scheduler-design.md) (section numbers below refer to it). Source: the [judge report, seed 1](../../reviews/2026-11-16-judge-report-seed1.md), the [tuning notes](../../../engine/runs-notes/2026-first-tuning.md) and [DR-0050](../../decisions/0050-session-length-rules-from-first-tuning.md) (still Proposed).
 
