@@ -474,6 +474,21 @@ test("extend: a wrong answer on the last extra card is followed by a close card"
   expect(endOf(last).kind).toBe("extended-done");
 });
 
+test("final review F4: \"5 more\" never serves a skill missed earlier in the session (before or during the extension)", () => {
+  // Five wrong-free cards but one: the miss on the session's 4th card (a comfort-correction card of a1 at 75% comfort).
+  const p = play(C, withProfile(fastStart(), { stamina: 30 }), T0, (_s, i) => (i === 3 ? "w" : "r"), { offer: "stop", ms: () => 20_000 });
+  expect(lastStep(p.steps).next).toEqual({ kind: "offer-extend" });
+  const before = served(p.steps);
+  const missed = before[3].skill;
+  const ex = extend(lastStep(p.steps).state, C, p.now + 5000);
+  // the first extension card is missed too
+  const r = run(C, ex, p.now + 5000, (s, i) => (i === 0 ? "w" : "r"), { ms: () => 20_000 });
+  const extra = served([ex, ...r.steps]).filter((c) => c.reason === "extend:liked" || c.reason === "fallback:any");
+  expect(extra.length).toBeGreaterThan(1);
+  expect(extra.every((c) => c.skill !== missed)).toBe(true);
+  expect(extra.slice(1).every((c) => c.skill !== extra[0].skill)).toBe(true);
+});
+
 test("budget comes from cfg: max(minimumDay, stamina × (1 − margin))", () => {
   const custom = { ...cfg, budget: { ...cfg.budget, minimumDay: 4, staminaDefault: 4 } };
   // sessionCount 4: past the budget.firstSessions small first sessions (Task 11 R4c)

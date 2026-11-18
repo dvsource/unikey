@@ -149,7 +149,8 @@ function decide(r: Run, last: Last): Next {
   if (ss.phase === "extend") {
     if (ss.extendLeft > 0) {
       // Extend ruling: only a card whose effort fits what is left of the allowance (a cheaper one when it does not).
-      const ctx = ctxOf(r, true, ss.extendEffortLeft);
+      // Final review F4: never a skill missed (wrong or "I don't know") earlier in the session.
+      const ctx = hold(ctxOf(r, true, ss.extendEffortLeft), ss.history.filter((h) => h.right === false).map((h) => h.skill));
       const p = withReason(pickOpen(r.s, r.content, ctx, r.cfg) ?? pickClose(r.s, r.content, ctx, r.cfg), "extend:liked");
       if (p) return serve(r, p, true); // a not-started skill from pickClose starts at the served height
       const any = pickAny(r.s, r.content, ctx, r.cfg, "fallback:any");
