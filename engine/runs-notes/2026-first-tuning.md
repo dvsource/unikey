@@ -568,3 +568,325 @@ A budget or extended-done end now keeps the streak when the day's effort reached
 | 3 | 44 | 44 | 0 |
 
 No under-8 budget end loses the streak any more. The 3.5-of-12 dead end (unit-tested directly, 2 cards) would still lose it, but is no longer reachable in the simulator.
+
+## After changes 1–7 (2026-11-17)
+
+Task 9 of the plan for changes 1–7 (design changes doc, DR-0051). Runs: `runs/c0-sN` (before: commit b0a1f32, the four new checks added, no engine change yet), `runs/c1-sN` (e218210, changes 1-7 built; "HEAD" below) and `runs/c2-sN` (after the one rule fix below, commit 4a1e616), 28 days, `--packs all`, seeds 1, 2, 3. "After" below means `c2`. Numbers come from `node sim/tools/changes.mjs` (new in this task; modes `table`, `cards`, `week`, `compare`). Probe runs are `runs/x9-*` (not committed).
+
+**Outcome:** no config number changed. One rule fixed (a repair return straight after a miss, change 1; test first). All 11 checks pass on all three seeds, before and after the fix. Two of the four targets are missed: weak-impatient quits on day 1 or 2, and fast-guesser gains about 0.03. The data points to limits of the simulated students and to design options, not to a wrong number.
+
+### Targets
+
+| target | seed 1 | seed 2 | seed 3 |
+|---|---|---|---|
+| 1. all 11 checks pass | met | met | met |
+| 2. no persona quits the app before day 7 | missed (weak-impatient, day 1) | missed (weak-impatient, day 2) | missed (weak-impatient, day 1) |
+| 3. no persona with prior ≤ 0.3 that keeps practising gains < 0.05 | missed (fast-guesser +0.027) | missed (fast-guesser +0.032) | missed (fast-guesser +0.029) |
+| 4. weak effort per session not above strong's | met (weak-stubborn 8.1, weak-impatient 5.0 vs strong 13.6) | met (7.9, 6.3 vs 17.5) | met (7.3, 6.0 vs 14.3) |
+
+The same at HEAD before the fix (`c1`): targets 1 and 4 met, 2 and 3 missed on every seed (fast-guesser +0.029 / +0.033 / +0.035).
+
+Target 3 covers three personas: weak-stubborn (prior 0.15) meets it on every seed (+0.076 / +0.071 / +0.062; at HEAD +0.075 / +0.073 / +0.082); fast-guesser (prior 0.3) misses it; weak-impatient (prior 0.15) does not keep practising, so it falls under target 2.
+
+### Checks, before and after
+
+Before (`c0`, from the Task 2 report): seed 1 fails 5 (no-end-on-wrong 9, repair-steps-down 118, no-long-zero-session 4, side-door-not-full 9, day-one-fit 11); seed 2 fails 5 (4, 125, 2, 5, 12); seed 3 fails 6 (6, 127, 3, 9, 12, and ends-before-fade 1). At HEAD (`c1`) and after the fix (`c2`): all pass.
+
+Seed 1 (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 366 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 2 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 23 ≤ 40; mean asked/day strong 13.33, weak-stubborn 8.11, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2398 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 14% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.051 |
+| no-back-to-back-card | PASS | 2398 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 86 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 390 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 1 side-door cards, none at level 3 |
+| day-one-fit | PASS | 3 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+Seed 2 (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 363 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 3 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 30 ≤ 40; mean asked/day strong 16.00, weak-stubborn 8.29, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2472 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 4% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.052 |
+| no-back-to-back-card | PASS | 2472 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 93 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 391 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 2 side-door cards, none at level 3 |
+| day-one-fit | PASS | 3 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+Seed 3 (after)
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 371 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 3 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 26 ≤ 40; mean asked/day strong 13.85, weak-stubborn 8.29, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2384 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 11% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.048 |
+| no-back-to-back-card | PASS | 2384 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 100 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 390 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 2 side-door cards, none at level 3 |
+| day-one-fit | PASS | 5 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+skip-timing now sees 2 to 3 section skips per seed (27 / 21 / 27 before): "too hard" became a card-level skip (change 6) and the simulated students nearly always say "too hard".
+
+### Per persona, before → after (seeds 1 / 2 / 3)
+
+| persona | quit day | cards/s | effort/s | success | gain | bad-day ends | zero-right sessions |
+|---|---|---|---|---|---|---|---|
+| average-fastclass | - / - / - → - / - / - | 5.3 / 6.5 / 6.5 → 5.8 / 5.4 / 5.8 | 8.3 / 9.9 / 10.5 → 8.6 / 8.2 / 9.4 | 76% / 78% / 77% → 81% / 76% / 80% | 0.069 / 0.079 / 0.068 → 0.069 / 0.062 / 0.063 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| average-noclass | - / - / - → - / - / - | 6.1 / 6.6 / 6.8 → 6.5 / 6.4 / 6.5 | 9.6 / 9.9 / 10.0 → 9.9 / 9.8 / 10.1 | 81% / 81% / 77% → 77% / 78% / 81% | 0.067 / 0.076 / 0.079 → 0.078 / 0.078 / 0.077 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| binge-quit | - / - / - → - / - / - | 7.0 / 7.8 / 7.6 → 6.5 / 9.6 / 7.9 | 10.7 / 11.6 / 10.8 → 11.2 / 13.9 / 11.2 | 80% / 81% / 80% → 78% / 82% / 80% | 0.048 / 0.057 / 0.042 → 0.048 / 0.071 / 0.054 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 1 → 0 / 0 / 0 |
+| calc-strong-memory-poor | - / - / - → - / - / - | 6.0 / 7.0 / 6.3 → 6.4 / 6.2 / 5.5 | 9.4 / 10.8 / 10.1 → 9.9 / 9.1 / 8.4 | 73% / 73% / 72% → 75% / 77% / 73% | 0.018 / 0.013 / 0.015 → 0.026 / 0.013 / 0.012 | 0 / 0 / 0 → 0 / 1 / 0 | 1 / 0 / 0 → 0 / 0 / 0 |
+| comeback-10 | - / - / - → - / - / - | 7.5 / 7.0 / 6.4 → 5.8 / 5.9 / 6.0 | 10.6 / 9.8 / 9.8 → 9.9 / 8.8 / 8.9 | 84% / 85% / 83% → 80% / 81% / 79% | 0.041 / 0.037 / 0.034 → 0.035 / 0.036 / 0.026 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| confident-misconceptions | - / - / - → - / - / - | 7.4 / 7.0 / 7.4 → 6.6 / 6.7 / 6.4 | 11.2 / 11.0 / 10.9 → 10.7 / 9.9 / 10.5 | 77% / 72% / 78% → 76% / 76% / 80% | 0.068 / 0.066 / 0.067 → 0.066 / 0.064 / 0.056 | 0 / 0 / 0 → 0 / 1 / 0 | 0 / 0 / 0 → 0 / 1 / 0 |
+| fast-guesser | - / - / - → - / - / - | 7.3 / 5.9 / 6.1 → 5.9 / 5.6 / 5.5 | 11.7 / 9.4 / 9.8 → 9.3 / 9.5 / 8.7 | 67% / 65% / 64% → 62% / 63% / 64% | 0.039 / 0.030 / 0.031 → 0.027 / 0.032 / 0.029 | 0 / 0 / 0 → 3 / 0 / 2 | 0 / 0 / 0 → 3 / 0 / 0 |
+| memory-good-calc-weak | - / - / - → - / - / - | 7.0 / 6.9 / 6.6 → 6.3 / 6.2 / 6.2 | 10.4 / 10.1 / 9.9 → 9.8 / 9.6 / 10.0 | 92% / 94% / 90% → 90% / 92% / 89% | 0.076 / 0.074 / 0.076 → 0.069 / 0.068 / 0.065 | 1 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| one-feared-section | - / - / - → - / - / - | 5.8 / 6.2 / 5.9 → 6.1 / 5.8 / 6.4 | 9.7 / 9.8 / 9.7 → 9.9 / 9.5 / 9.9 | 83% / 83% / 81% → 84% / 82% / 82% | 0.051 / 0.057 / 0.056 → 0.054 / 0.053 / 0.059 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| slow-reader | - / - / - → - / - / - | 5.6 / 6.0 / 5.8 → 5.3 / 5.6 / 5.6 | 9.5 / 8.6 / 9.1 → 8.1 / 8.8 / 8.7 | 77% / 80% / 85% → 82% / 79% / 83% | 0.061 / 0.061 / 0.056 → 0.055 / 0.061 / 0.056 | 0 / 0 / 0 → 1 / 2 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| smart-impatient | - / - / - → - / - / - | 6.4 / 5.3 / 6.0 → 5.5 / 5.3 / 5.6 | 9.4 / 7.7 / 9.0 → 9.8 / 7.8 / 9.5 | 96% / 91% / 96% → 91% / 93% / 97% | 0.025 / 0.021 / 0.023 → 0.023 / 0.022 / 0.021 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| steady-five-min | - / - / - → - / - / - | 6.7 / 6.4 / 5.9 → 5.7 / 6.0 / 5.9 | 10.2 / 10.0 / 8.7 → 8.7 / 9.2 / 10.0 | 81% / 81% / 82% → 79% / 75% / 77% | 0.078 / 0.074 / 0.065 → 0.068 / 0.073 / 0.069 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 1 |
+| strong | - / - / - → - / - / - | 9.5 / 10.0 / 8.0 → 7.1 / 8.4 / 7.0 | 16.6 / 18.5 / 14.0 → 13.6 / 17.5 / 14.3 | 97% / 95% / 96% → 96% / 95% / 92% | 0.042 / 0.045 / 0.037 → 0.034 / 0.040 / 0.037 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| underconfident-skipper | - / - / - → - / - / - | 6.6 / 5.2 / 6.3 → 6.3 / 6.2 / 5.9 | 9.7 / 8.1 / 9.8 → 10.1 / 9.7 / 9.8 | 90% / 89% / 86% → 89% / 88% / 85% | 0.037 / 0.025 / 0.037 → 0.035 / 0.034 / 0.035 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 0 → 0 / 0 / 0 |
+| weak-impatient | 1 / 1 / 1 → 1 / 2 / 1 | 3.5 / 5.0 / 5.5 → 3.0 / 4.7 / 4.0 | 5.8 / 7.0 / 8.0 → 5.0 / 6.3 / 6.0 | 29% / 60% / 45% → 33% / 57% / 50% | 0.000 / -0.001 / 0.000 → -0.001 / 0.000 / -0.003 | 0 / 0 / 0 → 0 / 0 / 0 | 0 / 0 / 1 → 0 / 0 / 0 |
+| weak-stubborn | - / - / - → - / - / - | 6.8 / 6.3 / 7.2 → 5.3 / 5.0 / 4.8 | 10.9 / 9.9 / 11.1 → 8.1 / 7.9 / 7.3 | 29% / 34% / 34% → 35% / 32% / 43% | 0.103 / 0.093 / 0.105 → 0.076 / 0.071 / 0.062 | 0 / 1 / 1 → 10 / 11 / 6 | 4 / 2 / 3 → 8 / 6 / 2 |
+
+### Per persona, after (full)
+
+`ladder s1/s3`: ladder level at the end of sessions 1 and 3, replayed from the log (533 of 615 ladder-reason cards in sessions 1-3 were served at the replayed level, 82 below it when no card existed at that level, none above). `extended effort`: mean session effort of sessions that ended "extended-done". `left`: sessions the student walked out of.
+
+Seed 1
+
+| persona | days | quit day | sess | cards/s | effort/s | success | k d0 → d14 → end | gain | recap | bad-day | left | zero-right | card skips | section skips | rejoins | stretch served/right | 5 more offered/taken | extended effort | ladder s1/s3 | end profile c / m / h3 / st | hidden st |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| average-fastclass | 28 | - | 28 | 5.8 | 8.6 | 81% | 0.40 → 0.44 → 0.47 | +0.069 | 1 | 0 | 0 | 0 | 5 | 0 | 0 | 3/2 | 15/3 | 14.0 | 1/2 | 0.71 / 0.94 / 0.40 / 12.3 | 14 |
+| average-noclass | 28 | - | 28 | 6.5 | 9.9 | 77% | 0.40 → 0.45 → 0.48 | +0.078 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 6/2 | 10/1 | 13.5 | 2/1 | 0.72 / 1.41 / 0.40 / 14.3 | 14 |
+| binge-quit | 14 | - | 20 | 6.5 | 11.2 | 78% | 0.40 → 0.43 → 0.45 | +0.048 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1/1 | 4/4 | 17.6 | 2/2 | 0.73 / 0.55 / 0.40 / 17.3 | 30 |
+| calc-strong-memory-poor | 28 | - | 28 | 6.4 | 9.9 | 75% | 0.50 → 0.53 → 0.53 | +0.026 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2/1 | 11/4 | 15.3 | 2/2 | 0.73 / 0.53 / 0.40 / 11.9 | 14 |
+| comeback-10 | 18 | - | 18 | 5.8 | 9.9 | 80% | 0.45 → 0.47 → 0.48 | +0.035 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2/1 | 4/0 | - | 2/2 | 0.73 / 0.91 / 0.40 / 13.3 | 14 |
+| confident-misconceptions | 28 | - | 28 | 6.6 | 10.7 | 76% | 0.50 → 0.54 → 0.57 | +0.066 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3/3 | 10/3 | 17.3 | 2/1 | 0.74 / 0.63 / 0.50 / 16.3 | 16 |
+| fast-guesser | 28 | - | 28 | 5.9 | 9.3 | 62% | 0.30 → 0.32 → 0.33 | +0.027 | 6 | 3 | 0 | 3 | 0 | 0 | 0 | 0/0 | 6/2 | 16.8 | 1/1 | 0.74 / 0.50 / 0.40 / 10.5 | 18 |
+| memory-good-calc-weak | 28 | - | 28 | 6.3 | 9.8 | 90% | 0.50 → 0.54 → 0.57 | +0.069 | 0 | 0 | 0 | 0 | 7 | 0 | 0 | 2/2 | 14/0 | - | 3/2 | 0.67 / 1.87 / 0.40 / 13.3 | 14 |
+| one-feared-section | 28 | - | 28 | 6.1 | 9.9 | 84% | 0.46 → 0.50 → 0.52 | +0.054 | 0 | 0 | 0 | 0 | 1 | 3 | 0 | 3/2 | 11/4 | 16.9 | 2/2 | 0.70 / 1.05 / 0.40 / 10.1 | 14 |
+| slow-reader | 28 | - | 28 | 5.3 | 8.1 | 82% | 0.45 → 0.48 → 0.50 | +0.055 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 5/2 | 11/0 | - | 2/2 | 0.69 / 1.86 / 0.40 / 9.3 | 10 |
+| smart-impatient | 14 | - | 14 | 5.5 | 9.8 | 91% | 0.70 → 0.71 → 0.72 | +0.023 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1/1 | 6/0 | - | 2/2 | 0.71 / 2.00 / 0.50 / 13.3 | 10 |
+| steady-five-min | 28 | - | 28 | 5.7 | 8.7 | 79% | 0.40 → 0.45 → 0.47 | +0.068 | 2 | 0 | 0 | 0 | 4 | 0 | 0 | 3/2 | 12/0 | - | 2/3 | 0.72 / 0.64 / 0.40 / 10.5 | 12 |
+| strong | 28 | - | 28 | 7.1 | 13.6 | 96% | 0.80 → 0.82 → 0.83 | +0.034 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4/4 | 14/9 | 19.1 | 3/3 | 0.66 / 2.00 / 0.40 / 17.4 | 25 |
+| underconfident-skipper | 28 | - | 28 | 6.3 | 10.1 | 89% | 0.65 → 0.67 → 0.68 | +0.035 | 1 | 0 | 0 | 0 | 10 | 0 | 0 | 0/0 | 11/0 | - | 3/3 | 0.67 / 2.00 / 0.40 / 11.1 | 12 |
+| weak-impatient | 2 | 1 | 2 | 3.0 | 5.0 | 33% | 0.15 → 0.15 → 0.15 | -0.001 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0/0 | 0/0 | - | 1/- | 0.81 / 1.00 / 0.40 / 9.1 | 9 |
+| weak-stubborn | 28 | - | 28 | 5.3 | 8.1 | 35% | 0.15 → 0.20 → 0.23 | +0.076 | 11 | 10 | 0 | 8 | 0 | 0 | 0 | 0/0 | 0/0 | - | 2/1 | 0.75 / 0.50 / 0.40 / 8.9 | 14 |
+
+Seed 2
+
+| persona | days | quit day | sess | cards/s | effort/s | success | k d0 → d14 → end | gain | recap | bad-day | left | zero-right | card skips | section skips | rejoins | stretch served/right | 5 more offered/taken | extended effort | ladder s1/s3 | end profile c / m / h3 / st | hidden st |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| average-fastclass | 28 | - | 28 | 5.4 | 8.2 | 76% | 0.40 → 0.44 → 0.46 | +0.062 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 4/1 | 10/1 | 10.5 | 2/3 | 0.72 / 0.81 / 0.40 / 9.9 | 14 |
+| average-noclass | 28 | - | 28 | 6.4 | 9.8 | 78% | 0.40 → 0.45 → 0.48 | +0.078 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 7/5 | 7/0 | - | 2/3 | 0.73 / 0.68 / 0.40 / 10.2 | 14 |
+| binge-quit | 14 | - | 20 | 9.6 | 13.9 | 82% | 0.40 → 0.45 → 0.47 | +0.071 | 0 | 0 | 1 | 0 | 2 | 0 | 0 | 8/3 | 9/9 | 18.4 | 2/2 | 0.75 / 0.53 / 0.40 / 18.8 | 30 |
+| calc-strong-memory-poor | 28 | - | 28 | 6.2 | 9.1 | 77% | 0.50 → 0.52 → 0.51 | +0.013 | 2 | 1 | 0 | 0 | 0 | 0 | 0 | 4/2 | 13/1 | 15.0 | 1/2 | 0.73 / 0.69 / 0.40 / 12.3 | 14 |
+| comeback-10 | 18 | - | 18 | 5.9 | 8.8 | 81% | 0.45 → 0.47 → 0.49 | +0.036 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5/4 | 9/0 | - | 2/2 | 0.73 / 1.95 / 0.40 / 11.0 | 14 |
+| confident-misconceptions | 28 | - | 28 | 6.7 | 9.9 | 76% | 0.50 → 0.54 → 0.56 | +0.064 | 1 | 1 | 0 | 1 | 0 | 0 | 0 | 7/5 | 11/4 | 17.0 | 2/1 | 0.74 / 0.60 / 0.40 / 11.2 | 16 |
+| fast-guesser | 28 | - | 28 | 5.6 | 9.5 | 63% | 0.30 → 0.32 → 0.33 | +0.032 | 5 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 3/1 | 17.5 | 1/1 | 0.75 / 0.50 / 0.40 / 10.0 | 18 |
+| memory-good-calc-weak | 28 | - | 28 | 6.2 | 9.6 | 92% | 0.50 → 0.54 → 0.57 | +0.068 | 0 | 0 | 0 | 0 | 7 | 0 | 0 | 1/1 | 15/5 | 15.6 | 3/2 | 0.66 / 2.00 / 0.40 / 12.3 | 14 |
+| one-feared-section | 28 | - | 28 | 5.8 | 9.5 | 82% | 0.46 → 0.50 → 0.52 | +0.053 | 1 | 0 | 0 | 0 | 0 | 5 | 0 | 6/5 | 9/0 | - | 2/2 | 0.71 / 1.24 / 0.40 / 10.7 | 14 |
+| slow-reader | 28 | - | 28 | 5.6 | 8.8 | 79% | 0.45 → 0.49 → 0.51 | +0.061 | 1 | 2 | 0 | 0 | 1 | 0 | 0 | 5/4 | 10/0 | - | 2/2 | 0.72 / 1.16 / 0.40 / 8.9 | 10 |
+| smart-impatient | 14 | - | 14 | 5.3 | 7.8 | 93% | 0.70 → 0.71 → 0.72 | +0.022 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 2/2 | 6/0 | - | 1/3 | 0.74 / 2.00 / 0.40 / 11.3 | 10 |
+| steady-five-min | 28 | - | 28 | 6.0 | 9.2 | 75% | 0.40 → 0.44 → 0.47 | +0.073 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 5/4 | 9/0 | - | 2/1 | 0.74 / 0.69 / 0.40 / 11.1 | 12 |
+| strong | 28 | - | 28 | 8.4 | 17.5 | 95% | 0.80 → 0.82 → 0.84 | +0.040 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12/10 | 18/13 | 21.9 | 3/2 | 0.67 / 2.00 / 0.40 / 21.6 | 25 |
+| underconfident-skipper | 28 | - | 28 | 6.2 | 9.7 | 88% | 0.65 → 0.67 → 0.68 | +0.034 | 0 | 0 | 0 | 0 | 9 | 0 | 0 | 1/1 | 13/0 | - | 3/2 | 0.67 / 1.34 / 0.40 / 10.7 | 12 |
+| weak-impatient | 3 | 2 | 3 | 4.7 | 6.3 | 57% | 0.15 → 0.16 → 0.15 | +0.000 | 0 | 0 | 2 | 0 | 1 | 0 | 0 | 0/0 | 0/0 | - | 1/1 | 0.81 / 1.00 / 0.40 / 9.4 | 9 |
+| weak-stubborn | 28 | - | 28 | 5.0 | 7.9 | 32% | 0.15 → 0.19 → 0.22 | +0.071 | 14 | 11 | 0 | 6 | 0 | 0 | 0 | 0/0 | 1/1 | 14.5 | 1/1 | 0.75 / 0.72 / 0.40 / 8.9 | 14 |
+
+Seed 3
+
+| persona | days | quit day | sess | cards/s | effort/s | success | k d0 → d14 → end | gain | recap | bad-day | left | zero-right | card skips | section skips | rejoins | stretch served/right | 5 more offered/taken | extended effort | ladder s1/s3 | end profile c / m / h3 / st | hidden st |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| average-fastclass | 28 | - | 28 | 5.8 | 9.4 | 80% | 0.40 → 0.44 → 0.46 | +0.063 | 0 | 0 | 1 | 0 | 3 | 0 | 0 | 3/2 | 11/4 | 16.3 | 2/1 | 0.73 / 2.00 / 0.40 / 8.9 | 14 |
+| average-noclass | 28 | - | 28 | 6.5 | 10.1 | 81% | 0.40 → 0.45 → 0.48 | +0.077 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 8/6 | 12/0 | - | 1/1 | 0.71 / 1.24 / 0.40 / 9.8 | 14 |
+| binge-quit | 14 | - | 20 | 7.9 | 11.2 | 80% | 0.40 → 0.44 → 0.45 | +0.054 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0/0 | 8/6 | 16.8 | 2/3 | 0.77 / 0.50 / 0.40 / 17.3 | 30 |
+| calc-strong-memory-poor | 28 | - | 28 | 5.5 | 8.4 | 73% | 0.50 → 0.52 → 0.51 | +0.012 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1/0 | 11/1 | - | 2/1 | 0.76 / 0.55 / 0.40 / 9.8 | 14 |
+| comeback-10 | 18 | - | 18 | 6.0 | 8.9 | 79% | 0.45 → 0.47 → 0.48 | +0.026 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3/1 | 4/2 | 13.8 | 2/2 | 0.73 / 0.74 / 0.40 / 11.8 | 14 |
+| confident-misconceptions | 28 | - | 28 | 6.4 | 10.5 | 80% | 0.50 → 0.53 → 0.56 | +0.056 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3/1 | 11/5 | 16.2 | 3/3 | 0.71 / 1.14 / 0.40 / 15.1 | 16 |
+| fast-guesser | 28 | - | 28 | 5.5 | 8.7 | 64% | 0.30 → 0.32 → 0.33 | +0.029 | 4 | 2 | 0 | 0 | 0 | 0 | 0 | 2/0 | 3/0 | - | 1/2 | 0.75 / 0.53 / 0.40 / 10.8 | 18 |
+| memory-good-calc-weak | 28 | - | 28 | 6.2 | 10.0 | 89% | 0.50 → 0.54 → 0.57 | +0.065 | 0 | 0 | 0 | 0 | 7 | 0 | 0 | 0/0 | 13/0 | - | 3/3 | 0.67 / 1.70 / 0.40 / 13.3 | 14 |
+| one-feared-section | 28 | - | 28 | 6.4 | 9.9 | 82% | 0.46 → 0.50 → 0.52 | +0.059 | 0 | 0 | 0 | 0 | 2 | 5 | 0 | 7/6 | 12/2 | 16.8 | 2/1 | 0.70 / 1.98 / 0.40 / 8.9 | 14 |
+| slow-reader | 28 | - | 28 | 5.6 | 8.7 | 83% | 0.45 → 0.49 → 0.51 | +0.056 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 2/2 | 15/0 | - | 2/3 | 0.69 / 0.71 / 0.40 / 8.9 | 10 |
+| smart-impatient | 14 | - | 14 | 5.6 | 9.5 | 97% | 0.70 → 0.71 → 0.72 | +0.021 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 5/0 | - | 3/3 | 0.71 / 2.00 / 0.40 / 13.3 | 10 |
+| steady-five-min | 28 | - | 28 | 5.9 | 10.0 | 77% | 0.40 → 0.44 → 0.47 | +0.069 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 3/1 | 6/0 | - | 2/3 | 0.72 / 0.55 / 0.40 / 13.3 | 12 |
+| strong | 28 | - | 28 | 7.0 | 14.3 | 92% | 0.80 → 0.82 → 0.84 | +0.037 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4/4 | 10/9 | 19.1 | 3/3 | 0.69 / 2.00 / 0.40 / 17.7 | 25 |
+| underconfident-skipper | 28 | - | 28 | 5.9 | 9.8 | 85% | 0.65 → 0.67 → 0.69 | +0.035 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 4/3 | 15/0 | - | 2/2 | 0.68 / 2.00 / 0.50 / 13.3 | 12 |
+| weak-impatient | 2 | 1 | 2 | 4.0 | 6.0 | 50% | 0.15 → 0.15 → 0.15 | -0.003 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0/0 | 0/0 | - | 1/- | 0.81 / 1.00 / 0.40 / 9.7 | 9 |
+| weak-stubborn | 28 | - | 28 | 4.8 | 7.3 | 43% | 0.15 → 0.19 → 0.21 | +0.062 | 9 | 6 | 0 | 2 | 0 | 0 | 0 | 0/0 | 0/0 | - | 1/1 | 0.75 / 0.50 / 0.40 / 8.9 | 14 |
+
+### What got better, worse, or did not move
+
+| persona | better | worse | did not move |
+|---|---|---|---|
+| strong | session 1 reaches guided cards at card 3 (was: 8 easy cards, first guided card in session 2); first full problem on day 1, session 2, card 1 (was day 9 to 12); 2 to 4 full problems in days 0-6 (was 0); stretch cards 4/4, 12/10, 4/4 served/right | effort per session 16.6 → 13.6 on seed 1; sessions 2 and 3 are 3 or 4 cards (a full problem costs 4 of the 8 budget); gain 0.042 / 0.045 / 0.037 → 0.034 / 0.040 / 0.037 | success 92 to 96%; "5 more" taken 9 to 13 times |
+| weak-stubborn | zero-right sessions are now at most 4 cards (were 8 to 10) | gain 0.103 / 0.093 / 0.105 → 0.076 / 0.071 / 0.062; cards in 28 days 191 / 177 / 202 → 148 / 139 / 134; effort per session 10.9 / 9.9 / 11.1 → 8.1 / 7.9 / 7.3; recap ends 11 / 14 / 9 of 28 sessions; bad-day ends 10 / 11 / 6 | still meets target 3; success 29-34% → 32-43% |
+| weak-impatient | none | none | quits day 1 / 2 / 1 (before 1 / 1 / 1); gain 0 |
+| fast-guesser | none | 9 sessions per seed at the minimum budget of 8 (3 to 4 before), 6 to 7 of them after a session with 2 or fewer right (change 3); 0 to 3 bad-day ends; gain 0.039 / 0.030 / 0.031 → 0.027 / 0.032 / 0.029 | far from 0.05 before and after |
+| calc-strong-memory-poor | gain 0.018 / 0.013 / 0.015 → 0.026 / 0.013 / 0.012 (noise around 0.015; forget 2.5) | | never quits |
+| comeback-10 | | gain 0.041 / 0.037 / 0.034 → 0.035 / 0.036 / 0.026; cards per session 7.0 → 5.9 on average | |
+| memory-good-calc-weak, steady-five-min, slow-reader | | gain down 0.000 to 0.007 | |
+| underconfident-skipper | gain 0.025 → 0.034 on seed 2 | | |
+| average-noclass, average-fastclass, one-feared-section, binge-quit, smart-impatient, confident-misconceptions | | | within seed noise |
+
+Mean knowledge gain over the 15 students who kept practising: +0.055 / +0.054 / +0.053 → +0.051 / +0.052 / +0.048 (at HEAD, before the fix: +0.051 / +0.050 / +0.051). The main cause is fewer cards: closers no longer chain (change 7, `maxExtraClose` 2 → 0), sessions after a near-zero day use the minimum budget (change 3), and in the simulator a wrong answer teaches more than a right one (`learnWrong` 0.10 > `learnRight` 0.06), so volume, not success rate, drives the gain.
+
+### Very short sessions, recap ends, "5 more"
+
+- **Mean cards per session below 4:** only weak-impatient (3.0 / 4.7 / 4.0). Cause: it walks out at its second miss (see below). weak-stubborn is lowest of the rest at 5.3 / 5.0 / 4.8; every other persona is at 5.3 or more.
+- **Recap ends per persona** (after; there was no recap before): weak-stubborn 11 / 14 / 9 of 28 sessions (39% / 50% / 32%); fast-guesser 6 / 5 / 4; every other persona 0 to 2. Totals 22 / 24 / 14 of about 390 sessions (HEAD: 22 / 14 / 19). weak-stubborn's closers are all level 1 and right 12 of 23, 13 of 27, 17 of 26: about half, which is its hidden chance on level-1 cards. weak-stubborn gets a recap in half its sessions on seed 2. That is the signal the owner asked about: the closer cannot be more winnable than the student's best level-1 chance.
+- **Recaps with nothing fixed:** 19 of 22, 21 of 24 and 10 of 14 recap ends have an empty `fixedSkills` list. The recap "of what was fixed today" then has nothing to name (options, F).
+- **"5 more":** offered 129 / 128 / 129 → 139 / 143 / 136 times; taken 31 / 27 / 31 → 30 / 35 / 29; mean effort of an extended session 19.1 / 19.8 / 17.3 → 17.1 / 18.7 / 17.2 (the 7.5 extension allowance). strong: offered 14 / 18 / 10, taken 9 / 13 / 9, extended sessions 19.1 / 21.9 / 19.1 effort. weak-stubborn was offered it 0 or 1 time per seed, weak-impatient never.
+
+### strong, days 0 to 6
+
+Levels per card (x = missed, s = stretch, +5 / -5 = "5 more" taken / declined).
+
+| seed | session 1 | session 2 | session 3 | session 4 | sessions 5-7 |
+|---|---|---|---|---|---|
+| before, 1 | 1 1 1 1 1 1 1 1 | 1 1 2 1 1 1 1 | 2 2 2 1 1 2 | 2 2 2 2 2 2 -5 | level 2 only; no full problem until day 12 |
+| after, 1 | 1 1 2 2 2 2 | 3 2 2 1 | 3 2 2 1 | 2 2 1 2 2 2 2 | one full problem on day 5; "5 more" on day 6 |
+| after, 2 | 1 1 2 2 2 2 | 3 2 2 1 | 3 2x 2 | 1 1x 1 3 | stretch cards on days 4 and 6, "5 more" twice |
+| after, 3 | 1 1 2 2 2 2 | 3x 2 2 | 1 1 1 1 2 2 1 | 1 2 3x 2x 1 | stretch on day 5, "5 more" once |
+
+The ladder does what change 4 asks. The first sessions are short in cards for this student: a full problem costs 4 of the 8 effort, so sessions 2 and 3 have 3 or 4 cards (known from Task 4).
+
+### weak-impatient, card by card
+
+Hidden traits (read-only): prior 0.15, concept -0.1, patience 2 wrong answers within 8 cards in a session, 2 walked-out sessions in a row and it leaves the app, stamina 9. Its hidden chance on a level-1 card of a new skill is 0.5 + 1.5 × (0.15 - 0.1 - 0.1) = 0.425. Over the three seeds it answered 26 level-1 cards and got 14 right (54%); the mean hidden chance on those cards was 0.45. Its logs are the same at HEAD and after the fix.
+
+Seed 1 (seed 3 session 1 is the same)
+
+| card | level | reason | result | what came next |
+|---|---|---|---|---|
+| D0 S1 #1 phy.mech.c027 | 1 | open:liked | wrong | no repair card: the skill has 1 level-1 card and its `requires` (suvat, vec.resolve) and `helps` (vertical-throw) have none; next ladder card |
+| #2 phy.mech.c005 | 1 | open:liked | right | ladder card |
+| #3 phy.mech.c004 | 1 | open:liked | wrong | second miss in the session |
+| #4 phy.therm.c001 | 1 | new:exam-weight | walked out | `"quitReason":"frustration"`, end `left, 3 cards, 1 right, effort 5` |
+| D1 S2 #1 phy.elec.c012 | 1 | open:easy | right | near-zero-day start (change 3) |
+| #2 phy.elec.c039 | 1 | open:easy | wrong | repair |
+| #3 phy.elec.c038 | 1 | repair:missing-piece | wrong | a different level-1 card of the same skill (change 1); two misses on the skill, so the skill is left (change 2) |
+| #4 phy.elec.c046 | 1 | comfort-correction | walked out | easiest card in another section; quits the app on day 1 |
+
+Seed 2
+
+| card | level | reason | result | what came next |
+|---|---|---|---|---|
+| D0 S1 #1 phy.mech.c027, #2 phy.mech.c004 | 1, 1 | open:liked | right, right | two right: ladder to level 2 |
+| #3 phy.mech.c006 | 2 | open:liked | skipped "too hard" (card) | |
+| #4 phy.mech.t09 | 2 | open:liked | I don't know | ladder down to 1 |
+| #5 phy.therm.c002, #6 phy.therm.c001 | 1, 1 | new:exam-weight, open:liked | right, right | ladder to level 2 |
+| #7 phy.therm.t01 | 2 | open:liked | I don't know | ladder down |
+| #8 phy.elec.c001 | 1 | new:exam-weight | right | end `budget, 7 cards, 5 right, effort 8`: the one session it finished ("I don't know" counts half towards its patience) |
+| D1 S2 #1 phy.elec.c002 | 1 | open:liked | wrong | repair |
+| #2 phy.elec.c009 | 1 | repair:missing-piece | right | level-1 card of the `helps` neighbour |
+| #3 phy.mech.c005 | 1 | open:liked | wrong | second miss |
+| #4 phy.therm.c044 | 1 | new:exam-weight | walked out | |
+| D2 S3 #1 phy.elec.c012 | 1 | open:easy | right | near-zero-day start |
+| #2 phy.elec.c021 | 1 | open:easy | wrong | repair |
+| #3 phy.elec.c023 | 1 | repair:missing-piece | right | confidence card |
+| #4 phy.elec.c022 | 1 | repair:confidence | wrong | second miss |
+| #5 phy.therm.c018 | 1 | new:exam-weight | walked out | quits the app on day 2 |
+
+Seed 3 session 2: `c012 right, c038 wrong, c039 (repair) right, c002 right, c001 wrong`, then the repair card `c002` and it walks out (5 cards, 3 right).
+
+**Did the engine do what the accepted design asks?** Yes, as far as the student let it.
+
+| design rule | seen |
+|---|---|
+| easy first cards via the ladder (change 4) | yes: every session-1 card is level 1 until two right in a row; on seed 2 it went up and came back down after each "I don't know" |
+| an easier or different easy repair card (change 1) | yes when one exists (c039 → c038, c021 → c023, c002 → c009); after c027 none exists in the content, so no repair was served (the §3 content gap, not a rule defect) |
+| leave the skill after two misses (change 2) | yes (seed 1 D1: c039, c038 wrong → c046 in another section) |
+| a short session (change 4, "first 3 sessions stay short") | yes: budget 8, the minimum day |
+| near-zero day → next session minimum budget, easy opening (change 3) | yes (`open:easy` openers in sessions 2 and 3) |
+| bad-day early end with an easy closer, recap (changes 3, 7) | not reached: the student walks out at its second miss, before a run of 3 misses or 2 bad moments, and before any closing card |
+
+**Why it still leaves.** In the simulator it walks out the moment a card is served after its second miss in a session. The design always serves one more card after a miss (a repair, a closer, or the recap only after a missed closer). So a session survives only if it has at most one miss before its last card. With a chance of 0.43 to 0.55 per level-1 card, a Monte Carlo of that rule gives:
+
+| cards planned per session | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|
+| session survives, p = 0.425 | 68% | 40% | 22% | 11% | 6% |
+| still in the app on day 7, p = 0.425 | 59% | 15% | 2% | 0% | 0% |
+| still in the app on day 7, p = 0.55 | 82% | 41% | 16% | 4% | 1% |
+
+Card order cannot change this in the simulator: every fresh skill has the same hidden prior, so every level-1 card of a new skill has the same 0.425 chance. Only staying on a skill just practised raises it (a miss adds about 0.06 to that skill's knowledge, so +0.09 to the chance).
+
+**Number-level levers tried (probes, not kept):**
+
+Probes were run on HEAD (`c1`); weak-impatient's logs do not change with the fix.
+
+| probe | weak-impatient quit day (s1 / s2 / s3) | weak-stubborn gain | checks | kept? |
+|---|---|---|---|---|
+| HEAD | 1 / 2 / 1 | 0.075 / 0.073 / 0.082 | all pass | |
+| `budget.minimumDay` 8 → 3 | 7 / 5 / 24 | 0.045 / 0.043 / 0.037 | all pass | no: target 2 met on 1 seed only (day 7 counts as not before day 7); weak-stubborn falls below 0.05 (breaks target 3) |
+| `budget.minimumDay` 8 → 4 | 1 / 2 / 11 | 0.038 / 0.045 / 0.043 | seed 3: repair-steps-down 1 | no |
+| `budget.minimumDay` 8 → 5 | 1 / 3 / 4 | 0.056 / 0.057 / 0.059 | all pass | no: no seed past day 7 |
+| `budget.minimumDay` 8 → 6 | 1 / 3 / 1 | 0.065 / 0.066 / 0.063 | day-one-fit fails on every seed | no |
+| first-session and near-zero-day budget 3 (temporary code patch, minimum day unchanged) | 3 / 5 / 12 | 0.044 / 0.050 / 0.050 | all pass | no: 1 seed; hurts weak-stubborn; needs a new config number |
+| same, budget 4 | 1 / 2 / 11 | 0.042 / 0.045 / 0.044 | seed 3: repair-steps-down 1 | no |
+| same, budget 5 | 1 / 3 / 4 | 0.054 / 0.062 / 0.070 | all pass | no: no seed past day 7 |
+
+`minimumDay` is also the streak floor and the stamina floor, so lowering it changes more than session length. Even where weak-impatient stays, it gains nothing (+0.027 at best, 25 days on probe md3 seed 3): sessions of 2 or 3 cards do not move 56 skills.
+
+**Answer.** The engine did everything the accepted design asks; within the design no config number keeps this simulated student past day 7 on 2 of 3 seeds without hurting weak-stubborn. Its patience (2 misses in a session, 2 such sessions) is a property of the simulated student, set in `sim/personas.ts`, and it gets 54% of its level-1 answers right.
+
+### fast-guesser (target 3)
+
+Hidden traits: prior 0.3, learn 0.5 (half the average), stamina 18, never says "I don't know". It plays all 28 days, 155 to 166 cards, 62 to 64% right. The simulator's gain per 100 cards per unit of `learn` is 0.033 for fast-guesser and 0.032 to 0.043 for the forget-1 personas (seed 1), so per card it learns like the others once its low `learn` is taken out. To gain 0.05 it would need about 300 cards in 28 days, 85% more than now.
+
+The engine gives it about 9 effort per session against a hidden stamina of 18: engine stamina 10.5 / 10.0 / 10.8 at the end (seed 1 at HEAD: `D12 budget 8.0 st 12.3; D20 budget 8.0 st 11.9; D24 budget 8.0 st 11.9`), and 9 sessions per seed at the minimum budget of 8, 6 to 7 of them after a session with 2 or fewer right (change 3). Probes `fade.slowAnswers` 2 → 3, `staminaUpdate.extendStep` 1 → 2 and `budget.lowRight` 2 → 1 (on HEAD) moved its gain by 0.004 at most and were not kept. The gap is the simulated student's low learning rate plus the stamina estimate (change 9) and guess handling (change 12), which are not in this plan.
+
+### Config numbers and rules changed
+
+**Config:** none. No number moved a missed target without breaking a check or another target (probe tables above).
+
+**Rule fixed (commit 4a1e616), change 1: a repair return straight after a miss.** Change 1 says a repair card is always easier than the card just failed and never a same-level card of the same skill straight after a miss. At HEAD, when a missed skill had no easier card and no neighbour with one, its repair had no piece and no confidence card and queued the return at once. If nothing else fit, the early-return path (the dead-end fix of 2026-11-15) served that return as the very next card, at the skill's recorded level. Seed 1 at HEAD:
+
+```
+average-noclass D10 S11 #1 phy.therm.c020 ideal-gas-equation L2 [open:liked] wrong
+average-noclass D10 S11 #2 phy.therm.t04  ideal-gas-equation L3 [repair:return] I don't know
+weak-stubborn   D24 S25 #2 phy.therm.c040 thermo.processes   L1 [open:easy]  wrong
+weak-stubborn   D24 S25 #3 phy.therm.p01-06 thermo.processes L2 [repair:return] I don't know
+```
+
+Same-skill cards at or above the missed level straight after a miss (level-1 cards on another card excepted): 16 / 22 / 28 on seeds 1-3 at HEAD (5 of them a level higher), of which 2 / 3 / 3 are "5 more" cards and the rest `repair:return`. The `repair-steps-down` check looks at `repair:missing-piece` cards only, so it passed. Fix: in `normal()` a queued return whose skill is the one just missed is not served as the next card (both the timed and the early return). After: 0 `repair:return` cases; the 2 / 3 / 3 "5 more" cases remain (change 13, not in this plan).
+
+Test: `tests/session.test.ts` "change 1: a return with no repair card before it is not served straight after the miss, at or above its level" (one started skill with no level-1 card and no neighbour with one; wrong open card). It failed before the fix (the second card was a1 at level 2) and passes after. No existing test changed. Unit tests 287 → 288.
+
+### Options for the owner
+
+| option | kind | evidence | expected effect |
+|---|---|---|---|
+| A. Accept that weak-impatient leaves in the simulator | decision | a session survives only with ≤ 1 miss before its last card; at 0.43 to 0.55 per card that needs 2-card sessions (59 to 82% on day 7) | no change; record target 2 as a sim-student limit |
+| B. A first-session budget of its own (for example 3 for sessions 1-3 and after a near-zero day), separate from the minimum day | design + new config number | probe: weak-impatient stays to day 3 / 5 / 12; weak-stubborn gain 0.044 to 0.050 | target 2 on 1 of 3 seeds; costs weak-stubborn about 0.03 of gain |
+| C. End the very first session after its first right answer | design | session 1 survives about 67% of the time (right first, or wrong then right), but session 2 is 8 effort again | alone, keeps it a day longer at most |
+| D. Order the first cards by skills with 2 or more level-1 cards (so a miss can be repaired); 11 of 56 skills have them | design | in the simulator every fresh skill has the same chance, so no effect here; for a real student, a miss on c027 (one level-1 card, no easy prerequisite) gets no repair today | small in the sim; content-dependent in the app |
+| E. Easy cards for the 16 skills that have none, and second easy cards (29 skills have exactly 1) | content (§3) | c027 had no repair card on seeds 1 and 3 | more repairs after an easy miss; also more winnable closers |
+| F. Recap text when nothing was fixed | design / app text | 50 of 60 recap ends have no fixed skill | the recap needs a line for "nothing fixed today" (for example the session's right answers) |
+| G. Near-zero-day rule and weak-stubborn | decision | weak-stubborn follows a session with 2 or fewer right in 16 to 20 of 28 sessions and is then at the minimum budget; gain 0.10 → 0.06 to 0.08 | keep (it is change 3 as accepted) or raise `budget.lowRightMinCards` / lower `budget.lowRight`; probe `lowRight` 1: weak-stubborn 0.081 / 0.076 / 0.076, fast-guesser unchanged |
+| H. Stamina and guessing (changes 9 and 12) | next plan | fast-guesser engine stamina 10 to 13 against hidden 18 | more cards for fast-guesser; the only route to target 3 that does not change the sim |
+| I. A persona that says "later" or "not learned yet" | sim | 2 to 3 section skips per seed | exercises section-skip timing in the simulator again |
+| K. "5 more" serving the skill just missed | design (change 13) | 2 / 3 / 3 same-skill same-level "5 more" cards straight after a miss per seed | covered by change 13 in the next plan |
+| J. Should a "too hard" skip on a ladder card move the ladder down? | design question | seed 2: ladder stayed at level 2 after the skip of c006, next card t09 (level 2) got "I don't know" | not a defect (row 4 speaks of misses); one card per case |
+
+### What this run cannot show
+
+- One seed family (1, 2, 3) of one simulator; the probes were run on the same three seeds.
+- Simulated students. Their patience, learning rates and the "wrong teaches more than right" rule are model choices, and every fresh skill has the same hidden chance, so card order and content difficulty do not matter to them.
+- The simulated students nearly always say "too hard", so section-skip timing (remind days, class timing, side doors) is exercised by unit tests only (2 to 3 section skips per seed, 1 to 2 side-door cards).
+- No AI judges have seen the new behaviour yet (recaps, the ladder, stretch cards, card-level skips). The second judge pass needs the owner's go-ahead.
