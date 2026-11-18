@@ -680,6 +680,18 @@ test("repair leaves its skill waiting for the return and nothing else is eligibl
   expect(end.effort).toBeGreaterThanOrEqual(8);
 });
 
+test("change 1: a return with no repair card before it is not served straight after the miss, at or above its level", () => {
+  // Task 9: a1 (height 2) has no height-1 card and no neighbour with one, so its repair has no piece and no confidence
+  // card and queues the return at once. Nothing else strict fits, so the early-return path served a1 again at level 2
+  // as the very next card (sim: 16 / 22 / 28 such cards on seeds 1-3, some at level 3 after a level-2 miss).
+  const CN = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"] });
+  const { steps } = play(CN, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards[0]).toMatchObject({ skill: "a1", height: 2 });
+  expect(cards.length).toBeGreaterThan(1);
+  expect(cards[1].skill === "a1" && cards[1].height >= 2).toBe(false);
+});
+
 test("streak: a `budget` end far below the minimum day with the budget mostly unspent does not keep the streak", () => {
   // After the dead-end fix such an end is no longer reached by play; the state is built directly: two answered cards
   // (effort 3.5 of a 12 budget), no card open, and the student closes the session.

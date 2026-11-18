@@ -174,6 +174,10 @@ function normal(r: Run, last: Last): Next {
   const room = Math.min(Math.max(left - closeReserve(cfg), Math.min(left, cfg.budget.minimumDay - s.day!.effort)), capRoom(s, cfg));
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
   rejoinSilently(r, ss.blockedSections); // change 6: a due section with no side-door card comes back without one
+  // Change 1 (Task 9 fix): a return is never the card straight after a miss on its own skill (a repair with no piece
+  // and no confidence card queues it at once; the early path below would otherwise serve it next, at the skill's level).
+  const prev = ss.history.at(-1);
+  const returns = () => (prev !== undefined && prev.right !== true ? ss.returns.filter((q) => q.skill !== prev.skill) : ss.returns);
 
   while (ss.repair) {
     const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections, recentCards(r));
@@ -219,7 +223,7 @@ function normal(r: Run, last: Last): Next {
       : (ss.comeback ? pickComeback(s, content, strict(), cfg) : null) ?? pickOpen(s, content, strict(), cfg);
     if (p) return main(p);
   } else {
-    const p = pickReturn(s, content, strict(), ss.returns, ss.history.length, cfg);
+    const p = pickReturn(s, content, strict(), returns(), ss.history.length, cfg);
     if (p) {
       const i = ss.returns.findIndex((q) => q.skill === p.served.skill);
       ss.returns = ss.returns.filter((_, j) => j !== i);
@@ -234,7 +238,7 @@ function normal(r: Run, last: Last): Next {
     // Something to serve and nothing that fits, or only a skill waiting for its repair return, which `strict` leaves
     // alone: when a waiting return fits the budget it is served now (early), so the session does not dead-end after
     // a repair with most of its budget unspent.
-    const early = pickReturn(s, content, strict(), ss.returns, Infinity, cfg);
+    const early = pickReturn(s, content, strict(), returns(), Infinity, cfg);
     if (early) {
       ss.returns = ss.returns.filter((q) => q.skill !== early.served.skill);
       return serve(r, early);
