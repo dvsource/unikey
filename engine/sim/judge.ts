@@ -207,8 +207,9 @@ export const LOG_LEGEND = `How to read the log. One line per event.
 - After every answer the app shows whether it was right. After a wrong answer it shows the mistake's message and the explanation; "I don't know" gets the explanation with no negative message and costs no extra effort. Then the next card comes. The app shows no score, no backlog and no "due" count.
 - "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of a small extra set at the end, up to five cards; it is limited by effort too, so it may be fewer cards when they are big problems.
 - A session has only one closing card. When it is missed (or skipped after a miss), the session does not end on the wrong answer: it ends with a short recap of what was fixed today and no question (\`end: recap, no question\`).
-- "Too hard" on a card (\`skipped this card ("Too hard")\`) is about that card: the skill goes one level down (or rests if it is already at the lowest level) and the section stays in normal practice. "Not now" with another reason puts the whole section away until its return day.
-- \`<Section> is back in normal practice\`: a section that was put away has no easy card left to return through, so it joins normal practice again.
+- A student can skip a card in two ways. "Not now" (\`skipped ("Not now")\`, with the reason the student gave) puts the whole section away until its return day. "Too hard" (\`skipped this card ("Too hard")\`) is about that card only: the skill goes one level down (or rests if it is already at the lowest level) and the section stays in normal practice.
+- \`<Section> is back in normal practice\`: a section that was put away has no card below the level that was skipped to come back through, so it joins normal practice again.
+- \`the app ended the session early\`: the app does this on purpose after a rough patch (several misses, or very slow answers, close together). It gives one easy last card, then ends the session; the streak still counts.
 - The first sessions start easy, go up one level after two right answers in a row, and down one level after a miss.
 
 The app's reasons:
@@ -226,7 +227,7 @@ The app's reasons:
 - extend:liked: one of the "5 more" cards
 - comeback:solid: after time away, a skill the student was solid on, to restart with a win
 - fallback:any: nothing the plan wanted was left to give, so the app gave any card it still could
-- stretch:up: a card one level above your usual one, because today is going well
+- stretch:up: a card one level above this student's usual one, because the session is going well
 - open:easy: an easy start, because the last session went badly
 `;
 

@@ -69,7 +69,7 @@ test("student packet contains the sheet and reasons, and none of: traits keys, '
     expect(text).toMatch(/\[(open:liked|due-review|new:class-topic|new:exam-weight|comfort-correction|close:winnable)\]/);
     expect(text).toMatch(/H[123] (easy|guided|full)/);
     expect(text).toContain("- fallback:any: "); // F9: the legend explains every reason the engine gives
-    expect(text).toContain("- stretch:up: a card one level above your usual one, because today is going well"); // change 5
+    expect(text).toContain("- stretch:up: a card one level above this student's usual one, because the session is going well"); // change 5, F5
     expect(text).not.toMatch(/phy\.(mech|therm|elec)\.[a-z]/);
     // the rubric from spec §13, verbatim
     for (const row of [
@@ -387,6 +387,14 @@ test("the legend explains the new reasons and rules", () => {
   expect(LOG_LEGEND).toMatch(/recap/i);
   expect(LOG_LEGEND).toMatch(/no question/i);
   expect(LOG_LEGEND).toMatch(/"Too hard".*one level/s);
+  // final review F5: both skips, the rejoin rule, the early end, stretch:up for a third person
+  expect(LOG_LEGEND).toMatch(/"Not now".*puts the whole section away/s);
+  expect(LOG_LEGEND).toMatch(/"Too hard".*the section stays/s);
+  expect(LOG_LEGEND).toContain("no card below the level that was skipped");
+  expect(LOG_LEGEND).not.toContain("no easy card left");
+  expect(LOG_LEGEND).toMatch(/the app ended the session early.*on purpose.*one easy last card.*streak still counts/s);
+  expect(LOG_LEGEND).toContain("- stretch:up: a card one level above this student's usual one, because the session is going well");
+  expect(LOG_LEGEND).not.toMatch(/\byour usual\b/);
   expect(LOG_LEGEND).toMatch(/first sessions/i);
   expect(LOG_LEGEND).toMatch(/only one closing card/i);
   expect(LOG_LEGEND).toMatch(/"5 more".*effort/s);
