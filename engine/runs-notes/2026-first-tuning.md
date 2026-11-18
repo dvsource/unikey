@@ -890,3 +890,126 @@ Test: `tests/session.test.ts` "change 1: a return with no repair card before it 
 - Simulated students. Their patience, learning rates and the "wrong teaches more than right" rule are model choices, and every fresh skill has the same hidden chance, so card order and content difficulty do not matter to them.
 - The simulated students nearly always say "too hard", so section-skip timing (remind days, class timing, side doors) is exercised by unit tests only (2 to 3 section skips per seed, 1 to 2 side-door cards).
 - No AI judges have seen the new behaviour yet (recaps, the ladder, stretch cards, card-level skips). The second judge pass needs the owner's go-ahead.
+
+## After the final review fixes (2026-11-18)
+
+The fix wave after the final whole-branch review of changes 1–7 (findings F1–F8). Runs: `runs/ff0-sN` (before: commit ecff8f2; byte-identical to `runs/c2-sN`) and `runs/f2-sN` (after F1–F6), 28 days, `--packs all`, seeds 1, 2, 3. A probe `runs/ffA-sN` is F1 alone. Numbers come from `node sim/tools/after-miss.mjs` (new, F8) and `node sim/tools/changes.mjs`.
+
+**Outcome:** all 11 checks pass on all three seeds. No config number, `simParams` or persona changed. Rules changed: F1 (a waiting return comes early only in a true dead end; before that the most winnable card, then the sweep), F2 (`fixedSkills` names only repaired skills that were fixed; `fixed` is its length), F3 (new `EndInfo.rightSkills`, data only), F4 ("5 more" never uses a skill missed this session). Repair returns no longer arrive early on any seed. One thing got worse: binge-quit leaves the app on day 5 on seed 3 (cause below), so target 2 now fails for two personas on that seed.
+
+### Checks (after)
+
+Seed 1
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 364 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 3 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 26.5 ≤ 40; mean asked/day strong 13.67, weak-stubborn 8.16, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2472 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 11% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.052 |
+| no-back-to-back-card | PASS | 2472 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 95 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 390 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 2 side-door cards, none at level 3 |
+| day-one-fit | PASS | 3 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+Seed 2
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 375 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 3 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 28.5 ≤ 40; mean asked/day strong 17.00, weak-stubborn 8.10, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2555 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 14% ≤ 20% |
+| knowledge-up | PASS | 15 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.051 |
+| no-back-to-back-card | PASS | 2555 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 102 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 391 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 2 side-door cards, none at level 3 |
+| day-one-fit | PASS | 3 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+Seed 3
+
+| check | result | detail |
+|---|---|---|
+| no-end-on-wrong | PASS | 359 engine-ended sessions, none after a wrong answer |
+| skip-timing | PASS | 3 skips, remind days on schedule, kept away until then and back by the cap |
+| effort-cap-and-fairness | PASS | max day effort 34.5 ≤ 40; mean asked/day strong 13.41, weak-stubborn 8.22, weak-impatient 8.00 |
+| no-repeat-14d | PASS | 2345 serves, no variant repeated within 14 days |
+| ends-before-fade | PASS | worst share of days past hidden stamina 7% ≤ 20% |
+| knowledge-up | PASS | 14 students kept practising, all ended above their day-0 knowledge; mean knowledge gain +0.047 |
+| no-back-to-back-card | PASS | 2345 serves, no card again within 4 serves in a session |
+| repair-steps-down | PASS | 100 missing-piece repair cards, each easier than the miss (or level 1 on another card) |
+| no-long-zero-session | PASS | 381 sessions, none with 0 right over 5 cards |
+| side-door-not-full | PASS | 2 side-door cards, none at level 3 |
+| day-one-fit | PASS | 5 first sessions with 5 right in a row, each moved up to level 2 or 3 |
+
+knowledge-up counts 14 students on seed 3 (15 before): binge-quit left the app on day 5.
+
+### What follows a miss (F8), before → after
+
+`sameSkillNext`: misses (wrong or "I don't know") whose next answered card is on the same skill at or above the missed level, any reason. `early returns`: `repair:return` cards with fewer than 4 other cards (answered or skipped) since the last miss on that skill in the session.
+
+| seed | misses | sameSkillNext | of which | early returns |
+|---|---|---|---|---|
+| 1 | 510 → 524 | 18 → 15 | missing-piece after a level-1 miss 14 → 11; close:winnable after a level-1 miss 2 → 4; "5 more" after a level-2 miss 2 → 0 | 15 → 0 |
+| 2 | 529 → 524 | 28 → 26 | missing-piece 18 → 21; close:winnable 5 → 5; "5 more" 5 → 0 | 14 → 0 |
+| 3 | 491 → 508 | 17 → 14 | missing-piece 13 → 12; close:winnable 1 → 2; "5 more" 3 → 0 | 7 → 0 |
+
+The missing-piece cards left are level-1 misses repaired with a different level-1 card of the same skill (change 1 allows that). The close:winnable cards left are closing cards on the skill just missed at level 1 (the easiest card that day was on that skill). "5 more" cards on a skill missed earlier in the session: 10 / 10 / 8 → 0 / 0 / 0.
+
+**Recommendation for the owner: widen `repair-steps-down`** (not done here, per the review ruling). Two checks would have caught Task 9 and F1: (a) after a miss, the next answered card is not on the same skill at or above the missed level, except a missing-piece card at level 1 after a level-1 miss; (b) every `repair:return` comes after at least 4 other cards since the miss, unless nothing else could be served (the dead-end case, which never occurs in these runs). (b) passes today; (a) would flag the 2 to 5 closing cards per seed above, which is a design question (is a level-1 closing card on the skill just missed at level 1 acceptable?) before it is a defect.
+
+### Repair returns
+
+| seed | returns before → after | arriving early before → after | right, on time (before) | right, early (before) | right after (all on time) |
+|---|---|---|---|---|---|
+| 1 | 20 → 15 | 15 (75%) → 0 | 3 / 5 (60%) | 7 / 15 (47%) | 8 / 15 (53%) |
+| 2 | 25 → 30 | 14 (56%) → 0 | 8 / 11 (73%) | 5 / 14 (36%) | 23 / 30 (77%) |
+| 3 | 16 → 17 | 7 (44%) → 0 | 8 / 9 (89%) | 5 / 7 (71%) | 12 / 17 (71%) |
+
+Over the three seeds: 61 returns, 36 early (59%), right 47% early (17 / 36) against 76% on time (19 / 25), before; 62 returns, none early, right 69%, after. (The review counted 37 of 61, right 49% early; this tool counts a skipped card as one of the other cards.)
+
+### Recap ends with nothing fixed (F2, F3)
+
+| seed | recap ends before → after | empty `fixedSkills` before → after | of those, a skill answered right that session (`rightSkills` not empty) before → after |
+|---|---|---|---|
+| 1 | 22 → 23 | 19 → 22 | 8 → 18 |
+| 2 | 24 → 12 | 21 → 12 | 14 → 8 |
+| 3 | 14 → 17 | 10 → 17 | 7 → 14 |
+
+After F2 a recap names a fixed skill only once in 52 recap ends (on seed 1): a closing card is missed mostly in sessions where no repair worked. 40 of the 51 recaps with nothing fixed have at least one skill answered right that day, which `rightSkills` now carries (the "before" column is counted from the log). What the screen says then is an open product decision (README).
+
+### Personas, before → after (seeds 1 / 2 / 3)
+
+| persona | sessions | cards/s | success | gain | recap ends |
+|---|---|---|---|---|---|
+| weak-stubborn | 28 / 28 / 28 → 28 / 28 / 28 | 5.3 / 5.0 / 4.8 → 5.8 / 5.5 / 5.4 | 35% / 32% / 43% → 35% / 36% / 38% | 0.076 / 0.071 / 0.062 → 0.086 / 0.079 / 0.076 | 11 / 14 / 9 → 14 / 10 / 10 |
+| weak-impatient | 2 / 3 / 2 → 2 / 3 / 2 | 3.0 / 4.7 / 4.0 → 3.0 / 4.7 / 4.0 | 33% / 57% / 50% → same | -0.001 / 0.000 / -0.003 → same | 0 / 0 / 0 → 0 / 0 / 0 |
+| fast-guesser | 28 / 28 / 28 → 28 / 28 / 28 | 5.9 / 5.6 / 5.5 → 5.9 / 6.3 / 6.1 | 62% / 63% / 64% → 62% / 69% / 63% | 0.027 / 0.032 / 0.029 → 0.027 / 0.032 / 0.032 | 6 / 5 / 4 → 4 / 1 / 3 |
+| strong | 28 / 28 / 28 → 28 / 28 / 28 | 7.1 / 8.4 / 7.0 → 7.4 / 9.8 / 7.1 | 96% / 95% / 92% → 95% / 94% / 92% | 0.034 / 0.040 / 0.037 → 0.036 / 0.047 / 0.035 | 0 / 0 / 0 → 0 / 0 / 1 |
+| average-noclass | 28 / 28 / 28 → 28 / 28 / 28 | 6.5 / 6.4 / 6.5 → 6.6 / 5.7 / 6.4 | 77% / 78% / 81% → 77% / 81% / 80% | 0.078 / 0.078 / 0.077 → 0.074 / 0.060 / 0.075 | 1 / 0 / 0 → 1 / 0 / 0 |
+
+weak-impatient's logs are unchanged: it walks out before any of the changed paths is reached.
+
+### Targets
+
+| target | seed 1 | seed 2 | seed 3 |
+|---|---|---|---|
+| 1. all 11 checks pass | met | met | met |
+| 2. no persona quits the app before day 7 | missed (weak-impatient, day 1) | missed (weak-impatient, day 2) | missed (weak-impatient day 1; binge-quit day 5, new) |
+| 3. no persona with prior ≤ 0.3 that keeps practising gains < 0.05 | missed (fast-guesser +0.027) | missed (fast-guesser +0.032) | missed (fast-guesser +0.032) |
+| 4. weak effort per session not above strong's | met (weak-stubborn 8.7, weak-impatient 5.0 vs strong 14.5) | met (8.5, 6.3 vs 19.2) | met (8.2, 6.0 vs 14.3) |
+
+weak-stubborn meets target 3 on every seed (+0.086 / +0.079 / +0.076, up from +0.076 / +0.071 / +0.062).
+
+### What got worse
+
+- **binge-quit, seed 3, leaves the app on day 5** (before: never; gain +0.054 → 0.000, 11 sessions instead of 20). Cause, from the log: on day 4, session 10, a miss on cell combinations (level 2, no repair card, so its return is queued at once) is followed, per F1, by three easy cards of other skills, then a stretch card (missed) and the on-time return (missed): three misses in the session and the student walks out (its hidden patience is 3 misses). On day 5, session 11, a miss on moment balance (level 2, again no repair card) is followed by the most winnable card that fits, per F1; no level-1 card is left unseen for this binger after 5 heavy days, so it is a level-2 card of another skill (missed), then another (missed): three misses, the second walk-out in a row, and the student leaves. In the same state the code before F1 went to the closing card after the first miss (a closing card may repeat a card answered right; normal picks may not). F1 alone (`runs/ffA-s3`) gives the same quit, so it is F1, as ruled, not F2–F4. It is not a defect in the ruling as written: the "most winnable" card here is a level-2 card because the level-1 cards are used up. An owner option: let the F1 pick repeat a card answered right long enough ago (as the closing card may) when nothing at level 1 is left.
+- F1 also covers sessions with no waiting return: when the budget left is too small for the next middle card, an easy card that fits now comes before closing (the unit test "all right at height 2" now ends after 7 cards, effort 10, not 6 cards, effort 9). Cards per session rise for most personas (average-fastclass 5.8 / 5.4 / 5.8 → 6.8 / 6.8 / 5.6). A probe that applied F1 only while a return is waiting gave the same binge-quit quit and nearly the same per-persona numbers.
+- Gains down by more than 0.005 on some seeds: average-noclass seed 2 (0.078 → 0.060), confident-misconceptions (0.066 / 0.064 / 0.056 → 0.054 / 0.053 / 0.051), calc-strong-memory-poor seed 3 (0.012 → 0.003), steady-five-min seeds 2 and 3, underconfident-skipper seed 3. Up by more than 0.005: average-fastclass seeds 1 and 2, weak-stubborn (all seeds), binge-quit seed 1, strong seed 2, comeback-10 seed 3 (seed 2 down 0.036 → 0.030), steady-five-min seed 1, one-feared-section seed 2. Mean gain over the students who kept practising: +0.051 / +0.052 / +0.048 → +0.052 / +0.051 / +0.047.
+- A return on seed 1 is right 53% of the time on time (60% before, on 5 returns); on all seeds together on-time returns are right 69% against 76% before (25 → 62 on-time returns).
+- More recaps have nothing fixed (50 of 60 before, 51 of 52 after): F2 counts only repairs that worked, which is the ruling.
