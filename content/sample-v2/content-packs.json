@@ -1,0 +1,39 @@
+{
+  "spec_doc": "docs/living/content-authoring.md",
+  "proposed_tag_docs": [
+    "content/tags/thermal-physics-proposed.md",
+    "content/tags/current-electricity-proposed.md"
+  ],
+  "packs": [
+    {
+      "id": "mechanics-20-v2",
+      "dir": "content/sample-v2/mechanics-20",
+      "unit": {
+        "id": "phy.mech",
+        "name_en": "Mechanics",
+        "name_si": "යාන්ත්‍ර විද්‍යාව"
+      },
+      "graph": "content/skills/mechanics/graph.json"
+    },
+    {
+      "id": "thermal-physics-20-v2",
+      "dir": "content/sample-v2/thermal-physics-20",
+      "unit": {
+        "id": "phy.therm",
+        "name_en": "Thermal Physics",
+        "name_si": "තාප භෞතිකය"
+      },
+      "graph": "content/skills/thermal-physics/graph.json"
+    },
+    {
+      "id": "current-electricity-20-v2",
+      "dir": "content/sample-v2/current-electricity-20",
+      "unit": {
+        "id": "phy.elec",
+        "name_en": "Current Electricity",
+        "name_si": "ධාරා විද්‍යුතය"
+      },
+      "graph": "content/skills/current-electricity/graph.json"
+    }
+  ]
+}

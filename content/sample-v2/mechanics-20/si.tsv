@@ -1,0 +1,456 @@
+"A bead slides down a smooth curved track." and "A pendulum bob swings to its lowest point." Same method?	"පබළුවක් සිනිඳු වක්‍ර ධාවන පථයක පහළට යයි." සහ "සරල අවලම්බයක ගෝලය පහළම ලක්ෂ්‍යයට පැද්දේ." ක්‍රමය එකම ද?
+"A bullet embeds in a block." and "A gun recoils on firing." Same method?	"වෙඩි උණ්ඩයක් කුට්ටියක කාවැදේ." සහ "වෙඩි තබන විට තුවක්කුව පසුපසට පැන යයි." ක්‍රමය එකම ද?
+"A bullet embeds in a block." and "A spring launches a block." Same method?	"වෙඩි උණ්ඩයක් කුට්ටියක කාවැදේ." සහ "දුන්නක් කුට්ටියක් විදියි." ක්‍රමය එකම ද?
+"A pendulum bob swings to its lowest point." and "A shell splits into two at its highest point." Same method?	"සරල අවලම්බයක ගෝලය පහළම ලක්ෂ්‍යයට පැද්දේ." සහ "උණ්ඩයක් ඉහළම ලක්ෂ්‍යයේ දී දෙකට කැඩේ." ක්‍රමය එකම ද?
+"Wagons couple after a collision." and "A block slides down a smooth curved slope; find its speed at the bottom." Same method?	"ගැටීමෙන් පසු මැදිරි එකට සම්බන්ධ වේ." සහ "කුට්ටියක් සිනිඳු වක්‍ර ආනතියක පහළට ලිස්සයි; පහළදී වේගය සොයන්න." ක්‍රමය එකම ද?
+"Wagons couple after a collision." and "A skater throws a ball and recoils." Same method?	"ගැටීමෙන් පසු මැදිරි එකට සම්බන්ධ වේ." සහ "ලිස්සන්නෙක් පන්දුවක් විසි කර පසුපසට යයි." ක්‍රමය එකම ද?
+0	0
+0 N	0 N
+0 m s⁻¹	0 m s⁻¹
+0.5 N m	0.5 N m
+0.75² ≈ 0.56, so the height falls by about 44%.	0.75² ≈ 0.56 නිසා උස 44% පමණ කින් අඩු වේ.
+1	1
+1 : 1	1 : 1
+1 : 2	1 : 2
+1 : 3	1 : 3
+1 : 9	1 : 9
+1 m s⁻¹	1 m s⁻¹
+10 N	10 N
+10 m s⁻¹	10 m s⁻¹
+12 N m	12 N m
+120π	120π
+15	15
+194	194
+2	2
+2 : 1	2 : 1
+2 m s⁻¹	2 m s⁻¹
+2π	2π
+3 : 1	3 : 1
+3 N m	3 N m
+30	30
+30 m s⁻¹	30 m s⁻¹
+4	4
+4 : 1	4 : 1
+4 m s⁻¹	4 m s⁻¹
+5 N	5 N
+5 m s⁻¹	5 m s⁻¹
+50 N	50 N
+54	54
+54 km h⁻¹ in m s⁻¹?	54 km h⁻¹ යනු m s⁻¹ කීය ද?
+6 N m	6 N m
+60	60
+60 rpm in rad s⁻¹?	60 rpm යනු rad s⁻¹ කීය ද?
+8	8
+8 m s⁻¹	8 m s⁻¹
+9 : 1	9 : 1
+90 m s⁻¹	90 m s⁻¹
+A + B	A + B
+A 5 kg parcel rests on a horizontal scale in a stationary lift. With g = 10 m s⁻², what force does the scale exert on it?	නිශ්චල සෝපානයක තිරස් තරාදියක් මත 5 kg පාර්සලයක් තබා ඇත. g = 10 m s⁻² නම් තරාදිය පාර්සලය මත යොදන බලයේ විශාලත්වය කීය ද?
+A balance problem needs moments, not energy.	සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය.
+A ball in flight is at the top of its path, moving right. No air resistance. Pick the diagram of the forces on it.	පියාසර කරන පන්දුවක් පථයේ ඉහළම ලක්ෂ්‍යයේ දී දකුණට ගමන් කරයි. වායු ප්‍රතිරෝධය නැත. එය මත බල දැක්වෙන රූපසටහන තෝරන්න.
+A ball is dropped from {h0} m. Each bounce cuts its speed by {pct}%. Height reached after {n} bounces?	පන්දුවක් {h0} m උසකින් අත හරිනු ලැබේ. එක් එක් පොළා පැනීමේ දී වේගය {pct}% කින් අඩු වේ. පොළා පැනීම් {n} කට පසු ළඟා වන උස කුමක් ද?
+A ball is launched at 60° above the horizontal. Ignore air resistance. A student says its KE is zero at the highest point. Which correction is valid?	පන්දුවක් තිරසට 60°ක කෝණයකින් ඉහළට විසි කරයි. වායු ප්‍රතිරෝධය නොසලකන්න. ඉහළම ලක්ෂ්‍යයේ දී චාලක ශක්තිය ශුන්‍ය යැයි සිසුවෙක් පවසයි. නිවැරදි පැහැදිලි කිරීම කුමක් ද?
+A ball is thrown at 30° to the horizontal, with no air resistance. Which quantity stays constant?	පන්දුවක් තිරසට 30° ක් ආනතව විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A ball is thrown at {angle}° to the horizontal with {K} J of KE. {ask} (No air resistance)	පන්දුවක් {K} J චාලක ශක්තියක් සහිතව තිරසට {angle}° ක් ආනතව විසි කෙරේ. {ask} (වායු ප්‍රතිරෝධය නැත)
+A ball is thrown straight up, with no air resistance. Which quantity stays constant?	පන්දුවක් සිරස්ව ඉහළට විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A ball is thrown straight up. At its highest point, what is its instantaneous speed?	පන්දුවක් සිරස්ව ඉහළට විසි කරයි. ඉහළම ලක්ෂ්‍යයේ දී එහි ක්ෂණික වේගය කීය ද?
+A ball passes a window going up, then again coming down, 6 s later. Student says: "It takes 6 s to go from the window to the top." What's wrong?	පන්දුවක් ඉහළ යන විට ජනේලයක් පසු කර, 6 s කට පසු පහළ එන විට නැවත එය පසු කරයි. ශිෂ්‍යයෙක් මෙසේ කියයි: "ජනේලයේ සිට ඉහළම ලක්ෂ්‍යයට යාමට 6 s ගත වේ." එහි වැරැද්ද කුමක් ද?
+A ball rebounds vertically. Ignore air resistance. Which relation gives the rise h for rebound speed u?	පන්දුවක් සිරස්ව ඉහළට පොළා පනියි. වායු ප්‍රතිරෝධය නොසලකන්න. පොළා පනින මොහොතේ වේගය u නම් ඉන්පසු එය ඉහළ යන උස h දෙන සම්බන්ධය කුමක් ද?
+A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?	පොළොවේ සිට සිරස්ව ඉහළට විසි කළ පන්දුවක් {h} m උසකින් ඇති ලක්ෂ්‍යයක් {dt} s ක පරතරයකින් දෙවරක් පසු කරයි. විසි කළ වේගය කුමක් ද?
+A ball's rebound speed × ½. Rebound height × ?	පන්දුවක පොළා පැනීමේ වේගය × ½. පොළා පැනීමේ උස × ?
+A bead slides down a smooth curved rail from rest. Which principle gives its speed from the vertical drop?	පබළුවක් සුමට වක්‍ර පථයක් දිගේ නිශ්චලතාවෙන් ලිස්සා පහළට යයි. එය පහළට ගිය සිරස් දුර ඇසුරින් වේගය සෙවීමට යොදාගත හැකි මූලධර්මය කුමක් ද?
+A beam rests on supports P and Q, with a person on it. You need the force at Q. Most direct first step?	බාල්කයක් P සහ Q ආධාරක මත ඇති අතර එය මත පුද්ගලයෙක් සිටී. Q හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A block rests on a rough slope without sliding. Pick the diagram of the forces on it.	කුට්ටියක් රළු ආනත තලයක ලිස්සා නොගොස් නිශ්චලව ඇත. එය මත බල දැක්වෙන රූපසටහන තෝරන්න.
+A block slides to rest on a rough surface. Initial speed × 2. Stopping distance × ?	කුට්ටියක් රළු පෘෂ්ඨයක ලිස්සා ගොස් නතර වේ. ආරම්භක වේගය × 2. නැවතුම් දුර × ?
+A block slides to rest on a rough surface. Mass × 2, same initial speed. Stopping distance × ?	කුට්ටියක් රළු පෘෂ්ඨයක ලිස්සා ගොස් නතර වේ. ස්කන්ධය × 2, ආරම්භක වේගය එලෙසම ය. නැවතුම් දුර × ?
+A block sliding at {v} m s⁻¹ on a rough level floor comes to rest. μ = {mu}. Distance moved?	රළු තිරස් බිමක {v} m s⁻¹ කින් ලිස්සන කුට්ටියක් නතර වේ. μ = {mu}. ගමන් කළ දුර කුමක් ද?
+A book rests on a table. Which force pairs with Earth's pull on the book?	පොතක් මේසයක් මත නිශ්චලව ඇත. පොත මත පෘථිවියේ ඇදීම සමඟ ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක් වන්නේ කුමන බලය ද?
+A bridge deck rests on piers X and Y, with a truck on it. You need the force at Y. Most direct first step?	පාලමක තට්ටුවක් X සහ Y කණු මත ඇති අතර එය මත ට්‍රක් රථයක් ඇත. Y හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A bullet embeds in a block on a smooth table. Most direct principle for the speed just after?	වෙඩි උණ්ඩයක් සිනිඳු මේසයක් මත ඇති කුට්ටියක කාවැදේ. ඉන් මොහොතකට පසු වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A car accelerates on a level road without tyre slip. What pushes the car forward?	ධාවක ටයර ලිස්සා යාමකින් තොරව පෙරළෙද්දී මෝටර් රථයක් තිරස් මාර්ගයක වේගය වැඩි කරයි. රථය ඉදිරියට තල්ලු කරන්නේ කුමක් ද?
+A car climbs a slope at constant speed. Driving force = resistance + mg sin θ.	මෝටර් රථයක් නියත වේගයකින් ආනත තලයක් නගියි. ධාවක බලය = ප්‍රතිරෝධය + mg sin θ.
+A car with all wheels driven reaches {kmh} km h⁻¹ from rest in {t} s on a level road, at uniform acceleration. Smallest μₛ needed?	සියලු රෝද ධාවනය වන මෝටර් රථයක් තිරස් මාර්ගයක ඒකාකාර ත්වරණයෙන් නිශ්චලතාවේ සිට {t} s තුළ {kmh} km h⁻¹ ට ළඟා වේ. අවශ්‍ය කුඩාම μₛ කුමක් ද?
+A coin rests on a turntable. Rotation rate × 2. Largest radius without sliding × ?	කාසියක් භ්‍රමණ තලයක් මත ඇත. භ්‍රමණ සීඝ්‍රතාව × 2. ලිස්සා නොයන විශාලතම අරය × ?
+A coin sits on a turntable spinning at {rpm} rpm. μₛ = {mu}. Largest distance from the centre without sliding? (Take π = 3)	{rpm} rpm කින් කැරකෙන භ්‍රමණ තලයක් මත කාසියක් ඇත. μₛ = {mu}. ලිස්සා නොයන, කේන්ද්‍රයේ සිට විශාලතම දුර කුමක් ද? (π = 3 ලෙස ගන්න)
+A coin turns with a turntable without sliding. What force keeps it moving in a circle?	කාසියක් ලිස්සා නොගොස් භ්‍රමණ තලයක් සමඟ කැරකෙයි. එය වෘත්තයක ගමන් කරවන බලය කුමක් ද?
+A compressed spring launches a block across a smooth table. Most direct principle for the launch speed?	සම්පීඩිත දුන්නක් සිනිඳු මේසයක් හරහා කුට්ටියක් විදියි. විදින වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A constant friction torque slows a wheel. Most direct principle for the time it takes to stop?	නියත ඝර්ෂණ ව්‍යාවර්තයක් රෝදයක වේගය අඩු කරයි. නතර වීමට ගත වන කාලය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A constant torque spins up a flywheel from rest. Most direct principle for its angular speed after a known time?	නියත ව්‍යාවර්තයක් නිශ්චලව ඇති භ්‍රමණ රෝදයක් කරකවයි. දන්නා කාලයකට පසු එහි කෝණික වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A diver tucks in mid-air and spins faster. Most direct principle for the new spin rate?	කිමිදුම්කරුවෙක් අහසේ දී ශරීරය හකුළා වේගයෙන් කැරකෙයි. නව භ්‍රමණ සීඝ්‍රතාව සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A force along its direction of motion	චලිත දිශාව ඔස්සේ ක්‍රියා කරන බලයක්
+A force of 6 N has a perpendicular distance of 0.5 m from a pivot to its line of action. Magnitude of its moment?	බලයක විශාලත්වය 6 N ය. හැරවුම් ලක්ෂ්‍යයේ සිට බලයේ ක්‍රියා රේඛාවට ලම්බ දුර 0.5 m ය. බලයේ සූර්ණයේ විශාලත්වය කීය ද?
+A gun recoils when it fires a shell. Most direct principle for the recoil speed?	තුවක්කුවක් උණ්ඩයක් විදින විට පසුපසට පැන යයි. පසුපසට පැනීමේ වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A hoop and a disc have equal M and R, and roll at equal speed. Ratio of rotational KE, hoop : disc?	සමාන M හා R ඇති වළල්ලක් සහ තැටියක් සමාන වේගයෙන් පෙරළේ. භ්‍රමණ චාලක ශක්තිවල අනුපාතය, වළල්ල : තැටිය, කුමක් ද?
+A ladder leans on a smooth wall and stands on rough ground. You need the wall's force. Most direct first step?	ඉණිමගක් සිනිඳු බිත්තියකට හේත්තු වී රළු බිමක පිහිටා ඇත. බිත්තියේ බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A lift is moving {motion}. Its speed changes by {dv} m s⁻¹ in {t} s. Force from the floor on a {m} kg block?	සෝපානයක් {motion}. {t} s තුළ එහි වේගය {dv} m s⁻¹ කින් වෙනස් වේ. {m} kg කුට්ටියක් මත බිමෙන් ඇති වන බලය කුමක් ද?
+A lift moves down at constant speed. Compared with mg, the scale reading is?	සෝපානයක් නියත වේගයකින් පහළට ගමන් කරයි. mg හා සසඳන විට තරාදියේ පාඨාංකය කුමක් ද?
+A lift moving up is slowing down. Compared with mg, the scale reading is?	ඉහළට යන සෝපානයක වේගය අඩු වෙමින් පවතී. mg හා සසඳන විට තරාදියේ පාඨාංකය කුමක් ද?
+A marble rolls off a table and falls to the floor, with no air resistance. Which quantity stays constant?	කිරිබිත්තරයක් මේසයකින් පෙරළී බිමට වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A pair involves the same two bodies. The table's push balances the weight, but it isn't the pair.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයකට අයත් වන්නේ එකම වස්තු දෙකයි. මේසයේ තෙරපුම බර තුලනය කළ ද එය එහි යුගලය නොවේ.
+A pair of forces can exist only between bodies in contact.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක් ඇති විය හැක්කේ ස්පර්ශ වී ඇති වස්තු අතර පමණි.
+A parcel drops from a plane flying level, with no air resistance. Which quantity stays constant?	තිරස්ව පියාසර කරන ගුවන් යානයකින් පාර්සලයක් වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A pendulum bob swings down from rest. Most direct principle for its speed at the lowest point?	සරල අවලම්බයක ගෝලය නිශ්චලතාවෙන් පහළට පැද්දේ. පහළම ලක්ෂ්‍යයේ වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A person walks along a uniform beam from support P to support Q. Pick the graph of the force at Q against distance walked.	පුද්ගලයෙක් ඒකාකාර බාල්කයක් දිගේ P ආධාරකයේ සිට Q ආධාරකය දක්වා ඇවිදියි. ඇවිද ගිය දුරට එරෙහිව Q හි බලයේ ප්‍රස්තාරය තෝරන්න.
+A plank rests on supports A and B, with a painter on it. You need the force at A. Most direct first step?	ලෑල්ලක් A සහ B ආධාරක මත ඇති අතර එය මත තීන්ත ආලේප කරන්නෙක් සිටී. A හි බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A projectile's acceleration is zero at the top of its path.	ප්‍රක්ෂිප්තයක ත්වරණය එහි පථයේ ඉහළම ලක්ෂ්‍යයේ දී ශුන්‍ය වේ.
+A rigid body rotates about a fixed principal axis. Which expression gives its angular momentum about that axis?	දෘඪ වස්තුවක් ස්ථිර ප්‍රධාන අක්ෂයක් වටා භ්‍රමණය වේ. එම අක්ෂය වටා කෝණික ගම්‍යතාව දෙන ප්‍රකාශනය කුමක් ද?
+A ring and a disc have equal mass and radius. Which has the larger I about the central axis?	මුද්දකට සහ තැටියකට සමාන ස්කන්ධ හා අරය ඇත. කේන්ද්‍රීය අක්ෂය වටා විශාල I ඇත්තේ කුමකට ද?
+A rod is hinged at one end and held level by a string at the other. You need the string's tension. Most direct first step?	දණ්ඩක එක් කෙළවරක් අසවු කර ඇති අතර අනෙක් කෙළවර තන්තුවකින් තිරස්ව රඳවා ඇත. තන්තුවේ ආතතිය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A runner finishes at the starting point. Average velocity for the whole run?	ධාවකයෙක් ගමන අවසානයේ ආරම්භක ස්ථානයටම පැමිණෙයි. මුළු ගමනේ සාමාන්‍ය ප්‍රවේගය කීය ද?
+A runner goes 5 m s⁻¹ for 1 s, then 1 m s⁻¹ for 3 s. Student says: "Average = (5 + 1) ÷ 2 = 3 m s⁻¹." What's wrong?	ධාවකයෙක් 1 s ක් 5 m s⁻¹ කින් ද, පසුව 3 s ක් 1 m s⁻¹ කින් ද දුවයි. ශිෂ්‍යයෙක් මෙසේ කියයි: "සාමාන්‍යය = (5 + 1) ÷ 2 = 3 m s⁻¹." එහි වැරැද්ද කුමක් ද?
+A shelf is hinged to a wall and held by a sloping strut. You need the strut's force. Most direct first step?	රාක්කයක් බිත්තියකට අසවු කර ආනත ආධාරක දණ්ඩකින් රඳවා ඇත. එම දණ්ඩේ බලය සෙවිය යුතු ය. වඩාත් සෘජු පළමු පියවර කුමක් ද?
+A skater pulls in their arms, and I halves. Rotational KE × ?	ලිස්සන්නෙක් අත් ඇතුළට ගන්නා විට I අඩක් වේ. භ්‍රමණ චාලක ශක්තිය × ?
+A skater pulls in their arms, and I halves. ω × ?	ලිස්සන්නෙක් අත් ඇතුළට ගන්නා විට I අඩක් වේ. ω × ?
+A sliding block slows at constant acceleration on a level floor. Which relation connects initial speed u, final speed v and stopping distance s without time?	කුට්ටියක් තිරස් බිමක ලිස්සා යමින් නියත ත්වරණයකින් මන්දනය වේ. කාලය භාවිත නොකර ආරම්භක වේගය u, අවසාන වේගය v හා නැවතුම් දුර s සම්බන්ධ කරන සමීකරණය කුමක් ද?
+A solid cylinder rolls down a slope from rest. Most direct principle for its speed at the bottom?	ඝන සිලින්ඩරයක් නිශ්චලතාවෙන් ආනත තලයක පහළට පෙරළේ. පහළදී එහි වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A solid sphere and a hoop of equal mass and radius roll down the same slope. Which gets down first?	සමාන ස්කන්ධ හා අරය ඇති ඝන ගෝලයක් සහ වළල්ලක් එකම ආනත තලයක පහළට පෙරළේ. පළමුව පහළට ළඟා වන්නේ කුමක් ද?
+A stone falls from a bridge from rest, with no air resistance. Which quantity stays constant?	ගලක් පාලමක සිට නිශ්චලතාවෙන් වැටේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A stone is thrown at 40° to the horizontal, with no air resistance. Which quantity stays constant?	ගලක් තිරසට 40° ක් ආනතව විසි කෙරේ. වායු ප්‍රතිරෝධය නැත. නියතව පවතින රාශිය කුමක් ද?
+A student spins on a smooth turntable at {w0} rad s⁻¹ with I = {I0} kg m². Pulling in the weights makes I = {I1} kg m². New angular speed?	ශිෂ්‍යයෙක් I = {I0} kg m² සමඟ සිනිඳු භ්‍රමණ තලයක {w0} rad s⁻¹ කින් කැරකෙයි. බර ඇතුළට ගත් විට I = {I1} kg m² වේ. නව කෝණික වේගය කුමක් ද?
+A table's push on a book and the book's weight form a pair.	පොත මත මේසයේ තෙරපුම හා පොතේ බර ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයකි.
+A truck accelerates while towing a trailer. The two pulls at the coupling have equal magnitudes and opposite directions.	ට්‍රක් රථයක් ට්‍රේලරයක් ඇදගෙන යමින් ත්වරණය වේ. සම්බන්ධකය හරහා රථ දෙක එකිනෙක මත යොදන ඇදීමේ බල විශාලත්වයෙන් සමාන වන අතර දිශාවෙන් ප්‍රතිවිරුද්ධ වේ.
+A vehicle moves in the direction of its driving force. Power = driving force × ▢	වාහනයක් එහි ධාවක බලය යොදන දිශාවට ගමන් කරයි. ජවය = ධාවක බලයේ විශාලත්වය × ▢
+A wheel falls, unwinding a string round its axle. Most direct principle for its speed after a known drop?	රෝදයක් එහි අක්ෂ දණ්ඩ වටා ඔතා ඇති තන්තුවක් ලිහමින් පහළට වැටේ. දන්නා උසක් වැටුණු පසු එහි වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+A {m1} kg cart at {u1} m s⁻¹ catches a {m2} kg cart moving the same way at {u2} m s⁻¹. They couple. Common speed?	{u1} m s⁻¹ කින් යන {m1} kg කරත්තයක්, එම දිශාවටම {u2} m s⁻¹ කින් යන {m2} kg කරත්තයක් අල්ලා ගනී. ඒවා එකට සම්බන්ධ වේ. පොදු වේගය කුමක් ද?
+A {shape} (I = {frac(c)} MR²) rolls without slipping. Find total KE ÷ {target} KE.	{shape} (I = {frac(c)} MR²) ලිස්සීමකින් තොරව පෙරළේ. මුළු චාලක ශක්තිය ÷ {target} චාලක ශක්තිය සොයන්න.
+A − B	A − B
+About the central axis, a ring has a larger moment of inertia than a disc of equal mass and radius.	කේන්ද්‍රීය අක්ෂය වටා, මුද්දක අවස්ථිති සූර්ණය සමාන ස්කන්ධ හා අරය ඇති තැටියක අගයට වඩා වැඩි ය.
+Acceleration	ත්වරණය
+Acceleration is g downward throughout the flight.	මුළු ගමන පුරාම ත්වරණය පහළට g වේ.
+Acceleration is g throughout, including at the top.	ඉහළම ලක්ෂ්‍යය ඇතුළුව මුළු ගමන පුරාම ත්වරණය g වේ.
+Add areas above the time axis and subtract areas below it to find displacement.	විස්ථාපනය සෙවීමට කාල අක්ෂයට ඉහළින් ඇති කොටස්වල වර්ගඵල එකතු කර පහළින් ඇති කොටස්වල වර්ගඵල අඩු කරන්න.
+Add forces only on the same body when finding its acceleration.	වස්තුවක ත්වරණය සෙවීමේ දී එම වස්තුව මත ක්‍රියා කරන බල පමණක් එකතු කරන්න.
+Add the power needed against gravity. Don't scale by the slope.	ගුරුත්වයට එරෙහිව අවශ්‍ය ජවය එකතු කරන්න. ආනතියෙන් ගුණ නොකරන්න.
+All four wheels of a car are driven. Greatest possible acceleration on a level road?	මෝටර් රථයක රෝද හතරම එන්ජිමෙන් ධාවනය වේ. තිරස් මාර්ගයක ලැබිය හැකි විශාලතම ත්වරණය කුමක් ද?
+All of the ring's mass is at distance r: MR², against ½MR² for the disc.	මුද්දේ මුළු ස්කන්ධයම r දුරින් ඇත: එහි අගය MR² වන අතර තැටියේ අගය ½MR² වේ.
+An object starts from rest, speeds up, then slows to a stop, never reversing. Pick its s–t graph.	වස්තුවක් නිශ්චලතාවෙන් ආරම්භ වී වේගය වැඩි කර, පසුව වේගය අඩු වී නතර වේ. එය කිසිවිටෙක ආපසු නොයයි. එහි s–t ප්‍රස්තාරය තෝරන්න.
+Angular momentum conservation	කෝණික ගම්‍යතා සංස්ථිතිය
+Apparent weight in a lift	සෝපානයක දෘශ්‍ය බර
+At the limit, μmg = mrω², so r = μg/ω².	සීමාවේ දී μmg = mrω² නිසා r = μg/ω².
+At the top the vertical velocity is zero. The horizontal component still equals its launch value.	ඉහළම ලක්ෂ්‍යයේ දී ප්‍රවේගයේ සිරස් සංරචකය ශුන්‍ය වේ. තිරස් සංරචකය එහි ආරම්භක අගයේම පවතී.
+At the top v = 0. Then 0 = u² − 2gh.	ඉහළම ලක්ෂ්‍යයේ දී v = 0 ය. එවිට 0 = u² − 2gh වේ.
+At the top, only u cos θ remains, so KE = K cos²θ and the PE gained is K sin²θ.	ඉහළම ලක්ෂ්‍යයේ ඉතිරි වන්නේ u cos θ පමණි. එබැවින් චාලක ශක්තිය = K cos²θ වන අතර ලබාගත් විභව ශක්තිය K sin²θ වේ.
+Average velocity	සාමාන්‍ය ප්‍රවේගය
+Average velocity = total area under the graph ÷ total time.	සාමාන්‍ය ප්‍රවේගය = ප්‍රස්තාරයට යටින් ඇති මුළු වර්ගඵලය ÷ මුළු කාලය.
+Average velocity = total displacement ÷ total time, here 8 m ÷ 4 s = 2 m s⁻¹.	සාමාන්‍ය ප්‍රවේගය = මුළු විස්ථාපනය ÷ මුළු කාලය. මෙහි 8 m ÷ 4 s = 2 m s⁻¹.
+Average velocity covers the whole motion, not just the end.	සාමාන්‍ය ප්‍රවේගය අදාළ වන්නේ අවසානයට පමණක් නොව මුළු චලිතයට ම ය.
+Average velocity is total displacement ÷ total time.	සාමාන්‍ය ප්‍රවේගය = මුළු විස්ථාපනය ÷ මුළු කාලය.
+Blocks X and Y slide at 2 m s⁻¹ and 6 m s⁻¹ on a level floor. Both have the same coefficient of kinetic friction with the floor. Stopping distances, X : Y?	X හා Y කුට්ටි තිරස් බිමක පිළිවෙළින් 2 m s⁻¹ හා 6 m s⁻¹ වේගවලින් ලිස්සා යයි. බිම හා එක් එක් කුට්ටිය අතර ගතික ඝර්ෂණ සංගුණකය සමාන ය. ඒවායේ නැවතුම් දුරවල අනුපාතය X : Y කීය ද?
+Both use conservation of momentum, as no external force acts.	බාහිර බලයක් ක්‍රියා නොකරන නිසා දෙකටම ගම්‍යතා සංස්ථිතිය යොදයි.
+Both use energy conservation.	දෙකටම ශක්ති සංස්ථිතිය යොදයි.
+Both use momentum. KE changes in both.	දෙකටම ගම්‍යතාව යොදයි. දෙකේම චාලක ශක්තිය වෙනස් වේ.
+Centrifugal force, outwards	කේන්ද්‍රාපසාරී බලය, පිටතට
+Clay drops onto a spinning disc and sticks. Most direct principle for the new spin rate?	මැටි කැටියක් කැරකෙන තැටියක් මතට වැටී ඇලී යයි. නව භ්‍රමණ සීඝ්‍රතාව සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+Conservation of angular momentum	කෝණික ගම්‍යතා සංස්ථිතිය
+Conservation of energy	ශක්ති සංස්ථිතිය
+Conservation of linear momentum	රේඛීය ගම්‍යතා සංස්ථිතිය
+Conservation of momentum	ගම්‍යතා සංස්ථිතිය
+Constant speed means zero acceleration, whichever way the lift moves.	සෝපානය කුමන දිශාවට ගියත්, නියත වේගය යනු ශුන්‍ය ත්වරණයයි.
+Constant speed means zero net force along the slope.	නියත වේගය යනු තලය දිගේ ශුද්ධ බලය ශුන්‍ය වීමයි.
+Constant torque gives constant α, so t = ω/α.	නියත ව්‍යාවර්තයෙන් නියත α ලැබෙන නිසා t = ω/α.
+Constant torque gives constant α, so ω = αt.	නියත ව්‍යාවර්තයෙන් නියත α ලැබෙන නිසා ω = αt.
+Count the level-road power once.	තිරස් මාර්ගයේ ජවය එක් වරක් පමණක් ගන්න.
+Count two powers of k for each bounce.	එක් පොළා පැනීමකට k හි බල දෙකක් ගන්න.
+Curve that rises	ඉහළ යන වක්‍රයක්
+Depends on speed	වේගය මත රඳා පවතී
+Depends on the mass	ස්කන්ධය මත රඳා පවතී
+Different methods	වෙනස් ක්‍රම
+Dimensions of impulse?	ආවේගයේ මාන මොනවා ද?
+Dimensions of moment of inertia?	අවස්ථිති සූර්ණයේ මාන මොනවා ද?
+Dimensions of power?	ජවයේ මාන මොනවා ද?
+Disc	තැටිය
+Displacement	විස්ථාපනය
+Divide by 3.6: 54 ÷ 3.6 = 15 m s⁻¹.	3.6 න් බෙදන්න: 54 ÷ 3.6 = 15 m s⁻¹.
+Divide by the total time, not by the number of stages.	අවධි ගණනින් නොව මුළු කාලයෙන් බෙදන්න.
+Divide by the total time, not the first part.	පළමු කොටසින් නොව මුළු කාලයෙන් බෙදන්න.
+Doubling every mass, at the same positions, doubles the moment of inertia.	එකම පිහිටීම්වල සියලු ස්කන්ධ දෙගුණ කළ විට අවස්ථිති සූර්ණය දෙගුණ වේ.
+Driving force = resistance + mg sin θ, and P = Fv.	ධාවක බලය = ප්‍රතිරෝධය + mg sin θ වන අතර P = Fv.
+Each body exerts one force on the other. The truck and trailer may accelerate while these forces remain equal in magnitude.	එක් එක් රථය අනෙක් රථය මත බලයක් යොදයි. රථ දෙක ත්වරණය වුවත් මෙම බල දෙකෙහි විශාලත්ව සමාන ය.
+Each bounce multiplies the speed by k, and height ∝ v², so each bounce multiplies the height by k².	සෑම පොළා පැනීමකම වේගය k වලින් ගුණ වේ. උස ∝ v² නිසා උස k² වලින් ගුණ වේ.
+Earth's pull on a book and the book's pull on Earth form a pair.	පොත මත පෘථිවියේ ඇදීම හා පෘථිවිය මත පොතේ ඇදීම ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයකි.
+Energy isn't lost, so height doesn't change	ශක්තිය හානි නොවන නිසා උස වෙනස් නොවේ
+Energy of a rolling body	පෙරළෙන වස්තුවක ශක්තිය
+Equal	සමාන ය
+Equal to mg	mg ට සමාන ය
+Equal-mass blocks move towards each other at 6 m s⁻¹ and 2 m s⁻¹, then stick. Their speed after?	සමාන ස්කන්ධ ඇති කුට්ටි දෙකක් 6 m s⁻¹ හා 2 m s⁻¹ වේගවලින් එකිනෙක දෙසට ගමන් කර ඇලී යයි. ඉන්පසු ඒවායේ වේගය කුමක් ද?
+Equations of uniform acceleration	නියත ත්වරණයේ සමීකරණ
+F = ma with a constant force	නියත බලයක් සමඟ F = ma
+False	අසත්‍ය
+Find the direction of the acceleration first. Then N = m(g + a) if it points up, or m(g − a) if it points down.	පළමුව ත්වරණයේ දිශාව සොයන්න. එය ඉහළට නම් N = m(g + a), පහළට නම් N = m(g − a).
+For a force at angle θ to the velocity, P = Fv cos θ. Here θ = 0°, so P = Fv.	බලය හා ප්‍රවේගය අතර කෝණය θ නම් P = Fv cos θ වේ. මෙහි θ = 0° බැවින් P = Fv වේ.
+For motion along a line, what does the signed area on a resultant force–time graph give?	සරල රේඛීය චලිතයක දී සම්ප්‍රයුක්ත බලය හා කාලය අතර ප්‍රස්තාරයේ වර්ගඵලය ලකුණ සමඟ ගත් විට ලැබෙන්නේ කුමක් ද?
+Force	බලය
+Forces A and B act at one point, with A > B. Smallest possible resultant?	A > B වන සේ A සහ B බල එක් ලක්ෂ්‍යයක ක්‍රියා කරයි. සම්ප්‍රයුක්තයේ කුඩාම අගය කුමක් ද?
+Forces in opposite directions give the smallest resultant, A − B.	බල ප්‍රතිවිරුද්ධ දිශාවලට ක්‍රියා කරන විට සම්ප්‍රයුක්තය කුඩාම වන අතර එය A − B වේ.
+Forces of {F1} N and {F2} N act at one point. Which can be the size of their resultant?	{F1} N සහ {F2} N බල එක් ලක්ෂ්‍යයක ක්‍රියා කරයි. ඒවායේ සම්ප්‍රයුක්තයේ විශාලත්වය විය හැක්කේ කුමක් ද?
+Friction gives the acceleration: μₛmg = ma, so μₛ = a/g, with the speed in m s⁻¹.	ත්වරණය ලැබෙන්නේ ඝර්ෂණයෙනි: μₛmg = ma නිසා μₛ = a/g. වේගය m s⁻¹ වලින් ගන්න.
+Friction is the only horizontal force, and it provides mrω².	එකම තිරස් බලය ඝර්ෂණය වන අතර එයින් mrω² සැපයේ.
+Friction limit in circular motion	වෘත්ත චලිතයේ ඝර්ෂණ සීමාව
+Friction limit on acceleration	ත්වරණයට ඝර්ෂණයෙන් ඇති සීමාව
+Gradient and area of motion graphs	චලිත ප්‍රස්තාරවල අනුක්‍රමණය හා වර්ගඵලය
+Gradient of s–t is the rate of change of displacement, which is velocity.	s–t ප්‍රස්තාරයේ අනුක්‍රමණය යනු විස්ථාපනය වෙනස් වීමේ සීඝ්‍රතාව, එනම් ප්‍රවේගයයි.
+Gravity changes only the vertical velocity.	ගුරුත්වය වෙනස් කරන්නේ සිරස් ප්‍රවේගය පමණි.
+Gravity is the only force, so acceleration stays at g downward.	එකම බලය ගුරුත්වය නිසා ත්වරණය පහළට g ලෙස පවතී.
+Ground friction on the foot	පොළොව පාදය මත යොදන ඉදිරි දිශාවට ඇති ඝර්ෂණ බලය
+Half the gap gives the speed at that height, v = gt. Then u² = v² + 2gh.	කාල පරතරයෙන් අඩකින් එම උසේ දී වේගය ලැබේ: v = gt. ඉන්පසු u² = v² + 2gh.
+Height above ground	පොළොවේ සිට උස
+Height ÷ gap isn't the speed at any point here.	උස ÷ කාල පරතරය මෙහි කිසිදු ලක්ෂ්‍යයක වේගය නොවේ.
+Height ∝ v², so height falls by 2 × 25% = 50%	උස ∝ v² නිසා උස 2 × 25% = 50% කින් අඩු වේ
+Height ∝ v², so height falls to about 56%	උස ∝ v² නිසා උස 56% පමණ දක්වා අඩු වේ
+Height ∝ √v, so height falls to about 87%	උස ∝ √v නිසා උස 87% පමණ දක්වා අඩු වේ
+Hoop	වළල්ල
+Horizontal velocity	තිරස් ප්‍රවේගය
+Horizontal velocity remains, so KE isn't zero	තිරස් ප්‍රවේගය ඉතිරි වන නිසා චාලක ශක්තිය ශුන්‍ය නොවේ
+I	I
+I = Σmr² depends on the masses and their distances from the axis, not on how fast the body spins.	I = Σmr² රඳා පවතින්නේ ස්කන්ධ හා අක්ෂයේ සිට ඒවායේ දුර මත මිස වස්තුව කැරකෙන වේගය මත නොවේ.
+I = Σmr².	I = Σmr².
+I/ω	I/ω
+Impulse	ආවේගය
+Impulse = area under the graph = change in momentum.	ආවේගය = ප්‍රස්තාරයට යටින් ඇති වර්ගඵලය = ගම්‍යතාවේ වෙනස.
+Impulse = change in momentum, so v = 30 ÷ 3.	ආවේගය = ගම්‍යතාවේ වෙනස. එබැවින් v = 30 ÷ 3.
+Impulse = force × time = MLT⁻² × T.	ආවේගය = බලය × කාලය = MLT⁻² × T.
+Impulse from a force–time graph	බල–කාල ප්‍රස්තාරයකින් ආවේගය
+It keeps the plane's horizontal velocity as it falls.	වැටෙන අතර එය ගුවන් යානයේ තිරස් ප්‍රවේගය රඳවා ගනී.
+It starts from rest, so the curve starts flat.	එය නිශ්චලතාවෙන් ආරම්භ වන නිසා වක්‍රය තිරස්ව ආරම්භ වේ.
+It stops momentarily before moving down. Gravity continues to act.	පන්දුව පහළට ගමන් කිරීමට පෙර මොහොතකට නිශ්චල වේ. ඒ මොහොතේ ද ගුරුත්ව බලය ක්‍රියා කරයි.
+Iα	Iα
+Iω	Iω
+Iω is constant.	Iω නියත ය.
+KE = L²/(2I), so it doubles. The skater's muscles supply the extra energy.	චාලක ශක්තිය = L²/(2I) නිසා එය දෙගුණ වේ. අමතර ශක්තිය සපයන්නේ ලිස්සන්නාගේ පේශි ය.
+KE at the top is always half of K, at any angle	ඕනෑම කෝණයක දී ඉහළම ලක්ෂ්‍යයේ චාලක ශක්තිය සැමවිටම K ගෙන් අඩකි
+KE at the top of its path?	පථයේ ඉහළම ලක්ෂ්‍යයේ දී චාලක ශක්තිය කුමක් ද?
+KE is conserved in a perfectly inelastic collision.	පූර්ණ අප්‍රත්‍යාස්ථ ගැටීමක දී චාලක ශක්තිය සංස්ථිතික වේ.
+KE is zero only when PE is zero as well	චාලක ශක්තිය ශුන්‍ය වන්නේ විභව ශක්තිය ද ශුන්‍ය වන විට පමණි
+KE of a rolling body = ½mv² + ½ ▢ ω²	පෙරළෙන වස්තුවක චාලක ශක්තිය = ½mv² + ½ ▢ ω²
+KE total = ½Mv²(1 + c), and rotational KE = ½Mv²c.	මුළු චාලක ශක්තිය = ½Mv²(1 + c) වන අතර භ්‍රමණ චාලක ශක්තිය = ½Mv²c වේ.
+Kinetic energy	චාලක ශක්තිය
+Less than mg	mg ට වඩා අඩු ය
+ML	ML
+MLT⁻²	MLT⁻²
+MLT⁻³	MLT⁻³
+MLT⁻¹	MLT⁻¹
+ML²	ML²
+ML²T⁻²	ML²T⁻²
+ML²T⁻³	ML²T⁻³
+ML⁻²	ML⁻²
+MT⁻¹	MT⁻¹
+Mass cancels: both the KE and the friction force are proportional to m.	ස්කන්ධය කැපී යයි: චාලක ශක්තිය හා ඝර්ෂණ බලය යන දෙකම m ට අනුලෝමව සමානුපාතික ය.
+Maximum friction μₛmg = ma, so a = μₛg. All the weight is on the driven wheels.	උපරිම ඝර්ෂණය μₛmg = ma නිසා a = μₛg. මුළු බරම ධාවනය වන රෝද මත පවතී.
+Moment balance on a beam	බාල්කයක සූර්ණ තුලනය
+Moment of inertia depends on the axis chosen.	අවස්ථිති සූර්ණය තෝරා ගන්නා අක්ෂය මත රඳා පවතී.
+Moment of inertia has the same value about every axis.	සෑම අක්ෂයක් වටාම අවස්ථිති සූර්ණයේ අගය සමාන ය.
+Moment of inertia increases when the body spins faster.	වස්තුව වේගයෙන් කැරකෙන විට අවස්ථිති සූර්ණය වැඩි වේ.
+Moments about B remove the unknown force at B.	B වටා සූර්ණ ගැනීමෙන් B හි නොදන්නා බලය ඉවත් වේ.
+Moments about P remove the force at P: Q × L = Mg × L/2 + mg × d.	P වටා සූර්ණ ගැනීමෙන් P හි බලය ඉවත් වේ: Q × L = Mg × L/2 + mg × d.
+Moments about P remove the unknown force at P.	P වටා සූර්ණ ගැනීමෙන් P හි නොදන්නා බලය ඉවත් වේ.
+Moments about X remove the unknown force at X.	X වටා සූර්ණ ගැනීමෙන් X හි නොදන්නා බලය ඉවත් වේ.
+Moments about the hinge remove the unknown hinge force.	අසව්ව වටා සූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ.
+Moments give a force linear in distance. The beam's own weight sets the starting value.	සූර්ණ ගැනීමෙන් දුරට රේඛීය වන බලයක් ලැබේ. ආරම්භක අගය තීරණය වන්නේ බාල්කයේ බරිනි.
+Momentum is conserved, but some KE becomes heat and sound.	ගම්‍යතාව සංස්ථිතික වේ. නමුත් චාලක ශක්තියෙන් කොටසක් තාපය හා ශබ්දය බවට පත් වේ.
+Momentum is conserved: m₁u₁ + m₂u₂ = (m₁ + m₂)v.	ගම්‍යතාව සංස්ථිතික වේ: m₁u₁ + m₂u₂ = (m₁ + m₂)v.
+Momentum or energy conservation	ගම්‍යතා හෝ ශක්ති සංස්ථිතිය
+More than mg	mg ට වඩා වැඩි ය
+Moving mass further from the axis increases the moment of inertia.	ස්කන්ධය අක්ෂයෙන් ඈතට ගෙන ගිය විට අවස්ථිති සූර්ණය වැඩි වේ.
+Multiply force by perpendicular distance.	බලයේ විශාලත්වය ලම්බ දුරෙන් ගුණ කරන්න.
+Multiply the moment of inertia about the axis by angular velocity.	අක්ෂය වටා අවස්ථිති සූර්ණය කෝණික ප්‍රවේගයෙන් ගුණ කරන්න.
+Net displacement is zero. Divide it by the elapsed time.	මුළු විස්ථාපනය ශුන්‍ය ය. එය ගත වූ කාලයෙන් බෙදූ විට සාමාන්‍ය ප්‍රවේගය ද ශුන්‍ය වේ.
+Newton's third-law pairs	නිව්ටන්ගේ තුන්වන නියමයේ බල යුගල
+No external horizontal force acts. Coupling loses KE, so energy won't give it.	බාහිර තිරස් බලයක් ක්‍රියා නොකරයි. සම්බන්ධ වීමේ දී චාලක ශක්තිය හානි වන නිසා ශක්තියෙන් මෙය නොලැබේ.
+No external torque acts about the centre of mass, so Iω is constant.	ස්කන්ධ කේන්ද්‍රය වටා බාහිර ව්‍යාවර්තයක් ක්‍රියා නොකරන නිසා Iω නියත ය.
+No external torque acts, so Iω is constant.	බාහිර ව්‍යාවර්තයක් ක්‍රියා නොකරන නිසා Iω නියත ය.
+No forces at the top	ඉහළම ලක්ෂ්‍යයේ බල නැත
+No horizontal force acts, so the horizontal velocity doesn't change.	තිරස් බලයක් ක්‍රියා නොකරන නිසා තිරස් ප්‍රවේගය වෙනස් නොවේ.
+Nothing is wrong: the 6 s only counts the way up	වැරැද්දක් නැත: 6 s යනු ඉහළ යාමට පමණක් ගත වන කාලයයි
+Nothing pushes the ball forward. It keeps moving because no horizontal force acts.	පන්දුව ඉදිරියට කිසිවක් තල්ලු නොකරයි. තිරස් බලයක් ක්‍රියා නොකරන නිසා එය දිගටම ගමන් කරයි.
+On a displacement–time graph, the gradient gives?	විස්ථාපන–කාල ප්‍රස්තාරයක අනුක්‍රමණයෙන් ලැබෙන්නේ කුමක් ද?
+On a velocity–time graph, what does the signed area between the graph and the time axis give?	ප්‍රවේග–කාල ප්‍රස්තාරය හා කාල අක්ෂය අතර වර්ගඵලය ලකුණ සමඟ ගත් විට ලැබෙන රාශිය කුමක් ද?
+Only a forward force	ඉදිරියට බලයක් පමණි
+Only half the gap is spent rising from that height.	එම උසේ සිට ඉහළ යාමට ගත වන්නේ කාල පරතරයෙන් අඩක් පමණි.
+Only mg, downward	mg පමණි, පහළට
+Opposite directions: (6 − 2) ÷ 2 = 2 m s⁻¹, in the direction of the faster block.	දිශා ප්‍රතිවිරුද්ධ ය: (6 − 2) ÷ 2 = 2 m s⁻¹, වේගවත් කුට්ටියේ දිශාවට.
+PE gained by the top of its path?	පථයේ ඉහළම ලක්ෂ්‍යය වන විට ලබාගත් විභව ශක්තිය කුමක් ද?
+PE lost becomes both kinds of KE, and the string does no net work.	හානි වන විභව ශක්තිය චාලක ශක්ති දෙවර්ගයම බවට පත් වන අතර තන්තුව ශුද්ධ කාර්යයක් නොකරයි.
+PE lost becomes translational and rotational KE.	හානි වන විභව ශක්තිය පරිවහන හා භ්‍රමණ චාලක ශක්ති බවට පත් වේ.
+Power	ජවය
+Power = energy ÷ time = ML²T⁻² ÷ T.	ජවය = ශක්තිය ÷ කාලය = ML²T⁻² ÷ T.
+Power, force and speed	ජවය, බලය හා වේගය
+Projectile velocity components	ප්‍රක්ෂිප්තයක ප්‍රවේග සංරචක
+Pulling in the weights changes I, so ω must change.	බර ඇතුළට ගැනීමෙන් I වෙනස් වන නිසා ω ද වෙනස් විය යුතු ය.
+R = √(A² + B²), which is always larger than A or B alone.	R = √(A² + B²) වන අතර එය සැමවිටම A ට හෝ B ට වඩා විශාල ය.
+Range of a resultant force	සම්ප්‍රයුක්ත බලයේ පරාසය
+Rebound height and speed	පොළා පැනීමේ උස හා වේගය
+Ring	මුද්ද
+Rises, then falls back to zero	ඉහළ ගොස් නැවත ශුන්‍යයට වැටේ
+Road friction on tyres	මාර්ගය ධාවක ටයර මත යොදන ඉදිරි දිශාවට ඇති ඝර්ෂණ බලය
+S-shaped rise: flat at the start and flat at the end	S හැඩැති නැගීමක්: ආරම්භයේ හා අවසානයේ තිරස් ය
+Same method	එකම ක්‍රමය
+Same ω, and I is MR² against ½MR².	ω සමාන ය. I අගයන් MR² සහ ½MR² වේ.
+Share the load equally	පැටවුම සමානව බෙදන්න
+Slowing down is acceleration, so the reading changes.	වේගය අඩු වීම ද ත්වරණයකි. එබැවින් පාඨාංකය වෙනස් වේ.
+Slowing while moving up means the acceleration is downward, so N = m(g − a).	ඉහළ යන අතර වේගය අඩු වන්නේ නම් ත්වරණය පහළට ය. එබැවින් N = m(g − a).
+Speed	වේගය
+Sphere	ගෝලය
+Static friction, towards the centre	ස්ථිතික ඝර්ෂණය, කේන්ද්‍රය දෙසට
+Steep at the start, flat only at the end	ආරම්භයේ බෑවුම වැඩි ය, අවසානයේ පමණක් තිරස් ය
+Stopping distance under friction	ඝර්ෂණය යටතේ නැවතුම් දුර
+Straight falling line	පහළ යන සරල රේඛාවක්
+Straight rising line	ඉහළ යන සරල රේඛාවක්
+Straight rising line that starts above zero	ශුන්‍යයට ඉහළින් ආරම්භ වී ඉහළ යන සරල රේඛාවක්
+Straight rising line that starts at zero	ශුන්‍යයෙන් ආරම්භ වී ඉහළ යන සරල රේඛාවක්
+Student says: "Action and reaction are equal and opposite, so nothing can ever accelerate." What's wrong?	ශිෂ්‍යයෙක් මෙසේ කියයි: "ක්‍රියාව හා ප්‍රතික්‍රියාව සමාන හා ප්‍රතිවිරුද්ධ නිසා කිසිවක් කිසිදා ත්වරණය විය නොහැක." එහි වැරැද්ද කුමක් ද?
+Student says: "Speed falls by 25% at a bounce, so height falls by 25%." What's wrong?	ශිෂ්‍යයෙක් මෙසේ කියයි: "පොළා පැනීමේ දී වේගය 25% කින් අඩු වන නිසා උස ද 25% කින් අඩු වේ." එහි වැරැද්ද කුමක් ද?
+Take moments about A	A වටා සූර්ණ ගන්න
+Take moments about B	B වටා සූර්ණ ගන්න
+Take moments about P	P වටා සූර්ණ ගන්න
+Take moments about Q	Q වටා සූර්ණ ගන්න
+Take moments about X	X වටා සූර්ණ ගන්න
+Take moments about Y	Y වටා සූර්ණ ගන්න
+Take moments about the hinge	අසව්ව වටා සූර්ණ ගන්න
+Take moments about the ladder's foot	ඉණිමගේ පාදය වටා සූර්ණ ගන්න
+Take moments about the string	තන්තුව වටා සූර්ණ ගන්න
+Take moments about the strut's joint	ආධාරක දණ්ඩේ සන්ධිය වටා සූර්ණ ගන්න
+Take moments about the top of the ladder	ඉණිමගේ ඉහළ කෙළවර වටා සූර්ණ ගන්න
+Take the direction of motion as positive. At rest v = 0 and a is negative.	චලිත දිශාව ධන ලෙස ගන්න. නතර වන විට v = 0 වන අතර ත්වරණය a ඍණ ය.
+Tension does no work, so PE lost becomes KE. The acceleration isn't uniform.	ආතතිය කාර්යයක් නොකරන නිසා හානි වන විභව ශක්තිය චාලක ශක්තිය බවට පත් වේ. ත්වරණය ඒකාකාර නොවේ.
+That assumes the ball stops at that height, but it's still moving there.	එයින් උපකල්පනය වන්නේ පන්දුව එම උසේ දී නතර වන බවයි. නමුත් එය තවමත් ගමන් කරයි.
+That's only one bounce.	එය එක් පොළා පැනීමක් පමණි.
+That's only the final velocity.	එය අවසාන ප්‍රවේගය පමණි.
+That's only the rising part. Add the flat part.	එය ඉහළ යන කොටස පමණි. තිරස් කොටස ද එකතු කරන්න.
+That's the acceleration at full force, not the final speed.	එය අවසාන වේගය නොව උපරිම බලයේ දී ත්වරණයයි.
+That's the angular momentum. Now divide by the new I.	එය කෝණික ගම්‍යතාවයි. දැන් නව I වලින් බෙදන්න.
+That's the displacement. Now divide by the total time.	එය විස්ථාපනයයි. දැන් මුළු කාලයෙන් බෙදන්න.
+That's the other ratio. Check which KE goes below the line.	එය අනෙක් අනුපාතයයි. හරයට යන චාලක ශක්තිය කුමක් දැයි බලන්න.
+That's the person's whole weight, but the supports share it.	එය පුද්ගලයාගේ මුළු බරයි. නමුත් ආධාරක එය බෙදා ගනී.
+That's the power on the level road.	එය තිරස් මාර්ගයේ ජවයයි.
+That's the speed at that height, not at launch.	එය විසි කළ වේගය නොව එම උසේ දී වේගයයි.
+That's the total momentum. Now divide by the total mass.	එය මුළු ගම්‍යතාවයි. දැන් මුළු ස්කන්ධයෙන් බෙදන්න.
+That's the total of both support forces.	එය ආධාරක දෙකේ බලවල එකතුවයි.
+That's translational ÷ rotational, not total.	එය මුළු අගය නොව පරිවහන ÷ භ්‍රමණ අනුපාතයයි.
+The 6 s covers up and down, so window to top is 3 s	6 s යනු ඉහළ යාමට හා පහළ ඒමට ගත වන කාලය නිසා ජනේලයේ සිට ඉහළටම 3 s වේ
+The SI unit of moment of inertia is kg m.	අවස්ථිති සූර්ණයේ SI ඒකකය kg m වේ.
+The acceleration changes along a curve. PE lost becomes KE.	වක්‍රයක් දිගේ ත්වරණය වෙනස් වේ. හානි වන විභව ශක්තිය චාලක ශක්තිය බවට පත් වේ.
+The air, on the car	වාතය, මෝටර් රථය මත
+The air, on the person	වාතය, පුද්ගලයා මත
+The area under an F–t graph is 30 N s. It acts on a 3 kg body at rest. Final speed?	F–t ප්‍රස්තාරයකට යටින් ඇති වර්ගඵලය 30 N s කි. එය නිශ්චලව ඇති 3 kg වස්තුවක් මත ක්‍රියා කරයි. අවසාන වේගය කුමක් ද?
+The ball is slower going up, so window to top is over 3 s	ඉහළ යන විට පන්දුව සෙමින් ගමන් කරන නිසා ජනේලයේ සිට ඉහළටම 3 s ට වැඩි ය
+The ball's mass decides how long it takes to reach the top	ඉහළටම ළඟා වීමට ගත වන කාලය තීරණය වන්නේ පන්දුවේ ස්කන්ධයෙනි
+The beam's own weight also loads the supports.	බාල්කයේ බර ද ආධාරක මත පැටවේ.
+The beam's own weight loads Q even when the person is at P.	පුද්ගලයා P හි සිටිය දී පවා බාල්කයේ බරින් කොටසක් Q මත පැටවේ.
+The book's pull on Earth	පෘථිවිය මත පොතේ ඇදීම
+The book's push on the table	මේසය මත පොතේ තෙරපුම
+The bullet uses momentum. The spring uses energy.	උණ්ඩයට ගම්‍යතාව යොදයි. දුන්නට ශක්තිය යොදයි.
+The engine turns the wheels, but an internal force can't accelerate the car. Road friction does.	එන්ජිම රෝද කරකවයි. නමුත් අභ්‍යන්තර බලයකට රථය ත්වරණය කළ නොහැකි ය. එය කරන්නේ මාර්ගයේ ඝර්ෂණයයි.
+The engine, on the car	එන්ජිම, මෝටර් රථය මත
+The faster part counts more, so the average is above 3 m s⁻¹	වේගවත් කොටසට වැඩි බරක් ලැබෙන නිසා සාමාන්‍යය 3 m s⁻¹ ට වැඩි ය
+The figure shows a uniform {M} kg beam on supports at P and Q, with a {m} kg person standing on it. Force from support Q?	රූපයේ P සහ Q ආධාරක මත ඇති {M} kg ඒකාකාර බාල්කයක් සහ ඒ මත සිටින {m} kg පුද්ගලයෙක් දැක්වේ. Q ආධාරකයෙන් ඇති වන බලය කුමක් ද?
+The floor also holds up the weight, so ma alone isn't enough.	බිම බර ද දරා සිටින නිසා ma පමණක් ප්‍රමාණවත් නොවේ.
+The foot carries two unknown forces, and moments about it remove both.	පාදයේ නොදන්නා බල දෙකක් ඇති අතර එය වටා සූර්ණ ගැනීමෙන් දෙකම ඉවත් වේ.
+The foot pushes the ground backward. The ground pushes the person forward.	පාදය පොළොව පිටුපසට තල්ලු කරයි. පොළොව පුද්ගලයා ඉදිරියට තල්ලු කරයි.
+The gap covers the way up and the way down.	මෙම කාල පරතරයට ඉහළ යාම හා පහළ ඒම යන දෙකම අයත් ය.
+The graph shows the force on a {m} kg body, at rest at first on a smooth surface. Final speed?	ප්‍රස්තාරයෙන් සිනිඳු පෘෂ්ඨයක මුලින් නිශ්චලව ඇති {m} kg වස්තුවක් මත බලය දැක්වේ. අවසාන වේගය කුමක් ද?
+The graph shows the velocity of an object moving in a straight line. Average velocity over the whole motion?	ප්‍රස්තාරයෙන් සරල රේඛාවක ගමන් කරන වස්තුවක ප්‍රවේගය දැක්වේ. මුළු චලිතය සඳහා සාමාන්‍ය ප්‍රවේගය කුමක් ද?
+The impact force is internal and unknown. KE turns into heat.	ගැටුම් බලය අභ්‍යන්තර වන අතර නොදනී. චාලක ශක්තිය තාපය බවට පත් වේ.
+The level-road resistance still acts on the slope.	තිරස් මාර්ගයේ ප්‍රතිරෝධය ආනත තලයේ දී ද ක්‍රියා කරයි.
+The lift is accelerating, so the floor force isn't mg.	සෝපානය ත්වරණය වන නිසා බිමේ බලය mg නොවේ.
+The normal reaction	අභිලම්බ ප්‍රතික්‍රියාව
+The object doesn't stay at its first velocity.	වස්තුව පළමු ප්‍රවේගයේම නොරැඳේ.
+The parcel has zero acceleration, so the scale balances its weight.	පාර්සලයේ ත්වරණය ශුන්‍ය බැවින් තරාදියෙන් යොදන බලය හා පාර්සලයේ බර විශාලත්වයෙන් සමාන ය.
+The pendulum uses energy. The split shell uses momentum.	අවලම්බයට ශක්තිය යොදයි. කැඩුණු උණ්ඩයට ගම්‍යතාව යොදයි.
+The person's legs, on the person	පුද්ගලයාගේ පාද, පුද්ගලයා මත
+The person, on the ground	පුද්ගලයා, පොළොව මත
+The reaction appears slightly after the action.	ප්‍රතික්‍රියාව ඇති වන්නේ ක්‍රියාවට මඳ වේලාවකට පසුව ය.
+The reaction comes later, so they don't cancel at once	ප්‍රතික්‍රියාව පසුව ඇති වන නිසා ඒවා එකවර අවලංගු නොවේ
+The reaction is a little smaller, so a net force remains	ප්‍රතික්‍රියාව මඳක් කුඩා නිසා ශුද්ධ බලයක් ඉතිරි වේ
+The resultant lies between the difference and the sum of the two forces.	සම්ප්‍රයුක්තය බල දෙකේ අන්තරය හා ඓක්‍යය අතර පිහිටයි.
+The rising part adds area too.	ඉහළ යන කොටසෙන් ද වර්ගඵලය එකතු වේ.
+The runner slowed down, so use the final speed instead	ධාවකයා වේගය අඩු කළ නිසා අවසාන වේගය යොදා ගත යුතු ය
+The signed area gives the impulse of the resultant force, equal to the change in momentum.	ලකුණ සහිත වර්ගඵලයෙන් ලැබෙන්නේ සම්ප්‍රයුක්ත බලයේ ආවේගයයි. එය ගම්‍යතාවයේ වෙනසට සමාන ය.
+The sphere has the smaller I/(MR²), so less energy goes into rotation.	ගෝලයේ I/(MR²) කුඩා නිසා භ්‍රමණයට යන ශක්තිය අඩු ය.
+The spring force varies. Stored energy becomes KE.	දුනු බලය වෙනස් වේ. ගබඩා වූ ශක්තිය චාලක ශක්තිය බවට පත් වේ.
+The sticking is internal, and KE is lost.	ඇලීම අභ්‍යන්තර ක්‍රියාවක් වන අතර චාලක ශක්තිය හානි වේ.
+The table's pull on Earth	පෘථිවිය මත මේසයේ ඇදීම
+The table's push on the book	පොත මත මේසයේ තෙරපුම
+The times are unequal, so divide total distance by total time	කාල අසමාන නිසා මුළු දුර මුළු කාලයෙන් බෙදිය යුතු ය
+The times need averaging too, so divide 3 by 2	කාලවල ද සාමාන්‍යය ගත යුතු නිසා 3, 2 න් බෙදිය යුතු ය
+The two forces of a pair act on different bodies.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක බල දෙක වෙනස් වස්තු මත ක්‍රියා කරයි.
+The two forces of a pair are equal in size.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක බල දෙක විශාලත්වයෙන් සමාන ය.
+The two forces of a pair are equal, simultaneous, of one type, and act on different bodies.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක බල සමාන ය, එකවර පවතී, එකම වර්ගයේ ය, සහ වෙනස් වස්තු මත ක්‍රියා කරයි.
+The two forces of a pair are of the same type.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක බල දෙක එකම වර්ගයේ ය.
+The two forces of a pair cancel each other.	ක්‍රියා–ප්‍රතික්‍රියා බල යුගලයක බල දෙක එකිනෙක අවලංගු කරයි.
+The tyres, on the road	ටයර, මාර්ගය මත
+The vertical speed is lost by the top, so it isn't all of K.	ඉහළම ලක්ෂ්‍යය වන විට සිරස් වේගය නැති වන නිසා එය මුළු K නොවේ.
+They act on different bodies, so they don't cancel	ඒවා වෙනස් වස්තු මත ක්‍රියා කරන නිසා එකිනෙක අවලංගු නොවේ
+They only cancel when the two bodies are touching	ඒවා අවලංගු වන්නේ වස්තු දෙක ස්පර්ශ වී ඇති විට පමණි
+They tie	දෙකම එකවර
+Total momentum stays zero. Chemical energy makes KE unusable here.	මුළු ගම්‍යතාව ශුන්‍යව පවතී. රසායනික ශක්තිය නිසා මෙහි චාලක ශක්තිය යොදා ගත නොහැක.
+Translation + rotation, with I as the rotational mass.	පරිවහනය + භ්‍රමණය. මෙහි I භ්‍රමණයට අදාළ ස්කන්ධය ලෙස ක්‍රියා කරයි.
+True	සත්‍ය
+Two bodies of equal mass always have equal moments of inertia.	සමාන ස්කන්ධ ඇති වස්තු දෙකක අවස්ථිති සූර්ණ සැමවිටම සමාන ය.
+Two forces at right angles always have a resultant larger than the bigger force.	එකිනෙකට ලම්බක බල දෙකක සම්ප්‍රයුක්තය සැමවිටම විශාල බලයට වඩා වැඩි ය.
+Two rail wagons collide and couple together. Most direct principle for their common speed?	දුම්රිය මැදිරි දෙකක් ගැටී එකට සම්බන්ධ වේ. පොදු වේගය සෙවීමට වඩාත් සෘජු මූලධර්මය කුමක් ද?
+Use conservation of energy	ශක්ති සංස්ථිතිය යොදන්න
+Velocity	ප්‍රවේගය
+Velocity grows at a steady rate g.	ප්‍රවේගය g නියත සීඝ්‍රතාවෙන් වැඩි වේ.
+Vertical throw symmetry	සිරස් විසි කිරීමේ සමමිතිය
+Vertical velocity	සිරස් ප්‍රවේගය
+Wagons use momentum. On the slope, use energy.	මැදිරිවලට ගම්‍යතාව යොදයි. ආනතියේ දී ශක්තිය යොදයි.
+Weight down, N perpendicular to the slope, friction down the slope	බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය තලය දිගේ පහළට
+Weight down, N perpendicular to the slope, friction up the slope	බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය තලය දිගේ ඉහළට
+Weight down, N perpendicular to the slope, no friction	බර පහළට, N ආනත තලයට ලම්බව, ඝර්ෂණය නැත
+Weight down, N straight up, friction up the slope	බර පහළට, N සිරස්ව ඉහළට, ඝර්ෂණය තලය දිගේ ඉහළට
+What moment of inertia depends on	අවස්ථිති සූර්ණය රඳා පවතින දේ
+What pushes a walking person forward?	ඇවිදින පුද්ගලයෙකු ඉදිරියට තල්ලු කරන්නේ කුමක් ද?
+With no air resistance, the path is symmetric. Half the gap is spent going up to the top.	වායු ප්‍රතිරෝධය නැති විට පථය සමමිතික ය. කාල පරතරයෙන් අඩක් ඉහළටම යාමට ගත වේ.
+Without friction the block would slide down, so friction acts up the slope. N is perpendicular to the surface.	ඝර්ෂණය නැතිනම් කුට්ටිය පහළට ලිස්සයි. එබැවින් ඝර්ෂණය තලය දිගේ ඉහළට ක්‍රියා කරයි. N පෘෂ්ඨයට ලම්බ වේ.
+Work done	කරන ලද කාර්යය
+Work done by friction = loss of KE: μmgs = ½mv², so s = v²/(2μg).	ඝර්ෂණයෙන් කරන ලද කාර්යය = චාලක ශක්ති හානිය: μmgs = ½mv² නිසා s = v²/(2μg).
+Zero	ශුන්‍ය වේ
+Zero velocity means zero gradient, so the curve is flat at both ends.	ශුන්‍ය ප්‍රවේගය යනු ශුන්‍ය අනුක්‍රමණයයි. එබැවින් වක්‍රය දෙකෙළවරේම තිරස් ය.
+acceleration	ත්වරණය
+c is only the factor in I. Now build the ratio.	c යනු I හි සාධකය පමණි. දැන් අනුපාතය ගොඩනගන්න.
+distance	දුර
+down, slowing to a stop	වේගය අඩු කරමින් පහළට ගොස් නතර වේ
+down, speeding up	වේගය වැඩි කරමින් පහළට යයි
+g/μₛ	g/μₛ
+h = 2u²/g	h = 2u²/g
+h = gu²/2	h = gu²/2
+h = u/g	h = u/g
+h = u²/(2g)	h = u²/(2g)
+h = v²/(2g), so h ∝ v².	h = v²/(2g) නිසා h ∝ v².
+hollow sphere	කුහර ගෝලයක්
+m	m
+mg downward and a forward force	පහළට mg සහ ඉදිරියට බලයක්
+r	r
+r = μg/ω², so r ∝ 1/ω².	r = μg/ω² නිසා r ∝ 1/ω².
+rotational	භ්‍රමණ
+s = v²/(2μg), so s ∝ v².	s = v²/(2μg) නිසා s ∝ v².
+s = v²/(2μg), so s ∝ v². Mass doesn't matter.	s = v²/(2μg) නිසා s ∝ v². ස්කන්ධය බලපාන්නේ නැත.
+solid cylinder	ඝන සිලින්ඩරයක්
+solid sphere	ඝන ගෝලයක්
+speed	වේගය
+time	කාලය
+translational	පරිවහන
+up, slowing to a stop	වේගය අඩු කරමින් ඉහළට ගොස් නතර වේ
+up, speeding up	වේගය වැඩි කරමින් ඉහළට යයි
+v	v
+v = 0 is right, but KE also depends on height	v = 0 නිවැරදි ය, නමුත් චාලක ශක්තිය උස මත ද රඳා පවතී
+v = u + 2as	v = u + 2as
+v = u + as	v = u + as
+v² = u² + 2as	v² = u² + 2as
+v² = u² + as²	v² = u² + as²
+{article} {m} kg car needs {p0} kW to hold {v} m s⁻¹ on a level road. Power to hold the same speed up a slope with sin θ = {s}, same resistance?	{m} kg මෝටර් රථයකට තිරස් මාර්ගයක {v} m s⁻¹ පවත්වා ගැනීමට {p0} kW අවශ්‍ය වේ. ප්‍රතිරෝධය එලෙසම තිබිය දී, sin θ = {s} වූ ආනත තලයක් නගිමින් එම වේගයම පවත්වා ගැනීමට අවශ්‍ය ජවය කුමක් ද?
+¼	¼
+½	½
+½Iω²	½Iω²
+½mv² = μmgs puts the 2 below the line, not above it.	½mv² = μmgs අනුව 2 පවතින්නේ හරයේ මිස ලවයේ නොවේ.
+Δv isn't the acceleration. Divide by the time first.	Δv යනු ත්වරණය නොවේ. පළමුව කාලයෙන් බෙදන්න.
+μₛg	μₛg
+μₛg/2	μₛg/2
+μₛmg	μₛmg
+π	π
+τ = Iα	τ = Iα
+τ = Iα needs a known constant torque, and this isn't that.	τ = Iα සඳහා දන්නා නියත ව්‍යාවර්තයක් අවශ්‍ය වේ. මෙහි එය නැත.
+ω = 2π × (rpm ÷ 60) = 2π rad s⁻¹.	ω = 2π × (rpm ÷ 60) = 2π rad s⁻¹.
+√(A² − B²)	√(A² − B²)
+√2	√2
+√½	√½

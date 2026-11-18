@@ -1,0 +1,457 @@
+(Ns ÷ Np)²	(Ns ÷ Np)²
+(R₁ + R₂)/(R₁R₂)	(R₁ + R₂)/(R₁R₂)
+(R₁ + R₂)/2	(R₁ + R₂)/2
+0 V	0 V
+0 Ω	0 Ω
+0.2 mA	0.2 mA
+0.2 mV per cm is the gradient. Find the pd across the whole wire, then I.	cm එකකට 0.2 mV යනු අනුක්‍රමණයයි. මුළු කම්බිය හරහා විභව අන්තරය සොයා, ඉන්පසු I සොයන්න.
+0.33 Ω	0.33 Ω
+0.75 V	0.75 V
+0.83 Ω	0.83 Ω
+1	1
+1 : 1	1 : 1
+1 : 2 = 5 : 10, so the middle resistor carries no current.	1 : 2 = 5 : 10 නිසා මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි.
+1 : 3	1 : 3
+1 V	1 V
+1 kW × 3600 s = 3.6 × 10⁶ J.	1 kW × 3600 s = 3.6 × 10⁶ J.
+1 kWh in joules?	1 kWh ජූල් වලින් කීය ද?
+1 Ω	1 Ω
+1.5 V	1.5 V
+1/R = 1/R₁ + 1/R₂, which rearranges to product ÷ sum.	1/R = 1/R₁ + 1/R₂, එය නැවත සැකසූ විට ගුණිතය ÷ එකතුව ලැබේ.
+1/n	1/n
+10 Ω	10 Ω
+1000 J	1000 J
+12 V	12 V
+16 Ω	16 Ω
+2	2
+2 : 4 = 3 : 6, so no current flows in the 5 Ω.	2 : 4 = 3 : 6 නිසා 5 Ω හරහා ධාරාවක් නොගලයි.
+2 : 4 = 3 : 6, so the bridge is balanced.	2 : 4 = 3 : 6 නිසා සේතුව තුලිත ය.
+2 V	2 V
+2 mA	2 mA
+2 Ω	2 Ω
+20 mA	20 mA
+200 mA	200 mA
+27	27
+2E and 2r	2E සහ 2r
+2E and r/2	2E සහ r/2
+3	3
+3 : 1	3 : 1
+3 V	3 V
+3 Ω	3 Ω
+3.6 × 10⁵ J	3.6 × 10⁵ J
+3.6 × 10⁶ J	3.6 × 10⁶ J
+3600 J	3600 J
+3R is only the largest. Divide it by the smallest, R/3.	3R යනු විශාලතම අගය පමණි. එය කුඩාතම අගය වන R/3 න් බෙදන්න.
+4	4
+4 V	4 V
+4 × 12 ÷ 16 = 3 Ω, which is less than the smaller resistor.	4 × 12 ÷ 16 = 3 Ω, එය කුඩා ප්‍රතිරෝධකයටත් වඩා අඩු ය.
+4 Ω	4 Ω
+6	6
+6 V	6 V
+6 Ω	6 Ω
+8	8
+8 Ω	8 Ω
+9	9
+9 : 1	9 : 1
+A	A
+A 100 cm, 10 Ω potentiometer wire is in series with a 2 V cell and a resistor. A 10 mV source balances at 50 cm. Current in the wire?	100 cm, 10 Ω විභවමාන කම්බියක් 2 V කෝෂයක් හා ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගතව ඇත. 10 mV ප්‍රභවයක් 50 cm දී තුලනය වේ. කම්බියේ ධාරාව කීය ද?
+A 2 Ω and a 5 Ω resistor are in parallel across a cell. Which is the same for both?	2 Ω සහ 5 Ω ප්‍රතිරෝධක දෙකක් කෝෂයක් හරහා සමාන්තරගතව ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+A 2 Ω and a 5 Ω resistor are in series across a cell. Which is the same for both?	2 Ω සහ 5 Ω ප්‍රතිරෝධක දෙකක් කෝෂයක් හරහා ශ්‍රේණිගතව ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+A 4 Ω and a 12 Ω resistor are joined in parallel. Equivalent resistance?	4 Ω සහ 12 Ω ප්‍රතිරෝධක සමාන්තරගතව සම්බන්ධ කර ඇත. සමක ප්‍රතිරෝධය කීය ද?
+A 4 Ω and a 12 Ω resistor in parallel, in series with 2 Ω, across one cell. Most direct way to find the cell's current?	සමාන්තරගත 4 Ω සහ 12 Ω ප්‍රතිරෝධක, 2 Ω සමඟ ශ්‍රේණිගතව, එක් කෝෂයක් හරහා ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?
+A 6 V cell with no internal resistance drives 1 kΩ and 2 kΩ in series. An ideal voltmeter reads the pd across the 2 kΩ. Reading?	අභ්‍යන්තර ප්‍රතිරෝධයක් නැති 6 V කෝෂයක් ශ්‍රේණිගත 1 kΩ සහ 2 kΩ හරහා ධාරාව යවයි. පරිපූර්ණ වෝල්ට්මීටරයක් 2 kΩ හරහා විභව අන්තරය මනියි. පාඨාංකය කීය ද?
+A 60 W and a 100 W lamp are both plugged into the mains. Which is the same for both?	60 W සහ 100 W ලාම්පු දෙකම ප්‍රධාන සැපයුමට සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+A 60 W lamp and a 100 W lamp are each rated for 230 V. Treat their resistances as fixed at their rated values. Connected in series, which dissipates more power?	230 V සඳහා නිපදවූ 60 W ලාම්පුවක් හා 100 W ලාම්පුවක් සලකන්න. එක් එක් ලාම්පුවේ ප්‍රතිරෝධය එහි නාමික ක්‍රියාකාරී අගයේ නියතව පවතී යැයි ගන්න. ඒවා ශ්‍රේණිගතව සම්බන්ධ කළ විට වැඩි ජවයක් වැය වන්නේ කුමන ලාම්පුවේ ද?
+A N pole, but only once the magnet stops	N ධ්‍රැවයක්, නමුත් චුම්බකය නැවතුණු පසුව පමණි
+A N pole, pushing the magnet back	N ධ්‍රැවයක්, චුම්බකය ආපසු තල්ලු කරමින්
+A S pole, pulling the magnet in	S ධ්‍රැවයක්, චුම්බකය ඇතුළට අදිමින්
+A Wheatstone bridge has P, Q on one side and R, S on the other. Balance condition?	විට්ස්ටන් සේතුවක එක් පැත්තක P, Q ද අනෙක් පැත්තේ R, S ද ඇත. තුලන තත්ත්වය කුමක් ද?
+A bridge has 2 Ω and 4 Ω on one side, 3 Ω and 6 Ω on the other, and a 10 Ω resistor joining the middle points. Current in the 10 Ω?	සේතුවක එක් පැත්තක 2 Ω සහ 4 Ω ද, අනෙක් පැත්තේ 3 Ω සහ 6 Ω ද, මැද ලක්ෂ්‍ය යා කරමින් 10 Ω ප්‍රතිරෝධකයක් ද ඇත. 10 Ω හි ධාරාව කීය ද?
+A cell gives the same power to a {R1} Ω resistor as to a {R2} Ω resistor, joined one at a time. Internal resistance of the cell?	වරකට එකක් බැගින් සම්බන්ධ කළ විට, කෝෂයක් {R1} Ω ප්‍රතිරෝධකයකට හා {R2} Ω ප්‍රතිරෝධකයකට එකම ජවය ලබා දෙයි. කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?
+A cell has an internal resistance of 2 Ω. Which load takes the most power from it?	කෝෂයක අභ්‍යන්තර ප්‍රතිරෝධය 2 Ω වේ. එයින් වැඩිම ජවය ලබා ගන්නේ කුමන භාරය ද?
+A cell of e.m.f. E and internal resistance r gives current I. Terminal pd?	වි.ගා.බ. E සහ අභ්‍යන්තර ප්‍රතිරෝධය r වූ කෝෂයක් I ධාරාවක් දෙයි. අග්‍ර විභව අන්තරය කුමක් ද?
+A cell of e.m.f. {E} V and internal resistance {r} Ω drives a {R1} Ω resistor. A {R2} Ω resistor is then joined in parallel with it. New current from the cell?	වි.ගා.බ. {E} V සහ අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ කෝෂයක් {R1} Ω ප්‍රතිරෝධකයක් හරහා ධාරාව යවයි. ඉන්පසු {R2} Ω ප්‍රතිරෝධකයක් එයට සමාන්තරගතව සම්බන්ධ කෙරේ. කෝෂයෙන් ලැබෙන නව ධාරාව කීය ද?
+A cell of internal resistance r supplies a variable load R. Which condition gives maximum power to the load?	අභ්‍යන්තර ප්‍රතිරෝධය r වන කෝෂයකට විචල්‍ය භාර ප්‍රතිරෝධයක් R සම්බන්ධ කරයි. භාරයට උපරිම ජවය ලැබෙන්නේ කවර කොන්දේසිය යටතේ ද?
+A cell's terminal pd rises when it supplies a larger current.	කෝෂයක් විශාල ධාරාවක් සපයන විට එහි අග්‍ර විභව අන්තරය වැඩි වේ.
+A closed conducting loop and a long straight wire lie in one plane. The loop is entirely on one side of the wire. The wire’s current decreases. Which way is the induced field inside the loop?	සංවෘත සන්නායක පුඩුවක් හා දිගු සෘජු කම්බියක් එකම තලයක පිහිටයි. මුළු පුඩුවම කම්බියේ එක් පැත්තක ඇත. කම්බියේ ධාරාව අඩු වේ. පුඩුව තුළ ප්‍රේරිත ධාරාව නිසා හටගන්නා චුම්බක ක්ෂේත්‍රයේ දිශාව කුමක් ද?
+A coil sits still in a strong, steady magnetic field. Student says: "The flux is large, so the induced e.m.f. is large." What's wrong?	දඟරයක් ප්‍රබල, නියත චුම්බක ක්ෂේත්‍රයක නිසලව ඇත. සිසුවා පවසයි: "ස්‍රාවය විශාල නිසා ප්‍රේරිත වි.ගා.බ. ද විශාල ය." වැරැද්ද කුමක් ද?
+A coil's turns × 2, in the same changing field. Induced e.m.f. × ?	එකම විචලනය වන ක්ෂේත්‍රයේ දඟරයක වට ගණන × 2. ප්‍රේරිත වි.ගා.බ. × ?
+A current that falls also changes the flux, so it also induces a current.	අඩු වන ධාරාවක් ද ස්‍රාවය වෙනස් කරයි, එබැවින් එය ද ධාරාවක් ප්‍රේරණය කරයි.
+A divider has R and 3R in series across a cell. Pd across 3R ÷ cell voltage?	බෙදුම්කරයක කෝෂයක් හරහා R සහ 3R ශ්‍රේණිගතව ඇත. 3R හරහා විභව අන්තරය ÷ කෝෂයේ වෝල්ටීයතාව?
+A fixed resistor's pd × 3. Power × ?	ප්‍රතිරෝධය නියතව පවතින ප්‍රතිරෝධකයක විභව අන්තරය × 3. ජවය × ?
+A fixed-voltage supply drives a resistor. As the resistance increases, the power?	නියත වෝල්ටීයතා සැපයුමක් ප්‍රතිරෝධකයක් හරහා ධාරාව යවයි. ප්‍රතිරෝධය වැඩි වන විට ජවය?
+A heater on fixed mains voltage warms some water in {t} min. Its wire is swapped for one of the same metal, {k} times as long and with {m} times the diameter. Time to warm the same water by the same amount?	නියත ප්‍රධාන වෝල්ටීයතාවයක ක්‍රියා කරන තාපකයක් ජලය යම් ප්‍රමාණයක් {t} min කින් රත් කරයි. එහි කම්බිය එම ලෝහයෙන්ම, දිග {k} ගුණයක් ද විෂ්කම්භය {m} ගුණයක් ද වූ කම්බියකින් ප්‍රතිස්ථාපනය කෙරේ. එම ජලය එම ප්‍රමාණයෙන්ම රත් කිරීමට ගතවන කාලය කීය ද?
+A heater runs on fixed mains voltage. Its wire is swapped for one of the same metal and thickness, half as long. Time to heat the same water × ?	තාපකයක් නියත ප්‍රධාන වෝල්ටීයතාවයක ක්‍රියා කරයි. එහි කම්බිය එම ලෝහයෙන්ම, එම ඝනකමින්ම, දිග අඩක් වූ කම්බියකින් ප්‍රතිස්ථාපනය කෙරේ. එම ජලය රත් කිරීමට ගතවන කාලය × ?
+A longer wire, with the same driver cell, has a smaller potential gradient.	එකම ධාවක කෝෂය සමඟ, දිගු කම්බියක විභව අනුක්‍රමණය කුඩා ය.
+A loop is pulled steadily out of a field region. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් ක්ෂේත්‍ර ප්‍රදේශයකින් ඒකාකාරව ඉවතට අදිනු ලැබේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+A loop is pushed steadily into a field region. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් ක්ෂේත්‍ර ප්‍රදේශයකට ඒකාකාරව තල්ලු කරනු ලැබේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+A loop moves steadily inside a large uniform field, never reaching its edge. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් විශාල ඒකාකාර ක්ෂේත්‍රයක් තුළ, එහි දාරයට නොපැමිණ, ඒකාකාරව චලනය වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+A loop sits still in a steady field. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් නියත ක්ෂේත්‍රයක නිසලව ඇත. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+A magnet's N pole is pushed towards a coil. The induced current makes the near face of the coil act as?	චුම්බකයක N ධ්‍රැවය දඟරයක් දෙසට තල්ලු කෙරේ. ප්‍රේරිත ධාරාව නිසා දඟරයේ ආසන්න මුහුණත ක්‍රියා කරන්නේ කුමක් ලෙස ද?
+A motor needs a starter resistor because its back e.m.f. is zero when it starts.	මෝටරයක් පණගන්වන විට එහි ප්‍රති වි.ගා.බ. ශුන්‍ය නිසා ආරම්භක ප්‍රතිරෝධකයක් අවශ්‍ය වේ.
+A motor starts from rest and speeds up to full speed. When is its back e.m.f. largest?	මෝටරයක් නිශ්චලතාවයේ සිට ආරම්භ වී පූර්ණ වේගයට ළඟා වේ. එහි ප්‍රති වි.ගා.බ. විශාලතම වන්නේ කවදා ද?
+A potentiometer balances a cell at {l1} cm on open circuit, and at {l2} cm when a {R} Ω resistor is joined across the cell. Internal resistance of the cell?	විවෘත පරිපථයේ දී විභවමානයක් කෝෂයක් {l1} cm දී ද, කෝෂය හරහා {R} Ω ප්‍රතිරෝධකයක් සම්බන්ධ කළ විට {l2} cm දී ද තුලනය කරයි. කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?
+A resistor R has a pd V across it. Power?	R ප්‍රතිරෝධකයක් හරහා V විභව අන්තරයක් ඇත. ජවය කුමක් ද?
+A shorter wire, with the same driver cell, has a smaller potential gradient.	එකම ධාවක කෝෂය සමඟ, කෙටි කම්බියක විභව අනුක්‍රමණය කුඩා ය.
+A smaller potential gradient means a longer balance length for the same e.m.f., so the reading is more sensitive.	කුඩා විභව අනුක්‍රමණයක් යනු එකම වි.ගා.බ. සඳහා දිගු තුලන දිගකි, එබැවින් පාඨාංකය වඩා සංවේදී ය.
+A thick wire and a thin wire of the same metal are joined end to end in a circuit. Which is the same for both?	එකම ලෝහයේ ඝන කම්බියක් සහ සිහින් කම්බියක් පරිපථයක කෙළවරින් කෙළවරට සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+A transformer needs a.c., and a battery gives d.c.	පරිණාමකයකට ප්‍රත්‍යාවර්ත ධාරාව අවශ්‍ය වන අතර බැටරියක් ඍජු ධාරාව දෙයි
+A voltmeter is joined across a resistor. Which is the same for both?	වෝල්ට්මීටරයක් ප්‍රතිරෝධකයක් හරහා සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+A voltmeter never changes a circuit	වෝල්ට්මීටරයක් කිසිවිටෙක පරිපථයක් වෙනස් නොකරයි
+A wire has a thin part of area A and a thick part of area 3A. Drift speed, thin : thick?	කම්බියක වර්ගඵලය A වූ සිහින් කොටසක් සහ 3A වූ ඝන කොටසක් ඇත. ප්ලාවිත වේගය, සිහින් : ඝන?
+A wire is stretched to twice its length, with its volume unchanged. Resistance × ?	කම්බියක පරිමාව නොවෙනස්ව, එය දිග මෙන් දෙගුණයක් දක්වා අදිනු ලැබේ. ප්‍රතිරෝධය × ?
+A wire kept at constant temperature carries current I. Pick the graph of its power P against I.	නියත උෂ්ණත්වයක තබා ඇති කම්බියක් I ධාරාවක් ගෙන යයි. I ට එරෙහිව එහි ජවය P හි ප්‍රස්තාරය තෝරන්න.
+A wire {l} m long and {d} mm in diameter has a resistance of {R} Ω. Resistance of a wire of the same metal, {l2} m long and {d2} mm in diameter?	දිග {l} m සහ විෂ්කම්භය {d} mm වූ කම්බියක ප්‍රතිරෝධය {R} Ω වේ. එම ලෝහයෙන්ම, දිග {l2} m සහ විෂ්කම්භය {d2} mm වූ කම්බියක ප්‍රතිරෝධය කීය ද?
+A {E} V cell with no internal resistance is joined across a {R1} Ω and a {R2} Ω resistor in series. Pd across the {R2} Ω resistor?	අභ්‍යන්තර ප්‍රතිරෝධයක් නැති {E} V කෝෂයක් ශ්‍රේණිගත {R1} Ω සහ {R2} Ω ප්‍රතිරෝධක හරහා සම්බන්ධ කර ඇත. {R2} Ω ප්‍රතිරෝධකය හරහා විභව අන්තරය කීය ද?
+A {L} cm potentiometer wire has {V} V across it. A cell balances at {l} cm. E.m.f. of the cell?	{L} cm විභවමාන කම්බියක් හරහා {V} V ඇත. කෝෂයක් {l} cm දී තුලනය වේ. කෝෂයේ වි.ගා.බ. කීය ද?
+A {N}-turn coil of area {A} cm² lies perpendicular to a magnetic field. The flux density rises steadily from {B1} T to {B2} T in {t} s. Induced e.m.f.?	වට {N} ක් සහ වර්ගඵලය {A} cm² වූ දඟරයක් චුම්බක ක්ෂේත්‍රයකට ලම්බකව ඇත. චුම්බක ස්‍රාව ඝනත්වය {t} s තුළ {B1} T සිට {B2} T දක්වා ඒකාකාරව වැඩි වේ. ප්‍රේරිත වි.ගා.බ. කීය ද?
+A {R} Ω and a {S} Ω resistor are joined in parallel, and a {T} Ω resistor is joined in series with the pair. Total resistance?	{R} Ω සහ {S} Ω ප්‍රතිරෝධක සමාන්තරගතව සම්බන්ධ කර, එම යුගලය සමඟ {T} Ω ප්‍රතිරෝධකයක් ශ්‍රේණිගතව සම්බන්ධ කර ඇත. මුළු ප්‍රතිරෝධය කීය ද?
+A {R} Ω resistor is connected to a supply with an e.m.f. of {E} V and an internal resistance of {r} Ω. Power used in the resistor?	{R} Ω ප්‍රතිරෝධකයක් වි.ගා.බ. {E} V සහ අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ සැපයුමකට සම්බන්ධ කර ඇත. ප්‍රතිරෝධකයේ වැය වන ජවය කීය ද?
+A ∝ d², so A × 4 and R × ¼.	A ∝ d², එබැවින් A × 4 සහ R × ¼.
+Add all the resistances	සියලු ප්‍රතිරෝධ එකතු කරන්න
+Adding one more resistor in parallel always lowers the total resistance.	තවත් ප්‍රතිරෝධකයක් සමාන්තරගතව එක් කිරීම සැමවිටම මුළු ප්‍රතිරෝධය අඩු කරයි.
+Adding resistance to the driver circuit lowers the potential gradient.	ධාවක පරිපථයට ප්‍රතිරෝධයක් එක් කිරීම විභව අනුක්‍රමණය අඩු කරයි.
+All in series gives 3R. All in parallel gives R/3. The ratio is 9.	සියල්ල ශ්‍රේණිගත කළ විට 3R ලැබේ. සියල්ල සමාන්තරගත කළ විට R/3 ලැබේ. අනුපාතය 9 කි.
+Along the page to the right	පිටුව දිගේ දකුණට
+Along the wire	කම්බිය දිගේ
+Ammeter 1 MΩ, voltmeter 1 Ω	ඇමීටරය 1 MΩ, වෝල්ට්මීටරය 1 Ω
+Ammeter 1 kΩ, voltmeter 1 MΩ	ඇමීටරය 1 kΩ, වෝල්ට්මීටරය 1 MΩ
+Ammeter 1 Ω, voltmeter 1 MΩ	ඇමීටරය 1 Ω, වෝල්ට්මීටරය 1 MΩ
+Ammeter in the loop, voltmeter across R	ඇමීටරය පරිපථයේ ශ්‍රේණිගතව, වෝල්ට්මීටරය R හරහා
+Ammeter in the loop, voltmeter across the cell	ඇමීටරය පරිපථයේ ශ්‍රේණිගතව, වෝල්ට්මීටරය කෝෂය හරහා
+Ammeters, voltmeters and ideal meters	ඇමීටර, වෝල්ට්මීටර සහ පරිපූර්ණ මීටර
+An ammeter is joined in series with a resistor. Which is the same for both?	ඇමීටරයක් ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගතව සම්බන්ධ කර ඇත. දෙකටම සමාන වන්නේ කුමක් ද?
+An ammeter's resistance adds to the circuit, so it must be tiny.	ඇමීටරයේ ප්‍රතිරෝධය පරිපථයට එකතු වේ, එබැවින් එය ඉතා කුඩා විය යුතු ය.
+An ideal transformer has {Np} primary turns and {Ns} secondary turns. The primary takes {Ip} A r.m.s. from a {Vp} V r.m.s. supply. Secondary current?	පරිපූර්ණ පරිණාමකයක ප්‍රාථමික වට {Np} ක් සහ ද්විතීයික වට {Ns} ක් ඇත. ප්‍රාථමිකය {Vp} V r.m.s. සැපයුමකින් {Ip} A r.m.s. ගනී. ද්විතීයික ධාරාව කීය ද?
+An ideal transformer keeps VI the same, and steady d.c. gives no output at all.	පරිපූර්ණ පරිණාමකයක VI නොවෙනස්ව පවතී, තවද නියත ඍජු ධාරාවකින් කිසිදු ප්‍රතිදානයක් නොලැබේ.
+An ideal voltmeter across a cell with nothing else connected reads the cell's e.m.f.	වෙනත් කිසිවක් සම්බන්ධ නොකළ කෝෂයක් හරහා ඇති පරිපූර්ණ වෝල්ට්මීටරයක් කෝෂයේ වි.ගා.බ. පෙන්වයි.
+An ideal voltmeter has infinite resistance, so it draws no current.	පරිපූර්ණ වෝල්ට්මීටරයක ප්‍රතිරෝධය අනන්ත ය, එබැවින් එය ධාරාවක් නොගනී.
+An ideal voltmeter has zero resistance.	පරිපූර්ණ වෝල්ට්මීටරයක ප්‍රතිරෝධය ශුන්‍ය වේ.
+Anticlockwise	වාමාවර්ත
+Any current makes a field, and this one opposes the change.	ඕනෑම ධාරාවක් ක්ෂේත්‍රයක් ඇති කරයි, මෙය වෙනසට විරුද්ධ වේ.
+Any driver cell gives a balance point, even one weaker than the cell tested.	පරීක්ෂා කරන කෝෂයට වඩා දුර්වල වුවත්, ඕනෑම ධාවක කෝෂයක් තුලන ලක්ෂ්‍යයක් ලබා දෙයි.
+As large as possible	හැකි තරම් විශාල
+At balance the test cell supplies no current to the potentiometer.	තුලිත අවස්ථාවේ දී පරීක්ෂා කරන කෝෂය විභවමානයට ධාරාවක් සපයන්නේ නැත.
+At balance, the cell being tested drives a small current through the galvanometer.	තුලනයේ දී, පරීක්ෂා කරන කෝෂය ගැල්වනෝමීටරය හරහා කුඩා ධාරාවක් යවයි.
+At balance, the cell being tested gives a small current to the potentiometer circuit.	තුලනයේ දී, පරීක්ෂා කරන කෝෂය විභවමාන පරිපථයට කුඩා ධාරාවක් දෙයි.
+At balance, the two middle points are at the same potential, so the ratios match.	තුලනයේ දී මැද ලක්ෂ්‍ය දෙක එකම විභවයේ ඇත, එබැවින් අනුපාත සමාන වේ.
+At full speed	පූර්ණ වේගයේ දී
+At the moment it starts	ආරම්භ වන මොහොතේ
+Back e.m.f. grows as the coil turns faster.	දඟරය වේගයෙන් කැරකෙන විට ප්‍රති වි.ගා.බ. වැඩි වේ.
+Back e.m.f. is largest at the start, so the current is smallest then	ප්‍රති වි.ගා.බ. ආරම්භයේ දී විශාලතම ය, එබැවින් එවිට ධාරාව කුඩාතම ය
+Back e.m.f. is largest then, so the current is smallest	එවිට ප්‍රති වි.ගා.බ. විශාලතම ය, එබැවින් ධාරාව කුඩාතම ය
+Back e.m.f. is proportional to the speed of rotation.	ප්‍රති වි.ගා.බ. භ්‍රමණ වේගයට අනුලෝමව සමානුපාතික ය.
+Back e.m.f. of a motor	මෝටරයක ප්‍රති වි.ගා.බ.
+Balanced Wheatstone bridge	තුලිත විට්ස්ටන් සේතුව
+Balanced bridge: leave out the middle resistor	තුලිත සේතුව: මැද ප්‍රතිරෝධකය ඉවත් කරන්න
+Both 1 kΩ	දෙකම 1 kΩ
+Both are joined across the same two points.	දෙකම එකම ලක්ෂ්‍ය දෙක හරහා සම්බන්ධ කර ඇත.
+Both equally	දෙකම සමානව
+Both meters in the loop	මීටර දෙකම පරිපථයේ ශ්‍රේණිගතව
+Both sides carry current. Combine them in parallel.	පැති දෙකම ධාරාව ගෙන යයි. ඒවා සමාන්තරගතව සංයෝජනය කරන්න.
+Cells in series and in parallel	ශ්‍රේණිගත සහ සමාන්තරගත කෝෂ
+Clockwise	දක්ෂිණාවර්ත
+Clockwise, then anticlockwise	දක්ෂිණාවර්ත, ඉන්පසු වාමාවර්ත
+Combine R₁ and R₂ in parallel, add r, then I = E ÷ total.	R₁ සහ R₂ සමාන්තරගතව සංයෝජනය කර, r එකතු කර, ඉන්පසු I = E ÷ මුළු ප්‍රතිරෝධය.
+Combine series and parallel resistors	ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක සංයෝජනය කරන්න
+Combine the parallel group, then add the series resistor.	සමාන්තරගත කාණ්ඩය සංයෝජනය කර, ඉන්පසු ශ්‍රේණිගත ප්‍රතිරෝධකය එකතු කරන්න.
+Current	ධාරාව
+Current flows through both resistors of the pair, so include S.	යුගලයේ ප්‍රතිරෝධක දෙක හරහාම ධාරාව ගලයි, එබැවින් S ද ඇතුළත් කරන්න.
+Curve from the origin, getting steeper	මූල ලක්ෂ්‍යයේ සිට, ක්‍රමයෙන් බෑවුම වැඩි වන වක්‍රය
+Curve that falls as I grows	I වැඩි වන විට පහළ යන වක්‍රය
+Curve that rises, then levels off	ඉහළ ගොස්, ඉන්පසු සමතලා වන වක්‍රය
+Decreases	අඩු වේ
+Depends on the cell's voltage	කෝෂයේ වෝල්ටීයතාව මත රඳා පවතී
+Divide by the length of this wire, not by 100 cm.	100 cm න් නොව, මෙම කම්බියේ දිගින් බෙදන්න.
+Divide by the total resistance, not by the other resistor.	අනෙක් ප්‍රතිරෝධකයෙන් නොව, මුළු ප්‍රතිරෝධයෙන් බෙදන්න.
+Drift velocity and current density	ප්ලාවිත ප්‍රවේගය සහ ධාරා ඝනත්වය
+E	E
+E + Ir	E + Ir
+E = N dΦ/dt, so E ∝ N.	E = N dΦ/dt, so E ∝ N.
+E = N × A × ΔB ÷ Δt, with A in m².	E = N × A × ΔB ÷ Δt, A m² වලින්.
+E and 2r	E සහ 2r
+E and r/2	E සහ r/2
+E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω.	E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω.
+E ÷ V = l₁ ÷ l₂ gives r = R(l₁ − l₂) ÷ l₂.	E ÷ V = l₁ ÷ l₂ න් r = R(l₁ − l₂) ÷ l₂ ලැබේ.
+E ÷ V = l₁ ÷ l₂, and E ÷ V = (R + r) ÷ R.	E ÷ V = l₁ ÷ l₂, සහ E ÷ V = (R + r) ÷ R.
+E − Ir	E − Ir
+E.m.f. depends on the rate of change of flux, not on resistance.	වි.ගා.බ. රඳා පවතින්නේ ප්‍රතිරෝධය මත නොව, ස්‍රාවයේ වෙනස් වීමේ ශීඝ්‍රතාව මත ය.
+E.m.f. is a rate: divide by the time, don't multiply.	වි.ගා.බ. යනු ශීඝ්‍රතාවකි: කාලයෙන් බෙදන්න, ගුණ නොකරන්න.
+Each cell's r adds when they are in series.	ශ්‍රේණිගත විට එක් එක් කෝෂයේ r එකතු වේ.
+Each new path lets more current through for the same pd.	එකම විභව අන්තරය සඳහා සෑම නව මාර්ගයක්ම වැඩි ධාරාවක් ගැලීමට ඉඩ දෙයි.
+Each turn has the same e.m.f., so voltage ∝ turns.	සෑම වටයකටම එකම වි.ගා.බ. ඇත, එබැවින් වෝල්ටීයතාව ∝ වට ගණන.
+Electrical power	විද්‍යුත් ජවය
+Electrons drift at the same speed in the thick and the thin part.	ඝන සහ සිහින් කොටස් දෙකේම ඉලෙක්ට්‍රෝන එකම වේගයෙන් ප්ලාවනය වේ.
+Electrons drift faster in the thin part of a wire.	කම්බියක සිහින් කොටසේ ඉලෙක්ට්‍රෝන වේගයෙන් ප්ලාවනය වේ.
+Electrons drift more slowly in the thin part of a wire.	කම්බියක සිහින් කොටසේ ඉලෙක්ට්‍රෝන සෙමින් ප්ලාවනය වේ.
+End to end is series, so the current is the same.	කෙළවරින් කෙළවරට යනු ශ්‍රේණිගත වීමයි, එබැවින් ධාරාව සමාන ය.
+Equal power doesn't give r = R₂ − R₁. Set I²R equal for both loads.	සමාන ජවයෙන් r = R₂ − R₁ නොලැබේ. භාර දෙකටම I²R සමාන කරන්න.
+Every resistor is in series or in parallel with another.	සෑම ප්‍රතිරෝධකයක්ම තවත් එකක් සමඟ ශ්‍රේණිගත හෝ සමාන්තරගත ය.
+Exists only while the current rises	පවතින්නේ ධාරාව වැඩි වන අතරතුර පමණි
+E²R₁/(R₁ + r)² = E²R₂/(R₂ + r)² gives r² = R₁R₂.	E²R₁/(R₁ + r)² = E²R₂/(R₂ + r)² න් r² = R₁R₂ ලැබේ.
+False	අසත්‍ය
+Faraday's law	ෆැරඩේ නියමය
+Flux density × area	චුම්බක ස්‍රාව ඝනත්වය × වර්ගඵලය
+For a uniform wire at constant current, the balance length is proportional to the test e.m.f.	ඒකාකාර කම්බියක් හරහා නියත ධාරාවක් ගලන විට තුලන දිග පරීක්ෂා කරන කෝෂයේ වි.ගා.බ. ට අනුලෝමව සමානුපාතික වේ.
+From + to −, one branch has 1 Ω then 2 Ω. Another has 5 Ω then 10 Ω. A 8 Ω link joins their midpoints. Simplest way to find the cell current?	කෝෂයේ ධන අග්‍රයේ සිට ඍණ අග්‍රය දක්වා එක් ශාඛාවක 1 Ω හා 2 Ω ද අනෙකෙහි 5 Ω හා 10 Ω ද පිළිවෙළින් ඇත. ශාඛා දෙකේ මධ්‍ය ලක්ෂ්‍ය අතර 8 Ω ප්‍රතිරෝධකයක් ඇත. කෝෂයේ ධාරාව සෙවීමට සරලම ක්‍රමය කුමක් ද?
+From + to −, one branch has 2 Ω then 4 Ω. Another has 3 Ω then 6 Ω. A 5 Ω link joins their midpoints. Simplest way to find the cell current?	කෝෂයේ ධන අග්‍රයේ සිට ඍණ අග්‍රය දක්වා එක් ශාඛාවක 2 Ω හා 4 Ω ද අනෙකෙහි 3 Ω හා 6 Ω ද පිළිවෙළින් ඇත. ශාඛා දෙකේ මධ්‍ය ලක්ෂ්‍ය අතර 5 Ω ප්‍රතිරෝධකයක් ඇත. කෝෂයේ ධාරාව සෙවීමට සරලම ක්‍රමය කුමක් ද?
+Gradient = 0.2 mV cm⁻¹, so the wire has 20 mV across it, and I = 20 mV ÷ 10 Ω.	අනුක්‍රමණය = 0.2 mV cm⁻¹, එබැවින් කම්බිය හරහා 20 mV ඇත, සහ I = 20 mV ÷ 10 Ω.
+Half the cell's current	කෝෂයේ ධාරාවෙන් අඩක්
+Half the power is lost inside the cell.	ජවයෙන් අඩක් කෝෂය තුළ නාස්ති වේ.
+Halving R changes the power, so the time changes.	R අඩක් කිරීම ජවය වෙනස් කරයි, එබැවින් කාලය වෙනස් වේ.
+How power varies with current, voltage and resistance	ධාරාව, වෝල්ටීයතාව සහ ප්‍රතිරෝධය සමඟ ජවය වෙනස් වන ආකාරය
+I = (V − E_back) ÷ R, and E_back rises with speed.	I = (V − E_back) ÷ R, සහ වේගය සමඟ E_back වැඩි වේ.
+I = (V − back e.m.f.) ÷ R, so the speed matters.	I = (V − ප්‍රති වි.ගා.බ.) ÷ R, එබැවින් වේගය වැදගත් වේ.
+I = E/(R + r), then P = I²R.	I = E/(R + r), ඉන්පසු P = I²R.
+I = n ▢ v e	I = n ▢ v e
+I = nAve: carrier density × area × drift speed × charge.	I = nAve: වාහක ඝනත්වය × වර්ගඵලය × ප්ලාවිත වේගය × ආරෝපණය.
+Ideal transformer: Vs ÷ Vp = ?	පරිපූර්ණ පරිණාමකය: Vs ÷ Vp = ?
+Identical cells in parallel keep the same e.m.f.	සමාන්තරගත සර්වසම කෝෂවල වි.ගා.බ. නොවෙනස්ව පවතී.
+In a divider, an ideal voltmeter across one resistor is swapped for a real one with a similar resistance. Student says: "The reading stays the same." What's wrong?	බෙදුම්කරයක එක් ප්‍රතිරෝධකයක් හරහා ඇති පරිපූර්ණ වෝල්ට්මීටරය, ඊට සමාන ප්‍රතිරෝධයක් ඇති සැබෑ එකකින් ප්‍රතිස්ථාපනය කෙරේ. සිසුවා පවසයි: "පාඨාංකය නොවෙනස්ව පවතී." වැරැද්ද කුමක් ද?
+In an ideal step-up transformer, the secondary current is larger than the primary current.	පරිපූර්ණ අධිකර පරිණාමකයක, ද්විතීයික ධාරාව ප්‍රාථමික ධාරාවට වඩා විශාල ය.
+In series there is only one path, so the current is the same.	ශ්‍රේණිගතව ඇත්තේ එක් මාර්ගයක් පමණි, එබැවින් ධාරාව සමාන ය.
+In this orientation the potential rises across the two cells add.	මෙම සම්බන්ධයේ දී කෝෂ දෙක හරහා සිදුවන විභව වැඩිවීම් එකතු වේ.
+Increases	වැඩි වේ
+Induced e.m.f. needs a changing flux.	ප්‍රේරිත වි.ගා.බ. සඳහා වෙනස් වන ස්‍රාවයක් අවශ්‍ය ය.
+Internal resistance with a potentiometer	විභවමානයෙන් අභ්‍යන්තර ප්‍රතිරෝධය
+Internal resistances in series add.	ශ්‍රේණිගත අභ්‍යන්තර ප්‍රතිරෝධ එකතු වේ.
+Into the page	පිටුව තුළට
+Ir	Ir
+Is zero, because the wire's field is still there	ශුන්‍ය වේ, මන්ද කම්බියේ ක්ෂේත්‍රය තවමත් පවතින නිසා
+Is ÷ Ip	Is ÷ Ip
+It gives a faster reading	එය ඉක්මන් පාඨාංකයක් දෙයි
+It has a higher resistance	එයට වැඩි ප්‍රතිරෝධයක් ඇත
+It needs no driver cell	එයට ධාවක කෝෂයක් අවශ්‍ය නැත
+It works, but the current rises as well	එය ක්‍රියා කරයි, නමුත් ධාරාව ද වැඩි වේ
+It would step the voltage down instead	ඒ වෙනුවට එය වෝල්ටීයතාව අඩු කරයි
+Joule heating	ජූල් තාපනය
+Kirchhoff's laws	කර්චොෆ්ගේ නියම
+Largest of all, because the path is short	මාර්ගය කෙටි නිසා සියල්ලටම වඩා විශාල ය
+Lenz's law	ලෙන්ස් නියමය
+Less of the loop is in the field, so the flux falls and the current tries to keep it up.	පුඩුවෙන් අඩු කොටසක් ක්ෂේත්‍රයේ ඇත, එබැවින් ස්‍රාවය අඩු වන අතර ධාරාව එය පවත්වා ගැනීමට උත්සාහ කරයි.
+Mains sockets are in parallel, so each lamp has the full mains voltage.	ප්‍රධාන සැපයුමේ කෙවෙනි සමාන්තරගත ය, එබැවින් සෑම ලාම්පුවකටම සම්පූර්ණ ප්‍රධාන වෝල්ටීයතාව ලැබේ.
+Maximum power needs R = r, not R = 2r.	උපරිම ජවය සඳහා R = 2r නොව, R = r අවශ්‍ය ය.
+Maximum power transfer	උපරිම ජව සංක්‍රාමණය
+More current flows through the larger resistance	විශාල ප්‍රතිරෝධය හරහා වැඩි ධාරාවක් ගලයි
+More current flows through the smaller resistance	කුඩා ප්‍රතිරෝධය හරහා වැඩි ධාරාවක් ගලයි
+More of the loop is in the field, so the induced field opposes the rise.	පුඩුවෙන් වැඩි කොටසක් ක්ෂේත්‍රයේ ඇත, එබැවින් ප්‍රේරිත ක්ෂේත්‍රය එම වැඩි වීමට විරුද්ධ වේ.
+Multiply by R. The length ratio alone has no unit.	R න් ගුණ කරන්න. දිග අනුපාතයට පමණක් ඒකකයක් නැත.
+No change in flux means no e.m.f., whatever the core.	හරය කුමක් වුවත්, ස්‍රාවයේ වෙනසක් නැත්නම් වි.ගා.බ. නැත.
+No current	ධාරාවක් නැත
+No current flows in the middle resistor, so leave it out.	මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි, එබැවින් එය ඉවත් කරන්න.
+No current flows, so no pd is lost inside the cell.	ධාරාවක් නොගලයි, එබැවින් කෝෂය තුළ විභව අන්තරයක් නාස්ති නොවේ.
+No pd across it, so no current, whatever its resistance.	එහි ප්‍රතිරෝධය කුමක් වුවත්, ඒ හරහා විභව අන්තරයක් නැති නිසා ධාරාවක් නැත.
+No pole at all	කිසිදු ධ්‍රැවයක් නැත
+Nothing changes, so no e.m.f. is induced.	කිසිවක් වෙනස් නොවේ, එබැවින් වි.ගා.බ. ප්‍රේරණය නොවේ.
+Nothing changes, so there is no current at any time.	කිසිවක් වෙනස් නොවේ, එබැවින් කිසිම විටෙක ධාරාවක් නැත.
+Nothing, if the turns ratio is 20	වට අනුපාතය 20 නම් කිසිවක් නැත
+Nothing: more flux always means more e.m.f.	කිසිවක් නැත: වැඩි ස්‍රාවයක් සැමවිටම වැඩි වි.ගා.බ. අදහස් කරයි
+Nothing: most power means the least waste	කිසිවක් නැත: වැඩිම ජවය යනු අවම නාස්තියයි
+Nothing: the pd is equal, so the current is too	කිසිවක් නැත: විභව අන්තරය සමාන නිසා ධාරාව ද සමාන ය
+Np ÷ Ns	Np ÷ Ns
+Ns ÷ Np	Ns ÷ Np
+Only part of the wire balances the cell.	කම්බියේ කොටසක් පමණක් කෝෂය තුලනය කරයි.
+Out of the page	පිටුවෙන් පිටතට
+P + Q = R + S	P + Q = R + S
+P : Q = R : S, so no current flows in the middle resistor. The two sides are in parallel.	P : Q = R : S නිසා මැද ප්‍රතිරෝධකය හරහා ධාරාවක් නොගලයි. පැති දෙක සමාන්තරගත ය.
+P = VI and I = V/R, so P = V²/R.	P = VI සහ I = V/R, එබැවින් P = V²/R.
+P = V²/R, so P ∝ V².	P = V²/R, so P ∝ V².
+P − Q = R − S	P − Q = R − S
+P/Q = R/S	P/Q = R/S
+PQ = RS	PQ = RS
+Parallel resistors don't average. Use product ÷ sum.	සමාන්තරගත ප්‍රතිරෝධකවල සාමාන්‍යය නොගනී. ගුණිතය ÷ එකතුව භාවිත කරන්න.
+Part of the e.m.f., Ir, is used up inside the cell.	වි.ගා.බ. යෙන් කොටසක් වන Ir කෝෂය තුළ වැය වේ.
+Pd	විභව අන්තරය
+Points against the wire's field	කම්බියේ ක්ෂේත්‍රයට විරුද්ධ දිශාවට යොමු වේ
+Points the same way as the wire's field	කම්බියේ ක්ෂේත්‍රයේ දිශාවටම යොමු වේ
+Potential divider	විභව බෙදුම්කරය
+Potential gradient = V ÷ L. The e.m.f. = gradient × balance length.	විභව අනුක්‍රමණය = V ÷ L. වි.ගා.බ. = අනුක්‍රමණය × තුලන දිග.
+Potential gradient along a potentiometer wire	විභවමාන කම්බියක් දිගේ විභව අනුක්‍රමණය
+Potential gradient is volts per metre of wire.	විභව අනුක්‍රමණය යනු කම්බියේ මීටරයකට වෝල්ට් ගණනයි.
+Potential gradient of a potentiometer wire = pd across the wire ÷ ▢	විභවමාන කම්බියක විභව අනුක්‍රමණය = කම්බිය හරහා විභව අන්තරය ÷ ▢
+Potentiometer principle and sensitivity	විභවමාන මූලධර්මය සහ සංවේදීතාව
+Potentiometer: a cell balances at 60 cm on open circuit, and at 50 cm when it drives a 5 Ω resistor. Internal resistance?	විභවමානය: කෝෂයක් විවෘත පරිපථයේ දී 60 cm දී ද, 5 Ω ප්‍රතිරෝධකයක් හරහා ධාරාව යවන විට 50 cm දී ද තුලනය වේ. අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?
+Power	ජවය
+Power in = power out, so Is = Ip × Np ÷ Ns.	ප්‍රදාන ජවය = ප්‍රතිදාන ජවය, එබැවින් Is = Ip × Np ÷ Ns.
+Power in = power out, so if V goes up, I comes down.	ප්‍රදාන ජවය = ප්‍රතිදාන ජවය, එබැවින් V වැඩි වුවහොත් I අඩු වේ.
+R	R
+R = 0	R = 0
+R = 2r	R = 2r
+R = r	R = r
+R = r/2	R = r/2
+R = ρ ▢ ÷ A	R = ρ ▢ ÷ A
+R = ρl/A and A ∝ d², so R ∝ l/d².	R = ρl/A සහ A ∝ d², එබැවින් R ∝ l/d².
+R falls as the wire gets thicker: R ∝ l/d².	කම්බිය ඝන වන විට R අඩු වේ: R ∝ l/d².
+R halves, so P = V²/R doubles and the time halves.	R අඩක් වේ, එබැවින් P = V²/R දෙගුණ වන අතර කාලය අඩක් වේ.
+R is constant, so P = I²R is a parabola through the origin.	R නියත ය, එබැවින් P = I²R මූල ලක්ෂ්‍යය හරහා යන පරාවලයකි.
+R × k/m². With V fixed, P = V²/R, so the time scales the same way as R.	R × k/m². V නියත විට P = V²/R, එබැවින් කාලය R ලෙසම වෙනස් වේ.
+Raising the voltage across the wire makes the potentiometer more sensitive.	කම්බිය හරහා වෝල්ටීයතාව වැඩි කිරීම විභවමානය වඩා සංවේදී කරයි.
+Resistance	ප්‍රතිරෝධය
+Resistance and resistivity	ප්‍රතිරෝධය සහ ප්‍රතිරෝධකතාව
+Resistance grows with the length and falls with the cross-sectional area.	ප්‍රතිරෝධය දිග සමඟ වැඩි වන අතර හරස්කඩ වර්ගඵලය සමඟ අඩු වේ.
+Resistors R₁ and R₂ are in parallel. Equivalent resistance?	R₁ සහ R₂ ප්‍රතිරෝධක සමාන්තරගත ය. සමක ප්‍රතිරෝධය කුමක් ද?
+Resistors in series and parallel	ශ්‍රේණිගත සහ සමාන්තරගත ප්‍රතිරෝධක
+Resistors of {P} Ω and {Q} Ω form one side of a bridge, and {R} Ω and {S} Ω the other, with a {G} Ω resistor joining the middle points. A {E} V cell with no internal resistance drives it. Current through the cell?	{P} Ω සහ {Q} Ω ප්‍රතිරෝධක සේතුවක එක් පැත්තක් ද, {R} Ω සහ {S} Ω අනෙක් පැත්ත ද සාදයි, මැද ලක්ෂ්‍ය {G} Ω ප්‍රතිරෝධකයකින් යා කර ඇත. අභ්‍යන්තර ප්‍රතිරෝධයක් නැති {E} V කෝෂයක් එය ක්‍රියා කරවයි. කෝෂය හරහා ධාරාව කීය ද?
+Rises, then falls	වැඩි වී, ඉන්පසු අඩු වේ
+R₁ + R₂	R₁ + R₂
+R₁R₂/(R₁ + R₂)	R₁R₂/(R₁ + R₂)
+SI unit of magnetic flux?	චුම්බක ස්‍රාවයේ SI ඒකකය කුමක් ද?
+Same current through a smaller area needs faster drift.	කුඩා වර්ගඵලයක් හරහා එකම ධාරාවට වේගවත් ප්ලාවිත වේගයක් අවශ්‍ය ය.
+Same current through both, so pd ∝ R: 3R ÷ 4R.	දෙක හරහාම එකම ධාරාව, එබැවින් විභව අන්තරය ∝ R: 3R ÷ 4R.
+Same metal and length, but the diameter × 2. Resistance × ?	එකම ලෝහය සහ දිග, නමුත් විෂ්කම්භය × 2. ප්‍රතිරෝධය × ?
+Some resistors here are neither in series nor in parallel.	මෙහි සමහර ප්‍රතිරෝධක ශ්‍රේණිගත හෝ සමාන්තරගත නොවේ.
+Stays the same	නොවෙනස්ව පවතී
+Steady current gives steady flux, so no e.m.f. is induced in the secondary.	නියත ධාරාවක් නියත ස්‍රාවයක් දෙයි, එබැවින් ද්විතීයිකයේ වි.ගා.බ. ප්‍රේරණය නොවේ.
+Straight line rising from the origin	මූල ලක්ෂ්‍යයේ සිට ඉහළ යන සරල රේඛාව
+Stretching also halves the cross-sectional area.	ඇදීමෙන් හරස්කඩ වර්ගඵලය ද අඩක් වේ.
+Student says: "A motor draws the most current at full speed, because it is doing the most work." What's wrong?	සිසුවා පවසයි: "මෝටරයක් වැඩිම කාර්යය කරන නිසා පූර්ණ වේගයේ දී වැඩිම ධාරාව ගනී." වැරැද්ද කුමක් ද?
+Student says: "A transformer can step a 12 V car battery up to 240 V." What's wrong?	සිසුවා පවසයි: "පරිණාමකයකට 12 V මෝටර් රථ බැටරියක් 240 V දක්වා වැඩි කළ හැක." වැරැද්ද කුමක් ද?
+Student says: "At maximum power transfer, the cell is at its most efficient." What's wrong?	සිසුවා පවසයි: "උපරිම ජව සංක්‍රාමණයේ දී කෝෂය වඩාත්ම කාර්යක්ෂම ය." වැරැද්ද කුමක් ද?
+Student says: "Two different resistors in parallel share the current equally." What's wrong?	සිසුවා පවසයි: "සමාන්තරගත වෙනස් ප්‍රතිරෝධක දෙකක් ධාරාව සමානව බෙදා ගනී." වැරැද්ද කුමක් ද?
+T	T
+T m⁻²	T m⁻²
+Terminal pd and internal resistance	අග්‍ර විභව අන්තරය සහ අභ්‍යන්තර ප්‍රතිරෝධය
+That shape needs a source with internal resistance. Here V is fixed.	එම හැඩයට අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති ප්‍රභවයක් අවශ්‍ය ය. මෙහි V නියත ය.
+That's 1/R. Take the reciprocal.	එය 1/R වේ. එහි පරස්පරය ගන්න.
+That's R × l₁ ÷ l₂. Subtract R.	එය R × l₁ ÷ l₂ වේ. R අඩු කරන්න.
+That's how R changes. Multiply by the first time.	එය R වෙනස් වන ආකාරයයි. පළමු කාලයෙන් ගුණ කරන්න.
+That's one of the loads, not the cell.	එය කෝෂය නොව, එක් භාරයකි.
+That's only the parallel pair. Add the series resistor.	එය සමාන්තරගත යුගලය පමණි. ශ්‍රේණිගත ප්‍රතිරෝධකය එකතු කරන්න.
+That's only the ratio. Multiply by the first resistance.	එය අනුපාතය පමණි. පළමු ප්‍රතිරෝධයෙන් ගුණ කරන්න.
+That's r². Take the square root.	එය r² වේ. වර්ගමූලය ගන්න.
+That's the cell's total power, including the loss inside it.	එය කෝෂය තුළ නාස්තිය ද ඇතුළුව කෝෂයේ මුළු ජවයයි.
+That's the change in flux linkage. Divide by the time.	එය ස්‍රාව බන්ධනයේ වෙනසයි. කාලයෙන් බෙදන්න.
+That's the current before the second resistor was added.	එය දෙවැනි ප්‍රතිරෝධකය එකතු කිරීමට පෙර ධාරාවයි.
+That's the current in one side only.	එය එක් පැත්තක ධාරාව පමණි.
+That's the current with the terminals shorted. The resistors are still in the circuit.	එය අගු කෙටි පරිපථ කළ විට ධාරාවයි. ප්‍රතිරෝධක තවමත් පරිපථයේ ඇත.
+That's the current. Multiply by the resistance.	එය ධාරාවයි. ප්‍රතිරෝධයෙන් ගුණ කරන්න.
+That's the current. Now use P = I²R.	එය ධාරාවයි. දැන් P = I²R භාවිත කරන්න.
+That's the pd across the 1 kΩ.	එය 1 kΩ හරහා විභව අන්තරයයි.
+That's the pd across the other resistor.	එය අනෙක් ප්‍රතිරෝධකය හරහා විභව අන්තරයයි.
+That's the pd across the rest of the wire.	එය කම්බියේ ඉතිරි කොටස හරහා විභව අන්තරයයි.
+That's the power wasted inside the cell.	එය කෝෂය තුළ නාස්ති වන ජවයයි.
+That's the power wasted, not the current.	එය ධාරාව නොව, නාස්ති වන ජවයයි.
+That's the power. Divide by the secondary voltage.	එය ජවයයි. ද්විතීයික වෝල්ටීයතාවෙන් බෙදන්න.
+That's the secondary voltage, not the current.	එය ධාරාව නොව, ද්විතීයික වෝල්ටීයතාවයි.
+That's the share across R, not 3R.	එය 3R හි නොව, R හරහා කොටසයි.
+That's the total resistance. Now find I = E/R.	එය මුළු ප්‍රතිරෝධයයි. දැන් I = E/R සොයන්න.
+That's when the speed is changing, not when it is largest.	එය වේගය විශාලතම වන විට නොව, වේගය වෙනස් වන විටයි.
+The 100 W lamp	100 W ලාම්පුව
+The 2 kΩ has ⅔ of the total resistance, so it takes ⅔ of 6 V.	2 kΩ ට මුළු ප්‍රතිරෝධයෙන් ⅔ ක් ඇත, එබැවින් එය 6 V න් ⅔ ක් ගනී.
+The 60 W lamp	60 W ලාම්පුව
+The 60 W lamp has the larger R. In series the current is the same, so P = I²R is larger for it.	60 W ලාම්පුවට විශාල R ඇත. ශ්‍රේණිගතව ධාරාව සමාන ය, එබැවින් එයට P = I²R විශාල ය.
+The ammeter's resistance must be far below 1 kΩ, and the voltmeter's far above it.	ඇමීටරයේ ප්‍රතිරෝධය 1 kΩ ට වඩා බොහෝ අඩු ද, වෝල්ට්මීටරයේ ප්‍රතිරෝධය ඊට වඩා බොහෝ වැඩි ද විය යුතු ය.
+The back e.m.f. changes with speed, so the current does too.	ප්‍රති වි.ගා.බ. වේගය සමඟ වෙනස් වේ, එබැවින් ධාරාව ද වෙනස් වේ.
+The bridge is balanced, so the middle points are at equal potential.	සේතුව තුලිත ය, එබැවින් මැද ලක්ෂ්‍ය සමාන විභවයේ ඇත.
+The cell's voltage is shared between the two resistors.	කෝෂයේ වෝල්ටීයතාව ප්‍රතිරෝධක දෙක අතර බෙදී යයි.
+The cell's voltage is shared by both resistors.	කෝෂයේ වෝල්ටීයතාව ප්‍රතිරෝධක දෙකම විසින් බෙදා ගනී.
+The current changes the opposite way to the voltage.	ධාරාව වෝල්ටීයතාවට ප්‍රතිවිරුද්ධ ලෙස වෙනස් වේ.
+The current depends only on the supply voltage	ධාරාව රඳා පවතින්නේ සැපයුම් වෝල්ටීයතාව මත පමණි
+The current is E/(R₁ + R₂), and the pd across R₂ is that current × R₂.	ධාරාව E/(R₁ + R₂) වන අතර R₂ හරහා විභව අන්තරය එම ධාරාව × R₂ වේ.
+The current is smaller in the thin part of a wire.	කම්බියක සිහින් කොටසේ ධාරාව කුඩා ය.
+The current is the same at every speed	සෑම වේගයකදීම ධාරාව සමාන ය
+The current is the same in both parts, so v ∝ 1/A.	කොටස් දෙකේම ධාරාව සමාන ය, එබැවින් v ∝ 1/A.
+The current is the same in the thick and the thin part of a wire.	කම්බියක ඝන සහ සිහින් කොටස් දෙකේම ධාරාව සමාන ය.
+The diameter changes too, and R ∝ 1/d².	විෂ්කම්භය ද වෙනස් වේ, සහ R ∝ 1/d².
+The driver circuit carries current. At balance the test branch carries none, so there is no internal potential difference in the test cell.	ධාවක පරිපථයේ ධාරාව ගලා යයි. තුලිත අවස්ථාවේ පරීක්ෂා කරන කෝෂය අයත් ශාඛාවේ ධාරාව ශුන්‍ය බැවින් එම කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධය හරහා විභව අන්තරය ද ශුන්‍ය වේ.
+The e.m.f. depends on the coil's resistance	වි.ගා.බ. දඟරයේ ප්‍රතිරෝධය මත රඳා පවතී
+The e.m.f. is large only with an iron core	වි.ගා.බ. විශාල වන්නේ යකඩ හරයක් ඇති විට පමණි
+The e.m.f. stays E. The two internal resistances are in parallel, giving r/2.	වි.ගා.බ. E ලෙසම පවතී. අභ්‍යන්තර ප්‍රතිරෝධ දෙක සමාන්තරගත නිසා r/2 ලැබේ.
+The efficiency is 100% there	එහි දී කාර්යක්ෂමතාව 100% කි
+The efficiency is highest when the load is zero	භාරය ශුන්‍ය විට කාර්යක්ෂමතාව ඉහළම ය
+The efficiency is only 50% there	එහි දී කාර්යක්ෂමතාව 50% ක් පමණි
+The field through a loop grows steadily. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් හරහා ක්ෂේත්‍රය ඒකාකාරව වැඩි වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+The field through a loop shrinks steadily. Induced current? (Field into the page, loop viewed from the front.)	පුඩුවක් හරහා ක්ෂේත්‍රය ඒකාකාරව අඩු වේ. ප්‍රේරිත ධාරාව? (ක්ෂේත්‍රය පිටුව තුළට; පුඩුව ඉදිරියෙන් බලයි.)
+The first resistor uses up most of the current	පළමු ප්‍රතිරෝධකය ධාරාවෙන් වැඩි කොටසක් වැය කරයි
+The flux changes in one direction only, so the current keeps one direction.	ස්‍රාවය වෙනස් වන්නේ එක් දිශාවකට පමණි, එබැවින් ධාරාව එක් දිශාවක් පවත්වා ගනී.
+The flux is falling, so the induced current tries to keep it up.	ස්‍රාවය අඩු වෙමින් පවතී, එබැවින් ප්‍රේරිත ධාරාව එය පවත්වා ගැනීමට උත්සාහ කරයි.
+The flux isn't changing, so there is no e.m.f.	ස්‍රාවය වෙනස් නොවේ, එබැවින් වි.ගා.බ. නැත
+The flux linkage	ස්‍රාව බන්ධනය
+The flux through the loop stays the same, so there is no e.m.f.	පුඩුව හරහා ස්‍රාවය නොවෙනස්ව පවතී, එබැවින් වි.ගා.බ. නැත.
+The galvanometer reads zero, so no current flows from that cell.	ගැල්වනෝමීටරය ශුන්‍ය පෙන්වයි, එබැවින් එම කෝෂයෙන් ධාරාවක් නොගලයි.
+The induced current opposes the change: the approaching N pole is repelled.	ප්‍රේරිත ධාරාව වෙනසට විරුද්ධ වේ: ළඟා වන N ධ්‍රැවය විකර්ෂණය වේ.
+The induced field must point out of the page to oppose the growing flux.	වැඩි වන ස්‍රාවයට විරුද්ධ වීමට ප්‍රේරිත ක්ෂේත්‍රය පිටුවෙන් පිටතට යොමු විය යුතු ය.
+The induced field opposes the increase in inward flux.	ඇතුළට යොමු වූ ස්‍රාවය වැඩි වීමට විරුද්ධ වන සේ ප්‍රේරිත චුම්බක ක්ෂේත්‍රය පිටතට යොමු වේ.
+The induced field points into the page, to keep the flux up.	ස්‍රාවය පවත්වා ගැනීමට ප්‍රේරිත ක්ෂේත්‍රය පිටුව තුළට යොමු වේ.
+The internal resistance still limits the current.	අභ්‍යන්තර ප්‍රතිරෝධය තවමත් ධාරාව සීමා කරයි.
+The internal resistance takes part of the e.m.f.	අභ්‍යන්තර ප්‍රතිරෝධය වි.ගා.බ. යෙන් කොටසක් ගනී.
+The lamp nearer the + terminal	+ අග්‍රයට ආසන්න ලාම්පුව
+The load gets the most power when its resistance equals the internal resistance.	භාරයේ ප්‍රතිරෝධය අභ්‍යන්තර ප්‍රතිරෝධයට සමාන වන විට එයට වැඩිම ජවය ලැබේ.
+The load power is E²R/(R + r)² and reaches its peak when the two resistances match.	භාරයට ලැබෙන ජවය E²R/(R + r)² වේ. ප්‍රතිරෝධ දෙක සමාන වන විට එය උපරිම වේ.
+The magnetic flux into a closed loop is increasing. Which way does the induced magnetic field point through the loop?	සංවෘත සන්නායක පුඩුවක් හරහා පිටුව තුළට යොමු වූ චුම්බක ස්‍රාවය වැඩි වෙයි. පුඩුව තුළ ප්‍රේරිත ධාරාව නිසා හටගන්නා චුම්බක ක්ෂේත්‍රය යොමු වන්නේ කුමන දිශාවට ද?
+The magnitude is |d(NΦ)/dt|. In the signed equation, E = −d(NΦ)/dt, the minus sign gives the direction required by Lenz’s law.	විශාලත්වය |d(NΦ)/dt| වේ. E = −d(NΦ)/dt සමීකරණයේ ඍණ ලකුණෙන් ලෙන්ස්ගේ නියමයට අනුව ප්‍රේරිත විද්‍යුත් ගාමක බලයේ දිශාව දැක්වේ.
+The meter adds resistance, so the reading rises	මීටරය ප්‍රතිරෝධය එකතු කරයි, එබැවින් පාඨාංකය වැඩි වේ
+The meter draws current, so the reading falls	මීටරය ධාරාව ගනී, එබැවින් පාඨාංකය අඩු වේ
+The meter in parallel lowers that part's resistance, so it changes the divider.	සමාන්තරගත මීටරය එම කොටසේ ප්‍රතිරෝධය අඩු කරයි, එබැවින් එය බෙදුම්කරය වෙනස් කරයි.
+The meter in parallel lowers the resistance of that part, so it takes a smaller share of the pd.	සමාන්තරගත මීටරය එම කොටසේ ප්‍රතිරෝධය අඩු කරයි, එබැවින් එයට විභව අන්තරයෙන් කුඩා කොටසක් ලැබේ.
+The net e.m.f. E₂ − E₁ drives current through both internal resistances in series.	ශුද්ධ වි.ගා.බ. E₂ − E₁ ශ්‍රේණිගත අභ්‍යන්තර ප්‍රතිරෝධ දෙක හරහා ධාරාව යවයි.
+The other cell pushes back, so use the difference in e.m.f.	අනෙක් කෝෂය ආපසු තල්ලු කරයි, එබැවින් වි.ගා.බ. වල වෙනස භාවිත කරන්න.
+The pair gives RS/(R + S). Add T in series.	යුගලයෙන් RS/(R + S) ලැබේ. T ශ්‍රේණිගතව එකතු කරන්න.
+The pd is the same across both, so I = V/R is larger where R is smaller.	දෙක හරහාම විභව අන්තරය සමාන ය, එබැවින් R කුඩා තැන I = V/R විශාල ය.
+The rate of change of current	ධාරාවේ වෙනස් වීමේ ශීඝ්‍රතාව
+The reading falls only if the cell has internal resistance	පාඨාංකය අඩු වන්නේ කෝෂයට අභ්‍යන්තර ප්‍රතිරෝධයක් ඇත්නම් පමණි
+The same current flows all along, so the electrons drift faster where the area is smaller, and the thin part has more resistance per metre.	දිගේම එකම ධාරාව ගලයි, එබැවින් වර්ගඵලය කුඩා තැන ඉලෙක්ට්‍රෝන වේගයෙන් ප්ලාවනය වන අතර, සිහින් කොටසට මීටරයකට වැඩි ප්‍රතිරෝධයක් ඇත.
+The same current flows through both.	දෙක හරහාම එකම ධාරාව ගලයි.
+The same current passes through equal resistances, so each takes half the supply voltage.	සමාන ප්‍රතිරෝධ දෙක හරහා එකම ධාරාව ගලා යන බැවින් එක් එක් ප්‍රතිරෝධකය හරහා විභව අන්තරය සැපයුම් වෝල්ටීයතාවෙන් අඩකි.
+The same throughout	මුළු කාලය පුරාම සමාන ය
+The smallest is R/3, all three in parallel.	කුඩාතම අගය තුනම සමාන්තරගත කළ විට ලැබෙන R/3 වේ.
+The thin part of a wire has less resistance per metre.	කම්බියක සිහින් කොටසට මීටරයකට අඩු ප්‍රතිරෝධයක් ඇත.
+The thin part of a wire has more resistance per metre.	කම්බියක සිහින් කොටසට මීටරයකට වැඩි ප්‍රතිරෝධයක් ඇත.
+The thin part of the wire releases more heat per unit length each second.	කම්බියේ සිහින් කොටසේ ඒකක දිගකින් තත්පරයකට නිකුත් වන තාප ප්‍රමාණය වැඩි ය.
+The voltmeter is in parallel with the resistor.	වෝල්ට්මීටරය ප්‍රතිරෝධකය සමඟ සමාන්තරගත ය.
+The whole loop stays in the field, so the flux never changes.	මුළු පුඩුවම ක්ෂේත්‍රයේ පවතී, එබැවින් ස්‍රාවය කිසිවිටෙක වෙනස් නොවේ.
+Those leads connect directly to the cell terminals.	එම සම්බන්ධක දෙක සෘජුව සම්බන්ධ වී ඇත්තේ කෝෂයේ අග්‍රවලට ය.
+Three identical resistors. Largest possible equivalent resistance ÷ smallest?	සර්වසම ප්‍රතිරෝධක තුනකි. ලබා ගත හැකි විශාලතම සමක ප්‍රතිරෝධය ÷ කුඩාතම?
+Three parallel branches join points X and Y. One contains a cell and resistor in series, another a different cell and resistor in series, and the third a resistor alone. Which method directly gives the three branch currents?	X හා Y අතර සමාන්තර ශාඛා තුනකි. එක් ශාඛාවක කෝෂයක් හා ප්‍රතිරෝධකයක් ශ්‍රේණිගතව ඇත. තවත් ශාඛාවක වෙනත් විද්‍යුත් ගාමක බලයක් ඇති කෝෂයක් හා ප්‍රතිරෝධකයක් ශ්‍රේණිගතව ඇත. ඉතිරි ශාඛාවේ ඇත්තේ ප්‍රතිරෝධකයක් පමණි. ශාඛා ධාරා තුන සෙවීමට සුදුසු ක්‍රමය කුමක් ද?
+Three resistors in parallel, with the group in series with a fourth, across one cell. Most direct way to find the cell's current?	සමාන්තරගත ප්‍රතිරෝධක තුනක්, එම කාණ්ඩය හතරවැන්නක් සමඟ ශ්‍රේණිගතව, එක් කෝෂයක් හරහා ඇත. කෝෂයේ ධාරාව සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?
+Trace both voltmeter leads to the ends of R. The ammeter is in the main branch and reads the total current.	වෝල්ට්මීටරයේ සම්බන්ධක දෙක R හි දෙකෙළවරට යයි. ප්‍රධාන ශාඛාවේ ඇමීටරයෙන් කියවෙන්නේ මුළු ධාරාවයි.
+Transformer power and current ratio	පරිණාමකයේ ජවය සහ ධාරා අනුපාතය
+True	සත්‍ය
+Two cells of e.m.f. {E1} V and {E2} V, each with internal resistance {r} Ω, are joined in parallel, + to +, with nothing else connected. Current flowing round them?	වි.ගා.බ. {E1} V සහ {E2} V වූ, එක එකෙහි අභ්‍යන්තර ප්‍රතිරෝධය {r} Ω වූ කෝෂ දෙකක් + සිට + ට සමාන්තරගතව සම්බන්ධ කර ඇත, වෙනත් කිසිවක් සම්බන්ධ කර නැත. ඒවා වටා ගලන ධාරාව කීය ද?
+Two cells sit in different branches, each with its own resistor, and both branches share a third resistor. Most direct way to find a branch current?	කෝෂ දෙකක් වෙනත් ශාඛාවල, එක එකක් තමන්ගේම ප්‍රතිරෝධකයක් සමඟ ඇති අතර, ශාඛා දෙකම තුන්වන ප්‍රතිරෝධකයක් බෙදා ගනී. ශාඛා ධාරාවක් සෙවීමට වඩාත්ම සෘජු ක්‍රමය කුමක් ද?
+Two equal resistors are in series across an ideal 6 V source. What is the pd across one resistor?	සමාන ප්‍රතිරෝධක දෙකක් පරිපූර්ණ 6 V ප්‍රභවයක අග්‍ර අතර ශ්‍රේණිගතව සම්බන්ධ කර ඇත. එක් ප්‍රතිරෝධකයක් හරහා විභව අන්තරය කීය ද?
+Two identical 1.5 V cells are joined in series so their e.m.f.s add. What is their combined e.m.f.?	සර්වසම 1.5 V කෝෂ දෙකක් ඒවායේ වි.ගා.බ. එකතු වන පරිදි ශ්‍රේණිගතව සම්බන්ධ කර ඇත. සංයුක්ත වි.ගා.බ. කීය ද?
+Two identical cells, each of e.m.f. E and internal resistance r, are joined in parallel. E.m.f. and internal resistance of the pair?	එක එකක් වි.ගා.බ. E සහ අභ්‍යන්තර ප්‍රතිරෝධය r වූ සර්වසම කෝෂ දෙකක් සමාන්තරගතව සම්බන්ධ කර ඇත. යුගලයේ වි.ගා.බ. සහ අභ්‍යන්තර ප්‍රතිරෝධය කුමක් ද?
+Two resistors in parallel don't average. Use product ÷ sum.	සමාන්තරගත ප්‍රතිරෝධක දෙකක සාමාන්‍යය නොගනී. ගුණිතය ÷ එකතුව භාවිත කරන්න.
+Use a junction equation and two independent loop equations for the three branch currents.	ශාඛා ධාරා තුන සඳහා සන්ධි සමීකරණයක් හා ස්වාධීන පුඩු සමීකරණ දෙකක් ලියන්න.
+Use r = R(l₁ − l₂) ÷ l₂. The lengths are a ratio, not ohms.	r = R(l₁ − l₂) ÷ l₂ භාවිත කරන්න. දිග යනු ඕම් නොව, අනුපාතයකි.
+Use the wire's own pd, 20 mV, not the cell's e.m.f.	කෝෂයේ වි.ගා.බ. නොව, කම්බියේම විභව අන්තරය වන 20 mV භාවිත කරන්න.
+V	V
+V = E − Ir, so a larger current means a smaller terminal pd.	V = E − Ir, එබැවින් විශාල ධාරාවක් යනු කුඩා අග්‍ර විභව අන්තරයකි.
+V/R	V/R
+VR	VR
+Voltmeter in the loop, ammeter across R	වෝල්ට්මීටරය පරිපථයේ ශ්‍රේණිගතව, ඇමීටරය R හරහා
+V²/R	V²/R
+V²R	V²R
+Wb (T m²)	Wb (T m²)
+Wb m⁻²	Wb m⁻²
+What is the advantage of measuring a cell’s e.m.f. with a potentiometer at balance?	කෝෂයක විද්‍යුත් ගාමක බලය මැනීමේ දී විභවමානයක් භාවිත කිරීමෙන් තුලිත අවස්ථාවේ ලැබෙන වාසිය කුමක් ද?
+Which diagram connects the voltmeter directly to both ends of R and the ammeter in the main branch?	වෝල්ට්මීටරයේ අග්‍ර දෙක R හි දෙකෙළවරට සෘජුව සම්බන්ධ කර ඇමීටරය ප්‍රධාන ශාඛාවට ශ්‍රේණිගතව සම්බන්ධ කර ඇති රූපය තෝරන්න.
+Which expression gives the magnitude of the e.m.f. induced in a coil?	දඟරයක ප්‍රේරිත විද්‍යුත් ගාමක බලයේ විශාලත්වය ලබා දෙන්නේ කුමන ප්‍රකාශනයෙන් ද?
+Which meters disturb a circuit least when measuring the current in, and pd across, a 1 kΩ resistor?	1 kΩ ප්‍රතිරෝධකයක ධාරාව සහ ඒ හරහා විභව අන්තරය මනින විට පරිපථයට අවම බලපෑමක් කරන්නේ කුමන මීටර ද?
+While it is speeding up	වේගය වැඩි වෙමින් පවතින අතරතුර
+With R = r, the cell's own resistance wastes as much power as the load uses.	R = r විට, භාරය භාවිත කරන තරම්ම ජවයක් කෝෂයේම ප්‍රතිරෝධය නාස්ති කරයි.
+With V fixed, P = V²/R, which falls as R rises.	V නියත විට P = V²/R, එය R වැඩි වන විට අඩු වේ.
+With V fixed, the current falls as R rises, so P changes.	V නියත විට R වැඩි වන විට ධාරාව අඩු වේ, එබැවින් P වෙනස් වේ.
+With no back e.m.f., only the coil's small resistance would limit the current.	ප්‍රති වි.ගා.බ. නැති විට, දඟරයේ කුඩා ප්‍රතිරෝධය පමණක් ධාරාව සීමා කරයි.
+With two sources, write loop equations.	ප්‍රභව දෙකක් ඇති විට, පුඩු සමීකරණ ලියන්න.
+Zero	ශුන්‍ය
+Zero current from the test cell	පරීක්ෂා කරන කෝෂයෙන් ධාරාවක් නොගනී
+Zero load gives the largest current, but no power in the load.	ශුන්‍ය භාරයක් විශාලතම ධාරාව දෙයි, නමුත් භාරයේ ජවයක් නැත.
+d	d
+its length	එහි දිග
+its resistance	එහි ප්‍රතිරෝධය
+l	l
+l × 2 and A × ½, so ρl/A goes up 4 times.	l × 2 සහ A × ½, එබැවින් ρl/A 4 ගුණයකින් වැඩි වේ.
+l²	l²
+n	n
+n identical cells in series. Total internal resistance ÷ one cell's?	ශ්‍රේණිගත සර්වසම කෝෂ n කි. මුළු අභ්‍යන්තර ප්‍රතිරෝධය ÷ එක් කෝෂයක අභ්‍යන්තර ප්‍රතිරෝධය?
+n²	n²
+the cell's e.m.f.	කෝෂයේ වි.ගා.බ.
+the current	ධාරාව
+|d(NΦ)/dt|	|d(NΦ)/dt|
+¼	¼
+½	½
+¾	¾
+Φ = BA, so its unit is T m², called the weber.	Φ = BA, එබැවින් එහි ඒකකය T m² වන අතර එය වෙබර් ලෙස හැඳින්වේ.
+⅓	⅓
