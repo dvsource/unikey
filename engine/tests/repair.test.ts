@@ -254,3 +254,52 @@ test("confidence card is below the failed level (or level 1 when failed at 1)", 
   const thin = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3"] });
   expect(nextRepairCard(s, thin, { skill: "a1", failedHeight: 2, stage: "confidence" }, D0, cfg, [], [])).toBeNull();
 });
+
+// ---------- final review F2: fixedSkills names only repaired skills that were fixed ----------
+
+/** Answers until a card with `reason` is served (all right), then returns that step. */
+function until(content: Content, st: Step, now: number, reason: Served["reason"]): Step {
+  let cur = st;
+  for (let i = 0; i < 20 && card(cur).reason !== reason; i++) cur = right(content, cur, now + (i + 1) * 10_000);
+  expect(card(cur).reason).toBe(reason);
+  return cur;
+}
+
+test("F2: piece right then confidence missed → not listed; EndInfo.fixed agrees", () => {
+  const s1 = say(C, startSession(leadState("a1"), C, T0), 1, T0 + 10_000);
+  const s2 = right(C, s1, T0 + 20_000); // the piece
+  expect(s2.state.session!.fixedSkills).toEqual([]); // was ["a1"]: a right piece alone counted
+  const s3 = wrong(C, s2, T0 + 30_000); // the confidence card
+  expect(card(s2).reason).toBe("repair:confidence");
+  const r = run(C, s3, T0 + 30_000, () => "r");
+  const end = r.steps.at(-1)!.next;
+  if (end.kind !== "end") throw new Error("no end");
+  expect(end.end.fixedSkills).toEqual([]);
+  expect(end.end.fixed).toBe(0);
+});
+
+test("F2: piece right + confidence right → listed; a later miss on it → removed", () => {
+  const s1 = say(C, startSession(leadState("a1"), C, T0), 1, T0 + 10_000);
+  const s2 = right(C, s1, T0 + 20_000);
+  const s3 = right(C, s2, T0 + 30_000); // the confidence card
+  expect(s3.state.session!.fixedSkills).toEqual(["a1"]);
+  expect(s3.state.session!.fixed).toBe(1);
+  const ret = until(C, s3, T0 + 30_000, "repair:return");
+  expect(card(ret).skill).toBe("a1");
+  const missed = wrong(C, ret, T0 + 500_000);
+  expect(missed.state.session!.fixedSkills).toEqual([]);
+  expect(missed.state.session!.fixed).toBe(0);
+});
+
+test("F2: neighbour piece right → the neighbour is not listed; the return right → the repaired skill is", () => {
+  const thin = fixture({ drop: ["a2.h1.1", "a2.h1.2", "a2.h1.3", "a2.h2.1", "a2.h2.2", "a2.h2.3"] });
+  const s1 = wrong(thin, startSession(leadState("a2"), thin, T0), T0 + 10_000);
+  expect(card(s1)).toMatchObject({ skill: "a1", reason: "repair:missing-piece" });
+  const s2 = right(thin, s1, T0 + 20_000); // no confidence card: the return is queued
+  expect(s2.state.session!.fixedSkills).toEqual([]); // was ["a1"]: the neighbour
+  const ret = until(thin, s2, T0 + 20_000, "repair:return");
+  expect(card(ret).skill).toBe("a2");
+  const done = right(thin, ret, T0 + 500_000);
+  expect(done.state.session!.fixedSkills).toEqual(["a2"]);
+  expect(done.state.session!.fixed).toBe(1);
+});

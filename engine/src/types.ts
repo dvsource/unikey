@@ -118,7 +118,7 @@ export type SessionState = {
    * `session.openCards` cards come from the closing order as `open:easy`.
    */
   lowStart: boolean;
-  /** Change 7: the skills fixed today (see `EndInfo.fixedSkills`), in order of first fix. */
+  /** Change 7: the skills fixed today (see `EndInfo.fixedSkills`), in order of first fix; `fixed` is its length. */
   fixedSkills: string[];
   /**
    * Extend ruling: the card effort an accepted "5 more" may still serve (`budget.extendEffort` at `extend`, less each
@@ -131,8 +131,10 @@ export type Choice = number | "dont-know";
 export type EndKind = "budget" | "bad-day" | "extended-done" | "daily-cap" | "content-exhausted" | "left" | "interrupted";
 /**
  * `recap` (change 7): the session ended on a recap, not a question (its closing card was missed, or the daily cap
- * blocked a closing card after a miss). `fixedSkills`: the distinct skills, in order of first fix, with a right answer
- * this session on a `repair:missing-piece`, `repair:confidence` or `repair:return` card (filled on every end).
+ * blocked a closing card after a miss). `fixedSkills` (final review F2): the distinct repaired skills fixed this
+ * session, in order of first fix: a skill is fixed when its repair ends with the confidence card right or its
+ * `repair:return` card is answered right, and unfixed again by a later miss on it in the session (filled on every end).
+ * `fixed`: always `fixedSkills.length`.
  */
 export type EndInfo = {
   kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean; recap: boolean; fixedSkills: string[];

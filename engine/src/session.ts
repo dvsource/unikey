@@ -326,6 +326,13 @@ function closing(r: Run, forced: boolean): Next {
   return finish(r, "content-exhausted", lastMiss(ss)); // fix round 1: a recap after a miss
 }
 
+/** Final review F2: `fixedSkills` and the session's `fixed` count (always its length) change together. */
+function setFixed(ss: SessionState, skills: string[]): void {
+  ss.fixedSkills = skills;
+  ss.fixed = skills.length;
+}
+const fix = (ss: SessionState, skill: string) => { if (!ss.fixedSkills.includes(skill)) setFixed(ss, [...ss.fixedSkills, skill]); };
+
 /** The session's last answered card was a miss (wrong or "I don't know"). */
 const lastMiss = (ss: SessionState) => ss.history.filter((h) => h.right !== null).at(-1)?.right === false;
 
@@ -472,9 +479,8 @@ export function answer(
   const twoMisses = !right && !drip && prev !== undefined && prev.skill === sv.skill && prev.right === false && prev.drip !== true;
   ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}) });
   ss.served = null;
-  if (sv.reason === "repair:return" && right) ss.fixed += 1;
-  const fixCard = sv.reason === "repair:missing-piece" || sv.reason === "repair:confidence" || sv.reason === "repair:return";
-  if (right && fixCard && !ss.fixedSkills.includes(sv.skill)) ss.fixedSkills = [...ss.fixedSkills, sv.skill]; // change 7
+  if (!right) setFixed(ss, ss.fixedSkills.filter((x) => x !== sv.skill)); // final review F2: a later miss unfixes it
+  else if (sv.reason === "repair:return") fix(ss, sv.skill);
   // Change 7: the answer is written on the card's latest Seen entry (a closing card may repeat one answered right).
   let si = r.s.seen.length - 1;
   while (si >= 0 && !(r.s.seen[si].card === sv.card && r.s.seen[si].variant === sv.variant)) si--;
@@ -514,6 +520,7 @@ export function answer(
     if (ss.repair) {
       if (right && ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
       else if (right) {
+        fix(ss, ss.repair.skill); // final review F2: the repair ended with the confidence card right
         queueReturn(r, ss.repair.skill, true);
         ss.repair = null;
       } else {
