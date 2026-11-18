@@ -339,7 +339,7 @@ const served = (reason: Served["reason"], height: 1 | 2 | 3 = 2): Served =>
   ({ card: "c1", variant: 0, skill: sk.id, section: secId, height, reason, effort: 1.5 });
 const endLine = (over: Partial<LogLine["end"] & object>): LogLine => ({
   day: 0, session: 1, n: 4, kind: "end",
-  end: { kind: "budget", effort: 6, cards: 4, right: 1, fixed: 1, streakKept: false, recap: false, fixedSkills: [], ...over },
+  end: { kind: "budget", effort: 6, cards: 4, right: 1, fixed: 1, streakKept: false, recap: false, fixedSkills: [], rightSkills: [], ...over },
 });
 const startLine: LogLine = { day: 0, session: 1, n: 0, kind: "start" };
 const logOf = (...ls: LogLine[]) => readableLog([startLine, ...ls], content, 1);
@@ -350,6 +350,12 @@ test("a recap end says no question and names the fixed skills", () => {
   expect(end).toContain(`— end: recap, no question (fixed today: ${sk.name}), 6 effort, 4 cards (1 right)`);
   const none = logOf(endLine({ recap: true, fixed: 0, fixedSkills: [] })).find((l) => l.includes("— end:"))!;
   expect(none).toContain("end: recap, no question (nothing fixed today)");
+  // F3: nothing fixed but something right: the skills answered right instead
+  const sk2 = Object.values(content.skills)[1]!;
+  const rt = logOf(endLine({ recap: true, fixed: 0, fixedSkills: [], rightSkills: [sk.id, sk2.id] })).find((l) => l.includes("— end:"))!;
+  expect(rt).toContain(`end: recap, no question (nothing fixed today; right today: ${sk.name}, ${sk2.name}), 6 effort`);
+  // a fixed skill wins: the right list is not shown
+  expect(logOf(endLine({ recap: true, fixed: 1, fixedSkills: [sk.id], rightSkills: [sk2.id] })).find((l) => l.includes("— end:"))).not.toContain("right today");
   // a normal end keeps today's wording
   expect(logOf(endLine({})).find((l) => l.includes("— end:"))).toContain("— end: planned session done, 6 effort, 4 cards (1 right), fixed 1");
   expect(logOf(endLine({ kind: "bad-day" })).find((l) => l.includes("— end:"))).toContain("the app ended the session early");

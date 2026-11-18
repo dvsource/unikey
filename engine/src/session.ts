@@ -364,6 +364,7 @@ function closeSession(r: Run, kind: EndKind, recap = false): Next {
   const right = ss.history.filter((h) => h.right === true).length;
   const end: EndInfo = {
     kind, effort: ss.spent, cards, right, fixed: ss.fixed, streakKept: today.streakKept, recap, fixedSkills: [...ss.fixedSkills],
+    rightSkills: [...new Set(ss.history.filter((h) => h.right === true).map((h) => h.skill))],
   };
   const changed = onSessionEndProfile(r, end, ss);
   emit(r, "session_end", { ...end, fadeEffort: ss.fadeEffort });
@@ -385,7 +386,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
   }
   const today = r.s.day!;
   if (dayRoom(r.s, cfg) < cfg.effort.h1) {
-    const end: EndInfo = { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: today.streakKept, recap: false, fixedSkills: [] };
+    const end: EndInfo = { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: today.streakKept, recap: false, fixedSkills: [], rightSkills: [] };
     r.s.lastEnd = end;
     return step(r, { kind: "end", end });
   }

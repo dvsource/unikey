@@ -51,11 +51,18 @@ test("change 3/7: migrate defaults lastSession, a stored lastEnd's recap / fixed
   const { lastSession: _l, ...old } = newState("s", 1);
   const m = migrate(JSON.parse(JSON.stringify({ ...old, lastEnd: { kind: "budget", effort: 8, cards: 5, right: 4, fixed: 0, streakKept: true } })));
   expect(m.lastSession).toBeNull();
-  expect(m.lastEnd).toEqual({ kind: "budget", effort: 8, cards: 5, right: 4, fixed: 0, streakKept: true, recap: false, fixedSkills: [] });
+  expect(m.lastEnd).toEqual({ kind: "budget", effort: 8, cards: 5, right: 4, fixed: 0, streakKept: true, recap: false, fixedSkills: [], rightSkills: [] }); // F3: rightSkills defaulted
   expect(newState("s", 1).lastSession).toBeNull();
   const ss = { phase: "middle", fadeEffort: null } as unknown as NonNullable<State["session"]>;
   const ms = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), session: ss })));
   expect(ms.session).toMatchObject({ missRun: 0, lowStart: false, fixedSkills: [], extendEffortLeft: 0 });
   const kept = migrate({ ...newState("s", 1), lastSession: { cards: 4, right: 1 } });
   expect(kept.lastSession).toEqual({ cards: 4, right: 1 });
+});
+
+test("final review F3: migrate defaults a stored lastEnd's rightSkills to []; a stored list is kept", () => {
+  const end = { kind: "budget", effort: 8, cards: 5, right: 4, fixed: 0, streakKept: true, recap: false, fixedSkills: [] };
+  expect(migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), lastEnd: end }))).lastEnd!.rightSkills).toEqual([]);
+  const kept = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), lastEnd: { ...end, rightSkills: ["a1"] } })));
+  expect(kept.lastEnd!.rightSkills).toEqual(["a1"]);
 });

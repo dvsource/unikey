@@ -69,7 +69,7 @@ test("log has what §13 needs: every card line has served.reason, height, right,
 
 const sv = (card: string, o: Partial<Served> = {}): Served =>
   ({ card, variant: 0, skill: "s1", section: "A", height: 1, reason: "due-review", effort: 1, ...o });
-const end = (effort: number) => ({ kind: "budget" as const, effort, cards: 1, right: 1, fixed: 0, streakKept: true, recap: false, fixedSkills: [] as string[] }); // change 7: EndInfo shape
+const end = (effort: number) => ({ kind: "budget" as const, effort, cards: 1, right: 1, fixed: 0, streakKept: true, recap: false, fixedSkills: [] as string[], rightSkills: [] as string[] }); // change 7, F3: EndInfo shape
 const prof = { comfort: 0.75, memory: 1, h3Share: 0.4, stamina: 13.34, goodStreak: 0, msByHeight: { 1: [], 2: [], 3: [] } };
 
 /** One session per day for `days` days: start, one right card `c<day>`, end at `effort`. */
@@ -140,7 +140,7 @@ test("each check catches a planted violation, and only its own check fails", () 
   expect(onlyFails([mk("strong", capped)], "no-end-on-wrong")).toMatch(/strong day 1 .*daily-cap.*c1/);
   // ...a start-time cap (0 cards, no start line) does not
   const startCap = cleanLines(12);
-  startCap.splice(6, 0, { day: 1, session: 99, n: 0, kind: "end", end: { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [] } });
+  startCap.splice(6, 0, { day: 1, session: 99, n: 0, kind: "end", end: { kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [], rightSkills: [] } }); // F3: EndInfo shape
   allPass([mk("strong", startCap)]);
 
   // repeat on day 5 (c0 again, 5 days after day 0)

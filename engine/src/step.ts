@@ -53,7 +53,7 @@ export function currentNext(state: State): Next {
   const ss = state.session;
   if (ss && ss.served) return { kind: "card", card: ss.served };
   if (ss) return { kind: "offer-extend" };
-  return { kind: "end", end: state.lastEnd ?? { kind: "interrupted", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: false, recap: false, fixedSkills: [] } };
+  return { kind: "end", end: state.lastEnd ?? { kind: "interrupted", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: false, recap: false, fixedSkills: [], rightSkills: [] } };
 }
 
 export function stale(state: State): Step {

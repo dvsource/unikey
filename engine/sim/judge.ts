@@ -170,7 +170,9 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
         const e = l.end!;
         if (e.recap) {
           const fixedNames = e.fixedSkills.map(nm.skill);
-          const fixedText = fixedNames.length ? `fixed today: ${fixedNames.join(", ")}` : "nothing fixed today";
+          const rightNames = (e.rightSkills ?? []).map(nm.skill); // F3: absent in logs from before the field
+          const fixedText = fixedNames.length ? `fixed today: ${fixedNames.join(", ")}`
+            : rightNames.length ? `nothing fixed today; right today: ${rightNames.join(", ")}` : "nothing fixed today";
           out.push(`${at(l)} end  — end: recap, no question (${fixedText}), ${num(e.effort)} effort, ${e.cards} cards (${e.right} right)${e.streakKept ? ", streak kept" : ""}`);
           break;
         }

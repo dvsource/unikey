@@ -134,10 +134,12 @@ export type EndKind = "budget" | "bad-day" | "extended-done" | "daily-cap" | "co
  * blocked a closing card after a miss). `fixedSkills` (final review F2): the distinct repaired skills fixed this
  * session, in order of first fix: a skill is fixed when its repair ends with the confidence card right or its
  * `repair:return` card is answered right, and unfixed again by a later miss on it in the session (filled on every end).
- * `fixed`: always `fixedSkills.length`.
+ * `fixed`: always `fixedSkills.length`. `rightSkills` (final review F3): the distinct skills answered right this session,
+ * in order of the first right answer (filled on every end; data for the recap screen, see the README).
  */
 export type EndInfo = {
   kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean; recap: boolean; fixedSkills: string[];
+  rightSkills: string[];
 };
 export type Feedback = { right: boolean; correctIndex: number; tag?: string; reveal?: { section: string } };
 /** Shown before a second (or later) skip of a section: its share of the unit's weight and its top skills. */

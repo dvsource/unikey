@@ -36,7 +36,10 @@ export function migrate(json: unknown): State {
   }]));
   return {
     ...s, answered: s.answered ?? 0, session, sections,
-    lastEnd: s.lastEnd ? { ...s.lastEnd, recap: s.lastEnd.recap ?? false, fixedSkills: s.lastEnd.fixedSkills ?? [] } : null, // change 7
+    lastEnd: s.lastEnd ? {
+      ...s.lastEnd, recap: s.lastEnd.recap ?? false, fixedSkills: s.lastEnd.fixedSkills ?? [], // change 7
+      rightSkills: s.lastEnd.rightSkills ?? [], // final review F3
+    } : null,
     pendingMoments: s.pendingMoments ?? [], momentsDone: s.momentsDone ?? [],
     // Change 4: a student who answered before the ladder existed is past day one; a fresh one starts on it.
     ladder: s.ladder !== undefined ? s.ladder : (s.answered ?? 0) > 0 ? null : { level: 1, rightRun: 0 },

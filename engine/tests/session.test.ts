@@ -306,7 +306,7 @@ test("daily cap: total effort for the day never exceeds 40; next start → end d
     expect(cfg.budget.dailyCap - state.day!.effort - (1 + cfg.sessionEnd.maxExtraClose) * 2).toBeLessThan(cfg.effort.h1);
     expect(capped!.events).toEqual([]);
     expect(capped!.state.session).toBeNull();
-    expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [] }); // change 7: EndInfo shape
+    expect(endOf(capped!)).toEqual({ kind: "daily-cap", effort: 0, cards: 0, right: 0, fixed: 0, streakKept: true, recap: false, fixedSkills: [], rightSkills: [] }); // change 7, F3: EndInfo shape
     expect(startSession(state, C, nextDay(T0)).next.kind).toBe("card");
   }
 });
@@ -1390,6 +1390,19 @@ test("change 7: right closing card → recap false", () => {
   expect(end.fixedSkills.length).toBeGreaterThan(0); // filled on every end
   // an all-right session: recap false, nothing fixed
   expect(endOf(lastStep(play(C, startedAt(2, 4, 1), T0, allR).steps))).toMatchObject({ recap: false, fixedSkills: [] });
+});
+
+test("final review F3: EndInfo.rightSkills lists the distinct skills answered right, in order of the first right answer", () => {
+  const { steps } = play(C, withProfile(startedAt(2, 4, 1), { stamina: 30 }), T0, (_s, i) => (i === 1 ? "w" : "r"));
+  const answered = served(steps).slice(0, endOf(lastStep(steps)).cards);
+  const want = [...new Set(answered.filter((_c, i) => i !== 1).map((c) => c.skill))];
+  const end = endOf(lastStep(steps));
+  expect(end.rightSkills).toEqual(want);
+  expect(want.length).toBeGreaterThan(1);
+  expect(lastStep(steps).state.lastEnd!.rightSkills).toEqual(want);
+  // nothing right: an empty list
+  const none = play(C, startedAt(2, 4, 1), T0, () => "dk");
+  expect(endOf(lastStep(none.steps)).rightSkills).toEqual([]);
 });
 
 test("change 7: Seen.right is set on the answer; a skipped card has none", () => {
