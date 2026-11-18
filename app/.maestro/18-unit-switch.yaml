@@ -50,6 +50,11 @@ env:
 - takeScreenshot: learn-electricity
 - tapOn:
     id: "skill-phy.elec.res.series-parallel"
+- scrollUntilVisible:
+    element:
+      id: "item-phy.elec.c001"
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: "item-phy.elec.c001"
 - assertVisible: "phy\\.elec\\.c001 .*"

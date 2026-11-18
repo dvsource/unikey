@@ -37,11 +37,12 @@ On first run, accept the prompts to create `eas.json` and set its `preview` prof
 
 | Tab / screen | What it does |
 |---|---|
-| **Today** | Unit chips (Sinhala names), greeting, streak (sun), today's card (first skill of the unit's next 10 items), week day bars, the unit's Sigiriya. In reviewer mode, a *Teacher review* card with "Reviewed X of N" for the unit and the total for all units. |
+| **Today** | Unit chips (Sinhala names), greeting, streak (sun), **"Your path today" trail** (skill-graph design D): one stop per skill in the next 10 items, each tagged Refresh / Keep going / New with one reason from the graph, a skippable "Recommended first" prerequisite, the best lever (T, as one line) and what opens next; **Start · 5 min** pinned above the tab bar. Then week day bars and the unit's Sigiriya. In reviewer mode, a *Teacher review* card with "Reviewed X of N" for the unit and the total for all units. |
 | **Session** | L1/L2 cards, L3 scenarios and L4 MCQs (templates and statement banks), with figures. Shows correct / wrong, the mistake's student message (the option's `detail`, else the tag's message from spec §7) and the explanation. |
 | **Session done** | Sunrise, streak, skill progress, "Done for today" / "5 more". |
-| **Learn** | Unit chips → that unit's skills (in Sinhala) → items. Tap an item to play from there. |
-| **Progress** | Placeholder stats, plus the reviewer tools: name, export, reviewer mode and English toggles. |
+| **Learn** | Unit chips → that unit's skills (in Sinhala) → skill detail → items. |
+| **Skill detail** | Design C with R folded in: state, NEEDS (prerequisites with their state), this skill, MIXED UP WITH, OPENS, "N skills stand on this one", past-paper MCQ count, "Recommended first" / "Start this anyway", then the questions. Works for every graph skill, including ones with no questions yet. |
+| **Progress** | Design A: readiness (exam-weighted estimate from this phone's answers), one ring per syllabus topic, then the picked topic's skills as chips by subtopic, coloured by state (mastered / practising / refresh / not started / no questions yet). Plus the reviewer tools (shown first in reviewer mode): name, export, per-unit review counts, switches. |
 
 Items play in a **fixed order**: grouped by skill (in `items.json` order), then by layer, then as authored. Today plays the next 10 and moves on. Card options are shuffled with a fixed seed, so every reviewer sees the same order.
 
@@ -86,6 +87,8 @@ npm run content     # then reload the app
 **Units:** three packs are bundled: `mechanics-20` (91 items), `thermal-physics-20` (68) and `current-electricity-20` (82). One unit pick, made with the chips on Today or Learn, drives Today, Learn and "Review next 10". Each unit keeps its own Today position. Progress shows review counts per unit.
 
 **Adding a unit:** add an entry to `content-packs.json` with its `dir` and unit names, then run `npm run content`. The unit chips, Today, Learn and the counts pick it up. The Sinhala names for Thermal Physics (තාප භෞතිකය) and Current Electricity (ධාරා විද්‍යුතය) are drafts, to confirm against the NIE syllabus.
+
+**Skill graphs:** each pack in `content-packs.json` also names its unit's typed skill graph (`content/skills/<unit>/graph.json`). The build bundles its topics, skills (with exam weight), and requires / encompasses / confusable / helps edges; `src/content/graph.ts` answers "what does this need / open / stand on" and turns this phone's answers into a skill state. There is no mastery model yet: a skill is *mastered* when all its sample items were last answered right, *refresh* when one was last answered wrong, *practising* in between. Graph skills with no sample content show their English name (no Sinhala yet) and "No questions yet". The design choices come from the skill-graph design canvas (round 1–3 picks: D, A, C, with T and R as single lines).
 
 **Proposed tags:** a unit's Concept tags that aren't yet in spec §7 are read from `content/tags/*-proposed.md` (listed in `proposed_tag_docs`). Their student messages show in the app; reviewer mode notes "Proposed tag (…), not yet approved". When they're approved into §7, the spec wins automatically.
 

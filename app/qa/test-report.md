@@ -2,6 +2,23 @@
 
 _Run date: 2026-11-07 to 2026-11-09 · final regression run 2026-11-09 07:34 IST · spec [qa-spec.md](qa-spec.md) v1 · plan [execution-plan.md](execution-plan.md)_
 
+## Addendum 2026-11-11: skill-graph screens
+
+The recommended designs from the skill-graph canvas are in the app: D (Today trail), A (Progress rings then chips) and C (skill detail), with R ("N skills stand on this one") and T (best lever) as single lines. The three unit graphs are bundled with the content.
+
+| Suite | Result |
+|---|---|
+| Jest | **118 / 118 passed**, 12 suites (new: `graph.test.tsx`, 16 tests) |
+| Maestro full (`npm run test:e2e`, run 2026-11-11_213749) | **16 / 19 passed** in 31 min. Flows 05, 12 and 15 failed: each asserted text that the new layout moved below the fold. With a scroll added, all three passed on re-run (3 min 13 s). |
+| New flow `19-skill-graph` | Passed: trail → skill detail → Start → Progress rings → topic 2.3 → chip → skill detail |
+
+Found and fixed:
+- **BUG-05 (S2, GRF-05):** with English on, the longer trail pushed Start under the floating tab bar, so the tap opened Learn. Start is now pinned above the tab bar, as design D draws it.
+- **Reviewer layout:** in reviewer mode, Progress shows the review tools before the rings, so "Send results" stays near the top. Student mode keeps the rings first.
+- **Test infra:** item rows on skill detail and the Progress switches now sit lower, so the flows scroll to them first (with a longer timeout).
+
+Not done: S (Question X-ray), U (Lookalikes) and M (Past-paper lights) are the canvas's "ship next" picks. Readiness and skill states are a stand-in from this phone's answers; the real mastery model isn't built.
+
 ## Addendum 2026-11-09: three units
 
 Thermal Physics (68 items) and Current Electricity (82) were added next to Mechanics (91), with a unit picker, per-unit Today cursors and per-unit review counts.

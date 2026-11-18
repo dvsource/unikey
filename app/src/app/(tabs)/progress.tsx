@@ -3,7 +3,9 @@ import { Alert, Platform, ScrollView, StyleSheet, Switch, TextInput, View } from
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Txt } from "../../components/Txt";
 import { Button, Card, Divider, ProgressBar, Sky } from "../../components/ui";
-import { items, packs } from "../../content/pack";
+import { SkillRings } from "../../components/SkillRings";
+import { UnitPicker } from "../../components/UnitPicker";
+import { currentPack, items, packs } from "../../content/pack";
 import { shareExportFile, shareExportText } from "../../state/exportReviews";
 import { reviewedItemIds, useStore } from "../../state/store";
 import { color, font, gutter } from "../../theme";
@@ -17,6 +19,7 @@ export default function ProgressScreen() {
   const insets = useSafeAreaInsets();
   const { settings, setSettings, reviews, progress, resetProgress } = useStore();
   const [busy, setBusy] = useState(false);
+  const pack = currentPack(settings.unit);
 
   const marks = Object.values(reviews);
   const reviewedIds = reviewedItemIds(reviews);
@@ -38,23 +41,17 @@ export default function ProgressScreen() {
     }
   };
 
-  return (
-    <Sky>
-      <ScrollView
-        contentContainerStyle={[styles.page, { paddingTop: insets.top + 24, paddingBottom: insets.bottom + 120 }]}
-        keyboardShouldPersistTaps="handled"
-      >
-        <Txt size={32} style={{ letterSpacing: -0.6 }}>
-          Progress
+  // Design A (rings then chips) for students; in reviewer mode the review tools come first.
+  const rings = (
+    <>
+        <SkillRings packId={pack.id} answers={progress.answers} />
+        <Txt size={13} tone="muted">
+          {`${answered.length} ${answered.length === 1 ? "question" : "questions"} answered · ${right} right. Readiness weights each skill by its share of Paper I marks; the real mastery model isn't built yet.`}
         </Txt>
 
-        <Card style={{ gap: 6, padding: 18 }}>
-          <Txt size={15} tone="muted">
-            Readiness, unit rings and fading skills come with the scheduler.
-          </Txt>
-          <Txt size={15}>{`${answered.length} ${answered.length === 1 ? "question" : "questions"} answered · ${right} right`}</Txt>
-        </Card>
-
+    </>
+  );
+  const review = (
         <View style={{ gap: 12 }}>
           <Txt size={18} weight="medium">
             Teacher review
@@ -99,6 +96,27 @@ export default function ProgressScreen() {
             </Txt>
           </Card>
         </View>
+  );
+
+  return (
+    <Sky>
+      <ScrollView
+        contentContainerStyle={[styles.page, { paddingTop: insets.top + 24, paddingBottom: insets.bottom + 120 }]}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={{ gap: 2 }}>
+          <Txt size={13} tone="muted">
+            {`Progress · ${pack.unit.name_si}`}
+          </Txt>
+          <Txt size={32} style={{ letterSpacing: -0.6 }}>
+            Progress
+          </Txt>
+        </View>
+        <UnitPicker />
+        {settings.reviewerMode && review}
+        {settings.reviewerMode && rings}
+        {!settings.reviewerMode && rings}
+        {!settings.reviewerMode && review}
 
         <Card style={{ gap: 4, padding: 18 }}>
           <Toggle

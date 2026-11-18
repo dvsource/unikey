@@ -12,7 +12,14 @@ env:
 - assertVisible:
     id: "progress-reviewed"
     text: "Reviewed 0 of 241"
-- assertVisible: "0 questions answered · 0 right"
+- scrollUntilVisible:
+    element: "0 questions answered · 0 right.*"
+    direction: DOWN
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "progress-reviewed"
+    direction: UP
 - assertVisible:
     id: "progress-flagged"
     text: "0 with issues"

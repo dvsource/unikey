@@ -260,6 +260,21 @@ Three packs are bundled: `mechanics-20` (91), `thermal-physics-20` (68) and `cur
 | UNIT-11 | P1 | C | Saved state from before units (`progress.cursor`) | Mount the store | The cursor moves to Mechanics (PER-05) | `store.test.tsx` |
 | UNIT-12 | P2 | M | 720×1280 | Today with three chips | Chips wrap onto a second line; none clipped | screenshot |
 
+### GRF: Skill-graph screens (added 2026-11-11)
+
+Designs from the skill-graph canvas: D (Today trail), A (Progress rings then chips), C (skill detail) with R ("stands on") and T (best lever) as single lines.
+
+| ID | Pri | Type | Preconditions | Steps | Expected | Automated by |
+|---|---|---|---|---|---|---|
+| GRF-01 | P0 | U | — | Build content | Each pack bundles its unit graph: same skills and topics as `graph.json`, exam weights sum to 1, sample skills keep Sinhala names | `graph.test.tsx` |
+| GRF-02 | P1 | U | — | Graph queries | requires edges walk both ways; "stands on" is the transitive set without duplicates; confusable works from either end; names fall back to English | `graph.test.tsx` |
+| GRF-03 | P0 | U | — | Answer items of a skill | State goes new → practising → mastered; a wrong last answer makes it refresh; readiness is exam-weighted | `graph.test.tsx` |
+| GRF-04 | P0 | U | — | Build today's trail | Stops follow the queue's skills; refresh tags; a missing prerequisite with questions is suggested first; the lever is the skill most others stand on | `graph.test.tsx` |
+| GRF-05 | P0 | E/C | Fresh | Today | "Your path today" with stops and reasons; Start pinned above the tab bar and reachable with English on; tapping a stop opens skill detail | `19-skill-graph`, `04-persistence`, `graph.test.tsx` |
+| GRF-06 | P0 | E/C | — | Skill detail | NEEDS, this skill, OPENS, stands-on count, past-paper count; Start plays the skill; a skill with no questions says so | `19-skill-graph`, `graph.test.tsx` |
+| GRF-07 | P1 | E/C | Reviewer mode off | Progress | Readiness, a ring per topic; tapping a ring lists its chips by subtopic; a chip opens skill detail | `19-skill-graph`, `graph.test.tsx` |
+| GRF-08 | P2 | M | — | Compare with the canvas (D, A, C, R, T) | Layout and colour meaning match; judged by eye | screenshots |
+
 ### EDGE: Edge cases
 
 | ID | Pri | Type | Preconditions | Steps | Expected | Automated by |

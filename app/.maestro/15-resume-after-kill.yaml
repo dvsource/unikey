@@ -27,4 +27,7 @@ env:
     id: "close-session"
 - tapOn:
     id: "tab-progress"
-- assertVisible: "3 questions answered.*"
+- scrollUntilVisible:
+    element: "3 questions answered.*"
+    direction: DOWN
+    timeout: 45000

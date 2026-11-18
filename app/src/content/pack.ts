@@ -52,6 +52,7 @@ export type Pack = {
   built_at: string;
   skills: Skill[];
   items: Item[];
+  graph?: import("./graph").Graph | null;
 };
 
 export type Tag = { group: string; meaning: string; message: Lang; proposed?: boolean };

@@ -2,9 +2,10 @@ import { router } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Txt } from "../../components/Txt";
+import { Trail } from "../../components/Trail";
 import { UnitPicker } from "../../components/UnitPicker";
 import { Button, Card, Divider, ProgressBar, Sigiriya, Sky, Sun } from "../../components/ui";
-import { currentPack, getSkill, items, packs, pick } from "../../content/pack";
+import { currentPack, items, packs } from "../../content/pack";
 import { buildSession, masteredSkills } from "../../state/session";
 import { reviewedItemIds, streak, today, useStore } from "../../state/store";
 import { color, gutter } from "../../theme";
@@ -29,11 +30,11 @@ function weekDays() {
 
 export default function TodayScreen() {
   const insets = useSafeAreaInsets();
+  // The floating tab bar is about 66 px tall above its own bottom padding (see (tabs)/_layout).
+  const startBottom = Math.max(insets.bottom, 12) + 66 + 10;
   const { settings, progress, reviews } = useStore();
   const pack = currentPack(settings.unit);
   const session = buildSession("today", { pack: pack.id, cursor: progress.cursors[pack.id] ?? 0, reviews });
-  const mainSkill = getSkill(session[0]?.skills[0] ?? "");
-  const otherSkills = new Set(session.map((it) => it.skills[0])).size - 1;
 
   const days = weekDays();
   const now = today();
@@ -46,7 +47,7 @@ export default function TodayScreen() {
 
   return (
     <Sky>
-      <ScrollView contentContainerStyle={[styles.page, { paddingTop: insets.top + 24, paddingBottom: insets.bottom + 120 }]}>
+      <ScrollView contentContainerStyle={[styles.page, { paddingTop: insets.top + 24, paddingBottom: startBottom + 80 }]}>
         <View style={styles.header}>
           <View style={{ gap: 2 }}>
             <Txt size={15} tone="muted">
@@ -72,15 +73,12 @@ export default function TodayScreen() {
         <Card style={styles.todayCard}>
           <View style={styles.bigSun} />
           <Txt size={15} tone="muted">
-            Today · 5 min
+            {`Today · 5 min · ${session.length} questions`}
           </Txt>
-          <Txt testID="today-skill" size={27} weight="medium" style={{ marginRight: 70 }}>
-            {pick(mainSkill?.name)}
+          <Txt size={24} weight="medium" style={{ marginRight: 70, marginBottom: 12 }}>
+            Your path today
           </Txt>
-          <Txt size={15} tone="muted">
-            {otherSkills > 0 ? `plus ${otherSkills} more ${otherSkills === 1 ? "skill" : "skills"} · ${session.length} questions` : `${session.length} questions`}
-          </Txt>
-          <Button testID="start-today" label="Start" onPress={() => router.push({ pathname: "/session", params: { mode: "today" } })} style={{ marginTop: 16 }} />
+          <Trail queue={session} answers={progress.answers} showEnglish={settings.showEnglish} />
         </Card>
 
         {settings.reviewerMode && (
@@ -161,6 +159,15 @@ export default function TodayScreen() {
           );
         })}
       </ScrollView>
+      {/* D: the main action stays pinned above the tab bar, however long the trail is. */}
+      <View style={[styles.startBar, { bottom: startBottom }]} pointerEvents="box-none">
+        <Button
+          testID="start-today"
+          label="Start · 5 min"
+          onPress={() => router.push({ pathname: "/session", params: { mode: "today" } })}
+          style={styles.start}
+        />
+      </View>
     </Sky>
   );
 }
@@ -184,4 +191,6 @@ const styles = StyleSheet.create({
   bars: { flexDirection: "row", gap: 10, alignItems: "flex-end" },
   bar: { flex: 1, borderRadius: 7 },
   dayLetter: { flex: 1, textAlign: "center" },
+  startBar: { position: "absolute", left: 24, right: 24, maxWidth: 472, alignSelf: "center" },
+  start: { boxShadow: "0 6px 20px rgba(246,196,83,0.4)" },
 });

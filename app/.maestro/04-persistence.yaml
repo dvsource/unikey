@@ -15,6 +15,7 @@ env:
     element:
       id: "toggle-show-english"
     direction: DOWN
+    timeout: 45000
     centerElement: true
 - tapOn:
     id: "toggle-show-english"

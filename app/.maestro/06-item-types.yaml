@@ -19,6 +19,11 @@ env:
     id: "item-phy.mech.c001"
 - takeScreenshot: skill-items
 # True/false card: exactly 2 options.
+- scrollUntilVisible:
+    element:
+      id: "item-phy.mech.c002"
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: "item-phy.mech.c002"
 - assertVisible:

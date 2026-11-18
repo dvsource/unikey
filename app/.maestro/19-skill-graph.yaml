@@ -1,0 +1,78 @@
+# Cases: GRF-05, GRF-06, GRF-07 (designs D trail, C skill detail + R, A rings then chips)
+appId: host.exp.exponent
+name: "Skill graph: trail, skill detail, rings and chips"
+tags:
+  - full
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: subflows/launch.yaml
+# D: Today's path, one stop per skill, with a reason each.
+- assertVisible:
+    id: "trail"
+- assertVisible:
+    id: "trail-stop-0"
+- assertVisible: "Your path today"
+- takeScreenshot: today-trail
+
+# C + R: a stop opens the skill detail.
+- tapOn:
+    id: "trail-stop-0"
+- assertVisible:
+    id: "skill-title"
+- assertVisible:
+    id: "skill-graph"
+- assertVisible: "NEEDS"
+- scrollUntilVisible:
+    element:
+      id: "stands-on"
+    direction: DOWN
+    centerElement: true
+- assertVisible: "skills? stands? on this one"
+- takeScreenshot: skill-detail
+- scrollUntilVisible:
+    element:
+      id: "start-skill"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "start-skill"
+- assertVisible:
+    id: "session-counter"
+- runFlow: subflows/answer-next.yaml
+- runFlow: subflows/close-to-home.yaml
+
+# A: Progress, student view (rings first). Turn reviewer mode off for it.
+- tapOn:
+    id: "tab-progress"
+- scrollUntilVisible:
+    element:
+      id: "toggle-reviewer-mode"
+    direction: DOWN
+    timeout: 45000
+    centerElement: true
+- tapOn:
+    id: "toggle-reviewer-mode"
+- scrollUntilVisible:
+    element:
+      id: "readiness"
+    direction: UP
+- assertVisible:
+    id: "ring-2.1"
+- tapOn:
+    id: "ring-2.3"
+- assertVisible:
+    id: "chip-panel-title"
+    text: "2\\.3 .*"
+- takeScreenshot: progress-rings
+- scrollUntilVisible:
+    element:
+      id: "chip-phy.mech.newton.n3-pairs"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "chip-phy.mech.newton.n3-pairs"
+- assertVisible:
+    id: "skill-title"
+- assertVisible:
+    id: "skill-state"

@@ -33,6 +33,11 @@ env:
     id: "skill-phy.mech.vec.resultant-range"
 - assertVisible: "!"
 - takeScreenshot: skill-with-badge
+- scrollUntilVisible:
+    element:
+      id: "item-phy.mech.c001"
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: "item-phy.mech.c001"
 - tapOn:

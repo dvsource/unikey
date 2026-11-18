@@ -9,17 +9,32 @@
     {
       "id": "mechanics-20",
       "dir": "content/samples/mechanics-20",
-      "unit": { "id": "phy.mech", "name_en": "Mechanics", "name_si": "යාන්ත්‍ර විද්‍යාව" }
+      "unit": {
+        "id": "phy.mech",
+        "name_en": "Mechanics",
+        "name_si": "යාන්ත්‍ර විද්‍යාව"
+      },
+      "graph": "content/skills/mechanics/graph.json"
     },
     {
       "id": "thermal-physics-20",
       "dir": "content/samples/thermal-physics-20",
-      "unit": { "id": "phy.therm", "name_en": "Thermal Physics", "name_si": "තාප භෞතිකය" }
+      "unit": {
+        "id": "phy.therm",
+        "name_en": "Thermal Physics",
+        "name_si": "තාප භෞතිකය"
+      },
+      "graph": "content/skills/thermal-physics/graph.json"
     },
     {
       "id": "current-electricity-20",
       "dir": "content/samples/current-electricity-20",
-      "unit": { "id": "phy.elec", "name_en": "Current Electricity", "name_si": "ධාරා විද්‍යුතය" }
+      "unit": {
+        "id": "phy.elec",
+        "name_en": "Current Electricity",
+        "name_si": "ධාරා විද්‍යුතය"
+      },
+      "graph": "content/skills/current-electricity/graph.json"
     }
   ]
 }

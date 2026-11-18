@@ -62,6 +62,11 @@ env:
     id: "done-for-today"
 - assertVisible:
     id: "start-today"
+- scrollUntilVisible:
+    element:
+      id: "week-days"
+    direction: DOWN
+    centerElement: true
 - assertVisible:
     id: "week-days"
     text: "1 of 7 days"

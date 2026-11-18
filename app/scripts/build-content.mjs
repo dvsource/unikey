@@ -244,6 +244,38 @@ function buildPack(pack, tags, tsv) {
     source_dir: pack.dir,
     skills: items.skills.map((s) => ({ id: s.id, name: { en: s.name, si: s.name_si }, type: s.type })),
     items: playItems,
+    graph: pack.graph ? buildGraph(path.join(REPO, pack.graph), items.skills) : null,
+  };
+}
+
+// The unit's typed skill graph (DR-0022), trimmed to what the screens draw:
+// topics (rings), every skill with its exam weight, and the requires /
+// encompasses / confusable / helps edges. Sinhala skill names come from the
+// graph, else from the content sample.
+function buildGraph(file, sampleSkills) {
+  const g = JSON.parse(fs.readFileSync(file, "utf8"));
+  const sampleSi = new Map(sampleSkills.map((s) => [s.id, s.name_si]));
+  const name = (n, id) => ({ en: n.en ?? n, ...((n.si ?? sampleSi.get(id)) ? { si: n.si ?? sampleSi.get(id) } : {}) });
+  const kept = new Set(["requires", "encompasses", "confusable", "helps"]);
+  return {
+    status: g.status,
+    exam_note: g.exam_weight_policy?.source,
+    topics: g.topics.map((t) => ({ id: t.id, ref: t.syllabus_ref, name: { en: t.name }, exam_share: t.exam_share })),
+    skills: g.skills.map((s) => ({
+      id: s.id,
+      topic: s.topic,
+      subtopic: s.subtopic,
+      ref: s.syllabus_ref,
+      type: s.type,
+      mastery: s.mastery,
+      minutes: s.est_minutes,
+      name: name(s.names, s.id),
+      exam: { primary: s.exam?.primary?.length ?? 0, secondary: s.exam?.secondary?.length ?? 0 },
+      weight: s.exam_weight_share ?? 0,
+    })),
+    // Skills from other units and maths skills the edges point at, so chips can be named.
+    outside: [...(g.external ?? []), ...(g.math ?? [])].map((x) => ({ id: x.id, name: { en: x.name }, ref: x.syllabus_ref ?? null })),
+    edges: g.edges.filter((e) => kept.has(e.type)).map((e) => ({ type: e.type, from: e.from, to: e.to, ...(e.weight ? { weight: e.weight } : {}) })),
   };
 }
 
