@@ -47,13 +47,15 @@ test("first session: opens open:liked, ends by budget, effort ≤ 12 and within 
 });
 
 test("all right at height 2: the budget keeps a wrong close card in reserve; a height-3 skill costs more", () => {
-  // Budget 12.006, reserve effort.h1 + effort.wrong = 2: six height-2 cards (9), then 1.006 left fits nothing
-  // plus the reserve → closing; the last card was right and winnable, so no close card is needed.
+  // Budget 12.006, reserve effort.h1 + effort.wrong = 2: six height-2 cards (9), then 1.006 left: no height-2 card
+  // fits it. Final review F1: the most winnable card that fits (a height-1 card, 1 effort) comes before closing (was:
+  // closing at once after 6 cards, effort 9); then 0.006 left → closing; the last card was right, so no close card.
   const { steps } = play(C, startedAt(2, 4, 1), T0, allR);
   const cards = served(steps);
-  expect(cards.length).toBe(6);
-  expect(cards.every((c) => c.height === 2)).toBe(true);
-  expect(endOf(lastStep(steps))).toMatchObject({ kind: "budget", effort: 9, cards: 6, right: 6 });
+  expect(cards.length).toBe(7);
+  expect(cards.slice(0, 6).every((c) => c.height === 2)).toBe(true);
+  expect(cards[6]).toMatchObject({ height: 1, reason: "comfort-correction" });
+  expect(endOf(lastStep(steps))).toMatchObject({ kind: "budget", effort: 10, cards: 7, right: 7 });
 
   const h3 = startedAt(2, 4, 1, { b2: { height: 3, attempts: atts(3, 10, 0, D0 - 2), noFullUntilDay: null } });
   const r3 = play(C, h3, T0, allR);
@@ -670,14 +672,38 @@ test("F5: a session that crosses local midnight belongs to the day it started on
 const oneSkill = () => startedState({ a1: rec(2, atts(2, 8, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }) }, { sessionCount: 4 });
 const CR = fixture({ drop: ["a1.h1.2", "a1.h1.3"] });
 
-test("repair leaves its skill waiting for the return and nothing else is eligible: the return is served early, not a dead end", () => {
+test("repair leaves its skill waiting for the return: another skill's card comes first, then the return; not a dead end", () => {
   const { steps } = play(CR, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
   const cards = served(steps);
   const end = endOf(lastStep(steps));
-  // Before the fix: wrong open card, right repair card, `budget` after 2 cards, effort 3.5 of 12.
+  // Before the dead-end fix: wrong open card, right repair card, `budget` after 2 cards, effort 3.5 of 12.
   expect(cards.length).toBeGreaterThan(2);
-  expect(cards[2].reason).toBe("repair:return");
+  // Final review F1: a2 has an easy card, so it is served before the early return (was: the return as card 3).
+  expect(cards[2]).toMatchObject({ skill: "a2", reason: "comfort-correction" });
+  expect(cards.findIndex((c) => c.reason === "repair:return")).toBeGreaterThan(2);
   expect(end.effort).toBeGreaterThanOrEqual(8);
+});
+
+/** Only a1 has cards (one height-1 card: a piece, no confidence card): after the piece nothing else can be served. */
+const CD = fixture({
+  drop: ["a1.h1.2", "a1.h1.3", ...["a2", "b1", "b2"].flatMap((s) => [1, 2, 3].flatMap((i) => [`${s}.h1.${i}`, `${s}.h2.${i}`]).concat(`${s}.h3`))],
+});
+
+test("F1: when no other card can be served (a true dead end), the waiting return is still served early", () => {
+  const { steps } = play(CD, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards.slice(0, 3).map((c) => c.reason)).toEqual(["open:liked", "repair:missing-piece", "repair:return"]);
+});
+
+test("F1: a return queued at once (no repair card) waits while another skill's card fits", () => {
+  // a1 (height 2) and b2 have no height-1 card, so a1's repair has no piece and no confidence card. a2 has easy cards.
+  // Before F1: nothing fit strict pickMiddle, the return was held back (Task 9) and the session went to closing:
+  // a2's close card, then the end after 2 cards and 3.5 effort.
+  const CN = fixture({ drop: ["a1.h1.1", "a1.h1.2", "a1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3"] });
+  const { steps } = play(CN, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards[1]).toMatchObject({ skill: "a2", reason: "comfort-correction" });
+  expect(cards.length).toBeGreaterThan(2);
 });
 
 test("change 1: a return with no repair card before it is not served straight after the miss, at or above its level", () => {

@@ -77,6 +77,8 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
 /** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
 const recentCards = (r: Run) => r.s.session!.servedCards.slice(-r.cfg.session.returnAfterCards);
 const loose = (r: Run) => ctxOf(r, false, Infinity);
+/** `skills` kept out of this pick entirely, even by the sweep's relaxed pass (as a left skill is). */
+const hold = (ctx: PickCtx, skills: string[]): PickCtx => ({ ...ctx, leftSkills: [...(ctx.leftSkills ?? []), ...skills] });
 /** Anything at all eligible in content (ignoring budget, runs and exclusions)? */
 const anyLeft = (r: Run) => pickAny(r.s, r.content, loose(r), r.cfg, "fallback:any") !== null;
 
@@ -234,10 +236,16 @@ function normal(r: Run, last: Last): Next {
   }
   const pm = middle(s, content, strict(), cfg);
   if (pm) return main(pm);
-  if (middle(s, content, loose(r), cfg)) {
-    // Something to serve and nothing that fits, or only a skill waiting for its repair return, which `strict` leaves
-    // alone: when a waiting return fits the budget it is served now (early), so the session does not dead-end after
-    // a repair with most of its budget unspent.
+  // Nothing fits pickMiddle: the most winnable card, else the sweep. `waiting`: pickMiddle has something to serve, but
+  // nothing that fits, or only a skill waiting for its repair return, which `strict` leaves alone. Final review F1: then
+  // the sweep leaves waiting skills out too, and only in a true dead end is a waiting return that fits the budget served
+  // now (early), so the session does not end after a repair with most of its budget unspent.
+  const waiting = middle(s, content, loose(r), cfg) !== null;
+  const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
+  if (pc) return serve(r, pc, true);
+  const any = pickAny(s, content, waiting ? hold(strict(), ss.returns.map((q) => q.skill)) : strict(), cfg, "fallback:any");
+  if (any) return serve(r, any, true);
+  if (waiting) {
     const early = pickReturn(s, content, strict(), returns(), Infinity, cfg);
     if (early) {
       ss.returns = ss.returns.filter((q) => q.skill !== early.served.skill);
@@ -245,11 +253,6 @@ function normal(r: Run, last: Last): Next {
     }
     return toClosing(r, false);
   }
-  // pickMiddle had nothing (comfort mode found nothing at comfort): the most winnable card, else the sweep
-  const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
-  if (pc) return serve(r, pc, true);
-  const any = pickAny(s, content, strict(), cfg, "fallback:any");
-  if (any) return serve(r, any, true);
   const side = pickSkipCard(s, content, ss, strict(), cfg, true); // a due side door before ending for lack of cards
   if (side) return serve(r, side);
   if (anyLeft(r)) return toClosing(r, false);
