@@ -15,7 +15,7 @@ export function newState(student: string, seed: number, cfg: Config = defaultCon
   };
 }
 
-export function migrate(json: unknown): State {
+export function migrate(json: unknown, cfg: Config = defaultConfig): State {
   if (typeof json !== "object" || json === null || (json as { v?: unknown }).v !== 1) {
     throw new Error("unsupported state version");
   }
@@ -29,7 +29,8 @@ export function migrate(json: unknown): State {
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
     missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
     fixedSkills: s.session.fixedSkills ?? [], // change 7
-    extendEffortLeft: s.session.extendEffortLeft ?? 0, // extend ruling
+    // extend ruling; final review F6: an open "5 more" from before it gets the whole allowance
+    extendEffortLeft: s.session.extendEffortLeft ?? (s.session.phase === "extend" ? cfg.budget.extendEffort : 0),
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, {
     ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null, skippedLevel: x.skippedLevel ?? null, // change 6

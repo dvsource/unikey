@@ -293,11 +293,10 @@ function toClosing(r: Run, forced: boolean): Next {
 /**
  * The end of a session (final review F1). When the last answer was right the session ends there, whatever the
  * estimate and today's effort; a close card is served only when the last answer was not right, or when `forced`
- * (bad day). A wrong close answer gets another close card, at most `sessionEnd.maxExtraClose` extra (change 7: 0); once
- * they are used up after a miss the session ends at once on a recap (`EndInfo.recap`). A close card is never served past
- * the daily cap; when the cap blocks it after a miss the session ends `daily-cap`, also on a recap. When only the
- * session's recent cards are left, the least recent is served. `content-exhausted` only when nothing at all is
- * eligible. Change 7: closing picks (and only they) may repeat a card answered right `closing.repeatRightAfterDays` ago.
+ * (bad day). Change 7: one closing card at most (`sessionEnd.maxExtraClose` is 0): when it is missed the session ends at
+ * once on a recap (`EndInfo.recap`). A close card is never served past the daily cap; when the cap blocks it after a
+ * miss the session ends `daily-cap`, also on a recap. When only the session's recent cards are left, the least recent
+ * is served. `content-exhausted` only when nothing at all is eligible. Change 7: closing picks (and only they) may repeat a card answered right `closing.repeatRightAfterDays` ago.
  */
 function closing(r: Run, forced: boolean): Next {
   const { s, content, cfg } = r;

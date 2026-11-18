@@ -66,3 +66,11 @@ test("final review F3: migrate defaults a stored lastEnd's rightSkills to []; a 
   const kept = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), lastEnd: { ...end, rightSkills: ["a1"] } })));
   expect(kept.lastEnd!.rightSkills).toEqual(["a1"]);
 });
+
+test("final review F6: migrate gives an open \"5 more\" from before the extend ruling the full effort allowance", () => {
+  const ss = { phase: "extend", fadeEffort: null, extendLeft: 3 } as unknown as NonNullable<State["session"]>;
+  const m = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), session: ss })));
+  expect(m.session!.extendEffortLeft).toBe(defaultConfig.budget.extendEffort);
+  const kept = migrate(JSON.parse(JSON.stringify({ ...newState("s", 1), session: { ...ss, extendEffortLeft: 2 } })));
+  expect(kept.session!.extendEffortLeft).toBe(2);
+});

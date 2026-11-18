@@ -731,6 +731,18 @@ test("change 1: a return with no repair card before it is not served straight af
   expect(cards[0]).toMatchObject({ skill: "a1", height: 2 });
   expect(cards.length).toBeGreaterThan(1);
   expect(cards[1].skill === "a1" && cards[1].height >= 2).toBe(false);
+  // F6: the return is served, after at least one other card (after F1: after returnAfterCards of them)
+  const ret = cards.findIndex((c) => c.reason === "repair:return");
+  expect(ret).toBeGreaterThan(1);
+  expect(cards[ret].skill).toBe("a1");
+  expect(cards.slice(1, ret).every((c) => c.skill !== "a1")).toBe(true);
+  // F6: the session does not end on a wrong answer, not even when the return is missed too
+  for (const miss of [(_s: Served, i: number) => i === 0, (s: Served, i: number) => i === 0 || s.reason === "repair:return"]) {
+    const p = play(CN, oneSkill(), T0, (s, i) => (miss(s, i) ? "w" : "r"));
+    const last = lastStep(p.steps);
+    expect(last.next.kind).toBe("end");
+    expect(last.feedback?.right).toBe(true);
+  }
 });
 
 test("streak: a `budget` end far below the minimum day with the budget mostly unspent does not keep the streak", () => {
