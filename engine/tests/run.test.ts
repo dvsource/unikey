@@ -91,7 +91,7 @@ function mk(persona: string, lines: LogLine[], o: Partial<StudentLog> = {}): Stu
     contentExhausted: 0, ...o,
   };
 }
-const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card", "repair-steps-down", "no-long-zero-session", "side-door-not-full", "day-one-fit"];
+const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card", "repair-steps-down", "no-long-zero-session", "side-door-not-full", "day-one-fit", "no-full-after-full-miss"];
 function result(logs: StudentLog[], name: string) {
   const all = runChecks(logs, defaultConfig);
   expect(all.map((c) => c.name)).toEqual(NAMES);
@@ -319,7 +319,7 @@ test("repair-steps-down: a repair card is easier than the missed card, level 1 â
   allPass([mk("strong", rep(3, 2))]);
   allPass([mk("strong", rep(2, 1))]);
   allPass([mk("strong", rep(1, 1))]); // level 1 â†’ level 1, different card
-  const d = onlyFails([mk("strong", rep(3, 3))], "repair-steps-down");
+  const d = onlyFails([mk("strong", rep(3, 3, { skill: "s2" }))], "repair-steps-down"); // another skill, so the full-problem rest is not in play
   expect(d).toMatch(/^1 violation; first: strong day 0 session 1.*r/);
   onlyFails([mk("strong", rep(2, 3))], "repair-steps-down");
   expect(result([mk("strong", rep(1, 1, { card: "m", variant: 1 }))], "repair-steps-down").pass).toBe(false); // same card at level 1 (also trips no-back-to-back)
@@ -494,4 +494,49 @@ test("change 7: the runner copies the engine's recap onto every end line", () =>
     }
   }
   expect(recaps).toBeGreaterThan(0);
+});
+
+test("no-full-after-full-miss: a level-3 card of the skill inside the rest after a non-guess level-3 miss", () => {
+  const plays = cleanLines(12);
+  const f3 = (card: string, o: Partial<Served> = {}) => sv(card, { height: 3, ...o });
+  // the miss closes its day as a recap, so no-end-on-wrong is not in play
+  const miss = (d: number, o: Partial<LogLine> = {}) =>
+    withCard(plays, d, f3(`m${d}`), { right: false, choice: 1, ...o }).map((l) => (l.day === d && l.kind === "end" ? { ...l, recap: true } : l));
+  // the miss on day 2 then a full on day 3 (1 day later, rest is 2): violation
+  let l = miss(2);
+  l = withCard(l, 3, f3("again", { reason: "stretch:up" }));
+  const d = onlyFails([mk("strong", l)], "no-full-after-full-miss");
+  expect(d).toMatch(/strong day 3 .*again.*day 2/);
+  // two days later is fine; so is another skill; so is a level 2 card
+  let ok = withCard(miss(2), 4, f3("later"));
+  allPass([mk("strong", ok)]);
+  ok = withCard(miss(2), 3, f3("other", { skill: "s2" }));
+  allPass([mk("strong", ok)]);
+  ok = withCard(miss(2), 3, sv("easy", { height: 2 }));
+  allPass([mk("strong", ok)]);
+  // "I don't know" on a full problem also starts the rest
+  const dk = withCard(miss(2, { choice: "dont-know" }), 3, f3("again"));
+  onlyFails([mk("strong", dk)], "no-full-after-full-miss");
+  // a guess on a level-3 card does not
+  const guessed = withCard(miss(2, { guess: true }), 3, f3("again"));
+  allPass([mk("strong", guessed)]);
+  // a right answer does not
+  allPass([mk("strong", withCard(withCard(plays, 2, f3("r2")), 3, f3("again")))]);
+});
+
+test("the runner logs guess on answers and a hint line for the nudge", () => {
+  const log = runStudent(byId("fast-guesser"), fixture(), opts(8, 5));
+  const cards = log.lines.filter((l) => l.kind === "card");
+  const guesses = cards.filter((l) => l.guess === true);
+  expect(guesses.length).toBeGreaterThan(3);
+  for (const g of guesses) expect(g.right).toBe(false);
+  for (const c of cards) expect(typeof c.guess).toBe("boolean");
+  const hints = log.lines.filter((l) => l.kind === "hint");
+  expect(hints.length).toBeGreaterThan(0);
+  for (const h of hints) expect(h.hint).toBe("guess-nudge");
+  // once per session, and only after a session's third guess
+  const bySession = new Map<number, number>();
+  for (const h of hints) bySession.set(h.session, (bySession.get(h.session) ?? 0) + 1);
+  for (const n of bySession.values()) expect(n).toBe(1);
+  for (const h of hints) expect(log.lines.filter((l) => l.session === h.session && l.guess === true && l.n <= h.n).length).toBeGreaterThanOrEqual(3);
 });

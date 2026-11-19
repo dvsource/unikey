@@ -37,7 +37,7 @@ export type LogLine = {
   day: number; session: number;
   /** Cards served so far in this session (0 on the start line). */
   n: number;
-  kind: "start" | "card" | "skip" | "confirm-skip" | "end" | "offer-extend" | "moment" | "quit" | "rejoin";
+  kind: "start" | "card" | "skip" | "confirm-skip" | "end" | "offer-extend" | "moment" | "quit" | "rejoin" | "hint";
   served?: Served; choice?: Choice; right?: boolean; ms?: number; end?: EndInfo; moment?: Moment;
   /** On card / skip / confirm-skip / quit lines: the session's effort was above the hidden stamina when it was served. */
   hiddenFatigued?: boolean;
@@ -59,6 +59,10 @@ export type LogLine = {
   accepted?: boolean;
   /** card: the hidden knowledge of the card's skill before and after the answer. */
   kBefore?: number; kAfter?: number;
+  /** card: the engine called this wrong answer a guess (a very fast wrong answer); absent in older logs. */
+  guess?: boolean;
+  /** hint: what the app suggested to the student (the engine's `Step.hint`). */
+  hint?: "guess-nudge";
   /** card: the wrong option's error tag, if any. */
   tag?: string;
   /** quit: why the hidden student walked out. */
@@ -211,7 +215,9 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     const tag = st.feedback.tag;
     h = learn(h, sv, right, day, tag);
     recent.push(a.choice === "dont-know" ? "dk" : right);
-    log({ kind: "card", served: sv, choice: a.choice, right, ms: a.ms, hiddenFatigued, kBefore, kAfter: h.k[sv.skill] ?? 0, ...(tag !== undefined ? { tag } : {}) });
+    const guess = st.events.find((e) => e.type === "answer")?.data.guess === true;
+    log({ kind: "card", served: sv, choice: a.choice, right, ms: a.ms, guess, hiddenFatigued, kBefore, kAfter: h.k[sv.skill] ?? 0, ...(tag !== undefined ? { tag } : {}) });
+    if (st.hint !== undefined) log({ kind: "hint", hint: st.hint });
   }
 }
 

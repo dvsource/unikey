@@ -301,10 +301,28 @@ function dayOneFit(logs: StudentLog[]): CheckResult {
   return verdict("day-one-fit", bad, `${runs} first sessions with 5 right in a row, each moved up to level 2 or 3`);
 }
 
+/** After a non-guess miss on a level-3 card, no level-3 card of that skill is served for `full.restDays` days. */
+function noFullAfterFullMiss(logs: StudentLog[], cfg: Config): CheckResult {
+  const bad: string[] = [];
+  let misses = 0;
+  for (const log of logs) {
+    const missDay = new Map<string, number>(); // skill -> day of its latest non-guess level-3 miss
+    for (const l of log.lines) {
+      if (!isServe(l) || l.served!.height !== 3) continue;
+      const sk = l.served!.skill;
+      const m = missDay.get(sk);
+      if (m !== undefined && l.day - m < cfg.full.restDays)
+        bad.push(`${where(log, l)}: level 3 card ${l.served!.card} on ${sk}, ${l.day - m} day${l.day - m === 1 ? "" : "s"} after a full-problem miss (day ${m}); rest is ${cfg.full.restDays}`);
+      if (l.kind === "card" && l.right !== true && l.guess !== true) { missDay.set(sk, l.day); misses++; }
+    }
+  }
+  return verdict("no-full-after-full-miss", bad, `${misses} missed full problems (not guesses), none followed by a full problem on the skill within ${cfg.full.restDays} days`);
+}
+
 export function runChecks(logs: StudentLog[], cfg: Config): CheckResult[] {
   return [
     noEndOnWrong(logs), skipTiming(logs, cfg), effortCapAndFairness(logs, cfg),
     noRepeat(logs, cfg), endsBeforeFade(logs), knowledgeUp(logs), noBackToBack(logs, cfg),
-    repairStepsDown(logs), noLongZeroSession(logs), sideDoorNotFull(logs), dayOneFit(logs),
+    repairStepsDown(logs), noLongZeroSession(logs), sideDoorNotFull(logs), dayOneFit(logs), noFullAfterFullMiss(logs, cfg),
   ];
 }

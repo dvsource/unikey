@@ -132,8 +132,8 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
     const n = `#${l.n}`;
     switch (l.kind) {
       case "card": {
-        const act = l.choice === "dont-know" ? `"I don't know"` : l.right ? "right" : "wrong";
-        out.push(`${at(l)} ${n}  ${cardText(l)} — ${act}, ${secs(l.ms ?? 0)}`);
+        const act = l.choice === "dont-know" ? `"I don't know"` : l.right ? "right" : l.guess === true ? "wrong (guessed" : "wrong";
+        out.push(`${at(l)} ${n}  ${cardText(l)} — ${act === "wrong (guessed" ? `${act}, ${secs(l.ms ?? 0)})` : `${act}, ${secs(l.ms ?? 0)}`}`);
         break;
       }
       case "confirm-skip": {
@@ -162,6 +162,9 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
       }
       case "offer-extend":
         out.push(`${at(l)} after #${l.n}  the app offers "5 more" — ${l.accepted ? "taken" : "declined"}`);
+        break;
+      case "hint":
+        out.push(`${at(l)} after #${l.n}  the app suggests: "${GUESS_NUDGE_TEXT}"`);
         break;
       case "moment":
         out.push(`${at(l)} after #${l.n}  ★ moment shown: ${momentText(l, nm)}`);
@@ -197,6 +200,9 @@ function momentText(l: LogLine, nm: ReturnType<typeof namer>): string {
   }
 }
 
+/** What the app says to a student after a run of guesses (the engine's `guess-nudge` hint). */
+const GUESS_NUDGE_TEXT = "Not sure? Tap I don't know. It costs nothing.";
+
 /** What the log lines mean; shown above every log. Not part of the log (quotes are checked against event lines only). */
 export const LOG_LEGEND = `How to read the log. One line per event.
 - \`D03 S1 #4\` is day 3 of 28, the first session that day, the 4th card of that session. \`D03 S1 start\` and \`D03 S1 end\` open and close a session. \`after #4\` means between card 4 and card 5.
@@ -204,6 +210,9 @@ export const LOG_LEGEND = `How to read the log. One line per event.
 - \`H1 easy\`, \`H2 guided\`, \`H3 full\` is how demanding the card is: an easy theory or recall card, a guided problem, or a full exam-style problem.
 - Then the section of the syllabus › the skill, what the student did (right, wrong, "I don't know", skipped with "Not now", or closed the app), and how many seconds it took.
 - Session ends give how the session ended, the effort it took (an easy card costs 1, a guided card 1.5, a full problem 4, a wrong answer 1 more, "I don't know" nothing extra; the app allows at most 40 a day), the cards answered, how many were right, and how many skills were fixed (a skill is fixed when its repair ended with the easy confidence card right, or when it was answered right on coming back; a later miss on it that session undoes this).
+- \`wrong (guessed, 1s)\`: a very fast wrong answer is treated as a guess. It does not count against the skill (the app learns nothing bad about it from that answer), but the student still gets an easier card on it, as after any wrong answer.
+- \`the app suggests: "Not sure? Tap I don't know. It costs nothing."\` is a short hint the app shows after a student's third guess in a session (once per session). It changes nothing else.
+- A missed full problem (H3) is not shown again on that skill for a couple of days. Other cards on the skill still come as normal.
 - After every answer the app shows whether it was right. After a wrong answer it shows the mistake's message and the explanation; "I don't know" gets the explanation with no negative message and costs no extra effort. Then the next card comes. The app shows no score, no backlog and no "due" count.
 - "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of a small extra set at the end, up to five cards; it is limited by effort too, so it may be fewer cards when they are big problems.
 - A session has only one closing card. When it is missed (or skipped after a miss), the session does not end on the wrong answer: it ends with a short recap and no question (\`end: recap, no question\`). The recap screen says "Fixed today: …" when a repair worked, otherwise "You got … right today" (the skills answered right), otherwise "Tomorrow starts easy".

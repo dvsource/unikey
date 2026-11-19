@@ -411,3 +411,32 @@ test("new-style lines in a real 28-day run carry no numbers beyond effort and ca
     if (/end: recap/.test(l)) expect(l).toMatch(/^D\d\d S\d+ end {2}— end: recap, no question \([^)]*\), [\d.]+ effort, \d+ cards \(\d+ right\)(, streak kept)?$/);
   }
 });
+
+test("a guess, the nudge and the full-problem rest read plainly in the log and legend", () => {
+  const g = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 1, right: false, guess: true, ms: 1400 });
+  expect(g.find((l) => l.includes("#1"))).toMatch(/ — wrong \(guessed, 1s\)$/);
+  const plain = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 1, right: false, guess: false, ms: 7400 });
+  expect(plain.find((l) => l.includes("#1"))).toMatch(/ — wrong, 7s$/);
+  const old = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 1, right: false, ms: 7400 });
+  expect(old.find((l) => l.includes("#1"))).toMatch(/ — wrong, 7s$/);
+  const dk = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: "dont-know", right: false, ms: 900 });
+  expect(dk.find((l) => l.includes("#1"))).toMatch(/ — "I don't know", 1s$/);
+  const right = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 0, right: true, ms: 900 });
+  expect(right.find((l) => l.includes("#1"))).toMatch(/ — right, 1s$/);
+  const nudge = logOf({ day: 0, session: 1, n: 3, kind: "hint", hint: "guess-nudge" });
+  const line = nudge.find((l) => l.includes("the app suggests"))!;
+  expect(line).toBe('D01 S1 after #3  the app suggests: "Not sure? Tap I don\'t know. It costs nothing."');
+  expect(eventLines(line)).toEqual([line]);
+  expect(LOG_LEGEND).toMatch(/wrong \(guessed.*very fast wrong answer.*guess.*does not count against the skill.*easier card/s);
+  expect(LOG_LEGEND).toContain('the app suggests: "Not sure? Tap I don\'t know. It costs nothing."');
+  expect(LOG_LEGEND).toMatch(/missed full problem.*not shown again on that skill for a couple of days/s);
+  for (const w of ["fraction", "floor", "usual time", "1/3"]) expect(LOG_LEGEND.toLowerCase()).not.toContain(w);
+});
+
+test("a real run with guessers shows guessed answers and the nudge in the student packet, with no leaks", () => {
+  const files = buildPackets(runOf(1, 28), content, prompts);
+  const all = Object.entries(files).filter(([f]) => f.startsWith("student-")).flatMap(([, t]) => eventLines(t));
+  expect(all.some((l) => /— wrong \(guessed, \d+s\)$/.test(l))).toBe(true);
+  expect(all.some((l) => l.includes('the app suggests: "Not sure? Tap I don\'t know. It costs nothing."'))).toBe(true);
+  for (const l of all.filter((x) => /guessed|the app suggests/.test(x))) expect(l).not.toMatch(/knowledge|stamina|comfort(?!-correction)|budget|fraction/i);
+});

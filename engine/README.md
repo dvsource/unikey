@@ -102,6 +102,16 @@ Every card has a `reason`. The app can log it; the student never sees it.
 - A skipped section comes back through a side door card below the level that was skipped, never a full problem (level 1 when a level-1 card was skipped). When it has no such card left, it comes back without one: one `section_rejoined` event (`{ section }`), its skills at their lowest level. Then it is served like any other section.
 - A "not-learned" skip can come back early when the class teaches that topic (`setCurrentTopic(..., "class")`).
 
+## Guesses, fast right answers and the full-problem rest
+
+- **A guess** is a wrong answer (not "I don't know") that came faster than the guess line: the larger of a floor (`guess.floorMs`: 4 s at level 1, 6 s at level 2, 10 s at level 3) and `guess.fraction` (a third) of the student's usual time at that level. The `answer` event has `guess: true`. A right answer is never a guess.
+- **What a guess does not do.** It does not step the skill down, reset its review gap, count toward "two misses leave the skill", count as a bad moment, or move the student's profile (memory, calc against concept, comfort, the first-session ladder).
+- **What a guess still does.** It costs effort like any wrong answer, it still starts the normal repair (an easier card follows), and it still counts as a miss for "a session never ends on a wrong answer" (so the session ends on a recap).
+- **Fast right answers.** A right answer under the same guess line is marked `fast` on the attempt. It is weak evidence: it never counts toward a step up to a higher level.
+- **`Step.hint`.** After the session's third guess (`guess.nudgeAfter`), the next step carries `hint: "guess-nudge"`, once per session. The app shows a short line such as "Not sure? Tap I don't know. It costs nothing." The hint does not change the next card.
+- **The full-problem rest.** A missed full problem (level 3, a wrong answer or "I don't know", not a guess) rests that skill's level 3 cards for `full.restDays` (2) days. Other levels of the skill carry on. Two such misses in a row drop the skill to level 2. A calc or concept weakness needs at least `calc.minH3` (3) full problems before it is read.
+- **New config groups:** `guess` (`fraction`, `floorMs`, `nudgeAfter`), `full` (`restDays`), and `calc.minH3`. All are in `src/config.ts`.
+
 ## Known gaps
 
 - **`note_ref` is not in the built packs.** The repair step "a card on the same note" needs `card.noteRef`. The built packs drop `note_ref`, so in the app this step is inactive until the build script passes it through (`buildContent`'s `noteRefs` argument takes a card id → note map). The simulator reads it from the source `items.json` files.
@@ -119,7 +129,7 @@ From `engine/`:
 | `npm install` | once |
 | `npx vitest run` | the unit tests |
 | `npx tsc --noEmit` | the type check |
-| `npm run sim -- --days 28 --seed 1 --packs all --out runs/<name>` | the 28-day simulator: 16 hidden students, the seven code checks (exit 1 if one fails) |
+| `npm run sim -- --days 28 --seed 1 --packs all --out runs/<name>` | the 28-day simulator: 16 hidden students, the twelve code checks (exit 1 if one fails) |
 | `npm run judge -- packets --run runs/<name>` | builds the AI judge packets (`judge/JUDGING.md` is the runbook) |
 | `npm run judge -- collect --run runs/<name>` | collects the judge reports into the summary input |
 
