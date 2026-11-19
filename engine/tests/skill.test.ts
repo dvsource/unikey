@@ -113,6 +113,10 @@ test("wrong at a lower height than current resets the gap to 1 day", () => {
 
 // ---------- rule 1: a fast right answer is weak evidence ----------
 const fast = (a: Attempt): Attempt => ({ ...a, fast: true });
+test("fast right answers still count as right in the step-down window: wrong, right, fast right, right, wrong does not step down", () => {
+  const o = run(newSkillRec(3), [att(1, 1, 3, false), att(1, 2, 3, true), fast(att(1, 3, 3, true)), att(1, 4, 3, true), att(1, 5, 3, false)]);
+  expect(o.rec.height).toBe(3); expect(o.down).toBe(false);
+});
 test("fast right answers do not count toward stepping up (their review gap still moves)", () => {
   const o = run(newSkillRec(2), [fast(att(1, 1, 2, true)), fast(att(2, 2, 2, true))]);
   expect(o.rec.height).toBe(2); expect(o.up).toBe(false);

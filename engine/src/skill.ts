@@ -50,10 +50,10 @@ export function recordAttempt(
   let steppedDown = false;
   if (a.height === rec.height) {
     // A fast right answer (rule 1) is skipped: it is neither a right nor a break in "right in a row", and cannot step up.
-    const win = out.attempts.filter((x) => x.height === rec.height && x.seq >= rec.windowStartSeq && x.fast !== true);
+    const win = out.attempts.filter((x) => x.height === rec.height && x.seq >= rec.windowStartSeq);
     if (a.right && a.fast !== true) {
       const n = cfg.stepUp.rightInRow;
-      const last = win.slice(-n);
+      const last = win.filter((x) => x.fast !== true).slice(-n); // fast rights are left out of step-up only
       let ok = last.length === n && last.every((x) => x.right);
       for (let i = 1; ok && i < last.length; i++) {
         ok = last[i].day !== last[i - 1].day || last[i].seq - last[i - 1].seq >= cfg.stepUp.minCardsApart;

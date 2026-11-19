@@ -1892,7 +1892,7 @@ test("fast right: the first-session ladder run does not move; a slow right moves
   expect(guessAns(s0, "r", 8000, T0 + 10_000).state.ladder).toEqual({ level: 3, rightRun: 0 });
 });
 
-test("fast right: a stretch or ladder answer does not raise the record", () => {
+test("fast right: a ladder answer does not raise the record", () => {
   // ladder card above the record (record 1 at ladder level 2): a slow right raises it, a fast right does not
   const base = startedAt(1, 3, 0);
   const s0 = startSession({ ...base, sessionCount: 0, ladder: { level: 2, rightRun: 0 } }, C, T0);
@@ -1910,19 +1910,51 @@ test("guess nudge: the step after the third guess carries hint guess-nudge; the 
   let st = startSession(withProfile(leadA1(), { stamina: 30 }), C, T0);
   let now = T0;
   const hints: (string | undefined)[] = [];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 5; i++) {
     now += 10_000;
+    if (i === 1) { st = guessAns(st, "r", 12_000, now); expect(st.hint).toBeUndefined(); continue; } // an intervening right answer
     st = guessAns(st, "w", 800, now);
     hints.push(st.hint);
     expect(st.next.kind).toBe("card");
   }
-  expect(hints).toEqual([undefined, undefined, "guess-nudge", undefined]);
+  expect(hints).toEqual([undefined, undefined, "guess-nudge", undefined]); // the third guess, one right answer between
   expect(st.state.session!.guessNudged).toBe(true);
 });
 
-test("guess nudge: a right answer between guesses does not matter; migrate defaults guessNudged", () => {
+test("guess nudge: migrate defaults session.guessNudged", () => {
   const s0 = startSession(startedAt(2, 4, 1), C, T0);
   const old = JSON.parse(JSON.stringify(s0.state));
   delete old.session.guessNudged;
   expect(migrate(old).session!.guessNudged).toBe(false);
+});
+
+test("fast right: an 8 s right answer on a level-3 stretch card advances the gap, keeps the record at level 2, makes no height-up", () => {
+  const nd = { nextReviewDay: D0 + 20 };
+  const good = [...atts(2, 0, 1, D0 - 2), ...atts(2, 11, 0, D0 - 2)];
+  const s0 = withProfile(startedState({
+    a1: rec(2, good, { ...nd, windowStartSeq: 1001 }), a2: rec(2, good, { ...nd, windowStartSeq: 1001 }),
+    b1: rec(2, atts(3, 2, 10, D0 - 2), nd), b2: rec(2, atts(3, 2, 10, D0 - 2), nd),
+  }), { stamina: 30 });
+  const c5 = structuredClone(C);
+  for (const id of ["a1", "a2", "b1", "b2"]) {
+    for (const n of [4, 5]) {
+      const card = { ...structuredClone(c5.cards[`${id}.h2.1`]), id: `${id}.h2.${n}` };
+      c5.cards[card.id] = card;
+      c5.skills[id].cards[2] = [...c5.skills[id].cards[2], card.id];
+    }
+  }
+  const { steps } = play(c5, s0, T0, allR, { ms: () => 8000 }); // 8 s at level 3 is under the 10 s line
+  const cards = served(steps);
+  const k = cards.findIndex((c, i) => c.reason === "stretch:up" && c.height === 3 && i > 0 && cards[i - 1].height === 2
+    && cards[i - 1].skill === c.skill && cards[i - 1].reason === "open:liked");
+  expect(k).toBeGreaterThan(0);
+  const sk = cards[k].skill;
+  const before = steps[k].state.skills[sk];
+  const after = steps[k + 1].state.skills[sk];
+  expect(after.attempts.at(-1)).toMatchObject({ height: 3, right: true, fast: true });
+  // the gap moved as for a right answer: the index is already at the last gap here, so the review day is the proof
+  expect(after.gapIndex).toBe(Math.min(before.gapIndex + 1, cfg.reviewGapsDays.length - 1));
+  expect(after.nextReviewDay).toBe(D0 + Math.max(1, Math.round(cfg.reviewGapsDays[Math.min(before.gapIndex, cfg.reviewGapsDays.length - 1)] * steps[k].state.profile.memory)));
+  expect(after.height).toBe(2);
+  expect(steps[k + 1].moments.filter((m) => m.type === "height-up")).toEqual([]);
 });
