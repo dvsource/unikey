@@ -1615,11 +1615,19 @@ test("guard close: level-2 miss, guard closes, right closing card: the end keeps
   }
 });
 
+/** The effort is below both old streak thresholds (the day minimum, and the "really spent" rule). */
+function belowOldThresholds(effort: number, budget: number): void {
+  expect(effort).toBeLessThan(cfg.budget.minimumDay);
+  expect(effort).toBeLessThan(Math.max(budget - (cfg.effort.h3 + cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)), budget / 2));
+}
+
 test("guard close: a missed closing card after the guard ends on a recap and keeps the streak", () => {
   const { C: CG, st } = guardCase(false);
-  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 || i === 2 ? "w" : "r"));
+  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? "w" : i === 2 ? "dk" : "r"));
   expect(served(steps)[2].reason).toBe("close:winnable");
-  expect(endOf(lastStep(steps))).toMatchObject({ recap: true, streakKept: true });
+  const end = endOf(lastStep(steps));
+  expect(end).toMatchObject({ recap: true, streakKept: true });
+  belowOldThresholds(end.effort, steps[2].state.session!.budget);
   expect(lastStep(steps).state.day!.streakKept).toBe(true);
 });
 
@@ -1665,4 +1673,30 @@ test("guard close: when pickClose finds nothing, a pickAny card at or above the 
   expect(cards.some((c) => c.reason === "fallback:any")).toBe(false);
   expect(cards[2]).toMatchObject({ skill: "b2", height: 2, reason: "close:winnable" }); // a closing card, not a middle one
   expect(endOf(lastStep(steps))).toMatchObject({ cards: 3, recap: false, streakKept: true });
+});
+
+test("guard close: an interruption with the closing card open is not kept by the flag", () => {
+  const { C: CG, st } = guardCase(false);
+  const first = play(CG, st, T0, ["r", "w"]);
+  expect(first.state.session!.guardClose).toBe(true);
+  belowOldThresholds(first.state.session!.spent, first.state.session!.budget);
+  const ended = endSession(first.state, CG, first.now + 1000, undefined, { left: false });
+  expect(endOf(ended)).toMatchObject({ kind: "interrupted", streakKept: false });
+});
+
+test("guard close: accepting 5 more clears the flag, so the extended end follows the normal streak rule", () => {
+  // A guard-closed session at an offer of "5 more" (built by hand: the closing card answered right, low effort). No card
+  // is left to serve (all seen today), so the extension ends at once as `extended-done`, below both old thresholds.
+  const { C: CG, st } = guardCase(false);
+  const first = play(CG, st, T0, ["r", "w"]);
+  const open = JSON.parse(JSON.stringify(first.state)) as State;
+  const ss = open.session!;
+  expect(ss).toMatchObject({ guardClose: true, phase: "closing" });
+  ss.history.push({ ...ss.history.at(-1)!, right: true });
+  ss.served = null;
+  for (const c of Object.values(CG.cards)) c.variants.forEach((_v, variant) => open.seen.push({ card: c.id, variant, day: D0 }));
+  const end = endOf(extend(open, CG, first.now + 1000));
+  expect(end.kind).toBe("extended-done");
+  belowOldThresholds(end.effort, ss.budget);
+  expect(end.streakKept).toBe(false);
 });

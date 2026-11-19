@@ -615,6 +615,7 @@ export function extend(state: State, content: Content, now: number, cfg: Config 
   const r = begin(state, content, now, cfg);
   const ss = r.s.session!;
   ss.extended = true;
+  ss.guardClose = false; // the guard's early end is over: the extension ends by the normal rule
   ss.extendLeft = cfg.budget.extendCards;
   ss.extendEffortLeft = cfg.budget.extendEffort;
   ss.phase = "extend";
