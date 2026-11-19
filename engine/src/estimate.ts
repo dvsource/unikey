@@ -40,5 +40,18 @@ export function usualMs(state: State, height: Height, cfg: Config = defaultConfi
  */
 export function isGuess(state: State, height: Height, right: boolean, choice: number | "dont-know", ms: number, cfg: Config = defaultConfig): boolean {
   if (right || choice === "dont-know") return false;
+  return isUnderGuessLine(state, height, ms, cfg);
+}
+
+/**
+ * A fast right answer (rule 1): a right answer under the same line as a guess. It is weak evidence of knowing, so it
+ * does not count toward stepping up (see `recordAttempt`), the ladder run, the record raise or the stretch guard.
+ */
+export function isFastRight(state: State, height: Height, right: boolean, ms: number, cfg: Config = defaultConfig): boolean {
+  return right && isUnderGuessLine(state, height, ms, cfg);
+}
+
+/** The one line: faster than the larger of the height's floor and a fraction of the student's usual time there. */
+function isUnderGuessLine(state: State, height: Height, ms: number, cfg: Config): boolean {
   return ms < Math.max(cfg.guess.floorMs[height], (usualMs(state, height, cfg) ?? 0) * cfg.guess.fraction);
 }

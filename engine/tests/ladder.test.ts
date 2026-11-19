@@ -147,7 +147,7 @@ test("a ramp card in front of a level-3 ladder pick does not move the ladder; th
     b1: rec(3, atts(3, 10, 2, D0 - 2), due), b2: rec(3, atts(3, 0, 12, D0 - 2), due),
   }, { sessionCount: 0, ladder: { level: 3, rightRun: 0 } });
   expect(isCalcWeak(s0, cfg)).toBe(true);
-  const { steps } = play(C, s0, T0, ["r", "r"]);
+  const { steps } = play(C, s0, T0, ["r", "r"], { ms: (s) => (s.height === 3 ? 12_000 : 8000) }); // a level-3 right under 10 s would be a fast right
   const moves = ladderSteps(steps);
   expect(moves[0].served.height).toBe(2); // the ramp card
   expect(moves[1].served).toMatchObject({ height: 3, skill: moves[0].served.skill });

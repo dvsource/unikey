@@ -344,7 +344,7 @@ function pickStretch(state: State, content: Content, st: SkillDef[], ctx: PickCt
     const es = expectedSuccess(state, def.id, cur, cfg);
     if (es < state.profile.comfort) return [];
     const last = rec.attempts.filter((a) => a.height === cur && a.seq >= rec.windowStartSeq).at(-1);
-    if (last === undefined || !last.right) return [];
+    if (last === undefined || !last.right || last.fast === true) return []; // rule 1: a fast right answer does not satisfy the guard
     return [{ def, height, es }];
   }).sort((x, y) => y.es - x.es || y.def.weight - x.def.weight || byId(x.def.id, y.def.id));
   return firstOf(state, content, cands, () => "stretch:up", ctx, cfg);

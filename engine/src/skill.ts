@@ -49,8 +49,9 @@ export function recordAttempt(
   let steppedUp = false;
   let steppedDown = false;
   if (a.height === rec.height) {
-    const win = out.attempts.filter((x) => x.height === rec.height && x.seq >= rec.windowStartSeq);
-    if (a.right) {
+    // A fast right answer (rule 1) is skipped: it is neither a right nor a break in "right in a row", and cannot step up.
+    const win = out.attempts.filter((x) => x.height === rec.height && x.seq >= rec.windowStartSeq && x.fast !== true);
+    if (a.right && a.fast !== true) {
       const n = cfg.stepUp.rightInRow;
       const last = win.slice(-n);
       let ok = last.length === n && last.every((x) => x.right);
@@ -64,7 +65,7 @@ export function recordAttempt(
           steppedUp = true;
         }
       }
-    } else {
+    } else if (!a.right) {
       const recent = win.slice(-cfg.stepDown.window);
       if (recent.filter((x) => !x.right).length >= cfg.stepDown.wrongs) {
         const lower = [...avail].reverse().find((h) => h < rec.height);

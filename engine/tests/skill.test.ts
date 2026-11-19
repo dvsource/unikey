@@ -110,3 +110,16 @@ test("wrong at a lower height than current resets the gap to 1 day", () => {
   r = recordAttempt(r, def, att(20, 2, 1, false), 1, cfg).rec;
   expect(r.gapIndex).toBe(0); expect(r.nextReviewDay).toBe(21);
 });
+
+// ---------- rule 1: a fast right answer is weak evidence ----------
+const fast = (a: Attempt): Attempt => ({ ...a, fast: true });
+test("fast right answers do not count toward stepping up (their review gap still moves)", () => {
+  const o = run(newSkillRec(2), [fast(att(1, 1, 2, true)), fast(att(2, 2, 2, true))]);
+  expect(o.rec.height).toBe(2); expect(o.up).toBe(false);
+  expect(o.rec.gapIndex).toBe(2); expect(o.rec.nextReviewDay).toBe(2 + cfg.reviewGapsDays[1]);
+  expect(o.rec.attempts).toHaveLength(2);
+  // a fast right one does not make a step either when a slow right one came before it, or in between
+  expect(run(newSkillRec(2), [att(1, 1, 2, true), fast(att(2, 2, 2, true))]).rec.height).toBe(2);
+  expect(run(newSkillRec(2), [att(1, 1, 2, true), fast(att(2, 2, 2, true)), att(3, 3, 2, true)]).rec.height).toBe(3);
+  expect(run(newSkillRec(2), [att(1, 1, 2, true), att(2, 2, 2, true)]).rec.height).toBe(3);
+});

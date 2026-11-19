@@ -1232,7 +1232,7 @@ test("change 5: a stretch card to level 3 for a calculation-weak student keeps i
       c5.skills[id].cards[2] = [...c5.skills[id].cards[2], card.id];
     }
   }
-  const { steps } = play(c5, s0, T0, allR);
+  const { steps } = play(c5, s0, T0, allR, { ms: (s) => (s.height === 3 ? 12_000 : 8000) }); // a level-3 right under 10 s would be a fast right
   const cards = served(steps);
   // Fix round 1: the ramp card is a card at the skill's own level, labelled open:liked.
   const k = cards.findIndex((c, i) => c.reason === "stretch:up" && c.height === 3 && i > 0 && cards[i - 1].height === 2
@@ -1863,4 +1863,66 @@ test("guess: migrate defaults session.guesses", () => {
   const old = JSON.parse(JSON.stringify(s0.state));
   delete old.session.guesses;
   expect(migrate(old).session!.guesses).toBe(0);
+});
+
+// ---------- rule 1: fast right answers; the guess nudge ----------
+
+test("fast right: 1 s right at level 2 does not step up, does not make a height-up moment; 8 s right does", () => {
+  const open3 = { noFullUntilDay: null };
+  const start = () => withProfile(startedAt(2, 1, 0, { a1: open3, a2: open3, b1: open3, b2: open3 }), { stamina: 30 });
+  const s0 = startSession(start(), C, T0);
+  const c0 = cardOf(s0);
+  expect(c0.height).toBe(2);
+  const f = guessAns(s0, "r", 1000, T0 + 10_000);
+  expect(f.state.skills[c0.skill].height).toBe(2);
+  expect(f.moments.filter((m) => m.type === "height-up")).toEqual([]);
+  const rec0 = s0.state.skills[c0.skill];
+  expect(f.state.skills[c0.skill].attempts.at(-1)).toMatchObject({ right: true, fast: true });
+  expect(f.state.skills[c0.skill].gapIndex).toBe(rec0.gapIndex + 1); // the review gap moved: it was right
+  const slow = guessAns(s0, "r", 8000, T0 + 10_000);
+  expect(slow.state.skills[c0.skill].height).toBe(3);
+  expect(slow.moments.filter((m) => m.type === "height-up")).toHaveLength(1);
+  expect(slow.state.skills[c0.skill].attempts.at(-1)!.fast).toBeUndefined();
+});
+
+test("fast right: the first-session ladder run does not move; a slow right moves it", () => {
+  const s0 = startSession({ ...newState("s", 1), ladder: { level: 2, rightRun: 1 } }, C, T0);
+  expect(cardOf(s0).height).toBe(2);
+  expect(guessAns(s0, "r", 1000, T0 + 10_000).state.ladder).toEqual({ level: 2, rightRun: 1 });
+  expect(guessAns(s0, "r", 8000, T0 + 10_000).state.ladder).toEqual({ level: 3, rightRun: 0 });
+});
+
+test("fast right: a stretch or ladder answer does not raise the record", () => {
+  // ladder card above the record (record 1 at ladder level 2): a slow right raises it, a fast right does not
+  const base = startedAt(1, 3, 0);
+  const s0 = startSession({ ...base, sessionCount: 0, ladder: { level: 2, rightRun: 0 } }, C, T0);
+  const c0 = cardOf(s0);
+  expect(c0.height).toBe(2);
+  expect(s0.state.skills[c0.skill].height).toBe(1);
+  const fastR = guessAns(s0, "r", 1000, T0 + 10_000).state.skills[c0.skill];
+  const slowR = guessAns(s0, "r", 8000, T0 + 10_000).state.skills[c0.skill];
+  expect(slowR.height).toBe(2);
+  expect(fastR.height).toBe(1);
+});
+
+test("guess nudge: the step after the third guess carries hint guess-nudge; the first, second and fourth do not", () => {
+  expect(cfg.guess.nudgeAfter).toBe(3);
+  let st = startSession(withProfile(leadA1(), { stamina: 30 }), C, T0);
+  let now = T0;
+  const hints: (string | undefined)[] = [];
+  for (let i = 0; i < 4; i++) {
+    now += 10_000;
+    st = guessAns(st, "w", 800, now);
+    hints.push(st.hint);
+    expect(st.next.kind).toBe("card");
+  }
+  expect(hints).toEqual([undefined, undefined, "guess-nudge", undefined]);
+  expect(st.state.session!.guessNudged).toBe(true);
+});
+
+test("guess nudge: a right answer between guesses does not matter; migrate defaults guessNudged", () => {
+  const s0 = startSession(startedAt(2, 4, 1), C, T0);
+  const old = JSON.parse(JSON.stringify(s0.state));
+  delete old.session.guessNudged;
+  expect(migrate(old).session!.guessNudged).toBe(false);
 });

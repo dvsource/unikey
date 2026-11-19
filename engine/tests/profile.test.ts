@@ -231,7 +231,7 @@ function lived(pattern: (i: number) => "r" | "w", sessions: number, takesMore = 
   let now = T0;
   let i = 0;
   for (let n = 0; n < sessions; n++) {
-    const r = play(C, state, now, () => pattern(i++), { offer: "stop" });
+    const r = play(C, state, now, () => pattern(i++), { offer: "stop", ms: (s) => (s.height === 3 ? 12_000 : 8000) }); // rule 1: a level-3 right under 10 s is a fast right
     state = r.state;
     // `takesMore`: accepts "5 more" when offered (fix round 1: stamina grows only on an extended session)
     if (state.session && takesMore) {

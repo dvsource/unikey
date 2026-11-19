@@ -628,3 +628,11 @@ test("fix round 1 (change 7): a repeat closer counts at its level in the closing
   expect(closeSweepReason(s, one3, ctx(), cfg, 3, { repeatRight: true })).toBe("fallback:any");
   expect(closeSweepReason(s, one3, ctx(), cfg, 1, { repeatRight: true })).toBe("close:winnable");
 });
+
+test("rule 1: a skill whose most recent attempt at its level is a fast right answer is not a stretch candidate", () => {
+  const fastLast = (): Attempt[] => [...rights(2, 6), { ...att(2, true), fast: true }];
+  const s = stretchState({ a1: { attempts: fastLast() } });
+  expect(pickMiddle(s, C, above(), cfg)!.served).not.toMatchObject({ skill: "a1", reason: "stretch:up" });
+  // the same history with a normal last answer is a stretch candidate
+  expect(pickMiddle(stretchState(), C, above(), cfg)!.served).toMatchObject({ skill: "a1", height: 3, reason: "stretch:up" });
+});

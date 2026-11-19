@@ -17,7 +17,9 @@ export type Content = {
   topics: Record<string, { id: string; unit: string; sections: string[] }>;
 };
 
-export type Attempt = { day: number; seq: number; height: Height; right: boolean; ms: number; card: string };
+export type Attempt = { day: number; seq: number; height: Height; right: boolean; ms: number; card: string;
+  /** A right answer under the guess line (`isFastRight`): weak evidence, never counted toward a step up. */
+  fast?: true };
 export type SkillRec = {
   height: Height;
   attempts: Attempt[]; // last 12 kept
@@ -119,6 +121,8 @@ export type SessionState = {
   missRun: number;
   /** Guesses so far this session (`isGuess`). */
   guesses: number;
+  /** The guess nudge has been given this session (once per session). */
+  guessNudged: boolean;
   /**
    * Change 3: the session follows a near-zero one (`State.lastSession`): a minimum-day budget whose first
    * `session.openCards` cards come from the closing order as `open:easy`.
@@ -168,7 +172,11 @@ export type EngineEvent = {
     | "section_rejoined";
   data: Record<string, unknown>;
 };
-export type Step = { state: State; events: EngineEvent[]; feedback?: Feedback; moments: Moment[]; next: Next };
+export type Step = {
+  state: State; events: EngineEvent[]; feedback?: Feedback; moments: Moment[]; next: Next;
+  /** `guess-nudge`: on the step after the session's `guess.nudgeAfter`-th guess, once per session. Does not change the next card. */
+  hint?: "guess-nudge";
+};
 export type State = {
   v: 1; student: string; rng: Rng; seq: number; lastNow: number;
   profile: Profile; skills: Record<string, SkillRec>; sections: Record<string, SectionRec>;
