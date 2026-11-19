@@ -23,7 +23,9 @@ export const defaultConfig = {
   badDay: { moments: 2, withinCards: 8, slowFactor: 2, slowRun: 3, missRun: 3 },
   session: { openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 },
   priors: { h1: 0.85, h2: 0.7, h3: 0.5 },
-  calc: { h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 },
+  calc: { h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 3, minH12: 10 },
+  /** Rule 2 (guesses and full problems): a missed full problem rests that skill's full problems for this many days. */
+  full: { restDays: 2 },
   window: { cards: 60 },
   moments: { thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 },
   returning: { noFullDays: 2, awayDays: 3 },

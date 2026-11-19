@@ -127,3 +127,24 @@ test("fast right answers do not count toward stepping up (their review gap still
   expect(run(newSkillRec(2), [att(1, 1, 2, true), fast(att(2, 2, 2, true)), att(3, 3, 2, true)]).rec.height).toBe(3);
   expect(run(newSkillRec(2), [att(1, 1, 2, true), att(2, 2, 2, true)]).rec.height).toBe(3);
 });
+
+// ---------- rules 2 and 3: a missed full problem rests; two full misses in a row drop the skill ----------
+test("rule 2: a level-3 miss on day D sets noFullUntilDay to D + 2; never earlier; a right answer or a lower miss leaves it", () => {
+  const o = run(newSkillRec(3), [att(10, 1, 3, false)]);
+  expect(o.rec.noFullUntilDay).toBe(12);
+  expect(run({ ...newSkillRec(3), noFullUntilDay: 20 }, [att(10, 1, 3, false)]).rec.noFullUntilDay).toBe(20);
+  expect(run({ ...newSkillRec(3), noFullUntilDay: 5 }, [att(10, 1, 3, false)]).rec.noFullUntilDay).toBe(12);
+  expect(run(newSkillRec(3), [att(10, 1, 3, true)]).rec.noFullUntilDay).toBeNull();
+  expect(run(newSkillRec(2), [att(10, 1, 2, false)]).rec.noFullUntilDay).toBeNull();
+});
+test("rule 3: the last two level-3 attempts both misses → a skill recorded at 3 drops to 2 with a new window", () => {
+  // The step window (from seq 3) holds only the second miss, so the window rule alone would not step down.
+  const base = { ...newSkillRec(3), windowStartSeq: 3 };
+  let o = run(base, [att(1, 1, 3, false), att(2, 2, 2, true), att(6, 6, 3, false)]);
+  expect(o.rec.height).toBe(2); expect(o.down).toBe(true); expect(o.rec.windowStartSeq).toBe(7);
+  // a right full problem between the two misses breaks the run
+  o = run(base, [att(1, 1, 3, false), att(2, 2, 3, true), att(3, 3, 3, false)]);
+  expect(o.rec.height).toBe(3);
+  // a single miss does not drop it
+  expect(run(base, [att(1, 1, 3, false)]).rec.height).toBe(3);
+});

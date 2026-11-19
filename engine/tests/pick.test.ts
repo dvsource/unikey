@@ -4,7 +4,7 @@ import { newState, effectiveNow } from "../src/state.js";
 import { newSkillRec } from "../src/skill.js";
 import { dayOf, DAY_MS } from "../src/time.js";
 import { expectedSuccess, usualMs } from "../src/estimate.js";
-import { closeSweepReason, eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose } from "../src/pick.js";
+import { closeSweepReason, eligibleCard, likedSections, pickAny, pickOpen, pickMiddle, pickClose, pickReturn } from "../src/pick.js";
 import { pickLadder } from "../src/ladder.js";
 import { newSectionRec as newSection } from "../src/skip.js";
 import type { PickCtx } from "../src/types.js";
@@ -635,4 +635,19 @@ test("rule 1: a skill whose most recent attempt at its level is a fast right ans
   expect(pickMiddle(s, C, above(), cfg)!.served).not.toMatchObject({ skill: "a1", reason: "stretch:up" });
   // the same history with a normal last answer is a stretch candidate
   expect(pickMiddle(stretchState(), C, above(), cfg)!.served).toMatchObject({ skill: "a1", height: 3, reason: "stretch:up" });
+});
+
+test("rule 2: no picker serves a level-3 card of a skill whose noFullUntilDay is after today", () => {
+  const rested = st({ a1: due(3, 1, { noFullUntilDay: D + 1 }), a2: notDue(3, { noFullUntilDay: D + 1 }), b1: notDue(3, { noFullUntilDay: D + 1 }), b2: notDue(3, { noFullUntilDay: D + 1 }) });
+  const cx = ctx({ runningRight: 5, runningTotal: 5 });
+  const bad = (p: { served: { skill: string; height: number } } | null) => p !== null && p.served.height === 3 && ["a1", "a2", "b1", "b2"].includes(p.served.skill);
+  expect(bad(pickOpen(rested, C, cx, cfg))).toBe(false);
+  expect(bad(pickMiddle(rested, C, cx, cfg))).toBe(false);
+  expect(bad(pickClose(rested, C, cx, cfg))).toBe(false);
+  expect(bad(pickAny(rested, C, cx, cfg, "fallback:any"))).toBe(false);
+  expect(bad(pickAny(rested, C, cx, cfg, "close:winnable", { repeatRight: true }))).toBe(false);
+  expect(bad(pickReturn(rested, C, cx, [{ skill: "a1", afterCard: 0 }], 5, cfg))).toBe(false);
+  // allowed again once the rest is over
+  const over = st({ a1: notDue(3, { noFullUntilDay: D }) });
+  expect(pickReturn(over, C, cx, [{ skill: "a1", afterCard: 0 }], 5, cfg)!.served).toMatchObject({ skill: "a1", height: 3 });
 });

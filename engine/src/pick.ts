@@ -179,6 +179,8 @@ const eligibleOpts = (ctx: PickCtx, cfg: Config, repeatRight: boolean | undefine
 function tryServe(state: State, content: Content, c: Cand, reason: Reason, ctx: PickCtx, cfg: Config, opts: ServeOpts = {}): Picked | null {
   const { def, height } = c;
   if (def.section !== opts.unblock && isBlocked(state, def.section, ctx.day, ctx.blockedSections)) return null;
+  // Rule 2: a missed full problem rests: no picker serves level 3 of a skill whose `noFullUntilDay` is after today.
+  if (height === 3) { const u = state.skills[def.id]?.noFullUntilDay ?? null; if (u !== null && u > ctx.day) return null; }
   if (ctx.leftSkills?.includes(def.id)) return null; // change 2: even the relaxed sweep and returns leave them alone
   if (opts.relax !== true) {
     if (ctx.excludeSkills?.includes(def.id)) return null;
@@ -422,8 +424,13 @@ export function pickReturn(
     const def = content.skills[q.skill];
     const rec = state.skills[q.skill];
     if (historyLength < q.afterCard || !def || !rec) continue;
-    const height = servable(def, rec.height);
+    let height = servable(def, rec.height);
     if (height === null) continue;
+    // Rule 2: a skill that just missed a full problem rests from level 3: its return card is the next level down.
+    if (height === 3 && rec.noFullUntilDay !== null && rec.noFullUntilDay > ctx.day) {
+      height = [...avail(def)].reverse().find((h) => h < 3) ?? null;
+      if (height === null) continue;
+    }
     const p = firstOf(state, content, [{ def, height }], () => "repair:return", own, cfg);
     if (p) return p;
   }

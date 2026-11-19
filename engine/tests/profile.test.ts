@@ -159,7 +159,7 @@ test("concept weak (r12 0.5, r3 0.8) → h3Share 0.2", () => {
 });
 
 test("too little data → h3Share stays 0.4", () => {
-  expect(h3After(withAttempts(9, 10, 1, 5))).toBe(0.4); // only 5 height-3 attempts
+  expect(h3After(withAttempts(9, 10, 1, 2))).toBe(0.4); // only 2 height-3 attempts (minH3 is 3)
   expect(h3After(withAttempts(8, 9, 3, 10))).toBe(0.4); // only 9 at heights 1–2
   expect(h3After(withAttempts(9, 10, 6, 10))).toBe(0.4); // gap 0.9−0.6−0.2 = 0.1 inside the band
   // and it returns to the default when the evidence goes
@@ -309,4 +309,9 @@ test("ramp same-skill run: no ramp when the skill already ran maxSameSkillRun - 
   expect(run(["b1", "a1"])).not.toBeNull(); // run 0 + ramp + h3 = 2
   expect(run(["a1", "b1"])).not.toBeNull(); // run 1 + 2 = 3, at the limit
   expect(run(["b1", "b1"])).toBeNull(); // run 2 + 2 = 4, over the limit
+});
+
+test("rule 3: the calculation gap is computed from 3 height-3 attempts (was 6)", () => {
+  expect(isCalcWeak(withAttempts(10, 11, 0, 3), cfg)).toBe(true);
+  expect(isCalcWeak(withAttempts(10, 11, 0, 2), cfg)).toBe(false); // two are still too few
 });

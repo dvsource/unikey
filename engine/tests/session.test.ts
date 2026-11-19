@@ -128,8 +128,10 @@ test("no session ends on a wrong answer, except after 1 + maxExtraClose close ca
     let state = startedAt(2, 2, 1);
     let now = T0;
     for (let i = 0; i < 5; i++) {
+      const eligibleToday = anyEligible(state, C, dayOf(now)); // rule 2: rested full problems are not eligible
       const r = play(C, state, now, fn);
       const cards = served(r.steps);
+      if (!eligibleToday && cards.length === 0) { state = r.state; now = nextDay(now); continue; }
       expect(cards.length, `pattern ${pi} session ${i} served nothing`).toBeGreaterThanOrEqual(1);
       const end = endOf(lastStep(r.steps));
       const answered = r.steps.filter((st) => st.feedback !== undefined);

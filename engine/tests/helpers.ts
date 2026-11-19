@@ -102,7 +102,12 @@ export function startedState(skills: Record<string, SkillRec>, patch: Partial<St
 export function anyEligible(state: State, content: Content, day: number, cfg: Config = defaultConfig): boolean {
   const recent = new Set(state.seen.filter((x) => day - x.day < cfg.noRepeatDays).map((x) => `${x.card}#${x.variant}`));
   const blocked = (sec: string) => { const rd = state.sections[sec]?.remindDay; return rd != null && rd > day; };
-  return Object.values(content.cards).some((c) => content.skills[c.skill] && !blocked(c.section)
+  // Rule 2: a full problem (height 3) of a skill whose noFullUntilDay is after today is never served.
+  const rested = (c: { skill: string; id: string }) => {
+    const u = state.skills[c.skill]?.noFullUntilDay ?? null;
+    return u !== null && u > day && content.skills[c.skill].cards[3].includes(c.id);
+  };
+  return Object.values(content.cards).some((c) => content.skills[c.skill] && !blocked(c.section) && !rested(c)
     && c.variants.some((_, v) => !recent.has(`${c.id}#${v}`)));
 }
 export function withProfile(s: State, p: Partial<State["profile"]>): State {

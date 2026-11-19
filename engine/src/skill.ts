@@ -28,6 +28,9 @@ export function recordAttempt(
     out.firstFailedHeight = a.height;
   }
 
+  // Rule 2: a missed full problem rests the skill's full problems; the rest is never moved earlier.
+  if (!a.right && a.height === 3) out.noFullUntilDay = Math.max(out.noFullUntilDay ?? 0, a.day + cfg.full.restDays);
+
   // Review gap.
   if (a.right) {
     if (a.height >= rec.height) {
@@ -76,6 +79,16 @@ export function recordAttempt(
       }
     }
     if (steppedUp || steppedDown) out.windowStartSeq = a.seq + 1;
+  }
+  // Rule 3: the skill's last two full-problem attempts are both misses: a skill recorded at 3 goes to 2, new window.
+  if (!a.right && a.height === 3 && out.height === 3) {
+    const full = out.attempts.filter((x) => x.height === 3).slice(-2);
+    const lower = [...avail].reverse().find((h) => h < 3);
+    if (full.length === 2 && full.every((x) => !x.right) && lower !== undefined) {
+      out.height = lower;
+      out.windowStartSeq = a.seq + 1;
+      steppedDown = true;
+    }
   }
   return { rec: out, steppedUp, steppedDown };
 }

@@ -17,7 +17,7 @@ test("spec numbers", () => {
   expect(c.badDay).toEqual({ moments: 2, withinCards: 8, slowFactor: 2, slowRun: 3, missRun: 3 }); // change 3
   expect(c.session).toEqual({ openCards: 2, maxSameSkillRun: 3, maxNewSkills: 2, returnAfterCards: 4, dripEverySessions: 2, maxMoments: 2 });
   expect(c.priors).toEqual({ h1: 0.85, h2: 0.7, h3: 0.5 });
-  expect(c.calc).toEqual({ h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 6, minH12: 10 });
+  expect(c.calc).toEqual({ h3ShareDefault: 0.4, h3ShareCalcWeak: 0.5, h3ShareConceptWeak: 0.2, gapBaseline: 0.2, band: 0.15, minWeakerShare: 0.2, minH3: 3, minH12: 10 });
   expect(c.window).toEqual({ cards: 60 }); // F9: window.sessions was never read
   expect(c.moments).toEqual({ thenNowMinDays: 5, avoidedMinSkips: 2, avoidedRight: 4, avoidedOf: 5 });
   expect(c.returning).toEqual({ noFullDays: 2, awayDays: 3 });
@@ -47,4 +47,8 @@ test("change 4: the ladder steps up after this many right answers in a row", () 
 
 test("guess: a fast wrong answer is a guess under the larger of a floor per height and a third of the usual time", () => {
   expect(c.guess).toEqual({ fraction: 1 / 3, floorMs: { 1: 4000, 2: 6000, 3: 10000 }, nudgeAfter: 3 });
+});
+
+test("full: a missed full problem rests 2 days", () => {
+  expect(c.full).toEqual({ restDays: 2 });
 });

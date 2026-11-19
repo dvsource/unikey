@@ -90,7 +90,7 @@ test("original skill returns after ≥ 4 other cards as a different variant, rea
   expect(ret).toBeGreaterThan(0);
   expect(ret - conf - 1).toBeGreaterThanOrEqual(cfg.session.returnAfterCards);
   expect(cards[ret].skill).toBe("a1");
-  expect(cards[ret].height).toBe(3);
+  expect(cards[ret].height).toBe(2); // rule 2: the full problem was missed, so the skill rests from level 3 (was 3)
   expect(`${cards[ret].card}#${cards[ret].variant}`).not.toBe(`${orig.card}#${orig.variant}`);
   expect(cards.slice(conf + 1, ret).every((c) => c.skill !== "a1")).toBe(true);
   const end = r.steps[r.steps.length - 1].next;
@@ -297,9 +297,13 @@ test("F2: neighbour piece right → the neighbour is not listed; the return righ
   expect(card(s1)).toMatchObject({ skill: "a1", reason: "repair:missing-piece" });
   const s2 = right(thin, s1, T0 + 20_000); // no confidence card: the return is queued
   expect(s2.state.session!.fixedSkills).toEqual([]); // was ["a1"]: the neighbour
-  const ret = until(thin, s2, T0 + 20_000, "repair:return");
-  expect(card(ret).skill).toBe("a2");
-  const done = right(thin, ret, T0 + 500_000);
-  expect(done.state.session!.fixedSkills).toEqual(["a2"]);
-  expect(done.state.session!.fixed).toBe(1);
+  // Rule 2: a2 has only full problems and just missed one, so it rests: no return card is served (it was a level-3
+  // return that, answered right, listed a2 as fixed). The neighbour stays unlisted and nothing is fixed today.
+  let cur = s2;
+  for (let i = 0; i < 20 && cur.next.kind === "card"; i++) {
+    expect(card(cur).reason).not.toBe("repair:return");
+    cur = right(thin, cur, T0 + (i + 3) * 10_000);
+  }
+  expect(cur.next.kind === "end" || cur.next.kind === "offer-extend").toBe(true);
+  if (cur.next.kind === "end") expect(cur.next.end.fixed).toBe(0);
 });
