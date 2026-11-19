@@ -71,11 +71,13 @@ function h3ShareOf(state: State, cfg: Config): number {
 export function onSessionEnd(state: State, end: EndInfo, session: SessionState, cfg: Config): State {
   if (end.kind === "interrupted" || end.cards === 0) return state;
   const p = state.profile;
-  const success = end.right / end.cards;
+  const judged = end.cards - session.guesses; // guesses are no evidence: they count neither as right nor as failures
+  const success = judged > 0 ? end.right / judged : 0;
   const C = cfg.comfort;
   let comfort = p.comfort;
   let goodStreak = p.goodStreak;
-  if (end.kind === "left" && success < comfort + C.quitMargin) {
+  if (judged <= 0) { /* only guesses: comfort and the good-finish streak stay as they were */ }
+  else if (end.kind === "left" && success < comfort + C.quitMargin) {
     comfort += C.upOnQuit;
     goodStreak = 0;
   } else if ((end.kind === "budget" || end.kind === "extended-done") && success >= comfort) {

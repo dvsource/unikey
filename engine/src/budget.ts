@@ -89,7 +89,7 @@ export function isGoodDay(state: State, ss: SessionState, cfg: Config): boolean 
   if (n === 0) return false;
   if (ss.history.filter((h) => h.right === true).length / n < state.profile.comfort || ss.slowBefore.length > 0) return false;
   return ([1, 2, 3] as Height[]).every((h) => {
-    const k = ss.history.filter((x) => x.height === h).length;
+    const k = ss.history.filter((x) => x.height === h && x.guess !== true).length; // a guess adds no timing sample
     return k === 0 || usualBefore(state, h, k, cfg) !== null;
   });
 }

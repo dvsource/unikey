@@ -4,6 +4,8 @@ import { migrate, newState } from "../src/state.js";
 import { pickAny } from "../src/pick.js";
 import { isCalcWeak } from "../src/profile.js";
 import { DAY_MS, dayOf } from "../src/time.js";
+import { afterSectionAnswer } from "../src/skip.js";
+import { isGoodDay } from "../src/budget.js";
 import { answer, endSession, extend, skip, startSession } from "../src/session.js";
 import type { Served } from "../src/types.js";
 import type { Content, EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
@@ -18,6 +20,7 @@ const endOf = (st: Step): EndInfo => {
   if (st.next.kind !== "end") throw new Error(`expected end, got ${st.next.kind}`);
   return st.next.end;
 };
+const A = "u.t1/A";
 const allR = () => "r" as const;
 
 /** All four skills started at `height`, not due, no height-3 step for a while, `r` right / `w` wrong there. */
@@ -1734,7 +1737,8 @@ test("guess: a 1 s wrong answer on a level-2 card (usual unknown) leaves skill, 
 });
 
 test("guess: first-session ladder does not move on a guess", () => {
-  const s0 = startSession(newState("s", 1), C, T0);
+  const s0 = startSession({ ...newState("s", 1), ladder: { level: 2, rightRun: 1 } }, C, T0);
+  expect(s0.state.ladder).toEqual({ level: 2, rightRun: 1 });
   const s1 = guessAns(s0, "w", 500, T0 + 10_000);
   expect(s1.state.ladder).toEqual(s0.state.ladder);
 });
@@ -1759,28 +1763,21 @@ test("guess line: 9 s wrong at level 2 with usual 12 s is not a guess; 'I don't 
   expect(guessAns(t0, "w", 9000, T0 + 10_000).events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: true });
 });
 
-test("guesses: two on one skill do not leave the skill; three in a row record no bad moment and no bad day", () => {
+test("guesses: two on one skill do not leave the skill; a third records no bad moment and no bad day", () => {
   let st = startSession(withProfile(leadA1(), { stamina: 30 }), C, T0);
   const first = cardOf(st).skill;
   let now = T0;
-  const heights: number[] = [];
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 3; i++) {
     now += 10_000;
     st = guessAns(st, "w", 800, now);
-    heights.push(st.state.skills[first].height);
-  }
-  expect(st.state.session!.leftSkills).toEqual([]);
-  expect(st.state.skills[first].height).toBe(3);
-  expect(st.state.session!.badMoments).toEqual([]);
-  now += 10_000;
-  if (st.next.kind === "card") st = guessAns(st, "w", 800, now);
-  const ss = st.state.session ?? null;
-  expect(st.state.skills[first].height).toBe(3);
-  if (ss) {
+    expect(st.next.kind).toBe("card"); // the session goes on after every guess
+    const ss = st.state.session!;
+    expect(ss.guesses).toBe(i + 1);
+    expect(ss.leftSkills).toEqual([]);
     expect(ss.badMoments).toEqual([]);
     expect(ss.badDay).toBe(false);
     expect(ss.missRun).toBe(0);
-    expect(ss.guesses).toBe(3);
+    expect(st.state.skills[first].height).toBe(3);
   }
 });
 
@@ -1791,10 +1788,19 @@ test("guess: a real miss after a guess on the same skill is not two misses", () 
   expect(s2.state.session!.leftSkills).toEqual([]);
 });
 
-test("guess: a guess on the closing card ends on a recap; every answer a guess still ends", () => {
-  const r = play(C, startedAt(2, 4, 1), T0, (s) => (s.reason.startsWith("close") ? "w" : "r"), { ms: (s) => (s.reason.startsWith("close") ? 500 : 8000), offer: "decline" });
-  const closes = served(r.steps).filter((c) => c.reason.startsWith("close"));
-  if (closes.length > 0) expect(endOf(lastStep(r.steps))).toMatchObject({ recap: true });
+test("guess: a guess on the closing card ends on a recap", () => {
+  // as in F1: the last budget card is a real miss (12 s), so a close card follows; that one is guessed wrong (0.5 s)
+  const n = served(play(C, firstSessions(), T0, allR).steps).length;
+  const r = play(C, firstSessions(), T0, (_s, i) => (i >= n - 1 ? "w" : "r"), { ms: (_s, i) => (i === n - 1 ? 12_000 : i === n ? 500 : 8000) });
+  const cards = served(r.steps);
+  expect(cards.length).toBe(n + 1);
+  expect(cards[n].reason).toBe("close:winnable");
+  const answers = r.steps.flatMap((st) => st.events.filter((e) => e.type === "answer"));
+  expect(answers.at(-1)!.data).toMatchObject({ guess: true, right: false });
+  expect(endOf(lastStep(r.steps))).toMatchObject({ recap: true });
+});
+
+test("guess: every answer a guess still ends on a recap and never lowers a skill", () => {
   const all = play(C, startedAt(2, 4, 1), T0, () => "w", { ms: () => 500 });
   expect(lastStep(all.steps).next.kind).toBe("end");
   expect(endOf(lastStep(all.steps)).recap).toBe(true);
@@ -1802,6 +1808,56 @@ test("guess: a guess on the closing card ends on a recap; every answer a guess s
   expect(all.state.session).toBeNull();
 });
 
+test("guess (fix 1): a guess on a side-door card brings the section back but changes no skill", () => {
+  const st = startedAt(2, 4, 1);
+  st.sections = { [A]: { ...section(), skipCount: 1 } };
+  const sv: Served = { card: "a1.h1.1", variant: 0, skill: "a1", section: A, height: 1, reason: "side-door", effort: 1 };
+  const g = structuredClone(st);
+  afterSectionAnswer(g, C, sv, false, D0, cfg, true);
+  expect(g.sections[A]).toMatchObject({ returned: true, remindDay: null });
+  expect(g.skills).toEqual(st.skills);
+  const real = structuredClone(st);
+  afterSectionAnswer(real, C, sv, false, D0, cfg, false);
+  expect(real.skills["a1"].height).toBe(1); // a real miss still lowers it
+});
+
+test("guess (fix 2): a session of only guesses changes neither comfort nor the good-finish streak", () => {
+  const start = withProfile(startedAt(2, 4, 1), { goodStreak: 2, comfort: 0.7 });
+  const r = play(C, start, T0, () => "w", { ms: () => 500 });
+  expect(r.state.profile.comfort).toBe(0.7);
+  expect(r.state.profile.goodStreak).toBe(2);
+});
+
+test("guess (fix 3): a guess is never a slow answer, so three of them are no slow-run bad day or fade", () => {
+  const quick = withProfile(startedAt(2, 4, 1), { msByHeight: { 1: Array(5).fill(1000), 2: Array(5).fill(1000), 3: Array(5).fill(1000) }, stamina: 30 });
+  let st = startSession(quick, C, T0);
+  for (let i = 0; i < 3; i++) {
+    st = guessAns(st, "w", 3000, T0 + (i + 1) * 10_000); // over 2x usual 1 s, under the 6 s floor
+    expect(st.next.kind).toBe("card");
+  }
+  const ss = st.state.session!;
+  expect(ss.history.map((h) => h.slow)).toEqual([false, false, false]);
+  expect(ss.slowBefore).toEqual([]);
+  expect(ss.badDay).toBe(false);
+  expect(ss.fadeEffort).toBeNull();
+});
+
+test("guess (fix 4): the good-day check counts only answers that added a timing sample", () => {
+  const base = withProfile(startedAt(2, 4, 1), { msByHeight: { 1: [], 2: Array(10).fill(8000), 3: [] } });
+  const ss0 = startSession(base, C, T0).state.session!;
+  const h = (right: boolean, guess = false) => ({ skill: "a1", right, ms: 8000, bad: false, height: 2 as Height, slow: false, ...(guess ? { guess: true } : {}) });
+  // 5 timed answers in the session (the last 5 samples) plus one guess that added none: 5 of 6 right
+  const ss = { ...ss0, history: [h(true), h(true), h(true), h(true), h(true), h(false, true)], slowBefore: [] };
+  expect(isGoodDay(base, ss, cfg)).toBe(true);
+});
+
+test("guess (fix 5): a guess on a skill with no record creates a neutral record at the served level, no attempt", () => {
+  const s0 = startSession(newState("s", 1), C, T0);
+  const c0 = cardOf(s0);
+  expect(s0.state.skills[c0.skill]).toBeUndefined();
+  const s1 = guessAns(s0, "w", 500, T0 + 10_000);
+  expect(s1.state.skills[c0.skill]).toMatchObject({ height: c0.height, attempts: [], firstFailedDay: null });
+});
 test("guess: migrate defaults session.guesses", () => {
   const s0 = startSession(startedAt(2, 4, 1), C, T0);
   const old = JSON.parse(JSON.stringify(s0.state));

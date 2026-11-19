@@ -298,8 +298,9 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
  * A skipped section comes back (through the side door, or silently: change 6): returned, no remind day, its started
  * skills at their lowest height with no height 3 for `returning.noFullDays`.
  */
-function bringBack(s: State, content: Content, sec: string, day: number, cfg: Config): void {
+function bringBack(s: State, content: Content, sec: string, day: number, cfg: Config, keepSkills = false): void {
   s.sections = { ...s.sections, [sec]: { ...s.sections[sec], returned: true, remindDay: null } };
+  if (keepSkills) return; // a guess: the section is back, but no skill height, step window or full-problem rest changes
   for (const id of content.sections[sec]?.skills ?? []) {
     const def = content.skills[id];
     const rec = s.skills[id];
@@ -314,11 +315,11 @@ function bringBack(s: State, content: Content, sec: string, day: number, cfg: Co
  * wrong) at the lowest height with no height 3 for `returning.noFullDays`; a right answer on a section that
  * has returned clears its skip count. Returns the reveal for a side door answered right.
  */
-export function afterSectionAnswer(s: State, content: Content, sv: Served, right: boolean, day: number, cfg: Config): { section: string } | undefined {
+export function afterSectionAnswer(s: State, content: Content, sv: Served, right: boolean, day: number, cfg: Config, guess = false): { section: string } | undefined {
   const sec = sv.section;
   let reveal: { section: string } | undefined;
   if (sv.reason === "side-door" && awaiting(s.sections[sec])) {
-    bringBack(s, content, sec, day, cfg);
+    bringBack(s, content, sec, day, cfg, guess);
     if (right) reveal = { section: sec };
   }
   const rec = s.sections[sec];

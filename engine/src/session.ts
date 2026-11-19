@@ -442,7 +442,7 @@ export function answer(
   const usual = usualMs(r.s, sv.height, cfg);
   // Rule 1: a fast wrong answer is a guess: it costs and misses like a wrong answer but is no evidence about the skill.
   const guess = isGuess(r.s, sv.height, right, input.choice, input.ms, cfg);
-  const slow = usual !== null && input.ms > cfg.badDay.slowFactor * usual;
+  const slow = !isGuess(r.s, sv.height, right, input.choice, input.ms, cfg) && usual !== null && input.ms > cfg.badDay.slowFactor * usual;
   const cost = sv.effort + (picked === null ? cfg.effort.dontKnow : right ? 0 : cfg.effort.wrong);
 
   const today = r.s.day!;
@@ -478,9 +478,11 @@ export function answer(
     }
     r.s.skills[sv.skill] = rec1;
     steppedDown = out.steppedDown;
+  } else if (def && !r.s.skills[sv.skill]) {
+    r.s.skills[sv.skill] = newSkillRec(sv.height); // a guess on a new skill: a neutral record at the served level, no attempt
   }
   if (fromLadder && !guess) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
-  const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
+  const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg, guess);
   if (!guess) onAnswerProfile(r, sv, right, input.ms, usual, belowRecord); // a guess moves no profile number (and its ms is not a usual time)
 
   const ss = r.s.session!;
