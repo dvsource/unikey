@@ -27,7 +27,7 @@ function card(st: Step): Served {
   return st.next.card;
 }
 const say = (content: Content, st: Step, choice: number | "dont-know", now: number) =>
-  answer(st.state, content, { card: card(st).card, choice, ms: 8000 }, now);
+  answer(st.state, content, { card: card(st).card, choice, ms: 12_000 }, now); // above every guess floor: a wrong answer here is evidence
 const right = (content: Content, st: Step, now: number) => say(content, st, choiceFor(content, card(st), "r"), now);
 const wrong = (content: Content, st: Step, now: number) => say(content, st, choiceFor(content, card(st), "w"), now);
 

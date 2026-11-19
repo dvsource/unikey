@@ -44,3 +44,7 @@ test("rng is repeatable", () => {
 test("change 4: the ladder steps up after this many right answers in a row", () => {
   expect(c.ladder).toEqual({ upAfterRight: 2, maxFullPerSession: 1 });
 });
+
+test("guess: a fast wrong answer is a guess under the larger of a floor per height and a third of the usual time", () => {
+  expect(c.guess).toEqual({ fraction: 1 / 3, floorMs: { 1: 4000, 2: 6000, 3: 10000 }, nudgeAfter: 3 });
+});

@@ -28,7 +28,7 @@ export function migrate(json: unknown, cfg: Config = defaultConfig): State {
     guardClose: s.session.guardClose ?? false, // after-miss guard streak ruling
     leftSkills: s.session.leftSkills ?? [], ladderCard: s.session.ladderCard ?? null, ladderFull: s.session.ladderFull ?? 0,
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
-    missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
+    guesses: s.session.guesses ?? 0, missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3
     fixedSkills: s.session.fixedSkills ?? [], // change 7
     // extend ruling; final review F6: an open "5 more" from before it gets the whole allowance
     extendEffortLeft: s.session.extendEffortLeft ?? (s.session.phase === "extend" ? cfg.budget.extendEffort : 0),

@@ -2,7 +2,7 @@ import { defaultConfig, type Config } from "./config.js";
 import { dayOf } from "./time.js";
 import { begin, emit, rollDay, stale, step, type Run } from "./step.js";
 import { isDue, newSkillRec, recordAttempt } from "./skill.js";
-import { usualMs } from "./estimate.js";
+import { isGuess, usualMs } from "./estimate.js";
 import { closeSweepReason, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, pickReturn } from "./pick.js";
 import { nextRepairCard, stepDownOnce } from "./repair.js";
 import { afterLowRight, capRoom, closeReserve, dayRoom, fadeFromSlow, isBadDay, isComeback, offersExtend, pendingKind, sessionBudget } from "./budget.js";
@@ -416,7 +416,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, guardClose: false, slowBefore: [], servedCards: [],
-    missRun: 0, lowStart, fixedSkills: [], extendEffortLeft: 0,
+    missRun: 0, guesses: 0, lowStart, fixedSkills: [], extendEffortLeft: 0,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
   const held = releasePending(r.s, cfg);
@@ -440,6 +440,8 @@ export function answer(
   const tag = picked !== null && !right ? picked.tag : undefined;
   const drip = sv.reason === "skipped-drip";
   const usual = usualMs(r.s, sv.height, cfg);
+  // Rule 1: a fast wrong answer is a guess: it costs and misses like a wrong answer but is no evidence about the skill.
+  const guess = isGuess(r.s, sv.height, right, input.choice, input.ms, cfg);
   const slow = usual !== null && input.ms > cfg.badDay.slowFactor * usual;
   const cost = sv.effort + (picked === null ? cfg.effort.dontKnow : right ? 0 : cfg.effort.wrong);
 
@@ -454,7 +456,7 @@ export function answer(
   let steppedDown = false;
   let belowRecord = false;
   const def = content.skills[sv.skill];
-  if (def) {
+  if (def && !guess) {
     // F3: a new skill starts at the height actually served (below it, a right answer would never schedule a review).
     const rec0 = r.s.skills[sv.skill] ?? newSkillRec(sv.height);
     const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card }, r.s.profile.memory, cfg);
@@ -477,9 +479,9 @@ export function answer(
     r.s.skills[sv.skill] = rec1;
     steppedDown = out.steppedDown;
   }
-  if (fromLadder) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
+  if (fromLadder && !guess) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg);
-  onAnswerProfile(r, sv, right, input.ms, usual, belowRecord);
+  if (!guess) onAnswerProfile(r, sv, right, input.ms, usual, belowRecord); // a guess moves no profile number (and its ms is not a usual time)
 
   const ss = r.s.session!;
   if (slow) {
@@ -490,8 +492,9 @@ export function answer(
   if (sv.height === 3) ss.h3Spent += sv.effort;
   // Change 2: the session's last two answers (skips are not answers) both misses on this skill, neither a drip.
   const prev = ss.history.filter((h) => h.right !== null).at(-1);
-  const twoMisses = !right && !drip && prev !== undefined && prev.skill === sv.skill && prev.right === false && prev.drip !== true;
-  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}) });
+  const twoMisses = !right && !drip && prev !== undefined && prev.skill === sv.skill && prev.right === false && prev.drip !== true && prev.guess !== true && !guess;
+  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}), ...(guess ? { guess: true } : {}) });
+  if (guess) ss.guesses += 1;
   ss.served = null;
   if (!right) setFixed(ss, ss.fixedSkills.filter((x) => x !== sv.skill)); // final review F2: a later miss unfixes it
   else if (sv.reason === "repair:return") fix(ss, sv.skill);
@@ -503,7 +506,7 @@ export function answer(
     ss.extendLeft -= 1;
     ss.extendEffortLeft -= sv.effort; // extend ruling: the card's own effort, not the wrong-answer surcharge
   }
-  emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null });
+  emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null, guess });
   const moments = recordMoments(r.s, detectMoments(state, r.s, content, sv, right, r.day, cfg), cfg);
   for (const m of moments) emit(r, "moment", { ...m });
   const feedback: Feedback = {
@@ -537,6 +540,8 @@ export function answer(
         fix(ss, ss.repair.skill); // final review F2: the repair ended with the confidence card right
         queueReturn(r, ss.repair.skill, true);
         ss.repair = null;
+      } else if (guess) {
+        ss.repair = null; // a guessed repair card is no result: the repair ends with no bad moment and no step down
       } else {
         // A failed repair that is not two misses in a row on one skill (a missed confidence card after a right piece,
         // or a missed piece of a neighbour skill): a bad moment, one step down, and away to another liked section.
@@ -561,7 +566,7 @@ export function answer(
   // Change 3: `badDay.missRun` misses in a row (any skills; drips neither count nor break it) are one bad moment at the
   // last of them, once: the run restarts. When this answer is already a bad moment (a failed repair, a left skill), it
   // stays one.
-  if (!drip) {
+  if (!drip && !guess) {
     ss.missRun = right ? 0 : ss.missRun + 1;
     if (ss.missRun >= cfg.badDay.missRun) {
       ss.missRun = 0;

@@ -61,6 +61,8 @@ export type SessionHistoryEntry = {
   height: Height; slow: boolean;
   /** Set on a skipped-drip card's answer: a drip is never one of "two misses in a row" (change 2). */
   drip?: boolean;
+  /** A fast wrong answer (`isGuess`): a miss for the recap, but no evidence about the skill. */
+  guess?: boolean;
 };
 /**
  * The open session. Invariant: `served === null` while a session is open only when "5 more" is on offer.
@@ -115,6 +117,8 @@ export type SessionState = {
    * break it; a right answer resets it). Restarts at 0 when it reaches `badDay.missRun` (one bad moment).
    */
   missRun: number;
+  /** Guesses so far this session (`isGuess`). */
+  guesses: number;
   /**
    * Change 3: the session follows a near-zero one (`State.lastSession`): a minimum-day budget whose first
    * `session.openCards` cards come from the closing order as `open:easy`.

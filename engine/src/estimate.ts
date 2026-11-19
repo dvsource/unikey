@@ -33,3 +33,12 @@ export function usualMs(state: State, height: Height, cfg: Config = defaultConfi
   const m = xs.length >> 1;
   return xs.length % 2 ? xs[m] : (xs[m - 1] + xs[m]) / 2;
 }
+
+/**
+ * A guess: a wrong answer (not "I don't know") faster than the larger of the height's floor and a fraction of the
+ * student's usual time there. Right answers are never guesses here.
+ */
+export function isGuess(state: State, height: Height, right: boolean, choice: number | "dont-know", ms: number, cfg: Config = defaultConfig): boolean {
+  if (right || choice === "dont-know") return false;
+  return ms < Math.max(cfg.guess.floorMs[height], (usualMs(state, height, cfg) ?? 0) * cfg.guess.fraction);
+}

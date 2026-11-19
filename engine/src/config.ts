@@ -55,6 +55,12 @@ export const defaultConfig = {
    * this many level-3 ladder cards per session (after that, level 3 is served as level 2 for the rest of the session).
    */
   ladder: { upAfterRight: 2, maxFullPerSession: 1 },
+  /**
+   * Guesses (spec 2026-11-19 rule 1): a wrong answer (never "I don't know") faster than the larger of `floorMs[height]`
+   * and `fraction` of the usual time at that height is a guess, not evidence about the skill. `nudgeAfter`: the guess
+   * count that earns the one-time nudge.
+   */
+  guess: { fraction: 1 / 3, floorMs: { 1: 4000, 2: 6000, 3: 10000 } as Record<1 | 2 | 3, number>, nudgeAfter: 3 },
 };
 
 export type Config = typeof defaultConfig;

@@ -408,7 +408,7 @@ test("events: ids unique and increasing; JSON round-trip of state", () => {
   const served1 = events.find((e) => e.type === "card_served")!;
   expect(served1.data).toHaveProperty("reason");
   const ans = events.find((e) => e.type === "answer")!;
-  expect(Object.keys(ans.data).sort()).toEqual(["card", "choice", "height", "ms", "right", "skill", "tag", "variant"]);
+  expect(Object.keys(ans.data).sort()).toEqual(["card", "choice", "guess", "height", "ms", "right", "skill", "tag", "variant"]);
   // the state survives a JSON round trip mid-session too
   const mid = play(C, startedAt(2, 3, 1), T0, ["r", "w"]).state;
   const back = JSON.parse(JSON.stringify(mid)) as State;
@@ -860,9 +860,9 @@ const cardOf = (st: Step): Served => {
 function twoMisses(a: "w" | "dk", start: State = leadA1()) {
   const s0 = startSession(start, C, T0);
   expect(cardOf(s0)).toMatchObject({ skill: "a1", height: 3 });
-  const s1 = answer(s0.state, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), a), ms: 8000 }, T0 + 10_000);
+  const s1 = answer(s0.state, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), a), ms: 12_000 }, T0 + 10_000);
   expect(cardOf(s1)).toMatchObject({ skill: "a1", reason: "repair:missing-piece" });
-  const s2 = answer(s1.state, C, { card: cardOf(s1).card, choice: choiceFor(C, cardOf(s1), a), ms: 8000 }, T0 + 20_000);
+  const s2 = answer(s1.state, C, { card: cardOf(s1).card, choice: choiceFor(C, cardOf(s1), a), ms: 12_000 }, T0 + 20_000);
   return { s0, s1, s2 };
 }
 
@@ -891,7 +891,7 @@ test("two misses in a row on a skill → skill in leftSkills, one level down (on
   const s0 = startSession(leadA1(), C, T0);
   const st = structuredClone(s0.state);
   st.session!.history = [{ skill: "a1", right: false, ms: 8000, bad: false, height: 3, slow: false }];
-  const s1 = answer(st, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), "w"), ms: 8000 }, T0 + 10_000);
+  const s1 = answer(st, C, { card: cardOf(s0).card, choice: choiceFor(C, cardOf(s0), "w"), ms: 12_000 }, T0 + 10_000);
   expect(s1.state.session!.leftSkills).toEqual(["a1"]);
   expect(s1.state.session!.repair).toBeNull();
   expect(cardOf(s1)).toMatchObject({ section: "u.t1/B", reason: "comfort-correction" });
@@ -967,7 +967,7 @@ test("leaving a neighbour-piece skill: the repair it was a piece for ends; a rep
   st.session!.history = [{ skill: "a1", right: false, ms: 8000, bad: false, height: 3, slow: false }];
   st.session!.repair = { skill: "a2", failedHeight: 2, stage: "piece" };
   st.session!.served = piece;
-  const s1 = answer(st, C, { card: piece.card, choice: choiceFor(C, piece, "w"), ms: 8000 }, T0 + 10_000);
+  const s1 = answer(st, C, { card: piece.card, choice: choiceFor(C, piece, "w"), ms: 12_000 }, T0 + 10_000);
   expect(s1.state.session!.leftSkills).toEqual(["a1"]);
   expect(s1.state.session!.repair).toBeNull();
   expect(cardOf(s1)).toMatchObject({ section: "u.t1/B", reason: "comfort-correction" });
@@ -1699,4 +1699,112 @@ test("guard close: accepting 5 more clears the flag, so the extended end follows
   expect(end.kind).toBe("extended-done");
   belowOldThresholds(end.effort, ss.budget);
   expect(end.streakKept).toBe(false);
+});
+
+// ---------- rule 1: a fast wrong answer is a guess ----------
+
+const guessAns = (st: Step, a: "r" | "w" | "dk", ms: number, now: number) =>
+  answer(st.state, C, { card: cardOf(st).card, choice: choiceFor(C, cardOf(st), a), ms }, now);
+
+test("guess: a 1 s wrong answer on a level-2 card (usual unknown) leaves skill, gap, ladder and memory alone, charges effort, starts the repair", () => {
+  const start = withProfile(startedAt(2, 4, 1, { a1: { nextReviewDay: D0 + 3, gapIndex: 1 } }), { stamina: 30 });
+  const s0 = startSession(start, C, T0);
+  const c0 = cardOf(s0);
+  expect(c0.height).toBe(2);
+  const before = s0.state.skills[c0.skill];
+  const s1 = guessAns(s0, "w", 1000, T0 + 10_000);
+  const after = s1.state.skills[c0.skill];
+  expect(after.height).toBe(before.height);
+  expect(after.gapIndex).toBe(before.gapIndex);
+  expect(after.nextReviewDay).toBe(before.nextReviewDay);
+  expect(after.firstFailedDay).toBe(before.firstFailedDay);
+  expect(after.firstFailedHeight).toBe(before.firstFailedHeight);
+  expect(after.attempts).toEqual(before.attempts);
+  expect(s1.state.profile.memory).toBe(s0.state.profile.memory);
+  expect(s1.state.profile.h3Share).toBe(s0.state.profile.h3Share);
+  expect(s1.state.profile.msByHeight).toEqual(s0.state.profile.msByHeight);
+  expect(s1.state.ladder).toEqual(s0.state.ladder);
+  expect(s1.state.day!.effort).toBe(s0.state.day!.effort + c0.effort + cfg.effort.wrong);
+  expect(s1.events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: true, right: false });
+  expect(s1.state.session!.guesses).toBe(1);
+  expect(s1.state.session!.history.at(-1)).toMatchObject({ right: false, guess: true });
+  expect(s1.state.seen.find((x) => x.card === c0.card)).toMatchObject({ right: false });
+  expect(cardOf(s1)).toMatchObject({ skill: c0.skill, reason: "repair:missing-piece" });
+  expect(cardOf(s1).height).toBeLessThan(c0.height);
+});
+
+test("guess: first-session ladder does not move on a guess", () => {
+  const s0 = startSession(newState("s", 1), C, T0);
+  const s1 = guessAns(s0, "w", 500, T0 + 10_000);
+  expect(s1.state.ladder).toEqual(s0.state.ladder);
+});
+
+test("guess line: 9 s wrong at level 2 with usual 12 s is not a guess; 'I don't know' in 0.5 s is not a guess", () => {
+  const usual = withProfile(startedAt(2, 4, 1), { msByHeight: { 1: [], 2: Array(5).fill(12_000), 3: [] }, stamina: 30 });
+  const s0 = startSession(usual, C, T0);
+  expect(cardOf(s0).height).toBe(2);
+  const w = guessAns(s0, "w", 9000, T0 + 10_000);
+  expect(w.events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: false });
+  expect(w.state.session!.guesses).toBe(0);
+  const fast = guessAns(s0, "w", 5900, T0 + 10_000); // under the 6 s floor
+  expect(fast.events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: true });
+  const dk = guessAns(s0, "dk", 500, T0 + 10_000);
+  expect(dk.events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: false });
+  expect(dk.state.session!.guesses).toBe(0);
+  const fastRight = guessAns(s0, "r", 500, T0 + 10_000);
+  expect(fastRight.events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: false });
+  // a third of a long usual time beats the floor: usual 30 s at level 2 → line 10 s
+  const slowUsual = withProfile(startedAt(2, 4, 1), { msByHeight: { 1: [], 2: Array(5).fill(30_000), 3: [] }, stamina: 30 });
+  const t0 = startSession(slowUsual, C, T0);
+  expect(guessAns(t0, "w", 9000, T0 + 10_000).events.find((e) => e.type === "answer")!.data).toMatchObject({ guess: true });
+});
+
+test("guesses: two on one skill do not leave the skill; three in a row record no bad moment and no bad day", () => {
+  let st = startSession(withProfile(leadA1(), { stamina: 30 }), C, T0);
+  const first = cardOf(st).skill;
+  let now = T0;
+  const heights: number[] = [];
+  for (let i = 0; i < 2; i++) {
+    now += 10_000;
+    st = guessAns(st, "w", 800, now);
+    heights.push(st.state.skills[first].height);
+  }
+  expect(st.state.session!.leftSkills).toEqual([]);
+  expect(st.state.skills[first].height).toBe(3);
+  expect(st.state.session!.badMoments).toEqual([]);
+  now += 10_000;
+  if (st.next.kind === "card") st = guessAns(st, "w", 800, now);
+  const ss = st.state.session ?? null;
+  expect(st.state.skills[first].height).toBe(3);
+  if (ss) {
+    expect(ss.badMoments).toEqual([]);
+    expect(ss.badDay).toBe(false);
+    expect(ss.missRun).toBe(0);
+    expect(ss.guesses).toBe(3);
+  }
+});
+
+test("guess: a real miss after a guess on the same skill is not two misses", () => {
+  const s0 = startSession(withProfile(leadA1(), { stamina: 30 }), C, T0);
+  const s1 = guessAns(s0, "w", 800, T0 + 10_000);
+  const s2 = guessAns(s1, "w", 12_000, T0 + 20_000);
+  expect(s2.state.session!.leftSkills).toEqual([]);
+});
+
+test("guess: a guess on the closing card ends on a recap; every answer a guess still ends", () => {
+  const r = play(C, startedAt(2, 4, 1), T0, (s) => (s.reason.startsWith("close") ? "w" : "r"), { ms: (s) => (s.reason.startsWith("close") ? 500 : 8000), offer: "decline" });
+  const closes = served(r.steps).filter((c) => c.reason.startsWith("close"));
+  if (closes.length > 0) expect(endOf(lastStep(r.steps))).toMatchObject({ recap: true });
+  const all = play(C, startedAt(2, 4, 1), T0, () => "w", { ms: () => 500 });
+  expect(lastStep(all.steps).next.kind).toBe("end");
+  expect(endOf(lastStep(all.steps)).recap).toBe(true);
+  expect(all.state.skills["a1"].height).toBe(2);
+  expect(all.state.session).toBeNull();
+});
+
+test("guess: migrate defaults session.guesses", () => {
+  const s0 = startSession(startedAt(2, 4, 1), C, T0);
+  const old = JSON.parse(JSON.stringify(s0.state));
+  delete old.session.guesses;
+  expect(migrate(old).session!.guesses).toBe(0);
 });
