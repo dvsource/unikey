@@ -1013,3 +1013,41 @@ weak-stubborn meets target 3 on every seed (+0.086 / +0.079 / +0.076, up from +0
 - Gains down by more than 0.005 on some seeds: average-noclass seed 2 (0.078 → 0.060), confident-misconceptions (0.066 / 0.064 / 0.056 → 0.054 / 0.053 / 0.051), calc-strong-memory-poor seed 3 (0.012 → 0.003), steady-five-min seeds 2 and 3, underconfident-skipper seed 3. Up by more than 0.005: average-fastclass seeds 1 and 2, weak-stubborn (all seeds), binge-quit seed 1, strong seed 2, comeback-10 seed 3 (seed 2 down 0.036 → 0.030), steady-five-min seed 1, one-feared-section seed 2. Mean gain over the students who kept practising: +0.051 / +0.052 / +0.048 → +0.052 / +0.051 / +0.047.
 - A return on seed 1 is right 53% of the time on time (60% before, on 5 returns); on all seeds together on-time returns are right 69% against 76% before (25 → 62 on-time returns).
 - More recaps have nothing fixed (50 of 60 before, 51 of 52 after): F2 counts only repairs that worked, which is the ruling.
+
+## After the after-miss guard (2026-11-18)
+
+Ruling (owner: "add the guard"): in `normal()`'s branch after pickMiddle, while a repair return is waiting (strict pickMiddle empty, loose not), straight after a miss (wrong or "I don't know"), the most winnable card (`comfort-correction`) or the sweep card (`fallback:any`) is served only when it is below the missed card's level; otherwise the session goes to closing (`toClosing`), as before F1. After a right answer, and in the true dead end (early return), nothing changes. Runs: `runs/g4-s1..3` (28 days, all packs) against `runs/f2-s1..3` (section above). All 11 checks pass on seeds 1, 2, 3.
+
+### binge-quit and early quits
+
+binge-quit no longer leaves the app: seed 3 quit day 5 → none (14 days, 20 sessions, gain 0.000 → +0.041; 80% right). Seeds 1 and 2 unchanged (no quit, same persona numbers). The only persona quitting before day 7 is weak-impatient (day 1 / 2 / 1, unchanged). knowledge-up counts 15 students on every seed again; mean gain +0.052 / +0.051 / +0.047 → +0.051 / +0.052 / +0.046.
+
+### Personas, f2 → g4 (seeds 1 / 2 / 3)
+
+| persona | cards/s | success | gain | recap ends |
+|---|---|---|---|---|
+| weak-stubborn | 5.8 / 5.5 / 5.4 → 5.1 / 5.3 / 4.9 | 35% / 36% / 38% → 37% / 36% / 42% | 0.086 / 0.079 / 0.076 → 0.070 / 0.073 / 0.061 | 14 / 10 / 10 → 9 / 11 / 11 |
+| binge-quit | 7.2 / 8.8 / 8.3 → 7.2 / 8.8 / 7.6 | 80% / 80% / 78% → 80% / 80% / 80% | 0.059 / 0.065 / 0.000 → 0.059 / 0.065 / 0.041 | 0 / 0 / 0 → 0 / 0 / 0 |
+| strong | 7.4 / 9.8 / 7.1 → same | 95% / 94% / 92% → same | 0.036 / 0.047 / 0.035 → same | 0 / 0 / 1 → 0 / 0 / 1 |
+
+weak-stubborn pays for the guard: sessions after a miss now close instead of serving another level-2 card, so about half a card fewer per session and a lower gain (still above 0.05 on every seed, target 3 met).
+
+### What follows a miss (after-miss.mjs), f2 → g4
+
+| seed | misses | sameSkillNext | of which | early returns | returns (right, on time) |
+|---|---|---|---|---|---|
+| 1 | 524 → 504 | 15 → 18 | missing-piece after a level-1 miss 11 → 16; close:winnable after a level-1 miss 4 → 2 | 0 → 0 | 15 (8) → 15 (8) |
+| 2 | 524 → 526 | 26 → 27 | missing-piece 21 → 24; close:winnable 5 → 3 | 0 → 0 | 30 (23) → 26 (20) |
+| 3 | 508 → 501 | 14 → 16 | missing-piece 12 → 13; close:winnable 2 → 3 | 0 → 0 | 17 (12) → 15 (11) |
+
+None of the same-skill-next cards is a comfort-correction or sweep card. Counted from the logs (not by the tool): a `comfort-correction` / `fallback:any` card at or above the missed level as the next card after a miss, on any skill: 88 / 86 / 95 → 64 / 81 / 86. The ones left come from pickMiddle's correcting mode (a not-due started skill at its own level when it has no lower card) and from the branch when no return is waiting; the guard does not touch them, per the ruling.
+
+### Recap ends
+
+| seed | recap ends | empty `fixedSkills` | of those, `rightSkills` not empty |
+|---|---|---|---|
+| 1 | 23 → 17 | 22 → 16 | 18 → 9 |
+| 2 | 12 → 15 | 12 → 15 | 8 → 12 |
+| 3 | 17 → 17 | 17 → 17 | 14 → 14 |
+
+Over the three seeds 48 of 49 recap ends have nothing fixed (51 of 52 before); 35 of those 48 have a skill answered right that session.

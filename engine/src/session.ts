@@ -242,10 +242,14 @@ function normal(r: Run, last: Last): Next {
   // the sweep leaves waiting skills out too, and only in a true dead end is a waiting return that fits the budget served
   // now (early), so the session does not end after a repair with most of its budget unspent.
   const waiting = middle(s, content, loose(r), cfg) !== null;
+  // After-miss guard (2026-11-18): while waiting, straight after a miss, a card not below the missed card's level is
+  // not served; the session goes to closing instead (as before F1). A lower card is served as usual.
+  const missed = waiting && prev !== undefined && prev.right !== true ? prev.height : null;
+  const notBelow = (p: Picked) => missed !== null && p.served.height >= missed;
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
-  if (pc) return serve(r, pc, true);
+  if (pc) return notBelow(pc) ? toClosing(r, false) : serve(r, pc, true);
   const any = pickAny(s, content, waiting ? hold(strict(), ss.returns.map((q) => q.skill)) : strict(), cfg, "fallback:any");
-  if (any) return serve(r, any, true);
+  if (any) return notBelow(any) ? toClosing(r, false) : serve(r, any, true);
   if (waiting) {
     const early = pickReturn(s, content, strict(), returns(), Infinity, cfg);
     if (early) {

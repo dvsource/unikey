@@ -1550,3 +1550,51 @@ test("fix round 1: with one closing card reserved, wrong-heavy play never takes 
     }
   }
 });
+
+// ---------- after-miss guard (2026-11-18): no same-level card straight after a miss while a return waits ----------
+
+/**
+ * Only a1 is started (height 2, not due, no height-1 card: its repair queues the return at once, so a1 waits). b1 is
+ * not started; a2 and b2 have no cards. `b1Easy`: b1 keeps its height-1 cards (else only its height-2 cards are left).
+ * After a miss on a1 at card 2 (not an open card) the running rate is below comfort and the correcting pickMiddle has
+ * nothing (no other started skill), so the branch after pickMiddle is reached with a1 waiting.
+ */
+function guardCase(b1Easy: boolean): { C: Content; st: State } {
+  const all = (s: string) => [1, 2, 3].flatMap((i) => [`${s}.h1.${i}`, `${s}.h2.${i}`]).concat(`${s}.h3`);
+  const drop = ["a1.h1.1", "a1.h1.2", "a1.h1.3", ...all("a2"), ...all("b2"), ...(b1Easy ? [] : ["b1.h1.1", "b1.h1.2", "b1.h1.3"])];
+  const st = startedState({ a1: rec(2, atts(2, 8, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }) }, { sessionCount: 4 });
+  return { C: fixture({ drop }), st };
+}
+
+test("after-miss guard: after a level-2 miss, with only a level-2 card of another skill left, the next card is a closing card", () => {
+  // Before the guard: b1's level-2 card was served as comfort-correction straight after the level-2 miss (sim seed 3,
+  // binge-quit, day 5: miss, miss, miss, then the closing card and the student quit).
+  const { C: CG, st } = guardCase(false);
+  for (const miss of ["w", "dk"] as const) {
+    const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? miss : "r"));
+    const cards = served(steps);
+    expect(cards[1]).toMatchObject({ skill: "a1", height: 2 });
+    expect(cards[2]).toMatchObject({ skill: "b1", height: 2, reason: "close:winnable" });
+    expect(steps[2].state.session!.phase).toBe("closing");
+    expect(cards.some((c) => c.reason === "comfort-correction" || c.reason === "fallback:any")).toBe(false);
+  }
+});
+
+test("after-miss guard: after a level-2 miss, a level-1 card of another skill is served (comfort-correction)", () => {
+  const { C: CG, st } = guardCase(true);
+  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards[1]).toMatchObject({ skill: "a1", height: 2 });
+  expect(cards[2]).toMatchObject({ skill: "b1", height: 1, reason: "comfort-correction" });
+  expect(steps[2].state.session!.phase).toBe("middle");
+});
+
+test("after-miss guard: after a right answer the branch is unchanged (a same-level card may be served)", () => {
+  // a1 missed, its missing-piece card (level 1) right, a1 waits for its return: the branch serves a2 at level 1, the
+  // level of the card just answered right (the earlier miss in the session does not count).
+  const { steps } = play(CR, oneSkill(), T0, (_s, i) => (i === 0 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards[1]).toMatchObject({ skill: "a1", height: 1, reason: "repair:missing-piece" });
+  expect(steps[2].feedback?.right).toBe(true);
+  expect(cards[2]).toMatchObject({ skill: "a2", height: 1, reason: "comfort-correction" });
+});
