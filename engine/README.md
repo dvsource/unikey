@@ -48,7 +48,15 @@ Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSessio
 | `offer-extend` | offer "5 more". Call `extend`, or `endSession` to decline (the session ends `budget`). "5 more" is at most 5 cards and at most 7.5 effort (five guided cards' worth), so it may be fewer cards when they are full problems. |
 | `end` | the session is over. `next.end` has the kind, effort, cards, right answers, `fixed`, `streakKept`, `recap` and `fixedSkills`. `fixedSkills` lists the skills whose repair worked this session: the repair ended with its confidence card right, or the skill was answered right when it came back (`repair:return`); a later miss on the skill in the same session takes it off the list. `fixed` is the number of skills in `fixedSkills`. `rightSkills` lists the skills answered right this session (each once, in the order of the first right answer); it is filled on every end. When `recap` is true the session ended right after a miss, on a recap. The cases are: the closing card was missed, the closing card was skipped, the daily cap blocked the closing card, or the cards ran out (content ran out) right after a miss. Show a short "what you fixed today" screen that lists the skill names in `fixedSkills` and asks no question. The rule: a session never ends directly on a wrong answer, except as a recap end, or when the student leaves, or when the app is interrupted. When `recap` is false, end as before. When the engine ends a session early after a miss (the after-miss guard, which goes to the closing card instead of serving a card at or above the missed level), the streak still counts. |
 
-**Open product decision (Viraj): the recap when `fixedSkills` is empty.** Most recap ends have nothing fixed (in the simulator 48 of 49 over seeds 1–3, runs of 2026-11-18). What the recap screen says then is not decided. One option, from the reviewer: show "You got X and Y right today" from `rightSkills`; when that is empty too, a neutral close such as "Tomorrow starts easy"; in both cases no "fixed" heading. The engine only provides the data; it does not choose the text.
+**Recap screen text (Viraj, 2026-11-19; first version, can change).** The engine only provides the data; the app chooses the text, in this order:
+
+| Data | Recap screen says |
+|---|---|
+| `fixedSkills` not empty | "Fixed today: X and Y." |
+| `fixedSkills` empty, `rightSkills` not empty | "You got X and Y right today." |
+| both empty | "Tomorrow starts easy." |
+
+No question on this screen, and no "fixed" heading unless something was fixed. Most recap ends have nothing fixed (in the simulator 48 of 49 over seeds 1–3, runs of 2026-11-18), so the second line is the usual one.
 
 End kinds: `budget`, `extended-done`, `bad-day`, `daily-cap`, `content-exhausted`, `left`, `interrupted`. A `daily-cap` end with 0 cards means the day's cap was reached before the session could start.
 
