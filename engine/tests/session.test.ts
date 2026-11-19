@@ -1598,3 +1598,71 @@ test("after-miss guard: after a right answer the branch is unchanged (a same-lev
   expect(steps[2].feedback?.right).toBe(true);
   expect(cards[2]).toMatchObject({ skill: "a2", height: 1, reason: "comfort-correction" });
 });
+
+// ---------- streak after the guard (2026-11-19): an early end the engine chose keeps the streak ----------
+
+test("guard close: level-2 miss, guard closes, right closing card: the end keeps the streak though the effort is below both thresholds", () => {
+  const { C: CG, st } = guardCase(false);
+  for (const miss of ["w", "dk"] as const) {
+    const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? miss : "r"));
+    const end = endOf(lastStep(steps));
+    expect(steps[2].state.session!.guardClose).toBe(true);
+    expect(end).toMatchObject({ kind: "budget", cards: 3, recap: false, streakKept: true });
+    const ss = steps[2].state.session!;
+    expect(end.effort).toBeLessThan(Math.max(ss.budget - (cfg.effort.h3 + cfg.effort.h1 + Math.max(cfg.effort.wrong, cfg.effort.dontKnow)), ss.budget / 2));
+    expect(end.effort).toBeLessThan(cfg.budget.minimumDay);
+    expect(lastStep(steps).state.day!.streakKept).toBe(true);
+  }
+});
+
+test("guard close: a missed closing card after the guard ends on a recap and keeps the streak", () => {
+  const { C: CG, st } = guardCase(false);
+  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 || i === 2 ? "w" : "r"));
+  expect(served(steps)[2].reason).toBe("close:winnable");
+  expect(endOf(lastStep(steps))).toMatchObject({ recap: true, streakKept: true });
+  expect(lastStep(steps).state.day!.streakKept).toBe(true);
+});
+
+test("guard close: a budget end without the guard follows the old streak rule", () => {
+  expect(budgetEnd(3.5, 12)).toMatchObject({ kind: "budget", streakKept: false });
+  // the flag is false in a normal session, and only the guard sets it
+  const { C: CG, st } = guardCase(true);
+  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? "w" : "r"));
+  expect(steps.every((x) => x.state.session === null || x.state.session.guardClose === false)).toBe(true);
+});
+
+test("guard close: the student leaving after the guard closed is not kept by the flag", () => {
+  const { C: CG, st } = guardCase(false);
+  const first = play(CG, st, T0, ["r", "w"]); // the closing card is open
+  expect(first.state.session!.guardClose).toBe(true);
+  const left = endSession(first.state, CG, first.now + 1000);
+  expect(endOf(left)).toMatchObject({ kind: "left", streakKept: false });
+});
+
+test("migrate defaults guardClose on a stored open session", () => {
+  const s = startSession(leadA1(), C, T0).state;
+  expect(s.session!.guardClose).toBe(false);
+  const { guardClose: _g, ...old } = s.session!;
+  expect(migrate(JSON.parse(JSON.stringify({ ...s, session: old }))).session!.guardClose).toBe(false);
+  expect(migrate(JSON.parse(JSON.stringify({ ...s, session: { ...s.session!, guardClose: true } }))).session!.guardClose).toBe(true);
+});
+
+test("guard close: when pickClose finds nothing, a pickAny card at or above the missed level is not served either", () => {
+  // Only b1 is started (level 2, no level-1 cards). a1 (not started) has no card left to serve (all seen lately), and
+  // b2 requires a1 here, so pickClose does not offer b2 either (not ready). The sweep does not check readiness: after the
+  // level-2 miss on b1 (waiting for its return) it would serve b2's level-2 card as `fallback:any`. That is at the
+  // missed level: the guard sends the session to closing instead.
+  const all = (s: string) => [1, 2, 3].flatMap((i) => [`${s}.h1.${i}`, `${s}.h2.${i}`]).concat(`${s}.h3`);
+  const CG = fixture({ drop: ["b1.h1.1", "b1.h1.2", "b1.h1.3", "b2.h1.1", "b2.h1.2", "b2.h1.3", "b2.h3", ...all("a2")] });
+  CG.skills["b2"] = { ...CG.skills["b2"], requires: ["a1"] };
+  const st = startedState({ b1: rec(2, atts(2, 8, 0, D0 - 2), { nextReviewDay: D0 + 20, noFullUntilDay: D0 + 20 }) },
+    { sessionCount: 4, seen: ["a1.h1.1", "a1.h1.2", "a1.h1.3", "a1.h2.1", "a1.h2.2", "a1.h2.3", ...Array.from({ length: 20 }, (_, v) => `a1.h3#${v}`)]
+      .map((x) => ({ card: x.split("#")[0], variant: Number(x.split("#")[1] ?? 0), day: D0 - 1 })) });
+  const { steps } = play(CG, st, T0, (_s, i) => (i === 1 ? "w" : "r"));
+  const cards = served(steps);
+  expect(cards[1]).toMatchObject({ skill: "b1", height: 2 });
+  expect(steps[2].state.session).toMatchObject({ phase: "closing", guardClose: true });
+  expect(cards.some((c) => c.reason === "fallback:any")).toBe(false);
+  expect(cards[2]).toMatchObject({ skill: "b2", height: 2, reason: "close:winnable" }); // a closing card, not a middle one
+  expect(endOf(lastStep(steps))).toMatchObject({ cards: 3, recap: false, streakKept: true });
+});

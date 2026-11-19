@@ -85,6 +85,8 @@ export type SessionState = {
   tailCard: string | null;
   /** The bad-day rule fired (spec §8): the session closes as `bad-day`. */
   badDay: boolean;
+  /** The after-miss guard sent the session to closing (2026-11-19): the engine ended it early, so the streak counts. */
+  guardClose: boolean;
   /** The session's effort spent before each slow answer, in order (fade detection, R4b). */
   slowBefore: number[];
   /** Every card id served this session, in order (skipped and left-open ones too): R5, no same card back-to-back. */

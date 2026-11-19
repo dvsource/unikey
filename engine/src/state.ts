@@ -25,6 +25,7 @@ export function migrate(json: unknown, cfg: Config = defaultConfig): State {
   const session = s.session ? {
     ...s.session, sideDoor: s.session.sideDoor ?? null, confident: s.session.confident ?? [],
     badDay: s.session.badDay ?? s.session.fadeEffort != null, slowBefore: s.session.slowBefore ?? [], servedCards: s.session.servedCards ?? [],
+    guardClose: s.session.guardClose ?? false, // after-miss guard streak ruling
     leftSkills: s.session.leftSkills ?? [], ladderCard: s.session.ladderCard ?? null, ladderFull: s.session.ladderFull ?? 0,
     stretchCard: s.session.stretchCard ?? null, extraNew: s.session.extraNew ?? false, lastSkip: s.session.lastSkip ?? null,
     missRun: s.session.missRun ?? 0, lowStart: s.session.lowStart ?? false, // change 3

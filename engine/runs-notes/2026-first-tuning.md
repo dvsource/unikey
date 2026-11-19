@@ -1051,3 +1051,9 @@ None of the same-skill-next cards is a comfort-correction or sweep card. Counted
 | 3 | 17 → 17 | 17 → 17 | 14 → 14 |
 
 Over the three seeds 48 of 49 recap ends have nothing fixed (51 of 52 before); 35 of those 48 have a skill answered right that session.
+
+### Streak after the guard (2026-11-19)
+
+Ruling (owner): a session the engine ended early through the guard keeps the streak, as a `bad-day` end does (`SessionState.guardClose`, any end kind except `left` and `interrupted`). Runs: `runs/g5-s1..3` (28 days, all packs); all 11 checks pass on seeds 1, 2, 3 (knowledge gain +0.051 / +0.052 / +0.046, as in g4).
+Sessions that ended through the guard (seeds 1 / 2 / 3): 8 / 5 / 11 (budget 4 / 3 / 6 kept the streak before too, 2 / 1 / 1 were bad-day ends, which kept it before).
+Newly kept (a budget end that the old rule would have left at `streakKept: false`): 2 / 1 / 4. The count comes from a temporary counter in `closeSession` (not committed).

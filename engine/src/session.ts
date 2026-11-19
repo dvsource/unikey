@@ -247,9 +247,9 @@ function normal(r: Run, last: Last): Next {
   const missed = waiting && prev !== undefined && prev.right !== true ? prev.height : null;
   const notBelow = (p: Picked) => missed !== null && p.served.height >= missed;
   const pc = withReason(pickClose(s, content, strict(), cfg), "comfort-correction");
-  if (pc) return notBelow(pc) ? toClosing(r, false) : serve(r, pc, true);
+  if (pc) return notBelow(pc) ? guardClosing(r) : serve(r, pc, true);
   const any = pickAny(s, content, waiting ? hold(strict(), ss.returns.map((q) => q.skill)) : strict(), cfg, "fallback:any");
-  if (any) return notBelow(any) ? toClosing(r, false) : serve(r, any, true);
+  if (any) return notBelow(any) ? guardClosing(r) : serve(r, any, true);
   if (waiting) {
     const early = pickReturn(s, content, strict(), returns(), Infinity, cfg);
     if (early) {
@@ -283,6 +283,12 @@ function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   ss.stretchCard = stretch ? p.served.card : null;
   if (p.extraNew === true) ss.extraNew = true;
   return serve(r, stretch ? { ...ramp, served: { ...ramp.served, reason: "open:liked" } } : ramp);
+}
+
+/** The after-miss guard ends the session early: the engine's choice, so the streak counts (`SessionState.guardClose`). */
+function guardClosing(r: Run): Next {
+  r.s.session!.guardClose = true;
+  return toClosing(r, false);
 }
 
 function toClosing(r: Run, forced: boolean): Next {
@@ -359,7 +365,10 @@ function closeSession(r: Run, kind: EndKind, recap = false): Next {
   // "Really spent": what is left is no more than the largest card that can fail to fit plus the closing reserve, and
   // at least half of the budget was spent (with a budget of 8 the slack alone would keep the streak from 2 effort).
   const spentBudget = ss.spent >= Math.max(ss.budget - (r.cfg.effort.h3 + closeReserve(r.cfg)), ss.budget / 2);
-  if (kind === "bad-day" || ((kind === "budget" || kind === "extended-done") && (today.effort >= r.cfg.budget.minimumDay || spentBudget))
+  // The after-miss guard (`guardClose`) is a bad-day-like early end the engine chose: the streak counts, whatever the end
+  // kind (budget, or a recap after a missed closing card). A student who leaves, or an interruption, is not that.
+  const guarded = ss.guardClose && kind !== "left" && kind !== "interrupted";
+  if (guarded || kind === "bad-day" || ((kind === "budget" || kind === "extended-done") && (today.effort >= r.cfg.budget.minimumDay || spentBudget))
     || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
   if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
   for (const q of ss.returns) {
@@ -406,7 +415,7 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
     phase: "open", comeback, fixed: 0, blockedSections: [], dripDone: false, moments: [], fadeEffort: null, closeServed: 0,
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
-    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, slowBefore: [], servedCards: [],
+    startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, guardClose: false, slowBefore: [], servedCards: [],
     missRun: 0, lowStart, fixedSkills: [], extendEffortLeft: 0,
   };
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
