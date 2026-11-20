@@ -84,8 +84,7 @@ it("builds both editions alongside each other with source IDs, forms, notes and 
         const bundled = read(path.join(app, "assets/content", filename));
         expect({ ...pack, built_at: "" }).toEqual({ ...bundled, built_at: "" });
         const metadata = (i: SourceItem) => [i.id, i.form, i.skills, i.note_ref];
-        expect(pack.items.map(metadata).sort()).toEqual(authored.map(i =>
-          metadata({ ...i, note_ref: edition === "v2" ? i.note_ref : undefined })).sort());
+        expect(pack.items.map(metadata).sort()).toEqual(authored.map(metadata).sort());
         const layers = new Map<string, Item["layer"]>(pack.items.map((i: Item) => [i.id, i.layer]));
         for (const i of [...source.cards, ...source.pools, ...source.banks]) expect(layers.get(i.id)).toBe(i.layer);
         for (const t of source.templates) checkTemplateLayer(t, byId.get(t.id)!, layers.get(t.id)!);

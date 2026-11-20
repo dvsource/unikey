@@ -11,10 +11,8 @@ import { defaultConfig } from "../src/config.js";
 
 const root = resolve(import.meta.dirname, "../..");
 
-test("v1 matches the base packs and v2 uses its own notes and items", () => {
-  const base = loadFromRepo(root);
-  for (const card of Object.values(base.cards)) delete card.noteRef; // The original packs omit notes.
-  expect(loadPackSet(root, "v1")).toEqual(base);
+test("bundled v1 reproduces the source-assisted loader including notes, and v2 uses its own items", () => {
+  expect(loadPackSet(root, "v1")).toEqual(loadFromRepo(root));
   const v2 = loadPackSet(root, "v2", ["mechanics-20-v2"]);
   expect(Object.keys(v2.cards)).toHaveLength(98);
   expect(v2.cards["phy.mech.c051"].noteRef).toBe("phy.mech.note.ang");

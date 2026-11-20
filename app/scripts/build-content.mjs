@@ -144,7 +144,7 @@ function buildPack(pack, tags, tsv) {
       skills: c.skills,
       difficulty: c.difficulty_est,
       source_ref: c.source_ref,
-      note_ref: edition === "v2" ? c.note_ref : undefined,
+      note_ref: c.note_ref,
       constants: c.constants ?? {},
       explanation: text(c.explanation),
       variants: [
@@ -196,7 +196,7 @@ function buildPack(pack, tags, tsv) {
       skills: b.skills,
       difficulty: b.difficulty_est,
       source_ref: b.source_ref,
-      note_ref: edition === "v2" ? src.note_ref : undefined,
+      note_ref: src.note_ref,
       constants: src.constants ?? {},
       explanation: text(b.explanation),
       n_variants: b.variants.length,

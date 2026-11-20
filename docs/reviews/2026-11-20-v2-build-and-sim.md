@@ -96,7 +96,7 @@ The only failure was `knowledge-up` for `calc-strong-memory-poor` on v2 seed 3. 
 
 All three unit validators passed for both source editions against the local question database and glossary. Regenerating the pack inputs and teacher worksheets in a temporary checkout produced byte-identical output. App tests validated both editions’ actual bundle contents, including generated variant keys, Sinhala text, figures, error tags and play order. The app passed 149 Jest tests and the engine passed 343 Vitest tests. Both TypeScript checks passed.
 
-Use this baseline revision for the base v1 comparison. From the repository root, build with `node app/scripts/build-content.mjs` and `node app/scripts/build-content.mjs --pack-set v2`. The app starts with v1. From the engine directory run the following. Seed 3 on v2 writes its logs and returns exit status 1 for the failed check.
+Use comparison revision `2747fd6` in a separate checkout to reproduce the main tables with the original v1 files. From the repository root, build with `node app/scripts/build-content.mjs` and `node app/scripts/build-content.mjs --pack-set v2`. The app starts with v1. From the engine directory run the following. Seed 3 on v2 writes its logs and returns exit status 1 for the failed check.
 
 ```sh
 for edition in v1 v2; do
@@ -109,3 +109,45 @@ done
 ```
 
 Each run directory contains per-persona logs and summaries plus `checks.json`. The [app README](../../app/README.md#content) and [engine README](../../engine/README.md#running-it) describe the edition switch.
+
+## V1 packs gain `note_ref`
+
+Comparison revision `2747fd6` preserves all three original v1 Git blobs from `a4e28e5`, including their timestamps. The final commit embeds the source note reference in 91 Mechanics items, 68 Thermal items and 82 Electricity items. Removing exactly those 241 fields and normalizing only `built_at` reproduces the base bytes. The bundled v1 engine index now equals the original loader’s index, which read the same references from source.
+
+I reran all 16 personas for 28 days with the same three seeds at both revisions. All 48 pairs of event logs, all 48 pairs of summaries and all three pairs of check files were byte-identical. The mean knowledge gain across personas and seeds was +0.0466713060 in both runs.
+
+| Seed | Repairs without notes | Repairs with notes | Checks without notes | Checks with notes |
+|---:|---:|---:|---:|---:|
+| 1 | 121 | 121 | 12/12 | 12/12 |
+| 2 | 127 | 127 | 12/12 | 12/12 |
+| 3 | 119 | 119 | 12/12 | 12/12 |
+| **Total** | **367** | **367** | **36/36** | **36/36** |
+
+Knowledge gains are listed in seed order 1, 2, 3. The last column gives the change in the three-seed mean.
+
+| Persona | V1 without notes | V1 with notes | Mean change |
+|---|---|---|---:|
+| average-fastclass | +0.07477, +0.07820, +0.06060 | +0.07477, +0.07820, +0.06060 | +0.00000 |
+| average-noclass | +0.06499, +0.06343, +0.07613 | +0.06499, +0.06343, +0.07613 | +0.00000 |
+| binge-quit | +0.04660, +0.06463, +0.04402 | +0.04660, +0.06463, +0.04402 | +0.00000 |
+| calc-strong-memory-poor | +0.02288, +0.02088, +0.01068 | +0.02288, +0.02088, +0.01068 | +0.00000 |
+| comeback-10 | +0.03865, +0.03690, +0.03460 | +0.03865, +0.03690, +0.03460 | +0.00000 |
+| confident-misconceptions | +0.05415, +0.06460, +0.06023 | +0.05415, +0.06460, +0.06023 | +0.00000 |
+| fast-guesser | +0.03249, +0.02556, +0.03061 | +0.03249, +0.02556, +0.03061 | +0.00000 |
+| memory-good-calc-weak | +0.06453, +0.07212, +0.06903 | +0.06453, +0.07212, +0.06903 | +0.00000 |
+| one-feared-section | +0.05605, +0.05582, +0.06181 | +0.05605, +0.05582, +0.06181 | +0.00000 |
+| slow-reader | +0.05546, +0.05762, +0.05327 | +0.05546, +0.05762, +0.05327 | +0.00000 |
+| smart-impatient | +0.02403, +0.02209, +0.02025 | +0.02403, +0.02209, +0.02025 | +0.00000 |
+| steady-five-min | +0.07143, +0.07088, +0.06595 | +0.07143, +0.07088, +0.06595 | +0.00000 |
+| strong | +0.03469, +0.04124, +0.04221 | +0.03469, +0.04124, +0.04221 | +0.00000 |
+| underconfident-skipper | +0.02837, +0.03435, +0.03178 | +0.02837, +0.03435, +0.03178 | +0.00000 |
+| weak-impatient | -0.00078, +0.00041, -0.00258 | -0.00078, +0.00041, -0.00258 | +0.00000 |
+| weak-stubborn | +0.07048, +0.07346, +0.06066 | +0.07048, +0.07346, +0.06066 | +0.00000 |
+
+To reproduce the with-notes runs, execute this command block from `engine/` at the final commit. Use the comparison revision above for the without-notes runs.
+
+```sh
+for seed in 1 2 3; do
+  npm run sim -- --days 28 --seed "$seed" --pack-set v1 --packs all --out "runs/fix-noted-v1-s$seed"
+done
+```
