@@ -1,3 +1,4 @@
+/* global __dirname */
 const path = require("node:path");
 const presetResolver = require(require("jest-expo/jest-preset").resolver);
 

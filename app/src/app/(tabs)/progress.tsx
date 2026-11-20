@@ -4,6 +4,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Txt } from "../../components/Txt";
 import { Button, Card, Divider, ProgressBar, Sky } from "../../components/ui";
 import { SkillRings } from "../../components/SkillRings";
+import { studyEnabled } from "../../engine/enabled";
+import { deviceSession } from "../../engine/device";
 import { UnitPicker } from "../../components/UnitPicker";
 import { currentPack, items, packs } from "../../content/pack";
 import { shareExportFile, shareExportText } from "../../state/exportReviews";
@@ -27,6 +29,15 @@ export default function ProgressScreen() {
   const flagged = new Set(marks.filter((r) => r.verdict === "issues").map((r) => r.item_id)).size;
   const answered = Object.values(progress.answers);
   const right = answered.filter((a) => a.correct).length;
+
+  const reset = async () => {
+    try {
+      if (studyEnabled()) await deviceSession().reset();
+      resetProgress();
+    } catch {
+      notify("Could not reset study progress", "Please try again.");
+    }
+  };
 
   const send = async (asText: boolean) => {
     if (!settings.reviewerName.trim()) return notify("Add your name first", "Your name goes into the exported results.");
@@ -92,7 +103,7 @@ export default function ProgressScreen() {
             <Button testID="send-results" label="Send results" onPress={() => send(false)} disabled={busy} />
             <Button testID="send-text" kind="secondary" label="Send as text" onPress={() => send(true)} disabled={busy} />
             <Txt size={13} tone="muted">
-              Opens the share sheet with a JSON file, so you can send it on WhatsApp. "Send as text" pastes the same data as a message.
+              Opens the share sheet with a JSON file, so you can send it on WhatsApp. &quot;Send as text&quot; pastes the same data as a message.
             </Txt>
           </Card>
         </View>
@@ -136,7 +147,7 @@ export default function ProgressScreen() {
           />
           <Divider />
           <View style={{ paddingTop: 10 }}>
-            <Button testID="reset-progress" kind="ghost" small label="Reset student progress" onPress={resetProgress} />
+            <Button testID="reset-progress" kind="ghost" small label="Reset student progress" onPress={reset} />
           </View>
         </Card>
       </ScrollView>

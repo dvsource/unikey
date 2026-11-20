@@ -4,10 +4,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Path } from "react-native-svg";
 import { Txt } from "../../components/Txt";
 import { Button, Divider, Sky } from "../../components/ui";
+import { studyEnabled } from "../../engine/enabled";
 import { STATE } from "../../components/skillStates";
 import { inGraph, mixedUpWith, node, opens, pastPaperCount, prerequisites, SkillState, skillName, skillState, standsOn } from "../../content/graph";
 import { itemsForSkill, Lang, layerLabel, pick } from "../../content/pack";
-import { reviewKey, useStore } from "../../state/store";
+import { useStore } from "../../state/store";
 import { color, gutter } from "../../theme";
 
 export default function SkillScreen() {
@@ -26,6 +27,7 @@ export default function SkillScreen() {
   // C: suggest a missing prerequisite first, if it has questions to play.
   const first = needs.find((p) => itemsForSkill(p).length > 0 && !["mastered", "practising"].includes(skillState(p, progress.answers)));
   const play = (skill: string) => {
+    if (studyEnabled()) return router.push({ pathname: "/session", params: { mode: "skill", skill } });
     const start = itemsForSkill(skill)[0];
     if (start) router.push({ pathname: "/session", params: { mode: "skill", skill, start: start.id } });
   };
@@ -151,7 +153,7 @@ export default function SkillScreen() {
               <Button
                 testID="start-skill"
                 kind={first ? "secondary" : "primary"}
-                label={first ? "Start this anyway" : "Start this skill"}
+                label={studyEnabled() ? "Study this topic" : first ? "Start this anyway" : "Start this skill"}
                 onPress={() => play(id)}
                 style={{ flex: 1 }}
               />

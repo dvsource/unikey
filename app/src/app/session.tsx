@@ -6,13 +6,14 @@ import Svg, { Path } from "react-native-svg";
 import { LETTERS, ReviewPanel } from "../components/ReviewPanel";
 import { Txt } from "../components/Txt";
 import { Button, Chip, Figure, ProgressBar } from "../components/ui";
-import { constantsLine, currentPack, getSkill, Item, layerLabel, mistakeMessage, Option, pick, reviewVariants } from "../content/pack";
+import { constantsLine, currentPack, getSkill, Item, layerLabel, mistakeMessage, Option, reviewVariants } from "../content/pack";
 import { figureSvg } from "../content/figureEngines";
 import { buildSession, SessionMode } from "../state/session";
 import { reviewKey, useStore } from "../state/store";
 import { color, gutter, radius } from "../theme";
 import { EngineStudy } from "../engine/EngineStudy";
-import { adaptiveToday } from "../engine/enabled";
+import { node } from "../content/graph";
+import { adaptiveStudy } from "../engine/enabled";
 
 // English UI names for the four error-tag groups (§7).
 const GROUP_LABEL: Record<string, string> = {
@@ -52,12 +53,13 @@ export default function SessionScreen() {
   const mode: SessionMode = params.mode ?? "today";
   const insets = useSafeAreaInsets();
   const store = useStore();
-  if (adaptiveToday(mode)) {
+  if (adaptiveStudy(mode, params.start)) {
     const unit = currentPack(params.pack ?? store.settings.unit);
+    const topic = (mode === "skill" && params.skill ? node(params.skill)?.topic : undefined) ?? unit.graph?.topics[0]?.id;
     return (
       <View style={[styles.screen, { paddingTop: insets.top + 10 }]}>
         <SessionBody>
-          <EngineStudy topic={unit.graph?.topics[0]?.id} onExit={leaveScreen} />
+          <EngineStudy topic={topic} onExit={leaveScreen} />
         </SessionBody>
       </View>
     );

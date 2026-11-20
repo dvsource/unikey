@@ -1,18 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Choice, Moment, Served, Step } from "../../../engine/src/index";
 import { Txt } from "../components/Txt";
 import { Button, Chip, Figure } from "../components/ui";
-import { constantsLine, getItem, mistakeMessage, packs, type Lang } from "../content/pack";
+import { constantsLine, getItem, mistakeMessage, type Lang } from "../content/pack";
 import { figureSvg } from "../content/figureEngines";
 import { skillName } from "../content/graph";
 import { useStore } from "../state/store";
-import { recapText, StudySession, studyContent } from "./study";
-
-let device: StudySession | undefined;
-function deviceSession() {
-  return device ??= new StudySession(studyContent(packs), AsyncStorage, Date.now() >>> 0);
-}
+import { recapText } from "./study";
+import { deviceSession } from "./device";
 
 type Result = { served: Served; choice: Choice };
 type Action = () => Promise<Step>;
@@ -27,7 +22,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const [error, setError] = useState(false);
   const active = useRef(false);
   const locked = useRef(false);
-  const opened = useRef(false);
+  const started = useRef<Promise<Step> | null>(null);
   const retry = useRef<() => void>(() => {});
   const shownAt = useRef(0);
 
@@ -57,15 +52,20 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     // A discarded mount must not start or interrupt a session.
     void Promise.resolve().then(() => {
       if (cancelled) return;
-      opened.current = true;
-      void apply(() => app.start(Date.now(), initialTopic));
+      void apply(() => {
+        started.current = app.start(Date.now(), initialTopic);
+        return started.current;
+      });
     });
     return () => {
       cancelled = true;
       active.current = false;
       // System back also leaves the session. A killed process has no cleanup;
       // startSession handles that saved session as interrupted on next launch.
-      if (opened.current) void app.end(Date.now()).catch(() => {});
+      void started.current?.then(first => {
+        const id = first.state.session?.id;
+        if (id) return app.end(Date.now(), id);
+      }).catch(() => {});
     };
   }, [app, initialTopic]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -75,7 +75,8 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     if (question && !result) shownAt.current = performance.now();
   }, [question, result]);
 
-  const exit = () => { void apply(() => app.end(Date.now()), onExit); };
+  const session = step?.state.session?.id;
+  const exit = () => { void apply(() => app.end(Date.now(), session), onExit); };
   const name = (id: string) => skillName(id).si ?? skillName(id).en;
   const section = (id: string) => app.content.sections[id]?.name ?? id;
   function momentText(moment: Moment) {
@@ -89,17 +90,16 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   }
   const bilingual = (text: Lang) => store.settings.showEnglish && text.si && text.si !== text.en
     ? text.si + "\n" + text.en : text.si ?? text.en;
-  const button = (label: string, onPress: () => void, id?: string) =>
-    <Button label={label} disabled={busy} onPress={onPress} testID={id} />;
 
   if (error) return <>
     <Txt>Could not load or save your study session.</Txt>
-    {button("Retry", () => retry.current(), "engine-retry")}
+    <Button label="Retry" testID="engine-retry" disabled={busy} onPress={() => retry.current()} />
+    <Button label="Back" disabled={busy} onPress={onExit} />
   </>;
   if (!step || !next) return <Txt>Opening study session…</Txt>;
 
   const notification = <>
-    {step.hint === "guess-nudge" && <Txt testID="guess-nudge">Not sure? Tap I don't know. It costs nothing.</Txt>}
+    {step.hint === "guess-nudge" && <Txt testID="guess-nudge">{"Not sure? Tap I don't know. It costs nothing."}</Txt>}
     {(step.moments ?? []).map((m, i) => {
       const text = momentText(m);
       return text ? <Txt key={i}>{text}</Txt> : null;
@@ -117,47 +117,47 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
       {mistake && <Txt>{bilingual(mistake.text)}</Txt>}
       <Txt testID="engine-explanation">{bilingual(item.explanation)}</Txt>
       {step.feedback.reveal && <Txt>{`You came back to ${section(step.feedback.reveal.section)}.`}</Txt>}
-      {button("Continue", () => setResult(undefined), "engine-continue")}
+      <Button label="Continue" testID="engine-continue" disabled={busy} onPress={() => setResult(undefined)} />
     </>;
   }
 
   if (next.kind === "end") {
     const end = next.end;
     return <>
-      {notification}
+      {!end.recap && notification}
       <Txt size={22} weight="semibold" testID="engine-end">
         {end.recap ? recapText(end, name) : end.kind === "daily-cap" && !end.cards ? "Done for today." : "Session complete."}
       </Txt>
       {!end.recap && <Txt>{`${end.right} right across ${end.cards} cards · ${end.effort} effort`}</Txt>}
-      {button("Done", onExit, "engine-done")}
+      <Button label="Done" testID="engine-done" disabled={busy} onPress={onExit} />
     </>;
   }
   if (next.kind === "offer-extend") return <>
     {notification}
     <Txt>Keep studying?</Txt>
-    {button("5 more", () => { void apply(() => app.extend(Date.now())); }, "engine-extend")}
-    {button("Finish", () => { void apply(() => app.end(Date.now())); }, "engine-finish")}
+    <Button label="5 more" testID="engine-extend" disabled={busy} onPress={() => { void apply(() => app.extend(Date.now(), session)); }} />
+    <Button label="Finish" testID="engine-finish" disabled={busy} onPress={() => { void apply(() => app.end(Date.now(), session)); }} />
   </>;
   if (next.kind === "confirm-skip") {
     const served = step.state.session?.served;
     if (served) return <>
       <Txt>{`${section(next.value.section)} accounts for ${next.value.sharePct}% of this unit.`}</Txt>
       {next.value.topSkills.map(s => <Txt key={s.skill}>{name(s.skill)}</Txt>)}
-      {button("Skip section", () => { void apply(() => app.skip(served.card, Date.now(), "later", true)); })}
-      {button("Keep studying", () => setStep({ ...step, next: { kind: "card", card: served } }))}
+      <Button label="Skip section" disabled={busy} onPress={() => { void apply(() => app.skip(served.card, Date.now(), "later", true, session)); }} />
+      <Button label="Keep studying" disabled={busy} onPress={() => setStep({ ...step, next: { kind: "card", card: served } })} />
     </>;
   }
   const item = question && getItem(question.card);
   const variant = item && question && item.variants[question.variant];
   if (!question || !item || !variant) return <>
     <Txt>This study step is unavailable.</Txt>
-    {button("End session", exit)}
+    <Button label="End session" disabled={busy} onPress={exit} />
   </>;
   const svg = figureSvg(variant.figure);
   const submit = (choice: Choice) => {
     const now = Date.now();
     const ms = Math.max(0, Math.round(performance.now() - shownAt.current));
-    void apply(() => app.answer(question.card, choice, ms, now), s => {
+    void apply(() => app.answer(question.card, choice, ms, now, session), s => {
       if (s.feedback) {
         setResult({ served: question, choice });
         store.recordAnswer(item.id, s.feedback.right);
@@ -172,10 +172,10 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     {Object.keys(item.constants).length > 0 && <Txt>{constantsLine(item.constants)}</Txt>}
     {svg && <Figure svg={svg} maxWidth={300} />}
     {variant.options.map((o, i) => <OptionButton key={i} svg={o.svg} index={i} label={bilingual(o.text)} busy={busy} choose={submit} />)}
-    {button("I don't know", () => submit("dont-know"), "engine-idk")}
-    {button("Not now", () => { void apply(() => app.skip(question.card, Date.now(), "later")); }, "engine-skip")}
-    {button("Too hard", () => { void apply(() => app.skip(question.card, Date.now(), "too-hard")); }, "engine-too-hard")}
-    {button("End session", exit, "engine-stop")}
+    <Button label="I don't know" testID="engine-idk" disabled={busy} onPress={() => submit("dont-know")} />
+    <Button label="Not now" testID="engine-skip" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "later", false, session)); }} />
+    <Button label="Too hard" testID="engine-too-hard" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "too-hard", false, session)); }} />
+    <Button label="End session" testID="engine-stop" disabled={busy} onPress={exit} />
   </>;
 }
 
@@ -184,6 +184,7 @@ function OptionButton({ index, label, svg, busy, choose }: {
 }) {
   return <>
     {svg && <Figure svg={svg} maxWidth={170} />}
-    <Button kind="secondary" testID={`engine-option-${index}`} disabled={busy} label={label} onPress={() => choose(index)} />
+    <Button kind="secondary" testID={`engine-option-${index}`} disabled={busy} label={label || `Option ${index + 1}`}
+      style={{ height: "auto", minHeight: 52, paddingVertical: 10 }} onPress={() => choose(index)} />
   </>;
 }

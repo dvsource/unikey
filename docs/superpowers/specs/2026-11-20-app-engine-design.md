@@ -1,6 +1,6 @@
 # Adaptive study sessions in the app
 
-Set `EXPO_PUBLIC_STUDY_ENGINE=1` to enable the adaptive Today session. The default is the existing fixed queue. Teacher review and explicit skill practice keep their chosen items. The scheduler gets the bundled v1 edition, including its graphs and note references. It can serve across units. The selected unit supplies the initial student topic.
+Set `EXPO_PUBLIC_STUDY_ENGINE=1` to enable the adaptive Today and topic study sessions. The default is the existing fixed queue. The study action on a skill opens its topic. Teacher review and opening a specific question keep their chosen items. The scheduler gets the bundled v1 edition, including its graphs and note references. It can serve across units. The selected unit supplies the initial student topic.
 
 ## Module boundary
 

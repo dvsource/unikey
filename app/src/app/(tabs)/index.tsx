@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Txt } from "../../components/Txt";
 import { Trail } from "../../components/Trail";
-import { adaptiveToday } from "../../engine/enabled";
+import { studyEnabled } from "../../engine/enabled";
 import { UnitPicker } from "../../components/UnitPicker";
 import { Button, Card, Divider, ProgressBar, Sigiriya, Sky, Sun } from "../../components/ui";
 import { currentPack, items, packs } from "../../content/pack";
@@ -35,7 +35,7 @@ export default function TodayScreen() {
   const startBottom = Math.max(insets.bottom, 12) + 66 + 10;
   const { settings, progress, reviews } = useStore();
   const pack = currentPack(settings.unit);
-  const adaptive = adaptiveToday("today");
+  const adaptive = studyEnabled();
   const session = adaptive ? [] : buildSession("today", { pack: pack.id, cursor: progress.cursors[pack.id] ?? 0, reviews });
 
   const days = weekDays();

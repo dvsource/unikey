@@ -1,9 +1,10 @@
-import { answer, buildContent, endSession, migrate, newState, setCurrentTopic, startSession, type Choice } from "../../engine/src/index";
+import { answer, buildContent, endSession, extend, migrate, newState, setCurrentTopic, skip, startSession, type Choice } from "../../engine/src/index";
 import { StudySession, STUDY_KEY, recapText, studyContent } from "../src/engine/study";
+import { packs as v2Packs } from "../assets/content/index-v2";
 import { packs, type Pack } from "../src/content/pack";
 
 const editions: [string, Pack[], number][] = [
-  ["v1", packs, 241], ["v2", require("../assets/content/index-v2").packs, 257],
+  ["v1", packs, 241], ["v2", v2Packs, 257],
 ];
 
 it.each(editions)("maps each %s item, primary skill, note and variant in source order", (_edition, data, count) => {
@@ -96,4 +97,61 @@ it("uses all three recap lines in priority order", () => {
   expect(recapText({ fixedSkills: ["x", "y"], rightSkills: ["z"] }, name)).toBe("Fixed today: X and Y.");
   expect(recapText({ fixedSkills: [], rightSkills: ["x", "y"] }, name)).toBe("You got X and Y right today.");
   expect(recapText({ fixedSkills: [], rightSkills: [] }, name)).toBe("Tomorrow starts easy.");
+});
+
+it("starts a new local day after a cold load and prevents stale screens ending the replacement session", async () => {
+  const storage = memory();
+  const before = new StudySession(content, storage, 2);
+  const first = await before.start(now);
+  const reloaded = new StudySession(content, storage, 99);
+  expect((await reloaded.load()).state.session?.served).toEqual(first.state.session?.served);
+  const tomorrow = now + 86_400_000;
+  const second = await reloaded.start(tomorrow);
+  expect(second).toEqual(startSession(migrate(first.state), content, tomorrow));
+  expect(second.events).toContainEqual(expect.objectContaining({ type: "session_end", data: expect.objectContaining({ kind: "interrupted" }) }));
+  expect(second.state.day!.day).toBe(first.state.day!.day + 1);
+  await expect(reloaded.end(tomorrow, first.state.session!.id)).rejects.toThrow("already closed");
+  expect((await reloaded.load()).state.session?.id).toBe(second.state.session!.id);
+  await reloaded.reset();
+  const clean = await new StudySession(content, storage, 99).load();
+  expect(clean.state.session).toBeNull();
+  expect(clean.events).toEqual([]);
+});
+
+it("preserves the open card for skip confirmation and delegates the confirmed skip", async () => {
+  const first = startSession(newState("local", 7), content, now);
+  const served = first.state.session!.served!;
+  const state = first.state;
+  state.sections[served.section] = {
+    skipCount: 1, skipTotal: 1, remindDay: null, lastReason: "later", dripStopped: false,
+    liking: 0, returned: true, lastSkipSeq: 0, skippedLevel: served.height,
+  };
+  const storage = memory(JSON.stringify({ state, events: first.events }));
+  const app = new StudySession(content, storage, 0);
+  const pending = await app.skip(served.card, now, "later");
+  expect(pending.next.kind).toBe("confirm-skip");
+  expect(storage.setItem).not.toHaveBeenCalled();
+  expect(pending.state.session?.served).toEqual(served);
+  expect(await app.skip(served.card, now, "later", true)).toEqual(
+    skip(migrate(state), content, { card: served.card, reason: "later", confirmed: true }, now));
+});
+
+it("takes or declines the same earned extension across independent reloads", async () => {
+  const previous = newState("local", 7);
+  for (const h of [1, 2, 3] as const) previous.profile.msByHeight[h] = Array(10).fill(20000);
+  const app = new StudySession(content, memory(JSON.stringify(previous)), 7);
+  let step = await app.start(now);
+  let clock = now;
+  for (let i = 0; step.next.kind === "card" && i < 40; i++) {
+    const served = step.next.card;
+    const choice = content.cards[served.card].variants[served.variant].findIndex(o => o.correct);
+    clock += 9000;
+    step = await app.answer(served.card, choice, 9000, clock);
+  }
+  expect(step.next.kind).toBe("offer-extend");
+  const snapshot = JSON.stringify(await app.load());
+  const accept = new StudySession(content, memory(snapshot), 1);
+  expect(await accept.extend(clock)).toEqual(extend(step.state, content, clock));
+  const decline = new StudySession(content, memory(snapshot), 1);
+  expect((await decline.end(clock)).state.lastEnd?.kind).toBe("budget");
 });

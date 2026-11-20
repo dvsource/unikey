@@ -4,7 +4,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import SessionScreen from "../src/app/session";
 import { StoreProvider } from "../src/state/store";
 import { STUDY_KEY } from "../src/engine/study";
-import { adaptiveToday } from "../src/engine/enabled";
+import { deviceSession } from "../src/engine/device";
+import { adaptiveStudy } from "../src/engine/enabled";
 
 jest.mock("expo-router", () => ({
   useLocalSearchParams: () => ({ mode: "today" }), router: { back: jest.fn() },
@@ -33,8 +34,9 @@ it("defaults to the prototype queue and leaves the adaptive store unused", async
 
 it("runs Today through the engine and reveals the IDK explanation before the next step", async () => {
   process.env.EXPO_PUBLIC_STUDY_ENGINE = "1";
-  expect(adaptiveToday("review")).toBe(false);
-  expect(adaptiveToday("skill")).toBe(false);
+  expect(adaptiveStudy("review")).toBe(false);
+  expect(adaptiveStudy("skill")).toBe(true);
+  expect(adaptiveStudy("skill", "phy.mech.c001")).toBe(false);
   await open();
   await screen.findByTestId("engine-question");
   await fireEvent.press(screen.getByTestId("engine-idk"));
@@ -47,4 +49,20 @@ it("runs Today through the engine and reveals the IDK explanation before the nex
   await screen.findByTestId("engine-stop");
   await fireEvent.press(screen.getByTestId("engine-stop"));
   await waitFor(async () => expect(JSON.parse((await AsyncStorage.getItem(STUDY_KEY))!).state.lastEnd.kind).toBe("left"));
+});
+
+it("finishes an all-IDK session on the question-free recap from the engine", async () => {
+  process.env.EXPO_PUBLIC_STUDY_ENGINE = "1";
+  await deviceSession().reset();
+  await open();
+  await screen.findByTestId("engine-question");
+  for (let i = 0; screen.queryByTestId("engine-question") && i < 20; i++) {
+    await fireEvent.press(screen.getByTestId("engine-idk"));
+    await screen.findByTestId("engine-explanation");
+    await fireEvent.press(screen.getByTestId("engine-continue"));
+  }
+  expect(screen.getByText("Tomorrow starts easy.")).toBeTruthy();
+  expect(screen.queryByTestId("engine-question")).toBeNull();
+  expect(screen.queryByTestId("guess-nudge")).toBeNull();
+  expect(screen.getByTestId("engine-done")).toBeTruthy();
 });
