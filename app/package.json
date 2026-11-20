@@ -47,6 +47,7 @@
   "private": true,
   "jest": {
     "preset": "jest-expo",
+    "resolver": "<rootDir>/jest.engine-resolver.cjs",
     "testMatch": [
       "<rootDir>/__tests__/**/*.test.ts?(x)"
     ],
