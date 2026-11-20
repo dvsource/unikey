@@ -1,6 +1,7 @@
+import { decodeStudy, type SavedStudy } from "./savedStudy";
 import {
-  answer, buildContent, endSession, extend, migrate, newState, setCurrentTopic, skip, startSession,
-  type Choice, type Content, type EngineEvent, type EndInfo, type SkipReason, type State, type Step,
+  answer, buildContent, endSession, extend, newState, setCurrentTopic, skip, startSession,
+  type Choice, type Content, type EndInfo, type SkipReason, type State, type Step,
 } from "../../../engine/src/index";
 import type { Pack } from "../content/pack";
 
@@ -27,7 +28,7 @@ type Storage = {
   getItem(key: string): Promise<string | null>;
   setItem(key: string, value: string): Promise<void>;
 };
-type Saved = { state: State; events: EngineEvent[] };
+type Saved = SavedStudy;
 
 export class StudySession {
   private saved?: Saved;
@@ -38,17 +39,27 @@ export class StudySession {
   private async read(): Promise<Saved> {
     if (this.saved) return this.saved;
     const text = await this.storage.getItem(STUDY_KEY);
-    const raw = text === null ? null : JSON.parse(text);
-    const data = raw !== null && typeof raw === "object" && "state" in raw ? raw.state : raw;
-    const empty = data === null || (typeof data === "object" && !Array.isArray(data) && !Object.keys(data).length);
-    const state = migrate(empty ? newState("local", this.seed) : data);
-    const events: EngineEvent[] = raw?.events ?? [];
-    if (!Array.isArray(events)) throw new Error("Invalid saved study events");
-    return this.saved = { state, events };
+    if (text === null) return this.saved = this.fresh();
+    let decoded: Saved;
+    try {
+      decoded = decodeStudy(text);
+    } catch {
+      const prefix = STUDY_KEY + ".corrupt-" + Date.now();
+      let backup = prefix;
+      for (let i = 1; await this.storage.getItem(backup) !== null; i++) backup = prefix + "-" + i;
+      await this.storage.setItem(backup, text);
+      decoded = this.fresh();
+      await this.save(decoded);
+    }
+    return this.saved = decoded;
+  }
+
+  private fresh(): Saved {
+    return { state: newState("local", this.seed), events: [], legacyEvents: 0 };
   }
 
   load(): Promise<Saved> {
-    return this.queue.then(() => this.read());
+    return this.serialize(() => this.read());
   }
 
   private serialize<T>(task: () => Promise<T>): Promise<T> {
@@ -63,7 +74,7 @@ export class StudySession {
   }
 
   reset() {
-    return this.serialize(() => this.save({ state: newState("local", this.seed), events: [] }));
+    return this.serialize(() => this.save(this.fresh()));
   }
 
   private change(run: (state: State) => Step, session?: string): Promise<Step> {
@@ -72,7 +83,7 @@ export class StudySession {
       if (session && previous.state.session?.id !== session) throw new Error("This study session has already closed.");
       const step = run(previous.state);
       if (step.state !== previous.state || step.events.length) {
-        await this.save({ state: step.state, events: previous.events.concat(step.events) });
+        await this.save({ ...previous, state: step.state, events: previous.events.concat(step.events) });
       }
       return step;
     });

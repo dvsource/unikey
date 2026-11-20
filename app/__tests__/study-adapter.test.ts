@@ -25,10 +25,10 @@ it.each(editions)("maps each %s item, primary skill, note and variant in source 
 });
 
 function memory(initial: string | null = null) {
-  let text = initial;
+  const values = new Map(initial === null ? [] : [[STUDY_KEY, initial]]);
   return {
-    getItem: jest.fn(async (_key: string) => text),
-    setItem: jest.fn(async (_key: string, value: string) => { text = value; }),
+    getItem: jest.fn(async (key: string) => values.get(key) ?? null),
+    setItem: jest.fn(async (key: string, value: string) => { values.set(key, value); }),
   };
 }
 
@@ -57,7 +57,7 @@ it("matches direct public calls for a scripted day, including an adapter reload"
     events.push(...expected.events);
     if (n === 1) {
       app = new StudySession(content, storage, 999);
-      expect(await app.load()).toEqual({ state: migrate(expected.state), events });
+      expect(await app.load()).toEqual({ state: migrate(expected.state), events, legacyEvents: 0 });
     }
     n++;
   }
@@ -68,18 +68,35 @@ it("matches direct public calls for a scripted day, including an adapter reload"
     events.push(...expected.events);
   }
   expect(expected.next.kind).toBe("end");
-  expect(JSON.parse((await storage.getItem(STUDY_KEY))!)).toEqual({ state: expected.state, events });
+  expect(JSON.parse((await storage.getItem(STUDY_KEY))!)).toEqual({ state: expected.state, events, legacyEvents: 0 });
 });
 
-it("migrates an empty record and a legacy v1 state, and preserves unreadable saves", async () => {
+it("starts with a missing key and migrates a legacy raw v1 state", async () => {
   for (const raw of [null, "{}"]) {
     expect((await new StudySession(content, memory(raw), 3).load()).state).toEqual(migrate(newState("local", 3)));
   }
   const { pendingMoments, ladder, ...old } = newState("learner", 18);
   expect((await new StudySession(content, memory(JSON.stringify(old)), 3).load()).state).toEqual(migrate(old));
-  const storage = memory('{"v":2}');
-  await expect(new StudySession(content, storage, 3).start(now)).rejects.toThrow();
-  expect(storage.setItem).not.toHaveBeenCalled();
+});
+
+it.each([
+  "", "   ", "{", "null", "[]", "{}", '{"v":2}', '{"v":1}',
+  JSON.stringify({ ...newState("local", 3), profile: {} }),
+  JSON.stringify({ state: newState("local", 3), events: {} }),
+  JSON.stringify({ state: newState("local", 3), events: [null] }),
+])("backs up corrupt bytes and can study after a cold reload (%#)", async raw => {
+  const storage = memory(raw);
+  const app = new StudySession(content, storage, 3);
+  const [a, b] = await Promise.all([app.load(), app.load()]);
+  expect(a).toEqual(b);
+  expect(a.state).toEqual(newState("local", 3));
+  const [[backup, bytes], [key]] = storage.setItem.mock.calls;
+  expect(backup).toMatch(/^unikey\/study\/v1\.corrupt-\d+$/);
+  expect(bytes).toBe(raw);
+  expect(key).toBe(STUDY_KEY);
+  const restarted = new StudySession(content, storage, 9);
+  expect((await restarted.start(now)).next.kind).toBe("card");
+  expect(await storage.getItem(backup)).toBe(raw);
 });
 
 it("retries a failed atomic save without adding a second start event", async () => {
