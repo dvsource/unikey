@@ -1,10 +1,10 @@
 # Sample-v2 build and study-loop comparison
 
-Built at `78e7d95` from local main `a4e28e5`. All 11 reported L4-to-L2 changes are deliberate. All six packs passed their build checks. In 28-day simulations, v1 passed 36 of 36 checks and v2 passed 35 of 36.
+The comparison uses the three original v1 pack files from `a4e28e5` and the three built sample-v2 packs. The original v1 files have no embedded `note_ref`. The simulator reads only metadata present in each bundle. All 11 reported L4-to-L2 changes are deliberate. All six packs passed their build checks. In 28-day simulations, v1 passed 36 of 36 checks and v2 passed 35 of 36.
 
 ## Published layers
 
-The unit validators count effective variants after filtering. Variants that merely rescale the same set of answers count once. A template with fewer than 20 effective variants becomes an L2 pool. An ascending template also becomes L2 if it lacks a position exemption and its most frequent correct-answer position exceeds 60%. The validators write the resulting layer to `variants.json`, and the app builder copies it. All 11 templates meet the first condition in both editions. [Authoring spec, V7 and V8](../living/content-authoring.md#6-template-constraints-automated-all-must-pass) · [Validator implementation](../../content/samples/mechanics-20/validate.py)
+The unit validators count effective variants after filtering. For numeric templates, variants with the same rounded ratios of options to the answer count once. For non-fraction F41 symbolic templates, each surviving variant counts. A template with fewer than 20 effective variants becomes an L2 pool. An ascending template also becomes L2 if its most frequent correct-answer position exceeds 60%. The validators write the resulting layer to `variants.json`, and the app builder copies it. All 11 templates meet the first condition in both editions. [Authoring spec, V7 and V8](../living/content-authoring.md#6-template-constraints-automated-all-must-pass) · [Validator implementation](../../content/samples/mechanics-20/validate.py)
 
 | Unit | Template and effective variant count, identical in v1 and v2 |
 |---|---|
@@ -12,7 +12,7 @@ The unit validators count effective variants after filtering. Variants that mere
 | Thermal Physics | t01 (16), t06 (4) |
 | Current Electricity | t04 (11), t06 (11), t07 (10) |
 
-The parity test checks every published form against the authored form. It checks every published layer against the authored layer after applying those two documented rules. It also compares each freshly built pack with the committed pack, apart from its build timestamp. Note references now travel in the built item for cards, pool scenarios, templates and banks. The simulator reads them from the selected edition. A regression test compares the entire v1 engine content index with the previous source-assisted loader. [Build parity test](../../app/__tests__/pack-editions.test.ts) · [Simulator loader tests](../../engine/tests/pack-set.test.ts)
+The parity test computes the effective count from each variant’s values and checks the published form against the source. It rejects a false L4 for Mechanics t09 even when the bank claims 28 effective variants. It also rejects a false L2 for t13 when the bank claims one. The position test covers an ascending template marked exempt during filtering. All three committed baseline v1 packs match the Git blobs at `a4e28e5` byte for byte. A fresh build matches those bytes after replacing only the timestamp. [Build parity test](../../app/__tests__/pack-editions.test.ts) · [Simulator loader tests](../../engine/tests/pack-set.test.ts)
 
 ## Engine input
 
@@ -31,7 +31,7 @@ The engine excludes `phy.therm.c043` by ID in both editions. The v2 stem now sta
 
 ## Persona results
 
-Each cell gives v1 / v2 across seeds 1, 2 and 3. Knowledge gain is the mean change in modeled knowledge from day 0 to the end. Success is total correct divided by answered cards, including “I don’t know” as a miss. Served counts include answered, skipped and quit-on cards. A skip confirmation refers to the same card and is counted once. Full right is the number of correct answers to height-3 problems. Repairs include all served reasons beginning with `repair:`. Exhausted counts session endings due to exhausted content. Quit day is the zero-based day the persona quit the app, in seed order.
+Each cell gives base v1 / sample-v2 across seeds 1, 2 and 3. Knowledge gain is the mean change in modeled knowledge from day 0 to the end. Success is total correct divided by answered cards, including “I don’t know” as a miss. Served counts include answered, skipped and quit-on cards. A skip confirmation refers to the same card and is counted once. Full right is the number of correct answers to height-3 problems. Repairs include all served reasons beginning with `repair:`. Exhausted counts session endings due to exhausted content. Quit day is the zero-based day the persona quit the app, in seed order.
 
 | Persona | Knowledge gain | Success | Easy served | Guided served | Full served | Full right | Repairs served | Exhausted | Quit day |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
@@ -55,6 +55,35 @@ Each cell gives v1 / v2 across seeds 1, 2 and 3. Knowledge gain is the mean chan
 
 V2 served 213 more repair cards and 350 more easy cards. The fast-guesser’s success rose from 65.5% to 72.0%. Full problems shifted between personas. The calculation-strong, memory-poor persona answered 24 full problems correctly in v2 versus one in v1, while the steady five-minute persona answered zero versus twelve. These are modeled outcomes across three seeds.
 
+## Template share and skill gain
+
+Each fraction is serves of the most-served template divided by all answered cards across the three seeds. Serves include skip and quit events. Each template ID includes all its variants and published levels. Tied IDs share the displayed numerator. The skill counts compare final hidden knowledge with the starting value for each of 56 skills in each seed. Each row totals 168 skill observations per edition. Every zero delta in these runs belonged to a skill with no answered card.
+
+| Persona | Base v1 top template (serves/answers, share) | V2 top template (serves/answers, share) | Base v1 up / down / untouched | V2 up / down / untouched |
+|---|---|---|---:|---:|
+| average-fastclass | phy.therm.t01 (40/542, 7.4%) | phy.elec.t06 (51/519, 9.8%) | 91 / 19 / 58 | 89 / 8 / 71 |
+| average-noclass | phy.mech.t02 (33/514, 6.4%) | phy.therm.t01 (44/529, 8.3%) | 95 / 11 / 62 | 106 / 10 / 52 |
+| binge-quit | phy.mech.t02 (30/449, 6.7%) | phy.therm.t01 (35/488, 7.2%) | 73 / 39 / 56 | 82 / 24 / 62 |
+| calc-strong-memory-poor | phy.therm.t01 (53/528, 10.0%) | phy.elec.t06 (33/506, 6.5%) | 55 / 55 / 58 | 59 / 53 / 56 |
+| comeback-10 | phy.mech.t02 (28/340, 8.2%) | phy.therm.t01 (28/357, 7.8%) | 56 / 10 / 102 | 62 / 4 / 102 |
+| confident-misconceptions | phy.mech.t09 (38/547, 6.9%) | phy.elec.t06 (24/543, 4.4%) | 102 / 13 / 53 | 113 / 17 / 38 |
+| fast-guesser | phy.mech.t02 (36/525, 6.9%) | phy.mech.t14 (44/654, 6.7%) | 94 / 53 / 21 | 95 / 70 / 3 |
+| memory-good-calc-weak | phy.therm.t01 (32/520, 6.2%) | phy.therm.t01 (49/543, 9.0%) | 87 / 0 / 81 | 90 / 0 / 78 |
+| one-feared-section | phy.mech.t02 (27/512, 5.3%) | phy.therm.t01 (44/504, 8.7%) | 88 / 12 / 68 | 75 / 7 / 86 |
+| slow-reader | phy.mech.t02 (30/464, 6.5%) | phy.elec.t06 (49/473, 10.4%) | 80 / 11 / 77 | 77 / 26 / 65 |
+| smart-impatient | phy.elec.t06, phy.mech.t03 (11/228, 4.8%) | phy.therm.t01 (18/237, 7.6%) | 54 / 0 / 114 | 48 / 0 / 120 |
+| steady-five-min | phy.mech.t02 (36/512, 7.0%) | phy.elec.t06 (40/534, 7.5%) | 101 / 14 / 53 | 100 / 8 / 60 |
+| strong | phy.elec.t06 (77/675, 11.4%) | phy.elec.t06 (44/631, 7.0%) | 108 / 0 / 60 | 90 / 0 / 78 |
+| underconfident-skipper | phy.elec.t06 (63/473, 13.3%) | phy.mech.t09 (70/488, 14.3%) | 70 / 3 / 95 | 75 / 2 / 91 |
+| weak-impatient | phy.mech.t09, phy.therm.t01 (1/28, 3.6%) | none (0/28, 0%) | 9 / 8 / 151 | 7 / 13 / 148 |
+| weak-stubborn | phy.mech.t02 (20/428, 4.7%) | phy.therm.t06 (3/475, 0.6%) | 122 / 2 / 44 | 167 / 1 / 0 |
+
+## For the engine owner
+
+On v2 seed 3, `calc-strong-memory-poor` answered `phy.therm.t04` 19 times in 143 answers (13.3%). All 19 were correct. The reasons were 16 `open:liked`, two `due-review` and one `extend:liked`. Across its 56 skills, 17 improved, 19 declined and 20 went untouched. Of 100 paired 28-day seeds (1 through 100), this persona finished at or below its starting mean on 8/100 with base v1 and 13/100 with v2.
+
+Should an opening card chosen because the student likes it keep returning to one successful template while other practiced skills lose ground? The seed-3 log and the wider sweep leave that question open. [Simulator selection and logging](../../engine/sim/run.ts) · [Knowledge check](../../engine/sim/checks.ts)
+
 ## Checks and reproduction
 
 | 28-day seed | V1 | V2 |
@@ -65,14 +94,16 @@ V2 served 213 more repair cards and 350 more easy cards. The fast-guesser’s su
 
 The only failure was `knowledge-up` for `calc-strong-memory-poor` on v2 seed 3. Its modeled knowledge started at 0.500000, reached 0.518675 on day 14 and ended at 0.499927 after 28 days played. The check requires a strictly positive individual gain. The same persona finished v1 seed 3 at 0.510679. The check output rounds both v2 endpoints to 0.500. A positive three-seed average for the persona does not resolve this seed’s failure.
 
-All three sample-v2 source validators passed against the local question database and glossary. Regenerating the pack inputs and teacher worksheets in a temporary checkout produced byte-identical output. App tests validated both editions’ actual bundle contents, including generated variant keys, Sinhala text, figures, error tags and play order. The app passed 146 Jest tests and the engine passed 342 Vitest tests. Both TypeScript checks passed.
+All three unit validators passed for both source editions against the local question database and glossary. Regenerating the pack inputs and teacher worksheets in a temporary checkout produced byte-identical output. App tests validated both editions’ actual bundle contents, including generated variant keys, Sinhala text, figures, error tags and play order. The app passed 149 Jest tests and the engine passed 343 Vitest tests. Both TypeScript checks passed.
 
-From the repository root, build with `node app/scripts/build-content.mjs` and `node app/scripts/build-content.mjs --pack-set v2`. The app starts with v1. From the engine directory run the following. Seed 3 on v2 writes its logs and returns exit status 1 for the failed check.
+Use this baseline revision for the base v1 comparison. From the repository root, build with `node app/scripts/build-content.mjs` and `node app/scripts/build-content.mjs --pack-set v2`. The app starts with v1. From the engine directory run the following. Seed 3 on v2 writes its logs and returns exit status 1 for the failed check.
 
 ```sh
 for edition in v1 v2; do
   for seed in 1 2 3; do
-    npm run sim -- --days 28 --seed "$seed" --pack-set "$edition" --packs all --out "runs/build-$edition-s$seed"
+    label="$edition"
+    if [ "$edition" = v1 ]; then label=base-v1; fi
+    npm run sim -- --days 28 --seed "$seed" --pack-set "$edition" --packs all --out "runs/fix-$label-s$seed"
   done
 done
 ```

@@ -72,6 +72,8 @@ export type LogLine = {
 export type StudentLog = {
   persona: string; seed: number; lines: LogLine[]; profileByDay: (Profile & { day: number })[];
   knowledge: { day0: number; day14: number; dayEnd: number }; quitAppDay: number | null;
+  /** Final minus initial knowledge for each sampled skill. Older run files omit this field. */
+  skillGain?: Record<string, number>;
   traits: Traits; contentExhausted: number;
 };
 
@@ -134,6 +136,7 @@ export function runStudent(p: Persona | PersonaSpec, content: Content, opts: Run
   const dayEnd = meanKnowledge(h, content);
   return {
     persona: persona.id, seed, lines, profileByDay,
+    skillGain: Object.fromEntries(Object.entries(h.k).map(([id, final]) => [id, final - h.k0[id]!])),
     knowledge: { day0, day14: day14 ?? dayEnd, dayEnd }, quitAppDay, traits: persona.traits, contentExhausted,
   };
 }

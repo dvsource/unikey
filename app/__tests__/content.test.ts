@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { figureSvg } from "../src/content/figureEngines";
-import { getItem, items, packs, reviewVariants, tags, type Pack } from "../src/content/pack";
+import { getItem, items, packs, reviewVariants, skills, tags, type Pack } from "../src/content/pack";
 
 // Each bundled pack (assets/content) must match the authored sample it was built from.
 
@@ -37,6 +37,7 @@ const sources: Source[] = [...config.packs, ...v2Config.packs].map((p: { id: str
 
 it("loads every pack in content-packs.json, in order (BLD-01)", () => {
   expect(packs.map((p) => p.id)).toEqual(config.packs.map((s: { id: string }) => s.id));
+  for (const item of packs.flatMap(pack => pack.items)) expect(getItem(item.id)).toBe(item);
   expect(packs.length).toBeGreaterThanOrEqual(3);
   expect(new Set(items.map((it) => it.id)).size).toBe(items.length); // ids unique across packs
 });
@@ -46,7 +47,9 @@ describe.each(sources)("pack $id", (src) => {
   const pack: Pack = v2 ? require("../assets/content/index-v2").packs.find((p: Pack) => p.id === src.id)
     : packs.find(p => p.id === src.id)!;
   const packTags: typeof tags = v2 ? require("../assets/content/index-v2").tags : tags;
-  const itemById = new Map(pack.items.map(item => [item.id, item]));
+  const editionItems = new Map(pack.items.map(item => [item.id, item]));
+  const lookup = v2 ? (id: string) => editionItems.get(id) : getItem;
+  const editionSkills = v2 ? pack.skills : skills;
 
   it("has its unit's names and spec version", () => {
     expect(pack.spec_version).toBe(src.items.spec_version);
@@ -58,12 +61,12 @@ describe.each(sources)("pack $id", (src) => {
     const ids = [...src.items.cards, ...src.items.pools, ...src.built.items].map((x: { id: string }) => x.id).sort();
     expect(pack.items.map((it) => it.id).sort()).toEqual(ids);
     expect(pack.skills.map((s) => s.id)).toEqual(src.items.skills.map((s: { id: string }) => s.id));
-    for (const s of src.items.skills) expect(pack.skills.find((x) => x.id === s.id)?.name.si).toBe(s.name_si);
+    for (const s of src.items.skills) expect(editionSkills.find((x) => x.id === s.id)?.name.si).toBe(s.name_si);
   });
 
   it("keeps every generated variant, with its Sinhala prompt", () => {
     for (const b of src.built.items) {
-      const it = itemById.get(b.id)!;
+      const it = lookup(b.id)!;
       expect(it.variants).toHaveLength(b.variants.length);
       b.variants.forEach((v: { prompt: string; prompt_si: string; answer: string }, i: number) => {
         expect(it.variants[i].vid).toBe(`v${i}`);
@@ -89,7 +92,7 @@ describe.each(sources)("pack $id", (src) => {
 
   it("shows up to 4 of a card's options, with exactly one correct", () => {
     for (const c of [...src.items.cards, ...src.items.pools]) {
-      const opts = itemById.get(c.id)!.variants[0].options;
+      const opts = lookup(c.id)!.variants[0].options;
       expect(opts.length).toBe(Math.min(4, c.options.length + (c.spare_options?.length ?? 0)));
       expect(opts.filter((o) => o.correct)).toHaveLength(1);
     }
@@ -98,7 +101,7 @@ describe.each(sources)("pack $id", (src) => {
   it("resolves every card figure to the SVG file it names (BLD-04)", () => {
     let n = 0;
     for (const c of [...src.items.cards, ...src.items.pools]) {
-      const it = itemById.get(c.id)!;
+      const it = lookup(c.id)!;
       for (const o of c.options.filter((x: { asset?: string }) => x.asset)) {
         const shown = it.variants[0].options.find((x) => x.text.en === o.text.en)!;
         expect(shown.svg).toBe(fs.readFileSync(path.join(src.dir, o.asset), "utf8"));
