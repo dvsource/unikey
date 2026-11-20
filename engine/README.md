@@ -114,15 +114,14 @@ Every card has a `reason`. The app can log it; the student never sees it.
 
 ## Known gaps
 
-- **`note_ref` is not in the built packs.** The repair step "a card on the same note" needs `card.noteRef`. The built packs drop `note_ref`, so in the app this step is inactive until the build script passes it through (`buildContent`'s `noteRefs` argument takes a card id → note map). The simulator reads it from the source `items.json` files.
-- **The packs' `graph` field must be committed.** The engine needs the skill graph in each built pack. On a clean checkout it is missing until the `app/` build-script changes that add it are committed; until then `loadFromRepo` and `buildContent` throw "pack <id> has no skill graph", and the engine tests and the simulator cannot run.
+- The simulator loads note references and graphs from the built packs. Engine callers pass the item-to-note map to `buildContent` for same-note repairs.
 - **Import specifiers end in `.js`** (`./session.js`) though the files are `.ts`. Check that Metro resolves them (or add a resolver rule).
 - `engine/src` uses no Node APIs except `src/node/` (the file loader for tests and the simulator). Do not import `src/node` in the app.
 - Every tuning number is in `src/config.ts` (`defaultConfig`). Each call takes an optional `cfg`.
 
 ## Running it
 
-From `engine/`:
+From `engine/`, use `--pack-set v2` with `npm run sim` to select the three sample-v2 packs. The default is v1. `--packs all` selects the entire specified edition, and explicit IDs must belong to it. Rebuild the selected edition from `app/` with `npm run content -- --pack-set v1` or `v2`.
 
 | command | what it does |
 |---|---|

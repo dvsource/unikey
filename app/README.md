@@ -70,6 +70,8 @@ This writes `review-results.json` into each pack's folder, e.g. `content/samples
 
 ## Content
 
+Run `npm run content` for the default v1 packs. Run `npm run content -- --pack-set v2` to build the three sample-v2 packs into the same packs directory. The v2 manifest uses distinct pack IDs and its own generated index and tag table. The app imports the default v1 index.
+
 The app never hard-codes content. `scripts/build-content.mjs` reads each pack listed in `content-packs.json`:
 
 - `items.json`: cards, pools, templates, banks, skills (`name_si`)

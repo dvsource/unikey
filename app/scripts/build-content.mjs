@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Builds the app's bundled content from the authored packs.
 //
-// Reads, for each pack in app/content-packs.json:
+// --pack-set v1 (default) reads app/content-packs.json. --pack-set v2 reads
+// content/sample-v2/content-packs.json and writes distinct pack IDs plus
+// index-v2.ts and tags-v2.json alongside the default output. Each pack uses:
 //   items.json     cards, pools, templates, banks, skills (with name_si)
 //   variants.json  generated template and bank variants
 //   si.tsv         English → Sinhala pairs, used where a text has no `si`
@@ -16,13 +18,18 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { parseArgs } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const APP = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = path.resolve(APP, "..");
-const outArg = process.argv.indexOf("--out");
-const OUT = outArg > 0 ? path.resolve(process.argv[outArg + 1]) : path.join(APP, "assets", "content");
-const config = JSON.parse(fs.readFileSync(path.join(APP, "content-packs.json"), "utf8"));
+const { values } = parseArgs({ options: { out: { type: "string" }, "pack-set": { type: "string", default: "v1" } } });
+const edition = values["pack-set"];
+if (!["v1", "v2"].includes(edition)) throw new Error("--pack-set must be v1 or v2");
+const suffix = edition === "v2" ? "-v2" : "";
+const manifest = edition === "v2" ? "content/sample-v2/content-packs.json" : "app/content-packs.json";
+const OUT = values.out ? path.resolve(values.out) : path.join(APP, "assets", "content");
+const config = JSON.parse(fs.readFileSync(path.join(REPO, manifest), "utf8"));
 
 const LAYER_ORDER = { L1: 1, L2: 2, L3: 3, L4: 4 };
 
@@ -137,6 +144,7 @@ function buildPack(pack, tags, tsv) {
       skills: c.skills,
       difficulty: c.difficulty_est,
       source_ref: c.source_ref,
+      note_ref: c.note_ref,
       constants: c.constants ?? {},
       explanation: text(c.explanation),
       variants: [
@@ -188,6 +196,7 @@ function buildPack(pack, tags, tsv) {
       skills: b.skills,
       difficulty: b.difficulty_est,
       source_ref: b.source_ref,
+      note_ref: src.note_ref,
       constants: src.constants ?? {},
       explanation: text(b.explanation),
       n_variants: b.variants.length,
@@ -294,7 +303,7 @@ for (const pack of config.packs) {
   const variants = out.items.reduce((n, it) => n + it.variants.length, 0);
   console.log(`✓ ${pack.id}: ${out.items.length} items, ${out.skills.length} skills, ${variants} variants`);
 }
-fs.writeFileSync(path.join(OUT, "tags.json"), JSON.stringify(tags, null, 1));
+fs.writeFileSync(path.join(OUT, `tags${suffix}.json`), JSON.stringify(tags, null, 1));
 console.log(`✓ ${specTagCount} error tags from ${config.spec_doc}`);
 for (const [f, n] of proposedCounts) console.log(`✓ ${n} proposed tags from ${f}`);
 
@@ -304,7 +313,7 @@ const index = [
   `export const packs = [`,
   ...ids.map((id) => `  require("./packs/${id}.json"),`),
   `];`,
-  `export const tags = require("./tags.json");`,
+  `export const tags = require("./tags${suffix}.json");`,
   "",
 ].join("\n");
-fs.writeFileSync(path.join(OUT, "index.ts"), index);
+fs.writeFileSync(path.join(OUT, `index${suffix}.ts`), index);

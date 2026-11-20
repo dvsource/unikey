@@ -26,6 +26,7 @@ export type Item = {
   id: string;
   kind: "card" | "pool" | "template" | "bank";
   pool_id?: string;
+  note_ref?: string;
   version: number;
   status: string;
   layer: "L1" | "L2" | "L3" | "L4";

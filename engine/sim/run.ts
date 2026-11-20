@@ -223,16 +223,21 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
 
 // ---------- CLI ----------
 
-type Args = { days: number; seed: number; packs: string; out: string | null; persona: string | null; config: string | null };
+type Args = { days: number; seed: number; packs: string; packSet: "v1" | "v2"; out: string | null; persona: string | null; config: string | null };
 
 function parseArgs(argv: string[]): Args {
-  const a: Args = { days: 28, seed: 1, packs: "all", out: null, persona: null, config: null };
+  const a: Args = { days: 28, seed: 1, packs: "all", packSet: "v1", out: null, persona: null, config: null };
   for (let i = 0; i < argv.length; i++) {
     const k = argv[i]!;
     const v = argv[i + 1];
     const need = () => { if (v === undefined) throw new Error(`missing value for ${k}`); i++; return v; };
     if (k === "--days") a.days = Number(need());
     else if (k === "--seed") a.seed = Number(need());
+    else if (k === "--pack-set") {
+      const edition = need();
+      if (edition !== "v1" && edition !== "v2") throw new Error("--pack-set must be v1 or v2");
+      a.packSet = edition;
+    }
     else if (k === "--packs") a.packs = need();
     else if (k === "--out") a.out = need();
     else if (k === "--persona") a.persona = need();
@@ -260,14 +265,14 @@ async function main(argv: string[]): Promise<number> {
   const { readFileSync, writeFileSync, mkdirSync } = await import("node:fs");
   const { join, dirname, resolve } = await import("node:path");
   const { fileURLToPath } = await import("node:url");
-  const { loadFromRepo } = await import("../src/node/load.js");
+  const { loadPackSet } = await import("./pack-set.js");
   const { personas } = await import("./personas.js");
   const { runChecks } = await import("./checks.js");
 
   const args = parseArgs(argv);
   const engineDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-  const content = loadFromRepo(resolve(engineDir, ".."), args.packs === "all" ? undefined : args.packs.split(","));
   const cfg: Config = args.config ? deepMerge(defaultConfig, JSON.parse(readFileSync(args.config, "utf8"))) : defaultConfig;
+  const content = loadPackSet(resolve(engineDir, ".."), args.packSet, args.packs === "all" ? undefined : args.packs.split(","), cfg);
   const out = args.out ?? join("runs", new Date().toISOString().replace(/[:.]/g, "-"));
   const chosen = personas.map((p, i) => ({ p, i })).filter(({ p }) => args.persona === null || p.id === args.persona);
   if (chosen.length === 0) throw new Error(`no persona ${args.persona}`);
