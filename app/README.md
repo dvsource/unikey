@@ -1,6 +1,6 @@
 # UniKey prototype app
 
-Roadmap build step 2: a prototype student app with a **reviewer mode**, so teacher reviewers see each item exactly as a student will, on a real phone, and mark it. No backend, no scheduler, no algorithm. Everything is stored on the phone.
+Roadmap build step 2: a prototype student app with a **reviewer mode**, so teacher reviewers see each item exactly as a student will, on a real phone, and mark it. The default prototype uses fixed queues. Adaptive study is opt-in. Everything is stored on the phone.
 
 - **Stack:** Expo SDK 58 (React Native, TypeScript, Expo Router), per [DR-0013](../docs/decisions/0013-tech-stack.md). Works offline: content and fonts are bundled.
 - **Design:** "Dawn" ([DR-0025](../docs/decisions/0025-dawn-design-system.md)). Tokens are in `src/theme.ts`.
@@ -13,6 +13,8 @@ cd app
 npm install
 npx expo start
 ```
+
+To enable the adaptive study loop, start Metro with `EXPO_PUBLIC_STUDY_ENGINE=1 npx expo start --offline`. Open Today and choose **Start study session**. Restart Metro without the variable for the fixed queue. [Engine integration report](../docs/reviews/2026-11-20-app-engine.md)
 
 Then press `a` for an Android emulator, `w` for the browser, or scan the QR code with Expo Go (below). `npm start` does the same but rebuilds the content first.
 
@@ -44,7 +46,7 @@ On first run, accept the prompts to create `eas.json` and set its `preview` prof
 | **Skill detail** | Design C with R folded in: state, NEEDS (prerequisites with their state), this skill, MIXED UP WITH, OPENS, "N skills stand on this one", past-paper MCQ count, "Recommended first" / "Start this anyway", then the questions. Works for every graph skill, including ones with no questions yet. |
 | **Progress** | Design A: readiness (exam-weighted estimate from this phone's answers), one ring per syllabus topic, then the picked topic's skills as chips by subtopic, coloured by state (mastered / practising / refresh / not started / no questions yet). Plus the reviewer tools (shown first in reviewer mode): name, export, per-unit review counts, switches. |
 
-Items play in a **fixed order**: grouped by skill (in `items.json` order), then by layer, then as authored. Today plays the next 10 and moves on. Card options are shuffled with a fixed seed, so every reviewer sees the same order.
+By default, items play in a **fixed order**: grouped by skill (in `items.json` order), then by layer, then as authored. Today plays the next 10 and moves on. Card options are shuffled with a fixed seed, so every reviewer sees the same order.
 
 ## Reviewer mode
 
