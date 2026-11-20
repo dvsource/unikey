@@ -1,3 +1,4 @@
+import { AppState, type AppStateStatus } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -8,7 +9,7 @@ import { deviceSession } from "../src/engine/device";
 import { adaptiveStudy } from "../src/engine/enabled";
 
 jest.mock("expo-router", () => ({
-  useLocalSearchParams: () => ({ mode: "today" }), router: { back: jest.fn() },
+  useIsFocused: () => true, useLocalSearchParams: () => ({ mode: "today" }), router: { back: jest.fn() },
 }));
 
 async function open() {
@@ -65,4 +66,47 @@ it("finishes an all-IDK session on the question-free recap from the engine", asy
   expect(screen.queryByTestId("engine-question")).toBeNull();
   expect(screen.queryByTestId("guess-nudge")).toBeNull();
   expect(screen.getByTestId("engine-done")).toBeTruthy();
+});
+
+it.each([
+  { before: 9000, away: 3600000, after: 1000, guess: false },
+  { before: 500, away: 500, after: 250, guess: true },
+])("passes only foreground question time to the engine after $away ms away", async ({ before, away, after, guess }) => {
+  process.env.EXPO_PUBLIC_STUDY_ENGINE = "1";
+  await deviceSession().reset();
+  let tick = 100;
+  let notify!: (status: AppStateStatus) => void;
+  const time = jest.spyOn(performance, "now").mockImplementation(() => tick);
+  const sub = jest.spyOn(AppState, "addEventListener").mockImplementation((_type, listener) => {
+    notify = listener;
+    return { remove: jest.fn() } as ReturnType<typeof AppState.addEventListener>;
+  });
+  const originalAvailable = AppState.isAvailable;
+  AppState.isAvailable = true;
+  try {
+    await open();
+    await screen.findByTestId("engine-question");
+    notify("active");
+    tick += before;
+    notify("inactive");
+    tick += away / 2;
+    notify("background");
+    tick += away / 2;
+    notify("active");
+    tick += after;
+    const served = (await deviceSession().load()).state.session!.served!;
+    const wrong = deviceSession().content.cards[served.card].variants[served.variant].findIndex(o => !o.correct);
+    await fireEvent.press(screen.getByTestId("engine-option-" + wrong));
+    const events = (await deviceSession().load()).events;
+    expect(events.find(e => e.type === "answer")?.data).toMatchObject({ ms: before + after, guess });
+    tick += 40000; // feedback is visible
+    await fireEvent.press(screen.getByTestId("engine-continue"));
+    tick += 650;
+    await fireEvent.press(screen.getByTestId("engine-idk"));
+    expect((await deviceSession().load()).events.filter(e => e.type === "answer")[1].data.ms).toBe(650);
+  } finally {
+    AppState.isAvailable = originalAvailable;
+    sub.mockRestore();
+    time.mockRestore();
+  }
 });

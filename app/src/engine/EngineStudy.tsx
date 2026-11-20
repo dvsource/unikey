@@ -1,3 +1,7 @@
+import { AppState } from "react-native";
+import { useIsFocused } from "expo-router";
+import { AnswerClock } from "./answerClock";
+import { cancelSkip, type StudyView } from "./presentation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Choice, Moment, Served, Step } from "../../../engine/src/index";
 import { Txt } from "../components/Txt";
@@ -16,7 +20,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const [app] = useState(deviceSession);
   const [initialTopic] = useState(topic);
   const store = useStore();
-  const [step, setStep] = useState<Step>();
+  const [step, setStep] = useState<StudyView>();
   const [result, setResult] = useState<Result>();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
@@ -24,7 +28,8 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const locked = useRef(false);
   const started = useRef<Promise<Step> | null>(null);
   const retry = useRef<() => void>(() => {});
-  const shownAt = useRef(0);
+  const [clock] = useState(() => new AnswerClock());
+  const focused = useIsFocused();
 
   async function apply(action: Action, done?: (next: Step) => void) {
     if (locked.current) return;
@@ -35,7 +40,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     try {
       const next = await action();
       if (active.current) {
-        setStep(next);
+        setStep(app.present(next));
         done?.(next);
       }
     } catch {
@@ -63,7 +68,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
       // System back also leaves the session. A killed process has no cleanup;
       // startSession handles that saved session as interrupted on next launch.
       void started.current?.then(first => {
-        const id = first.state.session?.id;
+        const id = app.present(first).owner;
         if (id) return app.end(Date.now(), id);
       }).catch(() => {});
     };
@@ -72,11 +77,17 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const next = step?.next;
   const question = next?.kind === "card" ? next.card : undefined;
   useLayoutEffect(() => {
-    if (question && !result) shownAt.current = performance.now();
-  }, [question, result]);
+    const change = (state: string) => clock.foreground(state === "active");
+    const sub = AppState.isAvailable ? AppState.addEventListener("change", change) : undefined;
+    change(AppState.currentState ?? "unknown");
+    return () => { sub?.remove(); clock.foreground(false); };
+  }, [clock]);
+  useLayoutEffect(() => {
+    clock.show(step?.token, focused && !!question && !result && !error && !busy);
+  }, [clock, step?.token, focused, question, result, error, busy]);
 
-  const session = step?.state.session?.id;
-  const exit = () => { void apply(() => app.end(Date.now(), session), onExit); };
+  const token = step?.token;
+  const exit = () => { void apply(() => app.end(Date.now(), token), onExit); };
   const name = (id: string) => skillName(id).si ?? skillName(id).en;
   const section = (id: string) => app.content.sections[id]?.name ?? id;
   function momentText(moment: Moment) {
@@ -124,27 +135,27 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   if (next.kind === "end") {
     const end = next.end;
     return <>
-      {!end.recap && notification}
+      {!step.recap && notification}
       <Txt size={22} weight="semibold" testID="engine-end">
-        {end.recap ? recapText(end, name) : end.kind === "daily-cap" && !end.cards ? "Done for today." : "Session complete."}
+        {step.recap ? recapText(end, name) : end.kind === "daily-cap" && !end.cards ? "Done for today." : "Session complete."}
       </Txt>
-      {!end.recap && <Txt>{`${end.right} right across ${end.cards} cards · ${end.effort} effort`}</Txt>}
+      {!step.recap && <Txt>{`${end.right} right across ${end.cards} cards · ${end.effort} effort`}</Txt>}
       <Button label="Done" testID="engine-done" disabled={busy} onPress={onExit} />
     </>;
   }
   if (next.kind === "offer-extend") return <>
     {notification}
     <Txt>Keep studying?</Txt>
-    <Button label="5 more" testID="engine-extend" disabled={busy} onPress={() => { void apply(() => app.extend(Date.now(), session)); }} />
-    <Button label="Finish" testID="engine-finish" disabled={busy} onPress={() => { void apply(() => app.end(Date.now(), session)); }} />
+    <Button label="5 more" testID="engine-extend" disabled={busy} onPress={() => { void apply(() => app.extend(Date.now(), token)); }} />
+    <Button label="Finish" testID="engine-finish" disabled={busy} onPress={() => { void apply(() => app.end(Date.now(), token)); }} />
   </>;
   if (next.kind === "confirm-skip") {
-    const served = step.state.session?.served;
+    const served = step.confirmCard;
     if (served) return <>
       <Txt>{`${section(next.value.section)} accounts for ${next.value.sharePct}% of this unit.`}</Txt>
       {next.value.topSkills.map(s => <Txt key={s.skill}>{name(s.skill)}</Txt>)}
-      <Button label="Skip section" disabled={busy} onPress={() => { void apply(() => app.skip(served.card, Date.now(), "later", true, session)); }} />
-      <Button label="Keep studying" disabled={busy} onPress={() => setStep({ ...step, next: { kind: "card", card: served } })} />
+      <Button label="Skip section" disabled={busy} onPress={() => { void apply(() => app.skip(served.card, Date.now(), "later", true, token)); }} />
+      <Button label="Keep studying" disabled={busy} onPress={() => setStep(cancelSkip(step))} />
     </>;
   }
   const item = question && getItem(question.card);
@@ -156,8 +167,8 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const svg = figureSvg(variant.figure);
   const submit = (choice: Choice) => {
     const now = Date.now();
-    const ms = Math.max(0, Math.round(performance.now() - shownAt.current));
-    void apply(() => app.answer(question.card, choice, ms, now, session), s => {
+    const ms = Math.round(clock.elapsed());
+    void apply(() => app.answer(question.card, choice, ms, now, token), s => {
       if (s.feedback) {
         setResult({ served: question, choice });
       }
@@ -165,15 +176,15 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   };
   return <>
     {notification}
-    <Txt testID="engine-budget" tone="muted">{`Effort ${step.state.session?.spent ?? 0} / ${step.state.session?.budget ?? 0}`}</Txt>
+    <Txt testID="engine-budget" tone="muted">{`Effort ${step.spent} / ${step.budget}`}</Txt>
     <Chip label="EN" active={store.settings.showEnglish} onPress={() => store.setSettings({ showEnglish: !store.settings.showEnglish })} />
     <Txt size={20} weight="medium" testID="engine-question">{bilingual(variant.stem)}</Txt>
     {Object.keys(item.constants).length > 0 && <Txt>{constantsLine(item.constants)}</Txt>}
     {svg && <Figure svg={svg} maxWidth={300} />}
     {variant.options.map((o, i) => <OptionButton key={i} svg={o.svg} index={i} label={bilingual(o.text)} busy={busy} choose={submit} />)}
     <Button label="I don't know" testID="engine-idk" disabled={busy} onPress={() => submit("dont-know")} />
-    <Button label="Not now" testID="engine-skip" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "later", false, session)); }} />
-    <Button label="Too hard" testID="engine-too-hard" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "too-hard", false, session)); }} />
+    <Button label="Not now" testID="engine-skip" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "later", false, token)); }} />
+    <Button label="Too hard" testID="engine-too-hard" disabled={busy} onPress={() => { void apply(() => app.skip(question.card, Date.now(), "too-hard", false, token)); }} />
     <Button label="End session" testID="engine-stop" disabled={busy} onPress={exit} />
   </>;
 }

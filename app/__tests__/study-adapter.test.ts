@@ -1,3 +1,5 @@
+import { AnswerClock } from "../src/engine/answerClock";
+import { cancelSkip } from "../src/engine/presentation";
 import { withStudyAnswers, today, type AnswerProgress } from "../src/state/answerProgress";
 import { answer, buildContent, endSession, extend, migrate, newState, setCurrentTopic, skip, startSession, type Choice } from "../../engine/src/index";
 import { StudySession, STUDY_KEY, recapText, studyContent } from "../src/engine/study";
@@ -128,7 +130,7 @@ it("starts a new local day after a cold load and prevents stale screens ending t
   expect(second).toEqual(startSession(migrate(first.state), content, tomorrow));
   expect(second.events).toContainEqual(expect.objectContaining({ type: "session_end", data: expect.objectContaining({ kind: "interrupted" }) }));
   expect(second.state.day!.day).toBe(first.state.day!.day + 1);
-  await expect(reloaded.end(tomorrow, first.state.session!.id)).rejects.toThrow("already closed");
+  await expect(reloaded.end(tomorrow, before.present(first).owner)).rejects.toThrow("already closed");
   expect((await reloaded.load()).state.session?.id).toBe(second.state.session!.id);
   await reloaded.reset();
   const clean = await new StudySession(content, storage, 99).load();
@@ -149,7 +151,21 @@ it("preserves the open card for skip confirmation and delegates the confirmed sk
   const pending = await app.skip(served.card, now, "later");
   expect(pending.next.kind).toBe("confirm-skip");
   expect(storage.setItem).not.toHaveBeenCalled();
-  expect(pending.state.session?.served).toEqual(served);
+  const view = app.present(pending);
+  const cancelled = cancelSkip(view);
+  expect(cancelled.next).toEqual({ kind: "card", card: served });
+  expect(cancelled.token).toBe(view.token);
+  let tick = 0;
+  const clock = new AnswerClock(() => tick);
+  clock.foreground(true);
+  clock.show(view.token, true);
+  tick += 8500;
+  clock.show(view.token, false);
+  tick += 60000;
+  clock.show(cancelled.token, true);
+  tick += 250;
+  expect(clock.elapsed()).toBe(8750);
+  expect(storage.setItem).not.toHaveBeenCalled();
   expect(await app.skip(served.card, now, "later", true)).toEqual(
     skip(migrate(state), content, { card: served.card, reason: "later", confirmed: true }, now));
 });
@@ -211,4 +227,20 @@ it("counts pre-upgrade mirrored answers once and adds new journal and prototype 
   const progress = withStudyAnswers(prototype, await upgraded.load());
   expect(progress.days[day]).toBe(3);
   expect(Object.keys(progress.answers).sort()).toEqual(["fixed", first, step.next.card.card].sort());
+});
+
+it("rejects an earlier token even when the replacement presents the very same card", async () => {
+  const app = new StudySession(content, memory(), 7);
+  const original = app.present(await app.start(now));
+  await app.reset();
+  const replacement = app.present(await app.start(now));
+  expect(replacement.next).toEqual(original.next);
+  expect(replacement.owner?.id).toBe(original.owner?.id);
+  await expect(app.end(now, original.owner)).rejects.toThrow("already closed");
+  if (replacement.next.kind !== "card") throw new Error("Expected first card");
+  const id = replacement.next.card.card;
+  await expect(app.answer(id, 0, 100, now, original.token)).rejects.toThrow("presentation has changed");
+  await expect(app.skip(id, now, "later", false, original.token)).rejects.toThrow("presentation has changed");
+  expect((await app.load()).state.answered).toBe(0);
+  expect((await app.answer(id, 0, 100, now, replacement.token)).feedback).toBeDefined();
 });
