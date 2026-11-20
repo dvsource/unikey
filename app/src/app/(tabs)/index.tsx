@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Txt } from "../../components/Txt";
 import { Trail } from "../../components/Trail";
+import { adaptiveToday } from "../../engine/enabled";
 import { UnitPicker } from "../../components/UnitPicker";
 import { Button, Card, Divider, ProgressBar, Sigiriya, Sky, Sun } from "../../components/ui";
 import { currentPack, items, packs } from "../../content/pack";
@@ -34,7 +35,8 @@ export default function TodayScreen() {
   const startBottom = Math.max(insets.bottom, 12) + 66 + 10;
   const { settings, progress, reviews } = useStore();
   const pack = currentPack(settings.unit);
-  const session = buildSession("today", { pack: pack.id, cursor: progress.cursors[pack.id] ?? 0, reviews });
+  const adaptive = adaptiveToday("today");
+  const session = adaptive ? [] : buildSession("today", { pack: pack.id, cursor: progress.cursors[pack.id] ?? 0, reviews });
 
   const days = weekDays();
   const now = today();
@@ -70,7 +72,7 @@ export default function TodayScreen() {
 
         <UnitPicker />
 
-        <Card style={styles.todayCard}>
+        {!adaptive && <Card style={styles.todayCard}>
           <View style={styles.bigSun} />
           <Txt size={15} tone="muted">
             {`Today · 5 min · ${session.length} questions`}
@@ -79,7 +81,7 @@ export default function TodayScreen() {
             Your path today
           </Txt>
           <Trail queue={session} answers={progress.answers} showEnglish={settings.showEnglish} />
-        </Card>
+        </Card>}
 
         {settings.reviewerMode && (
           <Card style={{ gap: 10, padding: 18 }}>
@@ -163,7 +165,7 @@ export default function TodayScreen() {
       <View style={[styles.startBar, { bottom: startBottom }]} pointerEvents="box-none">
         <Button
           testID="start-today"
-          label="Start · 5 min"
+          label={adaptive ? "Start study session" : "Start · 5 min"}
           onPress={() => router.push({ pathname: "/session", params: { mode: "today" } })}
           style={styles.start}
         />

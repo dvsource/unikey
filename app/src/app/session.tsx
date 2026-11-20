@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Path } from "react-native-svg";
@@ -11,6 +11,8 @@ import { figureSvg } from "../content/figureEngines";
 import { buildSession, SessionMode } from "../state/session";
 import { reviewKey, useStore } from "../state/store";
 import { color, gutter, radius } from "../theme";
+import { EngineStudy } from "../engine/EngineStudy";
+import { adaptiveToday } from "../engine/enabled";
 
 // English UI names for the four error-tag groups (§7).
 const GROUP_LABEL: Record<string, string> = {
@@ -38,11 +40,34 @@ function Both({ text, size, weight, showEnglish }: { text?: { en: string; si?: s
   );
 }
 
+type Params = { mode?: SessionMode; skill?: string; start?: string; size?: string; pack?: string };
+const leaveScreen = () => router.back();
+
+function SessionBody({ children }: { children: ReactNode }) {
+  return <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.body}>{children}</ScrollView>;
+}
+
 export default function SessionScreen() {
-  const params = useLocalSearchParams<{ mode?: SessionMode; skill?: string; start?: string; size?: string; pack?: string }>();
+  const params = useLocalSearchParams<Params>();
   const mode: SessionMode = params.mode ?? "today";
   const insets = useSafeAreaInsets();
   const store = useStore();
+  if (adaptiveToday(mode)) {
+    const unit = currentPack(params.pack ?? store.settings.unit);
+    return (
+      <View style={[styles.screen, { paddingTop: insets.top + 10 }]}>
+        <SessionBody>
+          <EngineStudy topic={unit.graph?.topics[0]?.id} onExit={leaveScreen} />
+        </SessionBody>
+      </View>
+    );
+  }
+  return <PrototypeSession params={params} mode={mode} insets={insets} store={store} />;
+}
+
+function PrototypeSession({ params, mode, insets, store }: {
+  params: Params; mode: SessionMode; insets: ReturnType<typeof useSafeAreaInsets>; store: ReturnType<typeof useStore>;
+}) {
   const { settings, reviews } = store;
 
   // Fixed for the life of the session, even as reviews/progress change underneath.
@@ -76,7 +101,7 @@ export default function SessionScreen() {
     return (
       <View style={[styles.empty, { paddingTop: insets.top + 40 }]}>
         <Txt size={18}>Nothing left to play here.</Txt>
-        <Button label="Back" onPress={() => router.back()} />
+        <Button label="Back" onPress={leaveScreen} />
       </View>
     );
   }
@@ -134,7 +159,7 @@ export default function SessionScreen() {
   return (
     <View style={[styles.screen, { paddingTop: insets.top + 10 }]}>
       <View style={styles.top}>
-        <Pressable testID="close-session" accessibilityRole="button" accessibilityLabel="Close session" onPress={() => router.back()} style={styles.close}>
+        <Pressable testID="close-session" accessibilityRole="button" accessibilityLabel="Close session" onPress={leaveScreen} style={styles.close}>
           <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
             <Path d="M6 6l12 12M18 6L6 18" stroke={color.muted} strokeWidth={1.6} strokeLinecap="round" />
           </Svg>
@@ -146,7 +171,7 @@ export default function SessionScreen() {
         <Chip testID="toggle-english" label="EN" active={settings.showEnglish} onPress={() => store.setSettings({ showEnglish: !settings.showEnglish })} />
       </View>
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.body}>
+      <SessionBody>
         <View style={styles.metaRow}>
           <Txt testID="layer-label" size={14} tone="muted">
             {layerLabel[item.layer]}
@@ -220,7 +245,7 @@ export default function SessionScreen() {
             </Pressable>
           ))}
         </View>
-      </ScrollView>
+      </SessionBody>
 
       {answered && (
         <View testID="feedback" style={[styles.sheet, { paddingBottom: insets.bottom + 18 }]}>

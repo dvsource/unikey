@@ -1,0 +1,32 @@
+# Run explicitly against a dev server started with EXPO_PUBLIC_STUDY_ENGINE=1.
+appId: host.exp.exponent
+name: "Adaptive Today: answer, see the explanation and leave"
+tags:
+  - smoke
+  - engine
+env:
+  APP_URL: exp://127.0.0.1:8081?__expo_disable_onboarding=1&__expo_disable_fab=1
+---
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: "start-today"
+- assertVisible:
+    id: "engine-question"
+- scrollUntilVisible:
+    element:
+      id: "engine-idk"
+- tapOn:
+    id: "engine-idk"
+- assertVisible:
+    id: "engine-explanation"
+- tapOn:
+    id: "engine-continue"
+- assertVisible:
+    id: "engine-question"
+- scrollUntilVisible:
+    element:
+      id: "engine-stop"
+- tapOn:
+    id: "engine-stop"
+- assertVisible:
+    id: "start-today"
