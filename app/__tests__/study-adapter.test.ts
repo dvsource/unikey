@@ -1,3 +1,4 @@
+import { withStudyAnswers, today, type AnswerProgress } from "../src/state/answerProgress";
 import { answer, buildContent, endSession, extend, migrate, newState, setCurrentTopic, skip, startSession, type Choice } from "../../engine/src/index";
 import { StudySession, STUDY_KEY, recapText, studyContent } from "../src/engine/study";
 import { packs as v2Packs } from "../assets/content/index-v2";
@@ -171,4 +172,43 @@ it("takes or declines the same earned extension across independent reloads", asy
   expect(await accept.extend(clock)).toEqual(extend(step.state, content, clock));
   const decline = new StudySession(content, memory(snapshot), 1);
   expect((await decline.end(clock)).state.lastEnd?.kind).toBe("budget");
+});
+
+it.each(["before", "after"])("cold Progress and engine agree after a kill %s the answer write", async when => {
+  const storage = memory();
+  const app = new StudySession(content, storage, 7);
+  const first = await app.start(now);
+  if (first.next.kind !== "card") throw new Error("Expected first card");
+  const { card } = first.next.card;
+  const write = storage.setItem.getMockImplementation()!;
+  storage.setItem.mockClear().mockImplementationOnce(async (key, value) => {
+    if (when === "after") await write(key, value);
+    throw new Error("process killed");
+  });
+  await expect(app.answer(card, "dont-know", 9000, now + 9000)).rejects.toThrow("process killed");
+  expect(storage.setItem.mock.calls.map(([key]) => key)).toEqual([STUDY_KEY]);
+  const snapshot = await new StudySession(content, storage, 8).load();
+  const progress = withStudyAnswers({ days: {}, answers: {} } as AnswerProgress, snapshot);
+  const expected = when === "after" ? 1 : 0;
+  expect(snapshot.state.answered).toBe(expected);
+  expect(Object.values(progress.days)).toEqual(expected ? [1] : []);
+  expect(progress.answers[card]).toEqual(expected ? { correct: false, at: new Date(now + 9000).toISOString() } : undefined);
+});
+
+it("counts pre-upgrade mirrored answers once and adds new journal and prototype attempts", async () => {
+  const storage = memory();
+  const app = new StudySession(content, storage, 7);
+  let step = await app.start(now);
+  if (step.next.kind !== "card") throw new Error("Expected first card");
+  const first = step.next.card.card;
+  step = await app.answer(first, "dont-know", 9000, now + 9000);
+  const { state, events } = await app.load();
+  const upgraded = new StudySession(content, memory(JSON.stringify({ state, events })), 7);
+  if (step.next.kind !== "card") throw new Error("Expected next card");
+  await upgraded.answer(step.next.card.card, "dont-know", 9000, now + 18000);
+  const day = today(new Date(now));
+  const prototype = { days: { [day]: 2 }, answers: { fixed: { at: new Date(now).toISOString(), correct: true } } };
+  const progress = withStudyAnswers(prototype, await upgraded.load());
+  expect(progress.days[day]).toBe(3);
+  expect(Object.keys(progress.answers).sort()).toEqual(["fixed", first, step.next.card.card].sort());
 });

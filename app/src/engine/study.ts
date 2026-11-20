@@ -32,6 +32,19 @@ type Saved = SavedStudy;
 
 export class StudySession {
   private saved?: Saved;
+  private listeners = new Set<(snapshot: Saved) => void>();
+
+  subscribe(listener: (snapshot: Saved) => void) {
+    this.listeners.add(listener);
+    if (this.saved) listener(this.saved);
+    return () => { this.listeners.delete(listener); };
+  }
+
+  private publish(saved: Saved) {
+    this.saved = saved;
+    for (const listener of this.listeners) listener(saved);
+    return saved;
+  }
   private queue: Promise<unknown> = Promise.resolve();
 
   constructor(readonly content: Content, private storage: Storage, private seed: number) {}
@@ -39,7 +52,7 @@ export class StudySession {
   private async read(): Promise<Saved> {
     if (this.saved) return this.saved;
     const text = await this.storage.getItem(STUDY_KEY);
-    if (text === null) return this.saved = this.fresh();
+    if (text === null) return this.publish(this.fresh());
     let decoded: Saved;
     try {
       decoded = decodeStudy(text);
@@ -50,8 +63,9 @@ export class StudySession {
       await this.storage.setItem(backup, text);
       decoded = this.fresh();
       await this.save(decoded);
+      return decoded;
     }
-    return this.saved = decoded;
+    return this.publish(decoded);
   }
 
   private fresh(): Saved {
@@ -70,7 +84,7 @@ export class StudySession {
 
   private async save(saved: Saved) {
     await this.storage.setItem(STUDY_KEY, JSON.stringify(saved));
-    this.saved = saved;
+    this.publish(saved);
   }
 
   reset() {

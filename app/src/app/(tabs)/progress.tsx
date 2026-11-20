@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { STUDY_KEY } from "../../engine/study";
 import { useState } from "react";
 import { Alert, Platform, ScrollView, StyleSheet, Switch, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -32,7 +34,7 @@ export default function ProgressScreen() {
 
   const reset = async () => {
     try {
-      if (studyEnabled()) await deviceSession().reset();
+      if (studyEnabled() || await AsyncStorage.getItem(STUDY_KEY) !== null) await deviceSession().reset();
       resetProgress();
     } catch {
       notify("Could not reset study progress", "Please try again.");

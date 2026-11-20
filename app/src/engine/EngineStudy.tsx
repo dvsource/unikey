@@ -160,7 +160,6 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     void apply(() => app.answer(question.card, choice, ms, now, session), s => {
       if (s.feedback) {
         setResult({ served: question, choice });
-        store.recordAnswer(item.id, s.feedback.right);
       }
     });
   };

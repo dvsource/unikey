@@ -1,3 +1,9 @@
+import { today, withStudyAnswers } from "./answerProgress";
+import { deviceSession } from "../engine/device";
+import { STUDY_KEY } from "../engine/study";
+import type { SavedStudy } from "../engine/savedStudy";
+import { studyEnabled } from "../engine/enabled";
+export { today } from "./answerProgress";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
@@ -41,11 +47,6 @@ const LEGACY_PACK = "mechanics-20";
 
 export const reviewKey = (itemId: string, variantId: string | null) => `${itemId}|${variantId ?? "-"}`;
 
-export function today(d = new Date()) {
-  const p = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
-}
-
 type Store = State & {
   ready: boolean;
   setSettings: (s: Partial<State["settings"]>) => void;
@@ -62,6 +63,23 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<State>(initial);
   const [ready, setReady] = useState(false);
   const loaded = useRef(false);
+
+  const [study, setStudy] = useState<SavedStudy>();
+  useEffect(() => {
+    let mounted = true;
+    let unsubscribe: (() => void) | undefined;
+    async function observe() {
+      // Show previous adaptive answers even when the next session uses the prototype.
+      if (!studyEnabled() && await AsyncStorage.getItem(STUDY_KEY) === null) return;
+      if (!mounted) return;
+      const session = deviceSession();
+      unsubscribe = session.subscribe(setStudy);
+      await session.load();
+    }
+    void observe().catch(() => {});
+    return () => { mounted = false; unsubscribe?.(); };
+  }, []);
+  const progress = useMemo(() => withStudyAnswers(state.progress, study), [state.progress, study]);
 
   useEffect(() => {
     AsyncStorage.getItem(KEY)
@@ -127,8 +145,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const resetProgress = useCallback(() => setState((st) => ({ ...st, progress: initial.progress })), []);
 
   const value = useMemo(
-    () => ({ ...state, ready, setSettings, recordAnswer, setCursor, saveReview, clearReview, resetProgress }),
-    [state, ready, setSettings, recordAnswer, setCursor, saveReview, clearReview, resetProgress],
+    () => ({ ...state, progress, ready, setSettings, recordAnswer, setCursor, saveReview, clearReview, resetProgress }),
+    [state, progress, ready, setSettings, recordAnswer, setCursor, saveReview, clearReview, resetProgress],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
