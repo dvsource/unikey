@@ -3,9 +3,10 @@ import { deviceSession } from "../engine/device";
 import { STUDY_KEY } from "../engine/study";
 import type { SavedStudy } from "../engine/savedStudy";
 import { studyEnabled } from "../engine/enabled";
-export { today } from "./answerProgress";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+
+export { today } from "./answerProgress";
 
 // Everything the prototype remembers, on this device only. No backend.
 
@@ -61,7 +62,9 @@ const Ctx = createContext<Store | null>(null);
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<State>(initial);
-  const [ready, setReady] = useState(false);
+  const [prototypeReady, setReady] = useState(false);
+  const [studyReady, setStudyReady] = useState(false);
+  const ready = prototypeReady && studyReady;
   const loaded = useRef(false);
 
   const [study, setStudy] = useState<SavedStudy>();
@@ -76,7 +79,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       unsubscribe = session.subscribe(setStudy);
       await session.load();
     }
-    void observe().catch(() => {});
+    void observe().catch(() => {}).finally(() => { if (mounted) setStudyReady(true); });
     return () => { mounted = false; unsubscribe?.(); };
   }, []);
   const progress = useMemo(() => withStudyAnswers(state.progress, study), [state.progress, study]);

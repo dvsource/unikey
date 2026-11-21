@@ -33,6 +33,8 @@ type Saved = SavedStudy;
 type Guard = symbol | SessionOwner;
 
 export class StudySession {
+  private queue: Promise<unknown> = Promise.resolve();
+  private listeners = new Set<(snapshot: Saved) => void>();
   private saved?: Saved;
   private owners = new WeakMap<State, SessionOwner>();
   private closingAnswers = new WeakSet<Step>();
@@ -40,8 +42,6 @@ export class StudySession {
   present(step: Step) {
     return present(step, this.owners.get(step.state), this.closingAnswers.has(step));
   }
-
-  private listeners = new Set<(snapshot: Saved) => void>();
 
   subscribe(listener: (snapshot: Saved) => void) {
     this.listeners.add(listener);
@@ -59,7 +59,6 @@ export class StudySession {
     for (const listener of this.listeners) listener(saved);
     return saved;
   }
-  private queue: Promise<unknown> = Promise.resolve();
 
   constructor(readonly content: Content, private storage: Storage, private seed: number) {}
 
@@ -102,7 +101,10 @@ export class StudySession {
   }
 
   reset() {
-    return this.serialize(() => this.save(this.fresh()));
+    return this.serialize(async () => {
+      await this.read(); // Preserve a corrupt cold save before an explicit reset, too.
+      await this.save(this.fresh());
+    });
   }
 
   private change(run: (state: State) => Step, guard?: Guard): Promise<Step> {

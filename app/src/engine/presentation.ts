@@ -5,7 +5,10 @@ import type { Step } from "../../../engine/src/index";
 const tokens = new WeakMap<Step["state"], symbol>();
 export function actionToken(state: Step["state"]) {
   let token = tokens.get(state);
-  if (!token) tokens.set(state, token = Symbol("study presentation"));
+  if (!token) {
+    token = Symbol("study presentation");
+    tokens.set(state, token);
+  }
   return token;
 }
 

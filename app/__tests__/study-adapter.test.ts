@@ -85,6 +85,9 @@ it("starts with a missing key and migrates a legacy raw v1 state", async () => {
 it.each([
   "", "   ", "{", "null", "[]", "{}", '{"v":2}', '{"v":1}',
   JSON.stringify({ ...newState("local", 3), profile: {} }),
+  JSON.stringify({ ...newState("local", 3), ladder: { level: 99 } }),
+  JSON.stringify({ ...newState("local", 3), skills: { velocity: { attempts: [null] } } }),
+  JSON.stringify({ ...newState("local", 3), session: { id: "open", history: null } }),
   JSON.stringify({ state: newState("local", 3), events: {} }),
   JSON.stringify({ state: newState("local", 3), events: [null] }),
 ])("backs up corrupt bytes and can study after a cold reload (%#)", async raw => {

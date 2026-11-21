@@ -6,28 +6,60 @@ function record(x: unknown): x is Record<string, unknown> {
   return typeof x === "object" && x !== null && !Array.isArray(x);
 }
 
-// migrate fills older v1 fields but accepts incomplete v1 objects. Check the
-// structures the scheduler traverses before a damaged save enters its cache.
-function usable(s: State) {
-  const p = s.profile;
-  const ss = s.session;
-  return typeof s.student === "string" && record(s.rng) && Number.isFinite(s.rng.seed) && Number.isFinite(s.rng.n)
-    && [s.seq, s.lastNow, s.answered, s.sessionCount].every(Number.isFinite)
-    && record(p) && [p.comfort, p.memory, p.h3Share, p.stamina, p.goodStreak].every(Number.isFinite)
-    && [1, 2, 3].every(h => Array.isArray(p.msByHeight?.[h as 1 | 2 | 3]))
-    && record(s.skills) && Object.values(s.skills).every(k => record(k) && [1, 2, 3].includes(k.height)
-      && Array.isArray(k.attempts) && k.attempts.every(record) && Array.isArray(k.solidDays))
-    && record(s.sections) && Object.values(s.sections).every(x => record(x) && Number.isFinite(x.skipCount))
-    && Array.isArray(s.seen) && s.seen.every(x => record(x) && typeof x.card === "string")
-    && Array.isArray(s.pendingMoments) && s.pendingMoments.every(record) && Array.isArray(s.momentsDone)
-    && (s.day === null || (record(s.day) && Number.isFinite(s.day.day) && Number.isFinite(s.day.effort)))
-    && (ss === null || (record(ss) && typeof ss.id === "string" && typeof ss.startProfile?.comfort === "number"
-      && [ss.startedAt, ss.budget, ss.spent].every(Number.isFinite)
-      && [ss.history, ss.returns, ss.badMoments, ss.blockedSections, ss.servedCards, ss.moments, ss.fixedSkills,
-        ss.leftSkills, ss.slowBefore, ss.confident].every(Array.isArray)
-      && ss.history.every(record) && ss.returns.every(record)
-      && (ss.served === null || (record(ss.served) && typeof ss.served.card === "string" && Number.isInteger(ss.served.variant)))));
-}
+// Only check persisted fields the app or engine consumes. Extra fields survive.
+type Check = (value: unknown) => boolean;
+const string: Check = x => typeof x === "string";
+const bool: Check = x => typeof x === "boolean";
+const number: Check = Number.isFinite;
+const height: Check = x => x === 1 || x === 2 || x === 3;
+const nullable = (check: Check): Check => x => x === null || check(x);
+const array = (check: Check): Check => x => Array.isArray(x) && x.every(check);
+const dictionary = (check: Check): Check => x => record(x) && Object.values(x).every(check);
+const shape = (fields: Record<string, Check>): Check => x =>
+  record(x) && Object.entries(fields).every(([key, check]) => check(x[key]));
+
+const maybeNumber = nullable(number);
+const numbers = array(number);
+const strings = array(string);
+const moment = shape({ type: string });
+const profileNumbers = { comfort: number, memory: number, h3Share: number, stamina: number };
+const served = shape({ card: string, variant: Number.isInteger, skill: string, section: string, height, reason: string, effort: number });
+const section = shape({
+  skipCount: number, skipTotal: number, remindDay: maybeNumber, lastReason: nullable(string),
+  dripStopped: bool, liking: number, returned: bool, lastSkipSeq: maybeNumber, skippedLevel: nullable(height),
+});
+const skill = shape({
+  height, gapIndex: number, nextReviewDay: maybeNumber, firstFailedDay: maybeNumber, firstFailedHeight: nullable(height),
+  solidDays: numbers, noFullUntilDay: maybeNumber, windowStartSeq: number,
+  attempts: array(shape({ day: number, seq: number, height, right: bool, ms: number, card: string })),
+});
+const session = shape({
+  id: string, startedAt: number, budget: number, spent: number, h3Spent: number, served: nullable(served),
+  history: array(shape({ skill: string, right: nullable(bool), ms: number, bad: bool, height, slow: bool })),
+  repair: nullable(shape({ skill: string, failedHeight: height, stage: string })),
+  returns: array(shape({ skill: string, afterCard: number })), newSkills: number, badMoments: numbers,
+  extended: bool, extendLeft: number, phase: string, comeback: bool, fixed: number, blockedSections: strings,
+  dripDone: bool, moments: array(moment), fadeEffort: maybeNumber, closeServed: number, sideDoor: nullable(string),
+  confident: strings, startProfile: shape(profileNumbers), ramp: nullable(served), tailCard: nullable(string),
+  badDay: bool, guardClose: bool, slowBefore: numbers, servedCards: strings, leftSkills: strings,
+  ladderCard: nullable(string), ladderFull: number, stretchCard: nullable(string), extraNew: bool,
+  lastSkip: nullable(shape({ section: string, skill: string, level: height, before: nullable(section), card: string })),
+  guesses: number, guessNudged: bool, missRun: number, lowStart: bool, fixedSkills: strings, extendEffortLeft: number,
+});
+
+// migrate fills fields absent in older v1 saves, but also accepts {"v":1}.
+// Validate its result so an invalid nested collection cannot break the next call.
+const usable = shape({
+  student: string, rng: shape({ seed: number, n: number }), seq: number, lastNow: number, answered: number,
+  profile: shape({ ...profileNumbers, goodStreak: number, msByHeight: shape({ 1: numbers, 2: numbers, 3: numbers }) }),
+  skills: dictionary(skill), sections: dictionary(section), seen: array(shape({ card: string, variant: number, day: number })),
+  currentTopic: nullable(shape({ id: string, source: string })), day: nullable(shape({ day: number, effort: number, streakKept: bool })),
+  sessionCount: number, lastSessionDay: maybeNumber, session: nullable(session),
+  lastEnd: nullable(shape({ kind: string, effort: number, cards: number, right: number, fixed: number,
+    streakKept: bool, recap: bool, fixedSkills: strings, rightSkills: strings })),
+  pendingMoments: array(moment), momentsDone: strings, ladder: nullable(shape({ level: height, rightRun: number })),
+  lastSession: nullable(shape({ cards: number, right: number })),
+});
 
 function validEvent(e: unknown): e is EngineEvent {
   return record(e) && typeof e.id === "string" && typeof e.student === "string"
