@@ -1,6 +1,5 @@
 import { today, withStudyAnswers } from "./answerProgress";
-import { deviceSession } from "../engine/device";
-import { STUDY_KEY } from "../engine/study";
+import { deviceSession, hasSavedStudy } from "../engine/device";
 import type { SavedStudy } from "../engine/savedStudy";
 import { studyEnabled } from "../engine/enabled";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -73,7 +72,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     let unsubscribe: (() => void) | undefined;
     async function observe() {
       // Show previous adaptive answers even when the next session uses the prototype.
-      if (!studyEnabled() && await AsyncStorage.getItem(STUDY_KEY) === null) return;
+      if (!studyEnabled() && !(await hasSavedStudy())) return;
       if (!mounted) return;
       const session = deviceSession();
       unsubscribe = session.subscribe(setStudy);

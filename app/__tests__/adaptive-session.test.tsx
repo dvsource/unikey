@@ -38,6 +38,19 @@ it("defaults to the prototype queue and leaves the adaptive store unused", async
   expect(await AsyncStorage.getItem(STUDY_KEY)).toBeNull();
 });
 
+it("preserves a blank native storage value on the first device load", async () => {
+  // Native multiGet preserves "", whereas native getItem and the shipped
+  // Jest storage mock both collapse it to null.
+  jest.mocked(AsyncStorage.multiGet).mockResolvedValueOnce([[STUDY_KEY, ""]]);
+  const writes = jest.mocked(AsyncStorage.setItem);
+  writes.mockClear();
+  expect((await deviceSession().load()).state.answered).toBe(0);
+  expect(writes.mock.calls).toEqual([
+    [expect.stringMatching(/^unikey\/study\/v1\.corrupt-\d+$/), ""],
+    [STUDY_KEY, expect.any(String)],
+  ]);
+});
+
 it("runs Today through the engine and reveals the IDK explanation before the next step", async () => {
   process.env.EXPO_PUBLIC_STUDY_ENGINE = "1";
   expect(adaptiveStudy("review")).toBe(false);
