@@ -266,7 +266,10 @@ it("explicitly ends a live scripted session and persists the direct end transiti
   expect(cold.events).toEqual([...started.events, ...expected.events]);
 });
 
-it.each([true, false])("answers a closing card (right=%s), then presents its recap", async right => {
+it.each([
+  { right: true, recap: false },
+  { right: false, recap: true },
+])("answers a closing card (right=$right) and presents the engine end (recap=$recap)", async ({ right, recap }) => {
   const storage = memory();
   const app = new StudySession(content, storage, 7);
   let clock = now;
@@ -296,7 +299,7 @@ it.each([true, false])("answers a closing card (right=%s), then presents its rec
     type: "answer", data: expect.objectContaining({ card, variant, choice, right, ms: 9000 }),
   }));
   expect(last).toEqual(expected);
-  expect(app.present(last)).toMatchObject({ next: { kind: "end" }, recap: true });
+  expect(app.present(last)).toMatchObject({ next: { kind: "end", end: { recap } }, recap });
   const cold = await new StudySession(content, storage, 1).load();
   expect(cold.state).toEqual(expected.state);
   expect(cold.events).toEqual([...journal, ...expected.events]);

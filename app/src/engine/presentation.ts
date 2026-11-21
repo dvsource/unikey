@@ -14,14 +14,14 @@ export function actionToken(state: Step["state"]) {
 
 export type SessionOwner = { readonly id: string };
 
-export function present(step: Step, owner?: SessionOwner, answeredClosing = false) {
+export function present(step: Step, owner?: SessionOwner) {
   const session = step.state.session;
   return {
     next: step.next, feedback: step.feedback, moments: step.moments, hint: step.hint,
     owner, token: actionToken(step.state),
     spent: session?.spent ?? 0, budget: session?.budget ?? 0,
     confirmCard: step.next.kind === "confirm-skip" ? session?.served : undefined,
-    recap: step.next.kind === "end" && (step.next.end.recap || answeredClosing),
+    recap: step.next.kind === "end" && step.next.end.recap,
   };
 }
 export type StudyView = ReturnType<typeof present>;

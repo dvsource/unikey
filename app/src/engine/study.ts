@@ -37,10 +37,9 @@ export class StudySession {
   private listeners = new Set<(snapshot: Saved) => void>();
   private saved?: Saved;
   private owners = new WeakMap<State, SessionOwner>();
-  private closingAnswers = new WeakSet<Step>();
 
   present(step: Step) {
-    return present(step, this.owners.get(step.state), this.closingAnswers.has(step));
+    return present(step, this.owners.get(step.state));
   }
 
   subscribe(listener: (snapshot: Saved) => void) {
@@ -125,11 +124,7 @@ export class StudySession {
   }
 
   answer(card: string, choice: Choice, ms: number, now: number, guard?: Guard) {
-    return this.change(state => {
-      const step = answer(state, this.content, { card, choice, ms }, now);
-      if (state.session?.phase === "closing" && step.feedback) this.closingAnswers.add(step);
-      return step;
-    }, guard);
+    return this.change(state => answer(state, this.content, { card, choice, ms }, now), guard);
   }
 
   skip(card: string, now: number, reason?: SkipReason, confirmed = false, guard?: Guard) {
