@@ -1,9 +1,9 @@
-import { AppState, type AppStateStatus } from "react-native";
+import { AppState, Text, type AppStateStatus } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SessionScreen from "../src/app/session";
-import { StoreProvider } from "../src/state/store";
+import { StoreProvider, useStore } from "../src/state/store";
 import { STUDY_KEY } from "../src/engine/study";
 import { deviceSession } from "../src/engine/device";
 import { adaptiveStudy } from "../src/engine/enabled";
@@ -12,10 +12,15 @@ jest.mock("expo-router", () => ({
   useIsFocused: () => true, useLocalSearchParams: () => ({ mode: "today" }), router: { back: jest.fn() },
 }));
 
+function DashboardCount() {
+  const { progress } = useStore();
+  return <Text testID="dashboard-count">{Object.values(progress.days).reduce((a, b) => a + b, 0)}</Text>;
+}
+
 async function open() {
   await render(<SafeAreaProvider initialMetrics={{
     frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 0, left: 0, bottom: 0, right: 0 },
-  }}><StoreProvider><SessionScreen /></StoreProvider></SafeAreaProvider>);
+  }}><StoreProvider><SessionScreen /><DashboardCount /></StoreProvider></SafeAreaProvider>);
   await act(async () => {});
 }
 
@@ -40,7 +45,11 @@ it("runs Today through the engine and reveals the IDK explanation before the nex
   expect(adaptiveStudy("skill", "phy.mech.c001")).toBe(false);
   await open();
   await screen.findByTestId("engine-question");
+  const writes = jest.mocked(AsyncStorage.setItem);
+  writes.mockClear();
   await fireEvent.press(screen.getByTestId("engine-idk"));
+  expect(writes.mock.calls.map(([key]) => key)).toEqual([STUDY_KEY]);
+  expect(screen.getByTestId("dashboard-count")).toHaveTextContent("1");
   expect(await screen.findByTestId("engine-explanation")).toBeTruthy();
   expect(screen.queryByText("Not quite")).toBeNull();
   const saved = JSON.parse((await AsyncStorage.getItem(STUDY_KEY))!);
@@ -108,5 +117,29 @@ it.each([
     AppState.isAvailable = originalAvailable;
     sub.mockRestore();
     time.mockRestore();
+  }
+});
+
+it("waits for an explicit End to succeed before navigating away", async () => {
+  process.env.EXPO_PUBLIC_STUDY_ENGINE = "1";
+  const app = deviceSession();
+  await app.reset();
+  await open();
+  const stop = await screen.findByTestId("engine-stop");
+  const back = jest.requireMock("expo-router").router.back as jest.Mock;
+  back.mockClear();
+  const end = jest.spyOn(app, "end").mockRejectedValueOnce(new Error("write failed"));
+  try {
+    // Dropping the button's end() call fails here while the route is still
+    // mounted. Verified with exit = onExit: expected 1 call, received 0.
+    await fireEvent.press(stop);
+    expect(end).toHaveBeenCalledTimes(1);
+    expect(back).not.toHaveBeenCalled();
+    await fireEvent.press(await screen.findByTestId("engine-retry"));
+    expect(end).toHaveBeenCalledTimes(2);
+    expect(back).toHaveBeenCalledTimes(1);
+    expect((await app.load()).state.lastEnd?.kind).toBe("left");
+  } finally {
+    end.mockRestore();
   }
 });

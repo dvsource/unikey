@@ -244,3 +244,57 @@ it("rejects an earlier token even when the replacement presents the very same ca
   expect((await app.load()).state.answered).toBe(0);
   expect((await app.answer(id, 0, 100, now, replacement.token)).feedback).toBeDefined();
 });
+
+it("explicitly ends a live scripted session and persists the direct end transition", async () => {
+  const storage = memory();
+  const app = new StudySession(content, storage, 7);
+  const started = await app.start(now);
+  expect(started.next.kind).toBe("card");
+  const expected = endSession(started.state, content, now + 1000);
+  // Throwing in end() fails this await. Omitting it leaves an open session in
+  // storage and loses the session_end event checked after the cold load.
+  // Verified by replacing end() with a rejected promise: this case failed.
+  expect(await app.end(now + 1000, app.present(started).token)).toEqual(expected);
+  expect(expected.events).toContainEqual(expect.objectContaining({
+    type: "session_end", data: expect.objectContaining({ kind: "left" }),
+  }));
+  const cold = await new StudySession(content, storage, 1).load();
+  expect(cold.state).toEqual(expected.state);
+  expect(cold.events).toEqual([...started.events, ...expected.events]);
+});
+
+it.each([true, false])("answers a closing card (right=%s), then presents its recap", async right => {
+  const storage = memory();
+  const app = new StudySession(content, storage, 7);
+  let clock = now;
+  let direct = startSession(newState("local", 7), content, clock);
+  let current = await app.start(clock);
+  const journal = [...direct.events];
+  while (direct.state.session?.phase !== "closing" && direct.next.kind === "card" && journal.length < 100) {
+    const card = direct.next.card.card;
+    clock += 9000;
+    direct = answer(direct.state, content, { card, choice: "dont-know", ms: 9000 }, clock);
+    current = await app.answer(card, "dont-know", 9000, clock);
+    expect(current).toEqual(direct);
+    journal.push(...direct.events);
+  }
+  expect(direct.state.session?.phase).toBe("closing");
+  if (direct.next.kind !== "card") throw new Error("Closing question was never served");
+  const { card, variant } = direct.next.card;
+  const choice = content.cards[card].variants[variant].findIndex(o => o.correct === right);
+  clock += 9000;
+  const expected = answer(direct.state, content, { card, choice, ms: 9000 }, clock);
+  const last = await app.answer(card, choice, 9000, clock, app.present(current).token);
+  // Substituting endSession for answer during closing loses both the feedback
+  // and the answer event, even though both transitions can show an end screen.
+  // Verified with that substitution: both rows failed on undefined feedback.
+  expect(last.feedback?.right).toBe(right);
+  expect(last.events).toContainEqual(expect.objectContaining({
+    type: "answer", data: expect.objectContaining({ card, variant, choice, right, ms: 9000 }),
+  }));
+  expect(last).toEqual(expected);
+  expect(app.present(last)).toMatchObject({ next: { kind: "end" }, recap: true });
+  const cold = await new StudySession(content, storage, 1).load();
+  expect(cold.state).toEqual(expected.state);
+  expect(cold.events).toEqual([...journal, ...expected.events]);
+});
