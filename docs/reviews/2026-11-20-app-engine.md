@@ -20,28 +20,50 @@ Open **Today → Start study session**. Choose an answer or **I don't know**, re
 | Area | Behavior |
 |---|---|
 | Content | The adapter gives the public engine builder the bundled graphs, options and item-to-note map. The app displays the exact served variant, including figures, option images, Sinhala text, optional English and explanations. The engine excludes `phy.therm.c043` in both editions. |
-| Answer and feedback | The app measures elapsed milliseconds from displaying the question to the tap. The next question's timer starts after Continue. IDK sends `dont-know`. Recognized moments, side-door reveals and the optional guess hint use student-facing text. Scheduling reason codes stay internal. |
+| Answer and feedback | The timer counts visible question time on the focused route while the app is active. Feedback, skip confirmation and time away are excluded. Cancelling a skip resumes the same timer. IDK sends `dont-know`. Recognized moments, side-door reveals and the optional guess hint use student-facing text. Scheduling reason codes stay internal. |
 | Session and day | Start, answer, skip, confirm, extend and end use public engine calls. A fresh entry after a killed process records the previous open session as interrupted. The engine accounts for effort against the Sri Lankan day the session started. A stale screen cannot close its replacement session. |
-| Storage | AsyncStorage key `unikey/study/v1` holds state and the cumulative ordered event log. Each transition writes both in one serialized operation. A failed write keeps the last successful snapshot and the UI offers retry. Reload calls `migrate`. Reset student progress also clears adaptive state when the switch is on. |
+| Storage | AsyncStorage key `unikey/study/v1` holds state and the cumulative ordered event log. An answer commits both in one serialized write. Progress reads the committed journal on startup and subscribes to subsequent commits. The normal storage-error path offers Retry. Reset student progress also clears adaptive state when the switch is on. |
 
 [Storage and transitions](../../app/src/engine/study.ts) · [Step renderer](../../app/src/engine/EngineStudy.tsx)
 
+## Fix-round results
+
+| Case | Verified behavior |
+|---|---|
+| One hour in the background | Nine seconds on the question before leaving and one second after returning produced an engine answer of 10,000 ms. It was a real miss. |
+| Quick answer across a blip | 500 ms before leaving and 250 ms after returning produced 750 ms and the engine marked the wrong answer as a guess. In both timing cases 40 seconds on feedback contributed zero to the next answer of 650 ms. The approved guess hint is unchanged. |
+| Cancel a section skip | The adapter restores the same card, variant and presentation token. 8,500 ms before confirmation plus 250 ms after cancellation produced 8,750 ms. The minute on the dialog was excluded. A stale action was rejected even after a reset produced the same session ID, card and variant. |
+| Damaged local save | On blank or malformed JSON, an unsupported version, or an invalid migrated state or journal, the adapter saves the exact original string at `unikey/study/v1.corrupt-<timestamp>` before replacing the primary key. Native AsyncStorage 2.2.0 collapses an empty string to null on a single-key read. The adapter uses its batch read to preserve the distinction. A suffix protects an existing backup. Concurrent loads share the recovered state. A cold restart serves a card. A missing key starts fresh without a backup. An actual storage I/O failure still needs a successful retry. |
+| Kill during an answer | The route performed exactly one storage write, to `unikey/study/v1`. A cold reader after a simulated kill immediately before that write saw zero engine answers and zero dashboard attempts. Immediately after it, the reader saw one of each and the same card outcome. The live dashboard also updated from the journal. |
+| Closing and leaving | Explicit End must persist before navigation. A failed End leaves Retry available. Correct and incorrect closing answers each produced feedback, an answer event and the same durable state and journal as a direct engine run. When that answer ends the session, Continue opens the recap. An earned extension still goes to the engine's offer screen. |
+
+The prototype continues recording its own attempts. For an upgrade from the previous adaptive build, the adapter marks the old journal boundary. For each day Progress uses the larger of the old dashboard count and the old journal count, then adds new adaptive attempts. The old dashboard stored daily totals and the latest outcome per item. On a historical day mixing both modes, a lost mirror write cannot always be distinguished from an overlapping prototype attempt. New adaptive answers have a single durable record. [Journal projection](../../app/src/state/answerProgress.ts) · [Save recovery](../../app/src/engine/savedStudy.ts)
+
+Three temporary mutations were run against the regression tests and then removed.
+
+| Mutation | Test result |
+|---|---|
+| Navigate back without calling End | The route test observed zero calls where it expected one. |
+| Make the adapter's explicit End reject every time | The scripted leave case failed at the awaited call. |
+| Call endSession in place of answering a closing card | Both scripted cases failed. Feedback was missing for the expected right and wrong answers. |
+
+[Scripted cases and kill tests](../../app/__tests__/study-adapter.test.ts) · [Route timing and End tests](../../app/__tests__/adaptive-session.test.tsx)
+
 ## Engine API gaps
 
-| Gap | Evidence at base a1b62f3 | App handling |
-|---|---|---|
-| Reopening an existing session | `engine/src/session.ts:397` closes an open session as interrupted on start. `engine/src/step.ts:52` defines `currentNext`, but `engine/src/index.ts:12` exports the transition calls only. | The adapter can reload a mid-session snapshot and answer its open card. A fresh visit to study starts a new session as specified. A transient feedback sheet or skip dialog is not restored after process death. |
-| Exact skill or item targeting | `engine/src/skip.ts:43` accepts a current topic. `engine/src/session.ts:394` starts study without a skill or card argument. | A skill's study action supplies its topic. Tapping a specific item opens the item preview. |
-| Built pack note references | `engine/src/content.ts:30` accepts a separate note map. Line 63 reads that map to populate each card. | The app collects `note_ref` from the bundled items, just as the simulator does. No source JSON or Node loader enters the mobile bundle. |
-| First load and migration | `engine/src/state.ts:18` accepts a versioned state and rejects an unsupported version at line 20. | Missing and empty saves initialize through `newState` and `migrate`. Unsupported versions surface a load error and the stored data is preserved. |
-| Presentation and stale actions | `engine/src/session.ts:607` returns a confirmation without a served card. At line 430 answer validation identifies the open card by ID. | Confirmation uses the saved open card. Session ownership and an in-flight action lock guard the screen. The adapter binds question text and variant options from the app's content index. |
-| Mobile module resolution | `engine/src/index.ts:1` and its sibling imports use relative `.js` specifiers for TypeScript sources. | The Metro and Jest resolvers map those imports within the engine source directory. Both native bundle exports succeeded. |
+| Gap | Public code and app handling |
+|---|---|
+| Resume | `engine/src/step.ts:52` defines `currentNext`. The barrel at `engine/src/index.ts:12` omits it. Starting at `engine/src/session.ts:397` closes the old session as interrupted. The adapter can reload its state. Entering study starts a fresh session. |
+| Targeting | `engine/src/skip.ts:43` accepts a topic. The start call at `engine/src/session.ts:394` takes no skill or card target. A skill visit supplies its topic. A named item uses the prototype player. |
+| Note references | `engine/src/content.ts:30` takes a separate note map and line 63 looks up the card ID in it. The adapter builds that map from bundled items. |
+| Save validation | `engine/src/state.ts:18` checks the version and supplies migration defaults. It accepts a partial v1 object. The adapter validates the migrated structures and journal before using them. |
+| Skip confirmation and effort | `engine/src/session.ts:607` emits a confirmation containing section information. The served card, ownership, spent effort and budget live on the session at `engine/src/types.ts:75`. The adapter exposes a screen view and restores the presentation on cancel. |
+| Stale actions | `engine/src/types.ts:210` defines a served card without a per-presentation token. Answer checks the current card ID and option at `engine/src/session.ts:430`. The adapter checks the presentation token inside its serialized transition, including when a card ID repeats. |
+| Recap after a correct close | `engine/src/session.ts:317` finishes a correct close and line 318 explicitly asks for recap after a missed close. The default at line 350 is false. The adapter shows the README recap for either terminal closing answer while preserving the engine's raw result and extension decision. |
+| Source-layout coupling | The public API is imported from the sibling source tree at `app/src/engine/study.ts:6`. Its TypeScript entry uses relative `.js` specifiers at `engine/src/index.ts:1`. Metro and Jest map these to source files at `app/metro.config.js:11` and `app/jest.engine-resolver.cjs:7`. |
 
-## Boundaries and verification
+## Verification
 
-The progress dashboard still uses its existing local answer projections. It does not show the engine's full mastery profile. The event journal is device-local and currently grows in one storage value. Large-history storage, sync, class-topic input and subtracting time spent in the background from an open question's timer remain future work.
+The engine passed all **343 Vitest tests**. The app passed all **186 Jest tests**. Both TypeScript projects passed `tsc --noEmit`. Content mapping covers all 241 v1 and 257 v2 items, including the excluded item.
 
-- The engine passed **343 Vitest tests** and `tsc --noEmit`.
-- The app passed **161 Jest tests** and `tsc --noEmit`. The mapping assertions cover all 241 v1 and 257 v2 items, including the excluded item. The scripted day compares complete steps and events with direct engine calls.
-- Device lifecycle tests cover migration, mid-session reload, a new day, a failed write, stale navigation, confirmed skips and extension decisions. Route tests cover switch-off behavior, IDK feedback and a question-free recap.
-- Metro exported enabled **Android and iOS** bundles offline. The device smoke flow was added and has not been run. With the enabled server running, execute `maestro test .maestro/engine/study.yaml` from `app/`. [Maestro flow](../../app/.maestro/engine/study.yaml)
+The previous round exported Android and iOS bundles offline. Lifecycle and interrupted-write results in this round are automated simulations. Physical-device timing and process eviction were not measured. The device smoke flow is available with the enabled server running via `maestro test .maestro/engine/study.yaml` from `app/`. The growing device-local journal and cross-device sync remain outside this integration. [Maestro flow](../../app/.maestro/engine/study.yaml)
