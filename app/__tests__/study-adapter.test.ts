@@ -1,8 +1,9 @@
 import { AnswerClock } from "../src/engine/answerClock";
 import { cancelSkip } from "../src/engine/presentation";
+import { addToTally, emptyTally } from "../src/engine/savedStudy";
 import { withStudyAnswers, today, type AnswerProgress } from "../src/state/answerProgress";
 import { answer, buildContent, endSession, extend, migrate, newState, setCurrentTopic, skip, startSession, type Choice } from "../../engine/src/index";
-import { StudySession, STUDY_KEY, recapText, studyContent } from "../src/engine/study";
+import { EVENT_LIMIT, StudySession, STUDY_KEY, recapText, studyContent } from "../src/engine/study";
 import { packs as v2Packs } from "../assets/content/index-v2";
 import { packs, type Pack } from "../src/content/pack";
 
@@ -60,7 +61,7 @@ it("matches direct public calls for a scripted day, including an adapter reload"
     events.push(...expected.events);
     if (n === 1) {
       app = new StudySession(content, storage, 999);
-      expect(await app.load()).toEqual({ state: migrate(expected.state), events, legacyEvents: 0 });
+      expect(await app.load()).toEqual({ state: migrate(expected.state), events, tally: addToTally(emptyTally(), events) });
     }
     n++;
   }
@@ -71,7 +72,7 @@ it("matches direct public calls for a scripted day, including an adapter reload"
     events.push(...expected.events);
   }
   expect(expected.next.kind).toBe("end");
-  expect(JSON.parse((await storage.getItem(STUDY_KEY))!)).toEqual({ state: expected.state, events, legacyEvents: 0 });
+  expect(JSON.parse((await storage.getItem(STUDY_KEY))!)).toEqual({ state: expected.state, events, tally: addToTally(emptyTally(), events) });
 });
 
 it("starts with a missing key and migrates a legacy raw v1 state", async () => {
@@ -303,4 +304,99 @@ it.each([
   const cold = await new StudySession(content, storage, 1).load();
   expect(cold.state).toEqual(expected.state);
   expect(cold.events).toEqual([...journal, ...expected.events]);
+});
+
+type Content = ReturnType<typeof studyContent>;
+type Answered = { day: string; card: string; right: boolean; at: string };
+
+// A varied multi-day run: right, wrong, fast wrong (a guess), "I don't know",
+// skips with confirmation, and both answers to an extension offer.
+async function playDays(data: Content, storage: ReturnType<typeof memory>, days: number, afterDay: (d: number) => Promise<void>) {
+  const answered: Answered[] = [];
+  const app = new StudySession(data, storage, 11);
+  for (let d = 0; d < days; d++) {
+    let clock = now + d * 86_400_000;
+    let step = await app.start(clock);
+    for (let i = 0; i < 80 && step.next.kind !== "end"; i++) {
+      clock += 9000;
+      if (step.next.kind === "offer-extend") {
+        step = d % 2 ? await app.end(clock) : await app.extend(clock);
+      } else if (step.next.kind === "confirm-skip") {
+        step = await app.skip(step.state.session!.served!.card, clock, "later", true);
+      } else if (step.next.kind === "card") {
+        const { card, variant } = step.next.card;
+        const options = data.cards[card].variants[variant];
+        const right = options.findIndex(o => o.correct), wrong = options.findIndex(o => !o.correct);
+        if (i % 7 === 3) step = await app.skip(card, clock, "later");
+        else {
+          const [choice, ms]: [Choice, number] = i % 7 === 5 ? [wrong, 500] : i % 5 === 2 ? ["dont-know", 9000]
+            : i % 4 === 1 ? [wrong, 9000] : [right, 9000];
+          step = await app.answer(card, choice, ms, clock);
+        }
+      }
+      for (const e of step.events) {
+        if (e.type === "answer") answered.push({ day: today(new Date(e.at)), card: e.data.card as string, right: e.data.right as boolean, at: new Date(e.at).toISOString() });
+      }
+    }
+    await afterDay(d);
+  }
+  return { app, answered };
+}
+
+const corruptBackups = (storage: ReturnType<typeof memory>) =>
+  storage.setItem.mock.calls.filter(([key]) => key.startsWith(STUDY_KEY + ".corrupt-"));
+
+it.each(editions)("every %s save from a varied 40-day run reloads cold without recovery", async (_edition, data) => {
+  const storage = memory();
+  const studied = studyContent(data);
+  const { app } = await playDays(studied, storage, 40, async () => {
+    const cold = await new StudySession(studied, storage, 5).load();
+    expect(cold.state).toEqual(migrate(cold.state));
+  });
+  expect(corruptBackups(storage)).toEqual([]);
+  expect((await new StudySession(studied, storage, 5).load()).state).toEqual((await app.load()).state);
+});
+
+it("caps the saved journal and keeps Progress exact from a running tally over 90 days", async () => {
+  const storage = memory();
+  const { answered } = await playDays(content, storage, 90, async () => {});
+  // Check the bytes actually written: loading trims an oversized journal too.
+  const written = JSON.parse((await storage.getItem(STUDY_KEY))!);
+  expect(answered.length).toBeGreaterThan(EVENT_LIMIT / 2);
+  expect(written.events).toHaveLength(EVENT_LIMIT);
+  const cold = await new StudySession(content, storage, 5).load();
+  const progress = withStudyAnswers({ days: {}, answers: {} } as AnswerProgress, cold);
+  const days: Record<string, number> = {};
+  const latest: Record<string, { correct: boolean; at: string }> = {};
+  for (const a of answered) {
+    days[a.day] = (days[a.day] ?? 0) + 1;
+    latest[a.card] = { correct: a.right, at: a.at };
+  }
+  expect(progress.days).toEqual(days);
+  expect(progress.answers).toEqual(latest);
+});
+
+it("keeps learning history when only the unfinished session is unreadable", async () => {
+  const storage = memory();
+  await playDays(content, storage, 3, async () => {});
+  const saved = JSON.parse((await storage.getItem(STUDY_KEY))!);
+  const broken = JSON.stringify({ ...saved, state: { ...saved.state, session: { id: "open", history: null } } });
+  const salvage = memory(broken);
+  const app = new StudySession(content, salvage, 3);
+  const loaded = await app.load();
+  expect(loaded.state.skills).toEqual(saved.state.skills);
+  expect(loaded.state.answered).toBe(saved.state.answered);
+  expect(loaded.state.session).toBeNull();
+  expect(loaded.tally).toEqual(saved.tally);
+  expect(corruptBackups(salvage).map(([, bytes]) => bytes)).toEqual([broken]);
+  expect(app.takeRecoveryNotice()).toBeUndefined();
+});
+
+it("reports a full reset once so the screen can tell the student", async () => {
+  const storage = memory("{");
+  const app = new StudySession(content, storage, 3);
+  await app.load();
+  const [[backup]] = corruptBackups(storage);
+  expect(app.takeRecoveryNotice()).toBe(backup);
+  expect(app.takeRecoveryNotice()).toBeUndefined();
 });

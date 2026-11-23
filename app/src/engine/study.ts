@@ -1,5 +1,6 @@
 import { actionToken, present, type SessionOwner } from "./presentation";
-import { decodeStudy, type SavedStudy } from "./savedStudy";
+import { addToTally, decodeStudy, emptyTally, EVENT_LIMIT, type SavedStudy } from "./savedStudy";
+export { EVENT_LIMIT } from "./savedStudy";
 import {
   answer, buildContent, endSession, extend, newState, setCurrentTopic, skip, startSession,
   type Choice, type Content, type EndInfo, type SkipReason, type State, type Step,
@@ -37,6 +38,14 @@ export class StudySession {
   private listeners = new Set<(snapshot: Saved) => void>();
   private saved?: Saved;
   private owners = new WeakMap<State, SessionOwner>();
+  private recoveredFrom?: string;
+
+  /** The backup key of a save that could not be read and was replaced, once. */
+  takeRecoveryNotice() {
+    const key = this.recoveredFrom;
+    this.recoveredFrom = undefined;
+    return key;
+  }
 
   present(step: Step) {
     return present(step, this.owners.get(step.state));
@@ -65,23 +74,30 @@ export class StudySession {
     if (this.saved) return this.saved;
     const text = await this.storage.getItem(STUDY_KEY);
     if (text === null) return this.publish(this.fresh());
-    let decoded: Saved;
+    let decoded: ReturnType<typeof decodeStudy> | undefined;
     try {
       decoded = decodeStudy(text);
     } catch {
-      const prefix = STUDY_KEY + ".corrupt-" + Date.now();
-      let backup = prefix;
-      for (let i = 1; await this.storage.getItem(backup) !== null; i++) backup = prefix + "-" + i;
-      await this.storage.setItem(backup, text);
-      decoded = this.fresh();
-      await this.save(decoded);
-      return decoded;
+      decoded = undefined;
     }
-    return this.publish(decoded);
+    if (decoded && !decoded.salvaged) return this.publish(decoded.study);
+    const backup = await this.backUp(text);
+    const study = decoded?.study ?? this.fresh();
+    if (!decoded) this.recoveredFrom = backup;
+    await this.save(study);
+    return study;
+  }
+
+  private async backUp(text: string) {
+    const prefix = STUDY_KEY + ".corrupt-" + Date.now();
+    let backup = prefix;
+    for (let i = 1; await this.storage.getItem(backup) !== null; i++) backup = prefix + "-" + i;
+    await this.storage.setItem(backup, text);
+    return backup;
   }
 
   private fresh(): Saved {
-    return { state: newState("local", this.seed), events: [], legacyEvents: 0 };
+    return { state: newState("local", this.seed), events: [], tally: emptyTally() };
   }
 
   load(): Promise<Saved> {
@@ -113,7 +129,11 @@ export class StudySession {
       if (typeof guard === "object" && this.owners.get(previous.state) !== guard) throw new Error("This study session has already closed.");
       const step = run(previous.state);
       if (step.state !== previous.state || step.events.length) {
-        await this.save({ ...previous, state: step.state, events: previous.events.concat(step.events) });
+        await this.save({
+          state: step.state,
+          events: previous.events.concat(step.events).slice(-EVENT_LIMIT),
+          tally: addToTally(previous.tally, step.events),
+        });
       }
       return step;
     });

@@ -24,6 +24,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   const [result, setResult] = useState<Result>();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
+  const [recovered, setRecovered] = useState(false);
   const active = useRef(false);
   const locked = useRef(false);
   const started = useRef<Promise<Step> | null>(null);
@@ -36,6 +37,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
     locked.current = true;
     setBusy(true);
     setError(false);
+    setRecovered(false); // The notice belongs to the opening card only.
     retry.current = () => { void apply(action, done); };
     try {
       const next = await action();
@@ -60,7 +62,7 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
       void apply(() => {
         started.current = app.start(Date.now(), initialTopic);
         return started.current;
-      });
+      }, () => setRecovered(!!app.takeRecoveryNotice()));
     });
     return () => {
       cancelled = true;
@@ -110,6 +112,9 @@ export function EngineStudy({ topic, onExit }: { topic?: string; onExit: () => v
   if (!step || !next) return <Txt>Opening study session…</Txt>;
 
   const notification = <>
+    {recovered && <Txt testID="engine-recovered">
+      {"Your saved study could not be opened, so a new one was started. A copy was kept on this phone."}
+    </Txt>}
     {step.hint === "guess-nudge" && <Txt testID="guess-nudge">{"Not sure? Tap I don't know. It costs nothing."}</Txt>}
     {(step.moments ?? []).map((m, i) => {
       const text = momentText(m);

@@ -1,6 +1,37 @@
 import { migrate, type EngineEvent, type State } from "../../../engine/src/index";
+import { today } from "../state/answerProgress";
 
-export type SavedStudy = { state: State; events: EngineEvent[]; legacyEvents: number };
+// What Progress needs from the journal, kept as a running total so the save
+// stays small. `legacy` counts answers an older build already mirrored into
+// the prototype's own daily total; `own` counts the rest.
+export type StudyTally = {
+  days: Record<string, { own: number; legacy: number }>;
+  answers: Record<string, { correct: boolean; at: string }>;
+};
+export type SavedStudy = { state: State; events: EngineEvent[]; tally: StudyTally };
+
+// The saved journal keeps only the most recent events. Every answer rewrites
+// the whole save, and Android cannot read a single stored value over ~2 MB.
+export const EVENT_LIMIT = 500;
+
+export const emptyTally = (): StudyTally => ({ days: {}, answers: {} });
+
+export function addToTally(tally: StudyTally, events: readonly EngineEvent[], legacy = 0): StudyTally {
+  if (!events.some(e => e.type === "answer")) return tally;
+  const days = { ...tally.days };
+  const answers = { ...tally.answers };
+  events.forEach((event, index) => {
+    if (event.type !== "answer") return;
+    const at = new Date(event.at);
+    const day = today(at);
+    const count = { ...(days[day] ?? { own: 0, legacy: 0 }) };
+    if (index < legacy) count.legacy++;
+    else count.own++;
+    days[day] = count;
+    answers[event.data.card as string] = { correct: event.data.right as boolean, at: at.toISOString() };
+  });
+  return { days, answers };
+}
 
 function record(x: unknown): x is Record<string, unknown> {
   return typeof x === "object" && x !== null && !Array.isArray(x);
@@ -68,16 +99,36 @@ function validEvent(e: unknown): e is EngineEvent {
     && (e.type !== "answer" || (typeof e.data.card === "string" && typeof e.data.right === "boolean"));
 }
 
-export function decodeStudy(text: string): SavedStudy {
+const tallyShape = shape({
+  days: dictionary(shape({ own: number, legacy: number })),
+  answers: dictionary(shape({ correct: bool, at: string })),
+});
+
+// `salvaged` means the unfinished session could not be read and was dropped;
+// the student's learning history survived.
+export function decodeStudy(text: string): { study: SavedStudy; salvaged: boolean } {
   const raw: unknown = JSON.parse(text);
   const envelope = record(raw) && "state" in raw ? raw : undefined;
-  const state = migrate(envelope ? envelope.state : raw);
+  let state = migrate(envelope ? envelope.state : raw);
+  let salvaged = false;
+  if (!usable(state) && record(state) && usable({ ...state, session: null })) {
+    state = { ...state, session: null };
+    salvaged = true;
+  }
   const events = envelope ? envelope.events : [];
   if (!usable(state) || !Array.isArray(events) || !events.every(validEvent)) throw new Error("Invalid study save");
-  // The previous app mirrored these journal entries into prototype Progress.
-  const legacyEvents = envelope?.legacyEvents ?? events.length;
-  if (typeof legacyEvents !== "number" || !Number.isInteger(legacyEvents) || legacyEvents < 0 || legacyEvents > events.length) {
-    throw new Error("Invalid Progress migration offset");
+  let tally: StudyTally;
+  if (envelope && "tally" in envelope) {
+    if (!tallyShape(envelope.tally)) throw new Error("Invalid Progress tally");
+    tally = envelope.tally as StudyTally;
+  } else {
+    // Saves from before the tally carried the whole journal. The first build
+    // also mirrored these entries into prototype Progress.
+    const legacyEvents = envelope?.legacyEvents ?? events.length;
+    if (typeof legacyEvents !== "number" || !Number.isInteger(legacyEvents) || legacyEvents < 0 || legacyEvents > events.length) {
+      throw new Error("Invalid Progress migration offset");
+    }
+    tally = addToTally(emptyTally(), events, legacyEvents);
   }
-  return { state, events, legacyEvents };
+  return { study: { state, events: events.slice(-EVENT_LIMIT), tally }, salvaged };
 }
