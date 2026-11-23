@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UniKey Tracker</title>
+<style>
+/* Dawn tokens (app/src/theme.ts) */
+:root {
+  --skyTop:#E3ECFB; --skyMid:#F4F2F2; --skyBottom:#FDEAD6;
+  --ink:#1B1F4B; --muted:#555A80; --faint:#B4BAD3; --surface:#FFFFFF; --hairline:#D8DFEF; --track:#E3E8F6;
+  --yellow:#F6C453; --yellowEdge:#D49A1E; --lavender:#7569D6; --green:#23694D; --greenSoft:#DDF1E6;
+  --terracotta:#C4693F; --terracottaSoft:#F8E4DA; --hold:#8C90AE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font: 13px/1.4 "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink);
+  background: linear-gradient(180deg, var(--skyTop), var(--skyMid) 45%, var(--skyBottom)) fixed; min-height: 100vh; }
+header { position: sticky; top: 0; z-index: 5; background: rgba(244,242,242,.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hairline); padding: 10px 16px 8px; }
+h1 { font-size: 16px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px; }
+.live { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); display: inline-block; }
+.live.on { background: var(--green); }
+.sub { color: var(--muted); font-weight: 400; font-size: 12px; }
+nav { display: flex; gap: 4px; margin: 8px 0 6px; flex-wrap: wrap; }
+nav button, .chip { border: 1px solid var(--hairline); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 4px 12px; font: inherit; cursor: pointer; }
+nav button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filters select, .filters input { font: inherit; border: 1px solid var(--hairline); border-radius: 10px; background: var(--surface);
+  padding: 4px 8px; color: var(--ink); max-width: 180px; }
+.filters label { color: var(--muted); font-size: 12px; display: flex; gap: 4px; align-items: center; }
+main { padding: 14px 16px 40px; }
+.view { display: none; } .view.on { display: block; }
+.card, .panel { background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px; }
+.muted { color: var(--muted); } .small { font-size: 11px; }
+.id { font: 600 11px ui-monospace, Menlo, monospace; color: var(--muted); }
+.pri { font: 600 10px ui-monospace, monospace; border-radius: 6px; padding: 0 4px; background: var(--track); color: var(--muted); }
+.pri.p0 { background: var(--terracotta); color: #fff; } .pri.p1 { background: var(--yellow); color: var(--ink); }
+.st { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.st-td { background: var(--faint); } .st-ip { background: var(--yellow); } .st-bl { background: var(--terracotta); }
+.st-oh { background: var(--hold); } .st-dn { background: var(--green); } .st-dr { background: #ddd; }
+.tag { font-size: 10px; color: var(--lavender); }
+.bar { height: 7px; background: var(--track); border-radius: 7px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--lavender); border-radius: 7px; }
+.late { color: var(--terracotta); font-weight: 600; }
+a { color: var(--lavender); }
+/* overview */
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.kpi { padding: 10px 14px; } .kpi b { display: block; font-size: 22px; font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.proj { padding: 12px 14px; cursor: pointer; } .proj h3 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 14px; }
+.panel { padding: 12px 14px; } .panel h2 { font-size: 13px; margin: 0 0 8px; font-weight: 600; }
+.li { padding: 4px 0; border-top: 1px solid var(--track); cursor: pointer; display: flex; gap: 6px; align-items: baseline; }
+.li:first-of-type { border-top: 0; }
+.li .t { flex: 1; min-width: 0; }
+/* kanban */
+.lane { margin-bottom: 16px; } .lane > h2 { font-size: 13px; margin: 0 0 6px; font-weight: 600; }
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.col { background: rgba(255,255,255,.45); border: 1px solid var(--hairline); border-radius: 16px; padding: 8px; min-height: 60px; }
+.col > h3 { margin: 0 0 6px 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.kc { padding: 8px 10px; margin-bottom: 6px; cursor: pointer; border-radius: 12px; }
+.kc:hover { border-color: var(--lavender); }
+.kc .t { margin: 2px 0; } .kc .meta { font-size: 11px; color: var(--muted); }
+.kc.blk { border-left: 3px solid var(--terracotta); }
+.kids { margin-top: 4px; font-size: 11px; }
+.kids div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+/* graph */
+#graphWrap { position: relative; height: calc(100vh - 150px); min-height: 420px; }
+#graph { width: 100%; height: 100%; display: block; border-radius: 16px; background: rgba(255,255,255,.5); border: 1px solid var(--hairline); }
+.legend { position: absolute; left: 10px; bottom: 10px; font-size: 11px; background: rgba(255,255,255,.85); border-radius: 10px; padding: 6px 10px; }
+.legend i { display: inline-block; width: 14px; height: 0; border-top: 2px solid; margin: 0 4px 3px 8px; vertical-align: middle; }
+#tip { position: fixed; pointer-events: none; background: var(--ink); color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 12px; display: none; max-width: 320px; z-index: 20; }
+/* gantt */
+#gantt { overflow: auto; max-height: calc(100vh - 150px); background: rgba(255,255,255,.5); border: 1px solid var(--hairline); border-radius: 16px; }
+#gantt svg text { font-size: 11px; fill: var(--ink); }
+/* detail */
+#detail { position: fixed; right: 0; top: 0; bottom: 0; width: min(420px, 100%); background: var(--surface); border-left: 1px solid var(--hairline);
+  box-shadow: -8px 0 30px rgba(27,31,75,.12); padding: 16px; overflow-y: auto; z-index: 30; display: none; }
+#detail.on { display: block; }
+#detail h2 { font-size: 15px; margin: 6px 0 10px; }
+#detail dl { display: grid; grid-template-columns: 80px 1fr; gap: 4px 8px; margin: 0; }
+#detail dt { color: var(--muted); } #detail dd { margin: 0; word-break: break-word; }
+.x { float: right; border: 0; background: var(--track); border-radius: 999px; width: 28px; height: 28px; cursor: pointer; font-size: 14px; }
+.lnk { cursor: pointer; color: var(--lavender); }
+@media (max-width: 600px) { main { padding: 10px; } .filters select, .filters input { max-width: 130px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="live" id="live" title="live updates"></span>UniKey project tracker <span class="sub" id="sum"></span></h1>
+  <nav id="tabs">
+    <button data-v="overview">Overview</button><button data-v="kanban">Kanban</button>
+    <button data-v="graph">Graph</button><button data-v="gantt">Gantt</button>
+  </nav>
+  <div class="filters">
+    <select id="fProj"></select><select id="fOwner"></select><select id="fTag"></select>
+    <select id="fPri"><option value="">any priority</option><option>0</option><option>1</option><option>2</option><option>3</option></select>
+    <select id="fSt"><option value="">open</option><option value="all">all statuses</option></select>
+    <input id="fQ" type="search" placeholder="Search">
+    <label class="kb">group <select id="fGroup"><option value="project">project</option><option value="">none</option><option value="owner">owner</option><option value="pri">priority</option><option value="tag">tag</option><option value="kind">kind</option><option value="group">group</option></select></label>
+    <label class="kb">levels <select id="fLevel"><option value="top">tasks + bugs</option><option value="all">all levels</option></select></label>
+  </div>
+</header>
+<main>
+  <section class="view" id="v-overview"></section>
+  <section class="view" id="v-kanban"></section>
+  <section class="view" id="v-graph"><div id="graphWrap"><canvas id="graph"></canvas>
+    <div class="legend"><i style="border-color:#B4BAD3"></i>parent<i style="border-color:#C4693F"></i>depends on<i style="border-color:#7569D6;border-top-style:dashed"></i>relates<i style="border-color:#8C90AE;border-top-style:dotted"></i>doc ref</div></div></section>
+  <section class="view" id="v-gantt"><div id="gantt"></div></section>
+</main>
+<aside id="detail"></aside>
+<div id="tip"></div>
+<script>
+"use strict";
+const ST = { td: "To do", ip: "In progress", bl: "Blocked", oh: "On hold", dn: "Done", dr: "Dropped" };
+const KIND = { P: "project", T: "task", S: "subtask", D: "todo", B: "bug", M: "milestone" };
+const COLOR = { td: "#B4BAD3", ip: "#F6C453", bl: "#C4693F", oh: "#8C90AE", dn: "#23694D", dr: "#D9D9D9" };
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+let D = { items: [], log: [], today: "" }, by = new Map(), kids = new Map();
+let view = (location.hash.slice(1) || store.get("pm.view") || "overview");
+
+const F = {};
+["fProj", "fOwner", "fTag", "fPri", "fSt", "fQ", "fGroup", "fLevel"].forEach((id) => {
+  const el = $("#" + id);
+  F[id] = el;
+  const saved = store.get("pm." + id);
+  if (saved !== null) el.dataset.saved = saved;
+  el.addEventListener("input", () => { store.set("pm." + id, el.value); render(); });
+});
+
+function ancestors(it) { const out = []; let p = by.get(it.parent); while (p && !out.includes(p)) { out.push(p); p = by.get(p.parent); } return out; }
+function nearestProject(it) { return it.kind === "P" ? it : ancestors(it).find((a) => a.kind === "P"); }
+function under(id) { const out = []; const walk = (p) => (kids.get(p) || []).forEach((k) => { out.push(k); walk(k.id); }); walk(id); return out; }
+const isOpen = (i) => i.st !== "dn" && i.st !== "dr";
+const work = (i) => i.kind !== "P" && i.kind !== "M";
+const projName = (p) => p ? p.title : "(no project)";
+function crumb(it) { const a = ancestors(it).reverse(); return (a.length > 1 ? a.slice(1) : a).map((x) => x.title).join(" › "); }
+function dshort(d) { return d ? d.slice(5) : ""; }
+function daysBetween(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+
+function setOptions(sel, opts, label) {
+  const keep = sel.value || sel.dataset.saved || "";
+  sel.innerHTML = `<option value="">${label}</option>` + opts.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join("");
+  sel.value = opts.some(([v]) => v === keep) ? keep : "";
+  delete sel.dataset.saved;
+}
+
+function filtered({ keepDone = false, kinds = null } = {}) {
+  const proj = F.fProj.value, owner = F.fOwner.value, tag = F.fTag.value, pri = F.fPri.value, st = F.fSt.value;
+  const q = F.fQ.value.trim().toLowerCase();
+  const scope = proj ? new Set([proj, ...under(proj).map((i) => i.id)]) : null;
+  return D.items.filter((i) => {
+    if (kinds && !kinds.includes(i.kind)) return false;
+    if (scope && !scope.has(i.id)) return false;
+    if (owner && i.owner !== owner) return false;
+    if (tag && !i.tags.includes(tag)) return false;
+    if (pri && String(i.pri ?? 2) !== pri) return false;
+    if (st && st !== "all" && i.st !== st) return false;
+    if (!st && !keepDone && !isOpen(i)) return false;
+    if (q && !(i.id + " " + i.title + " " + i.tags.join(" ") + " " + (i.owner || "")).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+async function load() {
+  const r = await fetch("/data", { cache: "no-store" });
+  D = await r.json();
+  by = new Map(D.items.map((i) => [i.id, i]));
+  kids = new Map();
+  for (const i of D.items) if (i.parent) { if (!kids.has(i.parent)) kids.set(i.parent, []); kids.get(i.parent).push(i); }
+  const projs = D.items.filter((i) => i.kind === "P").map((p) => [p.id, (p.parent ? "  · " : "") + p.title]);
+  setOptions(F.fProj, projs, "all projects");
+  setOptions(F.fOwner, [...new Set(D.items.map((i) => i.owner).filter(Boolean))].sort().map((o) => [o, "@" + o]), "any owner");
+  setOptions(F.fTag, [...new Set(D.items.flatMap((i) => i.tags))].sort().map((t) => [t, "#" + t]), "any tag");
+  const s = F.fSt.value || F.fSt.dataset.saved || "";
+  F.fSt.innerHTML = `<option value="">open</option><option value="all">all statuses</option>` + Object.entries(ST).map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
+  F.fSt.value = s; delete F.fSt.dataset.saved;
+  for (const k of ["fPri", "fGroup", "fLevel"]) if (F[k].dataset.saved !== undefined) { F[k].value = F[k].dataset.saved; delete F[k].dataset.saved; }
+  const open = D.items.filter((i) => work(i) && isOpen(i)).length;
+  $("#sum").textContent = `· ${D.items.length} items · ${open} open · updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  render();
+  if (detailId) showDetail(detailId);
+}
+
+function render() {
+  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.v === view));
+  document.querySelectorAll(".view").forEach((v) => v.classList.toggle("on", v.id === "v-" + view));
+  document.querySelectorAll(".kb").forEach((e) => (e.style.display = view === "kanban" ? "" : "none"));
+  ({ overview: renderOverview, kanban: renderKanban, graph: renderGraph, gantt: renderGantt })[view]();
+}
+$("#tabs").addEventListener("click", (e) => { const v = e.target.dataset.v; if (v) { view = v; location.hash = v; store.set("pm.view", v); render(); } });
+
+function liRow(i, extra = "") {
+  return `<div class="li" data-id="${i.id}"><span class="st st-${i.st}"></span><span class="id">${i.id}</span>
+    <span class="t">${esc(i.title)} <span class="muted small">${esc(crumb(i))}</span></span>${extra}</div>`;
+}
+
+// ---------- overview ----------
+function renderOverview() {
+  const all = filtered({ keepDone: true });
+  const w = all.filter(work);
+  const open = w.filter(isOpen);
+  const weekAgo = new Date(Date.parse(D.today) - 7 * 864e5).toISOString().slice(0, 10);
+  const doneWeek = w.filter((i) => i.st === "dn" && i.done && i.done > weekAgo).length;
+  const ms = D.items.filter((i) => i.kind === "M" && isOpen(i) && i.due).sort((a, b) => a.due.localeCompare(b.due))[0];
+  const k = (n, l, c = "") => `<div class="card kpi"><b style="color:${c}">${n}</b><span class="muted">${l}</span></div>`;
+  let h = `<div class="kpis">${k(open.length, "open work items")}${k(open.filter((i) => i.st === "ip").length, "in progress", "#D49A1E")}
+    ${k(open.filter((i) => i.blocked).length, "blocked", "#C4693F")}${k(open.filter((i) => i.overdue).length, "overdue", "#C4693F")}
+    ${k(doneWeek, "done in 7 days", "#23694D")}${ms ? k(daysBetween(D.today, ms.due) + "d", "to " + esc(ms.title)) : ""}</div>`;
+  const projs = D.items.filter((p) => p.kind === "P" && (!F.fProj.value || p.id === F.fProj.value || ancestors(p).some((a) => a.id === F.fProj.value)));
+  h += `<div class="grid">` + projs.filter((p) => p.parent || projs.length === 1).map((p) => {
+    const sub = under(p.id).filter(work), [dn, n] = p.progress;
+    const pct = n ? Math.round((100 * dn) / n) : 0;
+    const c = (s) => sub.filter((i) => i.st === s).length;
+    const nd = sub.filter((i) => isOpen(i) && i.due).sort((a, b) => a.due.localeCompare(b.due))[0];
+    return `<div class="card proj" data-proj="${p.id}"><h3><span class="st st-${p.st}"></span>${esc(p.title)} <span class="id">${p.id}</span></h3>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="muted small" style="margin-top:6px">${pct}% · ${dn}/${n} done · ${c("ip")} in progress · ${c("bl") + sub.filter((i) => i.blocked && i.st !== "bl").length} blocked · ${c("oh")} on hold
+      ${nd ? `<br>next due <span class="${nd.overdue ? "late" : ""}">${dshort(nd.due)}</span> ${esc(nd.title)}` : ""}${p.owner ? ` · @${esc(p.owner)}` : ""}</div></div>`;
+  }).join("") + `</div>`;
+  const sec = (title, items, extra) => `<div class="panel"><h2>${title} <span class="muted">${items.length}</span></h2>${items.slice(0, 40).map((i) => liRow(i, extra(i))).join("") || '<span class="muted">none</span>'}</div>`;
+  const byDue = (a, b) => (a.due || "9").localeCompare(b.due || "9");
+  const soon = new Date(Date.parse(D.today) + 14 * 864e5).toISOString().slice(0, 10);
+  h += `<div class="cols2">
+    ${sec("Blocked", open.filter((i) => i.blocked), (i) => `<span class="small late">${i.openDeps.length ? "waits " + i.openDeps.join(",") : "blocked"}</span>`)}
+    ${sec("Waiting on a dependency (P0-P1)", open.filter((i) => i.waiting && (i.pri ?? 2) <= 1), (i) => `<span class="small muted">waits ${i.openDeps.join(",")}</span>`)}
+    ${sec("Overdue", open.filter((i) => i.overdue).sort(byDue), (i) => `<span class="small late">${dshort(i.due)}</span>`)}
+    ${sec("Due in 14 days", open.filter((i) => i.due && !i.overdue && i.due <= soon).sort(byDue), (i) => `<span class="small">${dshort(i.due)}</span>`)}
+    ${sec("In progress", open.filter((i) => i.st === "ip"), (i) => `<span class="small muted">${i.owner ? "@" + esc(i.owner) : ""}</span>`)}
+    <div class="panel"><h2>Progress over time</h2>${burnup(w)}</div>
+    <div class="panel"><h2>Recent activity</h2>${D.log.slice(-30).reverse().map((l) => {
+      const i = by.get(l.id);
+      return `<div class="li" data-id="${esc(l.id)}"><span class="small muted" style="width:82px;flex:none">${esc(l.ts.slice(5).replace("T", " "))}</span>
+        <span class="id">${esc(l.id)}</span><span class="t">${esc(l.ch.startsWith("+") ? "created" : l.ch)} <span class="muted">${esc(i ? i.title : "")}</span></span><span class="small muted">${esc(l.by)}</span></div>`;
+    }).join("")}</div></div>`;
+  $("#v-overview").innerHTML = h;
+}
+
+function burnup(w) {
+  // cumulative created vs done per day, from the log (created) and item done dates
+  const ids = new Set(w.map((i) => i.id));
+  const created = new Map();
+  for (const l of D.log) if (ids.has(l.id) && l.ch.startsWith("+") && !created.has(l.id)) created.set(l.id, l.ts.slice(0, 10));
+  const days = [...new Set([...created.values(), ...w.filter((i) => i.done).map((i) => i.done), D.today])].sort();
+  if (days.length < 2) return '<span class="muted">not enough history yet</span>';
+  const start = days[0], n = daysBetween(start, D.today) + 1;
+  const tot = [], dn = [];
+  for (let d = 0; d < n; d++) {
+    const day = new Date(Date.parse(start) + d * 864e5).toISOString().slice(0, 10);
+    tot.push(w.filter((i) => (created.get(i.id) || start) <= day && i.st !== "dr").length);
+    dn.push(w.filter((i) => i.st === "dn" && i.done && i.done <= day).length);
+  }
+  const W = 560, H = 150, max = Math.max(...tot, 1);
+  const pt = (arr) => arr.map((v, i) => `${(i / Math.max(n - 1, 1)) * (W - 30) + 25},${H - 18 - (v / max) * (H - 30)}`).join(" ");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Created and done items over time">
+    <line x1="25" y1="${H - 18}" x2="${W - 5}" y2="${H - 18}" stroke="#D8DFEF"/>
+    <polyline points="${pt(tot)}" fill="none" stroke="#B4BAD3" stroke-width="2"/>
+    <polyline points="${pt(dn)}" fill="none" stroke="#23694D" stroke-width="2.5"/>
+    <text x="25" y="${H - 4}" font-size="10" fill="#555A80">${start}</text><text x="${W - 5}" y="${H - 4}" font-size="10" fill="#555A80" text-anchor="end">${D.today}</text>
+    <text x="28" y="12" font-size="10" fill="#555A80">— total ${tot[tot.length - 1]}</text><text x="120" y="12" font-size="10" fill="#23694D">— done ${dn[dn.length - 1]}</text></svg>`;
+}
+
+// ---------- kanban ----------
+function renderKanban() {
+  const level = F.fLevel.value || "top";
+  const st = F.fSt.value;
+  let items = filtered({ keepDone: true, kinds: level === "top" ? ["T", "B"] : ["T", "S", "D", "B"] });
+  if (!st) items = items.filter((i) => i.st !== "dr");
+  const cols = st && st !== "all" ? [st] : ["td", "ip", "bl", "oh", "dn"].concat(st === "all" ? ["dr"] : []);
+  const g = F.fGroup.value;
+  const key = (i) => g === "project" ? [projName(nearestProject(i))] : g === "owner" ? ["@" + (i.owner || "unassigned")]
+    : g === "pri" ? ["p" + (i.pri ?? 2)] : g === "tag" ? (i.tags.length ? i.tags.map((t) => "#" + t) : ["(no tag)"])
+    : g === "kind" ? [KIND[i.kind]] : g === "group" ? [i.group || "(no group)"] : ["All"];
+  const lanes = new Map();
+  for (const i of items) for (const k of key(i)) { if (!lanes.has(k)) lanes.set(k, []); lanes.get(k).push(i); }
+  const sorted = [...lanes.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  const sortI = (a, b) => (a.pri ?? 2) - (b.pri ?? 2) || (a.due || "9").localeCompare(b.due || "9") || a.id.localeCompare(b.id, undefined, { numeric: true });
+  $("#v-kanban").innerHTML = sorted.map(([name, its]) => `<div class="lane">${g ? `<h2>${esc(name)} <span class="muted">${its.filter(isOpen).length} open</span></h2>` : ""}
+    <div class="board">${cols.map((c) => { const ci = its.filter((i) => i.st === c).sort(sortI);
+      return `<div class="col"><h3><span class="st st-${c}"></span>${ST[c]} ${ci.length}</h3>${ci.slice(0, c === "dn" ? 25 : 200).map(kcard).join("")}${ci.length > 25 && c === "dn" ? `<div class="muted small">+${ci.length - 25} more</div>` : ""}</div>`; }).join("")}</div></div>`).join("") || '<p class="muted">Nothing matches these filters.</p>';
+}
+function kcard(i) {
+  const ks = (kids.get(i.id) || []).filter((k) => k.st !== "dr");
+  const kd = ks.filter((k) => k.st === "dn").length;
+  const level = F.fLevel.value || "top";
+  return `<div class="card kc ${i.blocked ? "blk" : ""}" data-id="${i.id}">
+    <div><span class="id">${i.id}</span> ${i.pri !== undefined && i.pri < 2 ? `<span class="pri p${i.pri}">P${i.pri}</span>` : ""} ${i.kind === "B" ? '<span class="pri p0">bug</span>' : i.kind !== "T" ? `<span class="small muted">${KIND[i.kind]}</span>` : ""}</div>
+    <div class="t">${esc(i.title)}</div>
+    <div class="meta">${esc(crumb(i))}${i.owner ? ` · @${esc(i.owner)}` : ""}${i.due && isOpen(i) ? ` · <span class="${i.overdue ? "late" : ""}">due ${dshort(i.due)}</span>` : ""}${i.openDeps.length && isOpen(i) ? ` · <span class="${i.blocked ? "late" : ""}">waits ${i.openDeps.join(",")}</span>` : ""}</div>
+    ${i.tags.length ? `<div class="tag">${i.tags.map((t) => "#" + esc(t)).join(" ")}</div>` : ""}
+    ${ks.length ? `<div class="kids"><div class="bar"><i style="width:${(100 * kd) / ks.length}%"></i></div>${level === "top" ? ks.slice(0, 6).map((k) => `<div><span class="st st-${k.st}"></span>${esc(k.title)}</div>`).join("") + (ks.length > 6 ? `<div>+${ks.length - 6} more</div>` : "") : `<div>${kd}/${ks.length} sub-items done</div>`}</div>` : ""}
+  </div>`;
+}
+
+// ---------- graph (small force layout on canvas) ----------
+const G = { nodes: [], links: [], sig: "", tx: 0, ty: 0, k: 1, drag: null, hover: null, sel: null, alpha: 0, raf: 0 };
+function renderGraph() {
+  const items = filtered({ keepDone: true });
+  const ids = new Set(items.map((i) => i.id));
+  const sig = [...ids].join(",");
+  const cv = $("#graph");
+  const r = cv.getBoundingClientRect();
+  cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio;
+  if (sig !== G.sig) {
+    const old = new Map(G.nodes.map((n) => [n.id, n]));
+    const nodes = items.map((i) => ({ id: i.id, it: i, r: i.kind === "P" ? (i.parent ? 10 : 14) : i.kind === "M" ? 7 : 4.5 }));
+    const links = [];
+    const docs = new Map();
+    for (const i of items) {
+      if (i.parent && ids.has(i.parent)) links.push({ s: i.id, t: i.parent, ty: "parent" });
+      for (const d of i.deps) if (ids.has(d)) links.push({ s: i.id, t: d, ty: "dep" });
+      for (const d of i.rel.concat(i.dup)) if (ids.has(d)) links.push({ s: i.id, t: d, ty: "rel" });
+      for (const ref of i.refs) if (!/^https?:/.test(ref)) {
+        const id = "doc:" + ref.replace(/#.*$/, "");
+        if (!docs.has(id)) docs.set(id, { id, doc: ref.replace(/#.*$/, ""), r: 3.5 });
+        links.push({ s: i.id, t: id, ty: "ref" });
+      }
+    }
+    nodes.push(...docs.values());
+    // seed: sub-projects on a ring, items near their project, docs near their first item
+    const tops = items.filter((i) => i.kind === "P" && (!i.parent || !ids.has(i.parent) || !by.get(i.parent).parent));
+    const home = new Map(tops.map((p, k) => [p.id, p.parent && ids.has(p.parent) ? [Math.cos((k / tops.length) * 6.283) * 320, Math.sin((k / tops.length) * 6.283) * 240] : [0, 0]]));
+    const jit = () => (Math.random() - .5) * 120;
+    for (const n of nodes) {
+      const o = old.get(n.id);
+      if (o) { n.x = o.x; n.y = o.y; }
+      else if (n.it) { const p = [n.it, ...ancestors(n.it)].find((a) => home.has(a.id)); const h = p ? home.get(p.id) : [0, 0]; n.x = h[0] + (home.has(n.id) ? 0 : jit()); n.y = h[1] + (home.has(n.id) ? 0 : jit()); }
+      n.vx = 0; n.vy = 0;
+    }
+    for (const l of links) if (l.ty === "ref") { const d = docs.get(l.t), s = nodes.find((n) => n.id === l.s); if (d && d.x === undefined) { d.x = s.x + jit() / 3; d.y = s.y + jit() / 3; } }
+    const m = new Map(nodes.map((n) => [n.id, n]));
+    G.nodes = nodes; G.links = links.map((l) => ({ ...l, s: m.get(l.s), t: m.get(l.t) })).filter((l) => l.s && l.t);
+    G.sig = sig; G.alpha = 1;
+    for (let k = 0; k < 220; k++) tick(); // settle before the first frame
+    if (!old.size) { // fit the settled layout into the canvas
+      const xs = nodes.map((n) => n.x), ys = nodes.map((n) => n.y);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+      G.k = Math.min(2, .92 * Math.min(r.width / (x1 - x0 + 160), r.height / (y1 - y0 + 60)));
+      G.tx = r.width / 2 - ((x0 + x1) / 2) * G.k; G.ty = r.height / 2 - ((y0 + y1) / 2) * G.k;
+    }
+  }
+  cancelAnimationFrame(G.raf);
+  const loop = () => { if (G.alpha > 0.01) tick(); draw(); if (G.alpha > 0.01 || G.drag) G.raf = requestAnimationFrame(loop); };
+  loop();
+}
+function tick() {
+  const N = G.nodes, a = G.alpha;
+  for (let i = 0; i < N.length; i++) for (let j = i + 1; j < N.length; j++) {
+    const p = N[i], q = N[j]; let dx = q.x - p.x, dy = q.y - p.y; let d2 = dx * dx + dy * dy || 1;
+    if (d2 > 62500) continue;
+    const f = (700 * a) / d2; dx *= f; dy *= f; p.vx -= dx; p.vy -= dy; q.vx += dx; q.vy += dy;
+  }
+  for (const l of G.links) {
+    const want = l.ty === "parent" ? (l.t.r > 9 ? 60 : 30) : l.ty === "ref" ? 35 : 90;
+    const w = l.ty === "parent" ? 1 : l.ty === "ref" ? .6 : .12; // cross-project deps pull weakly, so clusters stay readable
+    const dx = l.t.x - l.s.x, dy = l.t.y - l.s.y, d = Math.hypot(dx, dy) || 1, f = ((d - want) / d) * 0.1 * a * w;
+    l.s.vx += dx * f; l.s.vy += dy * f; l.t.vx -= dx * f; l.t.vy -= dy * f;
+  }
+  for (const n of N) {
+    n.vx -= n.x * 0.002 * a; n.vy -= n.y * 0.002 * a;
+    if (n === G.drag) { n.vx = n.vy = 0; continue; }
+    n.vx *= 0.6; n.vy *= 0.6; n.x += n.vx; n.y += n.vy;
+  }
+  G.alpha *= 0.99;
+}
+function neigh(n) { const s = new Set([n]); for (const l of G.links) { if (l.s === n) s.add(l.t); if (l.t === n) s.add(l.s); } return s; }
+function draw() {
+  const cv = $("#graph"), c = cv.getContext("2d"), dpr = devicePixelRatio;
+  c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, cv.width, cv.height);
+  c.translate(G.tx, G.ty); c.scale(G.k, G.k);
+  const focus = G.sel || G.hover, near = focus ? neigh(focus) : null;
+  for (const l of G.links) {
+    const dim = near && !(near.has(l.s) && near.has(l.t) && (l.s === focus || l.t === focus));
+    c.globalAlpha = dim ? .06 : focus ? .9 : l.ty === "parent" ? .55 : l.ty === "dep" ? .35 : .6;
+    c.strokeStyle = l.ty === "dep" ? "#C4693F" : l.ty === "rel" ? "#7569D6" : l.ty === "ref" ? "#8C90AE" : "#B4BAD3";
+    c.setLineDash(l.ty === "rel" ? [4, 3] : l.ty === "ref" ? [1, 3] : []);
+    c.lineWidth = (l.ty === "dep" ? 1.2 : 1) / G.k;
+    c.beginPath(); c.moveTo(l.s.x, l.s.y); c.lineTo(l.t.x, l.t.y); c.stroke();
+    if (l.ty === "dep") { // arrow at the dependency (target)
+      const ang = Math.atan2(l.t.y - l.s.y, l.t.x - l.s.x), ex = l.t.x - Math.cos(ang) * (l.t.r + 2), ey = l.t.y - Math.sin(ang) * (l.t.r + 2);
+      c.setLineDash([]); c.beginPath(); c.moveTo(ex, ey); c.lineTo(ex - 6 * Math.cos(ang - .4), ey - 6 * Math.sin(ang - .4)); c.lineTo(ex - 6 * Math.cos(ang + .4), ey - 6 * Math.sin(ang + .4)); c.closePath(); c.fillStyle = "#C4693F"; c.fill();
+    }
+  }
+  c.setLineDash([]);
+  const zs = 1 / Math.min(1, G.k); // nodes keep at least their nominal on-screen size when zoomed out
+  for (const n0 of G.nodes) {
+    const n = { ...n0, r: n0.r * zs };
+    c.globalAlpha = near && !near.has(n0) ? .15 : 1;
+    c.beginPath();
+    if (n.doc) { c.rect(n.x - n.r, n.y - n.r, n.r * 2, n.r * 2); c.fillStyle = "#fff"; c.fill(); c.strokeStyle = "#8C90AE"; c.lineWidth = 1 / G.k; c.stroke(); }
+    else if (n.it.kind === "M") { c.moveTo(n.x, n.y - n.r); c.lineTo(n.x + n.r, n.y); c.lineTo(n.x, n.y + n.r); c.lineTo(n.x - n.r, n.y); c.closePath(); c.fillStyle = "#7569D6"; c.fill(); }
+    else { c.arc(n.x, n.y, n.r, 0, 7); c.fillStyle = n.it.kind === "P" ? "#1B1F4B" : COLOR[n.it.st]; c.fill();
+      if (n.it.kind === "P") { c.lineWidth = 3 / G.k; c.strokeStyle = COLOR[n.it.st]; c.stroke(); }
+      if (n.it.kind === "B") { c.lineWidth = 1.5 / G.k; c.strokeStyle = "#C4693F"; c.stroke(); } }
+    const label = (n.it && n.it.kind === "P") || G.k > 1.6 || (near && near.has(n0));
+    if (label) {
+      c.font = `${(n.it && n.it.kind === "P" ? 12 : 10) / G.k}px system-ui`; c.fillStyle = "#1B1F4B";
+      const t = n.doc ? n.doc.split("/").pop() : n.it.title;
+      c.fillText(t.length > 38 ? t.slice(0, 37) + "…" : t, n.x + n.r + 3 / G.k, n.y + 3 / G.k);
+    }
+  }
+  c.globalAlpha = 1;
+}
+(() => {
+  const cv = $("#graph"), tip = $("#tip");
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left - G.tx) / G.k, (e.clientY - r.top - G.ty) / G.k]; };
+  const hit = (x, y) => { let best = null, bd = 1e9; for (const n of G.nodes) { const d = Math.hypot(n.x - x, n.y - y); if (d < (n.r + 5) / Math.min(1, G.k) && d < bd) { best = n; bd = d; } } return best; };
+  let pan = null, moved = false;
+  const kick = () => { cancelAnimationFrame(G.raf); const loop = () => { if (G.alpha > 0.01) tick(); draw(); if (G.alpha > 0.01 || G.drag) G.raf = requestAnimationFrame(loop); }; loop(); };
+  cv.addEventListener("mousedown", (e) => { const [x, y] = pos(e); const n = hit(x, y); moved = false; if (n) { G.drag = n; G.alpha = Math.max(G.alpha, .3); kick(); } else pan = [e.clientX - G.tx, e.clientY - G.ty]; });
+  addEventListener("mousemove", (e) => {
+    if (view !== "graph") return;
+    const [x, y] = pos(e);
+    if (G.drag) { G.drag.x = x; G.drag.y = y; moved = true; return; }
+    if (pan) { G.tx = e.clientX - pan[0]; G.ty = e.clientY - pan[1]; moved = true; draw(); return; }
+    if (e.target !== cv) return;
+    const n = hit(x, y);
+    if (n !== G.hover) { G.hover = n; draw(); }
+    if (n) { tip.style.display = "block"; tip.style.left = e.clientX + 12 + "px"; tip.style.top = e.clientY + 12 + "px";
+      tip.textContent = n.doc ? n.doc : `${n.it.id} · ${ST[n.it.st]} · ${n.it.title}`; } else tip.style.display = "none";
+  });
+  addEventListener("mouseup", (e) => {
+    if (view !== "graph") return;
+    const n = G.drag; G.drag = null; pan = null;
+    if (!moved && e.target === cv) { const [x, y] = pos(e); const h = hit(x, y); G.sel = h; draw();
+      if (h && h.it) showDetail(h.it.id); else if (h && h.doc) open("/repo/" + h.doc, "_blank"); }
+    if (n) kick();
+  });
+  cv.addEventListener("mouseleave", () => { tip.style.display = "none"; });
+  cv.addEventListener("wheel", (e) => { e.preventDefault(); const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    const f = Math.exp(-e.deltaY * 0.0015), k = Math.min(6, Math.max(.15, G.k * f)); G.tx = mx - ((mx - G.tx) * k) / G.k; G.ty = my - ((my - G.ty) * k) / G.k; G.k = k; draw(); }, { passive: false });
+  addEventListener("resize", () => { if (view === "graph") renderGraph(); });
+})();
+
+// ---------- gantt ----------
+function renderGantt() {
+  const items = filtered({ keepDone: true }).filter((i) => i.kind !== "P" && (i.start || i.due || i.done || i.kind === "M"));
+  if (!items.length) { $("#gantt").innerHTML = '<p class="muted" style="padding:14px">No dated items match these filters.</p>'; return; }
+  const span = (i) => {
+    let s = i.start || i.done || i.due, e = i.due || i.done || (i.st === "ip" ? D.today : s);
+    if (i.st === "ip" && i.start && !i.due) e = D.today > s ? D.today : s;
+    if (e < s) [s, e] = [e, s];
+    return [s, e];
+  };
+  const all = items.flatMap(span).concat(D.today);
+  const t0 = new Date(Date.parse(all.reduce((a, b) => (a < b ? a : b))) - 3 * 864e5).toISOString().slice(0, 10);
+  const t1 = new Date(Date.parse(all.reduce((a, b) => (a > b ? a : b))) + 7 * 864e5).toISOString().slice(0, 10);
+  const days = daysBetween(t0, t1), PX = 16, L = 280, RH = 22, x = (d) => L + daysBetween(t0, d) * PX;
+  const groups = new Map();
+  for (const i of items) { const p = nearestProject(i); const k = p ? p.id : "-"; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(i); }
+  const rows = [];
+  for (const [k, its] of [...groups.entries()].sort((a, b) => projName(by.get(a[0])).localeCompare(projName(by.get(b[0]))))) {
+    rows.push({ head: projName(by.get(k)) });
+    its.sort((a, b) => span(a)[0].localeCompare(span(b)[0]) || a.id.localeCompare(b.id, undefined, { numeric: true })).forEach((i) => rows.push({ i }));
+  }
+  const H = 30 + rows.length * RH, W = L + days * PX + 20;
+  const rowY = new Map(); rows.forEach((r, n) => r.i && rowY.set(r.i.id, 30 + n * RH));
+  let s = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">`, labels = "";
+  for (let d = 0; d <= days; d++) {
+    const day = new Date(Date.parse(t0) + d * 864e5);
+    if (day.getDay() === 1) s += `<line x1="${L + d * PX}" y1="18" x2="${L + d * PX}" y2="${H}" stroke="#E3E8F6"/><text x="${L + d * PX + 2}" y="13" fill="#555A80" style="font-size:10px">${day.toISOString().slice(5, 10)}</text>`;
+  }
+  rows.forEach((r, n) => {
+    const y = 30 + n * RH;
+    if (r.head) { s += `<rect x="0" y="${y}" width="${W}" height="${RH}" fill="rgba(117,105,214,.08)"/>`; labels += `<rect x="0" y="${y}" width="${L - 6}" height="${RH}" fill="#EEEAF6"/><text x="8" y="${y + 15}" style="font-weight:600">${esc(r.head)}</text>`; return; }
+    const i = r.i, [a, b] = span(i);
+    labels += `<text x="8" y="${y + 15}" data-id="${i.id}" style="cursor:pointer"><tspan fill="#555A80" style="font-family:ui-monospace,monospace;font-size:10px">${i.id}</tspan> ${esc(i.title.length > 38 ? i.title.slice(0, 37) + "…" : i.title)}</text>`;
+    s += `<g class="gr" data-id="${i.id}" style="cursor:pointer">`;
+    if (i.kind === "M") { const cx = x(i.due || a) + PX / 2; s += `<path d="M${cx} ${y + 3} l8 8 l-8 8 l-8 -8z" fill="${i.st === "dn" ? "#23694D" : "#7569D6"}"/>`; }
+    else s += `<rect x="${x(a)}" y="${y + 5}" width="${Math.max(PX, (daysBetween(a, b) + 1) * PX)}" height="${RH - 10}" rx="6" fill="${COLOR[i.st]}" ${i.overdue ? 'stroke="#C4693F" stroke-width="2"' : ""}/>`;
+    s += `</g>`;
+  });
+  for (const i of items) for (const d of i.deps) if (rowY.has(d)) {
+    const dep = by.get(d), [, de] = span(dep), [is] = span(i);
+    const x1 = x(de) + PX, y1 = rowY.get(d) + RH / 2, x2 = x(is), y2 = rowY.get(i.id) + RH / 2;
+    s += `<path d="M${x1} ${y1} C${x1 + 20} ${y1} ${x2 - 20} ${y2} ${x2} ${y2}" fill="none" stroke="#C4693F" stroke-width="1.2" opacity=".45"/><circle cx="${x2}" cy="${y2}" r="2.5" fill="#C4693F"/>`;
+  }
+  const tx = x(D.today) + PX / 2;
+  s += `<line x1="${tx}" y1="18" x2="${tx}" y2="${H}" stroke="#D49A1E" stroke-width="2"/><text x="${tx + 3}" y="26" fill="#D49A1E" style="font-size:10px">today</text>`;
+  s += `<g id="glabels"><rect x="0" y="0" width="${L - 6}" height="${H}" fill="#F7F6FA"/><line x1="${L - 6}" y1="0" x2="${L - 6}" y2="${H}" stroke="#D8DFEF"/>${labels}</g></svg>`;
+  const g = $("#gantt"), keep = g.scrollLeft;
+  g.innerHTML = s;
+  const stick = () => { const lg = $("#glabels"); if (lg) lg.setAttribute("transform", `translate(${g.scrollLeft},0)`); };
+  g.onscroll = stick;
+  g.scrollLeft = keep || Math.max(0, tx - L - 300);
+  stick();
+}
+
+// ---------- detail panel ----------
+let detailId = null;
+function showDetail(id) {
+  const i = by.get(id); if (!i) return;
+  detailId = id;
+  const lk = (x) => by.has(x) ? `<span class="lnk" data-id="${x}"><span class="st st-${by.get(x).st}"></span>${x} ${esc(by.get(x).title)}</span>` : esc(x);
+  const ref = (r) => /^https?:/.test(r) ? `<a href="${esc(r)}" target="_blank" rel="noopener">${esc(r)}</a>` : `<a href="/repo/${esc(r.replace(/#.*$/, ""))}" target="_blank">${esc(r)}</a>`;
+  const ks = kids.get(i.id) || [];
+  const rows = [["Status", `<span class="st st-${i.st}"></span>${ST[i.st]}`], ["Kind", KIND[i.kind]], ["Priority", "P" + (i.pri ?? 2)],
+    ["Owner", i.owner && "@" + esc(i.owner)], ["Parent", i.parent && lk(i.parent)], ["Tags", i.tags.map((t) => "#" + esc(t)).join(" ")], ["Group", esc(i.group)],
+    ["Start", i.start], ["Due", i.due && `<span class="${i.overdue ? "late" : ""}">${i.due}</span>`], ["Done", i.done],
+    ["Depends on", i.deps.map(lk).join("<br>")], ["Blocks", i.blocks.map(lk).join("<br>")], ["Relates", i.rel.map(lk).join("<br>")],
+    ["Duplicates", i.dup.map(lk).join("<br>")], ["Refs", i.refs.map(ref).join("<br>")],
+    ["Progress", i.progress && `${i.progress[0]}/${i.progress[1]} done`], ["Children", ks.map((k) => lk(k.id)).join("<br>")]];
+  const log = D.log.filter((l) => l.id === id).slice(-12).reverse();
+  $("#detail").innerHTML = `<button class="x" title="Close">✕</button><span class="id">${i.id}</span><h2>${esc(i.title)}</h2>
+    <div class="muted small" style="margin-bottom:10px">${esc(crumb(i))}</div>
+    <dl>${rows.filter((r) => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    ${log.length ? `<h2 style="font-size:13px;margin-top:16px">History</h2>${log.map((l) => `<div class="small"><span class="muted">${esc(l.ts.replace("T", " "))} ${esc(l.by)}</span> ${esc(l.ch.startsWith("+") ? "created" : l.ch)}</div>`).join("")}` : ""}`;
+  $("#detail").classList.add("on");
+}
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".x")) { $("#detail").classList.remove("on"); detailId = null; return; }
+  const p = e.target.closest("[data-proj]");
+  if (p) { F.fProj.value = p.dataset.proj; store.set("pm.fProj", p.dataset.proj); view = "kanban"; location.hash = view; render(); return; }
+  const el = e.target.closest("[data-id]");
+  if (el && by.has(el.dataset.id)) showDetail(el.dataset.id);
+});
+addEventListener("keydown", (e) => { if (e.key === "Escape") { $("#detail").classList.remove("on"); detailId = null; } });
+addEventListener("hashchange", () => { const v = location.hash.slice(1); if (v && v !== view) { view = v; render(); } });
+
+// ---------- live updates ----------
+function connect() {
+  const es = new EventSource("/events");
+  es.onopen = () => $("#live").classList.add("on");
+  es.onmessage = () => load();
+  es.onerror = () => $("#live").classList.remove("on");
+}
+load().then(connect);
+</script>
+</body>
+</html>

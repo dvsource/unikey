@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pm": {
+      "command": "node",
+      "args": ["--no-warnings", "pm/src/cli.ts", "mcp"]
+    }
+  }
+}

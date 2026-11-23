@@ -1,0 +1,20 @@
+{
+  "name": "unikey-pm",
+  "private": true,
+  "type": "module",
+  "description": "UniKey project tracker: CLI, MCP server and read-only dashboard over pm/data",
+  "bin": {
+    "pm": "bin/pm"
+  },
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "test": "node --no-warnings --test test/*.test.ts",
+    "check:mcp": "node --no-warnings test/mcp-check.mjs",
+    "serve": "node --no-warnings src/cli.ts serve"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
+  }
+}

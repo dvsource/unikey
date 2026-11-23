@@ -1,0 +1,164 @@
+# UniKey pm items. Written by `pm` only (see pm/README.md). One item per line:
+# - ID status [pN] [@owner] [^parent] [#tag] [g:group] [s:start] [d:due] [x:done] [<deps] [~rel] [=dup] [&ref] | title
+- P1 ip p0 @viraj s:2026-11-02 &docs/README.md | UniKey: A/L Physics revision app
+- P2 ip p0 @wife ^P1 #content &content/authoring-spec.md | Content: 3 pilot units (Mechanics, Current Electricity, Thermal)
+- P3 ip p0 @viraj ^P1 #app &app/README.md | Prototype student app
+- P4 ip p0 ^P1 #engine &engine/README.md | Learning engine
+- P5 td p1 ^P1 #backend &docs/living/tech-architecture.md | Real backend (Supabase, events, auth)
+- P6 ip p1 ^P1 #dashboard &docs/living/teacher-dashboard.md | Teacher dashboard
+- P7 td p2 ^P1 #parent &docs/decisions/0015-parents-via-whatsapp.md | Parent weekly report
+- P8 td p1 ^P1 #payments &docs/decisions/0014-payments.md | Payments and activation codes
+- P9 oh p3 ^P1 #sim &docs/living/simulation-and-admin.md | Simulation and /admin (plan only, not built)
+- P10 ip p0 @viraj ^P1 #pilot &docs/experiments/E01-founding-100-pilot.md | Pilot ops: teachers, reviewers, legal, paperwork
+- P11 td p1 @viraj ^P1 #business &docs/living/strategy.md | Business and brand
+- P12 ip p1 @viraj ^P1 #dr &docs/decisions/index.md | Decisions to settle (DRs)
+- P13 ip p1 @claude ^P1 #pm &pm/README.md | Project tracker (pm/)
+- M1 td ^P1 d:2026-11-23 &docs/reviews/2026-11-11-expert-review.md | Checkpoint: teachers confirmed, pilot scope frozen
+- M2 td ^P1 d:2026-12-05 &docs/living/founder-playbook.md | First monthly review (teachers, items reviewed, students, rupees)
+- M3 td ^P3 d:2026-12-06 <T27 | Study loop on 5 students' phones
+- M4 td ^P10 d:2026-12-20 <T68,T61 &docs/living/founder-playbook.md#commitment-device | Pilot date told to teachers, 300 LKR collected
+- M5 oh ^P9 d:2027-01-08 <T65 | Simulation go/no-go report (soft gate)
+- M6 td p0 ^P1 #pilot d:2027-01-15 <T27,T75,T61,T68,T74,T76,T9,T56,T96 &docs/experiments/E01-founding-100-pilot.md | Founding 100 pilot starts
+- M7 td ^P10 d:2027-03-12 <M6 &docs/decisions/0009-pilot-exit-criteria.md | Pilot exit criteria checked (D30 >= 30%)
+- M8 td ^P1 d:2027-04-15 <M7 &docs/decisions/0010-rollout-waves.md | Wave 1 stable
+- T1 dn ^P2 #content s:2026-11-03 x:2026-11-07 &content/skills/mechanics | Mechanics skill graph (~80 skills)
+- T2 dn ^P2 #content s:2026-11-08 x:2026-11-09 &content/skills/current-electricity | Current Electricity skill graph
+- T3 dn ^P2 #content s:2026-11-08 x:2026-11-09 &content/skills/thermal-physics | Thermal Physics skill graph
+- T4 dn ^P2 #content s:2026-11-07 x:2026-11-09 &content/samples | Sample packs v1: 3 units, 241 items
+- T5 dn ^P2 #content #sinhala s:2026-11-18 x:2026-11-19 &content/sample-v2/README.md | Bilingual sample v2: 257 items
+- T6 dn ^P2 #content x:2026-11-20 | v1 packs gain note_ref
+- T7 dn ^P2 #sinhala x:2026-11-19 &docs/reviews/2026-11-19-sinhala-terminology.md | Sinhala terminology review of v2 samples
+- T8 td p0 @wife ^P2 #human #review30 d:2026-11-16 <T24 &app/README.md#reviewer-mode | Wife reviews Mechanics sample on her own phone (timed, ~3 h)
+- T9 td p0 ^P2 #content d:2026-11-20 <T8 &app/README.md#merging-results-back | Merge review results (merge-review.mjs); log hours and wrong-item categories
+- T10 td p1 @wife ^P2 #human #sinhala &docs/experiments/E01-founding-100-pilot.md#pre-pilot-checklist | Check Sinhala physics terms against the NIE glossary (10 flagged terms)
+- T11 td p1 ^P2 #sinhala <T10 &docs/reviews/2026-11-19-sinhala-terminology.md | Apply Sinhala term fixes (ඝූර්ණය, උත්තාරණ, ආංශික, ස්ථිරතාපී, ...)
+- T12 td p2 ^P2 #content #review30 | Tag clean-up pass on Electricity and Thermal
+- T13 td p0 ^P2 #content #review30 d:2026-11-23 <T93 &docs/reviews/2026-11-11-expert-review.md | Pick ~70 pilot skills by exam weight within the units classes are on
+- T14 td p2 ^P2 #sinhala <T13 | Sinhala names for the chosen pilot skills
+- T15 td p1 ^P2 #content <T13,T11 | Generate items for chosen skills that lack them
+- T16 td p2 ^P2 #content &docs/reviews/2026-11-18-project-review/03-plan-and-pilot-readiness.md | Per-skill release checklist, versioned sign-off, item withdrawal
+- T17 td p2 ^P2 #content <T9 | Track content status draft > reviewed > published from merged reviews
+- T18 oh p3 ^P2 #content g:later &docs/decisions/0005-learn-mode-notes-and-sims.md | Micro-notes for pilot skills (deferred by expert review)
+- T19 td p2 ^P2 #sinhala &app/qa/test-report.md | Sinhala text for tag student messages (open gap FB-05)
+- T20 dn ^P3 #app s:2026-11-07 x:2026-11-09 &app/README.md | Expo prototype with reviewer mode (Dawn, offline pack)
+- T21 dn ^P3 #app x:2026-11-09 | Three units in the app
+- T22 dn ^P3 #qa x:2026-11-09 &app/qa/test-report.md | QA: 103/112 cases pass, 19 Maestro flows
+- T23 dn ^P3 #app x:2026-11-11 | Skill-graph screens
+- B1 dn ^P3 #app x:2026-11-09 &app/qa/test-report.md | BUG-01: killing app mid-session replayed the same 10 items
+- B2 dn ^P3 #app x:2026-11-09 &app/qa/test-report.md | BUG-02: Sinhala reviewer name made an empty export filename
+- B3 dn ^P3 #app x:2026-11-09 &app/qa/test-report.md | BUG-03: picture-option taps ignored (SVG took the touch)
+- B4 td p1 ^P3 #qa <T24 ~B3 | Re-check BUG-03 picture taps on a real phone (flaky 3 of 4 runs)
+- T24 td p0 @viraj ^P3 #human #qa #review30 d:2026-11-16 &app/qa/test-report.md | ENV-04: EAS preview APK on a real low-end phone, offline from first launch
+- T25 td p3 ^P3 #qa &app/qa/test-report.md | Manual P2 QA cases not run (HOME-07, SES-14, DONE-06, EXP-07, SI-05, DS-03, DS-04, ENV-03)
+- T26 dn ^P3 #app #engine s:2026-11-20 x:2026-11-23 &docs/superpowers/specs/2026-11-20-app-engine-design.md &docs/reviews/2026-11-20-app-engine.md | Opt-in engine-driven study session in the app
+- S1 dn ^T26 x:2026-11-20 | Adapt bundled packs; persist engine transitions with their events
+- S2 dn ^T26 x:2026-11-20 | Today study and recaps from engine steps
+- S3 dn ^T26 x:2026-11-20 | Topic study, safe navigation, durable progress reset
+- S4 dn ^T26 x:2026-11-21 | Recover damaged saves; validate migrated records
+- S5 dn ^T26 x:2026-11-21 | Explicit End, closing answers, single-write Progress
+- S6 dn ^T26 x:2026-11-23 | Keep study saves small; stop silent progress resets
+- T27 ip p0 @claude ^P3 #app #review30 s:2026-11-20 d:2026-12-06 &docs/reviews/2026-11-11-expert-review.md | Real study loop: v0 scheduler, login, event upload, streak, reminder
+- S7 td p1 ^T27 <T24 | Make engine-driven study the default (drop the opt-in switch)
+- S8 td p0 ^T27 <T62 | Activation-code login
+- S9 td p0 ^T27 <T47 | Upload events to the backend; no duplicates on reconnect
+- S10 td p1 ^T27 &docs/decisions/0049-effort-based-day-and-skip.md | Streak with freeze
+- S11 td p1 ^T27 <T94 | One student-set daily reminder
+- S12 td p2 ^T27 &docs/decisions/0026-onboarding-flow.md | Onboarding A1-A9
+- S13 td p2 ^T27 <T62 &docs/decisions/0030-paywall-after-first-session.md | Paywall after the first session
+- S14 td p1 ^T27 <T24 | Device smoke flow .maestro/engine/study.yaml on a real phone
+- T28 td p1 @viraj ^P3 #human #review30 <T27 | Watch one student use it in person, without helping
+- T29 oh p3 ^P3 g:later &docs/living/roadmap.md#feature-versions | Home-screen widget (cut for pilot per expert review)
+- T30 oh p3 ^P3 g:later | Term-test mode (cut for pilot per expert review)
+- T31 oh p3 ^P3 g:later &docs/decisions/0005-learn-mode-notes-and-sims.md | 3 sim engines in Learn mode (deferred)
+- T32 oh p3 ^P3 g:later &docs/decisions/0025-dawn-design-system.md | Dusk dark theme
+- T33 dn ^P4 #engine x:2026-11-12 &docs/superpowers/specs/2026-11-12-study-loop-scheduler-design.md | Study-loop scheduler design
+- T34 dn ^P4 #engine s:2026-11-14 x:2026-11-15 &docs/decisions/0048-pilot-engine-simple-skill-schedule.md &docs/superpowers/plans/2026-11-14-study-loop-engine.md | Pilot engine: simple skill-level schedule (DR-0048)
+- T35 dn ^P4 #engine x:2026-11-15 &docs/decisions/0050-session-length-rules-from-first-tuning.md | Session-length rules from first tuning
+- T36 dn ^P4 #engine #sim x:2026-11-16 &engine/judge/JUDGING.md | Offline simulator, personas and judge packets
+- T37 dn ^P4 x:2026-11-16 &docs/reviews/2026-11-16-judge-report-seed1.md | First judge pass report
+- T38 dn ^P4 #engine s:2026-11-16 x:2026-11-17 &docs/decisions/0051-study-loop-rules-after-first-judge-pass.md &docs/superpowers/plans/2026-11-16-study-loop-changes-1-7.md | Study-loop changes 1-7 after first judge pass
+- T39 dn ^P4 x:2026-11-18 | Final review fixes F1-F8
+- T40 dn ^P4 #engine s:2026-11-19 x:2026-11-19 &docs/superpowers/specs/2026-11-19-guesses-and-full-problems-design.md | Guesses and full-problem rest (rules 1-3)
+- T41 dn ^P4 x:2026-11-19 &docs/reviews/2026-11-19-judge-report-seed1-pass2.md | Second judge pass report
+- T42 dn ^P4 #sim x:2026-11-20 &docs/reviews/2026-11-20-v2-build-and-sim.md | v1 vs v2 packs: 28-day sim, 3 seeds
+- T43 ip p1 @claude ^P4 #engine s:2026-11-21 &docs/reviews/2026-11-20-app-engine.md#engine-api-gaps | Close engine API gaps found by the app adapter
+- S15 td ^T43 | Resume: export currentNext from the barrel
+- S16 td ^T43 | Targeting: start a session on a skill or card
+- S17 td ^T43 &engine/src/state.ts | Save validation: reject partial v1 objects in migrate
+- S18 td ^T43 | Stale actions: per-presentation token on served cards
+- S19 td ^T43 | Package entry: stop importing engine source from the app
+- T44 td p1 ^P4 #sim &docs/reviews/2026-11-18-project-review/03-plan-and-pilot-readiness.md | Compare pre-change vs current engine, same seed, pinned pack and config; more seeds
+- T45 td p2 ^P4 #sim | 8-week (56-day) offline engine run across personas
+- T46 td p1 ^P5 #backend s:2026-11-30 d:2026-12-10 &docs/living/roadmap.md#build-order-pilot-mvp | Monorepo, Supabase project, data model, content pack format
+- S20 td p1 ^T46 &docs/decisions/0044-controllable-backend-clock.md | Controllable backend clock
+- S21 td p1 ^T46 &docs/decisions/0045-simulated-flag-on-every-user.md | simulated flag on every user
+- S22 td p1 ^T46 | Permanent skill IDs and versioned content packs (T6)
+- T47 td p0 ^P5 #backend s:2026-12-01 d:2026-12-10 <T46,T48 | Append-only events table, idempotent upload
+- T48 td p1 ^P5 #backend <T96 &docs/living/open-topics.md | Analytics event list (T5)
+- T49 td p1 ^P5 #backend <T46 | RLS reviewed: a second class cannot see another's data
+- T50 td p1 ^P5 #backend <T46 | Auth: activation code for students, phone OTP for teachers
+- T51 dn ^P6 #dashboard s:2026-11-07 x:2026-11-09 &dashboard/README.md | P0 fake-data prototype (86 e2e tests)
+- T52 td p1 @viraj ^P6 #review30 d:2026-11-30 &dashboard/README.md | Deploy static out/ to a phone-openable URL
+- T53 td p1 @viraj ^P6 #human #review30 d:2026-12-01 <T52,T68 &docs/decisions/0043-dashboard-fake-data-prototype-first.md | Show prototype to wife + 2 pilot teachers on phones; write reactions
+- T54 td p2 ^P6 <T53 | P1 revise from teacher feedback; freeze screen list
+- T55 td p1 ^P6 s:2026-12-07 d:2026-12-31 <T46,T54 | P2 data plumbing: apps/web, teacher auth, tables, class_insights job
+- S23 td ^T55 &docs/decisions/0041-teacher-sets-teaching-now.md | Teacher sets "Teaching now" per class
+- T56 td p1 ^P6 d:2027-01-10 <T55,T49 | P3 live pilot dashboard (S9, S5, S3, S4, S6)
+- T57 td p1 ^P6 #review30 d:2027-01-10 | Teacher digest text generator (manual WhatsApp send)
+- T58 td p2 ^P7 s:2026-12-21 d:2027-01-10 <T47 | Weekly report: signed link + manual WhatsApp send
+- T59 td p2 ^P7 #sinhala &docs/decisions/0036-parent-messages-in-parent-language.md | Parent messages in the parent's language
+- T60 td p1 ^P7 <T58 | Test link expiry and revocation before sending student data
+- T61 td p0 ^P8 d:2027-01-08 <T100 | Manual payment: bank transfer / eZ Cash / LankaQR, then activation code
+- T62 td p0 ^P8 d:2026-12-20 | Generate and revoke activation codes
+- T63 td p2 ^P8 <T84 | PayHere merchant account (for April)
+- T64 oh p3 ^P8 g:later | RevenueCat / Play Billing (after public launch)
+- T65 oh p3 ^P9 g:later <T46 &docs/living/simulation-and-admin.md#9-build-plan | Simulator through the real backend (personas, drivers, faults)
+- T66 oh p3 ^P9 g:later ~P13 &docs/decisions/0046-narrow-admin-page-reuse-tools.md &docs/living/simulation-and-admin.md#6-the-admin-mission-control-page | /admin mission control page (never built)
+- T67 oh p3 ^P9 g:later <T65 | Real-UI runs, 10x load run, go/no-go report
+- T68 td p0 @viraj ^P10 #human #review30 d:2026-11-23 &docs/meetings/README.md | Confirm 3-4 pilot teachers (incl. one non-friend); one meetings/ note each
+- T69 td p0 @viraj ^P10 #human #legal #review30 d:2026-11-20 | Ask lawyer/union/principal about wife's government-teacher position
+- T70 td p1 @viraj ^P10 #human #review30 &docs/decisions/0017-friend-as-advisor.md | Talk to the advisor friend with the review and plan
+- T71 td p0 @viraj ^P10 #human #review30 d:2026-11-30 &docs/decisions/0035-paid-teacher-reviewers-pilot.md | Settle paid reviewers: who, rate, agreement (DR-0035 trigger)
+- T72 td p1 @viraj ^P10 #legal d:2026-11-30 <T71 | One-page IP assignment signed by wife and reviewers
+- T73 td p0 @viraj ^P10 #human #review30 | Play Console account and closed-testing track
+- S24 td p1 ^T73 <T83 | Closed-testing listing (needs the product name)
+- T74 td p1 ^P10 #legal &docs/living/legal-and-privacy.md | Parental consent flow (one-time WhatsApp confirmation)
+- T75 td p1 @viraj ^P10 #review30 d:2026-12-11 | Pilot paperwork
+- D1 td ^T75 #sinhala | Sinhala parent message
+- D2 td ^T75 | Consent message
+- D3 td ^T75 #legal | One-page privacy notice
+- D4 td ^T75 | Payment instructions
+- D5 td ^T75 | Refund sentence
+- T76 td p1 ^P10 #review30 d:2026-12-11 <T13 | Two mock papers, covered vs uncovered split
+- S25 td p1 @wife ^T76 #human | Wife checks both mocks
+- T77 td p2 @viraj ^P10 &docs/living/ux-design.md#open-design-questions | Decide D1-D3 open design questions
+- T78 td p3 ^P10 | Add parent survey questions (worried subject, 900/month)
+- T79 td p2 ^P10 | Recruiting: QR flyer and 20-min parent orientation
+- T80 td p1 ^P10 s:2026-12-07 d:2026-12-14 <T27 | Rehearse first use with a small group
+- T81 td p2 @viraj ^P10 &docs/living/open-topics.md | Decide who answers WhatsApp support (B12)
+- T82 td p3 ^P10 | Student device survey in pilot classes (T10)
+- T83 td p1 @viraj ^P11 #human &docs/reviews/2026-11-11-expert-review.md | Decide the product name ("UniKey" is a Vietnamese keyboard); trademark, domain
+- T84 td p1 @viraj ^P11 #human #legal &docs/decisions/0033-sole-proprietorship-first.md | Register the sole proprietorship
+- T85 td p2 @viraj ^P11 <T84 | Business bank account
+- T86 td p1 ^P11 #legal &docs/living/legal-and-privacy.md | Terms and privacy policy for minors (B8, T7)
+- T87 td p2 ^P11 #legal &docs/living/open-topics.md | Content ownership and reviewer pay (B9)
+- T88 td p2 ^P11 &docs/decisions/0034-teacher-offer-free-tool-plus-affiliate.md | Teacher offer: payout and written terms (B6)
+- T89 td p2 ^P11 #review30 | Value-only daily-MCQ channel from December
+- T90 td p1 @viraj ^P11 #human | Founder budget: hours/week, cash limit, job-start rule, dated checks
+- T91 td p3 ^P11 #review30 | One-hour doc clean-up: GTM, pricing, strategy, spec match decisions
+- T92 td p3 ^P11 &docs/living/go-to-market.md | Social content and launch plan (B11)
+- T93 td p0 @viraj ^P12 #review30 d:2026-11-23 <T68 &docs/reviews/2026-11-11-expert-review.md#8-proposed-decision-records | DR: pilot scope freeze (~70 skills, frozen features, staggered start)
+- T94 td p1 @viraj ^P12 | DR: one student-set daily reminder (amends DR-0020)
+- T95 td p2 @viraj ^P12 | DR: 7 days full access after the pilot, then paywall
+- T96 td p1 @viraj ^P12 #pilot | DR: pilot measurement (D30 window, study days, clear gain, covered vs uncovered)
+- T97 td p2 @viraj ^P12 | DR: primary cohort is the 2028 batch
+- T98 td p3 @viraj ^P12 | DR: class-bundle experiment with one tuition teacher
+- T99 td p2 @viraj ^P12 &docs/decisions/0021-usage-tied-guarantee.md | DR: guarantee wording "practise 20 days, refund if it didn't help"
+- T100 td p0 @viraj ^P12 #legal <T69 | DR: wife's role and government-teacher rules, before any payment
+- T101 td p2 @viraj ^P12 ~P9 &docs/decisions/0047-simulator-as-engine-acceptance-test.md | DR: defer /admin and the simulator through the backend
+- T102 td p3 @viraj ^P12 &docs/decisions/0010-rollout-waves.md | Confirm DR-0010 rollout waves (Proposed)
+- T103 td p2 @viraj ^P12 &docs/decisions/0027-content-plan-stop-point.md | Confirm DR-0027 content plan stop point (Proposed)
+- T104 td p2 @viraj ^P12 &docs/decisions/0050-session-length-rules-from-first-tuning.md | Confirm DR-0050 session-length rules (Proposed)
+- T105 dn p1 @claude ^P13 #pm s:2026-11-23 x:2026-11-23 &pm/README.md | Build pm: core, CLI, MCP server, read-only dashboard, seed
+- T106 td p3 ^P13 ~T66,P9 | Link or mount the dashboard as an admin panel later
+- T107 td p2 ^P13 | Decide who commits pm/data changes and when

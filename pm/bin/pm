@@ -1,0 +1,4 @@
+#!/bin/sh
+# UniKey project tracker CLI. Node >= 23.6 runs the TypeScript sources directly.
+d=$(cd "$(dirname "$0")/.." && pwd)
+exec node --no-warnings "$d/src/cli.ts" "$@"

@@ -59,6 +59,8 @@ Other folders:
 
 **Decisions:** [index](decisions/index.md)
 
+**Project tracker:** [pm](../pm/README.md): live status of every task, bug and milestone (`pm/bin/pm serve`, then http://localhost:4477)
+
 **Experiments:** [assumptions](experiments/assumptions.md) · [E01 Founding 100 pilot](experiments/E01-founding-100-pilot.md) · [E02 Teacher channel opt-in survey](experiments/E02-teacher-channel-survey.md)
 
 ## One-line positioning
