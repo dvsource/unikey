@@ -1,0 +1,6 @@
+#!/bin/sh
+# Log each commit to the pm tracker; "T43 dn"-style pairs in the message update status.
+# Installed with: git config core.hooksPath pm/hooks
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+[ -x "$root/pm/bin/pm" ] && PM_WHO=git "$root/pm/bin/pm" commit HEAD >/dev/null 2>&1
+exit 0

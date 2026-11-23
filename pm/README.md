@@ -83,3 +83,8 @@ Filters for `ls`, `next` and `brief` can be combined:
 | `test/` | `core.test.ts` (node:test) and `mcp-check.mjs` (an SDK client) |
 
 The dashboard is standalone so that it can later be linked or mounted as a panel of the planned `/admin` page ([DR-0046](../docs/decisions/0046-narrow-admin-page-reuse-tools.md)); that page was never built.
+
+## Automatic sync
+
+- **Session start:** `.claude/settings.json` has a SessionStart hook that runs `pm brief` and puts the board into every new session's context.
+- **Commits:** `pm/hooks/post-commit` (enabled with `git config core.hooksPath pm/hooks`, once per clone) runs `pm commit`. Every commit is logged, under each item ID its message mentions or under `-` when it mentions none. `<ID> <status>` pairs such as `T43 dn` set that item's status. Write them in the commit body.

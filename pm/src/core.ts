@@ -483,7 +483,32 @@ export const HELP = `pm: UniKey tracker. Reads: brief [^P3] [@me] | next [n] [fi
 Writes: add +T ^P3 p1 #tag | Title   set T42 dn   do "op" "op"... (or ops on stdin, one per line)
 Filters: td ip bl oh dn dr  p0-p3  P T S D B M  #tag  ^P3(under)  @owner  g:grp  ready blocked waiting overdue all  n:20  words
 Tokens: status pN @owner ^parent #tag g:grp s:/d:/x:date(YYYY-MM-DD|MM-DD|today|+3d) <dep ~rel =dup &ref ; -X removes ; | title
-Kinds: P project T task S subtask D todo B bug M milestone. $1 = id of 1st add in batch. PM_WHO=name sets the log author.`;
+Kinds: P project T task S subtask D todo B bug M milestone. $1 = id of 1st add in batch. PM_WHO=name sets the log author.
+Git: commit [rev] logs a commit (run by the post-commit hook); "T43 dn" pairs in the message set status.`;
+
+/** Log a commit; apply `<ID> <status>` pairs in its message to items that exist. */
+export function commitHook(store: Store, rev = "HEAD", now = new Date()): string {
+  let raw: string;
+  try {
+    raw = execFileSync("git", ["log", "-1", "--format=%h%x00%s%x00%B", rev], { encoding: "utf8" });
+  } catch { return "err not a git commit"; }
+  const [sha, subj, body] = raw.split("\0");
+  return store.locked(() => {
+    const b = store.load();
+    const known = (id: string) => b.byId.has(id);
+    const pairs = [...body.matchAll(/\b([PTSDBM]\d+) (td|ip|bl|oh|dn|dr)\b/g)].filter((m) => known(m[1]));
+    const ids = [...new Set([...body.matchAll(/\b[PTSDBM]\d+\b/g)].map((m) => m[0]).filter(known))];
+    const out: string[] = [];
+    if (pairs.length) {
+      const res = applyOps(b, pairs.map((m) => `${m[1]} ${m[2]}`), "git", now);
+      if (res.errors.length) out.push(...res.errors);
+      else { store.save(new Board(b.items)); store.appendLog(res.log); out.push(`ok ${res.ids.join(" ")}`); }
+    }
+    const note = `commit ${sha} ${subj.slice(0, 80)}`;
+    store.appendLog((ids.length ? ids : ["-"]).map((id) => `${stamp(now)} git ${id} ${note}`));
+    return out.join("\n") || "ok";
+  });
+}
 
 /** Shared command runner for CLI and MCP. Returns terse text. */
 export function run(store: Store, argv: string[], stdin?: string, by = whoami()): string {
@@ -503,6 +528,7 @@ export function run(store: Store, argv: string[], stdin?: string, by = whoami())
     case "show": return rest.map((id) => show(b(), id, store.readLog())).join("\n--\n");
     case "log": return store.readLog(Number(rest[0] ?? 15)).join("\n") || "none";
     case "check": return b().check().join("\n") || "ok";
+    case "commit": return commitHook(store, rest[0] ?? "HEAD");
     case "add": return store.write([`${rest.join(" ")}`.replace(/^(?!\+)/, "+")], by);
     case "set": return store.write([rest.join(" ")], by);
     case "do": {

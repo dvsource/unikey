@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && { echo 'pm tracker board (keep your task status current with pm_w; see CLAUDE.md):'; pm/bin/pm brief; } 2>/dev/null | head -40 || true",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
