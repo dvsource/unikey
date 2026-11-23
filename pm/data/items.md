@@ -63,8 +63,8 @@
 - S9 td p0 ^T27 <T47 | Upload events to the backend; no duplicates on reconnect || Teacher dashboard and pilot metrics need events on the server, without double counts
 - S10 td p1 ^T27 &docs/decisions/0049-effort-based-day-and-skip.md | Streak with freeze || DR-0019/0049: streak with freeze keeps teens coming back without guilt
 - S11 td p1 ^T27 <T94 | One student-set daily reminder || Expert review: a habit app with no trigger bets D30 on willpower; needs a new DR first
-- S12 td p2 ^T27 &docs/decisions/0026-onboarding-flow.md | Onboarding A1-A9 || DR-0026: first win before sign-in, optional name, pre-filled units
-- S13 td p2 ^T27 <T62 &docs/decisions/0030-paywall-after-first-session.md | Paywall after the first session || DR-0030: paywall after the first session; class-code students pay the same
+- S12 td p1 ^T27 &docs/decisions/0026-onboarding-flow.md &docs/decisions/0055-onboarding-revised-for-anki-loop.md | Onboarding O1-O9 with coach lines (first session is the placement) || DR-0055 replaces the A1-A9 order of DR-0026
+- S13 td p2 ^T27 <T62 &docs/decisions/0030-paywall-after-first-session.md &docs/decisions/0055-onboarding-revised-for-anki-loop.md | Paywall after sign-in; one parent WhatsApp for consent and payment || DR-0055 settles DR-0030's open order
 - S14 td p1 ^T27 <T24 | Device smoke flow .maestro/engine/study.yaml on a real phone || 2026-11-20 app-engine review: device timing and process eviction not yet measured
 - T28 td p1 @viraj ^P3 #human #review30 <T27 | Watch one student use it in person, without helping || Expert review §10 #9: watch one student use it in person, without helping
 - T29 oh p3 ^P3 g:later &docs/living/roadmap.md#feature-versions | Home-screen widget (cut for pilot per expert review) || Roadmap v1 list; expert review cuts it to fit 9 weeks
@@ -175,4 +175,14 @@
 - T110 dn p0 ^P2 #content x:2026-11-23 | Current Electricity and Thermal skill graphs and samples (3ef41f7) || DR-0031: the other two pilot units need graphs and samples
 - T111 td p0 ^P2 #content <T71 | Paid reviewers review Electricity and Thermal graphs and samples || DR-0035: paid reviewers own Electricity and Thermal review
 - T112 td p1 ^P2 #content | Approve 27 proposed Electricity and Thermal mistake tags, then add them to spec §7 || Mistake tags feed student feedback; new tags need approval before spec §7
-- T113 ip p1 @pm-builder ^P13 #pm &pm/README.md | Why field on every item (grammar, show, dashboard, backfill) || Viraj forgets why tasks exist; a cited reason keeps each item meaningful
+- T113 dn p1 @pm-builder ^P13 #pm x:2026-11-23 &pm/README.md | Why field on every item (grammar, show, dashboard, backfill) || Viraj forgets why tasks exist; a cited reason keeps each item meaningful
+- T114 td p0 ^P3 #engine &docs/superpowers/specs/2026-11-23-student-journey-redesign-design.md | Engine: Show answer + Again/Hard/Good/Easy grade input, repair card at session end || DR-0052: Viraj wants the Anki loop back; grades decide timing and difficulty (brief §4.1-4.3)
+- T115 td p1 ^P3 #engine <T114 &docs/superpowers/specs/2026-11-23-student-journey-redesign-design.md | Simulator: grading behaviours (honest/over/under-confident), new code checks, judge rerun || DR-0047 gate still applies after the DR-0052 grade change (brief §4.8)
+- T116 td p0 ^P3 #app <T114 &docs/living/ux-design.md | One-screen study card: select-then-Show answer, Skip, grade row or Next, Back ends, hold EN top-left, effort bar || DR-0054: Viraj found two screens and four mid-screen buttons; UX doc Study screen
+- T117 td p0 ^P3 #content &docs/decisions/0053-recall-first-content-mix.md | Add recall_ok + model_answer to the 3 pilot packs; reword stems that need options || DR-0053: 70% recall needs dual-mode items; all 241 items are MCQ today
+- S33 td p1 ^T117 #content | Teacher reviewers check the new model answers || DR-0053: only the new answers need review
+- T118 td p1 ^P3 #engine <T114,T117 | Engine: recall/MCQ mode choice (about 50% MCQ day 1, 30% after) || DR-0053 session mix (brief §4.5)
+- T119 td p2 ^P3 #engine <T118 | Engine: trust number from MCQ vs recall grades || DR-0052 hidden trust check discounts over-confident Easy/Good (brief §4.4)
+- T120 td p1 ^P3 #app | Split student and reviewer builds (EAS profiles); no reviewer UI in student APK || DR-0054: reviewer tools (EN toggle) leaked into the student view
+- T121 td p2 ^P3 #engine <T114 | Drop skip reasons from the student path; every skip is Later; units not covered stay out of new picks || DR-0054 silent skip; DR-0055 units screen replaces Not learned yet (brief §4.6-4.7)
+- D6 td p3 ^P3 #ux | Revisit the onboarding routine screen (O3): keep, move after 3-day streak, or to Settings || DR-0055: Viraj kept O3 for now but asked to revisit it

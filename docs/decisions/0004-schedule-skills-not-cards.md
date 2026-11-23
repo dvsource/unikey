@@ -1,6 +1,6 @@
 # DR-0004: Schedule skills (KCs), not cards
 
-- **Status:** Accepted (Viraj, 2026-11-07)
+- **Status:** Accepted (Viraj, 2026-11-07); automatic-grading part amended by [DR-0052](0052-anki-style-self-grading.md)
 - **Date:** 2026-11-02 · **Owner:** Viraj
 - **Area:** Product
 

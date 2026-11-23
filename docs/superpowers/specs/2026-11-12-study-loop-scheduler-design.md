@@ -2,6 +2,8 @@
 
 _Date: 2026-11-12 · Status: draft for Viraj's review · From a brainstorm between Viraj and Claude · Nothing is built yet._
 
+**Amended 2026-11-23:** answering is now Show answer plus Again/Hard/Good/Easy, "I don't know" and "Too hard" are gone, skips ask no reason, and repair cards come near the end of the session ([DR-0052](../../decisions/0052-anki-style-self-grading.md), [DR-0054](../../decisions/0054-one-screen-study-card.md); [redesign](2026-11-23-student-journey-redesign-design.md)). Read §5, §6 and §8 with those in mind.
+
 **Proposed changes after the first judge pass:** [design changes, 2026-11-16](2026-11-16-study-loop-design-changes.md) (draft, not accepted).
 
 Related: [product spec](../../living/product-spec.md) · [content authoring spec](../../living/content-authoring.md) · [DR-0004](../../decisions/0004-schedule-skills-not-cards.md) · [DR-0019](../../decisions/0019-teen-retention-design.md) · [DR-0022](../../decisions/0022-typed-skill-graph.md) · [expert review](../../reviews/2026-11-11-expert-review.md)

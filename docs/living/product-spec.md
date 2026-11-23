@@ -177,7 +177,7 @@ Daily queue builder
 - **No review debt**: cap the daily load (15–20 min), offer a catch-up mode that spreads the backlog over days, and use FSRS.
 
 ### Grading rules
-_Proposed, not yet built or tested._
+_Proposed, not yet built or tested. **Partly replaced:** students now grade cards themselves after Show answer, and the app marks MCQs ([DR-0052](../decisions/0052-anki-style-self-grading.md)). The FSRS table below applies only if FSRS returns ([DR-0048](../decisions/0048-pilot-engine-simple-skill-schedule.md))._
 
 **L1/L2 cards → FSRS grade**
 

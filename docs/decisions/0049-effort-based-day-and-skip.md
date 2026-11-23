@@ -1,6 +1,6 @@
 # DR-0049: The day is measured in effort, with a skip action
 
-- **Status:** Accepted (Viraj, 2026-11-14)
+- **Status:** Accepted (Viraj, 2026-11-14); skip reason dropped by [DR-0054](0054-one-screen-study-card.md)
 - **Date:** 2026-11-14 · **Owner:** Viraj
 - **Area:** Product / Retention
 - **Source:** [study-loop scheduler design](../superpowers/specs/2026-11-12-study-loop-scheduler-design.md) §6, §8, §12

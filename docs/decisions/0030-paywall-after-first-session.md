@@ -1,6 +1,6 @@
 # DR-0030: Paywall after the first session; class-code students pay the same
 
-- **Status:** Accepted (Viraj, 2026-11-07, picked from options)
+- **Status:** Accepted (Viraj, 2026-11-07, picked from options); order settled by [DR-0055](0055-onboarding-revised-for-anki-loop.md): paywall after sign-in
 - **Date:** 2026-11-07 · **Owner:** Viraj
 - **Area:** Pricing / Product
 - **Follows:** [DR-0029](0029-no-free-plan.md), which left both questions open

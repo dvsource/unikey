@@ -388,3 +388,18 @@
 2026-11-23T10:55 pm-builder T112  ||
 2026-11-23T10:55 pm-builder T11  ||
 2026-11-23T10:55 pm-builder T113 + Why field on every item (grammar, show, dashboard, backfill)
+2026-11-23T10:55 git T113 dn
+2026-11-23T10:55 git T113 commit 83230ff pm: a why on every item
+2026-11-23T10:58 git - commit efbef80 CLAUDE.md: require a why on new tracker items
+2026-11-23T16:28 student-journey-redesign T114 + Engine: Show answer + Again/Hard/Good/Easy grade input, repa
+2026-11-23T16:28 student-journey-redesign T115 + Simulator: grading behaviours (honest/over/under-confident),
+2026-11-23T16:28 student-journey-redesign T116 + One-screen study card: select-then-Show answer, Skip, grade
+2026-11-23T16:28 student-journey-redesign T117 + Add recall_ok + model_answer to the 3 pilot packs; reword st
+2026-11-23T16:28 student-journey-redesign S33 + Teacher reviewers check the new model answers
+2026-11-23T16:28 student-journey-redesign T118 + Engine: recall/MCQ mode choice (about 50% MCQ day 1, 30% aft
+2026-11-23T16:28 student-journey-redesign T119 + Engine: trust number from MCQ vs recall grades
+2026-11-23T16:28 student-journey-redesign T120 + Split student and reviewer builds (EAS profiles); no reviewe
+2026-11-23T16:28 student-journey-redesign T121 + Drop skip reasons from the student path; every skip is Later
+2026-11-23T16:28 student-journey-redesign D6 + Revisit the onboarding routine screen (O3): keep, move after
+2026-11-23T16:28 student-journey-redesign S12 p1 &docs/decisions/0055-onboarding-revised-for-anki-loop.md | ||
+2026-11-23T16:28 student-journey-redesign S13 &docs/decisions/0055-onboarding-revised-for-anki-loop.md | ||

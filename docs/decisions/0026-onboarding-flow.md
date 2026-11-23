@@ -1,6 +1,6 @@
 # DR-0026: Onboarding flow: first win before sign-in, optional name, pre-filled units, 7-day consent grace
 
-- **Status:** Accepted (Viraj: "Keep them")
+- **Status:** Superseded in part by [DR-0055](0055-onboarding-revised-for-anki-loop.md) (was Accepted, Viraj: "Keep them")
 - **Date:** 2026-11-07 · **Owner:** Viraj
 - **Area:** Product / Design
 

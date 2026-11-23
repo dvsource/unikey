@@ -11,7 +11,7 @@ Applies to every item generated for UniKey (any subject, any medium). Generators
 1. **Decompose, don't convert.** One source question becomes many small items, each testing **one** thing: a fact, a concept, a trap, a method choice, or a skill.
 2. **One item → one primary skill.** Max 2 skill IDs per item; the first is primary.
 3. **L1/L2 are cards** (scheduled by FSRS). **L3/L4 vary every time** (scheduled by skill mastery). A fixed L3/L4 item gets memorised, not learned.
-4. **Everything is auto-graded.** No self-rating (Again/Hard/Good buttons). Grading rules are in the [product spec](product-spec.md#grading-rules).
+4. **Recall first, MCQ sometimes.** Every card is answered with Show answer and then a grade (Again / Hard / Good / Easy); MCQ cards are also marked right or wrong by the app ([DR-0052](../decisions/0052-anki-style-self-grading.md)). An item whose stem stands on its own gets `recall_ok: true` and a short `model_answer`, so the engine can show it as a recall card with the options hidden. Which forms are recall, MCQ or either is in [DR-0053](../decisions/0053-recall-first-content-mix.md). _(Replaces v0.5 rule 4, "Everything is auto-graded. No self-rating".)_
 5. **Every wrong option is a real mistake** with a tag from §7. No filler distractors. At L1, a wrong option may simply be `recall-gap`.
 6. **New wording only.** Past papers inspire items; they are never copied (§11).
 7. **Exam-faithful.** Calculator-free numbers, A/L notation, A/L option formats, and figures as often as the exam uses them.

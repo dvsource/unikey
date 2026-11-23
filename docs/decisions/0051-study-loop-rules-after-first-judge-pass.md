@@ -1,6 +1,6 @@
 # DR-0051: Study-loop rules after the first judge pass
 
-- **Status:** Accepted (Viraj, 2026-11-16)
+- **Status:** Accepted (Viraj, 2026-11-16); change 1 timing amended by [DR-0052](0052-anki-style-self-grading.md), change 6 by [DR-0054](0054-one-screen-study-card.md)
 - **Date:** 2026-11-16 · **Owner:** Viraj
 - **Area:** Product / Retention
 - **Source:** [judge report, seed 1](../reviews/2026-11-16-judge-report-seed1.md); [design changes](../superpowers/specs/2026-11-16-study-loop-design-changes.md) §2 rows 1 to 7, §6 decisions 1, 2, 6

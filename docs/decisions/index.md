@@ -7,7 +7,7 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0001](0001-physics-first.md) | Launch with A/L Physics only | Product | Accepted | 2026-11-01 | 2027-04-01 |
 | [0002](0002-teachers-as-channel.md) | Teachers are the main distribution channel | GTM | Accepted | 2026-11-01 | 2027-06-01 |
 | [0003](0003-pilot-price-300.md) | Pilot price 300 LKR / 8 weeks ("Founding 100") | Pricing | Accepted | 2026-11-01 | 2027-01-15 |
-| [0004](0004-schedule-skills-not-cards.md) | Schedule skills (KCs), not cards | Product | Accepted | 2026-11-02 | 2027-04-01 |
+| [0004](0004-schedule-skills-not-cards.md) | Schedule skills (KCs), not cards | Product | Accepted (grading amended by [0052](0052-anki-style-self-grading.md)) | 2026-11-02 | 2027-04-01 |
 | [0005](0005-learn-mode-notes-and-sims.md) | Micro-notes + reusable sim engines | Product | Accepted | 2026-11-02 | 2027-04-01 |
 | [0006](0006-mvp-feature-cut.md) | MVP feature cut for the pilot | Product | Accepted | 2026-11-02 | 2027-04-01 |
 | [0007](0007-500-channel-before-big-players.md) | 500-teacher channel before big players | GTM | Superseded by 0008 | 2026-11-02 | — |
@@ -29,11 +29,11 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0023](0023-mist-design-system.md) | "Mist" design system | Design | Superseded by [0025](0025-dawn-design-system.md) | 2026-11-03 | 2027-02-01 |
 | [0024](0024-sinhala-medium-ui-language.md) | Sinhala medium: content + topic names Sinhala, UI English | Design/Content | Accepted | 2026-11-03 | 2027-02-01 |
 | [0025](0025-dawn-design-system.md) | "Dawn" design system (Dusk dark theme later) | Design | Accepted | 2026-11-07 | 2027-02-01 |
-| [0026](0026-onboarding-flow.md) | Onboarding: first win before sign-in, optional name, pre-filled units, 7-day consent grace | Product/Design | Accepted | 2026-11-07 | 2027-02-01 |
+| [0026](0026-onboarding-flow.md) | Onboarding: first win before sign-in, optional name, pre-filled units, 7-day consent grace | Product/Design | Superseded in part by [0055](0055-onboarding-revised-for-anki-loop.md) | 2026-11-07 | 2027-02-01 |
 | [0027](0027-content-plan-stop-point.md) | Stop reviewing the content plan: one final fix pass, then app development | Process/Content | Proposed | 2026-11-07 | 2027-01-15 |
 | [0028](0028-any-physics-student-adaptive.md) | Any A/L physics student; one adaptive path | Positioning/Product | Accepted | 2026-11-07 | 2027-04-01 |
 | [0029](0029-no-free-plan.md) | No free plan (for now) | Pricing | Accepted | 2026-11-07 | 2027-04-01 |
-| [0030](0030-paywall-after-first-session.md) | Paywall after the first session; class-code students pay the same | Pricing/Product | Accepted | 2026-11-07 | 2027-04-01 |
+| [0030](0030-paywall-after-first-session.md) | Paywall after the first session; class-code students pay the same | Pricing/Product | Accepted (order settled by [0055](0055-onboarding-revised-for-anki-loop.md)) | 2026-11-07 | 2027-04-01 |
 | [0031](0031-pilot-scope-3-units-sinhala.md) | Pilot content: Mechanics, Current Electricity, Thermal Physics; Sinhala only | Content/Pilot | Accepted | 2026-11-07 | 2027-01-15 |
 | [0032](0032-until-exam-price-by-months-left.md) | Until-exam price: 25% off monthly for months left, 1,500 floor | Pricing | Accepted | 2026-11-07 | 2027-04-01 |
 | [0033](0033-sole-proprietorship-first.md) | Sole proprietorship now; Pvt Ltd later | Company | Accepted | 2026-11-07 | 2027-04-01 |
@@ -52,8 +52,12 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0046](0046-narrow-admin-page-reuse-tools.md) | Narrow `/admin` page; reuse PostHog, Sentry, Supabase Studio | Tech/Product | Accepted | 2026-11-09 | 2027-04-01 |
 | [0047](0047-simulator-as-engine-acceptance-test.md) | Simulator is the learning-engine acceptance test (r ≥ 0.7, cap, insights); soft gate | Tech/Process | Accepted | 2026-11-09 | 2027-02-01 |
 | [0048](0048-pilot-engine-simple-skill-schedule.md) | Pilot engine: simple skill-level schedule replaces FSRS + Elo (supersedes DR-0022 in part) | Tech/Product | Accepted | 2026-11-14 | 2027-02-01 |
-| [0049](0049-effort-based-day-and-skip.md) | Day measured in effort; bad-day early end keeps streak; "Not now" skip (amends DR-0019) | Product/Retention | Accepted | 2026-11-14 | 2027-02-01 |
+| [0049](0049-effort-based-day-and-skip.md) | Day measured in effort; bad-day early end keeps streak; "Not now" skip (amends DR-0019) | Product/Retention | Accepted (skip reason dropped by [0054](0054-one-screen-study-card.md)) | 2026-11-14 | 2027-02-01 |
 | [0050](0050-session-length-rules-from-first-tuning.md) | Session-length rules from the first tuning pass (extends DR-0049) | Product/Retention | Proposed | 2026-11-15 | 2027-02-01 |
-| [0051](0051-study-loop-rules-after-first-judge-pass.md) | Study-loop rules after the first judge pass: changes 1 to 7 (extends DR-0048, DR-0049) | Product/Retention | Accepted | 2026-11-16 | 2027-02-01 |
+| [0051](0051-study-loop-rules-after-first-judge-pass.md) | Study-loop rules after the first judge pass: changes 1 to 7 (extends DR-0048, DR-0049) | Product/Retention | Accepted (changes 1, 6 amended by [0052](0052-anki-style-self-grading.md), [0054](0054-one-screen-study-card.md)) | 2026-11-16 | 2027-02-01 |
+| [0052](0052-anki-style-self-grading.md) | Anki-style answers: Show answer, then Again/Hard/Good/Easy; MCQ marked by the app; hidden trust check | Product | Accepted | 2026-11-23 | 2027-02-01 |
+| [0053](0053-recall-first-content-mix.md) | Recall first: ~70% recall / 30% MCQ (half MCQ on day 1), dual-mode items | Content/Product | Accepted | 2026-11-23 | 2027-02-01 |
+| [0054](0054-one-screen-study-card.md) | One-screen study card: Skip + Show answer, silent section skip, Back ends, hold EN, separate reviewer build | Product/Design | Accepted | 2026-11-23 | 2027-02-01 |
+| [0055](0055-onboarding-revised-for-anki-loop.md) | Onboarding revised: first session is the placement, paywall after sign-in, one parent message (supersedes DR-0026 in part) | Product/Design | Accepted | 2026-11-23 | 2027-02-01 |
 
 New record: copy [`../templates/decision.md`](../templates/decision.md) to `00NN-short-slug.md` and add a row here.
