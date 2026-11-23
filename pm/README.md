@@ -30,7 +30,7 @@ Rules of thumb:
 Every item is one line in `data/items.md`:
 
 ```
-- T42 ip p1 @viraj ^P3 #app #qa g:pre s:2026-11-20 d:2026-12-06 x:2026-12-05 <T40,T41 ~T7 =B3 &docs/x.md | Title
+- T42 ip p1 @viraj ^P3 #app #qa g:pre s:2026-11-20 d:2026-12-06 x:2026-12-05 <T40,T41 ~T7 =B3 &docs/x.md | Title || Why it exists
 ```
 
 | Token | Meaning |
@@ -47,8 +47,9 @@ Every item is one line in `data/items.md`:
 | `~A` `=B` | relates to, and duplicates (for bugs) |
 | `&path` | a ref: a repo-relative path (`docs/decisions/0048-….md`) or a URL; you can give several |
 | `\| text` | the one-line title. In a set op, it replaces the title |
+| `\|\| text` | the why: one short line saying why the item exists or matters (cite the DR or doc, mark guesses "(guess)"). **Every new item needs one.** In a set op, `T42 \|\| text` replaces only the why; ops that omit it keep it; `-w` clears it. `show` prints it; `brief`, `ls` and `next` don't |
 
-Removing: `-#tag`, `-<T40`, `-~T7`, `-=B3`, `-&ref`, and `-&` alone clears every ref. `-@`, `-^`, `-p`, `-g:`, `-s:`, `-d:` and `-x:` clear the field.
+Removing: `-w` (the why), `-#tag`, `-<T40`, `-~T7`, `-=B3`, `-&ref`, and `-&` alone clears every ref. `-@`, `-^`, `-p`, `-g:`, `-s:`, `-d:` and `-x:` clear the field.
 
 Automatic: moving an item to `dn` sets `x:` to today, and moving it to `ip` sets `s:` to today, when the date isn't already set. Every write appends `<time> <by> <id> <change>` to `data/log.md`. Writes are checked for unknown ids and dependency cycles.
 

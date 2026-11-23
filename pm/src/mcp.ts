@@ -11,7 +11,7 @@ const tools = [
   },
   {
     name: "pm_w",
-    description: `Write to the UniKey tracker, atomically. ops: one op per line, e.g. "T42 dn" or "+B ^P3 p1 #app | Title" ($1 = id of the 1st add). Returns "ok <ids>". by = your session name (log author).`,
+    description: `Write to the UniKey tracker, atomically. ops: one op per line, e.g. "T42 dn" or "+B ^P3 p1 #app | Title || Why it exists" ($1 = id of the 1st add). Every new item needs a why; "T42 || why" sets only the why. Returns "ok <ids>". by = your session name (log author).`,
     inputSchema: {
       type: "object",
       properties: { ops: { type: "string" }, by: { type: "string" } },

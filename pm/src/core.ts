@@ -1,6 +1,6 @@
 // UniKey project tracker: one core library for the CLI, the MCP server and the dashboard.
 // Store: pm/data/items.md (one item per line) + pm/data/log.md (one line per change).
-// Line: `- <ID> <tokens...> | <title>`. Token grammar is documented in pm/README.md.
+// Line: `- <ID> <tokens...> | <title> [|| <why>]`. Token grammar is documented in pm/README.md.
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -36,6 +36,7 @@ export interface Item {
   refs: string[];
   extra: string[]; // unknown tokens, kept as-is
   title: string;
+  why?: string; // one line: why the item exists or matters
 }
 
 export const kindOf = (id: string): string => id[0];
@@ -67,6 +68,12 @@ export function parseDate(v: string, now = new Date()): string {
 
 // ---------- parse / serialize ----------
 const ID_RE = /^[PTSDBM]\d+$/;
+/** `Title || why` into [title, why]. */
+function splitWhy(text: string): [string, string | undefined] {
+  const i = text.indexOf(" || ");
+  if (i < 0) return [text.replace(/ \|\|$/, "").trim(), undefined];
+  return [text.slice(0, i).trim(), text.slice(i + 4).trim() || undefined];
+}
 const list = (v: string) => v.split(",").filter(Boolean);
 
 export function parseLine(line: string): Item | null {
@@ -74,8 +81,9 @@ export function parseLine(line: string): Item | null {
   if (!m || !ID_RE.test(m[1])) return null;
   const bar = m[2].indexOf(" | ");
   const head = bar >= 0 ? m[2].slice(0, bar) : m[2];
-  const title = bar >= 0 ? m[2].slice(bar + 3).trim() : "";
+  const [title, why] = splitWhy(bar >= 0 ? m[2].slice(bar + 3) : "");
   const it: Item = { id: m[1], st: "td", tags: [], deps: [], rel: [], dup: [], refs: [], extra: [], title };
+  if (why) it.why = why;
   for (const t of head.split(/\s+/).filter(Boolean)) applyToken(it, t, true);
   return it;
 }
@@ -95,7 +103,7 @@ export function formatItem(it: Item): string {
   if (it.dup.length) t.push(`=${it.dup.join(",")}`);
   for (const r of it.refs) t.push(`&${r}`);
   t.push(...it.extra);
-  return `${t.join(" ")} | ${it.title}`;
+  return `${t.join(" ")} | ${it.title}${it.why ? ` || ${it.why}` : ""}`;
 }
 
 const addAll = (arr: string[], vs: string[]) => { for (const v of vs) if (!arr.includes(v)) arr.push(v); };
@@ -115,6 +123,7 @@ export function applyToken(it: Item, tok: string, raw = false, now = new Date())
     else if (c === "@") delete it.owner;
     else if (c === "^") delete it.parent;
     else if (r === "p") delete it.pri;
+    else if (r === "w") delete it.why;
     else if (r === "g:") delete it.group;
     else if (r === "s:") delete it.start;
     else if (r === "d:") delete it.due;
@@ -237,7 +246,7 @@ export function defaultDataDir(): string {
 }
 
 const HEADER = `# UniKey pm items. Written by \`pm\` only (see pm/README.md). One item per line:
-# - ID status [pN] [@owner] [^parent] [#tag] [g:group] [s:start] [d:due] [x:done] [<deps] [~rel] [=dup] [&ref] | title
+# - ID status [pN] [@owner] [^parent] [#tag] [g:group] [s:start] [d:due] [x:done] [<deps] [~rel] [=dup] [&ref] | title [|| why]
 `;
 
 export class Store {
@@ -305,19 +314,22 @@ export class Store {
 export const whoami = () => process.env.PM_WHO || "agent";
 
 // ---------- ops ----------
-/** Split `tokens | title` into tokens and title (title undefined if no bar). */
-function splitOp(op: string): [string[], string | undefined] {
+/** Split `tokens | title || why` (title and why undefined when absent; `tokens || why` sets only the why). */
+function splitOp(op: string): [string[], string | undefined, string | undefined] {
   const s = ` ${op.trim()} `;
   const i = s.indexOf(" | ");
+  const w = s.indexOf(" || ");
+  if (i < 0 && w >= 0) return [s.slice(0, w).trim().split(/\s+/).filter(Boolean), undefined, s.slice(w + 4).trim() || undefined];
   const head = i >= 0 ? s.slice(0, i) : s;
-  const title = i >= 0 ? s.slice(i + 3).trim() : undefined;
-  return [head.trim().split(/\s+/).filter(Boolean), title];
+  const [title, why] = i >= 0 ? splitWhy(s.slice(i + 3)) : [undefined, undefined];
+  return [head.trim().split(/\s+/).filter(Boolean), title, why];
 }
 
 /**
  * Ops (one per line):
  *   `+T ^P3 p1 #x | Title`   add (kind letter after +); `$1` = id of the 1st add in this batch
  *   `T42 dn`                 set tokens on an existing item; `| text` replaces the title
+ *   `... || why`             sets the why (kept when omitted); `-w` clears it
  * Status dn sets x:today, ip sets s:today, when not already set.
  */
 export function applyOps(b: Board, ops: string[], by: string, now = new Date()) {
@@ -326,7 +338,7 @@ export function applyOps(b: Board, ops: string[], by: string, now = new Date()) 
   const sub = (t: string) => t.replace(/\$(\d+)/g, (m, n) => added[Number(n) - 1] ?? m);
   ops.map((o) => o.trim()).filter((o) => o && !o.startsWith("#")).forEach((op, n) => {
     try {
-      const [toks0, title] = splitOp(op);
+      const [toks0, title, why] = splitOp(op);
       const toks = toks0.map(sub);
       let it: Item;
       let change: string;
@@ -335,6 +347,7 @@ export function applyOps(b: Board, ops: string[], by: string, now = new Date()) 
         if (!KINDS.includes(kind)) throw new Error(`bad kind ${kind}`);
         if (!title) throw new Error("add needs | title");
         it = { id: b.nextId(kind), st: "td", tags: [], deps: [], rel: [], dup: [], refs: [], extra: [], title };
+        if (why) it.why = why;
         for (const t of toks.slice(1)) applyToken(it, t, false, now);
         b.items.push(it);
         b.byId.set(it.id, it);
@@ -347,9 +360,10 @@ export function applyOps(b: Board, ops: string[], by: string, now = new Date()) 
         const before = it.st;
         for (const t of toks.slice(1)) applyToken(it, t, false, now);
         if (title !== undefined) it.title = title;
+        if (why !== undefined) it.why = why;
         if (it.st !== before && it.st === "dn" && !it.done) it.done = today(now);
         if (it.st !== before && it.st === "ip" && !it.start) it.start = today(now);
-        change = toks.slice(1).join(" ") + (title !== undefined ? " |" : "");
+        change = toks.slice(1).join(" ") + (title !== undefined ? " |" : "") + (why !== undefined ? " ||" : "");
       }
       if (it.st === "dn" && kindOf(it.id) !== "P" && !it.done) it.done = today(now);
       for (const r of [...(it.parent ? [it.parent] : []), ...it.deps, ...it.rel, ...it.dup])
@@ -480,9 +494,9 @@ export function brief(b: Board, f: Filter, now = today()): string {
 }
 
 export const HELP = `pm: UniKey tracker. Reads: brief [^P3] [@me] | next [n] [filters] | ls [filters] | show ID | log [n] | check
-Writes: add +T ^P3 p1 #tag | Title   set T42 dn   do "op" "op"... (or ops on stdin, one per line)
+Writes: add +T ^P3 p1 #tag | Title || Why   set T42 dn   do "op" "op"... (or ops on stdin, one per line)
 Filters: td ip bl oh dn dr  p0-p3  P T S D B M  #tag  ^P3(under)  @owner  g:grp  ready blocked waiting overdue all  n:20  words
-Tokens: status pN @owner ^parent #tag g:grp s:/d:/x:date(YYYY-MM-DD|MM-DD|today|+3d) <dep ~rel =dup &ref ; -X removes ; | title
+Tokens: status pN @owner ^parent #tag g:grp s:/d:/x:date(YYYY-MM-DD|MM-DD|today|+3d) <dep ~rel =dup &ref ; -X removes ; | title ; || why (-w clears)
 Kinds: P project T task S subtask D todo B bug M milestone. $1 = id of 1st add in batch. PM_WHO=name sets the log author.
 Git: commit [rev] logs a commit (run by the post-commit hook); "T43 dn" pairs in the message set status.`;
 

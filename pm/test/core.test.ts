@@ -113,3 +113,23 @@ test("run: brief and terse output", () => {
   assert.match(run(s, ["next"]), /^T2 td/);
   assert.match(run(s, ["nope"]), /^err unknown command/);
 });
+
+test("why: parse, format, add, set keeps and replaces, clear", () => {
+  const it = parseLine("- T1 td p1 | Title | with bar || DR-0035: wife < 5 h/week")!;
+  assert.equal(it.title, "Title | with bar");
+  assert.equal(it.why, "DR-0035: wife < 5 h/week");
+  assert.equal(formatItem(it), "T1 td p1 | Title | with bar || DR-0035: wife < 5 h/week");
+  assert.equal(parseLine("- T2 td | No why")!.why, undefined);
+  const b = board("- P1 td | Root");
+  const r = applyOps(b, ["+T ^P1 | Task || because", "T1 p0", "T1 | Renamed", "T1 ip || new reason", "+T | Other"], "me", NOW);
+  assert.deepEqual(r.errors, []);
+  const t1 = b.byId.get("T1")!;
+  assert.equal(t1.title, "Renamed");
+  assert.equal(t1.why, "new reason"); // survived p0 and the rename, then replaced
+  assert.equal(t1.st, "ip");
+  assert.equal(r.log[3], "2026-11-23T10:00 me T1 ip ||");
+  assert.equal(b.byId.get("T2")!.why, undefined);
+  applyOps(b, ["T1 -w"], "me", NOW);
+  assert.equal(t1.why, undefined);
+  assert.equal(formatItem(t1).includes("||"), false);
+});

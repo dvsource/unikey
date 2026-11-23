@@ -210,3 +210,181 @@
 2026-12-21T09:00 seed T58 + Weekly report: signed link + manual WhatsApp send
 2026-11-23T10:20 pm-builder T105 dn
 2026-11-23T10:20 pm-builder T106 ~P9
+2026-11-23T10:40 main T108 + Auto-sync: SessionStart brief hook + git post-commit hook
+2026-11-23T10:40 git T108 dn
+2026-11-23T10:40 git T108 commit 78e28a8 pm: sync the tracker from session start and git commits
+2026-11-23T10:47 agent T109 + Guesses and full problems: guess rule, full-problem rest, ca
+2026-11-23T10:47 teacher-dashboard T51 x:2026-11-09 &dashboard/qa/test-report.md |
+2026-11-23T10:47 teacher-dashboard S26 + Manual real-phone checks M-01..M-05 + SI-03 after deploy
+2026-11-23T10:47 agent S27 + Task 1: a fast wrong answer is a guess (6258147, b05991f)
+2026-11-23T10:47 agent S28 + Task 2: fast rights do not move up; guess nudge (939929c, ec
+2026-11-23T10:47 agent S29 + Task 3 fix round (77baeb1 + 5 Codex findings): UNCOMMITTED,
+2026-11-23T10:47 agent S30 + Task 4 (8a2eb2b): finish the stopped Codex review
+2026-11-23T10:47 agent S31 + Task 5: rerun seeds 1-3, measure targets, write notes
+2026-11-23T10:47 agent S32 + Final Codex review of the range, then third judge pass
+2026-11-23T10:47 agent T27 td -@
+2026-11-23T10:47 agent T43 td -@ <T109
+2026-11-23T10:47 agent S17 &app/__tests__/study-adapter.test.ts
+2026-11-23T10:47 agent B5 + Same template served 19 times in one sim run (calc-strong-me
+2026-11-23T10:47 content-elec-thermal T110 + Current Electricity and Thermal skill graphs and samples (3e
+2026-11-23T10:47 content-elec-thermal T110 dn
+2026-11-23T10:47 content-elec-thermal T111 + Paid reviewers review Electricity and Thermal graphs and sam
+2026-11-23T10:47 content-elec-thermal T112 + Approve 27 proposed Electricity and Thermal mistake tags, th
+2026-11-23T10:47 teacher-dashboard S26 -<T52
+2026-11-23T10:55 pm-builder P1  ||
+2026-11-23T10:55 pm-builder P2  ||
+2026-11-23T10:55 pm-builder P3  ||
+2026-11-23T10:55 pm-builder P4  ||
+2026-11-23T10:55 pm-builder P5  ||
+2026-11-23T10:55 pm-builder P6  ||
+2026-11-23T10:55 pm-builder P7  ||
+2026-11-23T10:55 pm-builder P8  ||
+2026-11-23T10:55 pm-builder P9  ||
+2026-11-23T10:55 pm-builder P10  ||
+2026-11-23T10:55 pm-builder P11  ||
+2026-11-23T10:55 pm-builder P12  ||
+2026-11-23T10:55 pm-builder P13  ||
+2026-11-23T10:55 pm-builder M1  ||
+2026-11-23T10:55 pm-builder M2  ||
+2026-11-23T10:55 pm-builder M3  ||
+2026-11-23T10:55 pm-builder M4  ||
+2026-11-23T10:55 pm-builder M5  ||
+2026-11-23T10:55 pm-builder M6  ||
+2026-11-23T10:55 pm-builder M7  ||
+2026-11-23T10:55 pm-builder M8  ||
+2026-11-23T10:55 pm-builder T1  ||
+2026-11-23T10:55 pm-builder T4  ||
+2026-11-23T10:55 pm-builder T5  ||
+2026-11-23T10:55 pm-builder T7  ||
+2026-11-23T10:55 pm-builder T8  ||
+2026-11-23T10:55 pm-builder T9  ||
+2026-11-23T10:55 pm-builder T10  ||
+2026-11-23T10:55 pm-builder T11  ||
+2026-11-23T10:55 pm-builder T12  ||
+2026-11-23T10:55 pm-builder T13  ||
+2026-11-23T10:55 pm-builder T14  ||
+2026-11-23T10:55 pm-builder T15  ||
+2026-11-23T10:55 pm-builder T16  ||
+2026-11-23T10:55 pm-builder T17  ||
+2026-11-23T10:55 pm-builder T18  ||
+2026-11-23T10:55 pm-builder T19  ||
+2026-11-23T10:55 pm-builder T20  ||
+2026-11-23T10:55 pm-builder T22  ||
+2026-11-23T10:55 pm-builder T23  ||
+2026-11-23T10:55 pm-builder B4  ||
+2026-11-23T10:55 pm-builder T24  ||
+2026-11-23T10:55 pm-builder T25  ||
+2026-11-23T10:55 pm-builder T26  ||
+2026-11-23T10:55 pm-builder T27  ||
+2026-11-23T10:55 pm-builder S7  ||
+2026-11-23T10:55 pm-builder S8  ||
+2026-11-23T10:55 pm-builder S9  ||
+2026-11-23T10:55 pm-builder S10  ||
+2026-11-23T10:55 pm-builder S11  ||
+2026-11-23T10:55 pm-builder S12  ||
+2026-11-23T10:55 pm-builder S13  ||
+2026-11-23T10:55 pm-builder S14  ||
+2026-11-23T10:55 pm-builder T28  ||
+2026-11-23T10:55 pm-builder T29  ||
+2026-11-23T10:55 pm-builder T30  ||
+2026-11-23T10:55 pm-builder T31  ||
+2026-11-23T10:55 pm-builder T32  ||
+2026-11-23T10:55 pm-builder T34  ||
+2026-11-23T10:55 pm-builder T36  ||
+2026-11-23T10:55 pm-builder T38  ||
+2026-11-23T10:55 pm-builder T40  ||
+2026-11-23T10:55 pm-builder T42  ||
+2026-11-23T10:55 pm-builder T43  ||
+2026-11-23T10:55 pm-builder S15  ||
+2026-11-23T10:55 pm-builder S16  ||
+2026-11-23T10:55 pm-builder S17  ||
+2026-11-23T10:55 pm-builder S18  ||
+2026-11-23T10:55 pm-builder S19  ||
+2026-11-23T10:55 pm-builder T44  ||
+2026-11-23T10:55 pm-builder T45  ||
+2026-11-23T10:55 pm-builder T46  ||
+2026-11-23T10:55 pm-builder S20  ||
+2026-11-23T10:55 pm-builder S21  ||
+2026-11-23T10:55 pm-builder S22  ||
+2026-11-23T10:55 pm-builder T47  ||
+2026-11-23T10:55 pm-builder T48  ||
+2026-11-23T10:55 pm-builder T49  ||
+2026-11-23T10:55 pm-builder T50  ||
+2026-11-23T10:55 pm-builder T51  ||
+2026-11-23T10:55 pm-builder T52  ||
+2026-11-23T10:55 pm-builder T53  ||
+2026-11-23T10:55 pm-builder T54  ||
+2026-11-23T10:55 pm-builder T55  ||
+2026-11-23T10:55 pm-builder S23  ||
+2026-11-23T10:55 pm-builder T56  ||
+2026-11-23T10:55 pm-builder T57  ||
+2026-11-23T10:55 pm-builder T58  ||
+2026-11-23T10:55 pm-builder T59  ||
+2026-11-23T10:55 pm-builder T60  ||
+2026-11-23T10:55 pm-builder T61  ||
+2026-11-23T10:55 pm-builder T62  ||
+2026-11-23T10:55 pm-builder T63  ||
+2026-11-23T10:55 pm-builder T64  ||
+2026-11-23T10:55 pm-builder T65  ||
+2026-11-23T10:55 pm-builder T66  ||
+2026-11-23T10:55 pm-builder T67  ||
+2026-11-23T10:55 pm-builder T68  ||
+2026-11-23T10:55 pm-builder T69  ||
+2026-11-23T10:55 pm-builder T70  ||
+2026-11-23T10:55 pm-builder T71  ||
+2026-11-23T10:55 pm-builder T72  ||
+2026-11-23T10:55 pm-builder T73  ||
+2026-11-23T10:55 pm-builder S24  ||
+2026-11-23T10:55 pm-builder T74  ||
+2026-11-23T10:55 pm-builder T75  ||
+2026-11-23T10:55 pm-builder D1  ||
+2026-11-23T10:55 pm-builder D2  ||
+2026-11-23T10:55 pm-builder D3  ||
+2026-11-23T10:55 pm-builder D4  ||
+2026-11-23T10:55 pm-builder D5  ||
+2026-11-23T10:55 pm-builder T76  ||
+2026-11-23T10:55 pm-builder S25  ||
+2026-11-23T10:55 pm-builder T77  ||
+2026-11-23T10:55 pm-builder T78  ||
+2026-11-23T10:55 pm-builder T79  ||
+2026-11-23T10:55 pm-builder T80  ||
+2026-11-23T10:55 pm-builder T81  ||
+2026-11-23T10:55 pm-builder T82  ||
+2026-11-23T10:55 pm-builder T83  ||
+2026-11-23T10:55 pm-builder T84  ||
+2026-11-23T10:55 pm-builder T85  ||
+2026-11-23T10:55 pm-builder T86  ||
+2026-11-23T10:55 pm-builder T87  ||
+2026-11-23T10:55 pm-builder T88  ||
+2026-11-23T10:55 pm-builder T89  ||
+2026-11-23T10:55 pm-builder T90  ||
+2026-11-23T10:55 pm-builder T91  ||
+2026-11-23T10:55 pm-builder T92  ||
+2026-11-23T10:55 pm-builder T93  ||
+2026-11-23T10:55 pm-builder T94  ||
+2026-11-23T10:55 pm-builder T95  ||
+2026-11-23T10:55 pm-builder T96  ||
+2026-11-23T10:55 pm-builder T97  ||
+2026-11-23T10:55 pm-builder T98  ||
+2026-11-23T10:55 pm-builder T99  ||
+2026-11-23T10:55 pm-builder T100  ||
+2026-11-23T10:55 pm-builder T101  ||
+2026-11-23T10:55 pm-builder T102  ||
+2026-11-23T10:55 pm-builder T103  ||
+2026-11-23T10:55 pm-builder T104  ||
+2026-11-23T10:55 pm-builder T105  ||
+2026-11-23T10:55 pm-builder T106  ||
+2026-11-23T10:55 pm-builder T107  ||
+2026-11-23T10:55 pm-builder T108  ||
+2026-11-23T10:55 pm-builder T109  ||
+2026-11-23T10:55 pm-builder S26  ||
+2026-11-23T10:55 pm-builder S29  ||
+2026-11-23T10:55 pm-builder S30  ||
+2026-11-23T10:55 pm-builder S31  ||
+2026-11-23T10:55 pm-builder S32  ||
+2026-11-23T10:55 pm-builder B5  ||
+2026-11-23T10:55 pm-builder T110  ||
+2026-11-23T10:55 pm-builder T111  ||
+2026-11-23T10:55 pm-builder T112  ||
+2026-11-23T10:55 pm-builder T11  ||
+2026-11-23T10:55 pm-builder T113 + Why field on every item (grammar, show, dashboard, backfill)
