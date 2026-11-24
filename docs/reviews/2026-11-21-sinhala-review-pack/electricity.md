@@ -4,6 +4,77 @@
 
 Most urgent first. Sort by the number of priority 3 findings, then priority 2, then priority 1. Ties use card ID. An empty flag list still needs a bilingual reading.
 
+## phy.elec.c064
+
+An unloaded divider has 2 Ω above its tap and 6 Ω below. A 12 V is applied across both. What p.d. appears across the lower resistor?
+
+භාරයක් නැති විභව බෙදුමක මධ්‍ය ලක්ෂ්‍යයට ඉහළින් 2 Ω හා පහළින් 6 Ω ඇත. දෙකෙළවරට 12 V සපයයි. පහළ ප්‍රතිරෝධකය හරහා විභව අන්තරය කීය ද?
+
+1. 9 V · 9 V · **Key**
+2. 6 V · 6 V · `assumed-symmetry`
+3. 3 V · 3 V · `wrong-quantity`
+   - The lower resistor takes 6/8 of 12 V. · පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
+4. 12 V · 12 V · `ignored-condition`
+   - The lower resistor takes 6/8 of 12 V. · පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
+
+The lower resistor takes 6/8 of 12 V.
+
+පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
+
+**Harder questions**
+
+- [phy.elec.c006](#hard-phy-elec-c006) · A divider has R and 3R in series across a cell. Pd across 3R ÷ cell voltage?
+- [phy.elec.c007](#hard-phy-elec-c007) · A 6 V cell with no internal resistance drives 1 kΩ and 2 kΩ in series. An ideal voltmeter reads the pd across the 2 kΩ. Reading?
+- [phy.elec.c008](#hard-phy-elec-c008) · In a divider, an ideal voltmeter across one resistor is swapped for a real one with a similar resistance. Student says: "The reading stays the same." What's wrong?
+
+**Checks**
+
+- P2 · review-wording · `/text/si` · potential divider. විභව බෙදුම් පරිපථය for the circuit name. Review line 18.
+- P3 · meaning-read · `/text/si` · English calls the connection a tap. Sinhala calls it the midpoint. This is a junction of unequal resistors, so it need not be halfway in potential.
+
+## phy.elec.c086
+
+For n identical parallel cells the equivalent internal resistance is n/r, where each cell has resistance r.
+
+එකකට r අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති සර්වසම සමාන්තර කෝෂ n ක සමක අභ්‍යන්තර ප්‍රතිරෝධය n/r වේ.
+
+1. True · සත්‍ය · `inverted`
+2. False · අසත්‍ය · **Key**
+
+The total conductance is n/r. Its reciprocal r/n is the resistance.
+
+මුළු සන්නායකතාව n/r වේ. එහි පරස්පරය වන r/n ප්‍රතිරෝධයයි.
+
+**Harder questions**
+
+- [phy.elec.c024](#hard-phy-elec-c024) · Two identical cells, each of e.m.f. E and internal resistance r, are joined in parallel. E.m.f. and internal resistance of the pair?
+
+**Checks**
+
+- P3 · meaning-read · `/explanation/si` · English names the conductance of the cell combination, measured in siemens. Sinhala uses සන්නායකතාව, also the textbook term for material conductivity, measured in siemens per metre. Specify the reciprocal of the combination’s resistance.
+
+## phy.elec.c097
+
+An ammeter connected in series with a resistor reads the p.d. lost across it.
+
+ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගත ඇමීටරයකින් කියවෙන්නේ ප්‍රතිරෝධකය හරහා විභව බැස්මයි.
+
+1. True · සත්‍ය · `wrong-quantity`
+   - The ammeter reads the branch current in amperes. · ඇමීටරයෙන් ශාඛා ධාරාව ඇම්පියර්වලින් කියවේ.
+2. False · අසත්‍ය · **Key**
+
+The ammeter reads the branch current in amperes.
+
+ඇමීටරයෙන් ශාඛා ධාරාව ඇම්පියර්වලින් කියවේ.
+
+**Harder questions**
+
+- [phy.elec.c029](#hard-phy-elec-c029) · Which diagram connects the voltmeter directly to both ends of R and the ammeter in the main branch?
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English leaves “across it” ambiguous between the meter and resistor. Sinhala names the resistor. Both versions still describe the wrong function for an ammeter.
+
 ## phy.elec.c067
 
 Knowing only the total current in a divider completes the calculation of its output p.d.
@@ -72,7 +143,7 @@ Divide the chosen resistance by the total resistance.
 **Checks**
 
 - P2 · review-wording · `/text/si` · potential divider. විභව බෙදුම් පරිපථය for the circuit name. Review line 18.
-- P1 · term-variation · `/text/si` · potential difference / voltage: වෝල්ටීයතා. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · potential difference / voltage: වෝල්ටීයතා. See the term decision sheet.
 
 ## phy.elec.c124
 
@@ -95,34 +166,7 @@ The stationary armature has no rotational change of linked flux.
 **Checks**
 
 - P2 · review-wording · `/explanation/si` · Expand emf in the standalone explanation. Review line 29.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍යය. Multiple wordings; teacher to decide.
-
-## phy.elec.c064
-
-An unloaded divider has 2 Ω above its tap and 6 Ω below. A 12 V is applied across both. What p.d. appears across the lower resistor?
-
-භාරයක් නැති විභව බෙදුමක මධ්‍ය ලක්ෂ්‍යයට ඉහළින් 2 Ω හා පහළින් 6 Ω ඇත. දෙකෙළවරට 12 V සපයයි. පහළ ප්‍රතිරෝධකය හරහා විභව අන්තරය කීය ද?
-
-1. 9 V · 9 V · **Key**
-2. 6 V · 6 V · `assumed-symmetry`
-3. 3 V · 3 V · `wrong-quantity`
-   - The lower resistor takes 6/8 of 12 V. · පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
-4. 12 V · 12 V · `ignored-condition`
-   - The lower resistor takes 6/8 of 12 V. · පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
-
-The lower resistor takes 6/8 of 12 V.
-
-පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.
-
-**Harder questions**
-
-- [phy.elec.c006](#hard-phy-elec-c006) · A divider has R and 3R in series across a cell. Pd across 3R ÷ cell voltage?
-- [phy.elec.c007](#hard-phy-elec-c007) · A 6 V cell with no internal resistance drives 1 kΩ and 2 kΩ in series. An ideal voltmeter reads the pd across the 2 kΩ. Reading?
-- [phy.elec.c008](#hard-phy-elec-c008) · In a divider, an ideal voltmeter across one resistor is swapped for a real one with a similar resistance. Student says: "The reading stays the same." What's wrong?
-
-**Checks**
-
-- P2 · review-wording · `/text/si` · potential divider. විභව බෙදුම් පරිපථය for the circuit name. Review line 18.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍යය. See the term decision sheet.
 
 ## phy.elec.c065
 
@@ -314,9 +358,9 @@ Opposing e.m.f.s subtract. There is no internal drop at zero current.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/2/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/2/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.elec.c098
 
@@ -348,9 +392,9 @@ Balance gives equal midpoint potentials. Their difference is zero.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/1/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/1/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.elec.c100
 
@@ -376,8 +420,8 @@ A finite link can carry zero current at equal potentials. It can be omitted when
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.elec.c081
 
@@ -403,7 +447,7 @@ Subtract the internal drop from the e.m.f.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · terminal potential difference: අග්‍ර අතර විභව අන්තරය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · terminal potential difference: අග්‍ර අතර විභව අන්තරය. See the term decision sheet.
 
 ## phy.elec.c089
 
@@ -424,7 +468,7 @@ Equal powers at the same nonzero current require equal resistances.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.elec.c103
 
@@ -445,7 +489,7 @@ The detector branch is at null. The driver circuit supplies the wire current.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍යය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍යය. See the term decision sheet.
 
 ## phy.elec.c127
 
@@ -466,7 +510,7 @@ A steady primary current gives a steady flux and hence zero induced secondary p.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.elec.c054
 
@@ -490,7 +534,7 @@ I = nAev හි n හා I නියතය. A අඩු නම් v වැඩි
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c055
 
@@ -511,7 +555,7 @@ Charge is conserved. At steady state equal charge passes every cross section per
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c056
 
@@ -532,7 +576,7 @@ The product of carrier density and drift speed stays fixed.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c057
 
@@ -553,7 +597,7 @@ Electrons carry negative charge.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c058
 
@@ -580,7 +624,7 @@ The area halves while length doubles. Both changes increase ρl/A.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c059
 
@@ -605,7 +649,7 @@ Area varies as radius squared and resistance varies inversely with area.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c060
 
@@ -633,7 +677,7 @@ A series resistor contributes its own resistance to the sum.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c061
 
@@ -665,7 +709,7 @@ Both branches have the same p.d. Current is inversely proportional to branch res
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c062
 
@@ -686,7 +730,7 @@ The same charge per second passes both. Energy transferred per charge can differ
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c063
 
@@ -712,7 +756,7 @@ The p.d. is common to both branches.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c069
 
@@ -737,7 +781,7 @@ Use I²R when the given quantities are current and resistance.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c070
 
@@ -758,7 +802,7 @@ At common current power is proportional to resistance.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c071
 
@@ -779,7 +823,7 @@ Charge does not accumulate in the resistor.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c072
 
@@ -801,7 +845,7 @@ The supply p.d. can be shared between several series elements.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c073
 
@@ -823,7 +867,7 @@ The power is VI.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c074
 
@@ -848,7 +892,7 @@ The power is I²R. Multiply it by the heating time.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c075
 
@@ -870,7 +914,7 @@ The water receives only the part retained after losses.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c076
 
@@ -891,7 +935,7 @@ Energy is constant power multiplied by time.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c077
 
@@ -914,7 +958,7 @@ At fixed resistance use P = V²/R.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c078
 
@@ -935,7 +979,7 @@ R වෙනස් වන විට ධාරාව වෙනස් වේ. ප�
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c079
 
@@ -957,7 +1001,7 @@ The current factor is squared and must also be accounted for.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c080
 
@@ -979,7 +1023,7 @@ R නියත විට ජවය ධාරාවේ වර්ගයට සම�
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c082
 
@@ -1000,7 +1044,7 @@ The internal p.d. drop is Ir and depends on the load current.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c083
 
@@ -1021,7 +1065,7 @@ The load current also passes through the internal resistance.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c084
 
@@ -1046,28 +1090,7 @@ The two equal internal resistances act in parallel.
 
 **Checks**
 
-No automated flags.
-
-## phy.elec.c086
-
-For n identical parallel cells the equivalent internal resistance is n/r, where each cell has resistance r.
-
-එකකට r අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති සර්වසම සමාන්තර කෝෂ n ක සමක අභ්‍යන්තර ප්‍රතිරෝධය n/r වේ.
-
-1. True · සත්‍ය · `inverted`
-2. False · අසත්‍ය · **Key**
-
-The total conductance is n/r. Its reciprocal r/n is the resistance.
-
-මුළු සන්නායකතාව n/r වේ. එහි පරස්පරය වන r/n ප්‍රතිරෝධයයි.
-
-**Harder questions**
-
-- [phy.elec.c024](#hard-phy-elec-c024) · Two identical cells, each of e.m.f. E and internal resistance r, are joined in parallel. E.m.f. and internal resistance of the pair?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c087
 
@@ -1089,7 +1112,7 @@ All branches share the same two terminals.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c088
 
@@ -1114,7 +1137,7 @@ The same current passes through two equal resistances. Each dissipates half the 
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c090
 
@@ -1135,7 +1158,7 @@ Load and internal resistance form one series path.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c092
 
@@ -1158,7 +1181,7 @@ Total power from the cell also includes its internal loss.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c093
 
@@ -1179,7 +1202,7 @@ Put the ammeter in series so the lamp current passes through it.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c094
 
@@ -1200,7 +1223,7 @@ Parallel components share the same potential difference.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c095
 
@@ -1221,7 +1244,7 @@ An ideal voltmeter draws zero current.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c096
 
@@ -1243,29 +1266,7 @@ Its series resistance changes the total circuit resistance.
 
 **Checks**
 
-No automated flags.
-
-## phy.elec.c097
-
-An ammeter connected in series with a resistor reads the p.d. lost across it.
-
-ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගත ඇමීටරයකින් කියවෙන්නේ ප්‍රතිරෝධකය හරහා විභව බැස්මයි.
-
-1. True · සත්‍ය · `wrong-quantity`
-   - The ammeter reads the branch current in amperes. · ඇමීටරයෙන් ශාඛා ධාරාව ඇම්පියර්වලින් කියවේ.
-2. False · අසත්‍ය · **Key**
-
-The ammeter reads the branch current in amperes.
-
-ඇමීටරයෙන් ශාඛා ධාරාව ඇම්පියර්වලින් කියවේ.
-
-**Harder questions**
-
-- [phy.elec.c029](#hard-phy-elec-c029) · Which diagram connects the voltmeter directly to both ends of R and the ammeter in the main branch?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c099
 
@@ -1287,7 +1288,7 @@ There is no potential difference to drive a current across the link.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c101
 
@@ -1311,7 +1312,7 @@ Match the ratios of top to bottom resistances in the two branches.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c102
 
@@ -1333,7 +1334,7 @@ Combine the series sum from each side in parallel.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c104
 
@@ -1354,7 +1355,7 @@ No segment of the uniform wire provides the required opposing p.d.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c105
 
@@ -1375,7 +1376,7 @@ Balance length equals e.m.f. divided by potential gradient, provided the wire is
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c106
 
@@ -1396,7 +1397,7 @@ A smaller p.d. drop per unit length spreads the same p.d. interval over more wir
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c107
 
@@ -1421,7 +1422,7 @@ Divide the p.d. by the length expressed in metres.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c108
 
@@ -1447,7 +1448,7 @@ Multiply gradient by the chosen length.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c109
 
@@ -1468,7 +1469,7 @@ The longer piece has greater resistance and p.d. drop.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c110
 
@@ -1490,7 +1491,7 @@ The resistance per unit length depends on cross-sectional area.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c111
 
@@ -1516,7 +1517,7 @@ Internal drop is e.m.f. minus terminal p.d. Subtract the corresponding lengths.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c112
 
@@ -1537,7 +1538,7 @@ Both potential differences equal their own balance length times the same gradien
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c113
 
@@ -1559,7 +1560,7 @@ Changing wire current changes the potential gradient. The common factor then fai
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c116
 
@@ -1580,7 +1581,7 @@ For fixed turn count and duration, the signed mean e.m.f. is proportional to −
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c118
 
@@ -1605,7 +1606,7 @@ Faraday’s law uses change per unit time.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c119
 
@@ -1630,7 +1631,7 @@ The induced field points outwards to oppose the loss of outward flux.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c120
 
@@ -1653,7 +1654,7 @@ The approaching magnet increases the linked flux. The induced field opposes that
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c122
 
@@ -1681,7 +1682,7 @@ Both an increase and a decrease in linked flux can induce e.m.f.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c123
 
@@ -1703,7 +1704,7 @@ Use Lenz’s law to determine the direction of the induced effect.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c126
 
@@ -1728,7 +1729,7 @@ Output power equals input power. Divide 24 W by 6 V.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.elec.c128
 
@@ -1754,7 +1755,7 @@ Conservation of power makes the current ratio the reciprocal of the p.d. ratio.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## Harder questions referenced by the drafts
 

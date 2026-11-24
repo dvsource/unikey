@@ -4,6 +4,182 @@
 
 Most urgent first. Sort by the number of priority 3 findings, then priority 2, then priority 1. Ties use card ID. An empty flag list still needs a bilingual reading.
 
+## phy.mech.c118
+
+Spinning a rigid disc faster increases its moment of inertia about its fixed axle.
+
+දෘඪ තැටියක් එහි ස්ථිර අක්ෂය වටා වේගයෙන් කරකැවූ විට එහි අවස්ථිති සූර්ණය වැඩි වේ.
+
+1. True · සත්‍ය · `moi-depends-on-omega`
+2. False · අසත්‍ය · **Key**
+
+Neither the mass nor its distribution about the axle changes.
+
+ස්කන්ධය හෝ අක්ෂය වටා එහි ව්‍යාප්තිය හෝ වෙනස් නොවේ.
+
+**Harder questions**
+
+- [phy.mech.c043](#hard-phy-mech-c043) · A ring and a disc have equal mass and radius. Which has the larger I about the central axis?
+
+**Checks**
+
+- P2 · review-wording · `/text/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
+- P3 · meaning-read · `/text/si` · English changes the speed of the same disc. Sinhala says it is spun fast. An absolute speed replaces the comparison in the false claim.
+
+## phy.mech.c061
+
+For an upward launch at speed u under constant gravity g, which expression gives the rise to the turning point?
+
+නියත ගුරුත්වජ ත්වරණය g යටතේ u වේගයෙන් සිරස්ව ඉහළට විසි කළ වස්තුව හැරෙන ස්ථානය දක්වා ඉහළ යන උස කුමන ප්‍රකාශනයෙන් ලැබේ ද?
+
+1. u²/(2g) · u²/(2g) · **Key**
+2. u/(2g) · u/(2g) · `forgot-square`
+3. u²/g · u²/g · `stopped-early`
+   - Set the final vertical speed to zero in v² = u² − 2gh. · v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
+4. u²/(4g) · u²/(4g) · `wrong-law`
+   - Set the final vertical speed to zero in v² = u² − 2gh. · v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
+
+Set the final vertical speed to zero in v² = u² − 2gh.
+
+v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
+
+**Harder questions**
+
+- [phy.mech.t02](#hard-phy-mech-t02) · A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?
+
+**Checks**
+
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/2/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P3 · meaning-read · `/text/si` · Sinhala specifies a vertical launch. English says upward, which also allows an oblique launch. The keyed u²/(2g) needs u to be the vertical component.
+
+## phy.mech.c062
+
+A stone is thrown upwards from a roof in still air with negligible drag. Its time to the street must equal twice its time to the top, even when the street lies below the roof.
+
+වායු ප්‍රතිරෝධය නොසලකා වහලයක සිට ඉහළට විසි කළ ගලකට වීදියට වැටීමට ගත වන කාලය, වීදිය වහලයට පහළින් තිබුණත්, ඉහළම තැනට යාමට ගත වන කාලය මෙන් දෙගුණයකි.
+
+1. True · සත්‍ය · `ignored-condition`
+   - The equal flight times refer to points at the same height. The stone also has to fall below roof level. · කාල සම්මිතිය යෙදෙන්නේ එකම උසේ ලක්ෂ්‍යවලටය. ගල වහල මට්ටමට පහළටත් වැටිය යුතුය.
+2. False · අසත්‍ය · **Key**
+
+The equal flight times refer to points at the same height. The stone also has to fall below roof level.
+
+කාල සම්මිතිය යෙදෙන්නේ එකම උසේ ලක්ෂ්‍යවලටය. ගල වහල මට්ටමට පහළටත් වැටිය යුතුය.
+
+**Harder questions**
+
+- [phy.mech.t02](#hard-phy-mech-t02) · A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?
+
+**Checks**
+
+- P1 · term-variation · `/explanation/si` · symmetry: සම්මිතිය. See the term decision sheet.
+- P1 · term-variation · `/options/0/detail/si` · symmetry: සම්මිතිය. See the term decision sheet.
+- P3 · meaning-read · `/text/si` · English explicitly assumes still air as well as negligible drag. Sinhala asks the reader to ignore air resistance and leaves air motion unspecified. Both give the same flight-time result.
+
+## phy.mech.c063
+
+A ball leaves the ground at speed u at angle θ above the horizontal. Ignore air resistance. What is its speed at the highest point for 0° < θ < 90°?
+
+බෝලයක් තිරසට ඉහළින් θ කෝණයකින් u වේගයෙන් විසි කරයි. වායු ප්‍රතිරෝධය නොසලකන්න. 0° < θ < 90° නම් ඉහළම තැනදී එහි වේගය කීය ද?
+
+1. v(hₘₐₓ) = u cos θ · v(hₘₐₓ) = u cos θ · **Key**
+2. v(hₘₐₓ) = u sin θ · v(hₘₐₓ) = u sin θ · `sin-cos-swap`
+3. v(hₘₐₓ) = 0 · v(hₘₐₓ) = 0 · `v-zero-at-top`
+4. v(hₘₐₓ) = u · v(hₘₐₓ) = u · `speed-constant`
+
+Only the vertical velocity vanishes. The horizontal component is unchanged.
+
+ශූන්‍ය වන්නේ සිරස් ප්‍රවේග සංරචකය පමණි. තිරස් සංරචකය වෙනස් නොවේ.
+
+**Harder questions**
+
+- [phy.mech.c026](#hard-phy-mech-c026) · A ball is launched at 60° above the horizontal. Ignore air resistance. A student says its KE is zero at the highest point. Which correction is valid?
+- [phy.mech.p03-01](#hard-phy-mech-p03-01) · A stone is thrown at 40° to the horizontal, with no air resistance. Which quantity stays constant?
+- [phy.mech.p03-02](#hard-phy-mech-p03-02) · A marble rolls off a table and falls to the floor, with no air resistance. Which quantity stays constant?
+- [phy.mech.p03-03](#hard-phy-mech-p03-03) · A parcel drops from a plane flying level, with no air resistance. Which quantity stays constant?
+- [phy.mech.p03-04](#hard-phy-mech-p03-04) · A ball is thrown straight up, with no air resistance. Which quantity stays constant?
+- [phy.mech.p03-05](#hard-phy-mech-p03-05) · A ball is thrown at 30° to the horizontal, with no air resistance. Which quantity stays constant?
+- [phy.mech.p03-06](#hard-phy-mech-p03-06) · A stone falls from a bridge from rest, with no air resistance. Which quantity stays constant?
+- [phy.mech.t09](#hard-phy-mech-t09) · A ball is thrown at {angle}° to the horizontal with {K} J of KE. {ask} (No air resistance)
+
+**Checks**
+
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P3 · meaning-read · `/text/si` · English launches the ball from the ground. Sinhala gives the angle and speed but leaves the starting height open. The requested speed is unaffected.
+
+## phy.mech.c067
+
+Every ball thrown obliquely has exactly half its initial kinetic energy at the top of its path in a vacuum.
+
+රික්තයක ආනතව විසි කළ සෑම වස්තුවකටම පථයේ ඉහළම තැනදී ඉතිරි වන්නේ මුල් චාලක ශක්තියෙන් හරි අඩකි.
+
+1. True · සත්‍ය · `ke-half-at-top`
+2. False · අසත්‍ය · **Key**
+
+The energy fraction depends on launch angle because the horizontal velocity remains.
+
+තිරස් ප්‍රවේගය ඉතිරි වන නිසා චාලක ශක්තියේ ඉතිරි භාගය විසි කළ කෝණය මත රඳා පවතී.
+
+**Harder questions**
+
+- [phy.mech.c026](#hard-phy-mech-c026) · A ball is launched at 60° above the horizontal. Ignore air resistance. A student says its KE is zero at the highest point. Which correction is valid?
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English makes the claim for every ball. Sinhala extends it to every object. Both claims are false in the projectile model.
+
+## phy.mech.c078
+
+A rider of mass m accelerates downwards at a in a lift, with 0 < a < g. Which expression gives the scale reading in newtons?
+
+විදුලි සෝපානයක m ස්කන්ධයක් ඇති මගියෙක් a ත්වරණයෙන් පහළට ගමන් කරයි. 0 < a < g නම් තරාදියේ කියවීම නිව්ටන්වලින් කීය ද?
+
+1. N = m(g−a) · N = m(g−a) · **Key**
+2. N = m(g+a) · N = m(g+a) · `sign`
+3. N = mg · N = mg · `ignored-condition`
+   - Weight exceeds the upward support force by ma. The scale reads the support force. · බර ඉහළට යෙදෙන ආධාරක බලයට වඩා ma ප්‍රමාණයකින් වැඩිය. තරාදියෙන් කියවෙන්නේ ආධාරක බලයයි.
+4. N = g−a · N = g−a · `forgot-mass`
+
+Weight exceeds the upward support force by ma. The scale reads the support force.
+
+බර ඉහළට යෙදෙන ආධාරක බලයට වඩා ma ප්‍රමාණයකින් වැඩිය. තරාදියෙන් කියවෙන්නේ ආධාරක බලයයි.
+
+**Harder questions**
+
+- [phy.mech.c013](#hard-phy-mech-c013) · A lift moving up is slowing down. Compared with mg, the scale reading is?
+- [phy.mech.c014](#hard-phy-mech-c014) · A lift moves down at constant speed. Compared with mg, the scale reading is?
+- [phy.mech.t04](#hard-phy-mech-t04) · A lift is moving {motion}. Its speed changes by {dv} m s⁻¹ in {t} s. Force from the floor on a {m} kg block?
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English specifies downward acceleration. Sinhala describes downward travel with acceleration a. A descending lift that is slowing down has upward acceleration and a different scale reading.
+
+## phy.mech.c090
+
+On a level truck bed the maximum friction on a box of mass m is μmg. What truck acceleration can friction alone just give the box?
+
+තිරස් ලොරි තට්ටුවක m ස්කන්ධයක් ඇති පෙට්ටියකට යෙදිය හැකි උපරිම ඝර්ෂණ බලය μmg වේ. එම බලය පමණක් පෙට්ටියට ලබා දෙන උපරිම ත්වරණය කීය ද?
+
+1. a = μg · a = μg · **Key**
+2. a = μmg · a = μmg · `forgot-mass`
+3. a = g/μ · a = g/μ · `inverted`
+4. a = μ · a = μ · `forgot-g`
+
+Divide the limiting friction by the mass of the box.
+
+සීමාන්ත ඝර්ෂණ බලය පෙට්ටියේ ස්කන්ධයෙන් බෙදන්න.
+
+**Harder questions**
+
+- [phy.mech.c020](#hard-phy-mech-c020) · All four wheels of a car are driven. Greatest possible acceleration on a level road?
+- [phy.mech.t06](#hard-phy-mech-t06) · A car with all wheels driven reaches {kmh} km h⁻¹ from rest in {t} s on a level road, at uniform acceleration. Smallest μₛ needed?
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English asks how much truck acceleration the friction can give the box. Sinhala asks only for the maximum box acceleration. The values coincide at the no-slip limit.
+
 ## phy.mech.c123
 
 A spinner has Iω = 12 kg m² s⁻¹. Its moment of inertia drops from 6 to 3 kg m² with zero external torque. What is its new angular speed in rad s⁻¹?
@@ -33,7 +209,7 @@ Divide the conserved angular momentum by the new moment of inertia.
 - P2 · review-wording · `/options/1/detail/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
 - P2 · review-wording · `/options/2/detail/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
 - P2 · review-wording · `/text/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍යව. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍යව. See the term decision sheet.
 
 ## phy.mech.c108
 
@@ -86,9 +262,9 @@ A couple has zero resultant force and a nonzero moment.
 
 - P2 · review-wording · `/explanation/si` · moment of force. ඝූර්ණය Review line 13.
 - P2 · review-wording · `/options/0/detail/si` · moment of force. ඝූර්ණය Review line 13.
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/0/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/0/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c104
 
@@ -170,7 +346,7 @@ Its line of action passes through the pivot, giving zero perpendicular distance.
 **Checks**
 
 - P2 · review-wording · `/text/si` · moment of force. ඝූර්ණය Review line 13.
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c127
 
@@ -196,7 +372,7 @@ The conserved product is Iω.
 **Checks**
 
 - P2 · review-wording · `/text/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c105
 
@@ -238,27 +414,6 @@ Changing the axis changes the distances of the masses from it.
 **Harder questions**
 
 - [phy.mech.b02](#hard-phy-mech-b02) · Statement bank
-
-**Checks**
-
-- P2 · review-wording · `/text/si` · moment of inertia. අවස්ථිති ඝූර්ණය Review line 13.
-
-## phy.mech.c118
-
-Spinning a rigid disc faster increases its moment of inertia about its fixed axle.
-
-දෘඪ තැටියක් එහි ස්ථිර අක්ෂය වටා වේගයෙන් කරකැවූ විට එහි අවස්ථිති සූර්ණය වැඩි වේ.
-
-1. True · සත්‍ය · `moi-depends-on-omega`
-2. False · අසත්‍ය · **Key**
-
-Neither the mass nor its distribution about the axle changes.
-
-ස්කන්ධය හෝ අක්ෂය වටා එහි ව්‍යාප්තිය හෝ වෙනස් නොවේ.
-
-**Harder questions**
-
-- [phy.mech.c043](#hard-phy-mech-c043) · A ring and a disc have equal mass and radius. Which has the larger I about the central axis?
 
 **Checks**
 
@@ -389,59 +544,9 @@ Her displacement is zero even though she covered a distance.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/1/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-
-## phy.mech.c061
-
-For an upward launch at speed u under constant gravity g, which expression gives the rise to the turning point?
-
-නියත ගුරුත්වජ ත්වරණය g යටතේ u වේගයෙන් සිරස්ව ඉහළට විසි කළ වස්තුව හැරෙන ස්ථානය දක්වා ඉහළ යන උස කුමන ප්‍රකාශනයෙන් ලැබේ ද?
-
-1. u²/(2g) · u²/(2g) · **Key**
-2. u/(2g) · u/(2g) · `forgot-square`
-3. u²/g · u²/g · `stopped-early`
-   - Set the final vertical speed to zero in v² = u² − 2gh. · v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
-4. u²/(4g) · u²/(4g) · `wrong-law`
-   - Set the final vertical speed to zero in v² = u² − 2gh. · v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
-
-Set the final vertical speed to zero in v² = u² − 2gh.
-
-v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.
-
-**Harder questions**
-
-- [phy.mech.t02](#hard-phy-mech-t02) · A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?
-
-**Checks**
-
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/2/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/3/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-
-## phy.mech.c062
-
-A stone is thrown upwards from a roof in still air with negligible drag. Its time to the street must equal twice its time to the top, even when the street lies below the roof.
-
-වායු ප්‍රතිරෝධය නොසලකා වහලයක සිට ඉහළට විසි කළ ගලකට වීදියට වැටීමට ගත වන කාලය, වීදිය වහලයට පහළින් තිබුණත්, ඉහළම තැනට යාමට ගත වන කාලය මෙන් දෙගුණයකි.
-
-1. True · සත්‍ය · `ignored-condition`
-   - The equal flight times refer to points at the same height. The stone also has to fall below roof level. · කාල සම්මිතිය යෙදෙන්නේ එකම උසේ ලක්ෂ්‍යවලටය. ගල වහල මට්ටමට පහළටත් වැටිය යුතුය.
-2. False · අසත්‍ය · **Key**
-
-The equal flight times refer to points at the same height. The stone also has to fall below roof level.
-
-කාල සම්මිතිය යෙදෙන්නේ එකම උසේ ලක්ෂ්‍යවලටය. ගල වහල මට්ටමට පහළටත් වැටිය යුතුය.
-
-**Harder questions**
-
-- [phy.mech.t02](#hard-phy-mech-t02) · A ball thrown straight up from the ground passes a point {h} m high twice, {dt} s apart. Launch speed?
-
-**Checks**
-
-- P1 · term-variation · `/explanation/si` · symmetry: සම්මිතිය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/0/detail/si` · symmetry: සම්මිතිය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/1/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c093
 
@@ -467,8 +572,8 @@ Impulse is the triangular area, ½ × 4 × 6 = 12 N s.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍යයේ. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍යයේ. See the term decision sheet.
 
 ## phy.mech.c054
 
@@ -490,37 +595,7 @@ The general rule uses displacement divided by elapsed time. Constant acceleratio
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · final velocity: අවසන් ප්‍රවේග. Multiple wordings; teacher to decide.
-
-## phy.mech.c063
-
-A ball leaves the ground at speed u at angle θ above the horizontal. Ignore air resistance. What is its speed at the highest point for 0° < θ < 90°?
-
-බෝලයක් තිරසට ඉහළින් θ කෝණයකින් u වේගයෙන් විසි කරයි. වායු ප්‍රතිරෝධය නොසලකන්න. 0° < θ < 90° නම් ඉහළම තැනදී එහි වේගය කීය ද?
-
-1. v(hₘₐₓ) = u cos θ · v(hₘₐₓ) = u cos θ · **Key**
-2. v(hₘₐₓ) = u sin θ · v(hₘₐₓ) = u sin θ · `sin-cos-swap`
-3. v(hₘₐₓ) = 0 · v(hₘₐₓ) = 0 · `v-zero-at-top`
-4. v(hₘₐₓ) = u · v(hₘₐₓ) = u · `speed-constant`
-
-Only the vertical velocity vanishes. The horizontal component is unchanged.
-
-ශූන්‍ය වන්නේ සිරස් ප්‍රවේග සංරචකය පමණි. තිරස් සංරචකය වෙනස් නොවේ.
-
-**Harder questions**
-
-- [phy.mech.c026](#hard-phy-mech-c026) · A ball is launched at 60° above the horizontal. Ignore air resistance. A student says its KE is zero at the highest point. Which correction is valid?
-- [phy.mech.p03-01](#hard-phy-mech-p03-01) · A stone is thrown at 40° to the horizontal, with no air resistance. Which quantity stays constant?
-- [phy.mech.p03-02](#hard-phy-mech-p03-02) · A marble rolls off a table and falls to the floor, with no air resistance. Which quantity stays constant?
-- [phy.mech.p03-03](#hard-phy-mech-p03-03) · A parcel drops from a plane flying level, with no air resistance. Which quantity stays constant?
-- [phy.mech.p03-04](#hard-phy-mech-p03-04) · A ball is thrown straight up, with no air resistance. Which quantity stays constant?
-- [phy.mech.p03-05](#hard-phy-mech-p03-05) · A ball is thrown at 30° to the horizontal, with no air resistance. Which quantity stays constant?
-- [phy.mech.p03-06](#hard-phy-mech-p03-06) · A stone falls from a bridge from rest, with no air resistance. Which quantity stays constant?
-- [phy.mech.t09](#hard-phy-mech-t09) · A ball is thrown at {angle}° to the horizontal with {K} J of KE. {ask} (No air resistance)
-
-**Checks**
-
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · final velocity: අවසන් ප්‍රවේග. See the term decision sheet.
 
 ## phy.mech.c080
 
@@ -542,7 +617,7 @@ The person and scale fall together. The contact force is zero.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c124
 
@@ -568,7 +643,7 @@ Internal work can change the rotational kinetic energy.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.mech.c125
 
@@ -594,7 +669,7 @@ The corresponding quantity for translation is mv.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · symmetry: සම්මිති. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · symmetry: සම්මිති. See the term decision sheet.
 
 ## phy.mech.c137
 
@@ -615,7 +690,7 @@ The velocity is tangential and the acceleration is radial.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · circular motion: වෘත්තාකාර චලිතයේදී. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · circular motion: වෘත්තාකාර චලිතයේදී. See the term decision sheet.
 
 ## phy.mech.c052
 
@@ -641,7 +716,7 @@ Include the rest in the elapsed time. The average is 12 ÷ 8 = 1.5 m s⁻¹ east
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c055
 
@@ -663,7 +738,7 @@ Elapsed time is the difference between the two readings.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c056
 
@@ -684,7 +759,7 @@ Equal time intervals give equal increases in displacement.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c057
 
@@ -705,7 +780,7 @@ Velocity there is negative. That part of the displacement is negative.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c058
 
@@ -727,7 +802,7 @@ Speed has no direction. Its time integral gives distance travelled.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c059
 
@@ -752,7 +827,7 @@ At equal heights the upward and downward journeys take equal times. Each takes h
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c060
 
@@ -773,7 +848,7 @@ Both have the same initial speed and downward acceleration. Their maximum height
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c064
 
@@ -800,7 +875,7 @@ Gravity continues to accelerate the ball downwards through the turning point.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c065
 
@@ -821,7 +896,7 @@ Only its weight acts during free flight.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c066
 
@@ -852,28 +927,7 @@ Kinetic energy is proportional to speed squared for fixed mass. The fraction is 
 
 **Checks**
 
-No automated flags.
-
-## phy.mech.c067
-
-Every ball thrown obliquely has exactly half its initial kinetic energy at the top of its path in a vacuum.
-
-රික්තයක ආනතව විසි කළ සෑම වස්තුවකටම පථයේ ඉහළම තැනදී ඉතිරි වන්නේ මුල් චාලක ශක්තියෙන් හරි අඩකි.
-
-1. True · සත්‍ය · `ke-half-at-top`
-2. False · අසත්‍ය · **Key**
-
-The energy fraction depends on launch angle because the horizontal velocity remains.
-
-තිරස් ප්‍රවේගය ඉතිරි වන නිසා චාලක ශක්තියේ ඉතිරි භාගය විසි කළ කෝණය මත රඳා පවතී.
-
-**Harder questions**
-
-- [phy.mech.c026](#hard-phy-mech-c026) · A ball is launched at 60° above the horizontal. Ignore air resistance. A student says its KE is zero at the highest point. Which correction is valid?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c068
 
@@ -894,7 +948,7 @@ Opposite directions give the difference of the magnitudes. The lower endpoint is
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c069
 
@@ -915,7 +969,7 @@ The two forces arise together during the interaction.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c070
 
@@ -936,7 +990,7 @@ Each body attracts the other by gravitation.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c071
 
@@ -957,7 +1011,7 @@ Both act on the book. The partner of the table’s push acts on the table.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c072
 
@@ -978,7 +1032,7 @@ The two forces act on different bodies. Only the forward member acts on the skat
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c073
 
@@ -1000,7 +1054,7 @@ Both participants in that interaction lie inside the chosen system.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c074
 
@@ -1022,7 +1076,7 @@ The bucket pulls the rope down. The partner comes from the body on which the ori
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c075
 
@@ -1043,7 +1097,7 @@ Keep the same two bodies and exchange their roles. B pushes on A.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c076
 
@@ -1066,7 +1120,7 @@ Water is pushed back and in turn pushes the swimmer forwards.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c077
 
@@ -1087,33 +1141,7 @@ Different masses can have different accelerations under equal forces.
 
 **Checks**
 
-No automated flags.
-
-## phy.mech.c078
-
-A rider of mass m accelerates downwards at a in a lift, with 0 < a < g. Which expression gives the scale reading in newtons?
-
-විදුලි සෝපානයක m ස්කන්ධයක් ඇති මගියෙක් a ත්වරණයෙන් පහළට ගමන් කරයි. 0 < a < g නම් තරාදියේ කියවීම නිව්ටන්වලින් කීය ද?
-
-1. N = m(g−a) · N = m(g−a) · **Key**
-2. N = m(g+a) · N = m(g+a) · `sign`
-3. N = mg · N = mg · `ignored-condition`
-   - Weight exceeds the upward support force by ma. The scale reads the support force. · බර ඉහළට යෙදෙන ආධාරක බලයට වඩා ma ප්‍රමාණයකින් වැඩිය. තරාදියෙන් කියවෙන්නේ ආධාරක බලයයි.
-4. N = g−a · N = g−a · `forgot-mass`
-
-Weight exceeds the upward support force by ma. The scale reads the support force.
-
-බර ඉහළට යෙදෙන ආධාරක බලයට වඩා ma ප්‍රමාණයකින් වැඩිය. තරාදියෙන් කියවෙන්නේ ආධාරක බලයයි.
-
-**Harder questions**
-
-- [phy.mech.c013](#hard-phy-mech-c013) · A lift moving up is slowing down. Compared with mg, the scale reading is?
-- [phy.mech.c014](#hard-phy-mech-c014) · A lift moves down at constant speed. Compared with mg, the scale reading is?
-- [phy.mech.t04](#hard-phy-mech-t04) · A lift is moving {motion}. Its speed changes by {dv} m s⁻¹ in {t} s. Force from the floor on a {m} kg block?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c079
 
@@ -1135,7 +1163,7 @@ Slowing a downward motion requires upward acceleration. The floor pushes up hard
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c081
 
@@ -1157,7 +1185,7 @@ The reading is the contact force. Gravity also contributes to the resultant.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c082
 
@@ -1179,7 +1207,7 @@ Taking upwards as positive, the resultant force is the support force minus the w
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c083
 
@@ -1204,7 +1232,7 @@ Use 0 = u² − 2μgs and solve for s.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c084
 
@@ -1231,7 +1259,7 @@ The initial kinetic energy increases ninefold. The same frictional force must ac
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c085
 
@@ -1252,7 +1280,7 @@ The contact normal is perpendicular to the board.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c086
 
@@ -1273,7 +1301,7 @@ Kinetic friction opposes the relative sliding at the contact.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c087
 
@@ -1294,7 +1322,7 @@ Both friction and mass double. Their ratio stays μg.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c088
 
@@ -1315,7 +1343,7 @@ Friction does negative work on the block.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c089
 
@@ -1336,31 +1364,7 @@ The friction coefficient has no units. The product μg has units of acceleration
 
 **Checks**
 
-No automated flags.
-
-## phy.mech.c090
-
-On a level truck bed the maximum friction on a box of mass m is μmg. What truck acceleration can friction alone just give the box?
-
-තිරස් ලොරි තට්ටුවක m ස්කන්ධයක් ඇති පෙට්ටියකට යෙදිය හැකි උපරිම ඝර්ෂණ බලය μmg වේ. එම බලය පමණක් පෙට්ටියට ලබා දෙන උපරිම ත්වරණය කීය ද?
-
-1. a = μg · a = μg · **Key**
-2. a = μmg · a = μmg · `forgot-mass`
-3. a = g/μ · a = g/μ · `inverted`
-4. a = μ · a = μ · `forgot-g`
-
-Divide the limiting friction by the mass of the box.
-
-සීමාන්ත ඝර්ෂණ බලය පෙට්ටියේ ස්කන්ධයෙන් බෙදන්න.
-
-**Harder questions**
-
-- [phy.mech.c020](#hard-phy-mech-c020) · All four wheels of a car are driven. Greatest possible acceleration on a level road?
-- [phy.mech.t06](#hard-phy-mech-t06) · A car with all wheels driven reaches {kmh} km h⁻¹ from rest in {t} s on a level road, at uniform acceleration. Smallest μₛ needed?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c091
 
@@ -1381,7 +1385,7 @@ At the same acceleration the heavier box requires more force.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c092
 
@@ -1402,7 +1406,7 @@ Its average speed is half its final speed at.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c094
 
@@ -1426,7 +1430,7 @@ J = mΔv නිසා ආවේගය ස්කන්ධයෙන් බෙද�
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c095
 
@@ -1447,7 +1451,7 @@ The height stays fixed throughout the time interval.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c096
 
@@ -1469,7 +1473,7 @@ The force acts for 9 − 7 = 2 s.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c097
 
@@ -1494,7 +1498,7 @@ The initial momentum is 12 kg m s⁻¹. Divide by the combined mass of 4 kg.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c098
 
@@ -1515,7 +1519,7 @@ Their momenta are equal in magnitude. The lighter part has the larger speed.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c099
 
@@ -1538,7 +1542,7 @@ The wall lies outside the two-cart system.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c100
 
@@ -1559,7 +1563,7 @@ Momentum has the direction of velocity.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c101
 
@@ -1585,7 +1589,7 @@ F = ma අනුව බලය වෙනස් වන විට ත්වරණ�
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c102
 
@@ -1611,7 +1615,7 @@ The internal impulses are equal and opposite.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c103
 
@@ -1637,7 +1641,7 @@ Some kinetic energy becomes internal energy when the carts stick together.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c110
 
@@ -1661,7 +1665,7 @@ Speed just above the floor is proportional to the square root of the correspondi
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c111
 
@@ -1683,7 +1687,7 @@ The upward flight starts after the impact. Use the height reached on that flight
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c112
 
@@ -1705,7 +1709,7 @@ Take the positive square root to obtain a speed.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c113
 
@@ -1727,7 +1731,7 @@ The height is proportional to the square of the upward speed.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c114
 
@@ -1752,7 +1756,7 @@ At constant speed the lifting force equals the weight. Multiply 20 N by 3 m s⁻
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c115
 
@@ -1774,7 +1778,7 @@ Only the force component along the velocity contributes to power.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c116
 
@@ -1796,7 +1800,7 @@ Divide the work by elapsed time.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c126
 
@@ -1820,7 +1824,7 @@ With negligible external torque, conservation of angular momentum relates the tw
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c128
 
@@ -1842,7 +1846,7 @@ Angular speed is inversely proportional to I.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c129
 
@@ -1868,7 +1872,7 @@ Use the rotational part divided by the sum of both parts.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c130
 
@@ -1889,7 +1893,7 @@ Both energy terms contain the same mass factor.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c131
 
@@ -1911,7 +1915,7 @@ The energy also depends on how mass is distributed about the axis.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c133
 
@@ -1932,7 +1936,7 @@ Both translational and rotational energy increase fourfold.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c134
 
@@ -1954,7 +1958,7 @@ Only the height difference over the actual journey contributes.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c135
 
@@ -1978,7 +1982,7 @@ Use v²/r with radius 10 m.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c136
 
@@ -1999,7 +2003,7 @@ The net force points towards the centre of the turn.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c138
 
@@ -2020,7 +2024,7 @@ Weight and the road’s normal reaction are vertical.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c139
 
@@ -2041,7 +2045,7 @@ Divide the limiting lateral force by m.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.mech.c140
 
@@ -2062,7 +2066,7 @@ The required force is proportional to v², so it increases fourfold.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## Harder questions referenced by the drafts
 

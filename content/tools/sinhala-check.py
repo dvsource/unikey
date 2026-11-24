@@ -5,6 +5,8 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from decimal import Decimal
 from copy import deepcopy
+from sinhala_meaning import meaning_signals
+from sinhala_teacher import apply_readings, configure_terms, reading_summary, write_sheets
 import difflib
 import hashlib
 import json
@@ -161,7 +163,8 @@ CONDITIONS = [
 ]
 POLAR = {"true": "සත්‍ය", "false": "අසත්‍ය", "increases": "වැඩි", "decreases": "අඩු",
          "positive": "ධන", "negative": "සෘණ", "east": "නැගෙනහිර", "west": "බටහිර"}
-PRIORITY = {"missing-translation": 3, "option-meaning": 3, "placeholder-mismatch": 3,
+PRIORITY = {"negation-check": 2, "number-word-check": 2, "direction-check": 2,
+            "comparison-check": 2, "meaning-read": 3,"missing-translation": 3, "option-meaning": 3, "placeholder-mismatch": 3,
             "number-mismatch": 3, "condition-check": 2, "unit-mismatch": 2, "symbol-mismatch": 2,
             "review-wording": 2, "untranslated-prose": 2, "stray-latin": 2, "look-alike": 2,
             "join-control": 2, "non-nfc": 1, "unit-style": 1, "decimal-style": 1, "term-variation": 1}
@@ -184,6 +187,7 @@ def inspect_pair(pair):
         if en.strip() or si.strip():
             yield "missing-translation", "One language is empty."
         return
+    yield from meaning_signals(en, si)
     if re.search(WORD,en):
         yield "untranslated-prose", "Sinhala script in the English master. Verify the language of the field."
     for lang, s in (("EN", en), ("SI", si)):
@@ -423,7 +427,7 @@ def audit(records, terms):
                 for l in locs:
                     key,f = l.split(" ",1)[1].split("/",1)
                     r = lookup[key]
-                    flag(r,r["fields"]["/"+f],"term-variation",f"{name}: {surface}. Multiple wordings; teacher to decide.")
+                    flag(r,r["fields"]["/"+f],"term-variation",f"{name}: {surface}. See the term decision sheet.")
     conflicts.sort(key=lambda c:(-c["secondary_items"],c["term"]))
     flags.sort(key=lambda f:(f["unit"],f["edition"],f["id"],-f["priority"],f["field"],f["kind"],f["message"]))
     return hits, flags, conflicts
@@ -455,7 +459,9 @@ def anchor(key):
 
 def teacher_sheet(unit, records, flags):
     by_id = defaultdict(list)
-    for f in flags: by_id[f["id"]].append(f)
+    for f in flags:
+        if "screen_read" not in f or f["screen_read"]["verdict"]=="needs reread":
+            by_id[f["id"]].append(f)
     drafts = [r for r in records if r["unit"]==unit and r["edition"]=="draft"]
     def rank(r):
         count = Counter(f["priority"] for f in by_id[r["id"]])
@@ -477,7 +483,7 @@ def teacher_sheet(unit, records, flags):
         lines += ["","**Checks**",""]
         for f in by_id[r["id"]]:
             lines.append(f"- P{f['priority']} · {f['kind']} · `{f['field']}` · {f['message']}")
-        if not by_id[r["id"]]: lines.append("No automated flags.")
+        if not by_id[r["id"]]: lines.append("No outstanding findings from these checks.")
         lines += [""]
     lines += ["## Harder questions referenced by the drafts","","Template braces stand for generated values. Each bank lists its authored true and false statements. The draft branch supplies these links.", ""]
     for k in sorted({k for r in drafts for k in r["repairs"]}):
@@ -538,13 +544,13 @@ def editorial_ranking(index):
         ids = sorted(set().union(*(families[i] for i in targets)))
         if ids:
             ranking.append(dict(term=name,affected_records=len(ids),ids=ids,
-                                reason="review recommends another form" if t["review_line"] else "competing usage; teacher to decide"))
+                                reason="review recommends another form" if t["review_line"] else "competing usage; see the proposed decision"))
     return sorted(ranking,key=lambda r:(-r["affected_records"],r["term"]))
 
 def term_sheet(index, records):
     lines = ["# English → Sinhala term concordance", "",
              "The family rows contain exact spellings, including endings, followed by every matching authored field. A family groups inflections of the same expression. The source, record ID and item-relative JSON Pointer identify each occurrence. A repeated use in one field has one location. The JSON also gives the source file and item pointer. Skill names are indexed separately below.",
-             "", "Only the independent terminology review establishes a preference. A form can be recommended without appearing in the cards. Shorter abbreviations and contextual synonyms can be legitimate. A competing family is a teacher question, not an automatic correction.", ""]
+             "", "Preferences cite the terminology review or the resource counts in decisions.csv. A form can be recommended without appearing in the cards. Shorter abbreviations and contextual synonyms can be legitimate. The teacher can confirm or change the proposed term.", ""]
     lines += ["## First ten terminology decisions", "",
               "Ranked by distinct records using a form the review would change. For an unresolved pair, count records using a less widespread family. A skill label counts as one record. Break ties by English term. Approved abbreviations and accepted pairs remain in the concordance.", "",
               "| Term | Records | Basis |", "|---|---:|---|"]
@@ -554,7 +560,7 @@ def term_sheet(index, records):
     for t in index:
         line=t["review_line"]
         cite=f" [Terminology review, line {line}](../2026-11-19-sinhala-terminology.md#L{line})" if line else ""
-        lines += ["## "+t["english"],"",t["preference"]+"."+cite,""]
+        lines += ["## "+t["english"],"",t["preference"].rstrip(".")+"."+cite,""]
         if t["review_forms"]:
             lines += ["Forms discussed by the review: "+" · ".join(t["review_forms"]), ""]
         for fam in t["families"]:
@@ -572,7 +578,10 @@ def term_sheet(index, records):
 def overview(records, report):
     flags = report["flags"]
     lines = ["# Sinhala physics review pack", "",
-        "Start with the unit sheets. Each draft shows both languages, every option, the proposed key, feedback and the harder questions it repairs. The appendix gives each harder question once. Review priority measures translation risk, not physics difficulty.",
+        "[පද තේරීම් · decisions.csv](decisions.csv) · [කාඩ්පත් · cards.csv](cards.csv)", "",
+        "දුරකථනයෙන් Google Sheets වෙත ගොනුව විවෘත කර පෙළ එතීම සක්‍රිය කරන්න. මුල් පේළි දෙක උපදෙස් සඳහාය. තීරු නාම තුන්වැනි පේළියේ ඇත.", "",
+        *reading_summary(records,flags), "## Unit sheets", "",
+        "For full feedback and repair links, use the unit sheets. Each draft shows both languages, every option, the proposed key, feedback and the harder questions it repairs. The appendix gives each harder question once. Review priority measures translation risk, not physics difficulty.",
         "", "| Unit | v2 items | Draft cards | v2 flags¹ | Draft flags | Drafts with flags |",
         "|---|---:|---:|---:|---:|"]
     for unit in UNITS.values():
@@ -594,7 +603,7 @@ def overview(records, report):
         "", "## Scope and reading the results", "",
         "- Inputs are authored v2 cards, pools, templates, statement banks, skill names and the draft branch’s cards and repair links. Numerical variants are represented by their source templates. Shared formulae, diagram assets and app UI are separate from translated prose.",
         "- The term catalog combines the independent review, observed bilingual expressions and candidate pairs identified using the local glossary cited by the review. A dictionary entry alone does not establish usage. The concordance records exact Sinhala surfaces in the inputs, including inflections. Some short roots use English context to distinguish senses. Review-only spellings are identified separately.",
-        "- Only the terminology review establishes a preference. The glossary and scripts cannot decide classroom usage. Standalone abbreviations, full names and synonymous expressions can all be legitimate. Nonpreferred wording in a proposed wrong answer may be intentional.",
+        "- The teacher can confirm the review recommendations and the proposals backed by print counts. Standalone abbreviations, full names and synonymous expressions can all be legitimate. Nonpreferred wording in a proposed wrong answer may be intentional.",
         "- P3 covers possible changes to a question, option, number or placeholder. P2 covers conditions, symbols, language leakage and specific editorial recommendations. P1 covers notation and unresolved variations. A teacher should read the bilingual text even for cards with zero flags.",
         "- Numeric checks compare literals, signed values, unit bindings, common multipliers and explicit assignments. Condition and option checks use bilingual cues, option collisions, formula order and polarity. These checks cannot prove semantic equivalence, identify every paraphrase or interpret a diagram. All bilingual fields remain in the JSON for those judgments.",
         "- Sinhala conjuncts with a virama and ZWJ are valid. Suspect join-control positions are reported with character offsets. Symbols, variables, units and figure labels are allowed in Sinhala. The §5.7 language rules distinguish content words from notation. The authoring spec calls for a decimal point. The living §5.2 leaves point versus middle dot open. A comma between digits needs context.",
@@ -616,7 +625,9 @@ def build(args):
     terms = load_terms(raw_review.decode().splitlines())
     ref,files,records = read_inputs(args.draft_ref)
     hits,flags,conflicts = audit(records,terms)
+    apply_readings(records, flags)
     index = term_index(hits)
+    configure_terms(index)
     counts=dict(sorted(Counter(f["kind"] for f in flags).items()))
     for k in PRIORITY: counts.setdefault(k,0)
     report = dict(
@@ -628,6 +639,7 @@ def build(args):
         flags=flags, terms=index, competing_forms=conflicts, ranked_term_conflicts=editorial_ranking(index))
     output=args.out
     output.mkdir(parents=True,exist_ok=True)
+    write_sheets(output,records,flags,index)
     (output/"README.md").write_text(overview(records,report))
     for unit in UNITS.values(): (output/(unit+".md")).write_text(teacher_sheet(unit,records,flags))
     (output/"terms.md").write_text(term_sheet(index,records))

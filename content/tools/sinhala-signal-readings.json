@@ -1,0 +1,258 @@
+{
+  "f30542dabfdfe2f3f3d2f3fd0805ea4ffca162c109623e493823253abc145e44": {
+    "verdict": "difference",
+    "note": "The wrong choice claims the ball is slower on the way up in English but only that it moves slowly on the way up in Sinhala. The stated comparison is lost."
+  },
+  "4494fcb4fb7b1f77fc6355e06df0c44c9e72d680afd638fa725b8461d48abee5": {
+    "verdict": "equivalent",
+    "note": "The two specified alternatives identify the faster object or leg of travel. The comparison is recoverable from the choice."
+  },
+  "55b0e062c98f370624c356cd944dde95d15c945365902c735ca9380c5a268d70": {
+    "verdict": "equivalent",
+    "note": "Speeding up or slowing down describes speed, not an additional direction of motion."
+  },
+  "c353940e9ce848e1aa67c9d4a10ea9233d38a3d8980f3b5c39daeb9ba71a6eb4": {
+    "verdict": "equivalent",
+    "note": "The two specified alternatives identify the faster object or leg of travel. The comparison is recoverable from the choice."
+  },
+  "26709320d8665e3d91c7be6b7ae9510d45869e1fa139662d085ce13fedcb9482": {
+    "verdict": "equivalent",
+    "note": "Cannot use kinetic energy and unusable kinetic energy express the same restriction."
+  },
+  "57b2af33f3825aea51adb413eedc4d55b44ce195c525eeb5172afd0f74eb1ecf": {
+    "verdict": "equivalent",
+    "note": "Twice counts passages past the point. Sinhala uses දෙවරක්."
+  },
+  "9eda55317225a87417388c1b8c5622a8cbfa1631a8699b218040d2664f1edbf9": {
+    "verdict": "equivalent",
+    "note": "Speeding up or slowing down describes speed, not an additional direction of motion."
+  },
+  "7b17a8745d4d28dd79ab2faa5b87ab1aaae864a823a2accaa2e86552daf772cc": {
+    "verdict": "difference",
+    "note": "English tests whether increasing spin speed increases inertia. Sinhala asks about spinning fast, without saying the spin speed increased."
+  },
+  "0f721c92b38d4ffda44f2dd6336326e0d85f0b289d2f6a0e1385c085a39b722f": {
+    "verdict": "equivalent",
+    "note": "Descent or below expresses the downward direction in English."
+  },
+  "d4281edd19ddf673e9341f7b5d409bcc97e38b5913a99ab2f6ee7d2977700cbd": {
+    "verdict": "equivalent",
+    "note": "Descent or below expresses the downward direction in English."
+  },
+  "bd036a9b63da1cac74e107a7b0092b26fa5c2cfef90fc7be17408c88f7ae18f2": {
+    "verdict": "equivalent",
+    "note": "The top of the path is a position. The force points down in both versions."
+  },
+  "392c06cfbfaa252fd33259bcc07781e8956c9e2205e418ecf089a5baa759cdd2": {
+    "verdict": "equivalent",
+    "note": "Lower endpoint names a bound, not a smaller physical quantity in the Sinhala wording."
+  },
+  "46aed1bb9bffef4b93e7e065746411343e6992be31e71db9de047d954e433f2c": {
+    "verdict": "equivalent",
+    "note": "Across space is expressed as acting without contact. Both identify the same force pair."
+  },
+  "ae7e8499a5e3c00dc578a2ab3cdb9b387e1e120a8c33a05b5023624fa8256692": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "9666b6a181e41cf9983e798a3741c6dc9f918f0cf279981b9adab57afc18f9e0": {
+    "verdict": "equivalent",
+    "note": "Outside the system means the wall is not part of the system."
+  },
+  "1020bffe9949996cb9f064ad5a49ffec67e0f886b386547b7808c097805346ba": {
+    "verdict": "equivalent",
+    "note": "Zero and absence of the quantity have the same meaning here."
+  },
+  "c0c87cc3c525bd59f3dfe14d327ff55d23dfc30774882ca471459f4495ffa327": {
+    "verdict": "equivalent",
+    "note": "Treating the bar as weightless means ignoring its own weight in this equation."
+  },
+  "2f99440ddf233e5207489886f24a16d44f66958fff339e6091f918ae7c0a385f": {
+    "verdict": "difference",
+    "note": "English changes the speed of the same disc. Sinhala says it is spun fast. An absolute speed replaces the comparison in the false claim."
+  },
+  "905232db587c338f4c33e8168841f26c8d21e38b522728e0abf02d656cc30c50": {
+    "verdict": "equivalent",
+    "note": "The word for change names a temperature difference. Both versions assert equality of the same quantities."
+  },
+  "dc45bcd62f2ede955e68b31167e19b996c61f6495e3c37a5b31907d4305e4e27": {
+    "verdict": "equivalent",
+    "note": "Unless the heat capacities are equal is expressed as if they are not equal."
+  },
+  "7798643d43f88b5e9a152db90bab5328bec831ba284ecd3e869be952770be02f": {
+    "verdict": "equivalent",
+    "note": "The word for change names a temperature difference. Both versions assert equality of the same quantities."
+  },
+  "516f4d297b39e432e4272ecf005e3479dbdef2fbb7832a350f236ad9eba3b872": {
+    "verdict": "equivalent",
+    "note": "Both variables change in the stated directions. English also uses “grows”."
+  },
+  "2bce69d493da2aefade48233110f9fda3cd3757155588dba7a08e2b72777b784": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "88d39842c1e30abff2c8ba3ea81dc3ecfdcad6d7f4c8a0bfdaf7b8e3135d1f83": {
+    "verdict": "difference",
+    "note": "English compares lighter molecules with heavier ones. Sinhala says lighter molecules move fast without saying faster than the heavier ones."
+  },
+  "efb124451a7202b6597f50ad7e55740615ca2aa75e22a6eaf097831288e18d07": {
+    "verdict": "difference",
+    "note": "English says cooling slows as the body approaches room temperature. Sinhala describes slow cooling near room temperature without explicitly comparing the rates."
+  },
+  "2cacb4d3e00ff0be4379717c6b062d8a1233c8b2770c8c9a2e1ab3b6dc152357": {
+    "verdict": "difference",
+    "note": "The distractor says cooling is faster at lower temperatures. Sinhala says it is fast there, losing the comparison."
+  },
+  "c6711ca643df1a38a357db110a1882bccad40a2fbc6e7a9fb7abe9417a4d0715": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "21160479f35bac4fe48b564aee17db997d349bc3505595c0a0fdf00041f866b4": {
+    "verdict": "equivalent",
+    "note": "The second Sinhala directional cue refers to the cold end, not a reversal of the gradient."
+  },
+  "57d8e056cfdb992a3a8a3e256ad71f3cf33b2ea99ad40fab954c8ea58e442ebc": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "cb162d966d6c9567f571b1b7ddfd7146aa5804c629b126c9106c39cf1e1bb0af": {
+    "verdict": "terminology only",
+    "note": "අර්ධ is the glossary alias for partial here. It could be read as half. The terminology review recommends ආංශික. Neither language assigns a one-half factor."
+  },
+  "a91595557ad981edfd7fc4f37bae2a33069d516184c3724e9e41486bf9a54131": {
+    "verdict": "equivalent",
+    "note": "A frictionless piston is a piston without friction."
+  },
+  "27d93a11a2e7a70e075e57ab682b3546491a77568e746db129896e340ba0712d": {
+    "verdict": "equivalent",
+    "note": "A frictionless piston is a piston without friction."
+  },
+  "6f4209b330052bd4c36ebcbba3dcd10056ecbcf2ec2f501f04d0eb8d1b4c7747": {
+    "verdict": "equivalent",
+    "note": "Sinhala says lightweight molecules have greater r.m.s. speed at the same temperature."
+  },
+  "ad3a2004f205d2387fbcd4ac0578ea6fc9a05474d0bbf280ce8e70c1eea7c2c0": {
+    "verdict": "equivalent",
+    "note": "Both say warming lowers relative humidity for the stated vapour content."
+  },
+  "5faa0f4d78b1c1b6118e4ecb7a99e2a9280a5044323d129d50b05148eb96fd47": {
+    "verdict": "equivalent",
+    "note": "The clamps are described as unable to move, which is what rigid clamping means."
+  },
+  "c5babc4b0fae8202354fa141a76242704a907b33c5c3661ec9069841bb60013e": {
+    "verdict": "equivalent",
+    "note": "Small modifies the temperature rise. The question still asks for the fractional length increase."
+  },
+  "2a58716bd8b89910673b8f795dc8f5c18cc93420faa4b5ce7073eae42d5fdaf6": {
+    "verdict": "equivalent",
+    "note": "The word for change names a temperature difference. Both versions assert equality of the same quantities."
+  },
+  "2e96876bb465d21c6906dca28cd64e15c0311e5dc072f73b911b0b2bb70af2c5": {
+    "verdict": "equivalent",
+    "note": "The word for change names a temperature difference. Both versions assert equality of the same quantities."
+  },
+  "13df9bf4179e95d570e535225575dd3bc8ffb705e8a9b3119d0420267885da40": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "198170e3049b53112b6da1e1e3e5f8df3d8dae301fa09b88cc8f5fd8f964e096": {
+    "verdict": "equivalent",
+    "note": "Sinhala expresses a passive rod as having no internal heat source."
+  },
+  "f72523e154ab45463b065fc91d6a0c21a0fe32191ac3c23154340b8139c44db8": {
+    "verdict": "equivalent",
+    "note": "More counts resistors. Both predict that equivalent resistance falls."
+  },
+  "4fb1704607b8a4494f34ba54f1584021f0a71d8cc18f1bb94d7e6a3a668899f9": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "90a6b30246b4a60da52bc26f54def18a7bed71a9afab0409dc2e96c4f9bb868d": {
+    "verdict": "equivalent",
+    "note": "Both variables change in the stated directions. English also uses “grows”."
+  },
+  "da0c1ab4a50bbcc0c2208ad97dd52b6b9ef64a0948b3ade430b8cea2ac45df57": {
+    "verdict": "difference",
+    "note": "English says drift must be faster through the smaller area. Sinhala says fast drift is necessary. The requirement is relative, not an absolute speed."
+  },
+  "b0f794d649ddfea6f98e1f15c3a8a84f0de4c51a390222e8b3e4a1e18285eb78": {
+    "verdict": "equivalent",
+    "note": "Both variables change in the stated directions. English also uses “grows”."
+  },
+  "3118f8a47d896c3c8a24a5d8088b6d743ef8c8bcf9ce1e72c20b465857f1503e": {
+    "verdict": "equivalent",
+    "note": "Stays the same and does not change are equivalent here."
+  },
+  "f41c5be8a0622d03cdb9820eef37d7a927a4171d06ecf0922714e95e4648ea3a": {
+    "verdict": "equivalent",
+    "note": "Zero and absence of the quantity have the same meaning here."
+  },
+  "5f44fa63a81e2553b2e28a29005c8281efdef47b7f929abaf43751ee258ffc9e": {
+    "verdict": "equivalent",
+    "note": "Zero and absence of the quantity have the same meaning here."
+  },
+  "4e1f7b911d89b522a76ae0d1f448d96149a2d220686374f17817879672238540": {
+    "verdict": "difference",
+    "note": "English claims a faster reading than the alternative instrument. Sinhala says the reading is quick. Neither wording is the keyed advantage."
+  },
+  "8640572dabe68b537bdccf3f14fa2e2d65e3cf0868cce7ce871b9192d7e3ae0a": {
+    "verdict": "difference",
+    "note": "English says back e.m.f. grows as the coil turns faster. Sinhala says it grows when the coil turns fast. A constant high speed gives constant back e.m.f."
+  },
+  "c08769ad2ce0589e8cdb54e9f381240f4b16e568164b12acd6187138c5833aaf": {
+    "verdict": "equivalent",
+    "note": "Sinhala explicitly points the field out to oppose increasing inward flux. The vector relation agrees."
+  },
+  "95f15ae35e21a2893279090a232dcfc613230cd5c23f1b5aba3827652bc00c3f": {
+    "verdict": "equivalent",
+    "note": "Third is the ordinal position of a resistor, not one third of a resistor."
+  },
+  "8b507121e442fd555147d3c6b0f3b1edcfa97b518dede8f8798bd42040c5c06a": {
+    "verdict": "difference",
+    "note": "Sinhala narrows “different cell” to a cell with a different e.m.f. The circuit method remains the same."
+  },
+  "93fbd5b2af7582ecfc930d5ce0f49c17b4a23b1d53381244d3a91fbc74e866e9": {
+    "verdict": "equivalent",
+    "note": "The loop moves out of the region while the field points into the page in both versions."
+  },
+  "054ae17fd41794aeea9cc951d0357f756c9fba94ad203a68aebd0ba0bdaa6016": {
+    "verdict": "equivalent",
+    "note": "Changes in the same way preserves the scaling of time with resistance."
+  },
+  "b790dad025987ec0966a8b39bfe4dc9d41d04357c5b9938c8fb4612c36a53652": {
+    "verdict": "difference",
+    "note": "The explanation repeats the missing comparison. It describes fast drift at small area without saying faster than at large area."
+  },
+  "31c7eebdfd617cd0d8992731a6575b1f676b663122387a54de4b3865c6b3286d": {
+    "verdict": "difference",
+    "note": "English says electrons drift faster in the thin section than in the thick section. Sinhala just says they drift fast. Even the faster drift speed can be very small."
+  },
+  "7decd6e5777fea12f7cd251a532b3d1b145615a309d6fe0104bcda265e40fc4c": {
+    "verdict": "difference",
+    "note": "The false statement says electrons drift more slowly in the thin section. Sinhala says they drift slowly, which can be true in both sections."
+  },
+  "5153cc88b5e67befdf1b7b7064f51e939faa6fe8d2ebdbac43983f30c6ec6cf9": {
+    "verdict": "equivalent",
+    "note": "Both give a smaller gradient, a longer balance length and greater sensitivity."
+  },
+  "079cfb462c3b1a0bf9717be074373f7e23ca4747dc4007d204e9e0b86e717d54": {
+    "verdict": "equivalent",
+    "note": "Zero and absence of the quantity have the same meaning here."
+  },
+  "68b27a09a1a27c44578848a76c02c27daef87db8e9b1496e9bb85e1f9a6f8c15": {
+    "verdict": "equivalent",
+    "note": "Fails to cancel and does not cancel express the same result."
+  },
+  "75cb9eb553d05305eff4aa92af1dde33f07bdc0b78c9d2ec0b5d06dcf3ba81a0": {
+    "verdict": "equivalent",
+    "note": "Zero and absence of the quantity have the same meaning here."
+  },
+  "df1bf197fdadf09c8ee8c0a65be29b0124c69838d38ad58ad90d9456d40992d3": {
+    "verdict": "equivalent",
+    "note": "Unpowered describes the lack of an external supply."
+  },
+  "9801225568fa3e7644e3be631e7d70013b4573e1f4795e685fb2cec497be1a45": {
+    "verdict": "equivalent",
+    "note": "Neglecting brush drops and ignoring them are equivalent."
+  }
+}

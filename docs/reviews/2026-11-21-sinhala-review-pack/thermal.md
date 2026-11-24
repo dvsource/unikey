@@ -4,6 +4,69 @@
 
 Most urgent first. Sort by the number of priority 3 findings, then priority 2, then priority 1. Ties use card ID. An empty flag list still needs a bilingual reading.
 
+## phy.therm.c090
+
+Pure ice melting at fixed pressure rises steadily in temperature while solid and liquid coexist.
+
+නියත පීඩනයේ සමතුලිතව දිය වන පිරිසිදු අයිස්වල ඝන හා ද්‍රව අවස්ථා දෙකම පවතින අතර උෂ්ණත්වය ක්‍රමයෙන් වැඩි වේ.
+
+1. True · සත්‍ය · `heat-during-change`
+2. False · අසත්‍ය · **Key**
+
+The temperature stays at the melting point during the change of state.
+
+අවස්ථා වෙනස අතරතුර උෂ්ණත්වය ද්‍රවාංකයේම පවතී.
+
+**Harder questions**
+
+- [phy.therm.b01](#hard-phy-therm-b01) · Statement bank
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · Sinhala explicitly puts the two phases in equilibrium. English only says they coexist. Equilibrium makes the constant melting-temperature argument explicit.
+
+## phy.therm.c097
+
+Two air samples of unequal volumes mix without condensation at fixed total volume. Their final absolute humidity must be the simple mean of the two initial values.
+
+අසමාන පරිමා ඇති වායු නියැදි දෙකක් මුළු පරිමාව නියතව, ඝණීභවනය නොවී මිශ්‍ර වේ. අවසන් නිරපේක්ෂ ආර්ද්‍රතාව අනිවාර්යයෙන්ම මුල් අගයන් දෙකේ සරල මධ්‍යන්‍යයයි.
+
+1. True · සත්‍ය · `assumed-symmetry`
+2. False · අසත්‍ය · **Key**
+
+Add the vapour masses and divide by the total volume. The volumes determine the weights in the average.
+
+වාෂ්ප ස්කන්ධ එකතු කර මුළු පරිමාවෙන් බෙදන්න. මධ්‍යන්‍යයේ බර තීරණය වන්නේ නියැදි පරිමා අනුවය.
+
+**Harder questions**
+
+- [phy.therm.c034](#hard-phy-therm-c034) · Room A (volume 2V) at RH 50% and room B (volume V) at RH 80% are at the same temperature. The door between them stays open. Final RH?
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English mixes two samples of air. Sinhala says gas samples without specifying air. The vapour-mass calculation still uses the stated total volume.
+
+## phy.therm.c104
+
+At the same air temperature, a higher actual vapour pressure means higher relative humidity.
+
+එකම වායු උෂ්ණත්වයේදී සැබෑ වාෂ්ප පීඩනය වැඩි නම් සාපේක්ෂ ආර්ද්‍රතාව වැඩිය.
+
+1. True · සත්‍ය · **Key**
+2. False · අසත්‍ය · `missed-true-statement`
+
+The saturated vapour pressure in the denominator is the same.
+
+හරයේ ඇති සංතෘප්ත වාෂ්ප පීඩනය අවස්ථා දෙකටම සමානය.
+
+**Harder questions**
+
+- [phy.therm.b03](#hard-phy-therm-b03) · Statement bank
+
+**Checks**
+
+- P3 · meaning-read · `/text/si` · English fixes the air temperature. Sinhala fixes the gas temperature without identifying the gas as air. The humidity relation is otherwise the same.
+
 ## phy.therm.c112
 
 In an adiabatic process the temperature change must be zero.
@@ -26,9 +89,9 @@ Heat transfer is zero. Work can still change the internal energy.
 **Checks**
 
 - P2 · review-wording · `/text/si` · adiabatic. ස්ථිරතාපී first. අනුෂ්ණීය may follow as an alias. Review line 16.
-- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/0/detail/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/options/0/detail/si` · zero: ශූන්‍ය. See the term decision sheet.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.therm.c073
 
@@ -76,9 +139,9 @@ Subtract the work done by the gas from the heat entering it.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · work done: කළ කාර්යය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/2/detail/si` · work done: කළ කාර්යය. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/3/detail/si` · work done: කළ කාර්යය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · work done: කළ කාර්යය. See the term decision sheet.
+- P1 · term-variation · `/options/2/detail/si` · work done: කළ කාර්යය. See the term decision sheet.
+- P1 · term-variation · `/options/3/detail/si` · work done: කළ කාර්යය. See the term decision sheet.
 
 ## phy.therm.c117
 
@@ -103,9 +166,9 @@ The rate of heat flow is conductivity × area × gradient magnitude.
 
 **Checks**
 
-- P1 · term-variation · `/explanation/si` · rate: සීඝ්‍රතාව. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/options/2/detail/si` · rate: සීඝ්‍රතාව. Multiple wordings; teacher to decide.
-- P1 · term-variation · `/text/si` · rate: සීඝ්‍රතාව. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/explanation/si` · rate: සීඝ්‍රතාව. See the term decision sheet.
+- P1 · term-variation · `/options/2/detail/si` · rate: සීඝ්‍රතාව. See the term decision sheet.
+- P1 · term-variation · `/text/si` · rate: සීඝ්‍රතාව. See the term decision sheet.
 
 ## phy.therm.c063
 
@@ -126,7 +189,7 @@ The mean translational energy is proportional to T.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · zero: ශූන්‍යයට. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍යයට. See the term decision sheet.
 
 ## phy.therm.c064
 
@@ -147,7 +210,7 @@ The formula uses kelvin temperature, which is positive here.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.therm.c111
 
@@ -175,7 +238,7 @@ Its internal energy depends only on temperature.
 
 **Checks**
 
-- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. Multiple wordings; teacher to decide.
+- P1 · term-variation · `/text/si` · zero: ශූන්‍ය. See the term decision sheet.
 
 ## phy.therm.c050
 
@@ -200,7 +263,7 @@ Subtract the initial temperature from the final temperature. A temperature inter
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c051
 
@@ -221,7 +284,7 @@ The inner diameter expands in the same proportion as the outer diameter.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c052
 
@@ -242,7 +305,7 @@ Fewer expanded divisions fit along the object.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c053
 
@@ -263,7 +326,7 @@ Multiply metres by 1000 to get millimetres.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c054
 
@@ -287,7 +350,7 @@ Rigid supports constrain the length and the supports exert forces on the rod.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c055
 
@@ -313,7 +376,7 @@ For linear expansion divide ΔL = αLΔT by L.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c056
 
@@ -346,7 +409,7 @@ T තනි කර ගැනීමට pV අගය nR න් බෙදන්න.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c057
 
@@ -374,7 +437,7 @@ The amount of gas remaining changes.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c058
 
@@ -396,7 +459,7 @@ The state equation uses the absolute temperature of that state, 300 K.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c059
 
@@ -423,7 +486,7 @@ With the molar constant R, n is the amount in moles.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c060
 
@@ -448,7 +511,7 @@ Boyle’s law keeps pV constant.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c061
 
@@ -469,7 +532,7 @@ Here p = nRT × (1/V).
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c062
 
@@ -491,7 +554,7 @@ Heating changes T and takes the gas to a different isotherm.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c065
 
@@ -516,7 +579,7 @@ Energy per molecule scales linearly with absolute temperature.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c066
 
@@ -537,7 +600,7 @@ The expression contains T and the Boltzmann constant only.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c067
 
@@ -560,7 +623,7 @@ One quantity is per molecule. The other includes the whole sample.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c068
 
@@ -585,7 +648,7 @@ Use p = ρc²/3 for random isotropic motion.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c069
 
@@ -606,7 +669,7 @@ The speed varies as the square root of T.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c070
 
@@ -628,7 +691,7 @@ T නියත විට අණුක ස්කන්ධය වැඩි වන 
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c071
 
@@ -654,7 +717,7 @@ Multiply the mass by c and the temperature drop of 10 K.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c072
 
@@ -676,7 +739,7 @@ With constant specific heat capacity, temperature is weighted by mass.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c074
 
@@ -697,7 +760,7 @@ For the same heat supplied and fixed c, a larger water mass has a smaller temper
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c075
 
@@ -719,7 +782,7 @@ The exchanged heats are equal in magnitude. Their heat capacities determine thei
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c076
 
@@ -744,7 +807,7 @@ Divide heat supplied per second by mass passing per second.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c077
 
@@ -765,7 +828,7 @@ Divide grams by 1000. The flow is 0.005 kg s⁻¹.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c078
 
@@ -787,7 +850,7 @@ Energy supplied each second is shared between the liquid and the surroundings.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c079
 
@@ -808,7 +871,7 @@ Temperature rise is directly proportional to power.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c080
 
@@ -834,7 +897,7 @@ Use the final water temperature minus the room temperature.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c081
 
@@ -856,7 +919,7 @@ The temperature excess falls, so the loss rate falls.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c082
 
@@ -882,7 +945,7 @@ The rate is directly proportional to temperature excess.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c083
 
@@ -907,7 +970,7 @@ During melting at constant pressure, Q = mL.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c084
 
@@ -928,7 +991,7 @@ Compare available heat with the heat needed to melt the ice.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c085
 
@@ -949,7 +1012,7 @@ Melting absorbs energy before the meltwater can warm.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c086
 
@@ -970,7 +1033,7 @@ The latent heat requirement is proportional to mass.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c087
 
@@ -991,7 +1054,7 @@ Freezing releases heat and melting absorbs heat.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c088
 
@@ -1013,7 +1076,7 @@ Add the condensation heat and the heat lost by the cooling water.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c089
 
@@ -1036,28 +1099,7 @@ Include the initial warming of solid ice in the energy balance.
 
 **Checks**
 
-No automated flags.
-
-## phy.therm.c090
-
-Pure ice melting at fixed pressure rises steadily in temperature while solid and liquid coexist.
-
-නියත පීඩනයේ සමතුලිතව දිය වන පිරිසිදු අයිස්වල ඝන හා ද්‍රව අවස්ථා දෙකම පවතින අතර උෂ්ණත්වය ක්‍රමයෙන් වැඩි වේ.
-
-1. True · සත්‍ය · `heat-during-change`
-2. False · අසත්‍ය · **Key**
-
-The temperature stays at the melting point during the change of state.
-
-අවස්ථා වෙනස අතරතුර උෂ්ණත්වය ද්‍රවාංකයේම පවතී.
-
-**Harder questions**
-
-- [phy.therm.b01](#hard-phy-therm-b01) · Statement bank
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c091
 
@@ -1078,7 +1120,7 @@ The adhering liquid adds mass but needs no heat of fusion.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c092
 
@@ -1099,7 +1141,7 @@ Condensation releases latent heat.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c093
 
@@ -1120,7 +1162,7 @@ Energy per unit mass is Q/m.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c094
 
@@ -1145,7 +1187,7 @@ Relative humidity is actual pressure divided by saturated vapour pressure at the
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c095
 
@@ -1170,7 +1212,7 @@ Divide the mass of water vapour by the volume of the moist air.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c096
 
@@ -1192,28 +1234,7 @@ Use only the mass of water vapour in that volume.
 
 **Checks**
 
-No automated flags.
-
-## phy.therm.c097
-
-Two air samples of unequal volumes mix without condensation at fixed total volume. Their final absolute humidity must be the simple mean of the two initial values.
-
-අසමාන පරිමා ඇති වායු නියැදි දෙකක් මුළු පරිමාව නියතව, ඝණීභවනය නොවී මිශ්‍ර වේ. අවසන් නිරපේක්ෂ ආර්ද්‍රතාව අනිවාර්යයෙන්ම මුල් අගයන් දෙකේ සරල මධ්‍යන්‍යයයි.
-
-1. True · සත්‍ය · `assumed-symmetry`
-2. False · අසත්‍ය · **Key**
-
-Add the vapour masses and divide by the total volume. The volumes determine the weights in the average.
-
-වාෂ්ප ස්කන්ධ එකතු කර මුළු පරිමාවෙන් බෙදන්න. මධ්‍යන්‍යයේ බර තීරණය වන්නේ නියැදි පරිමා අනුවය.
-
-**Harder questions**
-
-- [phy.therm.c034](#hard-phy-therm-c034) · Room A (volume 2V) at RH 50% and room B (volume V) at RH 80% are at the same temperature. The door between them stays open. Final RH?
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c098
 
@@ -1235,7 +1256,7 @@ Some vapour condenses to liquid.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c099
 
@@ -1256,7 +1277,7 @@ Condensation transfers mass out of the vapour. Subtract the condensed mass.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c100
 
@@ -1277,7 +1298,7 @@ It is vapour mass per unit volume.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c101
 
@@ -1299,7 +1320,7 @@ Masses add. Percent saturation alone gives neither vapour mass.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c102
 
@@ -1320,7 +1341,7 @@ Heating sealed unsaturated air at fixed volume keeps its vapour mass per volume 
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c103
 
@@ -1341,28 +1362,7 @@ Some vapour condenses. While both liquid and vapour remain, temperature fixes th
 
 **Checks**
 
-No automated flags.
-
-## phy.therm.c104
-
-At the same air temperature, a higher actual vapour pressure means higher relative humidity.
-
-එකම වායු උෂ්ණත්වයේදී සැබෑ වාෂ්ප පීඩනය වැඩි නම් සාපේක්ෂ ආර්ද්‍රතාව වැඩිය.
-
-1. True · සත්‍ය · **Key**
-2. False · අසත්‍ය · `missed-true-statement`
-
-The saturated vapour pressure in the denominator is the same.
-
-හරයේ ඇති සංතෘප්ත වාෂ්ප පීඩනය අවස්ථා දෙකටම සමානය.
-
-**Harder questions**
-
-- [phy.therm.b03](#hard-phy-therm-b03) · Statement bank
-
-**Checks**
-
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c105
 
@@ -1383,7 +1383,7 @@ The saturated vapour pressure is the denominator of the ratio.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c107
 
@@ -1405,7 +1405,7 @@ The work depends on the change in volume over the process.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c108
 
@@ -1426,7 +1426,7 @@ Multiply pressure by volume change to obtain energy.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c109
 
@@ -1447,7 +1447,7 @@ The energy transferred from motion depends on speed squared.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c110
 
@@ -1476,7 +1476,7 @@ Expansion work requires a change in volume.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c113
 
@@ -1501,7 +1501,7 @@ At the same flow the drops are proportional to thermal resistance. The second ro
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c114
 
@@ -1523,7 +1523,7 @@ They share a temperature difference. The smaller resistance carries more heat pe
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c115
 
@@ -1545,7 +1545,7 @@ One endpoint is the junction between the rods.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c116
 
@@ -1566,7 +1566,7 @@ Temperature falls along that direction.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## phy.therm.c118
 
@@ -1589,7 +1589,7 @@ The gradient measures local temperature change per distance.
 
 **Checks**
 
-No automated flags.
+No outstanding findings from these checks.
 
 ## Harder questions referenced by the drafts
 

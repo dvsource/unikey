@@ -2,7 +2,7 @@
 
 The family rows contain exact spellings, including endings, followed by every matching authored field. A family groups inflections of the same expression. The source, record ID and item-relative JSON Pointer identify each occurrence. A repeated use in one field has one location. The JSON also gives the source file and item pointer. Skill names are indexed separately below.
 
-Only the independent terminology review establishes a preference. A form can be recommended without appearing in the cards. Shorter abbreviations and contextual synonyms can be legitimate. A competing family is a teacher question, not an automatic correction.
+Preferences cite the terminology review or the resource counts in decisions.csv. A form can be recommended without appearing in the cards. Shorter abbreviations and contextual synonyms can be legitimate. The teacher can confirm or change the proposed term.
 
 ## First ten terminology decisions
 
@@ -10,40 +10,40 @@ Ranked by distinct records using a form the review would change. For an unresolv
 
 | Term | Records | Basis |
 |---|---:|---|
-| zero | 21 | competing usage; teacher to decide |
+| zero | 21 | competing usage; see the proposed decision |
 | moment of force | 16 | review recommends another form |
-| potential difference / voltage | 16 | competing usage; teacher to decide |
+| potential difference / voltage | 16 | competing usage; see the proposed decision |
 | moment of inertia | 13 | review recommends another form |
-| rate | 9 | competing usage; teacher to decide |
+| rate | 9 | competing usage; see the proposed decision |
 | potential divider | 8 | review recommends another form |
 | adiabatic | 6 | review recommends another form |
 | partial pressure | 6 | review recommends another form |
-| insulated | 3 | competing usage; teacher to decide |
+| insulated | 3 | competing usage; see the proposed decision |
 | translational kinetic energy (including abbreviated translational term) | 3 | review recommends another form |
 
 ## absolute humidity
 
-teacher to decide.
+Attested in this pack.
 
 - නිරපේක්ෂ ආර්ද්‍රතාව · family 1 · `draft phy.therm.c095/text/si`, `draft phy.therm.c096/text/si`, `draft phy.therm.c097/text/si`, `draft phy.therm.c100/text/si`, `draft phy.therm.c102/text/si`, `v2 phy.therm.c030/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.t06/explanation/si`, `v2 phy.therm.t06/text/si`
 - නිරපේක්ෂ ආර්ද්‍රතාවයක · family 1 · `v2 phy.therm.b03/statements/0/text/si`
 
 ## absolute temperature
 
-teacher to decide.
+Attested in this pack.
 
 - නිරපේක්ෂ උෂ්ණත්වය · family 1 · `draft phy.therm.c058/explanation/si`, `draft phy.therm.c058/options/0/detail/si`, `draft phy.therm.c063/text/si`, `draft phy.therm.c069/text/si`, `v2 phy.therm.b02/explanation/si`, `v2 phy.therm.c016/text/si`, `v2 phy.therm.c018/explanation/si`, `v2 phy.therm.c021/options/0/text/si`, `v2 phy.therm.c022/text/si`, `v2 phy.therm.c025/text/si`, `v2 phy.therm.kin.mean-ke-temperature/name_si`
 - නිරපේක්ෂ උෂ්ණත්වයට · family 1 · `draft phy.therm.c065/explanation/si`, `draft phy.therm.c065/options/3/detail/si`, `v2 phy.therm.b02/statements/1/text/si`
 
 ## absolute zero
 
-teacher to decide.
+Attested in this pack.
 
 - නිරපේක්ෂ ශුන්‍යයේ · family 1 · `v2 phy.therm.b02/statements/4/text/si`
 
 ## acceleration
 
-teacher to decide.
+Attested in this pack.
 
 - ත්වරණ · family 1 · `draft phy.mech.c077/explanation/si`
 - ත්වරණය · family 1 · `draft phy.mech.c054/explanation/si`, `draft phy.mech.c054/options/0/detail/si`, `draft phy.mech.c060/explanation/si`, `draft phy.mech.c061/text/si`, `draft phy.mech.c064/explanation/si`, `draft phy.mech.c072/text/si`, `draft phy.mech.c082/text/si`, `draft phy.mech.c090/text/si`, `draft phy.mech.c091/explanation/si`, `draft phy.mech.c092/text/si`, `draft phy.mech.c101/text/si`, `draft phy.mech.c107/text/si`, `draft phy.mech.c113/text/si`, `draft phy.mech.c135/text/si`, `draft phy.mech.c137/explanation/si`, `draft phy.mech.c139/text/si`, `v2 phy.mech.c004/options/1/text/si`, `v2 phy.mech.c005/options/1/text/si`, `v2 phy.mech.c009/explanation/si`, `v2 phy.mech.c010/explanation/si`, `v2 phy.mech.c010/text/si`, `v2 phy.mech.c012/explanation/si`, `v2 phy.mech.c012/text/si`, `v2 phy.mech.c013/explanation/si`, `v2 phy.mech.c020/text/si`, `v2 phy.mech.c023/options/3/text/si`, `v2 phy.mech.c027/explanation/si`, `v2 phy.mech.c027/text/si`, `v2 phy.mech.c033/options/2/text/si`, `v2 phy.mech.c047/explanation/si`, `v2 phy.mech.c048/explanation/si`, `v2 phy.mech.p01-04/explanation/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p03-04/explanation/si`, `v2 phy.mech.p03-04/options/0/text/si`, `v2 phy.mech.p03-05/explanation/si`, `v2 phy.mech.p03-05/options/0/text/si`, `v2 phy.mech.p03-06/options/0/text/si`, `v2 phy.mech.t04/distractors/0/detail_si`, `v2 phy.mech.t04/distractors/4/detail_si`, `v2 phy.mech.t06/explanation/si`
@@ -58,19 +58,19 @@ teacher to decide.
 
 ## acceleration due to gravity
 
-teacher to decide.
+Attested in this pack.
 
 - ගුරුත්වජ ත්වරණය · family 2 · `draft phy.mech.c061/text/si`, `draft phy.mech.c113/text/si`
 
 ## action and reaction
 
-teacher to decide.
+Attested in this pack.
 
 - ක්‍රියාව හා ප්‍රතික්‍රියාව · family 1 · `v2 phy.mech.c012/text/si`
 
 ## adiabatic
 
-ස්ථිරතාපී first. අනුෂ්ණීය may follow as an alias.. [Terminology review, line 16](../2026-11-19-sinhala-terminology.md#L16)
+ස්ථිරතාපී first. අනුෂ්ණීය may follow as an alias. (proposed — teacher confirms). [Terminology review, line 16](../2026-11-19-sinhala-terminology.md#L16)
 
 Forms discussed by the review: ස්ථිරතාපී · අනුෂ්ණීය
 
@@ -78,13 +78,13 @@ Forms discussed by the review: ස්ථිරතාපී · අනුෂ්ණ
 
 ## air resistance
 
-teacher to decide.
+Attested in this pack.
 
 - වායු ප්‍රතිරෝධය · family 1 · `draft phy.mech.c059/text/si`, `draft phy.mech.c062/text/si`, `draft phy.mech.c063/text/si`, `draft phy.mech.c110/text/si`, `v2 phy.mech.c003/explanation/si`, `v2 phy.mech.c026/text/si`, `v2 phy.mech.c028/text/si`, `v2 phy.mech.c050/text/si`, `v2 phy.mech.p03-01/text/si`, `v2 phy.mech.p03-02/text/si`, `v2 phy.mech.p03-03/text/si`, `v2 phy.mech.p03-04/text/si`, `v2 phy.mech.p03-05/text/si`, `v2 phy.mech.p03-06/text/si`, `v2 phy.mech.t09/text/si`
 
 ## ammeter
 
-teacher to decide.
+Attested in this pack.
 
 - ඇමීටර · family 1 · `v2 phy.elec.meter.ammeter-voltmeter/name_si`
 - ඇමීටරය · family 1 · `draft phy.elec.c093/explanation/si`, `v2 phy.elec.c028/options/0/text/si`, `v2 phy.elec.c028/options/1/text/si`, `v2 phy.elec.c028/options/3/text/si`, `v2 phy.elec.c029/options/0/text/si`, `v2 phy.elec.c029/options/1/text/si`, `v2 phy.elec.c029/options/2/text/si`, `v2 phy.elec.c029/text/si`
@@ -95,19 +95,19 @@ teacher to decide.
 
 ## ampere
 
-teacher to decide.
+Attested in this pack.
 
 - ඇම්පියර්වලින් · family 1 · `draft phy.elec.c097/explanation/si`, `draft phy.elec.c097/options/0/detail/si`
 
 ## angular acceleration
 
-teacher to decide.
+Attested in this pack.
 
 - කෝණික ත්වරණය · family 1 · `draft phy.mech.c107/text/si`
 
 ## angular momentum
 
-teacher to decide.
+Attested in this pack.
 
 - කෝණික ගම්‍යතා · family 1 · `draft phy.mech.c126/explanation/si`, `v2 phy.mech.p05-01/options/0/text/si`, `v2 phy.mech.p05-02/options/0/text/si`, `v2 phy.mech.p05-03/options/1/text/si`, `v2 phy.mech.p05-04/options/1/text/si`, `v2 phy.mech.p05-05/options/1/text/si`, `v2 phy.mech.p05-06/options/1/text/si`, `v2 phy.mech.rot.angular-momentum/name_si`
 - කෝණික ගම්‍යතාව · family 1 · `draft phy.mech.c123/explanation/si`, `draft phy.mech.c123/options/1/detail/si`, `draft phy.mech.c123/options/2/detail/si`, `draft phy.mech.c128/text/si`, `v2 phy.mech.c051/text/si`
@@ -115,32 +115,32 @@ teacher to decide.
 
 ## angular speed
 
-teacher to decide.
+Attested in this pack.
 
 - කෝණික වේගය · family 1 · `draft phy.mech.c123/text/si`, `draft phy.mech.c128/explanation/si`, `draft phy.mech.c128/text/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `v2 phy.mech.p05-05/text/si`, `v2 phy.mech.t14/text/si`
 
 ## angular velocity
 
-teacher to decide.
+Attested in this pack.
 
 - කෝණික ප්‍රවේගය · family 1 · `draft phy.mech.c127/text/si`
 - කෝණික ප්‍රවේගයෙන් · family 1 · `v2 phy.mech.c051/explanation/si`
 
 ## anticlockwise
 
-teacher to decide.
+Attested in this pack.
 
 - වාමාවර්ත · family 1 · `v2 phy.elec.p02-01/options/0/text/si`, `v2 phy.elec.p02-01/options/3/text/si`, `v2 phy.elec.p02-02/options/1/text/si`, `v2 phy.elec.p02-02/options/3/text/si`, `v2 phy.elec.p02-03/options/2/text/si`, `v2 phy.elec.p02-03/options/3/text/si`, `v2 phy.elec.p02-04/options/1/text/si`, `v2 phy.elec.p02-04/options/3/text/si`, `v2 phy.elec.p02-05/options/2/text/si`, `v2 phy.elec.p02-05/options/3/text/si`, `v2 phy.elec.p02-06/options/0/text/si`, `v2 phy.elec.p02-06/options/3/text/si`
 
 ## apparent weight
 
-teacher to decide on දෘශ්‍ය බර.. [Terminology review, line 41](../2026-11-19-sinhala-terminology.md#L41)
+දෘශ්‍ය බර (introduce as the scale reading). (proposed — teacher confirms). [Terminology review, line 41](../2026-11-19-sinhala-terminology.md#L41)
 
 - දෘශ්‍ය බර · family 1 · `v2 phy.mech.newton.apparent-weight/name_si`
 
 ## area
 
-teacher to decide.
+Attested in this pack.
 
 - වර්ගඵල · family 1 · `v2 phy.mech.c005/explanation/si`, `v2 phy.therm.c041/text/si`
 - වර්ගඵලය · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/text/si`, `draft phy.elec.c058/explanation/si`, `draft phy.elec.c058/options/1/detail/si`, `draft phy.elec.c058/options/3/detail/si`, `draft phy.elec.c059/explanation/si`, `draft phy.elec.c059/options/2/detail/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c117/text/si`, `draft phy.mech.c058/text/si`, `draft phy.mech.c095/text/si`, `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`, `v2 phy.elec.b01/explanation/si`, `v2 phy.elec.c009/explanation/si`, `v2 phy.elec.c010/options/1/detail/si`, `v2 phy.elec.c012/explanation/si`, `v2 phy.elec.c013/text/si`, `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.t12/text/si`, `v2 phy.mech.c005/text/si`, `v2 phy.mech.c023/text/si`, `v2 phy.mech.c025/text/si`, `v2 phy.mech.kin.graph-slope-area/name_si`, `v2 phy.mech.t03/explanation/si`, `v2 phy.mech.t08/distractors/1/detail_si`, `v2 phy.mech.t08/explanation/si`
@@ -150,13 +150,13 @@ teacher to decide.
 
 ## arithmetic mean
 
-teacher to decide.
+Attested in this pack.
 
 - අංකගණිත මධ්‍යන්‍යය · family 1 · `draft phy.therm.c072/text/si`
 
 ## armature
 
-teacher to decide.
+Attested in this pack.
 
 - ආමේචර · family 1 · `draft phy.elec.c125/text/si`
 - ආමේචරය · family 1 · `draft phy.elec.c124/text/si`
@@ -164,19 +164,19 @@ teacher to decide.
 
 ## average power
 
-teacher to decide.
+Attested in this pack.
 
 - මධ්‍යන්‍ය ක්ෂමතාව · family 1 · `draft phy.mech.c116/text/si`
 
 ## average velocity
 
-teacher to decide.
+Attested in this pack.
 
 - සාමාන්‍ය ප්‍රවේගය · family 1 · `draft phy.mech.c052/explanation/si`, `draft phy.mech.c052/options/2/detail/si`, `draft phy.mech.c052/options/3/detail/si`, `draft phy.mech.c052/text/si`, `draft phy.mech.c053/text/si`, `draft phy.mech.c054/text/si`, `draft phy.mech.c055/text/si`, `v2 phy.mech.c007/explanation/si`, `v2 phy.mech.c007/options/1/detail/si`, `v2 phy.mech.c007/options/3/detail/si`, `v2 phy.mech.c046/explanation/si`, `v2 phy.mech.c046/text/si`, `v2 phy.mech.kin.average-velocity/name_si`, `v2 phy.mech.t03/explanation/si`, `v2 phy.mech.t03/text/si`
 
 ## axis
 
-teacher to decide.
+Attested in this pack.
 
 - අක්ෂ · family 1 · `draft phy.mech.c119/text/si`
 - අක්ෂය · family 1 · `draft phy.mech.c117/explanation/si`, `draft phy.mech.c120/text/si`, `draft phy.mech.c125/text/si`, `draft phy.mech.c131/explanation/si`, `v2 phy.mech.b02/statements/0/text/si`, `v2 phy.mech.b02/statements/3/text/si`, `v2 phy.mech.c005/text/si`, `v2 phy.mech.c043/text/si`, `v2 phy.mech.c051/explanation/si`, `v2 phy.mech.c051/text/si`
@@ -187,19 +187,19 @@ teacher to decide.
 
 ## axle
 
-teacher to decide.
+Attested in this pack.
 
 - අක්ෂ දණ්ඩ · family 1 · `v2 phy.mech.p05-04/text/si`
 
 ## balance condition
 
-teacher to decide.
+Attested in this pack.
 
 - තුලන තත්ත්වය · family 1 · `v2 phy.elec.c031/text/si`
 
 ## balance length
 
-teacher to decide.
+Attested in this pack.
 
 - තුලන දිග · family 1 · `draft phy.elec.c105/explanation/si`, `draft phy.elec.c105/text/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/explanation/si`, `draft phy.elec.c112/text/si`, `v2 phy.elec.b02/statements/0/text/si`, `v2 phy.elec.t10/explanation/si`
 - තුලන දිගකි · family 1 · `v2 phy.elec.b02/explanation/si`
@@ -207,45 +207,45 @@ teacher to decide.
 
 ## balance point
 
-teacher to decide.
+Attested in this pack.
 
 - තුලන ලක්ෂ්‍යයක් · family 1 · `draft phy.elec.c104/text/si`, `v2 phy.elec.b02/statements/6/text/si`
 
 ## battery
 
-teacher to decide.
+Attested in this pack.
 
 - බැටරියක් · family 1 · `v2 phy.elec.c048/options/0/text/si`, `v2 phy.elec.c048/text/si`
 
 ## boiling point
 
-teacher to decide.
+Attested in this pack.
 
 - තාපාංකයට · family 1 · `draft phy.therm.c088/text/si`
 - තාපාංකයේදී · family 1 · `draft phy.therm.c092/text/si`
 
 ## boltzmann constant
 
-teacher to decide.
+Attested in this pack.
 
 - බෝල්ට්ස්මාන් නියතය · family 1 · `draft phy.therm.c066/explanation/si`
 
 ## boyle's law
 
-teacher to decide.
+Attested in this pack.
 
 - බොයිල් නියමය · family 1 · `draft phy.therm.c060/explanation/si`, `draft phy.therm.c060/options/3/detail/si`, `v2 phy.therm.c017/options/1/detail/si`, `v2 phy.therm.p02-01/options/0/text/si`, `v2 phy.therm.p02-02/options/0/text/si`, `v2 phy.therm.p02-03/options/1/text/si`, `v2 phy.therm.p02-04/options/1/text/si`, `v2 phy.therm.p02-05/options/1/text/si`, `v2 phy.therm.p02-06/options/1/text/si`
 
 ## brass
 
-teacher to decide.
+Attested in this pack.
 
 - පිත්තල · family 1 · `v2 phy.therm.c005/options/1/text/si`, `v2 phy.therm.c005/text/si`
 - පිත්තලවලින් · family 1 · `v2 phy.therm.c005/options/0/text/si`
 
 ## bridge (circuit)
 
-සේතුව. [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
+සේතුව (proposed — teacher confirms). [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
 
 - සේතුව · family 1 · `v2 phy.elec.bridge.wheatstone-balance/name_si`, `v2 phy.elec.c032/explanation/si`, `v2 phy.elec.c032/options/1/detail/si`, `v2 phy.elec.p01-01/options/1/text/si`, `v2 phy.elec.p01-02/options/1/text/si`, `v2 phy.elec.p01-03/options/0/text/si`, `v2 phy.elec.p01-04/options/0/text/si`, `v2 phy.elec.p01-05/options/2/text/si`, `v2 phy.elec.p01-06/options/2/text/si`
 - සේතුවක · family 1 · `draft phy.elec.c099/text/si`, `draft phy.elec.c100/text/si`, `draft phy.elec.c101/text/si`, `v2 phy.elec.c031/text/si`, `v2 phy.elec.c032/text/si`, `v2 phy.elec.t11/text/si`
@@ -253,19 +253,19 @@ teacher to decide.
 
 ## calibration
 
-teacher to decide.
+Attested in this pack.
 
 - ක්‍රමාංකන · family 1 · `v2 phy.therm.t01/distractors/1/detail_si`
 
 ## calorimeter
 
-teacher to decide.
+Attested in this pack.
 
 - කැලරිමීටරය · family 1 · `draft phy.therm.c092/text/si`, `v2 phy.therm.b01/statements/7/text/si`
 
 ## cell
 
-කෝෂය. [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
+කෝෂය (proposed — teacher confirms). [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
 
 - කෝෂ · family 1 · `draft phy.elec.c084/text/si`, `draft phy.elec.c085/text/si`, `draft phy.elec.c086/text/si`, `draft phy.elec.c087/text/si`, `v2 phy.elec.c024/text/si`, `v2 phy.elec.c025/text/si`, `v2 phy.elec.c051/explanation/si`, `v2 phy.elec.c051/text/si`, `v2 phy.elec.emf.cell-combinations/name_si`, `v2 phy.elec.p01-05/text/si`, `v2 phy.elec.t08/text/si`
 - කෝෂය · family 1 · `draft phy.elec.c082/text/si`, `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/2/text/si`, `v2 phy.elec.b02/statements/4/text/si`, `v2 phy.elec.b02/statements/7/text/si`, `v2 phy.elec.c021/explanation/si`, `v2 phy.elec.c022/explanation/si`, `v2 phy.elec.c027/options/2/detail/si`, `v2 phy.elec.c027/text/si`, `v2 phy.elec.c029/options/2/text/si`, `v2 phy.elec.c033/explanation/si`, `v2 phy.elec.c037/text/si`, `v2 phy.elec.t05/distractors/1/detail_si`, `v2 phy.elec.t05/distractors/2/detail_si`, `v2 phy.elec.t07/distractors/4/detail_si`, `v2 phy.elec.t08/distractors/2/detail_si`, `v2 phy.elec.t09/text/si`, `v2 phy.elec.t10/distractors/1/detail_si`, `v2 phy.elec.t11/text/si`
@@ -281,7 +281,7 @@ teacher to decide.
 
 ## centre
 
-teacher to decide.
+Attested in this pack.
 
 - කේන්ද්‍රය · family 1 · `draft phy.mech.c136/explanation/si`, `v2 phy.mech.c030/options/0/text/si`, `v2 phy.mech.p05-01/explanation/si`
 - කේන්ද්‍රයේ · family 1 · `v2 phy.mech.t10/text/si`
@@ -291,31 +291,31 @@ teacher to decide.
 
 ## centre of mass
 
-teacher to decide.
+Attested in this pack.
 
 - ස්කන්ධ කේන්ද්‍රය · family 1 · `v2 phy.mech.p05-01/explanation/si`
 
 ## centrifugal force
 
-teacher to decide.
+Attested in this pack.
 
 - කේන්ද්‍රාපසාරී බලය · family 1 · `v2 phy.mech.c030/options/1/text/si`
 
 ## centripetal acceleration
 
-teacher to decide.
+Attested in this pack.
 
 - කේන්ද්‍රාභිසාරී ත්වරණය · family 1 · `draft phy.mech.c135/text/si`
 
 ## change in length
 
-teacher to decide.
+Attested in this pack.
 
 - දිගෙහි වෙනස් වීම · family 1 · `v2 phy.therm.c001/explanation/si`
 
 ## charge
 
-teacher to decide.
+Attested in this pack.
 
 - ආරෝපණ · family 1 · `draft phy.elec.c056/text/si`, `draft phy.elec.c057/explanation/si`, `draft phy.elec.c071/explanation/si`
 - ආරෝපණය · family 1 · `draft phy.elec.c055/explanation/si`, `draft phy.elec.c062/explanation/si`, `v2 phy.elec.c012/explanation/si`
@@ -325,20 +325,20 @@ teacher to decide.
 
 ## charles's law
 
-teacher to decide.
+Attested in this pack.
 
 - චාර්ල්ස් නියමය · family 1 · `v2 phy.therm.p02-01/options/1/text/si`, `v2 phy.therm.p02-02/options/1/text/si`, `v2 phy.therm.p02-03/options/2/text/si`, `v2 phy.therm.p02-04/options/2/text/si`, `v2 phy.therm.p02-05/options/0/text/si`, `v2 phy.therm.p02-06/options/0/text/si`
 - චාර්ල්ස් නියමයට · family 1 · `v2 phy.therm.p02-01/options/1/detail/si`, `v2 phy.therm.p02-02/options/1/detail/si`, `v2 phy.therm.p02-03/options/2/detail/si`, `v2 phy.therm.p02-04/options/2/detail/si`
 
 ## chemical energy
 
-teacher to decide.
+Attested in this pack.
 
 - රසායනික ශක්තිය · family 1 · `v2 phy.mech.p01-03/explanation/si`
 
 ## circuit
 
-teacher to decide.
+Attested in this pack.
 
 - පරිපථ · family 1 · `draft phy.elec.c087/text/si`, `v2 phy.elec.t06/distractors/4/detail_si`
 - පරිපථයක · family 1 · `draft phy.elec.c085/text/si`, `v2 phy.elec.p03-03/text/si`
@@ -349,20 +349,20 @@ teacher to decide.
 
 ## circular motion
 
-teacher to decide.
+වෘත්ත චලිතය (short label). Both forms describe a circular path. (proposed — teacher confirms).
 
 - වෘත්ත චලිතයේ · family 1 · `v2 phy.mech.circ.friction-limit/name_si`
 - වෘත්තාකාර චලිතයේදී · family 2 · `draft phy.mech.c137/text/si`
 
 ## clockwise
 
-teacher to decide.
+Attested in this pack.
 
 - දක්ෂිණාවර්ත · family 1 · `v2 phy.elec.p02-01/options/1/text/si`, `v2 phy.elec.p02-01/options/3/text/si`, `v2 phy.elec.p02-02/options/0/text/si`, `v2 phy.elec.p02-02/options/3/text/si`, `v2 phy.elec.p02-03/options/1/text/si`, `v2 phy.elec.p02-03/options/3/text/si`, `v2 phy.elec.p02-04/options/0/text/si`, `v2 phy.elec.p02-04/options/3/text/si`, `v2 phy.elec.p02-05/options/1/text/si`, `v2 phy.elec.p02-05/options/3/text/si`, `v2 phy.elec.p02-06/options/1/text/si`, `v2 phy.elec.p02-06/options/3/text/si`
 
 ## closed loop
 
-teacher to decide.
+Attested in this pack.
 
 - සංවෘත පුඩුවක · family 1 · `draft phy.elec.c122/text/si`
 - සංවෘත සන්නායක පුඩුවකට · family 1 · `draft phy.elec.c120/text/si`
@@ -370,20 +370,20 @@ teacher to decide.
 
 ## coefficient of friction
 
-teacher to decide.
+Attested in this pack.
 
 - ඝර්ෂණ සංගුණකය · family 1 · `draft phy.mech.c084/text/si`, `draft phy.mech.c087/text/si`, `v2 phy.mech.c017/text/si`
 - ඝර්ෂණ සංගුණකයට · family 1 · `draft phy.mech.c089/explanation/si`
 
 ## coefficient of kinetic friction
 
-teacher to decide.
+Attested in this pack.
 
 - ගතික ඝර්ෂණ සංගුණකය · family 1 · `draft phy.mech.c084/text/si`, `draft phy.mech.c087/text/si`, `v2 phy.mech.c017/text/si`
 
 ## coil
 
-teacher to decide.
+Attested in this pack.
 
 - දඟරය · family 1 · `draft phy.elec.c117/text/si`, `v2 phy.elec.c044/options/2/detail/si`
 - දඟරයක · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c115/text/si`, `draft phy.elec.c123/text/si`, `v2 phy.elec.c038/text/si`, `v2 phy.elec.c040/text/si`
@@ -393,13 +393,13 @@ teacher to decide.
 
 ## coil turns ratio
 
-teacher to decide.
+Attested in this pack.
 
 - වට අනුපාතය · family 1 · `v2 phy.elec.c048/options/1/text/si`
 
 ## collision
 
-teacher to decide.
+Attested in this pack.
 
 - ගැටීම · family 1 · `draft phy.mech.c101/text/si`
 - ගැටීමක · family 1 · `v2 phy.mech.c022/text/si`
@@ -410,14 +410,14 @@ teacher to decide.
 
 ## component
 
-teacher to decide.
+Attested in this pack.
 
 - සංරචක · family 1 · `v2 phy.mech.proj.components/name_si`
 - සංරචකය · family 1 · `draft phy.mech.c063/explanation/si`, `draft phy.mech.c115/explanation/si`, `draft phy.mech.c115/options/0/detail/si`, `v2 phy.mech.c026/explanation/si`
 
 ## condensation
 
-teacher to decide.
+Attested in this pack.
 
 - ඝණීභවනය · family 1 · `draft phy.therm.c088/text/si`, `draft phy.therm.c097/text/si`, `draft phy.therm.c098/explanation/si`, `draft phy.therm.c098/options/1/detail/si`, `draft phy.therm.c099/explanation/si`, `draft phy.therm.c099/text/si`, `draft phy.therm.c103/explanation/si`
 - ඝණීභවනයක් · family 1 · `draft phy.therm.c100/text/si`
@@ -426,20 +426,20 @@ teacher to decide.
 
 ## conductivity
 
-teacher to decide.
+Attested in this pack.
 
 - සන්නායකතා · family 1 · `v2 phy.therm.c041/text/si`, `v2 phy.therm.t09/text/si`
 - සන්නායකතාව · family 1 · `draft phy.elec.c086/explanation/si`, `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`
 
 ## conductor
 
-teacher to decide.
+Attested in this pack.
 
 - සන්නායක · family 1 · `draft phy.elec.c119/text/si`, `draft phy.elec.c120/text/si`, `v2 phy.elec.c043/text/si`
 
 ## conservation
 
-teacher to decide.
+Attested in this pack.
 
 - සංස්ථිතික · family 1 · `draft phy.mech.c103/text/si`, `draft phy.mech.c123/explanation/si`, `draft phy.mech.c123/options/1/detail/si`, `draft phy.mech.c123/options/2/detail/si`, `v2 phy.mech.c022/explanation/si`, `v2 phy.mech.c022/text/si`, `v2 phy.mech.t07/explanation/si`, `v2 phy.therm.c008/options/1/text/si`
 - සංස්ථිතිකය · family 1 · `draft phy.elec.c055/explanation/si`
@@ -449,73 +449,73 @@ teacher to decide.
 
 ## conservation of angular momentum
 
-teacher to decide.
+Attested in this pack.
 
 - කෝණික ගම්‍යතා සංස්ථිතිය · family 1 · `v2 phy.mech.p05-01/options/0/text/si`, `v2 phy.mech.p05-02/options/0/text/si`, `v2 phy.mech.p05-03/options/1/text/si`, `v2 phy.mech.p05-04/options/1/text/si`, `v2 phy.mech.p05-05/options/1/text/si`, `v2 phy.mech.p05-06/options/1/text/si`, `v2 phy.mech.rot.angular-momentum/name_si`
 - කෝණික ගම්‍යතා සංස්ථිතියයි · family 1 · `draft phy.mech.c126/explanation/si`
 
 ## conservation of energy
 
-teacher to decide.
+Attested in this pack.
 
 - ශක්ති සංස්ථිතිය · family 1 · `draft phy.mech.c126/text/si`, `v2 phy.mech.mom.momentum-vs-energy/name_si`, `v2 phy.mech.p01-01/options/1/text/si`, `v2 phy.mech.p01-02/options/1/text/si`, `v2 phy.mech.p01-03/options/1/text/si`, `v2 phy.mech.p01-04/options/0/text/si`, `v2 phy.mech.p01-05/options/0/text/si`, `v2 phy.mech.p01-06/options/0/text/si`, `v2 phy.mech.p02-03/explanation/si`, `v2 phy.mech.p04-01/options/3/text/si`, `v2 phy.mech.p04-02/options/3/text/si`, `v2 phy.mech.p04-03/options/3/text/si`, `v2 phy.mech.p04-04/options/3/text/si`, `v2 phy.mech.p04-05/options/3/text/si`, `v2 phy.mech.p04-06/options/3/text/si`, `v2 phy.mech.p05-01/options/1/text/si`, `v2 phy.mech.p05-02/options/1/text/si`, `v2 phy.mech.p05-03/options/0/text/si`, `v2 phy.mech.p05-04/options/0/text/si`, `v2 phy.mech.p05-05/options/2/text/si`, `v2 phy.mech.p05-06/options/2/text/si`
 
 ## conservation of linear momentum
 
-teacher to decide.
+Attested in this pack.
 
 - රේඛීය ගම්‍යතා සංස්ථිතිය · family 1 · `v2 phy.mech.p05-01/options/3/text/si`, `v2 phy.mech.p05-02/options/3/text/si`, `v2 phy.mech.p05-03/options/3/text/si`, `v2 phy.mech.p05-04/options/3/text/si`, `v2 phy.mech.p05-05/options/3/text/si`, `v2 phy.mech.p05-06/options/3/text/si`
 
 ## conservation of momentum
 
-teacher to decide.
+Attested in this pack.
 
 - ගම්‍යතා සංස්ථිතිය · family 1 · `v2 phy.mech.p01-01/options/0/text/si`, `v2 phy.mech.p01-02/options/0/text/si`, `v2 phy.mech.p01-03/options/0/text/si`, `v2 phy.mech.p01-04/options/1/text/si`, `v2 phy.mech.p01-05/options/1/text/si`, `v2 phy.mech.p01-06/options/1/text/si`, `v2 phy.mech.p02-01/explanation/si`, `v2 phy.mech.p05-01/options/0/text/si`, `v2 phy.mech.p05-01/options/3/text/si`, `v2 phy.mech.p05-02/options/0/text/si`, `v2 phy.mech.p05-02/options/3/text/si`, `v2 phy.mech.p05-03/options/1/text/si`, `v2 phy.mech.p05-03/options/3/text/si`, `v2 phy.mech.p05-04/options/1/text/si`, `v2 phy.mech.p05-04/options/3/text/si`, `v2 phy.mech.p05-05/options/1/text/si`, `v2 phy.mech.p05-05/options/3/text/si`, `v2 phy.mech.p05-06/options/1/text/si`, `v2 phy.mech.p05-06/options/3/text/si`, `v2 phy.mech.rot.angular-momentum/name_si`
 - ගම්‍යතා සංස්ථිතියයි · family 1 · `draft phy.mech.c126/explanation/si`
 
 ## contact force
 
-teacher to decide.
+Attested in this pack.
 
 - ස්පර්ශ බලය · family 1 · `draft phy.mech.c080/explanation/si`
 - ස්පර්ශ බලයට · family 1 · `draft phy.mech.c081/explanation/si`, `draft phy.mech.c081/options/0/detail/si`
 
 ## cooling
 
-teacher to decide.
+Attested in this pack.
 
 - සිසිලන · family 1 · `draft phy.therm.c080/text/si`, `draft phy.therm.c082/text/si`, `v2 phy.therm.c027/text/si`, `v2 phy.therm.c029/explanation/si`, `v2 phy.therm.heat.newton-cooling/name_si`
 - සිසිලනය · family 1 · `v2 phy.therm.c012/options/1/text/si`, `v2 phy.therm.c029/options/1/text/si`
 
 ## coordinate origin
 
-teacher to decide.
+Attested in this pack.
 
 - මූල ලක්ෂ්‍යය · family 1 · `v2 phy.elec.c017/explanation/si`, `v2 phy.therm.c015/options/0/text/si`, `v2 phy.therm.c016/options/2/text/si`
 - මූල ලක්ෂ්‍යයේ · family 1 · `v2 phy.elec.c017/options/0/text/si`, `v2 phy.elec.c017/options/1/text/si`
 
 ## copper
 
-teacher to decide.
+Attested in this pack.
 
 - තඹ · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c121/text/si`, `v2 phy.therm.c042/text/si`, `v2 phy.therm.c043/text/si`
 
 ## core
 
-teacher to decide.
+Attested in this pack.
 
 - හරය · family 1 · `v2 phy.elec.c041/options/3/detail/si`
 - හරයක් · family 1 · `v2 phy.elec.c041/options/3/text/si`
 
 ## couple
 
-teacher to decide.
+Attested in this pack.
 
 - බල යුග්මයක · family 1 · `draft phy.mech.c107/explanation/si`, `draft phy.mech.c107/options/0/detail/si`
 
 ## cross-section
 
-teacher to decide.
+Attested in this pack.
 
 - හරස්කඩ · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/text/si`, `draft phy.elec.c058/explanation/si`, `draft phy.elec.c058/options/1/detail/si`, `draft phy.elec.c058/options/3/detail/si`, `draft phy.elec.c059/text/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`, `draft phy.elec.c110/text/si`, `draft phy.therm.c117/text/si`, `v2 phy.elec.c009/explanation/si`, `v2 phy.elec.c010/options/1/detail/si`, `v2 phy.therm.c041/text/si`, `v2 phy.therm.t09/text/si`
 - හරස්කඩක් · family 1 · `v2 phy.therm.c044/text/si`
@@ -524,20 +524,20 @@ teacher to decide.
 
 ## cross-sectional area
 
-teacher to decide.
+Attested in this pack.
 
 - හරස්කඩ වර්ගඵල · family 1 · `v2 phy.therm.c041/text/si`
 - හරස්කඩ වර්ගඵලය · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/text/si`, `draft phy.elec.c058/explanation/si`, `draft phy.elec.c058/options/1/detail/si`, `draft phy.elec.c058/options/3/detail/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`, `draft phy.elec.c110/text/si`, `draft phy.therm.c117/text/si`, `v2 phy.elec.c009/explanation/si`, `v2 phy.elec.c010/options/1/detail/si`
 
 ## current density
 
-teacher to decide.
+Attested in this pack.
 
 - ධාරා ඝනත්වය · family 1 · `v2 phy.elec.cur.drift-velocity/name_si`
 
 ## cylinder
 
-teacher to decide.
+Attested in this pack.
 
 - සිලින්ඩරයක · family 1 · `v2 phy.therm.p01-03/text/si`, `v2 phy.therm.p01-04/text/si`, `v2 phy.therm.p01-05/text/si`, `v2 phy.therm.t04/text/si`
 - සිලින්ඩරයකට · family 1 · `v2 phy.therm.p01-05/options/3/detail/si`, `v2 phy.therm.p01-06/text/si`
@@ -545,45 +545,45 @@ teacher to decide.
 
 ## Dalton’s law
 
-teacher to decide.
+Attested in this pack.
 
 - ඩෝල්ටන්ගේ නියමය · family 1 · `v2 phy.therm.p02-01/options/3/detail/si`, `v2 phy.therm.p02-02/options/3/detail/si`, `v2 phy.therm.p02-03/options/3/detail/si`, `v2 phy.therm.p02-04/options/3/detail/si`, `v2 phy.therm.p02-05/options/3/detail/si`, `v2 phy.therm.p02-06/options/3/detail/si`
 
 ## dc motor
 
-teacher to decide.
+Attested in this pack.
 
 - සරල ධාරා මෝටරයක · family 1 · `draft phy.elec.c124/text/si`
 
 ## deceleration
 
-teacher to decide.
+Attested in this pack.
 
 - මන්දනය · family 1 · `draft phy.mech.c087/text/si`, `draft phy.mech.c089/text/si`, `v2 phy.mech.c048/text/si`
 - මන්දනයෙන් · family 1 · `draft phy.mech.c083/text/si`
 
 ## degree Celsius
 
-teacher to decide.
+Attested in this pack.
 
 - සෙල්සියස් · family 1 · `v2 phy.therm.b02/statements/6/text/si`, `v2 phy.therm.c020/text/si`
 
 ## density
 
-teacher to decide.
+Attested in this pack.
 
 - ඝනත්වය · family 1 · `draft phy.elec.c056/explanation/si`, `draft phy.elec.c056/text/si`, `draft phy.therm.c068/text/si`, `v2 phy.elec.c012/explanation/si`, `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.cur.drift-velocity/name_si`, `v2 phy.elec.t12/text/si`, `v2 phy.therm.c016/options/3/detail/si`, `v2 phy.therm.c016/text/si`, `v2 phy.therm.c026/text/si`
 
 ## detector
 
-teacher to decide.
+Attested in this pack.
 
 - අනාවරක · family 1 · `draft phy.elec.c100/text/si`, `draft phy.elec.c103/explanation/si`
 - අනාවරකයේ · family 1 · `draft phy.elec.c100/text/si`
 
 ## dew
 
-teacher to decide.
+Attested in this pack.
 
 - තුෂාර · family 1 · `draft phy.therm.c098/text/si`, `v2 phy.therm.b03/statements/1/text/si`, `v2 phy.therm.b03/statements/2/text/si`, `v2 phy.therm.c031/explanation/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c032/explanation/si`, `v2 phy.therm.c032/text/si`, `v2 phy.therm.hum.dew-point/name_si`
 - තුෂාරය · family 1 · `v2 phy.therm.b01/statements/7/text/si`
@@ -591,7 +591,7 @@ teacher to decide.
 
 ## dew point
 
-තුෂාර අංකය. [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
+තුෂාර අංකය (proposed — teacher confirms). [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
 
 - තුෂාර අංකය · family 1 · `v2 phy.therm.b03/statements/1/text/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c032/explanation/si`, `v2 phy.therm.c032/text/si`, `v2 phy.therm.hum.dew-point/name_si`
 - තුෂාර අංකයට · family 1 · `draft phy.therm.c098/text/si`, `v2 phy.therm.b03/statements/2/text/si`
@@ -599,20 +599,20 @@ teacher to decide.
 
 ## diameter
 
-teacher to decide.
+Attested in this pack.
 
 - විෂ්කම්භය · family 1 · `draft phy.mech.c135/text/si`, `draft phy.therm.c051/explanation/si`, `v2 phy.elec.c011/text/si`, `v2 phy.elec.t03/distractors/3/detail_si`, `v2 phy.elec.t03/text/si`, `v2 phy.elec.t04/distractors/2/detail_si`, `v2 phy.elec.t04/text/si`, `v2 phy.therm.c005/options/2/detail/si`
 - විෂ්කම්භයත් · family 1 · `draft phy.therm.c051/explanation/si`
 
 ## dimensions
 
-teacher to decide.
+Attested in this pack.
 
 - මාන · family 1 · `v2 phy.mech.c024/text/si`, `v2 phy.mech.c034/text/si`, `v2 phy.mech.c044/text/si`
 
 ## direction
 
-teacher to decide.
+Attested in this pack.
 
 - දිශා · family 1 · `v2 phy.mech.c021/explanation/si`
 - දිශාව · family 1 · `draft phy.elec.c123/explanation/si`, `draft phy.elec.c123/options/0/detail/si`, `draft phy.mech.c100/explanation/si`, `v2 phy.elec.c038/explanation/si`, `v2 phy.mech.c030/options/3/text/si`, `v2 phy.mech.c048/explanation/si`, `v2 phy.mech.t04/explanation/si`
@@ -625,13 +625,13 @@ teacher to decide.
 
 ## direction of motion
 
-teacher to decide.
+Attested in this pack.
 
 - චලිත දිශාව · family 1 · `v2 phy.mech.c030/options/3/text/si`, `v2 phy.mech.c048/explanation/si`
 
 ## disc
 
-teacher to decide.
+Attested in this pack.
 
 - තැටි · family 1 · `draft phy.mech.c130/text/si`
 - තැටිය · family 1 · `v2 phy.mech.c042/text/si`, `v2 phy.mech.c043/options/1/text/si`
@@ -642,7 +642,7 @@ teacher to decide.
 
 ## displacement
 
-teacher to decide.
+Attested in this pack.
 
 - විස්ථාපන · family 1 · `v2 phy.mech.c004/text/si`
 - විස්ථාපනය · family 1 · `draft phy.mech.c052/text/si`, `draft phy.mech.c053/explanation/si`, `draft phy.mech.c053/options/1/detail/si`, `draft phy.mech.c054/explanation/si`, `draft phy.mech.c054/options/0/detail/si`, `draft phy.mech.c055/text/si`, `draft phy.mech.c056/explanation/si`, `draft phy.mech.c056/text/si`, `draft phy.mech.c057/explanation/si`, `draft phy.mech.c058/text/si`, `v2 phy.mech.c004/explanation/si`, `v2 phy.mech.c004/options/2/text/si`, `v2 phy.mech.c005/explanation/si`, `v2 phy.mech.c005/options/0/text/si`, `v2 phy.mech.c007/explanation/si`, `v2 phy.mech.c007/options/3/detail/si`, `v2 phy.mech.c046/explanation/si`
@@ -651,7 +651,7 @@ teacher to decide.
 
 ## distance
 
-teacher to decide.
+Attested in this pack.
 
 - දුර · family 1 · `draft phy.mech.c083/text/si`, `draft phy.mech.c084/text/si`, `draft phy.mech.c104/text/si`, `draft phy.mech.c105/explanation/si`, `draft phy.mech.c105/text/si`, `draft phy.mech.c106/explanation/si`, `draft phy.mech.c117/explanation/si`, `draft phy.mech.c119/explanation/si`, `v2 phy.mech.b02/explanation/si`, `v2 phy.mech.c007/options/0/text/si`, `v2 phy.mech.c015/text/si`, `v2 phy.mech.c016/text/si`, `v2 phy.mech.c033/options/3/text/si`, `v2 phy.mech.c048/text/si`, `v2 phy.mech.c049/text/si`, `v2 phy.mech.fric.stopping-distance/name_si`, `v2 phy.mech.p01-04/text/si`, `v2 phy.mech.t05/text/si`, `v2 phy.mech.t10/text/si`
 - දුරකට · family 1 · `draft phy.therm.c118/explanation/si`, `draft phy.therm.c118/options/0/detail/si`
@@ -665,7 +665,7 @@ teacher to decide.
 
 ## distance travelled
 
-teacher to decide.
+Attested in this pack.
 
 - ගමන් කළ දුර · family 1 · `v2 phy.mech.t05/text/si`
 - ගමන් කළ දුරක් · family 1 · `draft phy.mech.c053/explanation/si`, `draft phy.mech.c053/options/1/detail/si`
@@ -673,40 +673,40 @@ teacher to decide.
 
 ## drift speed
 
-ප්ලාවිත වේගය for the magnitude.. [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
+ප්ලාවිත වේගය for the magnitude. (proposed — teacher confirms). [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
 
 - ප්ලාවිත වේගය · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/explanation/si`, `draft phy.elec.c056/text/si`, `v2 phy.elec.c012/explanation/si`, `v2 phy.elec.c013/text/si`
 - ප්ලාවිත වේගයක් · family 1 · `v2 phy.elec.c013/options/2/detail/si`
 
 ## drift velocity
 
-ප්ලාවිත ප්‍රවේගය. [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
+ප්ලාවිත ප්‍රවේගය (proposed — teacher confirms). [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
 
 - ප්ලාවිත ප්‍රවේගය · family 1 · `v2 phy.elec.cur.drift-velocity/name_si`
 
 ## driver cell
 
-teacher to decide.
+Attested in this pack.
 
 - ධාවක කෝෂය · family 1 · `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/7/text/si`
 - ධාවක කෝෂයක් · family 1 · `v2 phy.elec.b02/statements/6/text/si`, `v2 phy.elec.c033/options/3/text/si`
 
 ## efficiency
 
-කාර්යක්ෂමතාව. [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
+කාර්යක්ෂමතාව (proposed — teacher confirms). [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
 
 - කාර්යක්ෂමතාව · family 1 · `v2 phy.elec.c027/options/0/text/si`, `v2 phy.elec.c027/options/2/text/si`, `v2 phy.elec.c027/options/3/text/si`
 
 ## elapsed time
 
-teacher to decide.
+Attested in this pack.
 
 - ගත වූ කාලය · family 1 · `draft phy.mech.c055/explanation/si`, `draft phy.mech.c055/options/1/detail/si`, `draft phy.mech.c059/text/si`
 - ගත වූ කාලයෙන් · family 1 · `draft phy.mech.c054/explanation/si`, `draft phy.mech.c054/options/0/detail/si`, `draft phy.mech.c116/explanation/si`, `draft phy.mech.c116/options/1/detail/si`, `v2 phy.mech.c046/explanation/si`
 
 ## electric current
 
-teacher to decide.
+Attested in this pack.
 
 - ධාරා · family 1 · `draft phy.elec.c057/text/si`, `draft phy.elec.c079/explanation/si`, `draft phy.elec.c079/options/1/detail/si`, `draft phy.elec.c090/text/si`, `draft phy.elec.c124/text/si`, `draft phy.elec.c128/explanation/si`, `draft phy.elec.c128/options/1/detail/si`, `draft phy.elec.c128/options/2/detail/si`, `draft phy.therm.c114/text/si`, `v2 phy.elec.cur.drift-velocity/name_si`, `v2 phy.elec.p01-06/explanation/si`, `v2 phy.elec.p01-06/text/si`, `v2 phy.elec.tr.power-current/name_si`
 - ධාරාව · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/text/si`, `draft phy.elec.c061/explanation/si`, `draft phy.elec.c061/options/3/detail/si`, `draft phy.elec.c061/text/si`, `draft phy.elec.c062/text/si`, `draft phy.elec.c067/explanation/si`, `draft phy.elec.c067/options/0/detail/si`, `draft phy.elec.c067/text/si`, `draft phy.elec.c068/explanation/si`, `draft phy.elec.c068/options/0/detail/si`, `draft phy.elec.c069/explanation/si`, `draft phy.elec.c069/options/2/detail/si`, `draft phy.elec.c070/explanation/si`, `draft phy.elec.c070/text/si`, `draft phy.elec.c071/text/si`, `draft phy.elec.c073/text/si`, `draft phy.elec.c076/text/si`, `draft phy.elec.c078/explanation/si`, `draft phy.elec.c080/text/si`, `draft phy.elec.c082/explanation/si`, `draft phy.elec.c083/explanation/si`, `draft phy.elec.c085/explanation/si`, `draft phy.elec.c085/options/2/detail/si`, `draft phy.elec.c085/options/3/detail/si`, `draft phy.elec.c088/explanation/si`, `draft phy.elec.c088/options/3/detail/si`, `draft phy.elec.c089/explanation/si`, `draft phy.elec.c090/text/si`, `draft phy.elec.c091/explanation/si`, `draft phy.elec.c091/options/0/detail/si`, `draft phy.elec.c091/text/si`, `draft phy.elec.c093/text/si`, `draft phy.elec.c095/explanation/si`, `draft phy.elec.c095/text/si`, `draft phy.elec.c096/text/si`, `draft phy.elec.c097/explanation/si`, `draft phy.elec.c097/options/0/detail/si`, `draft phy.elec.c100/explanation/si`, `draft phy.elec.c100/text/si`, `draft phy.elec.c101/text/si`, `draft phy.elec.c103/explanation/si`, `draft phy.elec.c109/text/si`, `draft phy.elec.c113/explanation/si`, `draft phy.elec.c113/options/0/detail/si`, `draft phy.elec.c113/text/si`, `draft phy.elec.c125/text/si`, `draft phy.elec.c126/text/si`, `draft phy.elec.c128/text/si`, `v2 phy.elec.b01/explanation/si`, `v2 phy.elec.b01/statements/0/text/si`, `v2 phy.elec.b01/statements/4/text/si`, `v2 phy.elec.c005/options/1/text/si`, `v2 phy.elec.c005/text/si`, `v2 phy.elec.c006/explanation/si`, `v2 phy.elec.c007/text/si`, `v2 phy.elec.c008/options/0/text/si`, `v2 phy.elec.c013/explanation/si`, `v2 phy.elec.c015/explanation/si`, `v2 phy.elec.c018/options/2/detail/si`, `v2 phy.elec.c018/text/si`, `v2 phy.elec.c026/options/1/detail/si`, `v2 phy.elec.c028/text/si`, `v2 phy.elec.c032/text/si`, `v2 phy.elec.c033/explanation/si`, `v2 phy.elec.c034/options/2/text/si`, `v2 phy.elec.c035/text/si`, `v2 phy.elec.c036/text/si`, `v2 phy.elec.c042/explanation/si`, `v2 phy.elec.c042/text/si`, `v2 phy.elec.c043/explanation/si`, `v2 phy.elec.c043/options/3/text/si`, `v2 phy.elec.c043/text/si`, `v2 phy.elec.c045/options/0/text/si`, `v2 phy.elec.c045/options/1/detail/si`, `v2 phy.elec.c045/options/1/text/si`, `v2 phy.elec.c045/options/2/text/si`, `v2 phy.elec.c045/options/3/text/si`, `v2 phy.elec.c045/text/si`, `v2 phy.elec.c046/explanation/si`, `v2 phy.elec.c048/options/0/text/si`, `v2 phy.elec.c048/options/3/text/si`, `v2 phy.elec.c049/text/si`, `v2 phy.elec.c050/explanation/si`, `v2 phy.elec.c053/text/si`, `v2 phy.elec.p01-01/text/si`, `v2 phy.elec.p01-02/text/si`, `v2 phy.elec.p01-03/text/si`, `v2 phy.elec.p01-04/text/si`, `v2 phy.elec.p02-01/options/3/detail/si`, `v2 phy.elec.p02-01/text/si`, `v2 phy.elec.p02-02/options/3/detail/si`, `v2 phy.elec.p02-02/text/si`, `v2 phy.elec.p02-03/text/si`, `v2 phy.elec.p02-04/explanation/si`, `v2 phy.elec.p02-04/options/3/detail/si`, `v2 phy.elec.p02-04/text/si`, `v2 phy.elec.p02-05/text/si`, `v2 phy.elec.p02-06/options/3/detail/si`, `v2 phy.elec.p02-06/text/si`, `v2 phy.elec.p03-01/explanation/si`, `v2 phy.elec.p03-01/options/0/text/si`, `v2 phy.elec.p03-02/options/1/text/si`, `v2 phy.elec.p03-03/explanation/si`, `v2 phy.elec.p03-03/options/0/text/si`, `v2 phy.elec.p03-04/options/1/text/si`, `v2 phy.elec.p03-05/explanation/si`, `v2 phy.elec.p03-05/options/0/text/si`, `v2 phy.elec.p03-06/options/1/text/si`, `v2 phy.elec.pow.power-graphs/name_si`, `v2 phy.elec.t01/distractors/3/detail_si`, `v2 phy.elec.t02/explanation/si`, `v2 phy.elec.t06/distractors/0/detail_si`, `v2 phy.elec.t06/text/si`, `v2 phy.elec.t08/distractors/4/detail_si`, `v2 phy.elec.t08/explanation/si`, `v2 phy.elec.t08/text/si`, `v2 phy.elec.t11/distractors/0/detail_si`, `v2 phy.elec.t11/distractors/1/detail_si`, `v2 phy.elec.t11/text/si`, `v2 phy.elec.t13/distractors/1/detail_si`, `v2 phy.elec.t13/distractors/2/detail_si`, `v2 phy.elec.t13/text/si`
@@ -720,14 +720,14 @@ teacher to decide.
 
 ## electrical energy
 
-teacher to decide.
+Attested in this pack.
 
 - විද්‍යුත් ශක්තිය · family 1 · `draft phy.elec.c075/text/si`
 - විද්‍යුත් ශක්තියත් · family 1 · `draft phy.elec.c076/text/si`
 
 ## electrical load
 
-teacher to decide.
+Attested in this pack.
 
 - භාර · family 1 · `draft phy.elec.c082/explanation/si`, `draft phy.elec.c083/explanation/si`, `draft phy.elec.c091/text/si`, `draft phy.elec.c092/text/si`, `v2 phy.elec.c052/text/si`, `v2 phy.elec.t07/distractors/1/detail_si`
 - භාරය · family 1 · `draft phy.elec.c090/explanation/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/text/si`, `v2 phy.elec.c026/text/si`, `v2 phy.elec.c027/explanation/si`, `v2 phy.elec.c027/options/3/text/si`
@@ -739,20 +739,20 @@ teacher to decide.
 
 ## electrical power
 
-Use the ජවය label for power.. [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
+Use the ජවය label for power. (proposed — teacher confirms). [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
 
 - විද්‍යුත් ජවය · family 1 · `v2 phy.elec.pow.power-formulas/name_si`
 - විද්‍යුත් ජවයෙන් · family 1 · `draft phy.elec.c088/text/si`
 
 ## electromagnetic induction (induction)
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රේරණය · family 1 · `draft phy.elec.c115/explanation/si`, `draft phy.elec.c121/text/si`, `draft phy.elec.c122/explanation/si`, `draft phy.elec.c122/options/1/detail/si`, `draft phy.elec.c122/text/si`, `v2 phy.elec.c043/options/3/detail/si`, `v2 phy.elec.c048/explanation/si`, `v2 phy.elec.p02-03/explanation/si`
 
 ## electromotive force
 
-විද්‍යුත් ගාමක බලය. Expand වි.ගා.බ. in standalone cards.. [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
+විද්‍යුත් ගාමක බලය. Expand වි.ගා.බ. in standalone cards. (proposed — teacher confirms). [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
 
 Forms discussed by the review: විද්‍යුත් ගාමක බලය · වි.ගා.බ. · වි.ගා.
 
@@ -766,19 +766,19 @@ Forms discussed by the review: විද්‍යුත් ගාමක බල�
 
 ## electron
 
-teacher to decide.
+Attested in this pack.
 
 - ඉලෙක්ට්‍රෝන · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c057/explanation/si`, `draft phy.elec.c057/text/si`, `v2 phy.elec.b01/explanation/si`, `v2 phy.elec.b01/statements/1/text/si`, `v2 phy.elec.b01/statements/5/text/si`, `v2 phy.elec.b01/statements/6/text/si`
 
 ## emf of a motor (back emf)
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රති වි.ගා.බ. · family 1 · `draft phy.elec.c124/text/si`, `draft phy.elec.c125/explanation/si`, `draft phy.elec.c125/options/1/detail/si`, `draft phy.elec.c125/options/2/detail/si`, `draft phy.elec.c125/options/3/detail/si`, `draft phy.elec.c125/text/si`, `v2 phy.elec.c044/explanation/si`, `v2 phy.elec.c044/options/2/detail/si`, `v2 phy.elec.c044/text/si`, `v2 phy.elec.c045/options/0/text/si`, `v2 phy.elec.c045/options/1/detail/si`, `v2 phy.elec.c045/options/2/text/si`, `v2 phy.elec.c045/options/3/detail/si`, `v2 phy.elec.c046/explanation/si`, `v2 phy.elec.c046/text/si`, `v2 phy.elec.emi.back-emf/name_si`
 
 ## energy
 
-teacher to decide.
+Attested in this pack.
 
 - ශක්ති · family 1 · `draft phy.mech.c126/text/si`, `draft phy.mech.c130/explanation/si`, `draft phy.mech.c133/explanation/si`, `draft phy.mech.c134/text/si`, `draft phy.therm.c089/explanation/si`, `draft phy.therm.c089/options/1/detail/si`, `draft phy.therm.c111/text/si`, `v2 phy.mech.mom.momentum-vs-energy/name_si`, `v2 phy.mech.p01-01/options/1/text/si`, `v2 phy.mech.p01-02/options/1/text/si`, `v2 phy.mech.p01-03/options/1/text/si`, `v2 phy.mech.p01-04/options/0/text/si`, `v2 phy.mech.p01-05/options/0/text/si`, `v2 phy.mech.p01-06/options/0/text/si`, `v2 phy.mech.p02-03/explanation/si`, `v2 phy.mech.p04-01/options/3/text/si`, `v2 phy.mech.p04-02/options/3/text/si`, `v2 phy.mech.p04-03/options/3/text/si`, `v2 phy.mech.p04-04/options/3/text/si`, `v2 phy.mech.p04-05/options/3/text/si`, `v2 phy.mech.p04-06/options/3/text/si`, `v2 phy.mech.p05-01/options/1/text/si`, `v2 phy.mech.p05-02/options/1/text/si`, `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.p05-03/options/0/text/si`, `v2 phy.mech.p05-04/explanation/si`, `v2 phy.mech.p05-04/options/0/text/si`, `v2 phy.mech.p05-05/options/2/text/si`, `v2 phy.mech.p05-06/options/2/text/si`, `v2 phy.mech.t05/explanation/si`
 - ශක්තිය · family 1 · `draft phy.elec.c062/explanation/si`, `draft phy.elec.c062/text/si`, `draft phy.elec.c071/text/si`, `draft phy.elec.c074/text/si`, `draft phy.elec.c075/text/si`, `draft phy.elec.c076/explanation/si`, `draft phy.mech.c066/explanation/si`, `draft phy.mech.c066/options/3/detail/si`, `draft phy.mech.c066/text/si`, `draft phy.mech.c084/explanation/si`, `draft phy.mech.c084/options/3/detail/si`, `draft phy.mech.c088/text/si`, `draft phy.mech.c103/explanation/si`, `draft phy.mech.c103/text/si`, `draft phy.mech.c111/text/si`, `draft phy.mech.c124/explanation/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c129/text/si`, `draft phy.mech.c131/explanation/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c133/text/si`, `draft phy.therm.c063/explanation/si`, `draft phy.therm.c064/text/si`, `draft phy.therm.c065/explanation/si`, `draft phy.therm.c065/options/3/detail/si`, `draft phy.therm.c065/text/si`, `draft phy.therm.c066/text/si`, `draft phy.therm.c067/text/si`, `draft phy.therm.c076/text/si`, `draft phy.therm.c078/explanation/si`, `draft phy.therm.c078/options/1/detail/si`, `draft phy.therm.c085/explanation/si`, `draft phy.therm.c093/explanation/si`, `draft phy.therm.c108/explanation/si`, `draft phy.therm.c109/explanation/si`, `draft phy.therm.c109/text/si`, `draft phy.therm.c111/explanation/si`, `draft phy.therm.c111/options/1/detail/si`, `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`, `v2 phy.mech.c016/explanation/si`, `v2 phy.mech.c022/text/si`, `v2 phy.mech.c026/options/0/text/si`, `v2 phy.mech.c026/options/1/text/si`, `v2 phy.mech.c026/options/2/text/si`, `v2 phy.mech.c026/options/3/text/si`, `v2 phy.mech.c026/text/si`, `v2 phy.mech.c034/explanation/si`, `v2 phy.mech.c037/options/3/text/si`, `v2 phy.mech.c039/explanation/si`, `v2 phy.mech.c039/text/si`, `v2 phy.mech.c040/text/si`, `v2 phy.mech.c041/explanation/si`, `v2 phy.mech.p01-01/explanation/si`, `v2 phy.mech.p01-02/explanation/si`, `v2 phy.mech.p01-03/explanation/si`, `v2 phy.mech.p01-04/explanation/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p01-06/explanation/si`, `v2 phy.mech.p02-02/explanation/si`, `v2 phy.mech.p02-04/explanation/si`, `v2 phy.mech.p02-05/explanation/si`, `v2 phy.mech.p02-06/explanation/si`, `v2 phy.mech.p03-01/options/3/text/si`, `v2 phy.mech.p03-02/options/3/text/si`, `v2 phy.mech.p03-03/options/3/text/si`, `v2 phy.mech.p03-04/options/3/text/si`, `v2 phy.mech.p03-05/options/3/text/si`, `v2 phy.mech.p03-06/options/3/text/si`, `v2 phy.mech.p04-01/options/3/detail/si`, `v2 phy.mech.p04-02/options/3/detail/si`, `v2 phy.mech.p04-03/options/3/detail/si`, `v2 phy.mech.p04-04/options/3/detail/si`, `v2 phy.mech.p04-05/options/3/detail/si`, `v2 phy.mech.p04-06/options/3/detail/si`, `v2 phy.mech.p05-02/explanation/si`, `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.p05-04/explanation/si`, `v2 phy.mech.rot.rolling-energy/name_si`, `v2 phy.mech.t09/explanation/si`, `v2 phy.mech.t09/param_text/si/KE at the top of its path?`, `v2 phy.mech.t09/param_text/si/PE gained by the top of its path?`, `v2 phy.mech.t15/distractors/0/detail_si`, `v2 phy.mech.t15/explanation/si`, `v2 phy.mech.t15/text/si`, `v2 phy.therm.b02/explanation/si`, `v2 phy.therm.b02/statements/0/text/si`, `v2 phy.therm.b02/statements/1/text/si`, `v2 phy.therm.b02/statements/2/text/si`, `v2 phy.therm.b02/statements/6/text/si`, `v2 phy.therm.b02/statements/7/text/si`, `v2 phy.therm.c008/options/1/text/si`, `v2 phy.therm.c021/explanation/si`, `v2 phy.therm.c021/text/si`, `v2 phy.therm.c022/explanation/si`, `v2 phy.therm.c022/options/2/detail/si`, `v2 phy.therm.c022/options/3/detail/si`, `v2 phy.therm.c022/text/si`, `v2 phy.therm.c023/explanation/si`, `v2 phy.therm.c023/options/3/detail/si`, `v2 phy.therm.c023/text/si`, `v2 phy.therm.c049/explanation/si`, `v2 phy.therm.kin.mean-ke-temperature/name_si`
@@ -791,14 +791,14 @@ teacher to decide.
 
 ## engine
 
-teacher to decide.
+Attested in this pack.
 
 - එන්ජිම · family 1 · `v2 phy.mech.c009/explanation/si`, `v2 phy.mech.c009/options/1/text/si`
 - එන්ජිමෙන් · family 1 · `v2 phy.mech.c020/text/si`
 
 ## equilibrium
 
-teacher to decide.
+Attested in this pack.
 
 - සමතුලිතතා · family 1 · `v2 phy.mech.p04-01/options/3/detail/si`, `v2 phy.mech.p04-02/options/3/detail/si`, `v2 phy.mech.p04-03/options/3/detail/si`, `v2 phy.mech.p04-04/options/3/detail/si`, `v2 phy.mech.p04-05/options/3/detail/si`, `v2 phy.mech.p04-06/options/3/detail/si`
 - සමතුලිතතාව · family 1 · `v2 phy.therm.c048/explanation/si`
@@ -806,14 +806,14 @@ teacher to decide.
 
 ## equivalent resistance
 
-teacher to decide.
+Attested in this pack.
 
 - සමක ප්‍රතිරෝධය · family 1 · `v2 phy.elec.c001/text/si`, `v2 phy.elec.c003/text/si`, `v2 phy.elec.c004/text/si`
 - සමක ප්‍රතිරෝධයට · family 1 · `draft phy.elec.c060/text/si`
 
 ## error
 
-teacher to decide.
+Attested in this pack.
 
 - දෝෂ · family 1 · `v2 phy.therm.state.latent-errors/name_si`
 - දෝෂය · family 1 · `v2 phy.therm.t01/explanation/si`, `v2 phy.therm.t01/text/si`
@@ -821,7 +821,7 @@ teacher to decide.
 
 ## expansion
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රසාරණ · family 1 · `draft phy.therm.c108/text/si`, `draft phy.therm.c110/explanation/si`, `draft phy.therm.c110/options/0/detail/si`, `draft phy.therm.c110/text/si`
 - ප්‍රසාරණය · family 1 · `draft phy.therm.c051/explanation/si`, `draft phy.therm.c051/text/si`, `draft phy.therm.c054/text/si`, `draft phy.therm.c055/explanation/si`, `draft phy.therm.c055/options/3/detail/si`, `draft phy.therm.c055/text/si`, `draft phy.therm.c107/text/si`, `v2 phy.therm.c003/options/2/text/si`, `v2 phy.therm.c005/text/si`, `v2 phy.therm.exp.linear/name_si`, `v2 phy.therm.p01-01/options/1/detail/si`, `v2 phy.therm.p01-01/text/si`, `v2 phy.therm.p01-06/text/si`, `v2 phy.therm.t08/text/si`
@@ -833,46 +833,46 @@ teacher to decide.
 
 ## external force
 
-teacher to decide.
+Attested in this pack.
 
 - බාහිර බලයක් · family 1 · `v2 phy.mech.p02-01/explanation/si`
 
 ## external torque
 
-teacher to decide.
+Attested in this pack.
 
 - බාහිර ව්‍යාවර්තය · family 1 · `draft phy.mech.c123/text/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c126/explanation/si`, `draft phy.mech.c127/text/si`
 - බාහිර ව්‍යාවර්තයක් · family 1 · `v2 phy.mech.p05-01/explanation/si`, `v2 phy.mech.t14/explanation/si`
 
 ## faraday's law
 
-teacher to decide.
+Attested in this pack.
 
 - ෆැරඩේ නියමය · family 1 · `v2 phy.elec.emi.faraday/name_si`
 - ෆැරඩේ නියමයට · family 1 · `draft phy.elec.c118/explanation/si`, `draft phy.elec.c118/options/1/detail/si`
 
 ## final velocity
 
-teacher to decide.
+අවසාන ප්‍රවේගය (label). අවසන් is also grammatical. (proposed — teacher confirms).
 
 - අවසාන ප්‍රවේගය · family 1 · `v2 phy.mech.t03/distractors/4/detail_si`
 - අවසන් ප්‍රවේග · family 2 · `draft phy.mech.c054/text/si`
 
 ## first law of thermodynamics
 
-teacher to decide.
+Attested in this pack.
 
 - තාප ගති විද්‍යාවේ පළමුවැනි නියමය · family 1 · `v2 phy.therm.c035/text/si`, `v2 phy.therm.thermo.first-law/name_si`
 
 ## flow rate
 
-teacher to decide.
+Attested in this pack.
 
 - ගැලීම් ශීඝ්‍රතාව · family 1 · `draft phy.therm.c079/text/si`, `v2 phy.therm.c009/explanation/si`, `v2 phy.therm.c009/text/si`, `v2 phy.therm.c045/explanation/si`
 
 ## flux
 
-teacher to decide.
+Attested in this pack.
 
 - ස්‍රාව · family 1 · `draft phy.elec.c114/explanation/si`, `draft phy.elec.c114/options/2/detail/si`, `draft phy.elec.c115/explanation/si`, `draft phy.elec.c116/text/si`, `draft phy.elec.c117/explanation/si`, `draft phy.elec.c117/options/0/detail/si`, `draft phy.elec.c118/text/si`, `draft phy.elec.c120/explanation/si`, `draft phy.elec.c122/explanation/si`, `draft phy.elec.c122/options/1/detail/si`, `draft phy.elec.c122/text/si`, `draft phy.elec.c124/explanation/si`, `v2 phy.elec.c038/options/1/text/si`, `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.t12/distractors/3/detail_si`, `v2 phy.elec.t12/text/si`
 - ස්‍රාවය · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c119/explanation/si`, `draft phy.elec.c119/text/si`, `draft phy.elec.c121/text/si`, `v2 phy.elec.c041/options/0/text/si`, `v2 phy.elec.c041/text/si`, `v2 phy.elec.c043/explanation/si`, `v2 phy.elec.c043/options/3/detail/si`, `v2 phy.elec.c053/explanation/si`, `v2 phy.elec.c053/text/si`, `v2 phy.elec.p02-01/options/3/detail/si`, `v2 phy.elec.p02-02/explanation/si`, `v2 phy.elec.p02-02/options/3/detail/si`, `v2 phy.elec.p02-04/explanation/si`, `v2 phy.elec.p02-04/options/3/detail/si`, `v2 phy.elec.p02-05/explanation/si`, `v2 phy.elec.p02-05/options/3/detail/si`, `v2 phy.elec.p02-06/options/3/detail/si`
@@ -883,13 +883,13 @@ teacher to decide.
 
 ## flywheel
 
-teacher to decide.
+Attested in this pack.
 
 - භ්‍රමණ රෝදයක් · family 1 · `v2 phy.mech.p05-05/text/si`
 
 ## force
 
-teacher to decide.
+Attested in this pack.
 
 - බල · family 1 · `draft phy.mech.c068/text/si`, `draft phy.mech.c069/explanation/si`, `draft phy.mech.c070/text/si`, `draft phy.mech.c071/text/si`, `draft phy.mech.c072/explanation/si`, `draft phy.mech.c073/text/si`, `draft phy.mech.c077/explanation/si`, `draft phy.mech.c077/text/si`, `draft phy.mech.c091/text/si`, `draft phy.mech.c093/text/si`, `draft phy.mech.c095/text/si`, `draft phy.mech.c107/explanation/si`, `draft phy.mech.c107/options/0/detail/si`, `draft phy.mech.c115/explanation/si`, `draft phy.mech.c115/options/0/detail/si`, `draft phy.therm.c054/explanation/si`, `draft phy.therm.c054/options/0/detail/si`, `v2 phy.mech.b01/explanation/si`, `v2 phy.mech.b01/statements/0/text/si`, `v2 phy.mech.b01/statements/1/text/si`, `v2 phy.mech.b01/statements/3/text/si`, `v2 phy.mech.b01/statements/4/text/si`, `v2 phy.mech.b01/statements/5/text/si`, `v2 phy.mech.c001/explanation/si`, `v2 phy.mech.c001/text/si`, `v2 phy.mech.c002/text/si`, `v2 phy.mech.c010/explanation/si`, `v2 phy.mech.c011/text/si`, `v2 phy.mech.c012/explanation/si`, `v2 phy.mech.c018/text/si`, `v2 phy.mech.c028/options/3/text/si`, `v2 phy.mech.c028/text/si`, `v2 phy.mech.imp.graph-area/name_si`, `v2 phy.mech.p04-04/explanation/si`, `v2 phy.mech.t01/explanation/si`, `v2 phy.mech.t01/text/si`
 - බලන · family 1 · `draft phy.mech.c136/text/si`
@@ -906,14 +906,14 @@ teacher to decide.
 
 ## force–time graph
 
-teacher to decide.
+Attested in this pack.
 
 - බල කාල ප්‍රස්තාරය · family 1 · `draft phy.mech.c095/text/si`
 - බල–කාල ප්‍රස්තාරයකින් · family 1 · `v2 phy.mech.imp.graph-area/name_si`
 
 ## fraction
 
-teacher to decide.
+Attested in this pack.
 
 - භාගය · family 1 · `draft phy.elec.c066/text/si`, `draft phy.mech.c066/explanation/si`, `draft phy.mech.c066/options/3/detail/si`, `draft phy.mech.c067/explanation/si`, `draft phy.mech.c130/text/si`, `v2 phy.therm.t04/explanation/si`, `v2 phy.therm.t04/text/si`
 - භාගයක් · family 1 · `draft phy.elec.c088/text/si`, `draft phy.mech.c066/text/si`, `draft phy.mech.c129/text/si`, `draft phy.therm.c113/text/si`, `v2 phy.therm.c041/text/si`
@@ -923,7 +923,7 @@ teacher to decide.
 
 ## friction
 
-teacher to decide.
+Attested in this pack.
 
 - ඝර්ෂණ · family 1 · `draft phy.mech.c084/explanation/si`, `draft phy.mech.c084/options/3/detail/si`, `draft phy.mech.c084/text/si`, `draft phy.mech.c086/text/si`, `draft phy.mech.c087/explanation/si`, `draft phy.mech.c087/text/si`, `draft phy.mech.c088/explanation/si`, `draft phy.mech.c089/explanation/si`, `draft phy.mech.c090/explanation/si`, `draft phy.mech.c090/text/si`, `draft phy.mech.c091/text/si`, `draft phy.mech.c140/text/si`, `v2 phy.mech.c008/options/0/text/si`, `v2 phy.mech.c009/options/0/text/si`, `v2 phy.mech.c016/explanation/si`, `v2 phy.mech.c017/text/si`, `v2 phy.mech.circ.friction-limit/name_si`, `v2 phy.mech.p05-06/text/si`, `v2 phy.therm.p02-05/text/si`, `v2 phy.therm.t08/text/si`
 - ඝර්ෂණය · family 1 · `draft phy.mech.c083/text/si`, `draft phy.mech.c086/explanation/si`, `draft phy.mech.c088/text/si`, `draft phy.mech.c089/text/si`, `draft phy.mech.c091/text/si`, `draft phy.mech.c139/text/si`, `v2 phy.mech.c018/explanation/si`, `v2 phy.mech.c018/options/0/text/si`, `v2 phy.mech.c018/options/1/text/si`, `v2 phy.mech.c018/options/2/text/si`, `v2 phy.mech.c018/options/3/text/si`, `v2 phy.mech.c020/explanation/si`, `v2 phy.mech.c030/explanation/si`, `v2 phy.mech.c030/options/0/text/si`, `v2 phy.mech.fric.stopping-distance/name_si`
@@ -933,39 +933,39 @@ teacher to decide.
 
 ## friction limit
 
-teacher to decide.
+Attested in this pack.
 
 - ඝර්ෂණ සීමාව · family 1 · `v2 phy.mech.circ.friction-limit/name_si`
 
 ## frictional force
 
-teacher to decide.
+Attested in this pack.
 
 - ඝර්ෂණ බල · family 1 · `draft phy.mech.c091/text/si`
 - ඝර්ෂණ බලය · family 1 · `draft phy.mech.c084/explanation/si`, `draft phy.mech.c084/options/3/detail/si`, `draft phy.mech.c086/text/si`, `draft phy.mech.c087/explanation/si`, `draft phy.mech.c088/explanation/si`, `draft phy.mech.c090/explanation/si`, `draft phy.mech.c090/text/si`, `draft phy.mech.c140/text/si`, `v2 phy.mech.c008/options/0/text/si`, `v2 phy.mech.c009/options/0/text/si`, `v2 phy.mech.c016/explanation/si`
 
 ## frictionless
 
-teacher to decide.
+Attested in this pack.
 
 - ඝර්ෂණ රහිත · family 1 · `v2 phy.therm.p02-05/text/si`, `v2 phy.therm.t08/text/si`
 
 ## fusion
 
-teacher to decide.
+Attested in this pack.
 
 - විලයනය · family 1 · `draft phy.therm.c091/explanation/si`
 - විලයනයේ · family 1 · `v2 phy.therm.c014/text/si`, `v2 phy.therm.t02/text/si`
 
 ## galvanometer
 
-teacher to decide.
+Attested in this pack.
 
 - ගැල්වනෝමීටරය · family 1 · `v2 phy.elec.b02/statements/4/text/si`, `v2 phy.elec.c037/explanation/si`
 
 ## gas
 
-teacher to decide.
+Attested in this pack.
 
 - වායු · family 1 · `draft phy.mech.c059/text/si`, `draft phy.mech.c062/text/si`, `draft phy.mech.c063/text/si`, `draft phy.mech.c110/text/si`, `draft phy.therm.c057/explanation/si`, `draft phy.therm.c057/options/1/detail/si`, `draft phy.therm.c060/text/si`, `draft phy.therm.c062/text/si`, `draft phy.therm.c066/text/si`, `draft phy.therm.c067/text/si`, `draft phy.therm.c070/text/si`, `draft phy.therm.c097/text/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c111/text/si`, `v2 phy.mech.c003/explanation/si`, `v2 phy.mech.c026/text/si`, `v2 phy.mech.c028/text/si`, `v2 phy.mech.c050/text/si`, `v2 phy.mech.p03-01/text/si`, `v2 phy.mech.p03-02/text/si`, `v2 phy.mech.p03-03/text/si`, `v2 phy.mech.p03-04/text/si`, `v2 phy.mech.p03-05/text/si`, `v2 phy.mech.p03-06/text/si`, `v2 phy.mech.t09/text/si`, `v2 phy.therm.b02/statements/0/text/si`, `v2 phy.therm.b02/statements/2/text/si`, `v2 phy.therm.c015/text/si`, `v2 phy.therm.c018/explanation/si`, `v2 phy.therm.c021/text/si`, `v2 phy.therm.gas.graphs/name_si`, `v2 phy.therm.gas.ideal-gas-equation/name_si`, `v2 phy.therm.kin.rms-speed/name_si`, `v2 phy.therm.p02-01/explanation/si`, `v2 phy.therm.p02-01/options/3/detail/si`, `v2 phy.therm.p02-02/options/3/detail/si`, `v2 phy.therm.p02-03/options/3/detail/si`, `v2 phy.therm.p02-04/options/3/detail/si`, `v2 phy.therm.p02-05/options/3/detail/si`, `v2 phy.therm.p02-06/options/3/detail/si`, `v2 phy.therm.t04/text/si`
 - වායුව · family 1 · `draft phy.therm.c057/text/si`, `draft phy.therm.c062/explanation/si`, `draft phy.therm.c062/options/0/detail/si`, `draft phy.therm.c106/explanation/si`, `draft phy.therm.c106/options/2/detail/si`, `draft phy.therm.c106/options/3/detail/si`, `v2 phy.therm.c023/explanation/si`, `v2 phy.therm.c025/text/si`, `v2 phy.therm.c035/explanation/si`, `v2 phy.therm.c035/text/si`, `v2 phy.therm.c037/text/si`, `v2 phy.therm.c038/options/1/detail/si`, `v2 phy.therm.c039/explanation/si`, `v2 phy.therm.c040/explanation/si`, `v2 phy.therm.c040/text/si`, `v2 phy.therm.p01-01/options/1/detail/si`, `v2 phy.therm.p01-03/options/2/detail/si`, `v2 phy.therm.p01-04/options/1/detail/si`, `v2 phy.therm.p01-05/options/1/detail/si`, `v2 phy.therm.p01-06/options/2/detail/si`, `v2 phy.therm.p02-03/text/si`, `v2 phy.therm.p02-04/text/si`, `v2 phy.therm.t04/text/si`, `v2 phy.therm.t08/distractors/1/detail_si`, `v2 phy.therm.t08/distractors/2/detail_si`
@@ -978,19 +978,19 @@ teacher to decide.
 
 ## gas compression
 
-teacher to decide.
+Attested in this pack.
 
 - සම්පීඩනය · family 1 · `v2 phy.therm.b02/statements/7/text/si`, `v2 phy.therm.b03/statements/6/text/si`, `v2 phy.therm.p01-03/options/2/detail/si`, `v2 phy.therm.p01-03/text/si`, `v2 phy.therm.p01-04/options/1/detail/si`, `v2 phy.therm.p01-04/text/si`
 
 ## gas law
 
-teacher to decide.
+Attested in this pack.
 
 - වායු නියම · family 1 · `v2 phy.therm.c018/explanation/si`, `v2 phy.therm.gas.graphs/name_si`
 
 ## gradient
 
-teacher to decide.
+Attested in this pack.
 
 - අනුක්‍රමණය · family 1 · `draft phy.elec.c105/text/si`, `draft phy.elec.c106/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c108/explanation/si`, `draft phy.elec.c108/options/1/detail/si`, `draft phy.elec.c108/options/3/detail/si`, `draft phy.elec.c108/text/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/text/si`, `draft phy.elec.c113/explanation/si`, `draft phy.elec.c113/options/0/detail/si`, `draft phy.therm.c118/text/si`, `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/3/text/si`, `v2 phy.elec.b02/statements/7/text/si`, `v2 phy.elec.c034/explanation/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c035/explanation/si`, `v2 phy.elec.pot.potential-gradient/name_si`, `v2 phy.elec.t10/explanation/si`, `v2 phy.mech.c004/explanation/si`, `v2 phy.mech.kin.graph-slope-area/name_si`, `v2 phy.therm.c042/explanation/si`, `v2 phy.therm.c042/options/1/detail/si`
 - අනුක්‍රමණයක් · family 1 · `v2 phy.elec.b02/explanation/si`, `v2 phy.therm.c015/options/3/text/si`
@@ -1000,7 +1000,7 @@ teacher to decide.
 
 ## graph
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රස්තාර · family 1 · `v2 phy.therm.gas.graphs/name_si`
 - ප්‍රස්තාරය · family 1 · `draft phy.mech.c056/text/si`, `draft phy.mech.c095/text/si`, `draft phy.therm.c061/text/si`, `v2 phy.elec.c017/text/si`, `v2 phy.mech.c005/text/si`, `v2 phy.mech.c006/text/si`, `v2 phy.mech.c032/text/si`, `v2 phy.therm.c015/text/si`, `v2 phy.therm.c016/text/si`, `v2 phy.therm.c042/text/si`, `v2 phy.therm.c043/text/si`
@@ -1014,7 +1014,7 @@ teacher to decide.
 
 ## graph slope
 
-teacher to decide.
+Attested in this pack.
 
 - අනුක්‍රමණය · family 1 · `draft phy.elec.c105/text/si`, `draft phy.elec.c106/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c108/explanation/si`, `draft phy.elec.c108/options/1/detail/si`, `draft phy.elec.c108/options/3/detail/si`, `draft phy.elec.c108/text/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/text/si`, `draft phy.elec.c113/explanation/si`, `draft phy.elec.c113/options/0/detail/si`, `draft phy.therm.c118/text/si`, `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/3/text/si`, `v2 phy.elec.b02/statements/7/text/si`, `v2 phy.elec.c034/explanation/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c035/explanation/si`, `v2 phy.elec.pot.potential-gradient/name_si`, `v2 phy.elec.t10/explanation/si`, `v2 phy.mech.c004/explanation/si`, `v2 phy.mech.kin.graph-slope-area/name_si`, `v2 phy.therm.c042/explanation/si`, `v2 phy.therm.c042/options/1/detail/si`
 - අනුක්‍රමණයක් · family 1 · `v2 phy.elec.b02/explanation/si`, `v2 phy.therm.c015/options/3/text/si`
@@ -1024,19 +1024,19 @@ teacher to decide.
 
 ## gravitational potential
 
-teacher to decide.
+Attested in this pack.
 
 - ගුරුත්වාකර්ෂණ විභව · family 1 · `draft phy.mech.c134/text/si`
 
 ## gravitational potential energy
 
-teacher to decide.
+Attested in this pack.
 
 - ගුරුත්වාකර්ෂණ විභව ශක්ති · family 1 · `draft phy.mech.c134/text/si`
 
 ## gravity
 
-teacher to decide.
+Attested in this pack.
 
 - ගුරුත්ව · family 1 · `draft phy.mech.c064/explanation/si`, `draft phy.mech.c064/text/si`, `draft phy.mech.c079/explanation/si`, `draft phy.mech.c081/explanation/si`, `draft phy.mech.c081/options/0/detail/si`, `v2 phy.mech.c045/explanation/si`
 - ගුරුත්වජ · family 1 · `draft phy.mech.c061/text/si`, `draft phy.mech.c113/text/si`
@@ -1047,7 +1047,7 @@ teacher to decide.
 
 ## heat
 
-teacher to decide.
+Attested in this pack.
 
 - තාප · family 1 · `draft phy.therm.c071/text/si`, `draft phy.therm.c072/explanation/si`, `draft phy.therm.c073/explanation/si`, `draft phy.therm.c073/options/1/detail/si`, `draft phy.therm.c073/text/si`, `draft phy.therm.c074/text/si`, `draft phy.therm.c075/explanation/si`, `draft phy.therm.c075/options/0/detail/si`, `draft phy.therm.c078/text/si`, `draft phy.therm.c081/text/si`, `draft phy.therm.c082/text/si`, `draft phy.therm.c086/explanation/si`, `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`, `draft phy.therm.c113/explanation/si`, `draft phy.therm.c113/options/3/detail/si`, `draft phy.therm.c113/text/si`, `draft phy.therm.c114/text/si`, `draft phy.therm.c115/text/si`, `draft phy.therm.c116/text/si`, `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`, `v2 phy.elec.b01/statements/3/text/si`, `v2 phy.therm.b01/statements/3/text/si`, `v2 phy.therm.c007/text/si`, `v2 phy.therm.c008/options/0/text/si`, `v2 phy.therm.c008/text/si`, `v2 phy.therm.c014/explanation/si`, `v2 phy.therm.c027/text/si`, `v2 phy.therm.t03/text/si`
 - තාපකයක · family 1 · `draft phy.elec.c074/text/si`
@@ -1068,21 +1068,21 @@ teacher to decide.
 
 ## heat capacity
 
-teacher to decide.
+Attested in this pack.
 
 - තාප ධාරිතාය · family 1 · `draft phy.therm.c075/explanation/si`, `draft phy.therm.c075/options/0/detail/si`
 - තාප ධාරිතාව · family 1 · `draft phy.therm.c071/text/si`, `draft phy.therm.c072/explanation/si`, `draft phy.therm.c073/explanation/si`, `draft phy.therm.c073/options/1/detail/si`, `v2 phy.therm.c008/text/si`, `v2 phy.therm.t03/text/si`
 
 ## heat exchange
 
-teacher to decide.
+Attested in this pack.
 
 - තාප හුවමාරුවයි · family 1 · `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`
 - තාප හුවමාරුවෙන් · family 1 · `v2 phy.therm.b01/statements/3/text/si`
 
 ## heat liberated
 
-teacher to decide.
+Attested in this pack.
 
 - පිට කළ තාප · family 1 · `draft phy.therm.c071/text/si`
 - පිට වන තාප · family 1 · `v2 phy.therm.c008/options/0/text/si`
@@ -1091,20 +1091,20 @@ teacher to decide.
 
 ## heat loss
 
-teacher to decide.
+Attested in this pack.
 
 - තාප හානි · family 1 · `draft phy.therm.c082/explanation/si`, `draft phy.therm.c082/options/3/detail/si`, `draft phy.therm.c082/text/si`, `v2 phy.therm.c027/text/si`
 - තාප හානියක් · family 1 · `v2 phy.therm.c007/text/si`
 
 ## heat transfer
 
-teacher to decide.
+Attested in this pack.
 
 - තාප හුවමාරුවයි · family 2 · `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`
 
 ## height
 
-teacher to decide.
+Attested in this pack.
 
 - උස · family 1 · `draft phy.mech.c059/explanation/si`, `draft phy.mech.c059/options/1/detail/si`, `draft phy.mech.c060/explanation/si`, `draft phy.mech.c095/explanation/si`, `draft phy.mech.c111/explanation/si`, `draft phy.mech.c111/options/0/detail/si`, `draft phy.mech.c111/text/si`, `draft phy.mech.c113/explanation/si`, `draft phy.mech.c113/text/si`, `draft phy.mech.c134/explanation/si`, `draft phy.mech.c134/options/1/detail/si`, `v2 phy.mech.c026/options/3/text/si`, `v2 phy.mech.c036/text/si`, `v2 phy.mech.c037/explanation/si`, `v2 phy.mech.c037/options/0/text/si`, `v2 phy.mech.c037/options/1/text/si`, `v2 phy.mech.c037/options/2/text/si`, `v2 phy.mech.c037/options/3/text/si`, `v2 phy.mech.c037/text/si`, `v2 phy.mech.energy.bounce-height/name_si`, `v2 phy.mech.p03-03/options/1/text/si`, `v2 phy.mech.t02/distractors/5/detail_si`, `v2 phy.mech.t13/explanation/si`, `v2 phy.mech.t13/text/si`
 - උසකට · family 1 · `draft phy.mech.c060/text/si`
@@ -1115,13 +1115,13 @@ teacher to decide.
 
 ## helium
 
-teacher to decide.
+Attested in this pack.
 
 - හීලියම් · family 1 · `draft phy.therm.c066/text/si`, `v2 phy.therm.c023/text/si`
 
 ## hinge
 
-teacher to decide.
+අසව්ව (proposed — teacher confirms).
 
 - අසව්ව · family 1 · `draft phy.mech.c105/text/si`, `draft phy.mech.c106/explanation/si`, `draft phy.mech.c109/text/si`, `v2 phy.mech.p04-03/explanation/si`, `v2 phy.mech.p04-03/options/0/text/si`, `v2 phy.mech.p04-05/explanation/si`, `v2 phy.mech.p04-05/options/0/text/si`
 - අසව්වක · family 1 · `draft phy.mech.c105/text/si`
@@ -1130,7 +1130,7 @@ teacher to decide.
 
 ## hole
 
-teacher to decide.
+Attested in this pack.
 
 - කුහර · family 1 · `v2 phy.mech.t15/param_text/si/hollow sphere`
 - කුහරය · family 1 · `v2 phy.therm.c005/explanation/si`, `v2 phy.therm.c005/options/0/text/si`, `v2 phy.therm.c005/options/1/text/si`, `v2 phy.therm.c005/options/2/text/si`, `v2 phy.therm.c005/options/3/text/si`, `v2 phy.therm.c005/text/si`
@@ -1139,26 +1139,26 @@ teacher to decide.
 
 ## hollow sphere
 
-teacher to decide.
+Attested in this pack.
 
 - කුහර ගෝලයක් · family 1 · `v2 phy.mech.t15/param_text/si/hollow sphere`
 
 ## horizontal
 
-teacher to decide.
+Attested in this pack.
 
 - තිරස් · family 1 · `draft phy.mech.c063/explanation/si`, `draft phy.mech.c065/text/si`, `draft phy.mech.c067/explanation/si`, `draft phy.mech.c083/text/si`, `draft phy.mech.c084/text/si`, `draft phy.mech.c087/text/si`, `draft phy.mech.c088/text/si`, `draft phy.mech.c089/text/si`, `draft phy.mech.c090/text/si`, `draft phy.mech.c091/text/si`, `draft phy.mech.c105/text/si`, `draft phy.mech.c109/text/si`, `draft phy.mech.c135/text/si`, `draft phy.mech.c138/text/si`, `draft phy.mech.c139/text/si`, `v2 phy.mech.c006/explanation/si`, `v2 phy.mech.c006/options/0/text/si`, `v2 phy.mech.c006/options/3/text/si`, `v2 phy.mech.c009/text/si`, `v2 phy.mech.c017/text/si`, `v2 phy.mech.c020/text/si`, `v2 phy.mech.c026/explanation/si`, `v2 phy.mech.c026/options/0/text/si`, `v2 phy.mech.c028/explanation/si`, `v2 phy.mech.c030/explanation/si`, `v2 phy.mech.c047/text/si`, `v2 phy.mech.c048/text/si`, `v2 phy.mech.p01-01/explanation/si`, `v2 phy.mech.p03-01/explanation/si`, `v2 phy.mech.p03-01/options/0/text/si`, `v2 phy.mech.p03-02/options/0/text/si`, `v2 phy.mech.p03-03/explanation/si`, `v2 phy.mech.p03-03/options/0/text/si`, `v2 phy.mech.t05/text/si`, `v2 phy.mech.t06/text/si`, `v2 phy.mech.t08/distractors/4/detail_si`, `v2 phy.mech.t12/distractors/0/detail_si`, `v2 phy.mech.t12/distractors/3/detail_si`, `v2 phy.mech.t12/distractors/5/detail_si`, `v2 phy.mech.t12/text/si`, `v2 phy.therm.c015/options/2/text/si`, `v2 phy.therm.c016/options/3/text/si`, `v2 phy.therm.c042/options/3/text/si`, `v2 phy.therm.c043/options/3/text/si`
 - තිරස්ව · family 1 · `draft phy.mech.c104/text/si`, `v2 phy.mech.c006/options/3/detail/si`, `v2 phy.mech.p03-03/text/si`, `v2 phy.mech.p04-03/text/si`
 
 ## horizontal component
 
-teacher to decide.
+Attested in this pack.
 
 - තිරස් සංරචකය · family 1 · `draft phy.mech.c063/explanation/si`, `v2 phy.mech.c026/explanation/si`
 
 ## humidity
 
-teacher to decide.
+Attested in this pack.
 
 - ආර්ද්‍රතා · family 1 · `draft phy.therm.c101/text/si`
 - ආර්ද්‍රතාව · family 1 · `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c095/text/si`, `draft phy.therm.c096/text/si`, `draft phy.therm.c097/text/si`, `draft phy.therm.c100/text/si`, `draft phy.therm.c102/text/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/statements/0/text/si`, `v2 phy.therm.b03/statements/1/text/si`, `v2 phy.therm.b03/statements/5/text/si`, `v2 phy.therm.c030/text/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.hum.mixing-air/name_si`, `v2 phy.therm.hum.relative-humidity/name_si`, `v2 phy.therm.hum.rh-temperature/name_si`, `v2 phy.therm.t06/explanation/si`, `v2 phy.therm.t06/text/si`
@@ -1167,7 +1167,7 @@ teacher to decide.
 
 ## ice
 
-teacher to decide.
+Attested in this pack.
 
 - අයිස් · family 1 · `draft phy.mech.c072/text/si`, `draft phy.therm.c084/explanation/si`, `draft phy.therm.c084/text/si`, `draft phy.therm.c085/explanation/si`, `draft phy.therm.c085/text/si`, `draft phy.therm.c086/text/si`, `draft phy.therm.c089/explanation/si`, `draft phy.therm.c089/options/1/detail/si`, `draft phy.therm.c089/text/si`, `draft phy.therm.c091/text/si`, `v2 phy.therm.b01/explanation/si`, `v2 phy.therm.b01/statements/1/text/si`, `v2 phy.therm.b01/statements/2/text/si`, `v2 phy.therm.b01/statements/4/text/si`, `v2 phy.therm.b01/statements/5/text/si`, `v2 phy.therm.b01/statements/6/text/si`, `v2 phy.therm.c011/explanation/si`, `v2 phy.therm.c011/options/0/text/si`, `v2 phy.therm.c011/options/1/text/si`, `v2 phy.therm.c011/options/2/text/si`, `v2 phy.therm.c011/options/3/detail/si`, `v2 phy.therm.c011/text/si`, `v2 phy.therm.c012/explanation/si`, `v2 phy.therm.c012/options/0/text/si`, `v2 phy.therm.c012/options/3/text/si`, `v2 phy.therm.c012/text/si`, `v2 phy.therm.c013/text/si`, `v2 phy.therm.c014/explanation/si`, `v2 phy.therm.c014/text/si`, `v2 phy.therm.t02/distractors/1/detail_si`, `v2 phy.therm.t02/distractors/2/detail_si`, `v2 phy.therm.t02/explanation/si`, `v2 phy.therm.t02/text/si`
 - අයිස්වල · family 1 · `draft phy.therm.c090/text/si`, `v2 phy.therm.b01/statements/0/text/si`, `v2 phy.therm.b01/statements/1/text/si`, `v2 phy.therm.b01/statements/4/text/si`, `v2 phy.therm.c014/text/si`, `v2 phy.therm.t02/distractors/2/detail_si`, `v2 phy.therm.t02/text/si`
@@ -1176,13 +1176,13 @@ teacher to decide.
 
 ## ideal ammeter
 
-teacher to decide.
+Attested in this pack.
 
 - පරිපූර්ණ ඇමීටරයක් · family 1 · `draft phy.elec.c093/text/si`, `draft phy.elec.c096/text/si`
 
 ## ideal gas
 
-පරිපූර්ණ වායුව. [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
+පරිපූර්ණ වායුව (proposed — teacher confirms). [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
 
 Forms discussed by the review: පරිපූර්ණ වායුව · පරිසූර්ණ
 
@@ -1194,7 +1194,7 @@ Forms discussed by the review: පරිපූර්ණ වායුව · ප�
 
 ## ideal transformer
 
-teacher to decide.
+Attested in this pack.
 
 - පරිපූර්ණ පරිණාමකය · family 1 · `v2 phy.elec.c047/text/si`
 - පරිපූර්ණ පරිණාමකයක · family 1 · `v2 phy.elec.c048/options/3/detail/si`, `v2 phy.elec.t13/text/si`
@@ -1203,7 +1203,7 @@ teacher to decide.
 
 ## ideal voltmeter
 
-teacher to decide.
+Attested in this pack.
 
 - පරිපූර්ණ වෝල්ට්මීටරය · family 1 · `v2 phy.elec.c008/text/si`
 - පරිපූර්ණ වෝල්ට්මීටරයක · family 1 · `v2 phy.elec.c030/explanation/si`, `v2 phy.elec.c030/text/si`
@@ -1211,7 +1211,7 @@ teacher to decide.
 
 ## impulse
 
-teacher to decide.
+Attested in this pack.
 
 - ආවේග · family 1 · `draft phy.mech.c102/explanation/si`, `draft phy.mech.c102/text/si`
 - ආවේගය · family 1 · `draft phy.mech.c093/explanation/si`, `draft phy.mech.c093/options/2/detail/si`, `draft phy.mech.c093/options/3/detail/si`, `draft phy.mech.c093/text/si`, `draft phy.mech.c094/explanation/si`, `draft phy.mech.c094/options/3/detail/si`, `draft phy.mech.c096/text/si`, `draft phy.mech.c097/text/si`, `v2 phy.mech.c023/options/0/text/si`, `v2 phy.mech.c024/explanation/si`, `v2 phy.mech.c025/explanation/si`, `v2 phy.mech.imp.graph-area/name_si`, `v2 phy.mech.t08/explanation/si`
@@ -1221,7 +1221,7 @@ teacher to decide.
 
 ## inclined plane
 
-teacher to decide.
+Attested in this pack.
 
 - ආනත තලයක · family 1 · `v2 phy.mech.c018/text/si`, `v2 phy.mech.c041/text/si`, `v2 phy.mech.p05-03/text/si`
 - ආනත තලයක් · family 1 · `v2 phy.mech.c035/text/si`, `v2 phy.mech.t12/text/si`
@@ -1233,64 +1233,64 @@ teacher to decide.
 
 ## induced current
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රේරිත ධාරාව · family 1 · `v2 phy.elec.c042/explanation/si`, `v2 phy.elec.c042/text/si`, `v2 phy.elec.c043/explanation/si`, `v2 phy.elec.c043/text/si`, `v2 phy.elec.c053/text/si`, `v2 phy.elec.p02-01/text/si`, `v2 phy.elec.p02-02/text/si`, `v2 phy.elec.p02-03/text/si`, `v2 phy.elec.p02-04/text/si`, `v2 phy.elec.p02-05/text/si`, `v2 phy.elec.p02-06/text/si`
 - ප්‍රේරිත ධාරාවේ · family 1 · `draft phy.elec.c120/text/si`
 
 ## induced e.m.f
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රේරිත වි.ගා.බ · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c115/text/si`, `draft phy.elec.c116/text/si`, `draft phy.elec.c117/text/si`, `draft phy.elec.c121/explanation/si`, `v2 phy.elec.c040/text/si`, `v2 phy.elec.c041/explanation/si`, `v2 phy.elec.c041/text/si`, `v2 phy.elec.t12/text/si`
 
 ## inelastic
 
-teacher to decide.
+Attested in this pack.
 
 - අප්‍රත්‍යාස්ථ · family 1 · `v2 phy.mech.c022/text/si`
 
 ## inertia
 
-teacher to decide.
+Attested in this pack.
 
 - අවස්ථිති · family 1 · `draft phy.mech.c117/text/si`, `draft phy.mech.c118/text/si`, `draft phy.mech.c119/text/si`, `draft phy.mech.c120/text/si`, `draft phy.mech.c121/text/si`, `draft phy.mech.c122/text/si`, `draft phy.mech.c123/explanation/si`, `draft phy.mech.c123/options/1/detail/si`, `draft phy.mech.c123/options/2/detail/si`, `draft phy.mech.c123/text/si`, `draft phy.mech.c127/text/si`, `draft phy.mech.c132/explanation/si`, `v2 phy.mech.b02/statements/0/text/si`, `v2 phy.mech.b02/statements/1/text/si`, `v2 phy.mech.b02/statements/2/text/si`, `v2 phy.mech.b02/statements/3/text/si`, `v2 phy.mech.b02/statements/4/text/si`, `v2 phy.mech.b02/statements/5/text/si`, `v2 phy.mech.b02/statements/6/text/si`, `v2 phy.mech.b02/statements/7/text/si`, `v2 phy.mech.c044/text/si`, `v2 phy.mech.c051/explanation/si`, `v2 phy.mech.rot.moi-factors/name_si`
 
 ## input
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රදාන · family 1 · `draft phy.elec.c126/explanation/si`, `draft phy.elec.c126/options/2/detail/si`, `draft phy.elec.c126/options/3/detail/si`, `draft phy.therm.c078/text/si`
 
 ## input power
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රදාන ජවය · family 1 · `v2 phy.elec.c049/explanation/si`, `v2 phy.elec.t13/explanation/si`
 - ප්‍රදාන ජවයට · family 1 · `draft phy.elec.c126/explanation/si`, `draft phy.elec.c126/options/2/detail/si`, `draft phy.elec.c126/options/3/detail/si`, `draft phy.therm.c078/text/si`
 
 ## instantaneous speed
 
-teacher to decide.
+Attested in this pack.
 
 - ක්ෂණික වේගය · family 1 · `v2 phy.mech.c045/text/si`
 
 ## instantaneous velocity
 
-teacher to decide.
+Attested in this pack.
 
 - ක්ෂණික ප්‍රවේගයට · family 1 · `draft phy.mech.c115/text/si`
 
 ## insulated
 
-teacher to decide.
+පරිවාරිත (label). Use පරිවාරණය කළ in a sentence. (proposed — teacher confirms).
 
 - පරිවාරණය කළ · family 1 · `v2 phy.therm.c042/options/1/detail/si`, `v2 phy.therm.cond.temperature-profile/name_si`, `v2 phy.therm.p01-03/explanation/si`, `v2 phy.therm.p01-03/options/3/detail/si`, `v2 phy.therm.p01-03/text/si`, `v2 phy.therm.p01-06/options/3/detail/si`, `v2 phy.therm.p01-06/text/si`
 - පරිවාරිත · family 2 · `v2 phy.therm.c008/text/si`, `v2 phy.therm.c011/text/si`, `v2 phy.therm.t03/text/si`
 
 ## internal energy
 
-teacher to decide.
+Attested in this pack.
 
 - අභ්‍යන්තර ශක්ති · family 1 · `draft phy.therm.c111/text/si`
 - අභ්‍යන්තර ශක්තිය · family 1 · `draft phy.mech.c103/explanation/si`, `draft phy.therm.c111/explanation/si`, `draft phy.therm.c111/options/1/detail/si`, `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`
@@ -1299,14 +1299,14 @@ teacher to decide.
 
 ## internal force
 
-teacher to decide.
+Attested in this pack.
 
 - අභ්‍යන්තර බල · family 1 · `draft phy.mech.c073/text/si`
 - අභ්‍යන්තර බලයකට · family 1 · `v2 phy.mech.c009/explanation/si`
 
 ## internal resistance
 
-teacher to decide.
+Attested in this pack.
 
 - අභ්‍යන්තර ප්‍රතිරෝධ · family 1 · `draft phy.elec.c084/explanation/si`, `v2 phy.elec.c024/explanation/si`, `v2 phy.elec.c025/explanation/si`, `v2 phy.elec.t08/explanation/si`
 - අභ්‍යන්තර ප්‍රතිරෝධය · family 1 · `draft phy.elec.c083/explanation/si`, `draft phy.elec.c083/text/si`, `draft phy.elec.c084/text/si`, `draft phy.elec.c086/text/si`, `draft phy.elec.c090/explanation/si`, `v2 phy.elec.c021/text/si`, `v2 phy.elec.c024/text/si`, `v2 phy.elec.c025/text/si`, `v2 phy.elec.c026/text/si`, `v2 phy.elec.c033/explanation/si`, `v2 phy.elec.c036/text/si`, `v2 phy.elec.c052/text/si`, `v2 phy.elec.emf.internal-resistance/name_si`, `v2 phy.elec.pot.internal-resistance/name_si`, `v2 phy.elec.t05/distractors/0/detail_si`, `v2 phy.elec.t05/text/si`, `v2 phy.elec.t06/distractors/0/detail_si`, `v2 phy.elec.t06/text/si`, `v2 phy.elec.t07/text/si`, `v2 phy.elec.t08/text/si`, `v2 phy.elec.t09/text/si`
@@ -1316,7 +1316,7 @@ teacher to decide.
 
 ## internal voltage drop
 
-teacher to decide.
+Attested in this pack.
 
 - අභ්‍යන්තර විභව බැස්ම · family 1 · `draft phy.elec.c081/explanation/si`, `draft phy.elec.c081/options/1/detail/si`, `draft phy.elec.c081/options/2/detail/si`, `draft phy.elec.c081/options/3/detail/si`, `draft phy.elec.c081/text/si`, `draft phy.elec.c082/explanation/si`, `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`
 - අභ්‍යන්තර විභව බැස්මක් · family 1 · `draft phy.elec.c085/explanation/si`, `draft phy.elec.c085/options/2/detail/si`, `draft phy.elec.c085/options/3/detail/si`
@@ -1324,38 +1324,38 @@ teacher to decide.
 
 ## iron
 
-teacher to decide.
+Attested in this pack.
 
 - යකඩ · family 1 · `v2 phy.elec.c041/options/3/text/si`, `v2 phy.therm.c005/text/si`
 
 ## isotherm
 
-teacher to decide.
+Attested in this pack.
 
 - සමෝෂ්ණ රේඛාවකට · family 1 · `draft phy.therm.c062/explanation/si`, `draft phy.therm.c062/options/0/detail/si`
 - සමෝෂ්ණ රේඛාවක් · family 1 · `draft phy.therm.c062/text/si`
 
 ## isothermal
 
-සමෝෂ්ණ. [Terminology review, line 16](../2026-11-19-sinhala-terminology.md#L16)
+සමෝෂ්ණ (proposed — teacher confirms). [Terminology review, line 16](../2026-11-19-sinhala-terminology.md#L16)
 
 - සමෝෂ්ණ · family 1 · `draft phy.therm.c062/explanation/si`, `draft phy.therm.c062/options/0/detail/si`, `draft phy.therm.c062/text/si`, `draft phy.therm.c111/text/si`, `v2 phy.therm.c037/explanation/si`, `v2 phy.therm.c037/options/0/text/si`, `v2 phy.therm.c038/options/2/text/si`, `v2 phy.therm.c040/text/si`
 
 ## joule
 
-teacher to decide.
+Attested in this pack.
 
 - ජූල් · family 1 · `v2 phy.elec.c019/text/si`, `v2 phy.elec.pow.joule-heating/name_si`
 
 ## joule heating
 
-teacher to decide.
+Attested in this pack.
 
 - ජූල් තාපනය · family 1 · `v2 phy.elec.pow.joule-heating/name_si`
 
 ## junction
 
-teacher to decide.
+Attested in this pack.
 
 - සන්ධි · family 1 · `v2 phy.elec.p01-06/explanation/si`
 - සන්ධිය · family 1 · `v2 phy.mech.p04-05/options/1/text/si`
@@ -1365,26 +1365,26 @@ teacher to decide.
 
 ## junction equation
 
-teacher to decide.
+Attested in this pack.
 
 - සන්ධි සමීකරණයක් · family 1 · `v2 phy.elec.p01-06/explanation/si`
 
 ## kelvin
 
-teacher to decide.
+Attested in this pack.
 
 - කෙල්වින් · family 1 · `draft phy.therm.c064/explanation/si`, `v2 phy.therm.c018/options/0/text/si`, `v2 phy.therm.c018/options/3/text/si`, `v2 phy.therm.c019/explanation/si`, `v2 phy.therm.c020/options/0/text/si`, `v2 phy.therm.c020/options/3/detail/si`, `v2 phy.therm.c022/options/3/detail/si`, `v2 phy.therm.t04/explanation/si`
 
 ## kilogram
 
-teacher to decide.
+Attested in this pack.
 
 - කිලෝග්‍රෑමයකටම · family 1 · `draft phy.therm.c076/text/si`
 - කිලෝග්‍රෑමයක්ම · family 1 · `v2 phy.therm.c012/explanation/si`
 
 ## kinetic energy
 
-teacher to decide.
+Attested in this pack.
 
 - චාලක ශක්ති · family 1 · `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.p05-04/explanation/si`, `v2 phy.mech.t05/explanation/si`
 - චාලක ශක්තිය · family 1 · `draft phy.mech.c066/explanation/si`, `draft phy.mech.c066/options/3/detail/si`, `draft phy.mech.c066/text/si`, `draft phy.mech.c084/explanation/si`, `draft phy.mech.c084/options/3/detail/si`, `draft phy.mech.c088/text/si`, `draft phy.mech.c103/text/si`, `draft phy.mech.c124/explanation/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c129/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c133/text/si`, `draft phy.therm.c064/text/si`, `draft phy.therm.c066/text/si`, `draft phy.therm.c067/text/si`, `draft phy.therm.c109/text/si`, `v2 phy.mech.c016/explanation/si`, `v2 phy.mech.c022/text/si`, `v2 phy.mech.c026/options/0/text/si`, `v2 phy.mech.c026/options/1/text/si`, `v2 phy.mech.c026/options/2/text/si`, `v2 phy.mech.c026/options/3/text/si`, `v2 phy.mech.c026/text/si`, `v2 phy.mech.c039/explanation/si`, `v2 phy.mech.c039/text/si`, `v2 phy.mech.c040/text/si`, `v2 phy.mech.p01-01/explanation/si`, `v2 phy.mech.p01-02/explanation/si`, `v2 phy.mech.p01-03/explanation/si`, `v2 phy.mech.p01-04/explanation/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p01-06/explanation/si`, `v2 phy.mech.p02-02/explanation/si`, `v2 phy.mech.p03-01/options/3/text/si`, `v2 phy.mech.p03-02/options/3/text/si`, `v2 phy.mech.p03-03/options/3/text/si`, `v2 phy.mech.p03-04/options/3/text/si`, `v2 phy.mech.p03-05/options/3/text/si`, `v2 phy.mech.p03-06/options/3/text/si`, `v2 phy.mech.p05-02/explanation/si`, `v2 phy.mech.t09/explanation/si`, `v2 phy.mech.t09/param_text/si/KE at the top of its path?`, `v2 phy.mech.t15/distractors/0/detail_si`, `v2 phy.mech.t15/explanation/si`, `v2 phy.mech.t15/text/si`, `v2 phy.therm.b02/explanation/si`, `v2 phy.therm.b02/statements/0/text/si`, `v2 phy.therm.b02/statements/1/text/si`, `v2 phy.therm.b02/statements/2/text/si`, `v2 phy.therm.b02/statements/6/text/si`, `v2 phy.therm.b02/statements/7/text/si`, `v2 phy.therm.c021/explanation/si`, `v2 phy.therm.c021/text/si`, `v2 phy.therm.c022/explanation/si`, `v2 phy.therm.c022/options/2/detail/si`, `v2 phy.therm.c022/options/3/detail/si`, `v2 phy.therm.c022/text/si`, `v2 phy.therm.c023/explanation/si`, `v2 phy.therm.c023/options/3/detail/si`, `v2 phy.therm.c023/text/si`, `v2 phy.therm.kin.mean-ke-temperature/name_si`
@@ -1396,32 +1396,32 @@ teacher to decide.
 
 ## kinetic friction
 
-teacher to decide.
+Attested in this pack.
 
 - ගතික ඝර්ෂණ · family 1 · `draft phy.mech.c084/text/si`, `draft phy.mech.c087/text/si`, `v2 phy.mech.c017/text/si`
 - ගතික ඝර්ෂණය · family 1 · `draft phy.mech.c086/explanation/si`, `draft phy.mech.c089/text/si`
 
 ## kinetic theory
 
-teacher to decide.
+Attested in this pack.
 
 - චාලක වාදය · family 1 · `draft phy.therm.c068/text/si`, `v2 phy.therm.c024/text/si`
 
 ## kirchhoff's law
 
-teacher to decide.
+Attested in this pack.
 
 - කර්චොෆ්ගේ නියම · family 1 · `v2 phy.elec.p01-01/options/2/text/si`, `v2 phy.elec.p01-02/options/2/text/si`, `v2 phy.elec.p01-03/options/2/text/si`, `v2 phy.elec.p01-04/options/2/text/si`, `v2 phy.elec.p01-05/options/0/text/si`, `v2 phy.elec.p01-06/options/0/text/si`
 
 ## lagged
 
-teacher to decide.
+Attested in this pack.
 
 - පරිවාරණය කළ · family 1 · `v2 phy.therm.c042/options/1/detail/si`, `v2 phy.therm.cond.temperature-profile/name_si`
 
 ## lamp
 
-teacher to decide.
+Attested in this pack.
 
 - ලාම්පු · family 1 · `v2 phy.elec.p03-04/text/si`
 - ලාම්පුව · family 1 · `v2 phy.elec.c015/options/0/text/si`, `v2 phy.elec.c015/options/1/text/si`, `v2 phy.elec.c015/options/3/text/si`
@@ -1433,14 +1433,14 @@ teacher to decide.
 
 ## latent heat
 
-teacher to decide.
+Attested in this pack.
 
 - ගුප්ත තාප · family 1 · `draft phy.therm.c086/explanation/si`
 - ගුප්ත තාපය · family 1 · `draft phy.therm.c083/text/si`, `draft phy.therm.c087/text/si`, `draft phy.therm.c092/explanation/si`, `draft phy.therm.c093/text/si`, `v2 phy.therm.b01/statements/0/text/si`, `v2 phy.therm.b01/statements/1/text/si`, `v2 phy.therm.b01/statements/2/text/si`, `v2 phy.therm.b01/statements/4/text/si`, `v2 phy.therm.b01/statements/5/text/si`, `v2 phy.therm.c012/options/0/text/si`, `v2 phy.therm.c014/text/si`, `v2 phy.therm.state.latent-errors/name_si`, `v2 phy.therm.t02/text/si`
 
 ## length
 
-teacher to decide.
+Attested in this pack.
 
 - දිග · family 1 · `draft phy.elec.c058/explanation/si`, `draft phy.elec.c058/options/1/detail/si`, `draft phy.elec.c058/options/3/detail/si`, `draft phy.elec.c058/text/si`, `draft phy.elec.c059/text/si`, `draft phy.elec.c105/explanation/si`, `draft phy.elec.c105/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c108/text/si`, `draft phy.elec.c109/explanation/si`, `draft phy.elec.c109/text/si`, `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/explanation/si`, `draft phy.elec.c112/text/si`, `draft phy.elec.c113/text/si`, `draft phy.therm.c054/explanation/si`, `draft phy.therm.c054/options/0/detail/si`, `draft phy.therm.c054/text/si`, `draft phy.therm.c055/text/si`, `v2 phy.elec.b02/statements/0/text/si`, `v2 phy.elec.c009/explanation/si`, `v2 phy.elec.c010/text/si`, `v2 phy.elec.c011/text/si`, `v2 phy.elec.c020/text/si`, `v2 phy.elec.c034/options/0/text/si`, `v2 phy.elec.c036/options/3/detail/si`, `v2 phy.elec.t03/text/si`, `v2 phy.elec.t04/text/si`, `v2 phy.elec.t09/distractors/3/detail_si`, `v2 phy.elec.t10/explanation/si`, `v2 phy.therm.c001/explanation/si`, `v2 phy.therm.c005/options/3/detail/si`, `v2 phy.therm.c041/text/si`, `v2 phy.therm.t09/text/si`
 - දිගකට · family 1 · `draft phy.elec.c106/explanation/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`
@@ -1458,13 +1458,13 @@ teacher to decide.
 
 ## lenz's law
 
-teacher to decide.
+Attested in this pack.
 
 - ලෙන්ස් නියමය · family 1 · `draft phy.elec.c123/explanation/si`, `draft phy.elec.c123/options/0/detail/si`, `v2 phy.elec.emi.lenz/name_si`
 
 ## lift (elevator)
 
-teacher to decide.
+Attested in this pack.
 
 - සෝපාන · family 1 · `draft phy.mech.c079/explanation/si`
 - සෝපානය · family 1 · `v2 phy.mech.c014/explanation/si`, `v2 phy.mech.t04/distractors/0/detail_si`
@@ -1473,46 +1473,46 @@ teacher to decide.
 
 ## lifting force
 
-teacher to decide.
+Attested in this pack.
 
 - ඔසවන බලය · family 1 · `draft phy.mech.c114/explanation/si`, `draft phy.mech.c114/options/2/detail/si`, `draft phy.mech.c114/options/3/detail/si`
 
 ## limiting friction
 
-teacher to decide.
+Attested in this pack.
 
 - සීමාන්ත ඝර්ෂණ · family 1 · `draft phy.mech.c090/explanation/si`
 - සීමාන්ත ඝර්ෂණය · family 1 · `draft phy.mech.c139/text/si`
 
 ## line of action
 
-teacher to decide.
+Attested in this pack.
 
 - ක්‍රියා රේඛාව · family 1 · `draft phy.mech.c106/explanation/si`, `draft phy.mech.c109/text/si`
 - ක්‍රියා රේඛාවට · family 1 · `draft phy.mech.c105/explanation/si`, `v2 phy.mech.c049/text/si`
 
 ## linear expansion
 
-රේඛීය ප්‍රසාරණය. [Terminology review, line 17](../2026-11-19-sinhala-terminology.md#L17)
+රේඛීය ප්‍රසාරණය (proposed — teacher confirms). [Terminology review, line 17](../2026-11-19-sinhala-terminology.md#L17)
 
 - රේඛීය ප්‍රසාරණය · family 1 · `draft phy.therm.c055/explanation/si`, `draft phy.therm.c055/options/3/detail/si`, `v2 phy.therm.exp.linear/name_si`
 
 ## linear expansivity
 
-රේඛීය ප්‍රසාරණතාව. [Terminology review, line 17](../2026-11-19-sinhala-terminology.md#L17)
+රේඛීය ප්‍රසාරණතාව (proposed — teacher confirms). [Terminology review, line 17](../2026-11-19-sinhala-terminology.md#L17)
 
 - ප්‍රසාරණශීලතාව · family 1 · `v2 phy.therm.c001/explanation/si`
 - ප්‍රසාරණශීලතාවයේ · family 1 · `v2 phy.therm.c002/text/si`
 
 ## linear momentum
 
-teacher to decide.
+Attested in this pack.
 
 - රේඛීය ගම්‍යතා · family 1 · `v2 phy.mech.p05-01/options/3/text/si`, `v2 phy.mech.p05-02/options/3/text/si`, `v2 phy.mech.p05-03/options/3/text/si`, `v2 phy.mech.p05-04/options/3/text/si`, `v2 phy.mech.p05-05/options/3/text/si`, `v2 phy.mech.p05-06/options/3/text/si`
 
 ## liquid
 
-teacher to decide.
+Attested in this pack.
 
 - ද්‍රව · family 1 · `draft phy.therm.c090/text/si`, `draft phy.therm.c098/explanation/si`, `draft phy.therm.c098/options/1/detail/si`, `v2 phy.therm.c048/text/si`
 - ද්‍රවය · family 1 · `draft phy.therm.c078/explanation/si`, `draft phy.therm.c078/options/1/detail/si`, `draft phy.therm.c091/explanation/si`, `draft phy.therm.c103/explanation/si`, `draft phy.therm.c103/text/si`, `v2 phy.therm.c048/explanation/si`
@@ -1524,25 +1524,25 @@ teacher to decide.
 
 ## load
 
-teacher to decide.
+Attested in this pack.
 
 - පැටවුම · family 1 · `v2 phy.mech.p04-01/options/2/text/si`, `v2 phy.mech.p04-02/options/2/text/si`, `v2 phy.mech.p04-03/options/2/text/si`, `v2 phy.mech.p04-04/options/2/text/si`, `v2 phy.mech.p04-05/options/2/text/si`, `v2 phy.mech.p04-06/options/2/text/si`
 
 ## long straight wire
 
-teacher to decide.
+Attested in this pack.
 
 - දිගු සෘජු කම්බියක් · family 1 · `v2 phy.elec.c043/text/si`
 
 ## loop equation
 
-teacher to decide.
+Attested in this pack.
 
 - පුඩු සමීකරණ · family 1 · `v2 phy.elec.p01-05/explanation/si`, `v2 phy.elec.p01-06/explanation/si`
 
 ## magnet
 
-teacher to decide.
+Attested in this pack.
 
 - චුම්බක · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c115/text/si`, `draft phy.elec.c119/text/si`, `draft phy.elec.c120/text/si`, `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.c039/text/si`, `v2 phy.elec.c041/text/si`, `v2 phy.elec.c043/text/si`, `v2 phy.elec.c053/explanation/si`, `v2 phy.elec.c053/text/si`, `v2 phy.elec.t12/text/si`
 - චුම්බකය · family 1 · `draft phy.elec.c120/explanation/si`, `v2 phy.elec.c042/options/0/text/si`, `v2 phy.elec.c042/options/1/text/si`, `v2 phy.elec.c042/options/3/text/si`
@@ -1551,13 +1551,13 @@ teacher to decide.
 
 ## magnetic effect
 
-teacher to decide.
+Attested in this pack.
 
 - චුම්බක බලපෑම · family 1 · `draft phy.elec.c120/text/si`
 
 ## magnetic field
 
-teacher to decide.
+Attested in this pack.
 
 - චුම්බක ක්ෂේත්‍රය · family 1 · `v2 phy.elec.c053/explanation/si`, `v2 phy.elec.c053/text/si`
 - චුම්බක ක්ෂේත්‍රයක · family 1 · `v2 phy.elec.c041/text/si`
@@ -1566,7 +1566,7 @@ teacher to decide.
 
 ## magnetic flux
 
-teacher to decide.
+Attested in this pack.
 
 - චුම්බක ස්‍රාව · family 1 · `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.t12/text/si`
 - චුම්බක ස්‍රාවය · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c119/text/si`, `v2 phy.elec.c053/text/si`
@@ -1575,27 +1575,27 @@ teacher to decide.
 
 ## magnetic flux density
 
-teacher to decide.
+Attested in this pack.
 
 - චුම්බක ස්‍රාව ඝනත්වය · family 1 · `v2 phy.elec.c038/options/2/text/si`, `v2 phy.elec.t12/text/si`
 
 ## magnetic flux linkage
 
-teacher to decide.
+Attested in this pack.
 
 - ස්‍රාව බන්ධනය · family 1 · `draft phy.elec.c115/explanation/si`, `draft phy.elec.c117/explanation/si`, `draft phy.elec.c117/options/0/detail/si`, `draft phy.elec.c120/explanation/si`, `draft phy.elec.c122/explanation/si`, `draft phy.elec.c122/options/1/detail/si`, `draft phy.elec.c122/text/si`, `v2 phy.elec.c038/options/1/text/si`
 - ස්‍රාව බන්ධනයේ · family 1 · `draft phy.elec.c124/explanation/si`, `v2 phy.elec.t12/distractors/3/detail_si`
 
 ## magnetic pole
 
-teacher to decide.
+Attested in this pack.
 
 - ධ්‍රැවය · family 1 · `draft phy.elec.c123/text/si`, `v2 phy.elec.c042/explanation/si`, `v2 phy.elec.c042/text/si`
 - ධ්‍රැවයක් · family 1 · `v2 phy.elec.c042/options/0/text/si`, `v2 phy.elec.c042/options/1/text/si`, `v2 phy.elec.c042/options/2/text/si`, `v2 phy.elec.c042/options/3/text/si`
 
 ## magnitude
 
-teacher to decide.
+Attested in this pack.
 
 - විශාලත්ව · family 1 · `draft phy.mech.c068/explanation/si`, `draft phy.mech.c077/text/si`, `draft phy.mech.c098/explanation/si`, `v2 phy.mech.c010/explanation/si`
 - විශාලත්වය · family 1 · `draft phy.elec.c079/text/si`, `draft phy.elec.c085/text/si`, `draft phy.elec.c114/text/si`, `draft phy.elec.c118/text/si`, `draft phy.mech.c068/text/si`, `draft phy.mech.c105/text/si`, `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`, `v2 phy.elec.c038/explanation/si`, `v2 phy.elec.c038/text/si`, `v2 phy.mech.c033/text/si`, `v2 phy.mech.c047/text/si`, `v2 phy.mech.c049/explanation/si`, `v2 phy.mech.c049/text/si`, `v2 phy.mech.t01/text/si`, `v2 phy.therm.c043/explanation/si`
@@ -1605,7 +1605,7 @@ teacher to decide.
 
 ## mass
 
-teacher to decide.
+Attested in this pack.
 
 - ස්කන්ධ · family 1 · `draft phy.mech.c077/explanation/si`, `draft phy.mech.c091/text/si`, `draft phy.mech.c098/text/si`, `draft phy.mech.c117/explanation/si`, `draft phy.mech.c119/text/si`, `draft phy.mech.c120/text/si`, `draft phy.mech.c122/text/si`, `draft phy.mech.c130/explanation/si`, `draft phy.mech.c130/text/si`, `draft phy.mech.c131/explanation/si`, `draft phy.therm.c070/text/si`, `draft phy.therm.c097/explanation/si`, `v2 phy.mech.b02/explanation/si`, `v2 phy.mech.b02/statements/1/text/si`, `v2 phy.mech.b02/statements/3/text/si`, `v2 phy.mech.b02/statements/6/text/si`, `v2 phy.mech.c021/text/si`, `v2 phy.mech.c041/text/si`, `v2 phy.mech.c043/text/si`, `v2 phy.mech.p05-01/explanation/si`, `v2 phy.therm.c045/explanation/si`, `v2 phy.therm.c047/explanation/si`
 - ස්කන්ධය · family 1 · `draft phy.mech.c066/explanation/si`, `draft phy.mech.c066/options/3/detail/si`, `draft phy.mech.c087/explanation/si`, `draft phy.mech.c087/text/si`, `draft phy.mech.c097/explanation/si`, `draft phy.mech.c097/options/2/detail/si`, `draft phy.mech.c118/explanation/si`, `draft phy.mech.c119/explanation/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `draft phy.therm.c070/explanation/si`, `draft phy.therm.c070/options/0/detail/si`, `draft phy.therm.c071/explanation/si`, `draft phy.therm.c071/options/2/detail/si`, `draft phy.therm.c071/options/3/detail/si`, `draft phy.therm.c083/text/si`, `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `draft phy.therm.c096/text/si`, `draft phy.therm.c098/text/si`, `draft phy.therm.c099/explanation/si`, `draft phy.therm.c099/text/si`, `draft phy.therm.c100/text/si`, `draft phy.therm.c101/explanation/si`, `draft phy.therm.c101/options/0/detail/si`, `draft phy.therm.c102/explanation/si`, `v2 phy.mech.b02/statements/2/text/si`, `v2 phy.mech.c016/explanation/si`, `v2 phy.mech.c016/text/si`, `v2 phy.mech.c017/explanation/si`, `v2 phy.mech.c040/explanation/si`, `v2 phy.mech.c041/options/3/text/si`, `v2 phy.therm.c021/options/3/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c045/explanation/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.p02-02/explanation/si`
@@ -1622,32 +1622,32 @@ teacher to decide.
 
 ## mass flow rate
 
-teacher to decide.
+Attested in this pack.
 
 - ස්කන්ධ ගැලීම් ශීඝ්‍රතාව · family 1 · `v2 phy.therm.c045/explanation/si`
 
 ## maximum height
 
-teacher to decide.
+Attested in this pack.
 
 - උපරිම උස · family 1 · `draft phy.mech.c060/explanation/si`
 
 ## maximum power transfer
 
-teacher to decide.
+Attested in this pack.
 
 - උපරිම ජව සංක්‍රාමණය · family 1 · `v2 phy.elec.emf.max-power/name_si`
 - උපරිම ජව සංක්‍රාමණයේ · family 1 · `v2 phy.elec.c027/text/si`
 
 ## mean speed
 
-teacher to decide.
+Attested in this pack.
 
 - සාමාන්‍ය වේගය · family 2 · `draft phy.mech.c092/explanation/si`
 
 ## mean translational kinetic energy
 
-teacher to decide.
+Attested in this pack.
 
 - මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තිය · family 1 · `draft phy.therm.c064/text/si`, `draft phy.therm.c066/text/si`, `draft phy.therm.c067/text/si`, `v2 phy.therm.b02/explanation/si`, `v2 phy.therm.b02/statements/0/text/si`, `v2 phy.therm.b02/statements/1/text/si`, `v2 phy.therm.b02/statements/2/text/si`, `v2 phy.therm.b02/statements/6/text/si`, `v2 phy.therm.b02/statements/7/text/si`, `v2 phy.therm.c021/explanation/si`, `v2 phy.therm.c021/text/si`, `v2 phy.therm.c022/explanation/si`, `v2 phy.therm.c022/options/3/detail/si`, `v2 phy.therm.c022/text/si`, `v2 phy.therm.c023/explanation/si`, `v2 phy.therm.c023/options/3/detail/si`, `v2 phy.therm.c023/text/si`, `v2 phy.therm.kin.mean-ke-temperature/name_si`
 - මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තියක් · family 1 · `v2 phy.therm.b02/statements/5/text/si`
@@ -1655,7 +1655,7 @@ teacher to decide.
 
 ## mechanical beam
 
-බාල්කය for a loaded beam.. [Terminology review, line 24](../2026-11-19-sinhala-terminology.md#L24)
+බාල්කය for a loaded beam. (proposed — teacher confirms). [Terminology review, line 24](../2026-11-19-sinhala-terminology.md#L24)
 
 Forms discussed by the review: බාල්කය · කදම්භය (light beam, different sense)
 
@@ -1666,7 +1666,7 @@ Forms discussed by the review: බාල්කය · කදම්භය (light b
 
 ## melting
 
-teacher to decide.
+Attested in this pack.
 
 - දිය වීම · family 2 · `draft phy.therm.c085/explanation/si`, `draft phy.therm.c089/text/si`, `v2 phy.therm.t02/distractors/3/detail_si`
 - දිය වීමට · family 2 · `v2 phy.therm.c012/explanation/si`, `v2 phy.therm.t02/distractors/1/detail_si`
@@ -1674,7 +1674,7 @@ teacher to decide.
 
 ## melting point
 
-teacher to decide.
+Attested in this pack.
 
 - ද්‍රවාංකයට · family 1 · `draft phy.therm.c089/text/si`
 - ද්‍රවාංකයේ · family 1 · `draft phy.therm.c083/text/si`, `draft phy.therm.c085/text/si`, `draft phy.therm.c086/text/si`
@@ -1682,13 +1682,13 @@ teacher to decide.
 
 ## meter scale
 
-teacher to decide.
+Attested in this pack.
 
 - පරිමාණය · family 1 · `v2 phy.therm.t04/distractors/5/detail_si`
 
 ## method of mixtures
 
-teacher to decide.
+Attested in this pack.
 
 - මිශ්‍රණ ක්‍රමය · family 1 · `v2 phy.therm.heat.mixtures/name_si`
 - මිශ්‍රණ ක්‍රමයෙන් · family 1 · `v2 phy.therm.c014/text/si`, `v2 phy.therm.state.latent-errors/name_si`
@@ -1696,7 +1696,7 @@ teacher to decide.
 
 ## metre
 
-teacher to decide.
+Attested in this pack.
 
 - මීටර · family 1 · `draft phy.therm.c053/explanation/si`
 - මීටරයකට · family 1 · `v2 phy.elec.b01/explanation/si`, `v2 phy.elec.b01/statements/2/text/si`, `v2 phy.elec.b01/statements/7/text/si`, `v2 phy.elec.c034/explanation/si`
@@ -1705,7 +1705,7 @@ teacher to decide.
 
 ## midpoint
 
-teacher to decide.
+Attested in this pack.
 
 - මධ්‍ය ලක්ෂ්‍ය · family 1 · `draft phy.elec.c098/explanation/si`, `draft phy.elec.c098/options/1/detail/si`, `draft phy.elec.c098/options/3/detail/si`, `draft phy.elec.c099/text/si`, `v2 phy.elec.p01-03/text/si`, `v2 phy.elec.p01-04/text/si`
 - මධ්‍ය ලක්ෂ්‍යයට · family 1 · `draft phy.elec.c064/text/si`
@@ -1713,32 +1713,32 @@ teacher to decide.
 
 ## millimetre
 
-teacher to decide.
+Attested in this pack.
 
 - මිලිමීටර · family 1 · `draft phy.therm.c053/explanation/si`
 
 ## molar mass
 
-teacher to decide.
+Attested in this pack.
 
 - මවුලික ස්කන්ධය · family 1 · `v2 phy.therm.c021/options/3/text/si`
 
 ## mole
 
-teacher to decide.
+Attested in this pack.
 
 - මවුලවලින් · family 1 · `draft phy.therm.c059/explanation/si`, `draft phy.therm.c059/options/0/detail/si`
 - මවුලික · family 1 · `draft phy.therm.c059/explanation/si`, `draft phy.therm.c059/options/0/detail/si`
 
 ## molecular mass
 
-teacher to decide.
+Attested in this pack.
 
 - අණුක ස්කන්ධය · family 1 · `draft phy.therm.c070/explanation/si`, `draft phy.therm.c070/options/0/detail/si`
 
 ## molecule
 
-teacher to decide.
+Attested in this pack.
 
 - අණු · family 1 · `draft phy.therm.c059/text/si`, `v2 phy.therm.c023/options/3/detail/si`, `v2 phy.therm.c048/explanation/si`
 - අණුක · family 1 · `draft phy.therm.c070/explanation/si`, `draft phy.therm.c070/options/0/detail/si`
@@ -1750,13 +1750,13 @@ teacher to decide.
 
 ## moment arm
 
-Use the ඝූර්ණ root.. [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
+Use the ඝූර්ණ root. (proposed — teacher confirms). [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
 
 - සූර්ණ භුජය · family 1 · `draft phy.mech.c109/text/si`
 
 ## moment of force
 
-ඝූර්ණය. [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
+ඝූර්ණය (proposed — teacher confirms). [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
 
 Forms discussed by the review: ඝූර්ණය · සූර්ණය
 
@@ -1767,7 +1767,7 @@ Forms discussed by the review: ඝූර්ණය · සූර්ණය
 
 ## moment of inertia
 
-අවස්ථිති ඝූර්ණය. [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
+අවස්ථිති ඝූර්ණය (proposed — teacher confirms). [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
 
 Forms discussed by the review: අවස්ථිති ඝූර්ණය · අවස්ථිති සූර්ණය
 
@@ -1779,7 +1779,7 @@ Forms discussed by the review: අවස්ථිති ඝූර්ණය · �
 
 ## momentum
 
-teacher to decide.
+Attested in this pack.
 
 - ගම්‍යතා · family 1 · `draft phy.mech.c098/explanation/si`, `draft phy.mech.c102/text/si`, `draft phy.mech.c126/explanation/si`, `v2 phy.mech.mom.momentum-vs-energy/name_si`, `v2 phy.mech.p01-01/options/0/text/si`, `v2 phy.mech.p01-02/options/0/text/si`, `v2 phy.mech.p01-03/options/0/text/si`, `v2 phy.mech.p01-04/options/1/text/si`, `v2 phy.mech.p01-05/options/1/text/si`, `v2 phy.mech.p01-06/options/1/text/si`, `v2 phy.mech.p02-01/explanation/si`, `v2 phy.mech.p05-01/options/0/text/si`, `v2 phy.mech.p05-01/options/3/text/si`, `v2 phy.mech.p05-02/options/0/text/si`, `v2 phy.mech.p05-02/options/3/text/si`, `v2 phy.mech.p05-03/options/1/text/si`, `v2 phy.mech.p05-03/options/3/text/si`, `v2 phy.mech.p05-04/options/1/text/si`, `v2 phy.mech.p05-04/options/3/text/si`, `v2 phy.mech.p05-05/options/1/text/si`, `v2 phy.mech.p05-05/options/3/text/si`, `v2 phy.mech.p05-06/options/1/text/si`, `v2 phy.mech.p05-06/options/3/text/si`, `v2 phy.mech.rot.angular-momentum/name_si`
 - ගම්‍යතාව · family 1 · `draft phy.mech.c097/explanation/si`, `draft phy.mech.c097/options/2/detail/si`, `draft phy.mech.c099/text/si`, `draft phy.mech.c100/text/si`, `draft phy.mech.c123/explanation/si`, `draft phy.mech.c123/options/1/detail/si`, `draft phy.mech.c123/options/2/detail/si`, `draft phy.mech.c128/text/si`, `v2 phy.mech.c022/explanation/si`, `v2 phy.mech.c051/text/si`, `v2 phy.mech.p01-03/explanation/si`, `v2 phy.mech.p02-02/explanation/si`, `v2 phy.mech.p02-04/explanation/si`, `v2 phy.mech.p02-05/explanation/si`, `v2 phy.mech.p02-06/explanation/si`, `v2 phy.mech.t07/explanation/si`
@@ -1790,13 +1790,13 @@ teacher to decide.
 
 ## motion graph
 
-teacher to decide.
+Attested in this pack.
 
 - චලිත ප්‍රස්තාරවල · family 1 · `v2 phy.mech.kin.graph-slope-area/name_si`
 
 ## motor
 
-teacher to decide.
+Attested in this pack.
 
 - මෝටරයක · family 1 · `draft phy.elec.c124/text/si`, `draft phy.elec.c125/text/si`, `v2 phy.elec.emi.back-emf/name_si`
 - මෝටරයක් · family 1 · `draft phy.mech.c114/text/si`, `draft phy.mech.c116/text/si`, `v2 phy.elec.c044/text/si`, `v2 phy.elec.c045/text/si`, `v2 phy.elec.c046/text/si`
@@ -1804,14 +1804,14 @@ teacher to decide.
 
 ## net force
 
-teacher to decide.
+Attested in this pack.
 
 - ශුද්ධ බලය · family 1 · `draft phy.mech.c065/text/si`, `draft phy.mech.c101/text/si`, `draft phy.mech.c136/explanation/si`, `draft phy.mech.c137/text/si`, `v2 phy.mech.c035/explanation/si`
 - ශුද්ධ බලයක් · family 1 · `draft phy.mech.c136/text/si`, `v2 phy.mech.c012/options/1/text/si`
 
 ## Newton (name)
 
-teacher to decide.
+නිව්ටන් (proposed — teacher confirms).
 
 - නිව්ටන් · family 1 · `draft phy.therm.c081/text/si`
 - නිව්ටන්ගේ · family 1 · `draft phy.therm.c080/text/si`, `draft phy.therm.c082/text/si`, `v2 phy.mech.newton.n3-pairs/name_si`
@@ -1820,37 +1820,37 @@ teacher to decide.
 
 ## newton's law of cooling
 
-teacher to decide.
+Attested in this pack.
 
 - නිවුටන්ගේ සිසිලන නියමය · family 1 · `v2 phy.therm.c027/text/si`, `v2 phy.therm.heat.newton-cooling/name_si`
 
 ## normal
 
-teacher to decide.
+Attested in this pack.
 
 - අභිලම්බ · family 1 · `draft phy.mech.c071/text/si`, `draft phy.mech.c085/explanation/si`, `draft phy.mech.c085/text/si`, `draft phy.mech.c138/explanation/si`, `v2 phy.mech.c030/options/2/text/si`
 
 ## normal force
 
-teacher to decide.
+Attested in this pack.
 
 - අභිලම්බ බලයත් · family 1 · `draft phy.mech.c071/text/si`
 
 ## normal reaction
 
-teacher to decide.
+Attested in this pack.
 
 - අභිලම්බ ප්‍රතික්‍රියාව · family 1 · `draft phy.mech.c085/explanation/si`, `draft phy.mech.c085/text/si`, `draft phy.mech.c138/explanation/si`, `v2 phy.mech.c030/options/2/text/si`
 
 ## north pole
 
-teacher to decide.
+Attested in this pack.
 
 - උතුරු ධ්‍රැවය · family 1 · `draft phy.elec.c123/text/si`
 
 ## open circuit
 
-teacher to decide.
+Attested in this pack.
 
 - විවෘත පරිපථ · family 1 · `draft phy.elec.c087/text/si`
 - විවෘත පරිපථයක · family 1 · `draft phy.elec.c085/text/si`
@@ -1858,7 +1858,7 @@ teacher to decide.
 
 ## output
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිදාන · family 1 · `draft phy.elec.c065/explanation/si`, `draft phy.elec.c067/explanation/si`, `draft phy.elec.c067/options/0/detail/si`, `draft phy.elec.c067/text/si`, `draft phy.elec.c126/explanation/si`, `draft phy.elec.c126/options/2/detail/si`, `draft phy.elec.c126/options/3/detail/si`
 - ප්‍රතිදානයක් · family 1 · `v2 phy.elec.c048/options/3/detail/si`
@@ -1866,25 +1866,25 @@ teacher to decide.
 
 ## output power
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිදාන ජවය · family 1 · `draft phy.elec.c126/explanation/si`, `draft phy.elec.c126/options/2/detail/si`, `draft phy.elec.c126/options/3/detail/si`, `v2 phy.elec.c049/explanation/si`, `v2 phy.elec.t13/explanation/si`
 
 ## oxygen
 
-teacher to decide.
+Attested in this pack.
 
 - ඔක්සිජන් · family 1 · `v2 phy.therm.c023/text/si`
 
 ## parabola
 
-teacher to decide.
+Attested in this pack.
 
 - පරාවලයකි · family 1 · `v2 phy.elec.c017/explanation/si`
 
 ## parallel connection
 
-teacher to decide.
+Attested in this pack.
 
 - සමාන්තර · family 1 · `draft phy.elec.c060/text/si`, `draft phy.elec.c065/explanation/si`, `draft phy.elec.c086/text/si`, `draft phy.elec.c094/explanation/si`, `v2 phy.elec.p01-06/text/si`
 - සමාන්තරගත · family 1 · `draft phy.elec.c060/text/si`, `draft phy.therm.c114/text/si`, `v2 phy.elec.c001/text/si`, `v2 phy.elec.c003/explanation/si`, `v2 phy.elec.c003/options/2/detail/si`, `v2 phy.elec.c004/options/2/detail/si`, `v2 phy.elec.c005/text/si`, `v2 phy.elec.c008/explanation/si`, `v2 phy.elec.c008/options/3/detail/si`, `v2 phy.elec.c024/explanation/si`, `v2 phy.elec.c024/options/2/detail/si`, `v2 phy.elec.emf.cell-combinations/name_si`, `v2 phy.elec.p01-01/explanation/si`, `v2 phy.elec.p01-01/options/0/text/si`, `v2 phy.elec.p01-01/text/si`, `v2 phy.elec.p01-02/explanation/si`, `v2 phy.elec.p01-02/options/0/text/si`, `v2 phy.elec.p01-02/text/si`, `v2 phy.elec.p01-03/options/1/detail/si`, `v2 phy.elec.p01-03/options/1/text/si`, `v2 phy.elec.p01-04/options/1/detail/si`, `v2 phy.elec.p01-04/options/1/text/si`, `v2 phy.elec.p01-05/options/1/detail/si`, `v2 phy.elec.p01-05/options/1/text/si`, `v2 phy.elec.p01-06/options/1/detail/si`, `v2 phy.elec.p01-06/options/1/text/si`, `v2 phy.elec.p03-04/explanation/si`, `v2 phy.elec.p03-06/explanation/si`, `v2 phy.elec.res.series-parallel/name_si`, `v2 phy.elec.t01/distractors/1/detail_si`, `v2 phy.elec.t01/distractors/2/detail_si`, `v2 phy.elec.t11/explanation/si`
@@ -1893,7 +1893,7 @@ teacher to decide.
 
 ## partial pressure
 
-ආංශික පීඩනය. [Terminology review, line 15](../2026-11-19-sinhala-terminology.md#L15)
+ආංශික පීඩනය (proposed — teacher confirms). [Terminology review, line 15](../2026-11-19-sinhala-terminology.md#L15)
 
 Forms discussed by the review: අර්ධ පීඩනවලට · ආංශික පීඩනවලට
 
@@ -1901,58 +1901,58 @@ Forms discussed by the review: අර්ධ පීඩනවලට · ආංශ�
 
 ## pendulum
 
-teacher to decide.
+Attested in this pack.
 
 - අවලම්බයක · family 1 · `v2 phy.mech.p01-05/text/si`, `v2 phy.mech.p02-03/text/si`, `v2 phy.mech.p02-06/text/si`
 - අවලම්බයට · family 1 · `v2 phy.mech.p02-06/explanation/si`
 
 ## perfectly inelastic collision
 
-teacher to decide.
+Attested in this pack.
 
 - පූර්ණ අප්‍රත්‍යාස්ථ ගැටීමක · family 1 · `v2 phy.mech.c022/text/si`
 
 ## perpendicular distance
 
-teacher to decide.
+Attested in this pack.
 
 - ලම්බ දුර · family 1 · `draft phy.mech.c105/explanation/si`, `draft phy.mech.c106/explanation/si`, `v2 phy.mech.c049/text/si`
 - ලම්බ දුරෙන් · family 1 · `v2 phy.mech.c049/explanation/si`
 
 ## phase change
 
-teacher to decide.
+Attested in this pack.
 
 - අවස්ථා වෙනස · family 1 · `draft phy.therm.c090/explanation/si`
 
 ## piston
 
-teacher to decide.
+Attested in this pack.
 
 - පිස්ටනය · family 1 · `v2 phy.therm.p02-05/explanation/si`, `v2 phy.therm.t08/distractors/1/detail_si`
 - පිස්ටනයක් · family 1 · `v2 phy.therm.c039/text/si`, `v2 phy.therm.c040/text/si`, `v2 phy.therm.p01-06/options/2/detail/si`, `v2 phy.therm.p01-06/text/si`, `v2 phy.therm.p02-05/text/si`, `v2 phy.therm.t08/text/si`
 
 ## pivot
 
-teacher to decide.
+Attested in this pack.
 
 - හැරවුම් ලක්ෂ්‍යයේ · family 1 · `v2 phy.mech.c049/text/si`
 
 ## point mass
 
-teacher to decide.
+Attested in this pack.
 
 - ලක්ෂ්‍යාකාර ස්කන්ධයක් · family 1 · `draft phy.mech.c121/text/si`
 
 ## position
 
-teacher to decide.
+Attested in this pack.
 
 - පිහිටීම්වල · family 1 · `v2 phy.mech.b02/statements/1/text/si`
 
 ## potential
 
-teacher to decide.
+Attested in this pack.
 
 - විභව · family 1 · `draft phy.elec.c094/explanation/si`, `draft phy.elec.c099/explanation/si`, `draft phy.elec.c099/options/1/detail/si`, `draft phy.elec.c105/explanation/si`, `draft phy.elec.c105/text/si`, `draft phy.elec.c106/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c112/explanation/si`, `draft phy.elec.c113/explanation/si`, `draft phy.elec.c113/options/0/detail/si`, `draft phy.mech.c134/text/si`, `v2 phy.elec.b02/explanation/si`, `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/3/text/si`, `v2 phy.elec.b02/statements/7/text/si`, `v2 phy.elec.c033/explanation/si`, `v2 phy.elec.c034/explanation/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c051/explanation/si`, `v2 phy.elec.cur.potential-divider/name_si`, `v2 phy.elec.pot.potential-gradient/name_si`, `v2 phy.elec.t10/explanation/si`
 - විභවමාන · family 1 · `draft phy.elec.c107/text/si`, `draft phy.elec.c110/text/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.pot.potential-gradient/name_si`
@@ -1961,7 +1961,7 @@ teacher to decide.
 
 ## potential difference / voltage
 
-teacher to decide.
+විභව අන්තරය (p.d.) / වෝල්ටීයතාව (voltage) (proposed — teacher confirms).
 
 - විභව අන්තර · family 1 · `draft phy.elec.c112/explanation/si`, `draft phy.elec.c113/text/si`, `draft phy.elec.c128/explanation/si`, `draft phy.elec.c128/options/1/detail/si`, `draft phy.elec.c128/options/2/detail/si`
 - විභව අන්තරය · family 1 · `draft phy.elec.c061/explanation/si`, `draft phy.elec.c061/options/3/detail/si`, `draft phy.elec.c063/explanation/si`, `draft phy.elec.c064/text/si`, `draft phy.elec.c065/text/si`, `draft phy.elec.c067/text/si`, `draft phy.elec.c068/text/si`, `draft phy.elec.c072/explanation/si`, `draft phy.elec.c072/options/1/detail/si`, `draft phy.elec.c073/text/si`, `draft phy.elec.c077/text/si`, `draft phy.elec.c078/text/si`, `draft phy.elec.c081/text/si`, `draft phy.elec.c087/text/si`, `draft phy.elec.c094/explanation/si`, `draft phy.elec.c094/text/si`, `draft phy.elec.c104/explanation/si`, `draft phy.elec.c107/explanation/si`, `draft phy.elec.c107/options/2/detail/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c108/text/si`, `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`, `draft phy.elec.c112/text/si`, `draft phy.elec.c125/text/si`, `draft phy.elec.c126/text/si`, `draft phy.elec.c127/explanation/si`, `draft phy.elec.c128/text/si`, `v2 phy.elec.c002/explanation/si`, `v2 phy.elec.c005/explanation/si`, `v2 phy.elec.c005/options/1/text/si`, `v2 phy.elec.c006/explanation/si`, `v2 phy.elec.c006/text/si`, `v2 phy.elec.c007/text/si`, `v2 phy.elec.c016/text/si`, `v2 phy.elec.c021/text/si`, `v2 phy.elec.c023/text/si`, `v2 phy.elec.c028/text/si`, `v2 phy.elec.c033/explanation/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c035/options/2/detail/si`, `v2 phy.elec.c035/options/3/detail/si`, `v2 phy.elec.c050/explanation/si`, `v2 phy.elec.c050/text/si`, `v2 phy.elec.emf.internal-resistance/name_si`, `v2 phy.elec.p03-01/options/1/text/si`, `v2 phy.elec.p03-02/options/0/text/si`, `v2 phy.elec.p03-03/options/1/text/si`, `v2 phy.elec.p03-04/options/0/text/si`, `v2 phy.elec.p03-05/options/1/text/si`, `v2 phy.elec.p03-06/options/0/text/si`, `v2 phy.elec.t02/explanation/si`, `v2 phy.elec.t02/text/si`
@@ -1980,7 +1980,7 @@ teacher to decide.
 
 ## potential divider
 
-විභව බෙදුම් පරිපථය for the circuit name.. [Terminology review, line 18](../2026-11-19-sinhala-terminology.md#L18)
+විභව බෙදුම් පරිපථය for the circuit name. (proposed — teacher confirms). [Terminology review, line 18](../2026-11-19-sinhala-terminology.md#L18)
 
 Forms discussed by the review: විභව බෙදුම් පරිපථය · විභව බෙදුම්කරය
 
@@ -1992,7 +1992,7 @@ Forms discussed by the review: විභව බෙදුම් පරිපථ�
 
 ## potential drop
 
-teacher to decide.
+Attested in this pack.
 
 - විභව බැස්ම · family 1 · `draft phy.elec.c081/explanation/si`, `draft phy.elec.c081/options/1/detail/si`, `draft phy.elec.c081/options/2/detail/si`, `draft phy.elec.c081/options/3/detail/si`, `draft phy.elec.c081/text/si`, `draft phy.elec.c082/explanation/si`, `draft phy.elec.c104/text/si`, `draft phy.elec.c106/explanation/si`, `draft phy.elec.c109/text/si`, `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`, `draft phy.elec.c125/text/si`
 - විභව බැස්මක් · family 1 · `draft phy.elec.c085/explanation/si`, `draft phy.elec.c085/options/2/detail/si`, `draft phy.elec.c085/options/3/detail/si`
@@ -2002,14 +2002,14 @@ teacher to decide.
 
 ## potential energy
 
-teacher to decide.
+Attested in this pack.
 
 - විභව ශක්ති · family 1 · `draft phy.mech.c134/text/si`
 - විභව ශක්තිය · family 1 · `v2 phy.mech.c026/options/2/text/si`, `v2 phy.mech.p01-04/explanation/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.p05-04/explanation/si`, `v2 phy.mech.t09/explanation/si`, `v2 phy.mech.t09/param_text/si/PE gained by the top of its path?`
 
 ## potential gradient
 
-teacher to decide.
+Attested in this pack.
 
 - විභව අනුක්‍රමණය · family 1 · `draft phy.elec.c105/text/si`, `draft phy.elec.c106/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c108/explanation/si`, `draft phy.elec.c108/options/1/detail/si`, `draft phy.elec.c108/options/3/detail/si`, `draft phy.elec.c108/text/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c111/text/si`, `draft phy.elec.c112/text/si`, `draft phy.elec.c113/explanation/si`, `draft phy.elec.c113/options/0/detail/si`, `v2 phy.elec.b02/statements/1/text/si`, `v2 phy.elec.b02/statements/3/text/si`, `v2 phy.elec.b02/statements/7/text/si`, `v2 phy.elec.c034/explanation/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.pot.potential-gradient/name_si`, `v2 phy.elec.t10/explanation/si`
 - විභව අනුක්‍රමණයක් · family 1 · `v2 phy.elec.b02/explanation/si`
@@ -2017,7 +2017,7 @@ teacher to decide.
 
 ## potentiometer
 
-විභවමානය. [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
+විභවමානය (proposed — teacher confirms). [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
 
 - විභවමාන · family 1 · `draft phy.elec.c104/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c109/text/si`, `draft phy.elec.c110/text/si`, `draft phy.elec.c111/text/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c035/text/si`, `v2 phy.elec.c037/text/si`, `v2 phy.elec.pot.potential-gradient/name_si`, `v2 phy.elec.pot.principle/name_si`, `v2 phy.elec.t10/text/si`
 - විභවමානය · family 1 · `v2 phy.elec.b02/statements/5/text/si`, `v2 phy.elec.c036/text/si`
@@ -2029,13 +2029,13 @@ teacher to decide.
 
 ## potentiometer principle
 
-teacher to decide.
+Attested in this pack.
 
 - විභවමාන මූලධර්මය · family 1 · `v2 phy.elec.pot.principle/name_si`
 
 ## power
 
-ජවය as the label. Introduce ක්ෂමතාව (ජවය) in an explanation.. [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
+ජවය as the label. Introduce ක්ෂමතාව (ජවය) in an explanation. (proposed — teacher confirms). [Terminology review, line 28](../2026-11-19-sinhala-terminology.md#L28)
 
 Forms discussed by the review: ජවය · ක්ෂමතාව · විද්‍යුත් බලය (ambiguous)
 
@@ -2051,7 +2051,7 @@ Forms discussed by the review: ජවය · ක්ෂමතාව · විද�
 
 ## pressure
 
-teacher to decide.
+Attested in this pack.
 
 - පීඩන · family 1 · `v2 phy.therm.c031/options/2/detail/si`, `v2 phy.therm.p02-01/options/2/detail/si`, `v2 phy.therm.p02-01/options/2/text/si`, `v2 phy.therm.p02-02/options/2/detail/si`, `v2 phy.therm.p02-02/options/2/text/si`, `v2 phy.therm.p02-03/options/0/text/si`, `v2 phy.therm.p02-04/options/0/text/si`, `v2 phy.therm.p02-05/options/2/text/si`, `v2 phy.therm.p02-06/options/2/text/si`
 - පීඩනය · family 1 · `draft phy.therm.c060/text/si`, `draft phy.therm.c068/text/si`, `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c103/explanation/si`, `draft phy.therm.c103/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c105/text/si`, `draft phy.therm.c107/text/si`, `draft phy.therm.c108/explanation/si`, `draft phy.therm.c108/text/si`, `v2 phy.therm.b03/explanation/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.b03/statements/6/text/si`, `v2 phy.therm.c017/text/si`, `v2 phy.therm.c019/text/si`, `v2 phy.therm.c020/options/2/text/si`, `v2 phy.therm.c020/options/3/text/si`, `v2 phy.therm.c020/text/si`, `v2 phy.therm.c021/options/1/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c031/explanation/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c033/text/si`, `v2 phy.therm.c037/options/2/text/si`, `v2 phy.therm.c038/options/1/text/si`, `v2 phy.therm.c046/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c048/text/si`, `v2 phy.therm.kin.rms-speed/name_si`, `v2 phy.therm.p02-01/text/si`, `v2 phy.therm.p02-02/text/si`, `v2 phy.therm.p02-03/text/si`, `v2 phy.therm.p02-04/text/si`, `v2 phy.therm.p02-05/explanation/si`, `v2 phy.therm.p02-05/options/2/detail/si`, `v2 phy.therm.p02-06/explanation/si`, `v2 phy.therm.p02-06/options/2/detail/si`, `v2 phy.therm.t04/distractors/2/detail_si`, `v2 phy.therm.t04/distractors/4/detail_si`, `v2 phy.therm.t04/text/si`
@@ -2067,26 +2067,26 @@ teacher to decide.
 
 ## pressure law
 
-teacher to decide.
+Attested in this pack.
 
 - පීඩන නියමය · family 1 · `v2 phy.therm.p02-01/options/2/detail/si`, `v2 phy.therm.p02-01/options/2/text/si`, `v2 phy.therm.p02-02/options/2/detail/si`, `v2 phy.therm.p02-02/options/2/text/si`, `v2 phy.therm.p02-03/options/0/text/si`, `v2 phy.therm.p02-04/options/0/text/si`, `v2 phy.therm.p02-05/options/2/text/si`, `v2 phy.therm.p02-06/options/2/text/si`
 
 ## primary current
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රාථමික ධාරාවට · family 1 · `v2 phy.elec.c049/text/si`
 - ප්‍රාථමික ධාරාවෙන් · family 1 · `draft phy.elec.c127/explanation/si`, `draft phy.elec.c128/text/si`
 
 ## principal axis
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රධාන අක්ෂයක් · family 1 · `v2 phy.mech.c051/text/si`
 
 ## projectile
 
-ප්‍රක්ෂිප්තය for the object.. [Terminology review, line 25](../2026-11-19-sinhala-terminology.md#L25)
+ප්‍රක්ෂිප්තය for the object. (proposed — teacher confirms). [Terminology review, line 25](../2026-11-19-sinhala-terminology.md#L25)
 
 Forms discussed by the review: ප්‍රක්ෂිප්තය · ප්‍රක්ෂේපණය (projection, different sense)
 
@@ -2094,33 +2094,33 @@ Forms discussed by the review: ප්‍රක්ෂිප්තය · ප්‍
 
 ## proportionality
 
-teacher to decide.
+Attested in this pack.
 
 - සමානුපාතික · family 1 · `draft phy.elec.c059/explanation/si`, `draft phy.elec.c059/options/2/detail/si`, `draft phy.mech.c140/explanation/si`, `v2 phy.elec.b02/statements/0/text/si`, `v2 phy.elec.c044/explanation/si`, `v2 phy.mech.c016/explanation/si`, `v2 phy.therm.b02/statements/1/text/si`, `v2 phy.therm.c004/options/2/detail/si`, `v2 phy.therm.c022/explanation/si`, `v2 phy.therm.c029/explanation/si`, `v2 phy.therm.t05/explanation/si`
 - සමානුපාතිකය · family 1 · `draft phy.elec.c059/explanation/si`, `draft phy.elec.c059/options/2/detail/si`, `draft phy.elec.c061/explanation/si`, `draft phy.elec.c061/options/3/detail/si`, `draft phy.elec.c070/explanation/si`, `draft phy.elec.c080/explanation/si`, `draft phy.elec.c080/options/0/detail/si`, `draft phy.elec.c116/explanation/si`, `draft phy.mech.c066/explanation/si`, `draft phy.mech.c066/options/3/detail/si`, `draft phy.mech.c110/explanation/si`, `draft phy.mech.c113/explanation/si`, `draft phy.mech.c128/explanation/si`, `draft phy.therm.c063/explanation/si`, `draft phy.therm.c065/explanation/si`, `draft phy.therm.c065/options/3/detail/si`, `draft phy.therm.c069/explanation/si`, `draft phy.therm.c072/explanation/si`, `draft phy.therm.c079/explanation/si`, `draft phy.therm.c082/explanation/si`, `draft phy.therm.c082/options/3/detail/si`, `draft phy.therm.c086/explanation/si`, `draft phy.therm.c113/explanation/si`, `draft phy.therm.c113/options/3/detail/si`
 
 ## pulse
 
-teacher to decide.
+Attested in this pack.
 
 - ස්පන්දනයක් · family 1 · `draft phy.mech.c093/text/si`
 
 ## radius
 
-teacher to decide.
+Attested in this pack.
 
 - අරය · family 1 · `draft phy.elec.c059/text/si`, `draft phy.mech.c120/text/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c135/explanation/si`, `draft phy.mech.c140/text/si`, `v2 phy.mech.b02/statements/3/text/si`, `v2 phy.mech.c031/text/si`, `v2 phy.mech.c041/text/si`, `v2 phy.mech.c043/text/si`
 - අරයේ · family 1 · `draft phy.elec.c059/explanation/si`, `draft phy.elec.c059/options/2/detail/si`
 
 ## range
 
-teacher to decide.
+Attested in this pack.
 
 - පරාසය · family 1 · `draft phy.elec.c106/text/si`, `v2 phy.mech.vec.resultant-range/name_si`
 
 ## rate
 
-teacher to decide.
+ශීඝ්‍රතාව (proposed — teacher confirms).
 
 - සීඝ්‍රතාව · family 1 · `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`, `v2 phy.mech.c004/explanation/si`, `v2 phy.mech.c031/text/si`, `v2 phy.mech.p05-01/text/si`, `v2 phy.mech.p05-02/text/si`, `v2 phy.therm.c027/explanation/si`, `v2 phy.therm.c027/text/si`, `v2 phy.therm.c028/explanation/si`, `v2 phy.therm.c029/explanation/si`, `v2 phy.therm.c029/options/3/detail/si`
 - සීඝ්‍රතාවෙන් · family 1 · `v2 phy.mech.p03-06/explanation/si`
@@ -2130,19 +2130,19 @@ teacher to decide.
 
 ## rate of cooling
 
-teacher to decide.
+Attested in this pack.
 
 - සිසිලන සීඝ්‍රතාව · family 1 · `v2 phy.therm.c029/explanation/si`
 
 ## rate of heat flow
 
-teacher to decide.
+Attested in this pack.
 
 - තාපය ගලායාමේ සීඝ්‍රතාව · family 1 · `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`
 
 ## ratio
 
-teacher to decide.
+Attested in this pack.
 
 - අනුපාත · family 1 · `draft phy.elec.c101/explanation/si`, `v2 phy.elec.c031/explanation/si`
 - අනුපාතය · family 1 · `draft phy.elec.c112/text/si`, `draft phy.elec.c113/text/si`, `draft phy.elec.c128/explanation/si`, `draft phy.elec.c128/options/1/detail/si`, `draft phy.elec.c128/options/2/detail/si`, `draft phy.mech.c087/explanation/si`, `v2 phy.elec.c003/explanation/si`, `v2 phy.elec.c048/options/1/text/si`, `v2 phy.elec.t03/distractors/4/detail_si`, `v2 phy.elec.tr.power-current/name_si`, `v2 phy.mech.c017/text/si`, `v2 phy.mech.c042/text/si`, `v2 phy.mech.t15/distractors/2/detail_si`
@@ -2155,14 +2155,14 @@ teacher to decide.
 
 ## reaction
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතික්‍රියා · family 1 · `draft phy.mech.c072/text/si`, `v2 phy.mech.b01/explanation/si`, `v2 phy.mech.b01/statements/0/text/si`, `v2 phy.mech.b01/statements/1/text/si`, `v2 phy.mech.b01/statements/2/text/si`, `v2 phy.mech.b01/statements/3/text/si`, `v2 phy.mech.b01/statements/4/text/si`, `v2 phy.mech.b01/statements/5/text/si`, `v2 phy.mech.b01/statements/7/text/si`, `v2 phy.mech.c011/explanation/si`, `v2 phy.mech.c011/text/si`
 - ප්‍රතික්‍රියාව · family 1 · `draft phy.mech.c075/text/si`, `draft phy.mech.c085/explanation/si`, `draft phy.mech.c085/text/si`, `draft phy.mech.c138/explanation/si`, `v2 phy.mech.b01/statements/6/text/si`, `v2 phy.mech.c012/options/1/text/si`, `v2 phy.mech.c012/options/2/text/si`, `v2 phy.mech.c012/text/si`, `v2 phy.mech.c030/options/2/text/si`
 
 ## rebound
 
-teacher to decide.
+Attested in this pack.
 
 - පොළා පනින · family 1 · `v2 phy.mech.c050/text/si`
 - පොළා පැනීමකට · family 1 · `v2 phy.mech.t13/distractors/3/detail_si`
@@ -2173,7 +2173,7 @@ teacher to decide.
 
 ## relative humidity
 
-සාපේක්ෂ ආර්ද්‍රතාව. [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
+සාපේක්ෂ ආර්ද්‍රතාව (proposed — teacher confirms). [Terminology review, line 26](../2026-11-19-sinhala-terminology.md#L26)
 
 - සාපේක්ෂ ආර්ද්‍රතා · family 1 · `draft phy.therm.c101/text/si`
 - සාපේක්ෂ ආර්ද්‍රතාව · family 1 · `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c102/text/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/statements/0/text/si`, `v2 phy.therm.b03/statements/1/text/si`, `v2 phy.therm.b03/statements/5/text/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.hum.relative-humidity/name_si`, `v2 phy.therm.hum.rh-temperature/name_si`, `v2 phy.therm.t06/text/si`
@@ -2181,7 +2181,7 @@ teacher to decide.
 
 ## resistance
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිරෝධ · family 1 · `draft phy.elec.c065/text/si`, `draft phy.elec.c084/explanation/si`, `draft phy.elec.c088/explanation/si`, `draft phy.elec.c088/options/3/detail/si`, `draft phy.elec.c089/explanation/si`, `draft phy.elec.c090/text/si`, `draft phy.elec.c101/explanation/si`, `draft phy.elec.c102/text/si`, `draft phy.elec.c126/text/si`, `draft phy.elec.c128/text/si`, `draft phy.therm.c113/text/si`, `draft phy.therm.c114/text/si`, `v2 phy.elec.c024/explanation/si`, `v2 phy.elec.c025/explanation/si`, `v2 phy.elec.c050/explanation/si`, `v2 phy.elec.c052/explanation/si`, `v2 phy.elec.p01-01/options/3/text/si`, `v2 phy.elec.p01-02/options/3/text/si`, `v2 phy.elec.p01-03/options/3/text/si`, `v2 phy.elec.p01-04/options/3/text/si`, `v2 phy.elec.p01-05/options/3/text/si`, `v2 phy.elec.p01-06/options/3/text/si`, `v2 phy.elec.t08/explanation/si`
 - ප්‍රතිරෝධය · family 1 · `draft phy.elec.c058/text/si`, `draft phy.elec.c059/explanation/si`, `draft phy.elec.c059/options/2/detail/si`, `draft phy.elec.c059/text/si`, `draft phy.elec.c060/text/si`, `draft phy.elec.c066/explanation/si`, `draft phy.elec.c066/text/si`, `draft phy.elec.c069/explanation/si`, `draft phy.elec.c069/options/2/detail/si`, `draft phy.elec.c076/text/si`, `draft phy.elec.c077/explanation/si`, `draft phy.elec.c079/text/si`, `draft phy.elec.c080/text/si`, `draft phy.elec.c083/explanation/si`, `draft phy.elec.c083/text/si`, `draft phy.elec.c084/text/si`, `draft phy.elec.c086/text/si`, `draft phy.elec.c088/text/si`, `draft phy.elec.c090/explanation/si`, `draft phy.elec.c096/explanation/si`, `draft phy.elec.c096/options/1/detail/si`, `draft phy.elec.c100/text/si`, `draft phy.elec.c102/text/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`, `draft phy.elec.c125/explanation/si`, `draft phy.elec.c125/options/1/detail/si`, `draft phy.elec.c125/options/2/detail/si`, `draft phy.elec.c125/options/3/detail/si`, `draft phy.mech.c059/text/si`, `draft phy.mech.c063/text/si`, `draft phy.mech.c110/text/si`, `draft phy.therm.c114/explanation/si`, `draft phy.therm.c114/options/0/detail/si`, `v2 phy.elec.c001/text/si`, `v2 phy.elec.c002/text/si`, `v2 phy.elec.c003/text/si`, `v2 phy.elec.c004/text/si`, `v2 phy.elec.c005/options/0/text/si`, `v2 phy.elec.c005/options/2/text/si`, `v2 phy.elec.c008/explanation/si`, `v2 phy.elec.c008/options/1/text/si`, `v2 phy.elec.c008/options/3/detail/si`, `v2 phy.elec.c009/explanation/si`, `v2 phy.elec.c010/text/si`, `v2 phy.elec.c011/text/si`, `v2 phy.elec.c015/text/si`, `v2 phy.elec.c018/text/si`, `v2 phy.elec.c021/text/si`, `v2 phy.elec.c024/text/si`, `v2 phy.elec.c025/text/si`, `v2 phy.elec.c026/explanation/si`, `v2 phy.elec.c026/text/si`, `v2 phy.elec.c027/explanation/si`, `v2 phy.elec.c028/explanation/si`, `v2 phy.elec.c028/options/3/detail/si`, `v2 phy.elec.c030/explanation/si`, `v2 phy.elec.c030/text/si`, `v2 phy.elec.c032/options/3/detail/si`, `v2 phy.elec.c034/options/1/text/si`, `v2 phy.elec.c036/text/si`, `v2 phy.elec.c041/options/2/detail/si`, `v2 phy.elec.c041/options/2/text/si`, `v2 phy.elec.c046/explanation/si`, `v2 phy.elec.c052/text/si`, `v2 phy.elec.emf.internal-resistance/name_si`, `v2 phy.elec.p03-01/options/3/text/si`, `v2 phy.elec.p03-02/options/3/text/si`, `v2 phy.elec.p03-03/options/3/text/si`, `v2 phy.elec.p03-04/options/3/text/si`, `v2 phy.elec.p03-05/options/3/text/si`, `v2 phy.elec.p03-06/options/3/text/si`, `v2 phy.elec.pot.internal-resistance/name_si`, `v2 phy.elec.pow.power-graphs/name_si`, `v2 phy.elec.res.resistivity/name_si`, `v2 phy.elec.t01/text/si`, `v2 phy.elec.t03/text/si`, `v2 phy.elec.t05/distractors/0/detail_si`, `v2 phy.elec.t05/text/si`, `v2 phy.elec.t06/distractors/0/detail_si`, `v2 phy.elec.t06/text/si`, `v2 phy.elec.t07/text/si`, `v2 phy.elec.t08/text/si`, `v2 phy.elec.t09/text/si`, `v2 phy.mech.c003/explanation/si`, `v2 phy.mech.c026/text/si`, `v2 phy.mech.c028/text/si`, `v2 phy.mech.c035/text/si`, `v2 phy.mech.c050/text/si`, `v2 phy.mech.p03-01/text/si`, `v2 phy.mech.p03-02/text/si`, `v2 phy.mech.p03-03/text/si`, `v2 phy.mech.p03-04/text/si`, `v2 phy.mech.p03-05/text/si`, `v2 phy.mech.p03-06/text/si`, `v2 phy.mech.t09/text/si`, `v2 phy.mech.t12/distractors/0/detail_si`, `v2 phy.mech.t12/explanation/si`, `v2 phy.mech.t12/text/si`
@@ -2195,20 +2195,20 @@ teacher to decide.
 
 ## resistive load
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිරෝධ භාරයකට · family 1 · `draft phy.elec.c090/text/si`, `draft phy.elec.c126/text/si`
 - ප්‍රතිරෝධ භාරයක් · family 1 · `draft phy.elec.c128/text/si`
 
 ## resistivity
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිරෝධකතාව · family 1 · `draft phy.elec.c058/text/si`, `draft phy.elec.c059/text/si`, `v2 phy.elec.res.resistivity/name_si`
 
 ## resistor
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රතිරෝධක · family 1 · `draft phy.elec.c060/text/si`, `draft phy.elec.c062/text/si`, `draft phy.elec.c070/text/si`, `draft phy.elec.c078/text/si`, `draft phy.elec.c091/explanation/si`, `draft phy.elec.c091/options/0/detail/si`, `v2 phy.elec.c001/text/si`, `v2 phy.elec.c003/text/si`, `v2 phy.elec.c004/text/si`, `v2 phy.elec.c005/text/si`, `v2 phy.elec.c007/options/3/detail/si`, `v2 phy.elec.c050/text/si`, `v2 phy.elec.p01-01/options/0/text/si`, `v2 phy.elec.p01-01/text/si`, `v2 phy.elec.p01-02/options/0/text/si`, `v2 phy.elec.p01-02/text/si`, `v2 phy.elec.p01-03/options/1/detail/si`, `v2 phy.elec.p01-03/options/1/text/si`, `v2 phy.elec.p01-04/options/1/detail/si`, `v2 phy.elec.p01-04/options/1/text/si`, `v2 phy.elec.p01-05/options/1/detail/si`, `v2 phy.elec.p01-05/options/1/text/si`, `v2 phy.elec.p01-06/options/1/detail/si`, `v2 phy.elec.p01-06/options/1/text/si`, `v2 phy.elec.p03-01/text/si`, `v2 phy.elec.p03-02/text/si`, `v2 phy.elec.res.series-parallel/name_si`, `v2 phy.elec.t01/distractors/2/detail_si`, `v2 phy.elec.t01/distractors/3/detail_si`, `v2 phy.elec.t01/text/si`, `v2 phy.elec.t02/distractors/2/detail_si`, `v2 phy.elec.t02/text/si`, `v2 phy.elec.t06/distractors/4/detail_si`, `v2 phy.elec.t11/text/si`
 - ප්‍රතිරෝධකය · family 1 · `draft phy.elec.c064/text/si`, `draft phy.elec.c071/explanation/si`, `draft phy.elec.c072/text/si`, `draft phy.elec.c077/text/si`, `draft phy.elec.c097/text/si`, `v2 phy.elec.c005/options/3/text/si`, `v2 phy.elec.p01-01/options/1/text/si`, `v2 phy.elec.p01-02/explanation/si`, `v2 phy.elec.p01-02/options/1/text/si`, `v2 phy.elec.p01-03/options/0/text/si`, `v2 phy.elec.p01-04/explanation/si`, `v2 phy.elec.p01-04/options/0/text/si`, `v2 phy.elec.p01-05/options/2/text/si`, `v2 phy.elec.p01-06/options/2/text/si`, `v2 phy.elec.p03-06/explanation/si`, `v2 phy.elec.t01/distractors/1/detail_si`, `v2 phy.elec.t02/distractors/0/detail_si`, `v2 phy.elec.t02/text/si`, `v2 phy.elec.t06/distractors/1/detail_si`, `v2 phy.elec.t11/distractors/4/detail_si`, `v2 phy.elec.t11/explanation/si`
@@ -2225,7 +2225,7 @@ teacher to decide.
 
 ## resultant
 
-teacher to decide.
+Attested in this pack.
 
 - සම්ප්‍රයුක්ත · family 1 · `draft phy.mech.c068/text/si`, `draft phy.mech.c081/explanation/si`, `draft phy.mech.c081/options/0/detail/si`, `draft phy.mech.c081/text/si`, `draft phy.mech.c082/explanation/si`, `draft phy.mech.c082/options/1/detail/si`, `draft phy.mech.c107/explanation/si`, `draft phy.mech.c107/options/0/detail/si`, `draft phy.mech.c107/text/si`, `v2 phy.mech.c023/explanation/si`, `v2 phy.mech.c023/text/si`, `v2 phy.mech.vec.resultant-range/name_si`
 - සම්ප්‍රයුක්තය · family 1 · `v2 phy.mech.c001/explanation/si`, `v2 phy.mech.c002/text/si`, `v2 phy.mech.t01/explanation/si`
@@ -2233,7 +2233,7 @@ teacher to decide.
 
 ## resultant force
 
-සම්ප්‍රයුක්ත බලය or බල සම්ප්‍රයුක්තය. [Terminology review, line 25](../2026-11-19-sinhala-terminology.md#L25)
+සම්ප්‍රයුක්ත බලය or බල සම්ප්‍රයුක්තය (proposed — teacher confirms). [Terminology review, line 25](../2026-11-19-sinhala-terminology.md#L25)
 
 Forms discussed by the review: සම්ප්‍රයුක්ත බලය · බල සම්ප්‍රයුක්තය · නිතැඹ බලය (review advises against substitution)
 
@@ -2243,13 +2243,13 @@ Forms discussed by the review: සම්ප්‍රයුක්ත බලය ·
 
 ## rigid body
 
-teacher to decide.
+Attested in this pack.
 
 - දෘඪ වස්තුවක් · family 1 · `v2 phy.mech.c051/text/si`
 
 ## ring
 
-teacher to decide.
+Attested in this pack.
 
 - මුද්ද · family 1 · `v2 phy.mech.c043/options/0/text/si`
 - මුද්දක · family 1 · `v2 phy.mech.b02/statements/3/text/si`
@@ -2258,7 +2258,7 @@ teacher to decide.
 
 ## rms speed
 
-Introduce වර්ග මධ්‍යන්‍ය මූල වේගය with r.m.s.. [Terminology review, line 27](../2026-11-19-sinhala-terminology.md#L27)
+Introduce වර්ග මධ්‍යන්‍ය මූල වේගය with r.m.s. (proposed — teacher confirms). [Terminology review, line 27](../2026-11-19-sinhala-terminology.md#L27)
 
 - r.m.s. වේගය · family 1 · `v2 phy.therm.c022/options/2/detail/si`, `v2 phy.therm.c025/text/si`, `v2 phy.therm.kin.rms-speed/name_si`
 - r.m.s. වේගයක් · family 1 · `v2 phy.therm.b02/statements/3/text/si`
@@ -2268,7 +2268,7 @@ Introduce වර්ග මධ්‍යන්‍ය මූල වේගය with r
 
 ## rod
 
-teacher to decide.
+Attested in this pack.
 
 - දණ්ඩ · family 1 · `draft phy.therm.c054/explanation/si`, `draft phy.therm.c054/options/0/detail/si`, `v2 phy.mech.p05-04/text/si`, `v2 phy.therm.c041/options/3/detail/si`, `v2 phy.therm.c041/text/si`, `v2 phy.therm.c042/options/2/text/si`, `v2 phy.therm.c042/text/si`, `v2 phy.therm.c043/explanation/si`, `v2 phy.therm.c049/explanation/si`
 - දණ්ඩක · family 1 · `draft phy.mech.c104/text/si`, `draft phy.mech.c107/text/si`, `draft phy.mech.c108/text/si`, `draft phy.mech.c117/text/si`, `draft phy.therm.c054/text/si`, `draft phy.therm.c055/text/si`, `draft phy.therm.c115/text/si`, `draft phy.therm.c116/text/si`, `draft phy.therm.c117/text/si`, `v2 phy.mech.p04-03/text/si`, `v2 phy.therm.c004/text/si`, `v2 phy.therm.c043/text/si`, `v2 phy.therm.c044/text/si`
@@ -2282,7 +2282,7 @@ teacher to decide.
 
 ## room temperature
 
-teacher to decide.
+Attested in this pack.
 
 - කාමර උෂ්ණත්වය · family 1 · `draft phy.therm.c080/explanation/si`, `draft phy.therm.c080/options/2/detail/si`, `draft phy.therm.c080/options/3/detail/si`, `v2 phy.therm.c043/text/si`
 - කාමර උෂ්ණත්වයට · family 1 · `v2 phy.therm.b01/statements/3/text/si`, `v2 phy.therm.c029/explanation/si`, `v2 phy.therm.c029/options/0/text/si`
@@ -2290,7 +2290,7 @@ teacher to decide.
 
 ## rotation
 
-teacher to decide.
+Attested in this pack.
 
 - භ්‍රමණ · family 1 · `draft phy.mech.c124/explanation/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c126/text/si`, `draft phy.mech.c129/explanation/si`, `draft phy.mech.c129/options/2/detail/si`, `draft phy.mech.c129/options/3/detail/si`, `draft phy.mech.c129/text/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c133/explanation/si`, `v2 phy.elec.c044/explanation/si`, `v2 phy.mech.c030/text/si`, `v2 phy.mech.c031/text/si`, `v2 phy.mech.c039/text/si`, `v2 phy.mech.c042/text/si`, `v2 phy.mech.p05-01/text/si`, `v2 phy.mech.p05-02/text/si`, `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.p05-05/text/si`, `v2 phy.mech.t10/text/si`, `v2 phy.mech.t14/text/si`, `v2 phy.mech.t15/distractors/1/detail_si`, `v2 phy.mech.t15/explanation/si`, `v2 phy.mech.t15/param_text/si/rotational`
 - භ්‍රමණය · family 1 · `draft phy.elec.c124/explanation/si`, `draft phy.elec.c124/text/si`, `draft phy.mech.c123/text/si`, `draft phy.mech.c125/text/si`, `v2 phy.mech.c040/explanation/si`, `v2 phy.mech.c051/text/si`
@@ -2298,7 +2298,7 @@ teacher to decide.
 
 ## rotational kinetic energy
 
-භ්‍රමණ චාලක ශක්තිය. [Terminology review, line 14](../2026-11-19-sinhala-terminology.md#L14)
+භ්‍රමණ චාලක ශක්තිය (proposed — teacher confirms). [Terminology review, line 14](../2026-11-19-sinhala-terminology.md#L14)
 
 - භ්‍රමණ චාලක ශක්ති · family 1 · `v2 phy.mech.p05-03/explanation/si`
 - භ්‍රමණ චාලක ශක්තිය · family 1 · `draft phy.mech.c124/explanation/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c129/text/si`, `draft phy.mech.c132/text/si`, `v2 phy.mech.c039/text/si`, `v2 phy.mech.t15/explanation/si`
@@ -2306,20 +2306,20 @@ teacher to decide.
 
 ## rough surface
 
-teacher to decide.
+Attested in this pack.
 
 - රළු පෘෂ්ඨයක · family 1 · `v2 phy.mech.c015/text/si`, `v2 phy.mech.c016/text/si`
 
 ## saturated vapour
 
-teacher to decide.
+Attested in this pack.
 
 - සංතෘප්ත වාෂ්ප · family 1 · `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c105/explanation/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.b03/statements/6/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c046/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c048/text/si`
 - සංතෘප්ත වාෂ්පයක · family 1 · `draft phy.therm.c103/text/si`
 
 ## saturated vapour pressure
 
-teacher to decide.
+Attested in this pack.
 
 - සංතෘප්ත වාෂ්ප පීඩනය · family 1 · `draft phy.therm.c094/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c048/text/si`
 - සංතෘප්ත වාෂ්ප පීඩනයයි · family 1 · `draft phy.therm.c105/explanation/si`
@@ -2327,7 +2327,7 @@ teacher to decide.
 
 ## saturation
 
-teacher to decide.
+Attested in this pack.
 
 - සංතෘප්ත · family 1 · `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c103/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c105/explanation/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.b03/statements/6/text/si`, `v2 phy.therm.b03/statements/7/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c032/explanation/si`, `v2 phy.therm.c032/options/0/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c033/text/si`, `v2 phy.therm.c046/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c048/text/si`, `v2 phy.therm.t06/text/si`
 - සංතෘප්ති · family 1 · `draft phy.therm.c102/explanation/si`
@@ -2336,13 +2336,13 @@ teacher to decide.
 
 ## scale reading
 
-teacher to decide.
+Attested in this pack.
 
 - තරාදියේ පාඨාංකය · family 1 · `v2 phy.mech.c013/text/si`, `v2 phy.mech.c014/text/si`
 
 ## scale reading (instrument)
 
-teacher to decide.
+Attested in this pack.
 
 - පාඨාංකය · family 1 · `v2 phy.elec.b02/explanation/si`, `v2 phy.elec.c007/text/si`, `v2 phy.elec.c008/options/0/text/si`, `v2 phy.elec.c008/options/1/text/si`, `v2 phy.elec.c008/options/3/text/si`, `v2 phy.elec.c008/text/si`, `v2 phy.mech.c013/options/2/detail/si`, `v2 phy.mech.c013/text/si`, `v2 phy.mech.c014/text/si`, `v2 phy.therm.c003/text/si`
 - පාඨාංකයක් · family 1 · `v2 phy.elec.c033/options/2/text/si`
@@ -2351,7 +2351,7 @@ teacher to decide.
 
 ## second
 
-teacher to decide.
+Attested in this pack.
 
 - තත්පර · family 1 · `draft phy.mech.c059/text/si`
 - තත්පරයකට · family 1 · `draft phy.elec.c055/explanation/si`, `draft phy.elec.c062/explanation/si`, `draft phy.therm.c076/explanation/si`, `draft phy.therm.c076/options/2/detail/si`, `draft phy.therm.c078/explanation/si`, `draft phy.therm.c078/options/1/detail/si`, `draft phy.therm.c114/explanation/si`, `draft phy.therm.c114/options/0/detail/si`, `v2 phy.elec.b01/statements/3/text/si`, `v2 phy.therm.c010/options/2/detail/si`, `v2 phy.therm.c049/explanation/si`, `v2 phy.therm.c049/text/si`
@@ -2360,26 +2360,26 @@ teacher to decide.
 
 ## secondary current
 
-teacher to decide.
+Attested in this pack.
 
 - ද්විතීයික ධාරාව · family 1 · `draft phy.elec.c126/text/si`, `draft phy.elec.c128/text/si`, `v2 phy.elec.c049/text/si`, `v2 phy.elec.t13/text/si`
 
 ## secondary voltage
 
-teacher to decide.
+Attested in this pack.
 
 - ද්විතීයික වෝල්ටීයතාවයි · family 1 · `v2 phy.elec.t13/distractors/2/detail_si`
 - ද්විතීයික වෝල්ටීයතාවෙන් · family 1 · `v2 phy.elec.t13/distractors/3/detail_si`
 
 ## sensitivity
 
-teacher to decide.
+Attested in this pack.
 
 - සංවේදීතාව · family 1 · `v2 phy.elec.pot.principle/name_si`
 
 ## series
 
-teacher to decide.
+Attested in this pack.
 
 - ශ්‍රේණිගත · family 1 · `draft phy.elec.c060/explanation/si`, `draft phy.elec.c060/options/1/detail/si`, `draft phy.elec.c060/options/2/detail/si`, `draft phy.elec.c060/options/3/detail/si`, `draft phy.elec.c060/text/si`, `draft phy.elec.c062/text/si`, `draft phy.elec.c066/text/si`, `draft phy.elec.c068/text/si`, `draft phy.elec.c070/text/si`, `draft phy.elec.c072/explanation/si`, `draft phy.elec.c072/options/1/detail/si`, `draft phy.elec.c085/text/si`, `draft phy.elec.c090/explanation/si`, `draft phy.elec.c093/explanation/si`, `draft phy.elec.c096/explanation/si`, `draft phy.elec.c096/options/1/detail/si`, `draft phy.elec.c097/text/si`, `draft phy.elec.c102/explanation/si`, `draft phy.elec.c102/options/0/detail/si`, `draft phy.therm.c113/text/si`, `draft phy.therm.c115/text/si`, `v2 phy.elec.c003/explanation/si`, `v2 phy.elec.c007/text/si`, `v2 phy.elec.c025/explanation/si`, `v2 phy.elec.c025/options/2/detail/si`, `v2 phy.elec.c025/text/si`, `v2 phy.elec.emf.cell-combinations/name_si`, `v2 phy.elec.p01-01/explanation/si`, `v2 phy.elec.p01-01/options/0/text/si`, `v2 phy.elec.p01-02/explanation/si`, `v2 phy.elec.p01-02/options/0/text/si`, `v2 phy.elec.p01-03/options/1/detail/si`, `v2 phy.elec.p01-03/options/1/text/si`, `v2 phy.elec.p01-04/options/1/detail/si`, `v2 phy.elec.p01-04/options/1/text/si`, `v2 phy.elec.p01-05/options/1/detail/si`, `v2 phy.elec.p01-05/options/1/text/si`, `v2 phy.elec.p01-06/options/1/detail/si`, `v2 phy.elec.p01-06/options/1/text/si`, `v2 phy.elec.p03-03/explanation/si`, `v2 phy.elec.res.series-parallel/name_si`, `v2 phy.elec.t01/distractors/1/detail_si`, `v2 phy.elec.t02/text/si`, `v2 phy.elec.t08/explanation/si`, `v2 phy.therm.cond.composite-rods/name_si`
 - ශ්‍රේණිගතය · family 1 · `draft phy.elec.c060/text/si`, `draft phy.elec.c083/text/si`
@@ -2387,19 +2387,19 @@ teacher to decide.
 
 ## short circuit
 
-teacher to decide.
+Attested in this pack.
 
 - කෙටි පරිපථ · family 2 · `v2 phy.elec.t06/distractors/4/detail_si`
 
 ## si unit
 
-teacher to decide.
+Attested in this pack.
 
 - SI ඒකකය · family 1 · `v2 phy.elec.c039/text/si`, `v2 phy.mech.b02/statements/7/text/si`, `v2 phy.therm.c002/text/si`
 
 ## sliding
 
-teacher to decide.
+Attested in this pack.
 
 - ලිස්සන · family 1 · `draft phy.mech.c072/text/si`, `draft phy.mech.c083/text/si`, `draft phy.mech.c085/text/si`, `draft phy.mech.c087/text/si`, `draft phy.mech.c088/text/si`, `draft phy.mech.c089/text/si`, `v2 phy.mech.t05/text/si`
 - ලිස්සන්නාගේ · family 1 · `v2 phy.mech.c039/explanation/si`
@@ -2410,37 +2410,37 @@ teacher to decide.
 
 ## smooth surface
 
-teacher to decide.
+Attested in this pack.
 
 - සිනිඳු පෘෂ්ඨයක · family 1 · `v2 phy.mech.t08/text/si`
 
 ## soap bubble
 
-teacher to decide.
+Attested in this pack.
 
 - සබන් බුබුළක · family 1 · `v2 phy.therm.p02-06/text/si`
 
 ## solid cylinder
 
-teacher to decide.
+Attested in this pack.
 
 - ඝන සිලින්ඩරයක් · family 1 · `v2 phy.mech.p05-03/text/si`, `v2 phy.mech.t15/param_text/si/solid cylinder`
 
 ## solid sphere
 
-teacher to decide.
+Attested in this pack.
 
 - ඝන ගෝලයක් · family 1 · `v2 phy.mech.c041/text/si`, `v2 phy.mech.t15/param_text/si/solid sphere`
 
 ## sound
 
-teacher to decide.
+Attested in this pack.
 
 - ශබ්දය · family 1 · `v2 phy.mech.c022/explanation/si`
 
 ## source
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රභව · family 1 · `draft phy.therm.c116/text/si`, `v2 phy.elec.p01-05/explanation/si`, `v2 phy.therm.state.latent-errors/name_si`
 - ප්‍රභවය · family 1 · `draft phy.elec.c083/text/si`
@@ -2449,25 +2449,25 @@ teacher to decide.
 
 ## specific heat capacity
 
-teacher to decide.
+Attested in this pack.
 
 - විශිෂ්ට තාප ධාරිතාව · family 1 · `draft phy.therm.c071/text/si`, `draft phy.therm.c072/explanation/si`, `v2 phy.therm.t03/text/si`
 
 ## specific latent heat
 
-teacher to decide.
+Attested in this pack.
 
 - විශිෂ්ට ගුප්ත තාපය · family 1 · `draft phy.therm.c083/text/si`, `draft phy.therm.c093/text/si`, `v2 phy.therm.b01/statements/0/text/si`, `v2 phy.therm.b01/statements/1/text/si`, `v2 phy.therm.b01/statements/2/text/si`, `v2 phy.therm.b01/statements/4/text/si`, `v2 phy.therm.b01/statements/5/text/si`, `v2 phy.therm.c014/text/si`, `v2 phy.therm.t02/text/si`
 
 ## specific latent heat of fusion
 
-teacher to decide.
+Attested in this pack.
 
 - විලයනයේ විශිෂ්ට ගුප්ත තාපය · family 1 · `v2 phy.therm.c014/text/si`, `v2 phy.therm.t02/text/si`
 
 ## speed
 
-teacher to decide.
+Attested in this pack.
 
 - වේග · family 1 · `draft phy.mech.c058/text/si`, `draft phy.mech.c098/text/si`, `draft phy.mech.c126/explanation/si`, `draft phy.therm.c070/text/si`
 - වේගය · family 1 · `draft phy.elec.c054/text/si`, `draft phy.elec.c056/explanation/si`, `draft phy.elec.c056/text/si`, `draft phy.mech.c060/explanation/si`, `draft phy.mech.c061/explanation/si`, `draft phy.mech.c061/options/2/detail/si`, `draft phy.mech.c061/options/3/detail/si`, `draft phy.mech.c063/text/si`, `draft phy.mech.c066/text/si`, `draft phy.mech.c079/explanation/si`, `draft phy.mech.c079/text/si`, `draft phy.mech.c084/text/si`, `draft phy.mech.c092/explanation/si`, `draft phy.mech.c097/text/si`, `draft phy.mech.c110/explanation/si`, `draft phy.mech.c110/text/si`, `draft phy.mech.c111/text/si`, `draft phy.mech.c112/explanation/si`, `draft phy.mech.c112/options/1/detail/si`, `draft phy.mech.c112/text/si`, `draft phy.mech.c113/text/si`, `draft phy.mech.c123/text/si`, `draft phy.mech.c126/text/si`, `draft phy.mech.c128/explanation/si`, `draft phy.mech.c128/text/si`, `draft phy.mech.c131/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c133/text/si`, `draft phy.mech.c140/text/si`, `draft phy.therm.c068/text/si`, `draft phy.therm.c069/explanation/si`, `draft phy.therm.c069/text/si`, `draft phy.therm.c070/explanation/si`, `draft phy.therm.c070/options/0/detail/si`, `v2 phy.elec.c012/explanation/si`, `v2 phy.elec.c013/text/si`, `v2 phy.elec.c044/options/3/detail/si`, `v2 phy.elec.c044/options/3/text/si`, `v2 phy.elec.c045/explanation/si`, `v2 phy.elec.c045/options/1/detail/si`, `v2 phy.elec.c045/options/3/detail/si`, `v2 phy.mech.b02/explanation/si`, `v2 phy.mech.c005/options/2/text/si`, `v2 phy.mech.c006/text/si`, `v2 phy.mech.c007/options/1/text/si`, `v2 phy.mech.c009/text/si`, `v2 phy.mech.c013/explanation/si`, `v2 phy.mech.c013/options/2/detail/si`, `v2 phy.mech.c013/text/si`, `v2 phy.mech.c014/explanation/si`, `v2 phy.mech.c015/text/si`, `v2 phy.mech.c016/text/si`, `v2 phy.mech.c021/text/si`, `v2 phy.mech.c025/text/si`, `v2 phy.mech.c033/options/0/text/si`, `v2 phy.mech.c035/explanation/si`, `v2 phy.mech.c036/text/si`, `v2 phy.mech.c037/text/si`, `v2 phy.mech.c043/options/3/text/si`, `v2 phy.mech.c045/text/si`, `v2 phy.mech.c048/text/si`, `v2 phy.mech.c050/text/si`, `v2 phy.mech.energy.bounce-height/name_si`, `v2 phy.mech.p01-01/text/si`, `v2 phy.mech.p01-02/text/si`, `v2 phy.mech.p01-03/text/si`, `v2 phy.mech.p01-04/text/si`, `v2 phy.mech.p01-05/text/si`, `v2 phy.mech.p01-06/text/si`, `v2 phy.mech.p02-04/text/si`, `v2 phy.mech.p03-01/options/2/text/si`, `v2 phy.mech.p03-02/options/2/text/si`, `v2 phy.mech.p03-03/options/2/text/si`, `v2 phy.mech.p03-04/options/2/text/si`, `v2 phy.mech.p03-05/options/2/text/si`, `v2 phy.mech.p03-06/options/2/text/si`, `v2 phy.mech.p05-03/text/si`, `v2 phy.mech.p05-04/text/si`, `v2 phy.mech.p05-05/text/si`, `v2 phy.mech.p05-06/text/si`, `v2 phy.mech.pow.force-speed/name_si`, `v2 phy.mech.t02/distractors/0/detail_si`, `v2 phy.mech.t02/distractors/5/detail_si`, `v2 phy.mech.t02/explanation/si`, `v2 phy.mech.t02/text/si`, `v2 phy.mech.t04/param_text/si/down, slowing to a stop`, `v2 phy.mech.t04/param_text/si/down, speeding up`, `v2 phy.mech.t04/param_text/si/up, slowing to a stop`, `v2 phy.mech.t04/param_text/si/up, speeding up`, `v2 phy.mech.t04/text/si`, `v2 phy.mech.t06/explanation/si`, `v2 phy.mech.t07/text/si`, `v2 phy.mech.t08/distractors/5/detail_si`, `v2 phy.mech.t08/text/si`, `v2 phy.mech.t09/distractors/2/detail_si`, `v2 phy.mech.t13/explanation/si`, `v2 phy.mech.t13/text/si`, `v2 phy.mech.t14/text/si`, `v2 phy.therm.c012/options/3/detail/si`, `v2 phy.therm.c022/options/2/detail/si`, `v2 phy.therm.c024/explanation/si`, `v2 phy.therm.c025/text/si`, `v2 phy.therm.c026/text/si`, `v2 phy.therm.kin.rms-speed/name_si`
@@ -2485,7 +2485,7 @@ teacher to decide.
 
 ## sphere
 
-teacher to decide.
+Attested in this pack.
 
 - ගෝලය · family 1 · `v2 phy.mech.c041/options/0/text/si`, `v2 phy.mech.p01-05/text/si`, `v2 phy.mech.p02-03/text/si`, `v2 phy.mech.p02-06/text/si`
 - ගෝලයක් · family 1 · `v2 phy.mech.c041/text/si`, `v2 phy.mech.t15/param_text/si/hollow sphere`, `v2 phy.mech.t15/param_text/si/solid sphere`
@@ -2493,7 +2493,7 @@ teacher to decide.
 
 ## spring
 
-teacher to decide.
+Attested in this pack.
 
 - දුන්නක් · family 1 · `v2 phy.mech.p01-06/text/si`, `v2 phy.mech.p02-05/text/si`
 - දුන්නට · family 1 · `v2 phy.mech.p02-05/explanation/si`
@@ -2501,67 +2501,67 @@ teacher to decide.
 
 ## square root
 
-teacher to decide.
+Attested in this pack.
 
 - වර්ගමූලය · family 1 · `draft phy.mech.c112/explanation/si`, `draft phy.mech.c112/options/1/detail/si`, `v2 phy.elec.t07/distractors/2/detail_si`
 - වර්ගමූලයට · family 1 · `draft phy.mech.c110/explanation/si`, `draft phy.therm.c069/explanation/si`
 
 ## static friction
 
-teacher to decide.
+Attested in this pack.
 
 - ස්ථිතික ඝර්ෂණය · family 1 · `v2 phy.mech.c030/options/0/text/si`
 - ස්ථිතික ඝර්ෂණයෙන් · family 1 · `draft phy.mech.c138/text/si`
 
 ## steady flow
 
-teacher to decide.
+Attested in this pack.
 
 - අනවරත ප්‍රවාහ · family 1 · `draft phy.therm.c078/text/si`
 
 ## steady state
 
-teacher to decide.
+Attested in this pack.
 
 - අනවරත අවස්ථාව · family 1 · `v2 phy.therm.c042/options/3/detail/si`, `v2 phy.therm.c043/options/3/detail/si`
 - අනවරත අවස්ථාවේ · family 1 · `draft phy.elec.c055/explanation/si`, `draft phy.elec.c071/text/si`, `v2 phy.therm.c041/text/si`, `v2 phy.therm.c042/text/si`, `v2 phy.therm.c043/text/si`, `v2 phy.therm.c044/text/si`, `v2 phy.therm.c049/text/si`
 
 ## steam
 
-teacher to decide.
+Attested in this pack.
 
 - ජල වාෂ්ප · family 2 · `draft phy.therm.c088/text/si`, `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c095/text/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `draft phy.therm.c101/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.t06/text/si`
 - ජල වාෂ්පයකි · family 2 · `v2 phy.therm.b03/statements/4/text/si`
 
 ## steel
 
-teacher to decide.
+Attested in this pack.
 
 - වානේ · family 1 · `v2 phy.therm.c003/text/si`, `v2 phy.therm.p01-05/options/3/detail/si`, `v2 phy.therm.p01-05/text/si`, `v2 phy.therm.p02-04/text/si`, `v2 phy.therm.t01/text/si`
 - වානේවල · family 1 · `v2 phy.therm.t01/text/si`
 
 ## step-up transformer
 
-teacher to decide.
+Attested in this pack.
 
 - අධිකර පරිණාමකයක · family 1 · `v2 phy.elec.c049/text/si`
 
 ## stopping distance
 
-teacher to decide.
+Attested in this pack.
 
 - නැවතුම් දුර · family 1 · `draft phy.mech.c083/text/si`, `draft phy.mech.c084/text/si`, `v2 phy.mech.c015/text/si`, `v2 phy.mech.c016/text/si`, `v2 phy.mech.c048/text/si`, `v2 phy.mech.fric.stopping-distance/name_si`
 - නැවතුම් දුරවල · family 1 · `v2 phy.mech.c017/text/si`
 
 ## stored energy
 
-teacher to decide.
+Attested in this pack.
 
 - ගබඩා වූ ශක්තිය · family 1 · `v2 phy.mech.p01-06/explanation/si`
 
 ## support
 
-teacher to decide.
+Attested in this pack.
 
 - ආධාරක · family 1 · `draft phy.mech.c078/explanation/si`, `draft phy.mech.c078/options/2/detail/si`, `draft phy.mech.c082/explanation/si`, `draft phy.mech.c082/options/1/detail/si`, `draft phy.mech.c082/text/si`, `draft phy.mech.c104/text/si`, `draft phy.therm.c054/explanation/si`, `draft phy.therm.c054/options/0/detail/si`, `v2 phy.mech.p04-01/text/si`, `v2 phy.mech.p04-02/text/si`, `v2 phy.mech.p04-05/options/1/text/si`, `v2 phy.mech.p04-05/text/si`, `v2 phy.mech.t11/distractors/0/detail_si`, `v2 phy.mech.t11/distractors/4/detail_si`, `v2 phy.mech.t11/distractors/6/detail_si`, `v2 phy.mech.t11/text/si`
 - ආධාරකය · family 1 · `v2 phy.mech.c032/text/si`
@@ -2570,7 +2570,7 @@ teacher to decide.
 
 ## surroundings
 
-teacher to decide.
+Attested in this pack.
 
 - වටපිටාව · family 1 · `draft phy.therm.c078/explanation/si`, `draft phy.therm.c078/options/1/detail/si`, `draft phy.therm.c082/text/si`, `v2 phy.therm.c036/text/si`
 - වටපිටාවට · family 1 · `v2 phy.therm.c027/options/0/text/si`
@@ -2579,13 +2579,13 @@ teacher to decide.
 
 ## symmetrical
 
-teacher to decide.
+Attested in this pack.
 
 - සමමිතික · family 1 · `v2 phy.mech.c003/explanation/si`
 
 ## symmetry
 
-teacher to decide.
+සමමිති (proposed — teacher confirms).
 
 - සමමිතික · family 1 · `v2 phy.mech.c003/explanation/si`
 - සමමිතිය · family 1 · `v2 phy.mech.kin.vertical-throw/name_si`
@@ -2594,7 +2594,7 @@ teacher to decide.
 
 ## temperature
 
-teacher to decide.
+Attested in this pack.
 
 - උෂ්ණත්ව · family 1 · `draft phy.therm.c050/explanation/si`, `draft phy.therm.c050/options/1/detail/si`, `draft phy.therm.c050/options/2/detail/si`, `draft phy.therm.c055/text/si`, `draft phy.therm.c071/explanation/si`, `draft phy.therm.c071/options/2/detail/si`, `draft phy.therm.c071/options/3/detail/si`, `draft phy.therm.c072/text/si`, `draft phy.therm.c074/text/si`, `draft phy.therm.c075/explanation/si`, `draft phy.therm.c075/options/0/detail/si`, `draft phy.therm.c075/text/si`, `draft phy.therm.c079/explanation/si`, `draft phy.therm.c079/text/si`, `draft phy.therm.c085/text/si`, `draft phy.therm.c112/text/si`, `draft phy.therm.c113/explanation/si`, `draft phy.therm.c113/options/3/detail/si`, `draft phy.therm.c113/text/si`, `draft phy.therm.c114/explanation/si`, `draft phy.therm.c114/options/0/detail/si`, `draft phy.therm.c117/text/si`, `draft phy.therm.c118/explanation/si`, `draft phy.therm.c118/options/0/detail/si`, `draft phy.therm.c118/text/si`, `v2 phy.therm.c001/explanation/si`, `v2 phy.therm.c006/explanation/si`, `v2 phy.therm.c007/options/3/detail/si`, `v2 phy.therm.c008/explanation/si`, `v2 phy.therm.c008/options/2/detail/si`, `v2 phy.therm.c008/options/3/detail/si`, `v2 phy.therm.c008/text/si`, `v2 phy.therm.c028/text/si`, `v2 phy.therm.c031/options/2/detail/si`, `v2 phy.therm.c041/options/3/detail/si`, `v2 phy.therm.c041/text/si`, `v2 phy.therm.c042/explanation/si`, `v2 phy.therm.c042/options/3/detail/si`, `v2 phy.therm.c043/explanation/si`, `v2 phy.therm.c043/options/3/detail/si`, `v2 phy.therm.t01/distractors/0/detail_si`, `v2 phy.therm.t01/distractors/1/detail_si`, `v2 phy.therm.t03/distractors/4/detail_si`, `v2 phy.therm.t05/text/si`
 - උෂ්ණත්වය · family 1 · `draft phy.therm.c050/explanation/si`, `draft phy.therm.c050/options/1/detail/si`, `draft phy.therm.c050/options/2/detail/si`, `draft phy.therm.c056/text/si`, `draft phy.therm.c058/explanation/si`, `draft phy.therm.c058/options/0/detail/si`, `draft phy.therm.c063/text/si`, `draft phy.therm.c069/text/si`, `draft phy.therm.c080/explanation/si`, `draft phy.therm.c080/options/2/detail/si`, `draft phy.therm.c080/options/3/detail/si`, `draft phy.therm.c080/text/si`, `draft phy.therm.c081/explanation/si`, `draft phy.therm.c082/text/si`, `draft phy.therm.c085/explanation/si`, `draft phy.therm.c085/text/si`, `draft phy.therm.c090/explanation/si`, `draft phy.therm.c090/text/si`, `draft phy.therm.c111/explanation/si`, `draft phy.therm.c111/options/1/detail/si`, `draft phy.therm.c116/explanation/si`, `draft phy.therm.c116/text/si`, `v2 phy.therm.b01/statements/6/text/si`, `v2 phy.therm.b02/explanation/si`, `v2 phy.therm.b02/statements/6/text/si`, `v2 phy.therm.b03/explanation/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.c007/text/si`, `v2 phy.therm.c012/options/1/text/si`, `v2 phy.therm.c013/explanation/si`, `v2 phy.therm.c013/text/si`, `v2 phy.therm.c016/text/si`, `v2 phy.therm.c018/explanation/si`, `v2 phy.therm.c018/text/si`, `v2 phy.therm.c020/options/3/text/si`, `v2 phy.therm.c020/text/si`, `v2 phy.therm.c021/options/0/text/si`, `v2 phy.therm.c022/text/si`, `v2 phy.therm.c025/text/si`, `v2 phy.therm.c027/options/0/text/si`, `v2 phy.therm.c027/options/1/text/si`, `v2 phy.therm.c027/options/2/text/si`, `v2 phy.therm.c032/text/si`, `v2 phy.therm.c039/text/si`, `v2 phy.therm.c042/text/si`, `v2 phy.therm.c043/text/si`, `v2 phy.therm.c048/explanation/si`, `v2 phy.therm.c048/text/si`, `v2 phy.therm.cond.temperature-profile/name_si`, `v2 phy.therm.hum.rh-temperature/name_si`, `v2 phy.therm.kin.mean-ke-temperature/name_si`, `v2 phy.therm.p01-04/explanation/si`, `v2 phy.therm.p02-01/explanation/si`, `v2 phy.therm.p02-02/explanation/si`, `v2 phy.therm.p02-02/text/si`, `v2 phy.therm.p02-03/options/1/detail/si`, `v2 phy.therm.p02-04/options/1/detail/si`, `v2 phy.therm.p02-05/options/1/detail/si`, `v2 phy.therm.p02-06/options/1/detail/si`, `v2 phy.therm.t01/distractors/1/detail_si`, `v2 phy.therm.t02/explanation/si`, `v2 phy.therm.t03/distractors/1/detail_si`, `v2 phy.therm.t03/distractors/4/detail_si`, `v2 phy.therm.t03/text/si`, `v2 phy.therm.t05/distractors/3/detail_si`, `v2 phy.therm.t09/distractors/2/detail_si`, `v2 phy.therm.t09/text/si`
@@ -2615,7 +2615,7 @@ teacher to decide.
 
 ## temperature change
 
-teacher to decide.
+Attested in this pack.
 
 - උෂ්ණත්ව වෙනස · family 1 · `draft phy.therm.c112/text/si`, `v2 phy.therm.c001/explanation/si`, `v2 phy.therm.c006/explanation/si`, `v2 phy.therm.t01/distractors/0/detail_si`, `v2 phy.therm.t01/distractors/1/detail_si`
 - උෂ්ණත්ව වෙනසයි · family 1 · `draft phy.therm.c118/explanation/si`, `draft phy.therm.c118/options/0/detail/si`
@@ -2625,14 +2625,14 @@ teacher to decide.
 
 ## temperature difference
 
-teacher to decide.
+Attested in this pack.
 
 - උෂ්ණත්ව අන්තරය · family 1 · `draft phy.therm.c114/explanation/si`, `draft phy.therm.c114/options/0/detail/si`
 - උෂ්ණත්ව අන්තරයක · family 1 · `draft phy.therm.c050/explanation/si`, `draft phy.therm.c050/options/1/detail/si`, `draft phy.therm.c050/options/2/detail/si`
 
 ## temperature excess
 
-teacher to decide.
+Attested in this pack.
 
 - අතිරික්ත උෂ්ණත්වය · family 1 · `draft phy.therm.c080/text/si`, `draft phy.therm.c081/explanation/si`, `draft phy.therm.c082/text/si`, `v2 phy.therm.c027/options/0/text/si`
 - අතිරික්ත උෂ්ණත්වයට · family 1 · `draft phy.therm.c082/explanation/si`, `draft phy.therm.c082/options/3/detail/si`
@@ -2640,27 +2640,27 @@ teacher to decide.
 
 ## temperature gradient
 
-teacher to decide.
+Attested in this pack.
 
 - උෂ්ණත්ව අනුක්‍රමණය · family 1 · `draft phy.therm.c118/text/si`, `v2 phy.therm.c042/explanation/si`
 - උෂ්ණත්ව අනුක්‍රමණයේ · family 1 · `draft phy.therm.c117/text/si`, `v2 phy.therm.c043/explanation/si`
 
 ## temperature rise
 
-teacher to decide.
+Attested in this pack.
 
 - උෂ්ණත්ව වැඩිවීම · family 1 · `draft phy.therm.c055/text/si`, `draft phy.therm.c074/text/si`, `draft phy.therm.c079/explanation/si`, `draft phy.therm.c079/text/si`
 - උෂ්ණත්වයේ වැඩි · family 1 · `v2 phy.therm.c004/text/si`, `v2 phy.therm.c009/text/si`, `v2 phy.therm.c010/text/si`
 
 ## tension
 
-teacher to decide.
+Attested in this pack.
 
 - ආතතිය · family 1 · `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p04-03/text/si`
 
 ## terminal (electrical)
 
-teacher to decide.
+Attested in this pack.
 
 - අග්‍ර · family 1 · `draft phy.elec.c081/text/si`, `draft phy.elec.c084/text/si`, `draft phy.elec.c087/explanation/si`, `draft phy.elec.c087/options/1/detail/si`, `draft phy.elec.c093/text/si`, `draft phy.elec.c094/text/si`, `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`, `draft phy.elec.c112/text/si`, `v2 phy.elec.c021/text/si`, `v2 phy.elec.c023/explanation/si`, `v2 phy.elec.c023/text/si`, `v2 phy.elec.emf.internal-resistance/name_si`
 - අග්‍රයට · family 1 · `draft phy.elec.c098/text/si`, `v2 phy.elec.c015/options/3/text/si`
@@ -2668,7 +2668,7 @@ teacher to decide.
 
 ## terminal potential difference
 
-teacher to decide.
+අග්‍ර විභව අන්තරය (label). Use අග්‍ර අතර විභව අන්තරය when explaining the measurement. (proposed — teacher confirms).
 
 - අග්‍ර විභව අන්තරය · family 1 · `draft phy.elec.c111/explanation/si`, `draft phy.elec.c111/options/2/detail/si`, `draft phy.elec.c111/options/3/detail/si`, `draft phy.elec.c112/text/si`, `v2 phy.elec.c021/text/si`, `v2 phy.elec.c023/text/si`, `v2 phy.elec.emf.internal-resistance/name_si`
 - අග්‍ර විභව අන්තරයකි · family 1 · `v2 phy.elec.c023/explanation/si`
@@ -2676,37 +2676,37 @@ teacher to decide.
 
 ## thermal conductivity
 
-teacher to decide.
+Attested in this pack.
 
 - තාප සන්නායකතාව · family 1 · `draft phy.therm.c117/explanation/si`, `draft phy.therm.c117/options/2/detail/si`, `draft phy.therm.c117/text/si`
 
 ## thermal expansion
 
-teacher to decide.
+Attested in this pack.
 
 - තාපජ ප්‍රසාරණය · family 1 · `draft phy.therm.c054/text/si`
 
 ## thermal insulation
 
-teacher to decide.
+Attested in this pack.
 
 - තාප පරිවරණය · family 1 · `draft phy.therm.c072/text/si`
 
 ## thermodynamic process
 
-teacher to decide.
+Attested in this pack.
 
 - තාපගතික ක්‍රියාවලි · family 1 · `v2 phy.therm.thermo.processes/name_si`
 
 ## thermodynamics
 
-teacher to decide.
+Attested in this pack.
 
 - තාප ගති විද්‍යාවේ · family 1 · `v2 phy.therm.c035/text/si`, `v2 phy.therm.thermo.first-law/name_si`
 
 ## time
 
-teacher to decide.
+Attested in this pack.
 
 - කාල · family 1 · `draft phy.elec.c116/explanation/si`, `draft phy.mech.c056/explanation/si`, `draft phy.mech.c057/text/si`, `draft phy.mech.c058/explanation/si`, `draft phy.mech.c058/options/0/detail/si`, `draft phy.mech.c058/text/si`, `draft phy.mech.c059/explanation/si`, `draft phy.mech.c059/options/1/detail/si`, `draft phy.mech.c062/explanation/si`, `draft phy.mech.c062/options/0/detail/si`, `draft phy.mech.c095/explanation/si`, `draft phy.mech.c095/text/si`, `v2 phy.mech.c003/explanation/si`, `v2 phy.mech.c003/options/3/detail/si`, `v2 phy.mech.c004/text/si`, `v2 phy.mech.c005/explanation/si`, `v2 phy.mech.c005/text/si`, `v2 phy.mech.c007/options/0/text/si`, `v2 phy.mech.imp.graph-area/name_si`, `v2 phy.mech.t02/distractors/1/detail_si`, `v2 phy.mech.t02/distractors/5/detail_si`, `v2 phy.mech.t02/explanation/si`, `v2 phy.therm.t05/distractors/3/detail_si`
 - කාලය · family 1 · `draft phy.elec.c076/text/si`, `draft phy.elec.c116/text/si`, `draft phy.elec.c118/text/si`, `draft phy.mech.c055/explanation/si`, `draft phy.mech.c055/options/1/detail/si`, `draft phy.mech.c056/text/si`, `draft phy.mech.c059/text/si`, `draft phy.mech.c062/text/si`, `draft phy.mech.c093/text/si`, `draft phy.mech.c096/explanation/si`, `draft phy.mech.c096/options/0/detail/si`, `draft phy.mech.c096/text/si`, `draft phy.mech.c116/text/si`, `v2 phy.elec.c020/explanation/si`, `v2 phy.elec.c020/options/3/detail/si`, `v2 phy.elec.c020/text/si`, `v2 phy.elec.c044/options/2/text/si`, `v2 phy.elec.t04/explanation/si`, `v2 phy.elec.t04/text/si`, `v2 phy.mech.c003/options/0/text/si`, `v2 phy.mech.c003/options/2/text/si`, `v2 phy.mech.c007/explanation/si`, `v2 phy.mech.c007/options/3/detail/si`, `v2 phy.mech.c023/text/si`, `v2 phy.mech.c024/explanation/si`, `v2 phy.mech.c033/options/1/text/si`, `v2 phy.mech.c034/explanation/si`, `v2 phy.mech.c048/text/si`, `v2 phy.mech.p05-06/text/si`, `v2 phy.mech.t03/explanation/si`, `v2 phy.therm.c028/explanation/si`, `v2 phy.therm.c028/text/si`, `v2 phy.therm.t05/explanation/si`, `v2 phy.therm.t05/text/si`
@@ -2722,14 +2722,14 @@ teacher to decide.
 
 ## time axis
 
-teacher to decide.
+Attested in this pack.
 
 - කාල අක්ෂය · family 1 · `draft phy.mech.c095/text/si`, `v2 phy.mech.c005/text/si`
 - කාල අක්ෂයට · family 1 · `draft phy.mech.c057/text/si`, `v2 phy.mech.c005/explanation/si`
 
 ## torque
 
-ව්‍යාවර්තය. [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
+ව්‍යාවර්තය (proposed — teacher confirms). [Terminology review, line 13](../2026-11-19-sinhala-terminology.md#L13)
 
 - ව්‍යාවර්තය · family 1 · `draft phy.mech.c123/text/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c126/explanation/si`, `draft phy.mech.c127/text/si`
 - ව්‍යාවර්තයක් · family 1 · `v2 phy.mech.p05-01/explanation/si`, `v2 phy.mech.p05-01/options/2/detail/si`, `v2 phy.mech.p05-02/options/2/detail/si`, `v2 phy.mech.p05-03/options/2/detail/si`, `v2 phy.mech.p05-04/options/2/detail/si`, `v2 phy.mech.p05-05/text/si`, `v2 phy.mech.p05-06/text/si`, `v2 phy.mech.t14/explanation/si`
@@ -2737,13 +2737,13 @@ teacher to decide.
 
 ## track
 
-teacher to decide.
+Attested in this pack.
 
 - ධාවන පථයක · family 1 · `v2 phy.mech.p02-03/text/si`
 
 ## trajectory
 
-teacher to decide.
+Attested in this pack.
 
 - පථය · family 2 · `v2 phy.mech.c003/explanation/si`
 - පථයක · family 2 · `v2 phy.mech.p02-03/text/si`
@@ -2752,7 +2752,7 @@ teacher to decide.
 
 ## transformer
 
-teacher to decide.
+Attested in this pack.
 
 - පරිණාමකය · family 1 · `v2 phy.elec.c047/text/si`
 - පරිණාමකයක · family 1 · `draft phy.elec.c127/text/si`, `v2 phy.elec.c048/options/3/detail/si`, `v2 phy.elec.c049/text/si`, `v2 phy.elec.t13/text/si`
@@ -2762,7 +2762,7 @@ teacher to decide.
 
 ## translational kinetic energy (including abbreviated translational term)
 
-උත්තාරණ චාලක ශක්තිය. [Terminology review, line 14](../2026-11-19-sinhala-terminology.md#L14)
+උත්තාරණ චාලක ශක්තිය (proposed — teacher confirms). [Terminology review, line 14](../2026-11-19-sinhala-terminology.md#L14)
 
 - පරිවහන · family 1 · `v2 phy.mech.p05-03/explanation/si`, `v2 phy.mech.t15/distractors/1/detail_si`, `v2 phy.mech.t15/param_text/si/translational`
 - පරිවහනය · family 1 · `v2 phy.mech.c040/explanation/si`
@@ -2771,7 +2771,7 @@ teacher to decide.
 
 ## turns of a coil
 
-වට. [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
+වට (proposed — teacher confirms). [Terminology review, line 29](../2026-11-19-sinhala-terminology.md#L29)
 
 - වට · family 1 · `draft phy.elec.c114/text/si`, `draft phy.elec.c116/explanation/si`, `draft phy.elec.c118/text/si`, `v2 phy.elec.c040/text/si`, `v2 phy.elec.c047/explanation/si`, `v2 phy.elec.c048/options/1/text/si`, `v2 phy.elec.t12/text/si`, `v2 phy.elec.t13/text/si`
 - වටය · family 1 · `draft phy.elec.c114/text/si`
@@ -2780,21 +2780,21 @@ teacher to decide.
 
 ## turntable
 
-teacher to decide.
+Attested in this pack.
 
 - භ්‍රමණ තලයක · family 1 · `v2 phy.mech.t14/text/si`
 - භ්‍රමණ තලයක් · family 1 · `v2 phy.mech.c030/text/si`, `v2 phy.mech.c031/text/si`, `v2 phy.mech.t10/text/si`
 
 ## uniform
 
-teacher to decide.
+Attested in this pack.
 
 - ඒකාකාර · family 1 · `draft phy.elec.c104/explanation/si`, `draft phy.elec.c105/text/si`, `draft phy.elec.c107/text/si`, `draft phy.elec.c109/text/si`, `draft phy.elec.c117/text/si`, `draft phy.mech.c108/text/si`, `draft phy.mech.c120/text/si`, `draft phy.mech.c130/text/si`, `draft phy.mech.c132/text/si`, `draft phy.mech.c137/text/si`, `v2 phy.elec.b02/statements/0/text/si`, `v2 phy.elec.p02-05/text/si`, `v2 phy.mech.c032/text/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.t06/text/si`, `v2 phy.mech.t11/text/si`, `v2 phy.therm.c029/options/1/text/si`, `v2 phy.therm.c042/text/si`
 - ඒකාකාරව · family 1 · `draft phy.elec.c058/text/si`, `draft phy.therm.c051/text/si`, `v2 phy.elec.p02-01/text/si`, `v2 phy.elec.p02-02/text/si`, `v2 phy.elec.p02-04/text/si`, `v2 phy.elec.p02-05/text/si`, `v2 phy.elec.p02-06/text/si`, `v2 phy.elec.t12/text/si`, `v2 phy.therm.b01/statements/6/text/si`
 
 ## uniform acceleration
 
-teacher to decide. Both නියත ත්වරණය and ඒකාකාර ත්වරණය are accepted.. [Terminology review, line 41](../2026-11-19-sinhala-terminology.md#L41)
+teacher to decide. Both නියත ත්වරණය and ඒකාකාර ත්වරණය are accepted. [Terminology review, line 41](../2026-11-19-sinhala-terminology.md#L41)
 
 - ත්වරණය නියත · family 1 · `draft phy.mech.c054/explanation/si`, `draft phy.mech.c054/options/0/detail/si`
 - නියත ත්වරණය · family 1 · `draft phy.mech.c092/text/si`
@@ -2804,13 +2804,13 @@ teacher to decide. Both නියත ත්වරණය and ඒකාකාර �
 
 ## uniform circular motion
 
-teacher to decide.
+Attested in this pack.
 
 - ඒකාකාර වෘත්තාකාර චලිතයේදී · family 1 · `draft phy.mech.c137/text/si`
 
 ## unit
 
-teacher to decide.
+Attested in this pack.
 
 - ඒකක · family 1 · `draft phy.elec.c106/explanation/si`, `draft phy.elec.c110/explanation/si`, `draft phy.elec.c110/options/1/detail/si`, `draft phy.elec.c118/explanation/si`, `draft phy.elec.c118/options/1/detail/si`, `draft phy.mech.c089/explanation/si`, `draft phy.therm.c093/explanation/si`, `draft phy.therm.c100/explanation/si`, `v2 phy.elec.b01/statements/3/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`
 - ඒකකය · family 1 · `v2 phy.elec.c039/explanation/si`, `v2 phy.elec.c039/text/si`, `v2 phy.mech.b02/statements/7/text/si`, `v2 phy.therm.c002/text/si`
@@ -2818,13 +2818,13 @@ teacher to decide.
 
 ## vacuum
 
-teacher to decide.
+Attested in this pack.
 
 - රික්තයක · family 1 · `draft phy.mech.c060/text/si`, `draft phy.mech.c065/text/si`, `draft phy.mech.c067/text/si`
 
 ## vapour
 
-teacher to decide.
+Attested in this pack.
 
 - වාෂ්ප · family 1 · `draft phy.therm.c088/text/si`, `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c095/text/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `draft phy.therm.c097/explanation/si`, `draft phy.therm.c098/text/si`, `draft phy.therm.c099/explanation/si`, `draft phy.therm.c099/text/si`, `draft phy.therm.c100/explanation/si`, `draft phy.therm.c100/text/si`, `draft phy.therm.c101/explanation/si`, `draft phy.therm.c101/options/0/detail/si`, `draft phy.therm.c101/text/si`, `draft phy.therm.c102/explanation/si`, `draft phy.therm.c103/explanation/si`, `draft phy.therm.c103/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c105/explanation/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/explanation/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.b03/statements/6/text/si`, `v2 phy.therm.b03/statements/7/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`, `v2 phy.therm.c031/explanation/si`, `v2 phy.therm.c031/options/2/detail/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c032/options/3/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c033/text/si`, `v2 phy.therm.c046/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c047/explanation/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.c048/explanation/si`, `v2 phy.therm.c048/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.t06/text/si`, `v2 phy.therm.t07/explanation/si`
 - වාෂ්පය · family 1 · `v2 phy.therm.b03/explanation/si`, `v2 phy.therm.b03/statements/5/text/si`, `v2 phy.therm.c032/options/0/text/si`, `v2 phy.therm.c034/explanation/si`, `v2 phy.therm.c048/explanation/si`, `v2 phy.therm.t07/distractors/3/detail_si`
@@ -2836,7 +2836,7 @@ teacher to decide.
 
 ## vapour pressure
 
-teacher to decide.
+Attested in this pack.
 
 - වාෂ්ප පීඩන · family 1 · `v2 phy.therm.c031/options/2/detail/si`
 - වාෂ්ප පීඩනය · family 1 · `draft phy.therm.c094/explanation/si`, `draft phy.therm.c094/options/2/detail/si`, `draft phy.therm.c094/options/3/detail/si`, `draft phy.therm.c094/text/si`, `draft phy.therm.c103/text/si`, `draft phy.therm.c104/explanation/si`, `draft phy.therm.c104/text/si`, `draft phy.therm.c105/text/si`, `v2 phy.therm.b03/explanation/si`, `v2 phy.therm.b03/statements/3/text/si`, `v2 phy.therm.c030/options/1/text/si`, `v2 phy.therm.c031/explanation/si`, `v2 phy.therm.c031/text/si`, `v2 phy.therm.c033/explanation/si`, `v2 phy.therm.c033/text/si`, `v2 phy.therm.c046/explanation/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c048/text/si`
@@ -2846,7 +2846,7 @@ teacher to decide.
 
 ## velocity
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රවේග · family 1 · `draft phy.mech.c054/explanation/si`, `draft phy.mech.c054/options/0/detail/si`, `draft phy.mech.c054/text/si`, `draft phy.mech.c057/text/si`, `draft phy.mech.c063/explanation/si`, `draft phy.mech.c094/text/si`, `draft phy.mech.c115/explanation/si`, `draft phy.mech.c115/options/0/detail/si`, `v2 phy.mech.c005/text/si`, `v2 phy.mech.proj.components/name_si`
 - ප්‍රවේගය · family 1 · `draft phy.mech.c052/explanation/si`, `draft phy.mech.c052/options/2/detail/si`, `draft phy.mech.c052/options/3/detail/si`, `draft phy.mech.c052/text/si`, `draft phy.mech.c053/text/si`, `draft phy.mech.c054/text/si`, `draft phy.mech.c055/text/si`, `draft phy.mech.c056/text/si`, `draft phy.mech.c057/explanation/si`, `draft phy.mech.c065/text/si`, `draft phy.mech.c067/explanation/si`, `draft phy.mech.c127/text/si`, `draft phy.mech.c137/explanation/si`, `v2 phy.elec.cur.drift-velocity/name_si`, `v2 phy.mech.c004/options/0/text/si`, `v2 phy.mech.c006/explanation/si`, `v2 phy.mech.c007/explanation/si`, `v2 phy.mech.c007/options/1/detail/si`, `v2 phy.mech.c007/options/3/detail/si`, `v2 phy.mech.c026/options/0/text/si`, `v2 phy.mech.c033/explanation/si`, `v2 phy.mech.c046/explanation/si`, `v2 phy.mech.c046/text/si`, `v2 phy.mech.kin.average-velocity/name_si`, `v2 phy.mech.p03-01/explanation/si`, `v2 phy.mech.p03-01/options/0/text/si`, `v2 phy.mech.p03-01/options/1/text/si`, `v2 phy.mech.p03-02/explanation/si`, `v2 phy.mech.p03-02/options/0/text/si`, `v2 phy.mech.p03-02/options/1/text/si`, `v2 phy.mech.p03-03/explanation/si`, `v2 phy.mech.p03-03/options/0/text/si`, `v2 phy.mech.p03-04/options/1/text/si`, `v2 phy.mech.p03-05/options/1/text/si`, `v2 phy.mech.p03-06/explanation/si`, `v2 phy.mech.p03-06/options/1/text/si`, `v2 phy.mech.t03/distractors/4/detail_si`, `v2 phy.mech.t03/explanation/si`, `v2 phy.mech.t03/text/si`
@@ -2858,27 +2858,27 @@ teacher to decide.
 
 ## velocity–time graph
 
-teacher to decide.
+Attested in this pack.
 
 - ප්‍රවේග කාල ප්‍රස්තාරයක · family 1 · `draft phy.mech.c057/text/si`
 - ප්‍රවේග–කාල ප්‍රස්තාරය · family 1 · `v2 phy.mech.c005/text/si`
 
 ## vertical
 
-teacher to decide.
+Attested in this pack.
 
 - සිරස් · family 1 · `draft phy.mech.c061/explanation/si`, `draft phy.mech.c061/options/2/detail/si`, `draft phy.mech.c061/options/3/detail/si`, `draft phy.mech.c063/explanation/si`, `draft phy.mech.c109/explanation/si`, `draft phy.mech.c109/options/1/detail/si`, `draft phy.mech.c109/text/si`, `draft phy.mech.c134/text/si`, `draft phy.mech.c138/explanation/si`, `v2 phy.mech.c026/explanation/si`, `v2 phy.mech.kin.vertical-throw/name_si`, `v2 phy.mech.p01-04/text/si`, `v2 phy.mech.p03-01/options/1/text/si`, `v2 phy.mech.p03-02/explanation/si`, `v2 phy.mech.p03-02/options/1/text/si`, `v2 phy.mech.p03-05/options/1/text/si`, `v2 phy.mech.t09/distractors/2/detail_si`
 - සිරස්ව · family 1 · `draft phy.mech.c059/text/si`, `draft phy.mech.c060/text/si`, `draft phy.mech.c061/text/si`, `draft phy.mech.c085/text/si`, `draft phy.mech.c110/text/si`, `draft phy.mech.c114/text/si`, `v2 phy.mech.c018/options/3/text/si`, `v2 phy.mech.c045/text/si`, `v2 phy.mech.c050/text/si`, `v2 phy.mech.p03-04/text/si`, `v2 phy.mech.t02/text/si`
 
 ## vertical component
 
-teacher to decide.
+Attested in this pack.
 
 - සිරස් සංරචකය · family 1 · `v2 phy.mech.c026/explanation/si`
 
 ## voltmeter
 
-teacher to decide.
+Attested in this pack.
 
 - වෝල්ට්මීටර · family 1 · `v2 phy.elec.meter.ammeter-voltmeter/name_si`
 - වෝල්ට්මීටරය · family 1 · `v2 phy.elec.c008/text/si`, `v2 phy.elec.c028/options/0/text/si`, `v2 phy.elec.c028/options/1/text/si`, `v2 phy.elec.c028/options/3/text/si`, `v2 phy.elec.c029/options/0/text/si`, `v2 phy.elec.c029/options/1/text/si`, `v2 phy.elec.c029/options/2/text/si`, `v2 phy.elec.p03-06/explanation/si`
@@ -2889,7 +2889,7 @@ teacher to decide.
 
 ## volume
 
-teacher to decide.
+Attested in this pack.
 
 - පරිමාව · family 1 · `draft phy.elec.c058/text/si`, `draft phy.therm.c097/text/si`, `draft phy.therm.c100/text/si`, `draft phy.therm.c103/text/si`, `draft phy.therm.c110/text/si`, `v2 phy.elec.c010/text/si`, `v2 phy.therm.c016/options/3/detail/si`, `v2 phy.therm.c021/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`, `v2 phy.therm.c033/text/si`, `v2 phy.therm.c034/text/si`, `v2 phy.therm.c037/options/1/text/si`, `v2 phy.therm.c038/options/0/text/si`, `v2 phy.therm.p01-02/explanation/si`, `v2 phy.therm.p01-02/options/3/detail/si`, `v2 phy.therm.p01-05/explanation/si`, `v2 phy.therm.p01-05/options/3/detail/si`, `v2 phy.therm.p02-01/options/2/detail/si`, `v2 phy.therm.p02-02/options/2/detail/si`, `v2 phy.therm.p02-03/explanation/si`, `v2 phy.therm.p02-04/explanation/si`, `v2 phy.therm.p02-05/text/si`, `v2 phy.therm.p02-06/text/si`, `v2 phy.therm.t08/distractors/4/detail_si`
 - පරිමාවක · family 1 · `draft phy.therm.c100/explanation/si`, `draft phy.therm.c102/explanation/si`
@@ -2901,7 +2901,7 @@ teacher to decide.
 
 ## water
 
-teacher to decide.
+Attested in this pack.
 
 - ජල · family 1 · `draft phy.therm.c071/text/si`, `draft phy.therm.c072/explanation/si`, `draft phy.therm.c074/text/si`, `draft phy.therm.c084/text/si`, `draft phy.therm.c088/text/si`, `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c095/text/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `draft phy.therm.c098/text/si`, `draft phy.therm.c101/text/si`, `v2 phy.therm.b03/statements/4/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`, `v2 phy.therm.c045/text/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.p01-04/explanation/si`, `v2 phy.therm.p01-04/options/3/detail/si`, `v2 phy.therm.p01-04/text/si`, `v2 phy.therm.t06/text/si`
 - ජලය · family 1 · `draft phy.mech.c076/explanation/si`, `draft phy.mech.c076/text/si`, `draft phy.therm.c072/text/si`, `draft phy.therm.c073/text/si`, `draft phy.therm.c080/text/si`, `draft phy.therm.c085/text/si`, `draft phy.therm.c087/text/si`, `draft phy.therm.c088/explanation/si`, `draft phy.therm.c088/options/1/detail/si`, `draft phy.therm.c092/text/si`, `v2 phy.elec.c020/text/si`, `v2 phy.elec.t04/text/si`, `v2 phy.therm.b02/statements/4/text/si`, `v2 phy.therm.c007/text/si`, `v2 phy.therm.c008/options/0/text/si`, `v2 phy.therm.c009/options/2/detail/si`, `v2 phy.therm.c009/text/si`, `v2 phy.therm.c010/text/si`, `v2 phy.therm.c011/explanation/si`, `v2 phy.therm.c011/options/3/text/si`, `v2 phy.therm.c011/text/si`, `v2 phy.therm.c012/options/2/text/si`, `v2 phy.therm.c012/text/si`, `v2 phy.therm.c014/explanation/si`, `v2 phy.therm.c032/options/1/text/si`, `v2 phy.therm.c032/options/2/text/si`, `v2 phy.therm.c045/text/si`, `v2 phy.therm.t02/explanation/si`, `v2 phy.therm.t02/text/si`, `v2 phy.therm.t03/text/si`
@@ -2911,26 +2911,26 @@ teacher to decide.
 
 ## water vapour
 
-teacher to decide.
+Attested in this pack.
 
 - ජල වාෂ්ප · family 1 · `draft phy.therm.c088/text/si`, `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c095/text/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `draft phy.therm.c101/text/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c030/options/3/text/si`, `v2 phy.therm.c046/text/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`, `v2 phy.therm.t06/text/si`
 - ජල වාෂ්පයකි · family 1 · `v2 phy.therm.b03/statements/4/text/si`
 
 ## water vapour mass
 
-teacher to decide.
+Attested in this pack.
 
 - ජල වාෂ්ප ස්කන්ධය · family 1 · `draft phy.therm.c095/explanation/si`, `draft phy.therm.c095/options/2/detail/si`, `draft phy.therm.c095/options/3/detail/si`, `draft phy.therm.c096/explanation/si`, `draft phy.therm.c096/options/0/detail/si`, `v2 phy.therm.c030/options/0/text/si`, `v2 phy.therm.c030/options/2/text/si`, `v2 phy.therm.c047/text/si`, `v2 phy.therm.hum.absolute-humidity/name_si`
 
 ## watt
 
-teacher to decide.
+Attested in this pack.
 
 - වොට්වලින් · family 1 · `draft phy.elec.c091/text/si`
 
 ## weight
 
-teacher to decide.
+Attested in this pack.
 
 - බර · family 1 · `draft phy.mech.c065/explanation/si`, `draft phy.mech.c077/text/si`, `draft phy.mech.c078/explanation/si`, `draft phy.mech.c078/options/2/detail/si`, `draft phy.mech.c079/text/si`, `draft phy.mech.c080/text/si`, `draft phy.mech.c082/explanation/si`, `draft phy.mech.c082/options/1/detail/si`, `draft phy.mech.c105/explanation/si`, `draft phy.mech.c105/text/si`, `draft phy.mech.c108/explanation/si`, `draft phy.mech.c108/options/0/detail/si`, `draft phy.mech.c108/text/si`, `draft phy.mech.c138/explanation/si`, `draft phy.therm.c072/explanation/si`, `draft phy.therm.c097/explanation/si`, `v2 phy.mech.b01/statements/7/text/si`, `v2 phy.mech.c011/explanation/si`, `v2 phy.mech.c018/options/0/text/si`, `v2 phy.mech.c018/options/1/text/si`, `v2 phy.mech.c018/options/2/text/si`, `v2 phy.mech.c018/options/3/text/si`, `v2 phy.mech.c047/explanation/si`, `v2 phy.mech.newton.apparent-weight/name_si`, `v2 phy.mech.t04/distractors/2/detail_si`, `v2 phy.mech.t11/distractors/0/detail_si`, `v2 phy.mech.t14/distractors/0/detail_si`, `v2 phy.mech.t14/text/si`, `v2 phy.therm.b02/statements/5/text/si`, `v2 phy.therm.t07/explanation/si`
 - බරක් · family 1 · `draft phy.mech.c104/text/si`, `draft phy.mech.c109/text/si`, `v2 phy.mech.c007/options/2/text/si`
@@ -2944,7 +2944,7 @@ teacher to decide.
 
 ## weight of the beam
 
-teacher to decide.
+Attested in this pack.
 
 - බාල්කයේ බර · family 1 · `v2 phy.mech.t11/distractors/0/detail_si`
 - බාල්කයේ බරින් · family 1 · `v2 phy.mech.c032/options/3/detail/si`
@@ -2952,14 +2952,14 @@ teacher to decide.
 
 ## wheatstone bridge
 
-Keep the සේතුව root.. [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
+Keep the සේතුව root. (proposed — teacher confirms). [Terminology review, line 30](../2026-11-19-sinhala-terminology.md#L30)
 
 - විට්ස්ටන් සේතුව · family 1 · `v2 phy.elec.bridge.wheatstone-balance/name_si`
 - විට්ස්ටන් සේතුවක · family 1 · `draft phy.elec.c099/text/si`, `v2 phy.elec.c031/text/si`
 
 ## wheel
 
-teacher to decide.
+Attested in this pack.
 
 - රෝද · family 1 · `v2 phy.mech.c009/explanation/si`, `v2 phy.mech.c020/explanation/si`, `v2 phy.mech.c020/text/si`, `v2 phy.mech.t06/text/si`
 - රෝදයක · family 1 · `draft phy.mech.c125/text/si`, `draft phy.mech.c129/text/si`, `draft phy.mech.c133/text/si`, `v2 phy.mech.p05-06/text/si`
@@ -2967,7 +2967,7 @@ teacher to decide.
 
 ## wire
 
-teacher to decide.
+Attested in this pack.
 
 - කම්බි · family 1 · `draft phy.elec.c059/text/si`, `draft phy.elec.c106/explanation/si`
 - කම්බිය · family 1 · `draft phy.elec.c104/text/si`, `draft phy.elec.c105/explanation/si`, `v2 phy.elec.b02/statements/5/text/si`, `v2 phy.elec.c020/text/si`, `v2 phy.elec.c034/text/si`, `v2 phy.elec.c035/explanation/si`, `v2 phy.elec.c035/options/2/detail/si`, `v2 phy.elec.c053/options/2/text/si`, `v2 phy.elec.t03/distractors/2/detail_si`, `v2 phy.elec.t04/text/si`
@@ -2979,7 +2979,7 @@ teacher to decide.
 
 ## work
 
-teacher to decide.
+Attested in this pack.
 
 - කාර්යය · family 1 · `draft phy.mech.c116/explanation/si`, `draft phy.mech.c116/options/1/detail/si`, `draft phy.mech.c124/explanation/si`, `draft phy.therm.c106/explanation/si`, `draft phy.therm.c106/options/2/detail/si`, `draft phy.therm.c106/options/3/detail/si`, `draft phy.therm.c107/explanation/si`, `draft phy.therm.c107/options/1/detail/si`, `draft phy.therm.c107/text/si`, `draft phy.therm.c108/text/si`, `draft phy.therm.c110/explanation/si`, `draft phy.therm.c110/options/0/detail/si`, `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`, `v2 phy.elec.c045/text/si`, `v2 phy.mech.c023/options/1/text/si`, `v2 phy.mech.t05/explanation/si`, `v2 phy.therm.c035/explanation/si`, `v2 phy.therm.c035/text/si`, `v2 phy.therm.c036/options/2/detail/si`, `v2 phy.therm.c037/text/si`, `v2 phy.therm.c038/options/1/detail/si`, `v2 phy.therm.c039/explanation/si`, `v2 phy.therm.p01-01/options/1/detail/si`, `v2 phy.therm.p01-03/options/2/detail/si`, `v2 phy.therm.p01-04/options/1/detail/si`, `v2 phy.therm.p01-06/options/2/detail/si`, `v2 phy.therm.t08/distractors/1/detail_si`, `v2 phy.therm.t08/distractors/4/detail_si`
 - කාර්යයක් · family 1 · `draft phy.mech.c088/explanation/si`, `draft phy.mech.c116/text/si`, `draft phy.mech.c126/text/si`, `draft phy.therm.c106/text/si`, `draft phy.therm.c110/text/si`, `v2 phy.mech.p01-05/explanation/si`, `v2 phy.mech.p05-04/explanation/si`, `v2 phy.therm.c036/text/si`, `v2 phy.therm.c037/options/1/detail/si`, `v2 phy.therm.p01-02/explanation/si`, `v2 phy.therm.p01-02/options/3/detail/si`, `v2 phy.therm.p01-05/options/3/detail/si`
@@ -2988,7 +2988,7 @@ teacher to decide.
 
 ## work done
 
-teacher to decide.
+කළ කාර්යය (short label). කරන ලද කාර්යය is also grammatical. (proposed — teacher confirms).
 
 - කරන ලද කාර්යය · family 1 · `v2 phy.mech.c023/options/1/text/si`, `v2 phy.mech.t05/explanation/si`, `v2 phy.therm.c035/explanation/si`, `v2 phy.therm.c035/text/si`, `v2 phy.therm.c037/text/si`
 - කරන ලද කාර්යයට · family 1 · `v2 phy.therm.c040/explanation/si`
@@ -2997,7 +2997,7 @@ teacher to decide.
 
 ## zero
 
-teacher to decide.
+ශූන්‍ය (proposed — teacher confirms).
 
 - ශූන්‍ය · family 1 · `draft phy.elec.c085/explanation/si`, `draft phy.elec.c085/options/2/detail/si`, `draft phy.elec.c085/options/3/detail/si`, `draft phy.elec.c089/explanation/si`, `draft phy.elec.c098/explanation/si`, `draft phy.elec.c098/options/1/detail/si`, `draft phy.elec.c098/options/3/detail/si`, `draft phy.elec.c100/explanation/si`, `draft phy.elec.c100/text/si`, `draft phy.elec.c127/explanation/si`, `draft phy.mech.c053/explanation/si`, `draft phy.mech.c053/options/1/detail/si`, `draft phy.mech.c053/text/si`, `draft phy.mech.c061/explanation/si`, `draft phy.mech.c061/options/2/detail/si`, `draft phy.mech.c061/options/3/detail/si`, `draft phy.mech.c063/explanation/si`, `draft phy.mech.c080/explanation/si`, `draft phy.mech.c093/text/si`, `draft phy.mech.c106/explanation/si`, `draft phy.mech.c107/explanation/si`, `draft phy.mech.c107/options/0/detail/si`, `draft phy.mech.c107/text/si`, `draft phy.mech.c124/text/si`, `draft phy.mech.c127/text/si`, `draft phy.therm.c064/text/si`, `draft phy.therm.c111/text/si`, `draft phy.therm.c112/explanation/si`, `draft phy.therm.c112/options/0/detail/si`, `draft phy.therm.c112/text/si`
 - ශූන්‍යය · family 1 · `draft phy.elec.c103/explanation/si`, `draft phy.elec.c124/text/si`
