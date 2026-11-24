@@ -1,6 +1,8 @@
 # Student journey redesign: design and build brief
 
-_Date: 2026-11-23 · Status: approved by Viraj in a brainstorm · Nothing is built yet._
+_Date: 2026-11-23, revised 2026-11-24 · Status: approved by Viraj in a brainstorm · Nothing is built yet._
+
+**Revised 2026-11-24** ([DR-0056](../../decisions/0056-student-grade-always-no-trust-check.md), [DR-0057](../../decisions/0057-onboarding-v1-short-flow.md)): the four grades show on every card, including a wrong or empty MCQ, and the student's grade always counts. There is no trust check for now. Onboarding for this version is Welcome → placement test (8 questions) → About you + save → Home with a Day 1 banner. Routine, units covered and the paywall move to the backlog. The sections below are updated to match.
 
 Decisions: [DR-0052](../../decisions/0052-anki-style-self-grading.md) (answering and grades) · [DR-0053](../../decisions/0053-recall-first-content-mix.md) (recall and MCQ mix) · [DR-0054](../../decisions/0054-one-screen-study-card.md) (study screen) · [DR-0055](../../decisions/0055-onboarding-revised-for-anki-loop.md) (onboarding). Screen spec and copy: [UX design](../../living/ux-design.md#a-onboarding), [study screen](../../living/ux-design.md#study-screen).
 
@@ -46,14 +48,15 @@ Viraj tried `builds/unikey-engine-on.apk` and said the student app is "not what 
 
 | Area | Options | Picked |
 |---|---|---|
-| Grading | auto only (as now) · pure self-grade · **hybrid: self-grade, the app's mark on MCQ, a trust check** | Hybrid **(Viraj)** |
+| Grading | auto only (as now) · hybrid with the app's mark overriding on MCQ and a trust check (DR-0052, superseded) · **the student's grade always counts; the MCQ result is logged** | Student's grade **(Viraj, 2026-11-24)** |
 | MCQ reveal | the tap reveals · **the tap selects, Show answer reveals** | Select then reveal **(Viraj)** |
 | Content | write new recall cards · **dual-mode items** | Dual-mode **(Viraj)** |
 | Mix | 50/50 · **70/30, day 1 about 50/50** · recall only | 70/30 **(Viraj)** |
-| Placement | keep the quick check · **merge it into the first session** | Merge **(Viraj)** |
+| Placement | keep the quick check · **merge it into the first session: an 8-question placement test** | Merge **(Viraj)** |
+| Onboarding for this version | nine screens (DR-0055) · **Welcome → placement test → About you + save → Home** | Short flow **(Viraj, 2026-11-24)** |
 | Teaching the card | a tutorial screen · **coach lines on the first cards** | Coach lines **(Viraj)** |
-| Paywall order | before sign-in · **after sign-in** | After **(Viraj)** |
-| Parent | separate consent and payment · **one message** | One **(Viraj)** |
+| Paywall order (later version) | before sign-in · **after sign-in** | After **(Viraj)**; not in this version |
+| Parent (later version) | separate consent and payment · **one message** | One **(Viraj)**; not in this version |
 | Ending a session | an X button · **the phone's Back** | Back **(Viraj)** |
 | Skip reason | one optional chip · **no question** · skip the card only | No question **(Viraj)** |
 | Reviewer UI | a switch · **a separate build** | Separate build **(Viraj)** |
@@ -62,19 +65,19 @@ Viraj tried `builds/unikey-engine-on.apk` and said the student app is "not what 
 
 Read the [scheduler spec](2026-11-12-study-loop-scheduler-design.md) §5, §6 and §8 with these changes:
 
-1. **Answer input.** Replace `Choice = number | "dont-know"` with an answer of `{ mode: "recall" | "mcq", picked?: number, grade: "again" | "hard" | "good" | "easy" }`. On MCQ, a wrong or missing pick forces `again`. "I don't know" is gone; it maps to `again` with no pick.
-2. **Grade effects** (DR-0052 table):
+1. **Answer input.** Replace `Choice = number | "dont-know"` with an answer of `{ mode: "recall" | "mcq", picked?: number, correct?: boolean, grade: "again" | "hard" | "good" | "easy" }`. **The grade is always the student's**, on MCQ too. `correct` is logged and does not change scheduling (DR-0056). "I don't know" is gone; the student presses Show answer and grades.
+2. **Grade effects** (DR-0052 table; starting values, to be tested against pilot data and revised):
    - Again: a review gap of 1 day; the repair path as now.
    - Hard: the gap step does not advance; no step-up credit; counts 0.5 toward the running success rate.
    - Good: as today's "right".
    - Easy: the gap advances two steps; the skill steps up at once, at most once per skill per session, and never to height 3 on a returning section's first two days.
    - Two Hards in a row: the next non-repair card comes from a usually-right height. Three Easys in a row: the push-up of DR-0051 change 5.
 3. **Repair timing.** The repair card (DR-0051 change 1) is queued for the end of the session, after the middle and before the closing card, not served straight after the miss. **(Viraj: "in the same session but not after immediately… at the end")** If the budget runs out first, the repair moves to the next session's opening. **(my call)** Change 2 (leave the skill after two misses) stays.
-4. **Trust number** (a new profile field, **my call** on the details): start at 1.0. For each MCQ on a skill whose last recall grade was Good or Easy within 7 days, move it toward 0 on a miss and toward 1 on a right answer, as a moving average over about 20 events. Below 0.6, read Easy as Good and Good as Hard when applying recall grades. MCQ marks are never discounted.
+4. **No trust check in this version** (DR-0056). Keep the grade and the MCQ result side by side in the event log, so a check can be designed from pilot data.
 5. **Mode choice.** The engine picks recall or MCQ for dual-mode items to keep the session near the target MCQ share: about 0.5 in the first session, about 0.3 after that. Repair cards prefer recall at height 1. **(my call)**
 6. **Skip.** Drop `SkipReason` from the student path. Every skip is `later`. Keep the second-skip value message. The "too-hard" card-level branch (DR-0051 change 6) is no longer reachable from the UI. Leave it in place for now, and remove it after the simulator rerun.
-7. **Coverage from onboarding.** Units the student marks as not covered are left out of new-skill picks until added. **(my call: this replaces "Not learned yet")**
-8. **Simulator and judge.** Simulated students need a grading behaviour (honest, over-confident, under-confident). Add code checks: no same-card retry after Again; the repair card never comes straight after a miss; the trust number falls for an over-confident grader. Rerun the judge pass. DR-0047's acceptance gate still applies.
+7. **Coverage from onboarding:** not in this version (the units screen is in the backlog). New skills follow the current unit and exam weight.
+8. **Simulator and judge.** Simulated students need a grading behaviour (honest, over-confident, under-confident), so the effect of self-grades can be seen. Add code checks: no same-card retry after Again; the repair card never comes straight after a miss. Rerun the judge pass. DR-0047's acceptance gate still applies.
 
 ## 5. Content changes (`content/`)
 
@@ -85,9 +88,9 @@ Read the [scheduler spec](2026-11-12-study-loop-scheduler-design.md) §5, §6 an
 
 ## 6. App changes (`app/`)
 
-- **Study card** (`src/engine/EngineStudy.tsx`): a single screen as specified in the UX doc. Option taps select, Show answer reveals in place, and the grade row or Next follows. Remove the I don't know, Not now, Too hard and End session buttons. Back ends the session (Android hardware Back and the router's back). Hold-to-show EN goes top-left, and a thin effort bar replaces the effort numbers.
+- **Study card** (`src/engine/EngineStudy.tsx`): a single screen as specified in the UX doc. Option taps select, Show answer reveals in place, and the grade row always follows (no Next button). Remove the I don't know, Not now, Too hard and End session buttons. Back ends the session (Android hardware Back and the router's back). Hold-to-show EN goes top-left, and a thin effort bar replaces the effort numbers.
 - **Coach lines:** a once-only flag per line in the store.
-- **Onboarding O1–O9:** a new route group shown on first launch. It saves name, goal, stream, exam year, routine and covered units to the profile. O5 runs a normal engine session with the first-session settings. O7 is a placeholder (Later only) until login exists (T27). O8 in the pilot takes the activation code.
+- **Onboarding (this version, DR-0057):** a new route group on first launch: Welcome → placement test (an 8-question engine session with the first-session settings) → About you + save progress on one screen (save is Later only until login exists, T27) → Home with a one-time Day 1 done banner and the widget offer. It saves name, goal, stream and exam year to the profile.
 - **Reviewer build:** a build-time flag (an EAS profile) that removes the reviewer UI from the student APK.
 - **Tests:** update the Maestro flows (`01-session-feedback` uses `toggle-english` and the feedback screen) and the session tests.
 
@@ -101,6 +104,6 @@ Read the [scheduler spec](2026-11-12-study-loop-scheduler-design.md) §5, §6 an
 1. Engine: the answer input and grade effects, repair timing, simulator grading behaviours, the rerun.
 2. App: the one-screen card, two buttons, Back, hold EN (works with auto-mark only until content has model answers).
 3. Content: `recall_ok` and `model_answer` on the three pilot packs, then teacher review.
-4. App: onboarding O1–O9 with coach lines.
+4. App: onboarding (Welcome, placement test, About you + save, Home banner) with coach lines.
 5. Reviewer and student builds split.
-6. Engine: the trust number, once there is recall content to test it on.
+6. Later, from pilot data: grade effects, a trust check or similar, Skip vs Again, and the backlog onboarding screens.

@@ -403,3 +403,21 @@
 2026-11-23T16:28 student-journey-redesign D6 + Revisit the onboarding routine screen (O3): keep, move after
 2026-11-23T16:28 student-journey-redesign S12 p1 &docs/decisions/0055-onboarding-revised-for-anki-loop.md | ||
 2026-11-23T16:28 student-journey-redesign S13 &docs/decisions/0055-onboarding-revised-for-anki-loop.md | ||
+2026-11-23T16:29 git T114 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-23T16:29 git T121 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-23T16:29 git S33 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-23T16:29 git D6 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-23T16:29 git S12 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-23T16:29 git S13 commit 237fd7c docs: student journey redesign (Anki-style card, onboarding)
+2026-11-24T15:42 student-journey-redesign T116  | ||
+2026-11-24T15:42 student-journey-redesign T114  | ||
+2026-11-24T15:42 student-journey-redesign T119 p3 g:later | ||
+2026-11-24T15:42 student-journey-redesign T121  | ||
+2026-11-24T15:42 student-journey-redesign S12 &docs/decisions/0057-onboarding-v1-short-flow.md | ||
+2026-11-24T15:42 student-journey-redesign S13 oh p3 g:later | ||
+2026-11-24T15:42 student-journey-redesign D6 p3 g:later | ||
+2026-11-24T15:42 student-journey-redesign D7 + Add the units-covered screen to onboarding (later version)
+2026-11-24T15:42 student-journey-redesign D8 + Revise the onboarding order for the next version
+2026-11-24T15:42 student-journey-redesign T122 + Test the impact of Again/Hard/Good/Easy effects with pilot d
+2026-11-24T15:42 student-journey-redesign T123 + Handle Skip more like Again (design, then engine)
+2026-11-24T15:42 student-journey-redesign T124 + Decide how parent consent is collected in this version (no p

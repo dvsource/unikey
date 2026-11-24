@@ -55,9 +55,11 @@ Status legend: **Accepted** = in force · **Proposed** = recommended, awaiting V
 | [0049](0049-effort-based-day-and-skip.md) | Day measured in effort; bad-day early end keeps streak; "Not now" skip (amends DR-0019) | Product/Retention | Accepted (skip reason dropped by [0054](0054-one-screen-study-card.md)) | 2026-11-14 | 2027-02-01 |
 | [0050](0050-session-length-rules-from-first-tuning.md) | Session-length rules from the first tuning pass (extends DR-0049) | Product/Retention | Proposed | 2026-11-15 | 2027-02-01 |
 | [0051](0051-study-loop-rules-after-first-judge-pass.md) | Study-loop rules after the first judge pass: changes 1 to 7 (extends DR-0048, DR-0049) | Product/Retention | Accepted (changes 1, 6 amended by [0052](0052-anki-style-self-grading.md), [0054](0054-one-screen-study-card.md)) | 2026-11-16 | 2027-02-01 |
-| [0052](0052-anki-style-self-grading.md) | Anki-style answers: Show answer, then Again/Hard/Good/Easy; MCQ marked by the app; hidden trust check | Product | Accepted | 2026-11-23 | 2027-02-01 |
+| [0052](0052-anki-style-self-grading.md) | Anki-style answers: Show answer, then Again/Hard/Good/Easy; MCQ marked by the app; hidden trust check | Product | Accepted (MCQ override and trust check superseded by [0056](0056-student-grade-always-no-trust-check.md)) | 2026-11-23 | 2027-02-01 |
 | [0053](0053-recall-first-content-mix.md) | Recall first: ~70% recall / 30% MCQ (half MCQ on day 1), dual-mode items | Content/Product | Accepted | 2026-11-23 | 2027-02-01 |
 | [0054](0054-one-screen-study-card.md) | One-screen study card: Skip + Show answer, silent section skip, Back ends, hold EN, separate reviewer build | Product/Design | Accepted | 2026-11-23 | 2027-02-01 |
-| [0055](0055-onboarding-revised-for-anki-loop.md) | Onboarding revised: first session is the placement, paywall after sign-in, one parent message (supersedes DR-0026 in part) | Product/Design | Accepted | 2026-11-23 | 2027-02-01 |
+| [0055](0055-onboarding-revised-for-anki-loop.md) | Onboarding revised: first session is the placement, paywall after sign-in, one parent message (supersedes DR-0026 in part) | Product/Design | Superseded in part by [0057](0057-onboarding-v1-short-flow.md) | 2026-11-23 | 2027-02-01 |
+| [0056](0056-student-grade-always-no-trust-check.md) | The student's grade always counts (4 grades on every card, wrong MCQ too); no trust check for now | Product | Accepted | 2026-11-24 | 2027-02-01 |
+| [0057](0057-onboarding-v1-short-flow.md) | Onboarding for this version: Welcome → placement test (8) → About you + save → Home with Day 1 banner | Product/Design | Accepted | 2026-11-24 | 2027-02-01 |
 
 New record: copy [`../templates/decision.md`](../templates/decision.md) to `00NN-short-slug.md` and add a row here.

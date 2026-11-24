@@ -1,6 +1,6 @@
 # DR-0052: Anki-style answers: Show answer, then Again / Hard / Good / Easy
 
-- **Status:** Accepted (Viraj, 2026-11-23)
+- **Status:** Accepted (Viraj, 2026-11-23); forced Again on a wrong MCQ and the trust check superseded by [DR-0056](0056-student-grade-always-no-trust-check.md)
 - **Date:** 2026-11-23 · **Owner:** Viraj
 - **Area:** Product
 - **Source:** [student journey redesign](../superpowers/specs/2026-11-23-student-journey-redesign-design.md) §3, §4

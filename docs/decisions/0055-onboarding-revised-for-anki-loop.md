@@ -1,6 +1,6 @@
 # DR-0055: Onboarding revised: the first session is the placement, paywall after sign-in, one parent message
 
-- **Status:** Accepted (Viraj, 2026-11-23)
+- **Status:** Superseded in part by [DR-0057](0057-onboarding-v1-short-flow.md) (order for this version); was Accepted (Viraj, 2026-11-23)
 - **Date:** 2026-11-23 · **Owner:** Viraj
 - **Area:** Product / Design
 - **Source:** [student journey redesign](../superpowers/specs/2026-11-23-student-journey-redesign-design.md) §2; copy in [UX design](../living/ux-design.md#a-onboarding)

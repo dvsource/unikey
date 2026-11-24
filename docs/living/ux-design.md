@@ -1,6 +1,6 @@
 # UX Design
 
-_Last updated: 2026-11-23 (student journey redesign: [DR-0052](../decisions/0052-anki-style-self-grading.md) to [DR-0055](../decisions/0055-onboarding-revised-for-anki-loop.md))_
+_Last updated: 2026-11-24 (student journey redesign: [DR-0052](../decisions/0052-anki-style-self-grading.md) to [DR-0057](../decisions/0057-onboarding-v1-short-flow.md))_
 
 **Design canvas:** https://claude.ai/code/artifact/8663e5e8-8080-4e38-a1bc-a487744ad18f. It has two pages: English and සිංහල, 27 screens each plus WhatsApp threads, and Play mode links the screens together.
 
@@ -51,28 +51,35 @@ Source: [business-plan chat, 2026-11-07](../sources/2026-11-07-business-plan-cha
 
 ### A. Onboarding
 
-Decision: [DR-0055](../decisions/0055-onboarding-revised-for-anki-loop.md), which supersedes the A1–A9 order and the separate quick check of [DR-0026](../decisions/0026-onboarding-flow.md). DR-0026's other rules stand: a hidden anonymous account from the first screen, an optional name, pre-filled units, the 7-day consent grace, and the friend invite after week 1 or a 3-day streak. Onboarding runs on first launch, before the Today tab. Everyone sees the same screens, with or without a class code. Interface text is English ([DR-0024](../decisions/0024-sinhala-medium-ui-language.md)); the copy below is a draft until its Sinhala-medium check.
+Decisions: [DR-0057](../decisions/0057-onboarding-v1-short-flow.md) sets the order **for this version**. [DR-0055](../decisions/0055-onboarding-revised-for-anki-loop.md) holds the fuller nine-screen flow, kept below for later versions. Both replace the A1–A9 order and the separate quick check of [DR-0026](../decisions/0026-onboarding-flow.md). DR-0026's other rules stand: a hidden anonymous account from the first screen, an optional name, the 7-day consent grace, and the friend invite after week 1 or a 3-day streak. Onboarding runs on first launch, before the Today tab. Everyone sees the same screens, with or without a class code. Interface text is English ([DR-0024](../decisions/0024-sinhala-medium-ui-language.md)); the copy below is a draft until its Sinhala-medium check.
+
+**This version: Welcome → Placement test → About you + save → Home**
 
 | # | Screen | What it says and asks |
 |---|---|---|
 | O1 | Welcome | "A/L Physics. 5 minutes a day." Study in: සිංහල (English and தமிழ் shown as "coming soon" in the pilot). "Class code? (optional)". [Continue] |
-| O2 | About you | "What should we call you?" (optional). "What are you aiming for?" Medicine / Engineering / Another degree / Pass well (sets the motivation copy). Stream: Bio / Maths / Other (sets the default mix). Exam: 2027 / 2028 (sets the countdown and pacing). |
-| O3 | Routine | "When do you usually study?" Morning / After school / Night / It changes. WhatsApp reminder, off by default. "No notifications. Ever." **Kept for now; to be revisited** (it may move to after a 3-day streak or to Settings). |
-| O4 | Units covered | "Which units has your class covered?" Chips pre-filled from the exam year and month. "We guessed from your exam year. Tap to fix." "Not covered yet? We'll keep it for later." Units not covered stay out of study until the student adds them; this replaces a "not learned yet" skip reason. |
-| O5 | First session | Header: "Let's find your level. Starts easy. No marks." About 5 minutes. Starts easy and climbs with the first-session ladder ([DR-0051](../decisions/0051-study-loop-rules-after-first-judge-pass.md) change 4). About half the cards are MCQ ([DR-0053](../decisions/0053-recall-first-content-mix.md)). This is the placement; there is no separate quick check. |
-| O6 | Day 1 done | Sunrise. "Day 1 done." Streak 1. "Strong in: …" (chips). "This week: …" (topics). "Started: වෘත්ත චලිතය". [Continue] |
-| O7 | Save progress | "Keep your progress safe." Google / Phone / Later ("Later keeps it on this phone only"). |
-| O8 | Keep going (paywall) | "Today: 12 cards, 3 skills started." Monthly 900 / Until exam (price by months left, [DR-0032](../decisions/0032-until-exam-price-by-months-left.md)). [Ask a parent on WhatsApp] [I have a code]. "Money back if you practise 20 days and it doesn't help." **Pilot:** this screen only takes the Founding 100 activation code ([DR-0003](../decisions/0003-pilot-price-300.md)), and parent consent is still asked. |
-| O9 | Home | Day-1 home. "Add UniKey to your home screen? Today's 5 minutes at a glance." [Add] [Not now] |
+| O2 | Placement test | Header: "Let's find your level. Starts easy. No marks." **8 questions.** Starts easy and climbs with the first-session ladder ([DR-0051](../decisions/0051-study-loop-rules-after-first-judge-pass.md) change 4). About half the cards are MCQ ([DR-0053](../decisions/0053-recall-first-content-mix.md)). Same study screen and coach lines as any session. This is the first session. |
+| O3 | About you + save progress | "What should we call you?" (optional). "What are you aiming for?" Medicine / Engineering / Another degree / Pass well (sets the motivation copy). Stream: Bio / Maths / Other (sets the default mix). Exam: 2027 / 2028 (sets the countdown and pacing). Then "Keep your progress safe": Google / Phone / Later ("Later keeps it on this phone only"). |
+| O4 | Home, first time | The normal Today screen with a **"Day 1 done" banner** the first time only: sunrise, streak 1, "Strong in: …" (chips), "Started: වෘත්ත චලිතය". Then the widget offer: "Add UniKey to your home screen? Today's 5 minutes at a glance." [Add] [Not now] |
 
-**Coach lines** in the first session. There is no tutorial screen. Each line shows once, on the first card where it applies, and then never again:
+**Not in this version** (backlog; the order will be revised in a later version): routine, units covered, and the paywall with its parent message. Until units covered returns, new skills follow the current unit and exam weight. **Open:** how parent consent is collected while the paywall's parent message is out.
+
+**Later versions (DR-0055, for reference):**
+
+| Screen | What it says and asks |
+|---|---|
+| Routine | "When do you usually study?" Morning / After school / Night / It changes. WhatsApp reminder, off by default. "No notifications. Ever." |
+| Units covered | "Which units has your class covered?" Chips pre-filled from the exam year and month. "We guessed from your exam year. Tap to fix." "Not covered yet? We'll keep it for later." Units not covered stay out of study until added. |
+| Keep going (paywall, after sign-in) | "Today: 12 cards, 3 skills started." Monthly 900 / Until exam ([DR-0032](../decisions/0032-until-exam-price-by-months-left.md)). [Ask a parent on WhatsApp] [I have a code]. "Money back if you practise 20 days and it doesn't help." Pilot: takes the Founding 100 activation code ([DR-0003](../decisions/0003-pilot-price-300.md)). |
+
+**Coach lines** in the placement test. There is no tutorial screen. Each line shows once, on the first card where it applies, and then never again:
 - First recall card: "Think first. Then tap Show answer."
 - First reveal: "Be honest. Your grade picks what comes next."
 - First MCQ: "Pick one. You can change it. Then tap Show answer."
 - First card with Sinhala text: "Hold EN for English."
 - First skip: "Skipped. It comes back in a few days."
 
-**Parent message (consent and payment in one).** The student sends one pre-written WhatsApp to the parent, in the parent's language ([DR-0036](../decisions/0036-parent-messages-in-parent-language.md)): "Kasun is using UniKey for A/L Physics (teacher-reviewed practice). Open this link to say yes and pay: [link]". The link page asks for consent first and shows what the parent will see (the student's chosen sharing level), then offers payment. Until the parent says yes, the 7-day grace rules of DR-0026 apply. This needs the same legal check (L5).
+**Parent message (consent and payment in one; later versions, with the paywall).** The student sends one pre-written WhatsApp to the parent, in the parent's language ([DR-0036](../decisions/0036-parent-messages-in-parent-language.md)): "Kasun is using UniKey for A/L Physics (teacher-reviewed practice). Open this link to say yes and pay: [link]". The link page asks for consent first and shows what the parent will see (the student's chosen sharing level), then offers payment. Until the parent says yes, the 7-day grace rules of DR-0026 apply. This needs the same legal check (L5).
 
 ### B. Daily loop (day 2 onward)
 - **B1 Home:** today's card (topic + "5 min" + Start), week bars, streak. Nav: Today / Learn / Progress. (The chat had a 4th Friends tab; Dawn and DR-0026 dropped it for the pilot.)
@@ -105,10 +112,10 @@ The student taps "Ask a parent" (paywall, renewal or settings). A pre-written Wh
 
 The teacher joins, gets a class code and shares it with students who want it. Nobody is forced. Sunday WhatsApp digest: active students, class readiness, the skill the class is stuck on, quiet students.
 
-**Settled:** the paywall comes after sign-in (O7 → O8, [DR-0055](../decisions/0055-onboarding-revised-for-anki-loop.md)).
+**Settled:** when the paywall returns, it comes after sign-in ([DR-0055](../decisions/0055-onboarding-revised-for-anki-loop.md)). It is not in this version ([DR-0057](../decisions/0057-onboarding-v1-short-flow.md)).
 
 ## Study screen
-Decisions: [DR-0052](../decisions/0052-anki-style-self-grading.md) (answering and grades), [DR-0053](../decisions/0053-recall-first-content-mix.md) (recall and MCQ), [DR-0054](../decisions/0054-one-screen-study-card.md) (layout and buttons).
+Decisions: [DR-0052](../decisions/0052-anki-style-self-grading.md) and [DR-0056](../decisions/0056-student-grade-always-no-trust-check.md) (answering and grades), [DR-0053](../decisions/0053-recall-first-content-mix.md) (recall and MCQ), [DR-0054](../decisions/0054-one-screen-study-card.md) (layout and buttons).
 
 ```
 [EN]                          ▬▬▬▬▬▬░░░░    hold EN = English under each line; thin effort bar, no numbers
@@ -123,7 +130,7 @@ Decisions: [DR-0052](../decisions/0052-anki-style-self-grading.md) (answering an
   Explanation
 ──────────────────────────────────────
  before:  [ Skip ]              [ Show answer ]
- after:   [Again] [Hard] [ Good ] [Easy]        MCQ wrong or nothing picked: [ Next ]
+ after:   [Again] [Hard] [ Good ] [Easy]        on every card, MCQ wrong or empty too
 ```
 
 **One screen per card.** The question never leaves the screen. Show answer adds the answer and the explanation below it.
@@ -131,16 +138,17 @@ Decisions: [DR-0052](../decisions/0052-anki-style-self-grading.md) (answering an
 **Recall card** (options hidden): the student thinks or works on paper, with no typing box. They tap Show answer, see the model answer and explanation, and grade.
 
 **MCQ card:** a tap only selects an option, and nothing is revealed until Show answer, so a slip of the finger costs nothing. After the reveal:
-- Right: the four grade buttons. Again is still there for a guess.
-- Wrong, or nothing picked: the app has set Again. One Next button. The same card is not retried now. An easier card of the same skill comes later in the session, near the end, before the closing card.
+- The screen marks the correct option green and a wrong pick red, with the mistake line and the explanation.
+- **The four grade buttons always show**, whether the pick was right, wrong or empty. The student's grade is what the engine uses ([DR-0056](../decisions/0056-student-grade-always-no-trust-check.md)); the right/wrong result is saved in the event log for later analysis.
+- The same card is not retried now. After Again, an easier card of the same skill comes later in the session, near the end, before the closing card.
 
-**Grade buttons:** Again / Hard / Good / Easy. Good is the main button (yellow pill); the others are outlined. What each grade does to timing and difficulty is in [DR-0052](../decisions/0052-anki-style-self-grading.md). In short:
+**Grade buttons:** Again / Hard / Good / Easy. Good is the main button (yellow pill); the others are outlined. What each grade does to timing and difficulty is in [DR-0052](../decisions/0052-anki-style-self-grading.md); these are starting values, to be tested against pilot data. There is no trust check in this version. In short:
 - Again: an easier card later today, and the skill comes back tomorrow.
 - Hard: same difficulty, and it comes back soon.
 - Good: normal. Two Goods make the skill harder.
 - Easy: harder now, and it comes back later.
 
-**Skip:** one tap, no question. It skips the card's section, which comes back after 3, 5, 8, 13, then every 14 days ([DR-0049](../decisions/0049-effort-based-day-and-skip.md)). The first skip shows the coach line. From the second skip of a section, the value message shows once ("About 13% of Mechanics marks come from this section…"), with Skip and Keep studying.
+**Skip:** one tap, no question. (To revisit: Viraj wants Skip handled more like Again.) It skips the card's section, which comes back after 3, 5, 8, 13, then every 14 days ([DR-0049](../decisions/0049-effort-based-day-and-skip.md)). The first skip shows the coach line. From the second skip of a section, the value message shows once ("About 13% of Mechanics marks come from this section…"), with Skip and Keep studying.
 
 **Ending:** the phone's Back ends the session, with no confirmation. Progress is saved, and the streak counts if the minimum day is reached. The normal ends (Done for today, bad-day early end, the "5 more" offer) are unchanged.
 
