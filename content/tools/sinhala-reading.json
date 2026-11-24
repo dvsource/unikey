@@ -1,0 +1,2620 @@
+[
+  {
+    "id": "phy.mech.c001",
+    "sha256": "d3bb60f8c972f7715dd4c9d33ab74f4c29095af86ee6e62c4d8f9e2a39633c08",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c002",
+    "sha256": "28074731930edcf8873ad68929d8e2d6e50c54d60d3c0cc51fdddf4b4e492fac",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c003",
+    "sha256": "5c9c522faad758d713982ce1a2665eb365e7c64b610e711f8c0777e298eb6513",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/1/text/si",
+        "difference": "The wrong choice claims the ball is slower on the way up in English but only that it moves slowly on the way up in Sinhala. The stated comparison is lost."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c004",
+    "sha256": "0e5a8d38676ffa075a1d2b674bcb5444ef0e8b1b415c33d36c0e07c8386fd09d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c005",
+    "sha256": "28cda5902101f02e5275852c064f6e58d86772b016bd52e7212a6bfec8225930",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c006",
+    "sha256": "db9d4fddc20e1feda4f96b4e9f7c3af494007727d66618844c78e148574bb1e4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c007",
+    "sha256": "937f067d46327d8d9767a7ebc4c95a428654d82a6ff1397c87d2b43db61ec611",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c008",
+    "sha256": "5af69c969e92b72411ba65162abfa527028329f0a6dc3cdfa177aa31d5300b2f",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/0/text/si",
+        "difference": "The Sinhala keyed choice explicitly says forward friction. The English choice names ground friction on the foot and leaves its direction to the student."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c009",
+    "sha256": "eac88f655cac8b6f9eee86c485fb15f5eb145eeea69b44f0c5f11a284424e521",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/0/text/si",
+        "difference": "Sinhala names the driven tyres and tells the student the friction points forward. English asks the student to infer this from road friction on the tyres."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c010",
+    "sha256": "9ce548b593ebdbca5347b7f5fff32c0454ff2224e75604dd889a814b65105275",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c011",
+    "sha256": "20648791e2b926cba4f076d5d587857fe7111c9f9d17e1105ea369e21d8799f9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c012",
+    "sha256": "725cc1ff2670b5e95ff7576ba0033dd1f969e0273eff955dc9b9a71159571a26",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c013",
+    "sha256": "cd5eedc7e44b1a6639841870f3f9860f1213df630012a6482dde4d8827739761",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c014",
+    "sha256": "185f6566e4af860a1916fc826cddd1df249c572066f21832a66189ec4fbc419f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c015",
+    "sha256": "5709e4ce06a99b9e2a8aa141b165211b1e53e285609c1a265364f3e62740686d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c016",
+    "sha256": "65e5d61de438df04042b337598d6e0cc9c1fee35931adb301e56afc7e9b3f4cc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c017",
+    "sha256": "2040252ec93c7c43fbacf01ea25ad66ff1c9b85c0111d4b85460714212adc9c4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c018",
+    "sha256": "d6209ee508fd92a7b0b433204d312c4de490e699cdaedf1834715c30b769f79c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c019",
+    "sha256": "8b92755bf4a51dbb79030c0826ceccfabff315133e163824c32c76f4da5be5ce",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c020",
+    "sha256": "018b1041ce31e7665d5d205461534bbb09da1c05a9bc42621109b5ad2d4b085a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c021",
+    "sha256": "aa1d847ef6e399bcd947f704df9a5ffd55fd08e6604a2397024ede49045200ae",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c022",
+    "sha256": "117a57a27416c6119a497b6ad0c3d801052b31a4ed076d57c782259b77966da5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c023",
+    "sha256": "3d60f0b4ecf24bf59d9c9c6bcacff3095dd9c08d5adff2b7442d04c8e32bee9d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c024",
+    "sha256": "b8079049fcea5e18151a506dc5ff4de6d76f9d52928c506ccacc9bfa92c128df",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c025",
+    "sha256": "4fc6dd494bbe51cad1a6c1cc5c732739c769d264bb140fb3818fb7fbe6885245",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c026",
+    "sha256": "5ee478d4071d8d91decffaca9aa1eec6e70b592f277fc5302bd4fc7bf278829d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c027",
+    "sha256": "6b812870f65463b700162cce3bc4c895192859bbd7f58c00d14aebec60740c4c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c028",
+    "sha256": "fa6ec89654bc3f032ea5c7092692780241cf8e584551c6b916b7a55f6c0b9ade",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c029",
+    "sha256": "14887b3048a53417a00378664df6aa1fa87d5cd2eb40e471cd4963d9958e887a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c030",
+    "sha256": "67a844f4143431a96a31b233e89669a07ba40c078e34f5a3f7d4843ad293c34c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c031",
+    "sha256": "7f45045c97c92c1ba490ba76817854d68cf8ebddbabac5f2d7358150310e657e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c032",
+    "sha256": "ec76dafe9ab0ebf0419e964154124ac8de9c4876228edb84c793e716a462497f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c033",
+    "sha256": "36de2697f63da6f137dedd1a9b362374803d3daddddad7bbc04a7bfa79385891",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c034",
+    "sha256": "c67749ff9f175afbe58f3ce19f56800427cda33fd1c89170c2cf97936563a1a1",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c035",
+    "sha256": "ed82dacc98c3837d65c6180bfbfcfb864f55422b045e0d8245e9ebd287d7ffaf",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c036",
+    "sha256": "928edb274049645efc3db7d59cdf17fe464aa828675c7e02e6f3b8f9f659d098",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c037",
+    "sha256": "acf4cec539b2b1cfd398451af86fc5ca340361a8be981cba5d730c4455e131cd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c038",
+    "sha256": "434c40123b486093420e94e61c77732cd5fea44b1469879df3b6c84157813316",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c039",
+    "sha256": "e7ea120b4f1c3b7a9bda2f69592d9a8c026c413500272760788c7e12b9c87479",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c040",
+    "sha256": "ec5b31b072bc6e5fa8bf9411a32dae4a09ad74c979f5d9b34e53b92ed137332a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c041",
+    "sha256": "a5c3cfe47273c27c726e1dbb51a725402cfc61492d7793bdd45418d404fcbbff",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c042",
+    "sha256": "49316fc4a77ab2a33b00a925403e00568066921551c36b70e1f3d34206ad4df2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c043",
+    "sha256": "1c9adec5b6692ec5522a5c1da3cbf72199ee0015aeb84578d5f6a176fbf9ac26",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c044",
+    "sha256": "d8ca1791bd6920ce6109dd9a4eaf04db4af3764802f1829bf304240b267ec128",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c045",
+    "sha256": "f74de5af31a19dfdd80f7674b320c31b9e85a2029927fe742464091d06668661",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c046",
+    "sha256": "9fda3e038c23f5e31ce1a176c001efe6c6f25bcc252c57bc2f38bde7c32f0e9b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c047",
+    "sha256": "06ab57cb66aa3eeb6932ade5c18e339310d7bee0f2e7eaa6aa4f3ca1cbb2c524",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c048",
+    "sha256": "86f3a86ed93ce194092f2b7c07b65d85eefd70c5780ffc7f9991d14be42f77c4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c049",
+    "sha256": "41fbe612c411c663f25132f25629938a950c787c8c78523f79465ee4d00df4cc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c050",
+    "sha256": "ad205dd355da8633dfde2864abfbf73e0accea16bbf7c5025887c2f4f89739ca",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c051",
+    "sha256": "1463a24c0c0cff1c045d7c433fdbd43f5e199c8d05012e8aec9f9b9a3bac35ee",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-01",
+    "sha256": "2713bfcf15970f4bf549e3137f42512cde69f3ac2b40f5822d8e5bb7d34e3027",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-02",
+    "sha256": "b951b6ee14dedb0d51cb47a5228552f5476d9e917961c5de412980b50ce270bc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-03",
+    "sha256": "07d8f5c7c84ccda64c1e3a2e1c3688290ce9389569b2a579ce0f58d30355f77f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-04",
+    "sha256": "52f55ee1d3fef6374796fec40382155520a464270bb2ec51c3627279d0e62c5d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-05",
+    "sha256": "9b98a04b73da82042a5cebb9c918aa6271077b6d55ba94d8e60bdb48892e523f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p01-06",
+    "sha256": "b295e05bdf26f9e993cfbf90f4d0fc94c4c2b2a3fabd79a7de0b4ab2721043a9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-01",
+    "sha256": "5bc998e6e260bb72c595aaa88463717e9a8faaa5194399e307f47aba4889cfa9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-02",
+    "sha256": "1d5b423bb2cd6f8e40137d4e1f2112286af02e620c5d8202657b7b6dc47c536a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-03",
+    "sha256": "a2a9492d0909b8b193303746044202a82cd567ac1e34e88c26a4c712ed399294",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-04",
+    "sha256": "676e1d3b5afcb261c950a89e814e91b9b7841129da0086ad2a19076b1445643d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-05",
+    "sha256": "e17222ea6ebab2aaa52df29aa91af83bb2075b3840107c1768855ca28b44bb6d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p02-06",
+    "sha256": "f5fda7271044c4f15eb4da2053d3e738b82d9264375f7f2b0791b0c48496b738",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-01",
+    "sha256": "2757b440f4520fccea550ed2f902a9784827c73192d25c19835c294a768ec1f8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-02",
+    "sha256": "5e7b4a1129111b768eddc02601b8c2f541a9ce14d391a91acba05de72f40e0b0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-03",
+    "sha256": "6304a94c5fdb450276eea05a451bcf97f5e1eaef24655617e6a433dbdaa1eaea",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-04",
+    "sha256": "96260fbe81b0e2b95d4543739fa4ef23bba7ee4e2abcba3e5655074cd8f1bd38",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-05",
+    "sha256": "f3884d65a3fd81d1c87882ec8400459218b81580bc32626ad72becba75bd09f4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p03-06",
+    "sha256": "9163ed074751bc0cb6ad884b660e30f120ddad643f196b9adc96b87c54c8d714",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-01",
+    "sha256": "224b858095a0f40508a71a7a34147eb7cbd37dadbebefdfa42bebe5565af14b0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-02",
+    "sha256": "e243a059753899a7e07b8a1fc364a3c9f997e77ff3f89be1433d4c38bca8e6fb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-03",
+    "sha256": "c9f502041333ef98f1313dfc624869eb6bd41fe70382d1e264dea33ba3ce1015",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-04",
+    "sha256": "c47b95b1a7e8c31fefe8dd9201727437c0d25fee6566118033c37289cc725b41",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-05",
+    "sha256": "7e243032c444852f07aeb21d5d1f01f02c7e98444190bef6de5f8f0eaade9e60",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p04-06",
+    "sha256": "c22974bd3eec9952bab7a31f6f36606f3fb6b68b86d850254afd692bece9f18d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p05-01",
+    "sha256": "d034a80dbd9631f3bca8e7f62545874347dc2bccf33e9cacbdc0dbc6a03581c3",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "The diver spins faster after tucking in English. Sinhala says the diver spins fast and leaves the change from the earlier speed unstated."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.p05-02",
+    "sha256": "59dafe1383b44cea5d218994f66550e6367bc17c03a9f47ae5fbfa7d4b666c76",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p05-03",
+    "sha256": "d5c046d9e3f721c220bdcbe02486149ec0351e1dae127301d6b137abd4c343d9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p05-04",
+    "sha256": "ccda9680fdc7eaa4b179841fb3e36c0635e8a2f0514440eff8e7dd71dc55d436",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p05-05",
+    "sha256": "7a450ea6caaed7c03bb7b0fb42aa30ed3b7aa1e6e2d705a430e6764d4a88d877",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.p05-06",
+    "sha256": "85f6564cd832f39981b9b7727d0c8f03096446b4dd36a4d258c4ba82454a7087",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t01",
+    "sha256": "f94098b395d700e23af78760e2f056c6d18319bc53eac00636dbe54a0d3badba",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t02",
+    "sha256": "afbfbeb1a1636d9da817f3af84b3e45dda8e5f987116c676567337db51570159",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t03",
+    "sha256": "c4dbc581170baedfc4b81970a1fa139059fba9f838933ff107ff3bb2ed58754d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t04",
+    "sha256": "1f355b59530505b8eb00093b5fdce979212d1356bf8c80ab5848bfba7cb4da10",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t05",
+    "sha256": "3782874814e2f9d8d23cbd5ee18b021d6164ce819e92e17b54a27f1917fbd7f4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t06",
+    "sha256": "e243b6890424d70a3f4898fc1999a9803124dc601fa4bbb3143df1891bc0baa5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t07",
+    "sha256": "f4266bdff37a4361dd599f82376d34b792ce181aae35148ed4e57cae328aafec",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t08",
+    "sha256": "c6497ea98d09421e4091589915a25dac8b43d56a50c3bd763f4d2b9cbbb6feeb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t09",
+    "sha256": "40617071b72c211b321e7e123dab06517ea8a04f5bf5d50fd8f57bdcae901004",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t10",
+    "sha256": "b4d8339023ffc7fc72a51471ae77f0055b11152fa34acdc63e3f41739ddbe11e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t11",
+    "sha256": "634e17c5a0abe1e9bd60bc23b35cc9723e3b3a917b64d0ae62dbf1162749856c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t12",
+    "sha256": "ea3caa36a3798b070421c94d15eab8d8b1c7caab012cbe444d4443562e570500",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t13",
+    "sha256": "9dc09a52c53828ef092951170e5b6fc85c26b169f4f4b3a64d1190943786e367",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t14",
+    "sha256": "d49b04bda4be7e4629b37a4378ec629bdba32834eb91bfb5d1c53c00f079b3a2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.t15",
+    "sha256": "5c124340a6492aebe26a562b83fc5bb463197ce756d9cc7659571240fe9e4c0f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.b01",
+    "sha256": "3f52e1f4018cbaa78063a5e2c76dd5a4d201305d9616b12acd9f0344938036dd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.b02",
+    "sha256": "937cd8250e98228f4ed68cf9fe7253c59c5b417e17db60f069e3dff230a1f3a8",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/statements/4/text/si",
+        "difference": "English tests whether increasing spin speed increases inertia. Sinhala asks about spinning fast, without saying the spin speed increased."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c052",
+    "sha256": "1bbf3325142a98d3156f2e9f03db188802a4e94b65e02ad33ac33a70475b3ebe",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c053",
+    "sha256": "436ba5a4fe3b4e65e4bde9ba22474528617f80ed9fe05d4d1a339b8dfe64111f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c054",
+    "sha256": "689d3cac37523ae60f71978ed1b2dbfcdce27c199ea3014462c4bada8c15f746",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c055",
+    "sha256": "92b429c28c690ca5584222b0355232056dfc20754e90f0582ee29628e06c1744",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c056",
+    "sha256": "8454cee94744655c862ded6b77dc789a7625959d95ca967fcd58a10e532fa392",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c057",
+    "sha256": "da3af67533255cd80f635a3941c0168d91c5c70e2104996db9b6681bfff4ca80",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c058",
+    "sha256": "c2a8e37eb48fe5aef34a9b959a49f665c5cb940ed46a0e3c7d84fc648e54f0bf",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c059",
+    "sha256": "0221a34bac77dd04f20461b6dac8026540a307eb9c43ccb3d4dbea3ee4acf91d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c060",
+    "sha256": "7030d9fb097eb630be2da3fa3e3409a5865cc9c67342c8af89a367f8fb8e9d42",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c061",
+    "sha256": "095db5f622b42e59ca4b73b02e9b24778620e6403145e92db685f6aba3e302a6",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "Sinhala specifies a vertical launch. English says upward, which also allows an oblique launch. The keyed u²/(2g) needs u to be the vertical component."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c062",
+    "sha256": "3e23d8db1d5bf0ea85b3a22b5b33ba8ebf86c84dc59d3a1c3d412c6d79aba136",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English explicitly assumes still air as well as negligible drag. Sinhala asks the reader to ignore air resistance and leaves air motion unspecified. Both give the same flight-time result."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c063",
+    "sha256": "54c497dbad4ee1700892045c5136ffb31204ce410f34b8362a840d43a7515236",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English launches the ball from the ground. Sinhala gives the angle and speed but leaves the starting height open. The requested speed is unaffected."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c064",
+    "sha256": "be2998d93d258a6027504ad3fa3a1087f9118fc3fdadddfc9a2a4888187e500a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c065",
+    "sha256": "d0bfc7133366265d6d24ed4f274f208e96455c684cb15ba96c9a64b13aa79d8f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c066",
+    "sha256": "e71cf3008b7554af0f98b4954adc20fc35a869b09736e5ed92125d002f25c75c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c067",
+    "sha256": "a809946cbf119f221de2b1d6cd3f18f657e38e88af31ae38d4d4361572f13c77",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English makes the claim for every ball. Sinhala extends it to every object. Both claims are false in the projectile model."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c068",
+    "sha256": "a1dba93419f91aa7f1090579368df2e8b4634908a8c1e7bf9fd417bfadb52ded",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c069",
+    "sha256": "9aa283b7294cfcdafedd22ffe72fa1d9499f151ab4e720313c99c126bbc02820",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c070",
+    "sha256": "5a82b7d0a75822c5f5330baba8571b534536d374020cb7960d0dd05af7768b7b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c071",
+    "sha256": "df73165a21914459e3cad82fe3a0c07978d755902ad490ab1aa25cae19925b56",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c072",
+    "sha256": "b776b6c8a82ee1b53de4bf9cb5ff1fe7d88015778fa101f740d2c15416437577",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c073",
+    "sha256": "325a5271454c79b27ee3d9abcac31582771de2fa9721fc2b5ad12b25fd107f62",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c074",
+    "sha256": "b35045e78ea1bedd9eaf9b362fa53d90ceec24987032db92706172031fd4b36a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c075",
+    "sha256": "6d706879d50fb4eceb297f3e072a8ded805fe5742cbe493c769bb83077ae2653",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c076",
+    "sha256": "8008ae3e7fd608ea455fc3952e5659f584e45368945ff0423a53d8ad385089e7",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c077",
+    "sha256": "b9f3f9a09047abb87335419196c3d72930550221757dd60a1c51442a3365433e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c078",
+    "sha256": "2ec9ab711494e7d5e49f32a787f636d23a560b435ba9469f206a15b002ac82b0",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English specifies downward acceleration. Sinhala describes downward travel with acceleration a. A descending lift that is slowing down has upward acceleration and a different scale reading."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c079",
+    "sha256": "fb9a769270237448036680b5f02c338426f6a83a99fdcae1bcfd001a91faca03",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c080",
+    "sha256": "288a22f6821a1ed52d0d4b2f47219172ee95c2a667d5d1a1d2d700a8d0a796a2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c081",
+    "sha256": "62f8269184ab18ea260e45b3f1c65e0e85d31b04a08932513baa0a58d85b1df4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c082",
+    "sha256": "efbcf7df1aba960507d634de9af20f5e42d2fa0933573cf9cb12c417795a7ad6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c083",
+    "sha256": "4f4086d4e20920f7303978abb247c75c67cf6388ae5bd67eaf4f27d3d5c36cc6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c084",
+    "sha256": "6d1193f989a715e9fbb2f1b650f9c7eb51b12577e29112b8651f8c2436b10b71",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c085",
+    "sha256": "e8de53c3856037075db4bd738449ffdb8fe2d0263f3aea364f835dcdbd687fe3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c086",
+    "sha256": "128ad19d333bfb14c7efbf2d68737afd884033da799e77b079c9722364a23e28",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c087",
+    "sha256": "4195d6b3107f165dba7a60ef7f6fab49b8be405cb824aa3cd2d589b9402471fe",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c088",
+    "sha256": "313c6f09331f48abf878d7a58c9e1618d306fbfd9eedf040ed600845f34e68f4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c089",
+    "sha256": "704272a322f4e6a490130bbe306b8731c8737e5aac8c07a37c5557e81ae6cac3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c090",
+    "sha256": "779d61335e36683bdb74b8398f1bc11d2d9612249d395f37a2cdf66c08689ca1",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English asks how much truck acceleration the friction can give the box. Sinhala asks only for the maximum box acceleration. The values coincide at the no-slip limit."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c091",
+    "sha256": "7fb7034c428e7e170b13f035b22e07738aa3dba1516dfb7c20e9eafa16bed230",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c092",
+    "sha256": "671b2748f631ba4fbe4ae7be94d23df60f9cc7e9182d548a36685f4c043ae480",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c093",
+    "sha256": "87c142caa073cdf6f697be964db8b26c65bfbdaf4e13a77d4ca0d4866c012cd9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c094",
+    "sha256": "12ae497604f0df4193a201ebfbea978e873feeda061e31c16da629ac2962bd53",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c095",
+    "sha256": "f3c67f89cde73a98c7e6e96c7813589d2ae2bfc867c631bddff06365f9366c4b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c096",
+    "sha256": "300df6ac599f5cda5a55224a980c0caf33ff218ea6074b7ea3d5f9c97290b4f2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c097",
+    "sha256": "f1611bff5069368d2424d30799b23ff4f268629455461dbe1c79bbf7162a8c2a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c098",
+    "sha256": "51ef82c6bac1351af12b18a727be4b9286f56b14c0df2ff846ce538aeca53a4f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c099",
+    "sha256": "4719ea8fe62b273e6a3676972f34328a3bd83c72751c26a5f02c2786df68952a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c100",
+    "sha256": "d370b2345a9989fc745f553e15e1ea3f5f11effb0aa23bf5b312efe4b20ca6f2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c101",
+    "sha256": "702f2f0c27e4522a2b5f551bd87f780b37e4f47ea957315f42ab26e78034dc64",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c102",
+    "sha256": "d96162b6e85455be779e8ba0b3a1969acd632ee4ee4c117dffe512381d575e18",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c103",
+    "sha256": "e5823e49887be43ce89085ff703a7c98b462bb85e712a385b458fc6fb90efc2b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c104",
+    "sha256": "ca3fb5dc4516b06823e0059b07619169c24c36ff2e86551cea0c14b0db520f1a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c105",
+    "sha256": "7d5d75869579f2d7dce51d1db2c7d9bbaaf76a080e94eb972027d5d37d77f30a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c106",
+    "sha256": "ae8c431d1e98c1ec36f4f6d6dfae6417d9c4de5c3f1759726abd429fe95690d3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c107",
+    "sha256": "647c116023e3403355921f567dc3b1b3ac8da7f00af3a3bbeadb38076d16c8d6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c108",
+    "sha256": "22f498c385ec0b890576d59413f3c06e8fa2de656a60254cc729314302ce1b0a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c109",
+    "sha256": "4e80b18f70bf38ea5471329c47ad69d5843c1f01aa1ec0f56b971175226aa2b2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c110",
+    "sha256": "e9650910388dd82bca445b16919ba2499c2a36d78b5f669309f3f7a2fb3e6e7d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c111",
+    "sha256": "cd903e87991bb08bc1cae8064ca97c8788ac5f50aef19387c2dfa3bff7266e8a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c112",
+    "sha256": "e6f5718953597754ca0b18807618e1b4cad409dec3611a7d88ab1e2ac085d7b2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c113",
+    "sha256": "bbf32369a34afe5ef903ecb6d762945f393604454c7b3823301c0002c4aee849",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c114",
+    "sha256": "46d7700fb3bbc42feb42831443e5e5603dbc5bd09a491bb78f1f1f657cf5269c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c115",
+    "sha256": "41d0b4d5fdbbe5186bb717d3ab248b58d05744f07d24cf02f31c5858437105a8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c116",
+    "sha256": "084c4970c99d5ac4fd2dfd37eb10f9408c88dd33c3112890e225f1e56397e4c6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c117",
+    "sha256": "2ddaf0c967c3b42d5681f6ad72c57916e2495a2ffce9e214a4c37466154b184b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c118",
+    "sha256": "689a60001a20ac42437562b8a74f4e7c50f8c3a9c7ac28f22ca0a3e972f75437",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English changes the speed of the same disc. Sinhala says it is spun fast. An absolute speed replaces the comparison in the false claim."
+      }
+    ]
+  },
+  {
+    "id": "phy.mech.c119",
+    "sha256": "0ccf9a122232eeaa3c925edd2d7b8e0c84402e81b4d64928a631950aa5006373",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c120",
+    "sha256": "f1dde3865f48125d333365d6c469a37aae042bf19a69ab2941b750d622aaa8c0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c121",
+    "sha256": "1b125d912c9c077dd8ed1951239e6338bc150ceaf7550d9358be510b93de63aa",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c122",
+    "sha256": "5cfbdf07dfb06b001a28997e375021ec984b15cab43ddc01df570921e985c149",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c123",
+    "sha256": "145d941c3d576187baf145688fbf11119924a9ca87abeebc27d1ccdf96687938",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c124",
+    "sha256": "3bb0566b37b8b9bcee2d19d82e9f0dfb00c515b8ce16dc0ccd9e7bf3d3fdafb3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c125",
+    "sha256": "fdf23cede2f4dfd40908ca1ef3088eca579aed9ea409feedee98638ac4063c66",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c126",
+    "sha256": "f7e12f7f4d0f4310ab4ac9f11cc7f2fff588ac3febc5606abbc9a1282ed99fb8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c127",
+    "sha256": "da55c5377aedf1a2201cd68e05107b7318eb60b782cdec6c2a6662d30be9cb40",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c128",
+    "sha256": "9351ef130102a37dd9b7cf09d522f1c7f9e09348d2db90bd54f0416724141573",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c129",
+    "sha256": "8df7821b984fa1e174d93de2530b077e070147e05d3f8b40d00ce44c773d3e1a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c130",
+    "sha256": "a44c8961b13c236a01cb66400513b24b2e43b756da8aecf1092719f8b6eab5c0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c131",
+    "sha256": "ac617c7dd9e5ea39a3872b76f05c1241da032e270cc8472175067ff635601b21",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c132",
+    "sha256": "d10cce390333b19124fe2f40716d9419c2863d3d8978b93039615c2ea03071d2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c133",
+    "sha256": "b22605375d0c07e78763040bd02de7ab4c275df7ddb19604fff4faa3b7f1d1c5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c134",
+    "sha256": "36a995bd8f38e9a31ac6c6c5f691c158fc5cc044fe6311b77bfadadd40a21f92",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c135",
+    "sha256": "83fd2b50ead1be5de74980a01821a8a88866809ed07735a929fe20182689577e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c136",
+    "sha256": "c386b843ae9b1bd97a28ed3c984283ba9290c789866a151d5912f154c56cd190",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c137",
+    "sha256": "36534c429c47f2c0f3bd15642fb5bb2cf315a3e1f2a9451aa945c911ccf1998f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c138",
+    "sha256": "81286a4d8cd2d41f452f41f6a722523e8cbd7fe1989e509ee5a3f3ab478f38c5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c139",
+    "sha256": "6b77c1408060812da956196c1fdb4b54f3efd3e5f3476eaada36980d8b906166",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.mech.c140",
+    "sha256": "aefb337264b02e3818c875a4a578cae40dbfb7e2f2a9234d287044c4dd431746",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c001",
+    "sha256": "51459261aaa046cab802739aaebb6a0e78b9f433b716bccbe26eca92aab4195c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c002",
+    "sha256": "201d63f5bfe7b1eeb2af11d18be9a402cb598c29204492f304d1c35514befa1c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c003",
+    "sha256": "77f1d62db93c86260e109593d6725e54555e7086db06a26b6368ab0321c685eb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c004",
+    "sha256": "2cd337909a31d1a2f3713cde680d9729c24617e12f12357cf346fe40f2cb94ad",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c005",
+    "sha256": "fa6605305323c32862babc409c2bb41db880e9d0a838e0921fd07b4753787bf4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c006",
+    "sha256": "da6d2e6f7e6ed2f8a5c6d63696e0436bdd09ee753c40ac4b4c7a8e87609a3a27",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c007",
+    "sha256": "8f2fddae6627e5d222c62ec8475bef7a10e4b312d088853f3e6ec307f4dd692d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c008",
+    "sha256": "3a94a034ec538f694aeb55f7f1f46a258f6b98bd1b5f56b43a11c594efc157ab",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c009",
+    "sha256": "178eb49f1203b1e3851230b4d7746c42f64e074559402d57740736d8bdb711fe",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c010",
+    "sha256": "1172e6d56cbbcdb0d87db6a12dd2c1cb4ae721caa13bd16b295c68a6e5200bc6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c011",
+    "sha256": "4563e676d7bbd435622bac4044d89bd60b4cd21909d46ce1e9598728e97cc914",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c012",
+    "sha256": "97cb56a6bd8b96fd8aee824e967450b651ef561316e40c309edcb362fe24f75b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c013",
+    "sha256": "af811f307f10116add9e4449c17d5d48354f424ec54ebf9ad261330e1a9046df",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c014",
+    "sha256": "70b8f1fa07dfe0fd85e7abc569533027fbefaeb07947f4f951fb0679ea5b50c0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c015",
+    "sha256": "43d2fd3bb70be560d582e55950ad625da31aef5324676a9bb8fc4e0f768cfcc4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c016",
+    "sha256": "603d8f6416b2a83fc4968e34cb767fd3878d06e59487cb803973595171ca460c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c017",
+    "sha256": "a4ebd6fd5240a0774fb3003aea667aa184ba09a54b684ecb44818ea72b026cb4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c018",
+    "sha256": "9d1278ade66f649de4bf4066118c4b2d7242e766d0171eecb61102d2354873eb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c019",
+    "sha256": "11ccc36f3b795b275e9cd25140bf1dd9f3b24785bc432e983acafb852d62065e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c020",
+    "sha256": "fdd9b98be4ae03b0ead66f9872efb02374179ae9dd514c64fe86ca84ebb903f6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c021",
+    "sha256": "07d7434acb1b152db546acb7a7cf13d5f826cfac915c4609604ee8418fcc90de",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c022",
+    "sha256": "c07b7080cd9c4248906607c23e1ff4255ae1138688fb8f3d153331148fda9d1e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c023",
+    "sha256": "27903871427ea6a60668ae34633fb929797fd1d072ffed968930e6d98a04b574",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/3/detail/si",
+        "difference": "English compares lighter molecules with heavier ones. Sinhala says lighter molecules move fast without saying faster than the heavier ones."
+      }
+    ]
+  },
+  {
+    "id": "phy.therm.c024",
+    "sha256": "c211194a75f21fe2b4ed4e191ed6a90671f037ebe5dde11944b94334f12d0b9a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c025",
+    "sha256": "7a129ee682f225f8511000804bdfbb6ddde81d56bd5ab2e21d1bfe70307b7197",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c026",
+    "sha256": "59b7538243aa4f33304af35b7f1d6bf781afe9e7d2049d47c99bf9dea0e4931b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c027",
+    "sha256": "d822f8e232edb1ec514667290a4bfed7cb5e537cf2237b9427c506df658d79cb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c028",
+    "sha256": "8e8b32083d984ba24319953ebd14bde8985353eb059de7779f28283e4a0c5349",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c029",
+    "sha256": "e6e8bb41af6efaa1ce6f6e67cf3d087e08fe2868188cbedb61c0b58cc95edfc9",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/0/text/si",
+        "difference": "English says cooling slows as the body approaches room temperature. Sinhala describes slow cooling near room temperature without explicitly comparing the rates."
+      },
+      {
+        "field": "/options/2/text/si",
+        "difference": "The distractor says cooling is faster at lower temperatures. Sinhala says it is fast there, losing the comparison."
+      }
+    ]
+  },
+  {
+    "id": "phy.therm.c030",
+    "sha256": "98ed6ad744a413f1837708448a585586bd166a91896cb578aff6ab00a600c81f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c031",
+    "sha256": "3880dede887ea30cfd9bfb000a771f234c580fde9d95cceaa752303fd144f538",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c032",
+    "sha256": "ff20ed9b7153c2f9ec1da0c46645fa9e1014d1541d4ed23058c5e7735eb66dac",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c033",
+    "sha256": "5f6fc091b92bf1b99901c7722fdb99d2acb66e13025f3595aa546a6616acaa92",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c034",
+    "sha256": "faed09e3fcf050a43a182a4a5f5e3313d421416c54d96a0681cabee8f83f8578",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c035",
+    "sha256": "65d6d71452cc74a6f69cd8476ecf1ada8cfeac81782c88034923bd3ff38809d3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c036",
+    "sha256": "418c2b9d02d6b8c2dc47a758822356d4970fcef0b91b63a66815671cc1dd0c37",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c037",
+    "sha256": "028ce3b35ab8219290acd499f42377c66e5f6b48623cba76a6c2d2e073ca8fa8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c038",
+    "sha256": "b3da64afa5569d38fc7696527d03e7692dceaf69c9b2a6a3591814efbab241c8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c039",
+    "sha256": "2b33fd3813cb2214e4df4b5b5ce7d21de989041353635b9e73b2962269af07c6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c040",
+    "sha256": "fe121c5cfcd1f70bfdca8a424bbcd558fefa340211b08f43a962c5265be9b8f1",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c041",
+    "sha256": "26ca469f5d28358eaa8f45563d035cfc7b9af549dfe7279e417a1bebbb227dd8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c042",
+    "sha256": "dcd34cbecfd59e9e4d0dfc363bf156a34060d9b1d918fd99bf78ce7bbb2a41ec",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c043",
+    "sha256": "cb99385f866c21764beb763f275f190cb866a52374c0621f1fe93883f6210556",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c044",
+    "sha256": "46d0a4e35d1d269d6b5328db03635c4d73c0c52d9941f22e8095eee107c037a9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c045",
+    "sha256": "2ff846466cede6b038eb211fcd0ce1aff68ef8126d17c3d51f9e33e08b77d8eb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c046",
+    "sha256": "adf013c0d42637ed8aaa24ec26312a3843f1276de21b82b7cd3f3745ff1d3cb0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c047",
+    "sha256": "9fcb4e04bbe1141df7f858b9651d9047f55191ee4a9945e2fff36dcfbc7252a0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c048",
+    "sha256": "2f85e7c7127da8b41bc4af6698752ebc4d815fac1f7f1b9284315229c2d33f67",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c049",
+    "sha256": "e5af80ebdc16f8b3b7b391d490b4fdbcbb70f7ea9b3e79e128f7b76f5d13e956",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-01",
+    "sha256": "86bb0bee0b83bbb7c25341d8e6cc8d9c85f0a92a301ba5f024d139217ca0bf7a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-02",
+    "sha256": "f64a8b9878dee7fd1c06ba869cfb4c91a53d0d32f12f91aa00818f9102150f01",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-03",
+    "sha256": "d05fa7b6017ff5f513bf7ed470f57d07cf98dd0cde59111516c54b9215fd2d41",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-04",
+    "sha256": "f935ef552e25172ef02d0fff000002bf5561a5d5b5cdf147a6cbea13702a326a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-05",
+    "sha256": "9ea54615f1cf42ea8fb3d6eb330a6d38ea5707aacbbb59a5199452d6bf4cb3d8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p01-06",
+    "sha256": "0b334a9a4eb4d74ab23196377f75f973b82947354f04aa1b1f99f3b6a9b4f0f3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-01",
+    "sha256": "1030abaa757154dd02d48e67516e455b3c193ef75a7fa6dbca80373544fa4fb5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-02",
+    "sha256": "b417d99e737cbf3515031a6a33330df2c29dfa1f3cfd9e7774747a7ca5dfd1b3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-03",
+    "sha256": "b5cbe01296c51e974d699c6af394e07351a35914bcaa3b954a940d9a55f8a010",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-04",
+    "sha256": "8989bf49ff65a6e1a913d7f1793349495e9e5e33a63bf60d08edf5d092c08b4f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-05",
+    "sha256": "15c9ee8902973c8bcacba9fb06cc35adc661f289f96a6f2c82a03878e222c645",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.p02-06",
+    "sha256": "66b8a8a67319143a8347652d49bc76178a749c9873e78a15cc66ce408f1787dc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t01",
+    "sha256": "7f4c8fb801bac4d3d39420cc1d53e8363bd400fa2887c87df14d9f5996207ba6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t02",
+    "sha256": "481afc1001ecad9b66da3c5564d0aa84f98383e2e08e2c83e63fde94196ac629",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t03",
+    "sha256": "c56a778a7b5f37c2c455cddc6ea95aab3149099af15b41ff15a5373d2acac349",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t04",
+    "sha256": "a08e43162f488f3327434145f414b0d2bc9d8c0b55cecd81bdcdbd4e48b9bf89",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t05",
+    "sha256": "d204e88b1bf1bc5e4f761f72304fe8bfd741d3296f6353e48045f1cb7da3b1ad",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t06",
+    "sha256": "02e2467006ff9d0b0c02c8f6ce7e022f3cbdeeec56316e8ad089a048332f8b11",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t07",
+    "sha256": "10bee1577abb6ecc9229919e4180772230a320a312127133760d4b5c02f65b5b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t08",
+    "sha256": "7c3c5d6bc30f3856bca9747c0a7be3fc528ed8b5c4da34904f96ef30191857ea",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.t09",
+    "sha256": "749ac98cca020110668f9eee781affb02b73394b1d5921d0da9db106bc09dcb3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.b01",
+    "sha256": "1efb95d674f8d520f54bf2df299e4e733efaf78e33e47b55221d92b3866728a6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.b02",
+    "sha256": "cbe539243de13fbf135300935c85176846e78390eea786dacef32d2b89d7001a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.b03",
+    "sha256": "cf247958b86254a4963618704d8a254145a976c0e3342ae42398d29462f95a81",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c050",
+    "sha256": "5f607d1b55f820769378a141b077119ab5ec04ee48049b68b5c37b6e17b02986",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c051",
+    "sha256": "c2f453d0b3527adf0de1a5b78737d79b900d94f15c041d2e3b73287376e4ef75",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c052",
+    "sha256": "a21a06b79df3fd5724db8235cf76df6bd3976a29e439788d1e34b1fb1e6d9105",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c053",
+    "sha256": "5767474ba9f2550aba42072a20a32bf820868158094b45fa3f7cfc2bdf431953",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c054",
+    "sha256": "5da26baa2542bca36b71ed5958759c97ae8c369419e382e793324bcc4e8f22aa",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c055",
+    "sha256": "9227f74a01ad592319e70472769e3ce67ad3506fe9bab162c2457127c8f4eae8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c056",
+    "sha256": "733c28c48343656c62569cb63ade903116cfadddc787aa6344492e5daaa2506c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c057",
+    "sha256": "81cbbf50662d30776b6cdb3d95b33be19f04ddca23bb681a2cfdfda90559e463",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c058",
+    "sha256": "69359e62a50c3b7ee88d78c6cdc04af7c620d21af93d675096c642dd504a6539",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c059",
+    "sha256": "678e11e64e46d0f99df6d5e40980dfeceb7c0c00ead3baf9e3ef99a50cce351c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c060",
+    "sha256": "160688a3e27a828e29698bf60795ade667537aa6f0a594c298ac575f22a05621",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c061",
+    "sha256": "c08f839fe5ca1c7ccecbcdc61fee16b728cef2e5a1797bdfe642fc2a06037182",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c062",
+    "sha256": "9e5d7758b98312a6989e7326b9eb08aef81906c414be812e5dd9378e837afe67",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c063",
+    "sha256": "5146f92836fc276db706afe799a55eb16e3714ca3fde752ab6a1138f00fce49c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c064",
+    "sha256": "e85d4f16dcd72f1dec18f45665fbb914b24190549cea5e9ed324d7dd121382d7",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c065",
+    "sha256": "09412dec1027e23703dc9c94d419477ca155dfa01f914f35200a20153f637720",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c066",
+    "sha256": "78d7d0d01920128aeb709b283672a960c5c939bd4d35b324de10c735892dbefd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c067",
+    "sha256": "db8699005fc95c8e62833740d0cb49b13fdbb2f0c4f8e4a8c19bd0bca7cfeec2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c068",
+    "sha256": "0a4c88982b499b2905b37384259a7898fa30b400fbdc70af17c06afc38b42684",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c069",
+    "sha256": "b9dcce00a9ed7e22e60d73119b38f654e2f3c11a0e00ae9ae158c49d389acd14",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c070",
+    "sha256": "affffa8461cffabc934f44c68abce8aa39dc13c5c49c6a15e3357183898bfa70",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c071",
+    "sha256": "cfa2c1fc73b8b1e0d897fc3b7e2d6ac9bcfe84cf8c7f7ef6ce67ed07cbc209b5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c072",
+    "sha256": "65545caae867b314da7866f69d6c19ec0f9089014f90ba41f935690e5f669c42",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c073",
+    "sha256": "5af4d86b8a10a774a7e83770ed33b9a9c9c66bf89928202097922d741c82592f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c074",
+    "sha256": "9331ab5ea5be4aa872b0c94fe1e9daf73a159ba569c74bfeaa4a2ea8b66401ee",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c075",
+    "sha256": "53615941a3dbddb778c2d17a3c89158c1998a9a7f6a43ae6aef0167d1baf7a92",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c076",
+    "sha256": "56cf8882eb6841e46088cd784cee4733db2228119829b36513dfa26e5b89de56",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c077",
+    "sha256": "24de998676f6612be74b11caa4dd090430af6faa27179386ed2235fd8afaef66",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c078",
+    "sha256": "24849b7bd9b0e55fc3f528d3cb9c53a39fd07bce5f1c393880cd20a552d6aa3d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c079",
+    "sha256": "d0f94838240f03e54236e405ee48c4f9a4b912d6540c1e25e636e046b82c3cbc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c080",
+    "sha256": "5c3a4b5b4f3e888e2412f4be761685977fc06069e547248df95b7bdca716304a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c081",
+    "sha256": "5c80adf3b750a4c241e2b10cbb3d3c4211a5555b2942bdf669b16592048bb66f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c082",
+    "sha256": "58ab894589f92293c7406d6ad4c4666c964dda8e5f99b4f1aedf1ed82834b51b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c083",
+    "sha256": "b4cd6a704ebb6566eff92d2bf3ac3bdca2f796b937e7f093053227fbebb4f2ef",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c084",
+    "sha256": "d2c4d8bf464a947fea810955fdf2f648e5eed607cb284bf6ca088069a1f92d89",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c085",
+    "sha256": "0cf3c61c93b199c82edff87be0513c44addda128b1cfeb71c2b11d0b62bd452a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c086",
+    "sha256": "499ad4b9e528493998ed1a81dae492e133d981fc6da10a27957838486e02feb6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c087",
+    "sha256": "33fb944f412d242928683ccad29451f155d390567ed84b30152b74b78a0adf3e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c088",
+    "sha256": "1f91e9acf746f82ce2597a03e401a0945d584eb30bf4f1c200e104e88485844f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c089",
+    "sha256": "4e9f6694cd7a78f573fed6f693d8bd51ba7d16d43eb472acda134e58e11b43e2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c090",
+    "sha256": "9ad0405dbac3ce0246b90a05df6c64e42ca0ed81542c353371bcb00c469c9567",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "Sinhala explicitly puts the two phases in equilibrium. English only says they coexist. Equilibrium makes the constant melting-temperature argument explicit."
+      }
+    ]
+  },
+  {
+    "id": "phy.therm.c091",
+    "sha256": "43ce7372bd069cc89396c69ae2f52b713c115383c5473338e801a5fab5824017",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c092",
+    "sha256": "2bb7b96849c1a27408d2a720dcf08b57c01128f5f06680da974cef6db397fc7e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c093",
+    "sha256": "6db88c6177a9636193235965bb30188c54766b3d5e307b0ffb0beb5fab6187cc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c094",
+    "sha256": "65251f1dfb40e1a029832f6b781f396e7169ccb0c32aac905c1e36018a6a2d76",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c095",
+    "sha256": "769f1b1de7eee23ea52ae3e0a6650d8f081676ec7118307c8c2623fe4f751f26",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c096",
+    "sha256": "5df43eac22dadc050947a30fc6f35a84e3f8056504d75c091fc63d32742ed719",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c097",
+    "sha256": "21e99e5886f661bc5f081219f9c4c3e3927238ffc2d51f750c69ab6dfb685d95",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English mixes two samples of air. Sinhala says gas samples without specifying air. The vapour-mass calculation still uses the stated total volume."
+      }
+    ]
+  },
+  {
+    "id": "phy.therm.c098",
+    "sha256": "53ad8e1b1d749919a7b60ff793aefc6aa358bc3f9aaf1c34ed4c89c02b9bae83",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c099",
+    "sha256": "1c3c98176bf6cb4b2353c1036ae5176f04212970c13f0c0642fc97b1f69629eb",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c100",
+    "sha256": "f95ae99cf9fedc2326826cd3c7d841a1668d1d796bbc8df10d07e56b6de51d16",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c101",
+    "sha256": "13c6c3bfb2bbe82de8123004912f293bbab5b40067d10ff3f1ea0ea494f68473",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c102",
+    "sha256": "2fc8af044a75ce822bcfda962eaba91a8809dfa5066de2cbbc9183f0c5fe2563",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c103",
+    "sha256": "0dfd036e25cd7a4956abeefb8635599e782807cd667ebb5ea70866fa22b9a6a7",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c104",
+    "sha256": "76d9d7e68413ceb394522e7fe44952b57e497554d010d18b7e31bdf63443c2bd",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English fixes the air temperature. Sinhala fixes the gas temperature without identifying the gas as air. The humidity relation is otherwise the same."
+      }
+    ]
+  },
+  {
+    "id": "phy.therm.c105",
+    "sha256": "8fd615a42d45fd324046a38eb4ccae9fc0d62af51fb98d7333cedb6e0491b652",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c106",
+    "sha256": "2e74591307c8cdae7e0217b43c5c99790fd0c06c8e2a7928f9a49141002b838f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c107",
+    "sha256": "304a77b8869918e9ef7bee2044571b507a77aede2421ec406027174836fc9e93",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c108",
+    "sha256": "26f4dd6436882c27a45e7c4f9828822fb1fa9de27ea53e4092f5905a668566ba",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c109",
+    "sha256": "66c2fe272cf3ddab62a1d8ffcba212ad383f7e39f9cb2c5cb42e88ad62b6d560",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c110",
+    "sha256": "52bb4bf22e792fe8dace6730dd28adc64e1931ebe2c3cf109624480a2eac5e60",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c111",
+    "sha256": "4b9140dee4a8b2a19557965eefbb8123952f363fb3b51800d29ac2382734b2c3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c112",
+    "sha256": "67a93786bc371bc5f13efe61db5072a6296d2a6f2293f1c5ecb1c2c9ad0ed126",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c113",
+    "sha256": "fca3b7ba0af53f974bdd4839a0bdacce055995479e2cce3a2f1754704de511cc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c114",
+    "sha256": "40460264a86bc16fff19cb4d675094f31ce0f7823533906c1261f03119f52888",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c115",
+    "sha256": "4d9c7accd513ddecc3952114149493cf292aa13729631dbce03d9d077a427ac2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c116",
+    "sha256": "9a6bb8fb151d961ebc17d4aeea810a8e1c18f7197f9cb103b215c03ef9ff1b3e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c117",
+    "sha256": "40bdd194f25c2f4f5ad121745f9b83ea66c1df7eeffb1dd1701325bf7af225d1",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.therm.c118",
+    "sha256": "0768bb1abc6fbedf5aeaa010dff5783ca45eb322b8416b6fb377bcd5245380df",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c001",
+    "sha256": "181ebb19d07557ae7e7cd87d0d52c1ed1807891ff21c2e69adcb7e5e972887bd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c002",
+    "sha256": "9529f134c5d3c37c32d745a7db37beac21fdcaa15a2348d8c84c848ae599ef1a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c003",
+    "sha256": "24e9de2b662729093b939bf6874f8223ef67ade220f8a5185b4112cd5cd88a68",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c004",
+    "sha256": "694d1ec59b25e4cb60aa72aeda667fc6b0801e4e3cd8e1d049b779443a9db9d6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c005",
+    "sha256": "fde4fcc91482ef925a6c864d24f8703ab480933cabe4b367b3f28a5337586495",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c006",
+    "sha256": "772e24267857386c5f628989973634e69bd5e9b6e7996a4528de9bf63c98f454",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c007",
+    "sha256": "4fe099e98079ebbe046fb283ce37638f871cfa646f2e1605fd8eb9f92f61fe98",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c008",
+    "sha256": "59399f9657f24b61087b5a5f4fa6199b6966ab8f6f26ac4070ec2d90ade8b424",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English gives the real meter a similar resistance. Sinhala can be read as equal resistance. That is a narrower loading condition, although the reading falls in either case."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c009",
+    "sha256": "c2f2ad6574c4408f4993b6ddda06672f5eb0f9e85a0ac16b5a75967e7d62f1d5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c010",
+    "sha256": "c432e8f235fc3d5a714d7bfb8f379dfbb6fa159967db118df1ecda687f13545b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c011",
+    "sha256": "205218051554dc2424eff2230c45cea888a27ee60cc795ee3c7acb53c365bee5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c012",
+    "sha256": "f30c157e3e1a1acbcf23c548a3935fb701190c52e61b50abc1e45399222a626f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c013",
+    "sha256": "5adc35dbc61e9ccb1f0bf346b33bf81a0dacbbc1c8e22048e41403404043329f",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/2/detail/si",
+        "difference": "English says drift must be faster through the smaller area. Sinhala says fast drift is necessary. The requirement is relative, not an absolute speed."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c014",
+    "sha256": "b38f4b8da01446bd4cf20d4e4545544d2f0009a2fb0bb6687ffbae64bcdc380c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c015",
+    "sha256": "2a34151f41b7d2dcb5ea4b7fe153df75ad0938b0dced6037ecf55189a858271b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c016",
+    "sha256": "ec7d6d916c827d443e69f144a27b5f8dba8006c36a6b6123d657d0b9aa609f20",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c017",
+    "sha256": "bdf832860d78d1fe94983b922ffe39bdc3d2b0a6b809922fb4cff5276a5c3f52",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c018",
+    "sha256": "d09c3b3439843d84b660bec9f650187595167ec1f61b93ea7ffaa64015baf324",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c019",
+    "sha256": "f78b8d598b62c905fd6b2ae90c7634a545688d53f4aef6a86537ef47eec51ada",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c020",
+    "sha256": "0f2f1afd5755892445c3391a4df9bee1213d205019d3fe3b6c27745a5c98e6cd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c021",
+    "sha256": "6c3ab8cabfcf42f0d6e4bb9c5c00faeac41b8388b96efb2f55493d8ec0947484",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c022",
+    "sha256": "7de743dcaa7c64d2e72ef616b5421f89381a43b43ade1945c739ebe3a04b6b54",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c023",
+    "sha256": "e104b05abdc3d17595ad27302c0dd0c6758d7401441399cb5ef2be6f9d2c4804",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c024",
+    "sha256": "e4937cd850587d0b1ffa676c7f81a05e1c718365de3c591bc04164a2f7576ed4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c025",
+    "sha256": "5cf716ef48d5c1cdc28209b500fd1e6b28d8591b98613ab197ec50d96c39cfa6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c026",
+    "sha256": "dd9255cc5754344bf8282f85a6d31159c91f3874a0b892bce6b497bafbd14416",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c027",
+    "sha256": "5d191c4067f6617bbe851c437debf1e590b5ec2d4b76a53c3913b08419a3441a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c028",
+    "sha256": "9488fa15071df075bf82688ce6b14b712a02ad122ff94d26a21cee19891fdc2c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c029",
+    "sha256": "6578303e1ab45cdfc0f7c5284047193321fafa78f7f6c9ae12cd3b99e24f21f0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c030",
+    "sha256": "6cc853fbe571fce65fbbd331270a46b1a61ccb90921e5e9679b76aeacc0cfdec",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c031",
+    "sha256": "142a08864fa4c724383af6204b0027a996fe20cacf4d11ec530f7fa66a26a5e9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c032",
+    "sha256": "9d61a2dd7235827e6d44e2dd74def917ca1e4e7ae0c53c57410d8f10c69cf643",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c033",
+    "sha256": "b0cfc808b0fee47d1bd37224332d9d82915bda574224da3d84608bcc67493b10",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/2/text/si",
+        "difference": "English claims a faster reading than the alternative instrument. Sinhala says the reading is quick. Neither wording is the keyed advantage."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c034",
+    "sha256": "1a53ba6b5c8c1469a30688e3a927041bb470c0ccc997344f57a64fc96b8db24e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c035",
+    "sha256": "e727d7e86327798f899abab6eda6fa4378b7904237822d6c2347740b92458d7d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c036",
+    "sha256": "e0dafc94f0fb421eb4d094b495b6d4f928ee96befe5caacce88ef2ba986d3d3d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c037",
+    "sha256": "7a5026ab34b7e839b103183d59032750739fcdc1ade9fe9aaefe898ae9dc28e9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c038",
+    "sha256": "d09af09f249f36577112ca2f18446299cb93adf190432aa61ef0d71f56d127d9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c039",
+    "sha256": "81fcc472caadc34edd31b145b3216562c9f4f66468138ba05c90cfa3b317130b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c040",
+    "sha256": "8caf97efdd3879c62011e371785560b7f9ac9d7d4a396a4a162391ae1a68662c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c041",
+    "sha256": "1bd2d55fe2d9e5552fb8ecf210a2357defbf7a4f86153a70bfceda6239358f95",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c042",
+    "sha256": "7cfee7975ff88d8f212edadf2e2240dc09d2c1706b2581efe7f60818fdc0baf1",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c043",
+    "sha256": "7f80270a2187c04c06889408da8e255043f06d3d1beb5b2be3b40dc3a1ad5517",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c044",
+    "sha256": "1c57b70a93c4a79afeb073bced0e8dc38d3d2ead7f8fb6108e22a7b3f11213b7",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/options/2/detail/si",
+        "difference": "English says back e.m.f. grows as the coil turns faster. Sinhala says it grows when the coil turns fast. A constant high speed gives constant back e.m.f."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c045",
+    "sha256": "5113fcb917568399cb05b10ba164cb74d562f8779467eaa0e6e60933a7c3460b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c046",
+    "sha256": "38b9ee51496999b0a66ab9f2a84528d6dc9118bf876e1647361a4bc4a9de68de",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c047",
+    "sha256": "bddc4b3a2f869bb60d7a908bd5f29129b5649103f8a4453068b90a728f75bc9c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c048",
+    "sha256": "5bdca3061235bcd090c9661a782f896f886b54aa05561d93f79cd0d3e42248e9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c049",
+    "sha256": "dd215c1c30767794359794d3b02e6e75dc69bd69132e246dcb5873912e088975",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c050",
+    "sha256": "9127a1b43dc1ebc8f63de306b72ef4d3d109ab43253e62d3b41c98a1b24880b6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c051",
+    "sha256": "2bdff858cf8d3d6f2fb3851c54926f406db6f0c4e18273120a92df61b87d1326",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c052",
+    "sha256": "b8a36829d0200fa517b0742ae978aa4e708db40f870c888e58c0ac01c8eeedf9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c053",
+    "sha256": "225a20a8f3ded73f2be10db53e95e53245fcfef3136b73c9c3ea388d6da7547b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-01",
+    "sha256": "00074549af32a7ff3f81955a462bdcd9c562d4d910397d8a023727219abf9b80",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-02",
+    "sha256": "c12eb2e3ee73f2cbf69136701a77af97359e565e6ecd6f9d00692e61b905fa2d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-03",
+    "sha256": "13b8dbdc906a4de5aa98d0f3d36f7dc29d98af1fdbc13ebbdc215432b686d80c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-04",
+    "sha256": "d7bfe130e14bf3530cba16c57f3777596a8dda118560525866d831c95c5115db",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-05",
+    "sha256": "d2cdb45990f4327a734ddc7e06c1f7a9936e38618dae88015f4a7f23d76dceb5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p01-06",
+    "sha256": "6cef3b3a136e56fcca230ba937fde79c4d359a8d1953bb1813d99f33b2b10c3f",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English gives another, different cell. Sinhala specifies that its e.m.f. differs. Two distinct cells could have the same e.m.f. in the English setup."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.p02-01",
+    "sha256": "f727b63be97aa52185e8219b37012cb3aefaa796f845b726642798ac21d14c90",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p02-02",
+    "sha256": "757aa957b641815ea05a76c7a16a19e6a70fe01bf87c714169e374159d2dac4d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p02-03",
+    "sha256": "df4bc5debe49bc6b3950137314a7a97e0ada73adc6a6a64ccf2e2569a4aa5173",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p02-04",
+    "sha256": "efa0728bbcbedd509df2bbbd56fa0e5afede38d89f527ab370eedf920712c6b5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p02-05",
+    "sha256": "9873956b7faeed5b7feea2039d101cfe347d750fdf3b7b1f42c48df01fc2c7c2",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p02-06",
+    "sha256": "4a756c63bee5761cfaa0733e8d5d8c9401a4e6bdabd43f2e9e98d5ee301e034e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-01",
+    "sha256": "a9edb4518a9e4fa991a6b31fcf5138a64721a310d12cd670f9e64e4c9c838744",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-02",
+    "sha256": "e2398d72f3512f8159a4e41b5b00d12e49534737f1a249796ee9ccf30046bf0e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-03",
+    "sha256": "601bfc3ad1699e990c1517e0d198958b5b3da2afad23f39287a0899f61b218b0",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-04",
+    "sha256": "20d5cd60eedb306a1f0a7761f18aa8bd64e4da0c5e45ad0df75a7a92a70a16ac",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-05",
+    "sha256": "a422556203b432b51280092d3f712f18dd7d14580a8b59f6cc4001e887b3855b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.p03-06",
+    "sha256": "3df93f361fcafb94c601d6913d9d985728dad932a0c2a6259c0b30602c9085e9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t01",
+    "sha256": "e1de937c914a664783e61f9277a7132b393be9c3b3a2aefaf0efd0002aa5027b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t02",
+    "sha256": "6c0c0559502032b9129b009d8753538276aa69990b37054df63264615905279b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t03",
+    "sha256": "652aae678b71b26e0eb953e54f870caf85541782399701388705c1493275d5f7",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t04",
+    "sha256": "066ba51c76164f95dce756aca0cec42f3661fc2bfcc39a0cf8028aabf4380907",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t05",
+    "sha256": "2d6a8b2a1595acf5c5ad7b9471eed1563d26656a7fe9832f7d5d9691f7c2d89b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t06",
+    "sha256": "6d3b0ec0d73af7c6b0da547469a64ec10ef8071957dfe198b288550854df4ddc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t07",
+    "sha256": "958fbaaa1de56440dadd7b6a45b90dd8a419195c0c312e66b9fa88a2c5df23c8",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t08",
+    "sha256": "3e02b9410ff3ff183903e7ac96767e7e1990c344d9455553c609ef1f2c0b1122",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t09",
+    "sha256": "7f6001777f785146ecf240a5020ca209fbb9f66a97a7a80cb6eac0424dbd3caa",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t10",
+    "sha256": "a7be19111b66eca4f34266953f4f0bd88848ede6ba8951de8f290c839b23b980",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t11",
+    "sha256": "8117f859a2f4f4f345aa26db63b184f2c711793c95fccd30add647477c566c08",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t12",
+    "sha256": "9f1cd14c215885c629893cfcc6d9181000c9b26aab0f9b01d41182b1e5155adf",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.t13",
+    "sha256": "26cfd0be1c139eb3dedaa67e9126d5c9e83ed210e42ad11d08be885365f77456",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.b01",
+    "sha256": "c7647752ffbce5785e4847b10be163bfc46c1bb7d2bf6b9bf058e6fe4277bac1",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/statements/1/text/si",
+        "difference": "English says electrons drift faster in the thin section than in the thick section. Sinhala just says they drift fast. Even the faster drift speed can be very small."
+      },
+      {
+        "field": "/statements/6/text/si",
+        "difference": "The false statement says electrons drift more slowly in the thin section. Sinhala says they drift slowly, which can be true in both sections."
+      },
+      {
+        "field": "/explanation/si",
+        "difference": "The explanation repeats the missing comparison. It describes fast drift at small area without saying faster than at large area."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.b02",
+    "sha256": "0cf4d64baf47d984de21ac9c0c1aa81429e1541eb7ae05bedb6257667c3c092c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c054",
+    "sha256": "41c74e09343aa4789feca73ccbe68582d807c44c54a3926709447172fbdcf516",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c055",
+    "sha256": "db459b0545014a0f0fb7a11952b3229fb19f7df7e1703fc0dd47de0cc1732bdd",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c056",
+    "sha256": "7e1afeaaf2ad3047462b2ffa52d918a5a16132a301e4b7a73b730184841ac0f9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c057",
+    "sha256": "dc709b681b3f64a597ca6bb7ea3e70541e6393e2cb5e84e4ae3dba0ead59f1c9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c058",
+    "sha256": "ba24ab30bead69f3589108fa0403a67e80bacb0aba62cb6a02167e7d27ca8006",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c059",
+    "sha256": "07ddee3023c2db20349c6c39f4ed38fba9037e650dfdf2f27d25f0d0355e1a5a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c060",
+    "sha256": "49fe6378d927ea2ad3975b430de142b438f8297e591ca5d754542336c1776b6a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c061",
+    "sha256": "4799b3e05488436c54a22e3a1d8c683e6de7ef2a8ab8cf0b0eafbd308f70d62d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c062",
+    "sha256": "6ee102c41104924cc6476c3f311529a98341366975e2222c61c9fab8aa11dd98",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c063",
+    "sha256": "f797290c7ed1727763a9e0f7a386fee64ae67fea8fb38dcc7f929cbfb0f63d0e",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c064",
+    "sha256": "96ec11f64b313b2c60786ccda3cbc77a67983d199a2afaeba7675209882f7256",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English calls the connection a tap. Sinhala calls it the midpoint. This is a junction of unequal resistors, so it need not be halfway in potential."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c065",
+    "sha256": "830aae2a29ffa943ef8bd5031f62dc95a68b8927658becbb44ebfd2d99e4c4c9",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c066",
+    "sha256": "34a965fe660a1942c34047a994260004774ab14d855251566c08c51f35f7846d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c067",
+    "sha256": "1d8cfe545b7cde76a6b1dfcebb766fd3250dd370b2c811eacf02d8c885443492",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c068",
+    "sha256": "b9319fb032851d6214c92d2e74c6efcb8b845ada710e2e42245b66a80082b614",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c069",
+    "sha256": "1d95d381b9095ddde12f9ada7564ca55d61d7d55003e8980d7ac005eb4d55a3b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c070",
+    "sha256": "eba5e21bc562fc6f87fb36d9938b013dd7958081a73b62c719ab2fa051b2dcf4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c071",
+    "sha256": "12378532038d2cce0f21bc6d388ac4daefe708916f93814a9a4b1a51e644e64b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c072",
+    "sha256": "80df4819d65b71b7cf9b5a944cc8e47daafe017f1e1b3a219bcb559516329c35",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c073",
+    "sha256": "0fcfecc946a5aa4f2ebb221e63c9f2fe00fb399a758de01f3cc45768930532da",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c074",
+    "sha256": "58ff9220353b91a33225e6d754cbb747485a35f57b0eca5bde7328c402259e80",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c075",
+    "sha256": "3e1d882cfd045323616999f6cf43c370512a7aaf3f132712cc19d2b29c1312a7",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c076",
+    "sha256": "8e1223d0ab5042600695428e7f945c31c13916f4fbdcb9630d9bea0b7e545b99",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c077",
+    "sha256": "bc68cac46e91c24f9bb51ed5c04561adfdeedaae2d5b90c2e66e90c17d553bef",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c078",
+    "sha256": "5653a4698e0b9d24438fcdd952ad6245aac8c5eb94ce9afa4860fd9bc86efb8d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c079",
+    "sha256": "237f40145ea2a3efa42b92af515d6eebda4ff128afe83bd020997fec2245249c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c080",
+    "sha256": "64636a347abf8bbbdfcb19434abef3b97649d00228a50e055b01dea0c715e89f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c081",
+    "sha256": "41ec5dd2e3dfa156d4de60ef36c9fb5319a0023888ab3eecba8d9b0259d2b122",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c082",
+    "sha256": "299fd301c883d15f36f5726c82703bef1411080473dd7b23f39d40cade17899c",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c083",
+    "sha256": "12993939f616fc1c3a2b8831704843f3354e2baf476772c59b62dfbab38fd3ba",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c084",
+    "sha256": "8c33cb031e159997a4de09e48ef6a77bf606a8c9b7894db7a33305fdf3ea2ed5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c085",
+    "sha256": "a5d83764c6e1b54c47f43e54eb5803c1d94626157c2a95e973d4f70c249aed27",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c086",
+    "sha256": "6c65284e9b4ff14df01a997df80a63054b46ff4533b1b651d2e858359495542c",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/explanation/si",
+        "difference": "English names the conductance of the cell combination, measured in siemens. Sinhala uses සන්නායකතාව, also the textbook term for material conductivity, measured in siemens per metre. Specify the reciprocal of the combination’s resistance."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c087",
+    "sha256": "2c6dd7edd77844ceaed037988955d211df5222a737287c81e2d6afb5fc4085b5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c088",
+    "sha256": "a9b3e83c25c415d8464124ec6f30f9c49d7eb33e238bd0f3431df59fedaf37be",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c089",
+    "sha256": "d0ce95ba24ea59d772cb8c6617625e1945314ae22e57d407ed8a8fe798343d10",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c090",
+    "sha256": "c9e6155cdbdbc7488c3887b1b8e29aa04915f87df4d262ab9aae0ed4c51e2f31",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c091",
+    "sha256": "f8f0f844f0e595ba3dd637f68aedf612260ae47beca27a90477b84803d74fc90",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c092",
+    "sha256": "c1c6c5f7a79ef0d892150aee510c59e3bb660fd1cd5c0bd347065ba38597b97d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c093",
+    "sha256": "f9b7f1d4f0b9b4336ea49c2d1133f5b8db5c812094fdfff92957a17f13d2ef4f",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c094",
+    "sha256": "0f215350d888a4746090b6fb393d640aada595852709ca21ec5b8774f7ea459b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c095",
+    "sha256": "20bea720561a9ca87f1bea9d571827b33daaef1e73eb464546edf349653c3073",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c096",
+    "sha256": "82471db55d76d17b5282cca7040842b248d301ca3d12f0ea39062fa77300d5dc",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c097",
+    "sha256": "8cd4ca9d3c4b543c1bd94d628cadb5a24821d920005cfa5d001a000bf15f1042",
+    "verdict": "differs",
+    "differences": [
+      {
+        "field": "/text/si",
+        "difference": "English leaves “across it” ambiguous between the meter and resistor. Sinhala names the resistor. Both versions still describe the wrong function for an ammeter."
+      }
+    ]
+  },
+  {
+    "id": "phy.elec.c098",
+    "sha256": "8495e1d8f424cb3b079dc4ee79d163c19fe81b2febb0e1e2e8e7506b69e08630",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c099",
+    "sha256": "b1ec52ed6a3916fdfb00c02d0672bfefe1751a2bbfe774510cb6b1bfbc412f07",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c100",
+    "sha256": "9f45e4a457276a31ab2327ccd5fb4aa4890d35bc7fbf456dda84d60b207d2af3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c101",
+    "sha256": "b0c371bce97b862e8017baf7b29134fdea8e979820d68558a8089ce6b7610be6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c102",
+    "sha256": "534a359581878b2a3bd02a0156dfdc51987d16c26871bcd7c0fda235599eea1b",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c103",
+    "sha256": "399ebd4d584a8ad03c2e190653faa8122d683aa8b829931e98f61305246b1f39",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c104",
+    "sha256": "e7ed92a600fc04098d4965138676f16c525f5e0bf81b7a62d8424c27ad2be4c6",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c105",
+    "sha256": "87d2bcb0f3e9342834547ad5cd5e885f0c4f17d8cec63f04fc3dfb89a065b007",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c106",
+    "sha256": "090bb9aac9a2e795e4c8586d122ac1ef50015cf048ccab11e2ed5f6557b85c26",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c107",
+    "sha256": "865b5231f78807623dc851b604e8fa1d59603f25222dc77c7d955ac04d507e78",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c108",
+    "sha256": "04d3fcd41fc8be134ba07d76df803bb485064aa13c03ff17b1aa8150e165c27a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c109",
+    "sha256": "60e9e7d3e00ade50fd513cfdcbf550175f7ef708e5e9963cd939dfdec8e770f4",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c110",
+    "sha256": "515fa86b3d3652b1d3d6ee70d5779354c9ca98e943d279345cb4dbc6d4ee1192",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c111",
+    "sha256": "cf183772923ffab94ff1d471b5f75a82792a9b9529b5ecbe67827836ef132395",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c112",
+    "sha256": "39e3de5c914fd7c7732a8940808c401dc48a2bf91b437627af2c1f9a7f494639",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c113",
+    "sha256": "c5f274de06bf18760805883be7cab1fdb66755986e14e82a3d1131cb623882e5",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c114",
+    "sha256": "68ff881ed9dc778ac0d376f3140c6554332ecd3452266468f67501d1aa3ab0af",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c115",
+    "sha256": "093fd86614c38229c8fb7c29f2ff9cf787d30b3e2efb505b1681ac3f15614d2a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c116",
+    "sha256": "ec67f8c9defc0a2046713d4d336a5644003b582720226fadb31508f89068f8a3",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c117",
+    "sha256": "e2e0518217cbe76999c2f74f5a279ecbc603bf50278df0d4f2d2bed20a8f5624",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c118",
+    "sha256": "a80436a220846963d78ceca64d8535205ed7ca572b3771386f662eb5a7360963",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c119",
+    "sha256": "3fefd296586776b433994730216206edb77d53a6f9c989ea30822e40e9df174d",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c120",
+    "sha256": "4eb3a408840cb72a79bed0ec00e7cb04f70b3d5e419c1f572291113368e71416",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c121",
+    "sha256": "3d6d3aede68a1cd21b6453a5cc5f826691329d03c4b4cf8ed729f7470d18bf9a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c122",
+    "sha256": "2081faf9301e9c53a5d631cd741b0f40857e4e5008ae08618cd6037217a2ca94",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c123",
+    "sha256": "dfbc0aca4839455548c54939268eb847eda44e324b6a6b9b4b1ac1f7d585b059",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c124",
+    "sha256": "e87159d5cfff597c4b28c0ae9bcd5517dd06395b92cbd9f4f7d8baebe0dafa2a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c125",
+    "sha256": "ef493d5d4151d24cc1046c367612086f5396d56e919de12ccba6d6f292bd9b80",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c126",
+    "sha256": "6b87f5a3b2e490eb6397cfe6edbe437f22d573c93cc20b8f368f21e2fe2a1d43",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c127",
+    "sha256": "cca53da0f39d8b6c5e1092acef039cbbf4c5663219374fdb64fa376f340d071a",
+    "verdict": "same"
+  },
+  {
+    "id": "phy.elec.c128",
+    "sha256": "b1cf0a12f55b955f42f257b7e86df11aff2f0f90559141055f3faf5a57414d9e",
+    "verdict": "same"
+  }
+]

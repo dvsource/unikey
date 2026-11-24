@@ -1,0 +1,811 @@
+diff --git a/content/repair-drafts/current-electricity-20/cards.json b/content/repair-drafts/current-electricity-20/cards.json
+--- a/content/repair-drafts/current-electricity-20/cards.json
++++ b/content/repair-drafts/current-electricity-20/cards.json
+@@ -1894,7 +1894,7 @@
+           "tag": "stopped-early",
+           "detail": {
+             "en": "Use the current through the matched resistor in I²R to find power.",
+-            "si": "ජවය සෙවීමට එම ප්‍රතිරෝධක ධාරාව I²R හි යොදන්න."
++            "si": "භාර ප්‍රතිරෝධය කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධයට සමාන විට, භාරය තුළින් ගලන ධාරාව I²R සූත්‍රයට ආදේශ කර ජවය සොයන්න."
+           }
+         },
+         {
+@@ -1908,7 +1908,7 @@
+       "option_order": "fixed",
+       "explanation": {
+         "en": "Use the current through the matched resistor in I²R to find power.",
+-        "si": "ජවය සෙවීමට එම ප්‍රතිරෝධක ධාරාව I²R හි යොදන්න."
++        "si": "භාර ප්‍රතිරෝධය කෝෂයේ අභ්‍යන්තර ප්‍රතිරෝධයට සමාන විට, භාරය තුළින් ගලන ධාරාව I²R සූත්‍රයට ආදේශ කර ජවය සොයන්න."
+       },
+       "assets": []
+     },
+diff --git a/content/repair-drafts/mechanics-20/cards.json b/content/repair-drafts/mechanics-20/cards.json
+--- a/content/repair-drafts/mechanics-20/cards.json
++++ b/content/repair-drafts/mechanics-20/cards.json
+@@ -2507,14 +2507,14 @@
+           "tag": "stopped-early",
+           "detail": {
+             "en": "Taking moments about A gives Fᵦ × 4 = 12 × 1.",
+-            "si": "A වටා සූර්ණ ගත් විට Fᵦ × 4 = 12 × 1 වේ."
++            "si": "A වටා ඝූර්ණ ගත් විට Fᵦ × 4 = 12 × 1 වේ."
+           }
+         }
+       ],
+       "option_order": "shuffle",
+       "explanation": {
+         "en": "Taking moments about A gives Fᵦ × 4 = 12 × 1.",
+-        "si": "A වටා සූර්ණ ගත් විට Fᵦ × 4 = 12 × 1 වේ."
++        "si": "A වටා ඝූර්ණ ගත් විට Fᵦ × 4 = 12 × 1 වේ."
+       },
+       "assets": []
+     },
+@@ -2534,7 +2534,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "A mass m hangs at horizontal distance d from a pivot. Which expression gives the magnitude of the moment of its weight?",
+-        "si": "අසව්වක සිට තිරස් දුර d හි m ස්කන්ධයක් එල්ලා ඇත. එහි බර නිසා අසව්ව වටා ඇති බල සූර්ණයේ විශාලත්වය කීය ද?"
++        "si": "අසව්වක සිට තිරස් දුර d හි m ස්කන්ධයක් එල්ලා ඇත. එහි බර නිසා අසව්ව වටා ඇති බල ඝූර්ණයේ විශාලත්වය කීය ද?"
+       },
+       "options": [
+         {
+@@ -2592,7 +2592,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "Taking moments about a pin removes the unknown force acting at that pin from the moment equation.",
+-        "si": "ඇණයක් වටා සූර්ණ ගත් විට එම ඇණය මත ක්‍රියා කරන නොදන්නා බලය සූර්ණ සමීකරණයෙන් ඉවත් වේ."
++        "si": "ඇණයක් වටා ඝූර්ණ ගත් විට එම ඇණය මත ක්‍රියා කරන නොදන්නා බලය ඝූර්ණ සමීකරණයෙන් ඉවත් වේ."
+       },
+       "options": [
+         {
+@@ -2646,7 +2646,7 @@
+           "tag": "wrong-law",
+           "detail": {
+             "en": "A couple has zero resultant force and a nonzero moment.",
+-            "si": "බල යුග්මයක සම්ප්‍රයුක්ත බලය ශූන්‍ය වුවත් සූර්ණය ශූන්‍ය නොවේ."
++            "si": "බල යුග්මයක සම්ප්‍රයුක්ත බලය ශූන්‍ය වුවත් ඝූර්ණය ශූන්‍ය නොවේ."
+           }
+         },
+         {
+@@ -2660,7 +2660,7 @@
+       "option_order": "fixed",
+       "explanation": {
+         "en": "A couple has zero resultant force and a nonzero moment.",
+-        "si": "බල යුග්මයක සම්ප්‍රයුක්ත බලය ශූන්‍ය වුවත් සූර්ණය ශූන්‍ය නොවේ."
++        "si": "බල යුග්මයක සම්ප්‍රයුක්ත බලය ශූන්‍ය වුවත් ඝූර්ණය ශූන්‍ය නොවේ."
+       },
+       "assets": []
+     },
+@@ -2680,7 +2680,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "A uniform heavy bar supported at its ends may always be treated as weightless in a moment equation.",
+-        "si": "දෙකෙළවරින් දරා ඇති ඒකාකාර බර දණ්ඩක ස්වකීය බර සූර්ණ සමීකරණයේදී සෑම විටම නොසලකා හැරිය හැකිය."
++        "si": "දෙකෙළවරින් දරා ඇති ඒකාකාර බර දණ්ඩක ස්වකීය බර ඝූර්ණ සමීකරණයේදී සෑම විටම නොසලකා හැරිය හැකිය."
+       },
+       "options": [
+         {
+@@ -2692,7 +2692,7 @@
+           "tag": "ignored-condition",
+           "detail": {
+             "en": "Its weight acts at its centre. It produces a moment about either end.",
+-            "si": "එහි බර මධ්‍ය ලක්ෂ්‍යයේ ක්‍රියා කරයි. එබැවින් ඕනෑම කෙළවරක් වටා සූර්ණයක් ඇති කරයි."
++            "si": "එහි බර මධ්‍ය ලක්ෂ්‍යයේ ක්‍රියා කරයි. එබැවින් ඕනෑම කෙළවරක් වටා ඝූර්ණයක් ඇති කරයි."
+           }
+         },
+         {
+@@ -2706,7 +2706,7 @@
+       "option_order": "fixed",
+       "explanation": {
+         "en": "Its weight acts at its centre. It produces a moment about either end.",
+-        "si": "එහි බර මධ්‍ය ලක්ෂ්‍යයේ ක්‍රියා කරයි. එබැවින් ඕනෑම කෙළවරක් වටා සූර්ණයක් ඇති කරයි."
++        "si": "එහි බර මධ්‍ය ලක්ෂ්‍යයේ ක්‍රියා කරයි. එබැවින් ඕනෑම කෙළවරක් වටා ඝූර්ණයක් ඇති කරයි."
+       },
+       "assets": []
+     },
+@@ -2726,7 +2726,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "For a sloping bar and a vertical weight, the horizontal separation from the pivot to the weight’s line of action gives the moment arm.",
+-        "si": "ආනත දණ්ඩක් මත සිරස් බරක් සඳහා සූර්ණ භුජය වන්නේ අසව්ව හා බරේ ක්‍රියා රේඛාව අතර තිරස් පරතරයයි."
++        "si": "ආනත දණ්ඩක් මත සිරස් බරක් සඳහා ඝූර්ණ භුජය වන්නේ අසව්ව හා බරේ ක්‍රියා රේඛාව අතර තිරස් පරතරයයි."
+       },
+       "options": [
+         {
+@@ -3122,7 +3122,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "The moment of inertia of the same rod can differ for an axis through its end and a parallel axis through its centre.",
+-        "si": "එකම දණ්ඩක කෙළවරින් යන අක්ෂයක් හා ඊට සමාන්තරව මැදින් යන අක්ෂයක් සඳහා අවස්ථිති සූර්ණය වෙනස් විය හැකිය."
++        "si": "එකම දණ්ඩක කෙළවරින් යන අක්ෂයක් හා ඊට සමාන්තරව මැදින් යන අක්ෂයක් සඳහා අවස්ථිති ඝූර්ණය වෙනස් විය හැකිය."
+       },
+       "options": [
+         {
+@@ -3164,7 +3164,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "Spinning a rigid disc faster increases its moment of inertia about its fixed axle.",
+-        "si": "දෘඪ තැටියක් එහි ස්ථිර අක්ෂය වටා වේගයෙන් කරකැවූ විට එහි අවස්ථිති සූර්ණය වැඩි වේ."
++        "si": "දෘඪ තැටියක් එහි ස්ථිර අක්ෂය වටා වේගයෙන් කරකැවූ විට එහි අවස්ථිති ඝූර්ණය වැඩි වේ."
+       },
+       "options": [
+         {
+@@ -3206,7 +3206,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "Two bodies of equal mass must have equal moments of inertia about their respective central axes.",
+-        "si": "සමාන ස්කන්ධ ඇති වස්තු දෙකකට ඒවායේ මධ්‍ය අක්ෂ වටා අනිවාර්යයෙන්ම සමාන අවස්ථිති සූර්ණ ඇත."
++        "si": "සමාන ස්කන්ධ ඇති වස්තු දෙකකට ඒවායේ මධ්‍ය අක්ෂ වටා අනිවාර්යයෙන්ම සමාන අවස්ථිති ඝූර්ණ ඇත."
+       },
+       "options": [
+         {
+@@ -3248,7 +3248,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "Of a thin hoop and a uniform disc of equal mass and radius, the hoop has the larger moment of inertia about the central perpendicular axis.",
+-        "si": "තුනී වළල්ලක හා ඒකාකාර තැටියක ස්කන්ධ හා අරය සමානය. තලයට ලම්බක මධ්‍ය අක්ෂය වටා වැඩි අවස්ථිති සූර්ණය ඇත්තේ වළල්ලටය."
++        "si": "තුනී වළල්ලක හා ඒකාකාර තැටියක ස්කන්ධ හා අරය සමානය. තලයට ලම්බක මධ්‍ය අක්ෂය වටා වැඩි අවස්ථිති ඝූර්ණය ඇත්තේ වළල්ලටය."
+       },
+       "options": [
+         {
+@@ -3290,7 +3290,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "Moving a point mass twice as far from an axis doubles its contribution to moment of inertia.",
+-        "si": "ලක්ෂ්‍යාකාර ස්කන්ධයක් අක්ෂයේ සිට දෙගුණයක් දුරට ගෙන ගිය විට අවස්ථිති සූර්ණයට එහි දායකත්වය දෙගුණ වේ."
++        "si": "ලක්ෂ්‍යාකාර ස්කන්ධයක් අක්ෂයේ සිට දෙගුණයක් දුරට ගෙන ගිය විට අවස්ථිති ඝූර්ණයට එහි දායකත්වය දෙගුණ වේ."
+       },
+       "options": [
+         {
+@@ -3332,7 +3332,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "For several point masses about one axis, their separate moments of inertia can be added.",
+-        "si": "එකම අක්ෂයක් සඳහා ලක්ෂ්‍ය ස්කන්ධ කිහිපයක අවස්ථිති සූර්ණ වෙන වෙනම ගණනය කර එකතු කළ හැකිය."
++        "si": "එකම අක්ෂයක් සඳහා ලක්ෂ්‍ය ස්කන්ධ කිහිපයක අවස්ථිති ඝූර්ණ වෙන වෙනම ගණනය කර එකතු කළ හැකිය."
+       },
+       "options": [
+         {
+@@ -3374,7 +3374,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "A spinner has Iω = 12 kg m² s⁻¹. Its moment of inertia drops from 6 to 3 kg m² with zero external torque. What is its new angular speed in rad s⁻¹?",
+-        "si": "භ්‍රමණය වන වස්තුවකට Iω = 12 kg m² s⁻¹ වේ. බාහිර ව්‍යාවර්තය ශූන්‍යව තිබියදී අවස්ථිති සූර්ණය 6 සිට 3 kg m² දක්වා අඩු වේ. නව කෝණික වේගය rad s⁻¹ වලින් කීය ද?"
++        "si": "භ්‍රමණය වන වස්තුවකට Iω = 12 kg m² s⁻¹ වේ. බාහිර ව්‍යාවර්තය ශූන්‍යව තිබියදී අවස්ථිති ඝූර්ණය 6 සිට 3 kg m² දක්වා අඩු වේ. නව කෝණික වේගය rad s⁻¹ වලින් කීය ද?"
+       },
+       "options": [
+         {
+@@ -3393,7 +3393,7 @@
+           "tag": "ignored-condition",
+           "detail": {
+             "en": "Divide the conserved angular momentum by the new moment of inertia.",
+-            "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති සූර්ණයෙන් බෙදන්න."
++            "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති ඝූර්ණයෙන් බෙදන්න."
+           }
+         },
+         {
+@@ -3405,7 +3405,7 @@
+           "tag": "stopped-early",
+           "detail": {
+             "en": "Divide the conserved angular momentum by the new moment of inertia.",
+-            "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති සූර්ණයෙන් බෙදන්න."
++            "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති ඝූර්ණයෙන් බෙදන්න."
+           }
+         },
+         {
+@@ -3420,7 +3420,7 @@
+       "option_order": "shuffle",
+       "explanation": {
+         "en": "Divide the conserved angular momentum by the new moment of inertia.",
+-        "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති සූර්ණයෙන් බෙදන්න."
++        "si": "සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති ඝූර්ණයෙන් බෙදන්න."
+       },
+       "assets": []
+     },
+@@ -3566,7 +3566,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "With zero external torque angular velocity stays fixed even if the moment of inertia changes.",
+-        "si": "බාහිර ව්‍යාවර්තය ශූන්‍ය නම් අවස්ථිති සූර්ණය වෙනස් වුවත් කෝණික ප්‍රවේගය නියතව පවතී."
++        "si": "බාහිර ව්‍යාවර්තය ශූන්‍ය නම් අවස්ථිති ඝූර්ණය වෙනස් වුවත් කෝණික ප්‍රවේගය නියතව පවතී."
+       },
+       "options": [
+         {
+@@ -3826,7 +3826,7 @@
+       "option_order": "fixed",
+       "explanation": {
+         "en": "The hoop has the larger moment of inertia.",
+-        "si": "වළල්ලේ අවස්ථිති සූර්ණය වැඩිය."
++        "si": "වළල්ලේ අවස්ථිති ඝූර්ණය වැඩිය."
+       },
+       "assets": []
+     },
+diff --git a/content/repair-drafts/thermal-physics-20/cards.json b/content/repair-drafts/thermal-physics-20/cards.json
+--- a/content/repair-drafts/thermal-physics-20/cards.json
++++ b/content/repair-drafts/thermal-physics-20/cards.json
+@@ -3000,7 +3000,7 @@
+       "review_notes": null,
+       "text": {
+         "en": "In an adiabatic process the temperature change must be zero.",
+-        "si": "අනුෂ්ණීය ක්‍රියාවලියක උෂ්ණත්ව වෙනස ශූන්‍ය විය යුතුය."
++        "si": "ස්ථිරතාපී ක්‍රියාවලියක උෂ්ණත්ව වෙනස ශූන්‍ය විය යුතුය."
+       },
+       "options": [
+         {
+diff --git a/content/sample-v2/current-electricity-20/items.json b/content/sample-v2/current-electricity-20/items.json
+--- a/content/sample-v2/current-electricity-20/items.json
++++ b/content/sample-v2/current-electricity-20/items.json
+@@ -12,7 +12,7 @@
+   {
+    "id": "phy.elec.cur.potential-divider",
+    "name": "Potential divider",
+-   "name_si": "විභව බෙදුම්කරය",
++   "name_si": "විභව බෙදුම් පරිපථය",
+    "type": "procedural"
+   },
+   {
+@@ -1052,7 +1052,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "P = V²/R, so P ∝ V².",
+-    "si": "P = V²/R, so P ∝ V²."
++    "si": "P = V²/R, එබැවින් P ∝ V²."
+    }
+   },
+   {
+@@ -1353,7 +1353,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Part of the e.m.f., Ir, is used up inside the cell.",
+-    "si": "වි.ගා.බ. යෙන් කොටසක් වන Ir කෝෂය තුළ වැය වේ."
++    "si": "විද්‍යුත් ගාමක බලය (වි.ගා.බ.) යෙන් කොටසක් වන Ir කෝෂය තුළ වැය වේ."
+    }
+   },
+   {
+@@ -1496,7 +1496,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "The e.m.f. stays E. The two internal resistances are in parallel, giving r/2.",
+-    "si": "වි.ගා.බ. E ලෙසම පවතී. අභ්‍යන්තර ප්‍රතිරෝධ දෙක සමාන්තරගත නිසා r/2 ලැබේ."
++    "si": "විද්‍යුත් ගාමක බලය (වි.ගා.බ.) E ලෙසම පවතී. අභ්‍යන්තර ප්‍රතිරෝධ දෙක සමාන්තරගත නිසා r/2 ලැබේ."
+    }
+   },
+   {
+@@ -2216,7 +2216,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω.",
+-    "si": "E ÷ V = l₁ ÷ l₂ = 1.2, so r = 0.2 × 5 Ω."
++    "si": "E ÷ V = l₁ ÷ l₂ = 1.2, එබැවින් r = 0.2 × 5 Ω."
+    }
+   },
+   {
+@@ -2428,7 +2428,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "E = N dΦ/dt, so E ∝ N.",
+-    "si": "E = N dΦ/dt, so E ∝ N."
++    "si": "E = N dΦ/dt, එබැවින් E ∝ N."
+    }
+   },
+   {
+diff --git a/content/sample-v2/mechanics-20/items.json b/content/sample-v2/mechanics-20/items.json
+--- a/content/sample-v2/mechanics-20/items.json
++++ b/content/sample-v2/mechanics-20/items.json
+@@ -78,7 +78,7 @@
+   {
+    "id": "phy.mech.eq.moment-balance",
+    "name": "Moment balance on a beam",
+-   "name_si": "බාල්කයක සූර්ණ තුලනය",
++   "name_si": "බාල්කයක ඝූර්ණ තුලනය",
+    "type": "procedural"
+   },
+   {
+@@ -108,7 +108,7 @@
+   {
+    "id": "phy.mech.rot.moi-factors",
+    "name": "What moment of inertia depends on",
+-   "name_si": "අවස්ථිති සූර්ණය රඳා පවතින දේ",
++   "name_si": "අවස්ථිති ඝූර්ණය රඳා පවතින දේ",
+    "type": "conceptual"
+   }
+  ],
+@@ -1910,7 +1910,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments give a force linear in distance. The beam's own weight sets the starting value.",
+-    "si": "සූර්ණ ගැනීමෙන් දුරට රේඛීය වන බලයක් ලැබේ. ආරම්භක අගය තීරණය වන්නේ බාල්කයේ බරිනි."
++    "si": "ඝූර්ණ ගැනීමෙන් දුරට රේඛීය වන බලයක් ලැබේ. ආරම්භක අගය තීරණය වන්නේ බාල්කයේ බරිනි."
+    }
+   },
+   {
+@@ -2350,7 +2350,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Translation + rotation, with I as the rotational mass.",
+-    "si": "පරිවහනය + භ්‍රමණය. මෙහි I භ්‍රමණයට අදාළ ස්කන්ධය ලෙස ක්‍රියා කරයි."
++    "si": "උත්තාරණය + භ්‍රමණය. මෙහි I භ්‍රමණයට අදාළ ස්කන්ධය ලෙස ක්‍රියා කරයි."
+    }
+   },
+   {
+@@ -2540,7 +2540,7 @@
+    "review_notes": null,
+    "text": {
+     "en": "Dimensions of moment of inertia?",
+-    "si": "අවස්ථිති සූර්ණයේ මාන මොනවා ද?"
++    "si": "අවස්ථිති ඝූර්ණයේ මාන මොනවා ද?"
+    },
+    "options": [
+     {
+@@ -2825,7 +2825,7 @@
+    "difficulty_est": 1,
+    "text": {
+     "en": "A force of 6 N has a perpendicular distance of 0.5 m from a pivot to its line of action. Magnitude of its moment?",
+-    "si": "බලයක විශාලත්වය 6 N ය. හැරවුම් ලක්ෂ්‍යයේ සිට බලයේ ක්‍රියා රේඛාවට ලම්බ දුර 0.5 m ය. බලයේ සූර්ණයේ විශාලත්වය කීය ද?"
++    "si": "බලයක විශාලත්වය 6 N ය. හැරවුම් ලක්ෂ්‍යයේ සිට බලයේ ක්‍රියා රේඛාවට ලම්බ දුර 0.5 m ය. බලයේ ඝූර්ණයේ විශාලත්වය කීය ද?"
+    },
+    "options": [
+     {
+@@ -2977,7 +2977,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Multiply the moment of inertia about the axis by angular velocity.",
+-    "si": "අක්ෂය වටා අවස්ථිති සූර්ණය කෝණික ප්‍රවේගයෙන් ගුණ කරන්න."
++    "si": "අක්ෂය වටා අවස්ථිති ඝූර්ණය කෝණික ප්‍රවේගයෙන් ගුණ කරන්න."
+    }
+   }
+  ],
+@@ -3953,14 +3953,14 @@
+     {
+      "text": {
+       "en": "Take moments about P",
+-      "si": "P වටා සූර්ණ ගන්න"
++      "si": "P වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about Q",
+-      "si": "Q වටා සූර්ණ ගන්න"
++      "si": "Q වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -3982,14 +3982,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments about P remove the unknown force at P.",
+-    "si": "P වටා සූර්ණ ගැනීමෙන් P හි නොදන්නා බලය ඉවත් වේ."
++    "si": "P වටා ඝූර්ණ ගැනීමෙන් P හි නොදන්නා බලය ඉවත් වේ."
+    }
+   },
+   {
+@@ -4015,14 +4015,14 @@
+     {
+      "text": {
+       "en": "Take moments about B",
+-      "si": "B වටා සූර්ණ ගන්න"
++      "si": "B වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about A",
+-      "si": "A වටා සූර්ණ ගන්න"
++      "si": "A වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -4044,14 +4044,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments about B remove the unknown force at B.",
+-    "si": "B වටා සූර්ණ ගැනීමෙන් B හි නොදන්නා බලය ඉවත් වේ."
++    "si": "B වටා ඝූර්ණ ගැනීමෙන් B හි නොදන්නා බලය ඉවත් වේ."
+    }
+   },
+   {
+@@ -4077,14 +4077,14 @@
+     {
+      "text": {
+       "en": "Take moments about the hinge",
+-      "si": "අසව්ව වටා සූර්ණ ගන්න"
++      "si": "අසව්ව වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about the string",
+-      "si": "තන්තුව වටා සූර්ණ ගන්න"
++      "si": "තන්තුව වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -4106,14 +4106,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments about the hinge remove the unknown hinge force.",
+-    "si": "අසව්ව වටා සූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
++    "si": "අසව්ව වටා ඝූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
+    }
+   },
+   {
+@@ -4139,14 +4139,14 @@
+     {
+      "text": {
+       "en": "Take moments about the ladder's foot",
+-      "si": "ඉණිමගේ පාදය වටා සූර්ණ ගන්න"
++      "si": "ඉණිමගේ පාදය වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about the top of the ladder",
+-      "si": "ඉණිමගේ ඉහළ කෙළවර වටා සූර්ණ ගන්න"
++      "si": "ඉණිමගේ ඉහළ කෙළවර වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -4168,14 +4168,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "The foot carries two unknown forces, and moments about it remove both.",
+-    "si": "පාදයේ නොදන්නා බල දෙකක් ඇති අතර එය වටා සූර්ණ ගැනීමෙන් දෙකම ඉවත් වේ."
++    "si": "පාදයේ නොදන්නා බල දෙකක් ඇති අතර එය වටා ඝූර්ණ ගැනීමෙන් දෙකම ඉවත් වේ."
+    }
+   },
+   {
+@@ -4201,14 +4201,14 @@
+     {
+      "text": {
+       "en": "Take moments about the hinge",
+-      "si": "අසව්ව වටා සූර්ණ ගන්න"
++      "si": "අසව්ව වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about the strut's joint",
+-      "si": "ආධාරක දණ්ඩේ සන්ධිය වටා සූර්ණ ගන්න"
++      "si": "ආධාරක දණ්ඩේ සන්ධිය වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -4230,14 +4230,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments about the hinge remove the unknown hinge force.",
+-    "si": "අසව්ව වටා සූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
++    "si": "අසව්ව වටා ඝූර්ණ ගැනීමෙන් අසව්වේ නොදන්නා බලය ඉවත් වේ."
+    }
+   },
+   {
+@@ -4263,14 +4263,14 @@
+     {
+      "text": {
+       "en": "Take moments about X",
+-      "si": "X වටා සූර්ණ ගන්න"
++      "si": "X වටා ඝූර්ණ ගන්න"
+      },
+      "correct": true
+     },
+     {
+      "text": {
+       "en": "Take moments about Y",
+-      "si": "Y වටා සූර්ණ ගන්න"
++      "si": "Y වටා ඝූර්ණ ගන්න"
+      },
+      "correct": false,
+      "tag": "unknown-not-eliminated"
+@@ -4292,14 +4292,14 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "A balance problem needs moments, not energy.",
+-      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව සූර්ණ ය."
++      "si": "සමතුලිතතා ගැටලුවකට අවශ්‍ය වන්නේ ශක්තිය නොව ඝූර්ණ ය."
+      }
+     }
+    ],
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Moments about X remove the unknown force at X.",
+-    "si": "X වටා සූර්ණ ගැනීමෙන් X හි නොදන්නා බලය ඉවත් වේ."
++    "si": "X වටා ඝූර්ණ ගැනීමෙන් X හි නොදන්නා බලය ඉවත් වේ."
+    }
+   },
+   {
+@@ -4485,7 +4485,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "PE lost becomes translational and rotational KE.",
+-    "si": "හානි වන විභව ශක්තිය පරිවහන හා භ්‍රමණ චාලක ශක්ති බවට පත් වේ."
++    "si": "හානි වන විභව ශක්තිය උත්තාරණ හා භ්‍රමණ චාලක ශක්ති බවට පත් වේ."
+    }
+   },
+   {
+@@ -5994,7 +5994,7 @@
+    },
+    "explanation": {
+     "en": "Moments about P remove the force at P: Q × L = Mg × L/2 + mg × d.",
+-    "si": "P වටා සූර්ණ ගැනීමෙන් P හි බලය ඉවත් වේ: Q × L = Mg × L/2 + mg × d."
++    "si": "P වටා ඝූර්ණ ගැනීමෙන් P හි බලය ඉවත් වේ: Q × L = Mg × L/2 + mg × d."
+    },
+    "constraints": [
+     "d < L",
+@@ -6382,7 +6382,7 @@
+      "expr": "1/c",
+      "display": "{frac(value)}",
+      "detail": "That's translational ÷ rotational, not total.",
+-     "detail_si": "එය මුළු අගය නොව පරිවහන ÷ භ්‍රමණ අනුපාතයයි."
++     "detail_si": "එය මුළු අගය නොව උත්තාරණ ÷ භ්‍රමණ අනුපාතයයි."
+     },
+     {
+      "tag": "stopped-early",
+@@ -6403,7 +6403,7 @@
+      "hollow sphere": "කුහර ගෝලයක්",
+      "solid cylinder": "ඝන සිලින්ඩරයක්",
+      "rotational": "භ්‍රමණ",
+-     "translational": "පරිවහන"
++     "translational": "උත්තාරණ"
+     }
+    },
+    "constants": {},
+@@ -6538,35 +6538,35 @@
+     {
+      "text": {
+       "en": "Moment of inertia depends on the axis chosen.",
+-      "si": "අවස්ථිති සූර්ණය තෝරා ගන්නා අක්ෂය මත රඳා පවතී."
++      "si": "අවස්ථිති ඝූර්ණය තෝරා ගන්නා අක්ෂය මත රඳා පවතී."
+      },
+      "true": true
+     },
+     {
+      "text": {
+       "en": "Doubling every mass, at the same positions, doubles the moment of inertia.",
+-      "si": "එකම පිහිටීම්වල සියලු ස්කන්ධ දෙගුණ කළ විට අවස්ථිති සූර්ණය දෙගුණ වේ."
++      "si": "එකම පිහිටීම්වල සියලු ස්කන්ධ දෙගුණ කළ විට අවස්ථිති ඝූර්ණය දෙගුණ වේ."
+      },
+      "true": true
+     },
+     {
+      "text": {
+       "en": "Moving mass further from the axis increases the moment of inertia.",
+-      "si": "ස්කන්ධය අක්ෂයෙන් ඈතට ගෙන ගිය විට අවස්ථිති සූර්ණය වැඩි වේ."
++      "si": "ස්කන්ධය අක්ෂයෙන් ඈතට ගෙන ගිය විට අවස්ථිති ඝූර්ණය වැඩි වේ."
+      },
+      "true": true
+     },
+     {
+      "text": {
+       "en": "About the central axis, a ring has a larger moment of inertia than a disc of equal mass and radius.",
+-      "si": "කේන්ද්‍රීය අක්ෂය වටා, මුද්දක අවස්ථිති සූර්ණය සමාන ස්කන්ධ හා අරය ඇති තැටියක අගයට වඩා වැඩි ය."
++      "si": "කේන්ද්‍රීය අක්ෂය වටා, මුද්දක අවස්ථිති ඝූර්ණය සමාන ස්කන්ධ හා අරය ඇති තැටියක අගයට වඩා වැඩි ය."
+      },
+      "true": true
+     },
+     {
+      "text": {
+       "en": "Moment of inertia increases when the body spins faster.",
+-      "si": "වස්තුව වේගයෙන් කැරකෙන විට අවස්ථිති සූර්ණය වැඩි වේ."
++      "si": "වස්තුව වේගයෙන් කැරකෙන විට අවස්ථිති ඝූර්ණය වැඩි වේ."
+      },
+      "true": false,
+      "tag": "moi-depends-on-omega"
+@@ -6574,7 +6574,7 @@
+     {
+      "text": {
+       "en": "Moment of inertia has the same value about every axis.",
+-      "si": "සෑම අක්ෂයක් වටාම අවස්ථිති සූර්ණයේ අගය සමාන ය."
++      "si": "සෑම අක්ෂයක් වටාම අවස්ථිති ඝූර්ණයේ අගය සමාන ය."
+      },
+      "true": false,
+      "tag": "moi-axis-free"
+@@ -6582,7 +6582,7 @@
+     {
+      "text": {
+       "en": "Two bodies of equal mass always have equal moments of inertia.",
+-      "si": "සමාන ස්කන්ධ ඇති වස්තු දෙකක අවස්ථිති සූර්ණ සැමවිටම සමාන ය."
++      "si": "සමාන ස්කන්ධ ඇති වස්තු දෙකක අවස්ථිති ඝූර්ණ සැමවිටම සමාන ය."
+      },
+      "true": false,
+      "tag": "moi-mass-only"
+@@ -6590,7 +6590,7 @@
+     {
+      "text": {
+       "en": "The SI unit of moment of inertia is kg m.",
+-      "si": "අවස්ථිති සූර්ණයේ SI ඒකකය kg m වේ."
++      "si": "අවස්ථිති ඝූර්ණයේ SI ඒකකය kg m වේ."
+      },
+      "true": false,
+      "tag": "wrong-power"
+diff --git a/content/sample-v2/thermal-physics-20/items.json b/content/sample-v2/thermal-physics-20/items.json
+--- a/content/sample-v2/thermal-physics-20/items.json
++++ b/content/sample-v2/thermal-physics-20/items.json
+@@ -54,7 +54,7 @@
+   {
+    "id": "phy.therm.kin.rms-speed",
+    "name": "r.m.s. speed and gas pressure",
+-   "name_si": "r.m.s. වේගය සහ වායු පීඩනය",
++   "name_si": "වර්ග මධ්‍යන්‍ය මූල (r.m.s.) වේගය සහ වායු පීඩනය",
+    "type": "procedural"
+   },
+   {
+@@ -173,7 +173,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Change in length = original length × expansivity × change in temperature.",
+-    "si": "දිගෙහි වෙනස් වීම = මුල් දිග × ප්‍රසාරණශීලතාව × උෂ්ණත්ව වෙනස."
++    "si": "දිගෙහි වෙනස් වීම = මුල් දිග × ප්‍රසාරණතාව × උෂ්ණත්ව වෙනස."
+    }
+   },
+   {
+@@ -192,7 +192,7 @@
+    "review_notes": null,
+    "text": {
+     "en": "SI unit of linear expansivity?",
+-    "si": "රේඛීය ප්‍රසාරණශීලතාවයේ SI ඒකකය කුමක් ද?"
++    "si": "රේඛීය ප්‍රසාරණතාවේ SI ඒකකය කුමක් ද?"
+    },
+    "options": [
+     {
+@@ -356,7 +356,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "ΔL = L₀αΔθ, so ΔL ∝ Δθ.",
+-    "si": "ΔL = L₀αΔθ, so ΔL ∝ Δθ."
++    "si": "ΔL = L₀αΔθ, එබැවින් ΔL ∝ Δθ."
+    }
+   },
+   {
+@@ -1022,7 +1022,7 @@
+    "review_notes": null,
+    "text": {
+     "en": "A fixed mass of ideal gas at constant pressure. Pick the graph of its density ρ against absolute temperature T.",
+-    "si": "නියත පීඩනයේ ඇති පරිපූර්ණ වායුවක නියත ස්කන්ධයකි. නිරපේක්ෂ උෂ්ණත්වය T ට එරෙහිව එහි ඝනත්වය ρ හි ප්‍රස්තාරය තෝරන්න."
++    "si": "නියත ස්කන්ධයක් ඇති පරිපූර්ණ වායුවක පීඩනය නියතව පවතී. නිරපේක්ෂ උෂ්ණත්වය T සමඟ ඝනත්වය ρ වෙනස් වන ආකාරය දැක්වෙන ප්‍රස්තාරය තෝරන්න."
+    },
+    "options": [
+     {
+@@ -2296,7 +2296,7 @@
+     {
+      "text": {
+       "en": "Adiabatic",
+-      "si": "අනුෂ්ණීය"
++      "si": "ස්ථිරතාපී"
+      },
+      "correct": false,
+      "tag": "adiabatic-constant-t"
+@@ -2357,7 +2357,7 @@
+     {
+      "text": {
+       "en": "Adiabatic",
+-      "si": "අනුෂ්ණීය"
++      "si": "ස්ථිරතාපී"
+      },
+      "correct": false,
+      "tag": "adiabatic-constant-t"
+@@ -2385,7 +2385,7 @@
+    "review_notes": null,
+    "text": {
+     "en": "An ideal gas pushes a piston against a positive external pressure during adiabatic expansion. Its temperature stays constant.",
+-    "si": "පරිපූර්ණ වායුවක් ධන බාහිර පීඩනයකට එරෙහිව පිස්ටනයක් තල්ලු කරමින් අනුෂ්ණීය ප්‍රසාරණයකට ලක් වේ. එහි උෂ්ණත්වය නියතව පවතී."
++    "si": "පරිපූර්ණ වායුවක් ධන බාහිර පීඩනයකට එරෙහිව පිස්ටනයක් තල්ලු කරමින් ස්ථිරතාපී ප්‍රසාරණයකට ලක් වේ. එහි උෂ්ණත්වය නියතව පවතී."
+    },
+    "options": [
+     {
+@@ -3173,7 +3173,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "Insulated and quick means adiabatic: no heat flows.",
+-    "si": "පරිවාරණය කළ සහ ඉක්මන් යනු අනුෂ්ණීය ය: තාපය නොගලයි."
++    "si": "පරිවාරණය කළ සහ ඉක්මන් යනු ස්ථිරතාපී (අනුෂ්ණීය) ය: තාපය නොගලයි."
+    }
+   },
+   {
+@@ -3375,7 +3375,7 @@
+    "option_order": "shuffle",
+    "explanation": {
+     "en": "No heat can flow, so the process is adiabatic.",
+-    "si": "තාපය ගැලිය නොහැක, එබැවින් ක්‍රියාවලිය අනුෂ්ණීය ය."
++    "si": "තාපය ගැලිය නොහැක, එබැවින් ක්‍රියාවලිය ස්ථිරතාපී (අනුෂ්ණීය) ය."
+    }
+   },
+   {
+@@ -3438,7 +3438,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],
+@@ -3508,7 +3508,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],
+@@ -3578,7 +3578,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],
+@@ -3648,7 +3648,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],
+@@ -3718,7 +3718,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],
+@@ -3788,7 +3788,7 @@
+      "tag": "wrong-law",
+      "detail": {
+       "en": "Dalton's law relates partial pressures. Here you need a relation between two states of the same gas sample.",
+-      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ අර්ධ පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
++      "si": "ඩෝල්ටන්ගේ නියමය අදාළ වන්නේ ආංශික පීඩනවලට ය. මෙහි අවශ්‍ය වන්නේ එකම වායු සාම්පලයේ අවස්ථා දෙකක් අතර සම්බන්ධයයි."
+      }
+     }
+    ],

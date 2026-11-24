@@ -1,0 +1,1862 @@
+﻿පිළිතුර බැලීමට පෙර සිංහල ප්‍රශ්නය කියවා ඔබේ පිළිතුර තෝරන්න.
+teacher_verdict තීරුවේ ok / fix-sinhala / fix-physics / drop ලියන්න. අවශ්‍ය වෙනස note තීරුවේ ලියන්න.
+id,unit,english,sinhala,key,problems,teacher_verdict,note
+phy.elec.c060,electricity,"Two 6 Ω resistors in parallel are in series with a 2 Ω resistor. What resistance does the series resistor add to the parallel pair’s 3 Ω equivalent?
+1. 2 Ω
+2. 3 Ω
+3. 5 Ω
+4. 0 Ω
+A series resistor contributes its own resistance to the sum.","සමාන්තරගත 6 Ω ප්‍රතිරෝධක දෙකක් සමඟ 2 Ω ප්‍රතිරෝධකයක් ශ්‍රේණිගතය. සමාන්තර යුගලයේ 3 Ω සමක ප්‍රතිරෝධයට ශ්‍රේණිගත ප්‍රතිරෝධකයෙන් එකතු වන ප්‍රතිරෝධය කීය ද?
+1. 2 Ω
+2. 3 Ω
+3. 5 Ω
+4. 0 Ω
+ශ්‍රේණිගත ප්‍රතිරෝධකයක් මුළු එකතුවට දායක කරන්නේ එහිම ප්‍රතිරෝධයයි.",1. 2 Ω / 2 Ω,The question gives away the series resistor's 2 Ω contribution. Ask for a quantity the student must work out.,,
+phy.elec.c064,electricity,"An unloaded divider has 2 Ω above its tap and 6 Ω below. A 12 V is applied across both. What p.d. appears across the lower resistor?
+1. 9 V
+2. 6 V
+3. 3 V
+4. 12 V
+The lower resistor takes 6/8 of 12 V.","භාරයක් නැති විභව බෙදුමක මධ්‍ය ලක්ෂ්‍යයට ඉහළින් 2 Ω හා පහළින් 6 Ω ඇත. දෙකෙළවරට 12 V සපයයි. පහළ ප්‍රතිරෝධකය හරහා විභව අන්තරය කීය ද?
+1. 9 V
+2. 6 V
+3. 3 V
+4. 12 V
+පහළ ප්‍රතිරෝධකයට 12 V න් 6/8 ලැබේ.",1. 9 V / 9 V,"potential divider. විභව බෙදුම් පරිපථය for the circuit name. English calls the connection a tap. Sinhala calls it the midpoint. This is a junction of unequal resistors, so it need not be halfway in potential.",,
+phy.elec.c067,electricity,"Knowing only the total current in a divider completes the calculation of its output p.d.
+1. True
+2. False
+For an unloaded divider multiply the current by the output resistance.","විභව බෙදුමක මුළු ධාරාව සෙවූ පමණින් ප්‍රතිදාන විභව අන්තරය ගණනය කර අවසන් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+භාරයක් නැති බෙදුමකට ධාරාව ප්‍රතිදාන ප්‍රතිරෝධයෙන් ගුණ කරන්න.",2. False / අසත්‍ය,Say whether the output resistance is known. The current alone does not determine the output voltage. potential divider. විභව බෙදුම් පරිපථය for the circuit name.,,
+phy.elec.c086,electricity,"For n identical parallel cells the equivalent internal resistance is n/r, where each cell has resistance r.
+1. True
+2. False
+The total conductance is n/r. Its reciprocal r/n is the resistance.","එකකට r අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති සර්වසම සමාන්තර කෝෂ n ක සමක අභ්‍යන්තර ප්‍රතිරෝධය n/r වේ.
+1. සත්‍ය
+2. අසත්‍ය
+මුළු සන්නායකතාව n/r වේ. එහි පරස්පරය වන r/n ප්‍රතිරෝධයයි.",2. False / අසත්‍ය,"English names the conductance of the cell combination, measured in siemens. Sinhala uses සන්නායකතාව, also the textbook term for material conductivity, measured in siemens per metre. Specify the reciprocal of the combination’s resistance.",,
+phy.elec.c097,electricity,"An ammeter connected in series with a resistor reads the p.d. lost across it.
+1. True
+2. False
+The ammeter reads the branch current in amperes.","ප්‍රතිරෝධකයක් සමඟ ශ්‍රේණිගත ඇමීටරයකින් කියවෙන්නේ ප්‍රතිරෝධකය හරහා විභව බැස්මයි.
+1. සත්‍ය
+2. අසත්‍ය
+ඇමීටරයෙන් ශාඛා ධාරාව ඇම්පියර්වලින් කියවේ.",2. False / අසත්‍ය,English leaves “across it” ambiguous between the meter and resistor. Sinhala names the resistor. Both versions still describe the wrong function for an ammeter.,,
+phy.elec.c065,electricity,"A low-resistance voltmeter across a divider output can change the p.d. being measured.
+1. True
+2. False
+The meter forms a parallel load on the output resistor.","විභව බෙදුමක ප්‍රතිදානයට සමාන්තරව සම්බන්ධ කළ අඩු ප්‍රතිරෝධ වෝල්ට්මීටරයකින් මනින විභව අන්තරය වෙනස් විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+මීටරය ප්‍රතිදාන ප්‍රතිරෝධකයට සමාන්තර භාරයක් එකතු කරයි.",1. True / සත්‍ය,potential divider. විභව බෙදුම් පරිපථය for the circuit name.,,
+phy.elec.c066,electricity,"The fraction of supply p.d. across a resistor in an unloaded series divider is total resistance divided by that resistor’s resistance.
+1. True
+2. False
+Divide the chosen resistance by the total resistance.","භාරයක් නැති ශ්‍රේණිගත විභව බෙදුමක ප්‍රතිරෝධකයකට ලැබෙන වෝල්ටීයතා භාගය යනු මුළු ප්‍රතිරෝධය එම ප්‍රතිරෝධකයේ ප්‍රතිරෝධයෙන් බෙදූ අගයයි.
+1. සත්‍ය
+2. අසත්‍ය
+තෝරාගත් ප්‍රතිරෝධය මුළු ප්‍රතිරෝධයෙන් බෙදන්න.",2. False / අසත්‍ය,potential divider. විභව බෙදුම් පරිපථය for the circuit name. Check the term for potential difference / voltage in the term sheet.,,
+phy.elec.c068,electricity,"An unloaded divider splits p.d. inversely with the resistances of its two series arms.
+1. True
+2. False
+Both carry the same current, so V = IR gives a direct proportion.","භාරයක් නැති විභව බෙදුමක ශ්‍රේණිගත බාහු දෙක අතර විභව අන්තරය බෙදෙන්නේ ප්‍රතිරෝධවලට ප්‍රතිලෝම අනුපාතයෙනි.
+1. සත්‍ය
+2. අසත්‍ය
+ධාරාව සමාන නිසා V = IR අනුව ලැබෙන්නේ සෘජු අනුපාතයකි.",2. False / අසත්‍ය,potential divider. විභව බෙදුම් පරිපථය for the circuit name.,,
+phy.elec.c081,electricity,"A discharging cell has e.m.f. 9 V and internal drop 2 V. What is its terminal p.d.?
+1. 7 V
+2. 11 V
+3. 9 V
+4. 2 V
+Subtract the internal drop from the e.m.f.","විසර්ජනය වන කෝෂයක විද්‍යුත් ගාමක බලය 9 V හා අභ්‍යන්තර විභව බැස්ම 2 V වේ. අග්‍ර අතර විභව අන්තරය කීය ද?
+1. 7 V
+2. 11 V
+3. 9 V
+4. 2 V
+විද්‍යුත් ගාමක බලයෙන් අභ්‍යන්තර විභව බැස්ම අඩු කරන්න.",1. 7 V / 7 V,Check the term for terminal potential difference in the term sheet.,,
+phy.elec.c085,electricity,"A 6 V cell and a 2 V cell are in opposition in an open series circuit. Find the magnitude of the net e.m.f.
+1. 4 V
+2. 8 V
+3. 0 V
+4. 2 V
+Opposing e.m.f.s subtract. There is no internal drop at zero current.","6 V හා 2 V කෝෂ දෙකක් විවෘත පරිපථයක එකිනෙකට විරුද්ධව ශ්‍රේණිගත කර ඇත. සමක විද්‍යුත් ගාමක බලයේ විශාලත්වය කීය ද?
+1. 4 V
+2. 8 V
+3. 0 V
+4. 2 V
+ප්‍රතිවිරුද්ධ විද්‍යුත් ගාමක බල අඩු වේ. ධාරාව ශූන්‍ය බැවින් අභ්‍යන්තර විභව බැස්මක් නැත.",1. 4 V / 4 V,Check the term for zero in the term sheet.,,
+phy.elec.c089,electricity,"Any load on a cell receives the same power as that dissipated in the internal resistance.
+1. True
+2. False
+Equal powers at the same nonzero current require equal resistances.","කෝෂයකට සම්බන්ධ ඕනෑම භාරයකට අභ්‍යන්තර ප්‍රතිරෝධයේ වැය වන ජවයට සමාන ජවයක් ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+ශූන්‍ය නොවන එකම ධාරාව යටතේ ජව සමාන වීමට ප්‍රතිරෝධ සමාන විය යුතුය.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.elec.c091,electricity,"Finding the current at R = r already gives the numerical value of maximum load power in watts.
+1. True
+2. False
+Use the current through the matched resistor in I²R to find power.","R = r විට ධාරාව සෙවූ පමණින් උපරිම භාර ජවය වොට්වලින් ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+ජවය සෙවීමට එම ප්‍රතිරෝධක ධාරාව I²R හි යොදන්න.",2. False / අසත්‍ය,Check the English condition “explicit matching condition R = r” in Sinhala.,,
+phy.elec.c098,electricity,"A bridge is balanced. The left midpoint is at 3 V relative to the negative terminal. At what potential is the right midpoint relative to the same terminal?
+1. 3 V
+2. 0 V
+3. 1.5 V
+4. 6 V
+Balance gives equal midpoint potentials. Their difference is zero.","සේතුවක් තුලිතය. ඍණ අග්‍රයට සාපේක්ෂව වම් මධ්‍ය ලක්ෂ්‍යයේ විභවය 3 V වේ. එම අග්‍රයට සාපේක්ෂව දකුණු මධ්‍ය ලක්ෂ්‍යයේ විභවය කීය ද?
+1. 3 V
+2. 0 V
+3. 1.5 V
+4. 6 V
+තුලිත විට මධ්‍ය ලක්ෂ්‍ය දෙකේ විභව සමාන වන බැවින් ඒවායේ වෙනස ශූන්‍ය වේ.",1. 3 V / 3 V,Check the term for zero in the term sheet.,,
+phy.elec.c100,electricity,"The detector in a balanced bridge carries zero current, so its resistance must be zero.
+1. True
+2. False
+A finite link can carry zero current at equal potentials. It can be omitted when calculating the supply current at balance.","තුලිත සේතුවක අනාවරක ධාරාව ශූන්‍ය බැවින් අනාවරකයේ ප්‍රතිරෝධය ද ශූන්‍ය විය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+සමාන විභව අතර පරිමිත ප්‍රතිරෝධයක වුවත් ධාරාව ශූන්‍ය විය හැකිය. තුලිත විට සැපයුම් ධාරාව සෙවීමට එම ශාඛාව ඉවත් කළ හැකිය.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.elec.c103,electricity,"At balance a potentiometer must draw current from the test cell to measure its e.m.f.
+1. True
+2. False
+The detector branch is at null. The driver circuit supplies the wire current.","තුලිත විට විභවමානයකට පරීක්ෂා කරන කෝෂයේ විද්‍යුත් ගාමක බලය මැනීමට එම කෝෂයෙන් ධාරාවක් ලබා ගත යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+අනාවරක ශාඛාවේ ධාරාව ශූන්‍යය. කම්බියේ ධාරාව සපයන්නේ ධාවක පරිපථයයි.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.elec.c114,electricity,"Each of 6 turns has a flux change of 2 Wb in 4 s. Find the mean e.m.f. magnitude in volts.
+1. ε = 3 V
+2. ε = 0.5 V
+3. ε = 12 V
+4. ε = 1/3 V
+Multiply the flux change per turn by the turn count, then divide by time.","වට 6 ක් ඇති දඟරයක එක් එක් වටය හරහා චුම්බක ස්‍රාවය 4 s තුළ 2 Wb කින් වෙනස් වේ. සාමාන්‍ය ප්‍රේරිත වි.ගා.බ. අගයේ විශාලත්වය V වලින් කීය ද?
+1. ε = 3 V
+2. ε = 0.5 V
+3. ε = 12 V
+4. ε = 1/3 V
+එක් වටයක ස්‍රාව වෙනස දඟරයේ පොට ගණනින් ගුණ කර කාලයෙන් බෙදන්න.",1. ε = 3 V / ε = 3 V,Expand emf in the standalone explanation.,,
+phy.elec.c115,electricity,"A stationary coil linked by a large constant magnetic flux must have a large induced e.m.f.
+1. True
+2. False
+Faraday induction requires changing linked flux.","විශාල නියත චුම්බක ස්‍රාවයකට සම්බන්ධ නිශ්චල දඟරයක විශාල ප්‍රේරිත වි.ගා.බ. අගයක් අනිවාර්යයෙන්ම ඇති වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ෆැරඩේ ප්‍රේරණය සඳහා ස්‍රාව බන්ධනය වෙනස් විය යුතුය.",2. False / අසත්‍ය,Expand emf in the standalone explanation.,,
+phy.elec.c117,electricity,"A coil translating wholly inside a uniform steady field always has an induced e.m.f. around it even when its area and orientation stay fixed.
+1. True
+2. False
+Its linked flux stays constant in this motion.","ඒකාකාර නියත ක්ෂේත්‍රයක් තුළ සම්පූර්ණයෙන්ම පවතින දඟරයක් එහි වර්ගඵලය හා දිශානතිය නියතව උත්තාරණය වුවත් දඟරය වටා සැමවිටම ප්‍රේරිත වි.ගා.බ. අගයක් ඇත.
+1. සත්‍ය
+2. අසත්‍ය
+මෙම චලිතයේදී එහි ස්‍රාව බන්ධනය නියතව පවතී.",2. False / අසත්‍ය,Expand emf in the standalone explanation.,,
+phy.elec.c121,electricity,"A magnet held motionless beside a stationary copper loop keeps inducing a current merely because flux passes through the loop.
+1. True
+2. False
+Steady flux gives zero induced e.m.f.","නිශ්චල තඹ පුඩුවක් අසල නිශ්චලව තැබූ චුම්බකයක්, පුඩුව හරහා ස්‍රාවය ගමන් කරන නිසාම දිගටම ධාරාවක් ප්‍රේරණය කරයි.
+1. සත්‍ය
+2. අසත්‍ය
+නියත ස්‍රාවයක් නිසා ප්‍රේරිත වි.ගා.බ. අගයක් ඇති නොවේ.",2. False / අසත්‍ය,Expand emf in the standalone explanation.,,
+phy.elec.c124,electricity,"Before a DC motor’s armature starts rotating, its rotational back e.m.f. is zero.
+1. True
+2. False
+The stationary armature has no rotational change of linked flux.","සරල ධාරා මෝටරයක ආමේචරය භ්‍රමණය වීමට පෙර භ්‍රමණය නිසා ඇති වන ප්‍රති වි.ගා.බ. ශූන්‍යය.
+1. සත්‍ය
+2. අසත්‍ය
+නිශ්චල ආමේචරයේ භ්‍රමණය නිසා ස්‍රාව බන්ධනයේ වෙනසක් සිදු නොවේ.",1. True / සත්‍ය,Expand emf in the standalone explanation. Check the term for zero in the term sheet.,,
+phy.elec.c125,electricity,"A running motor has a 12 V supply and 8 V back e.m.f. What p.d. drives the armature current, neglecting brush drops?
+1. 4 V
+2. 20 V
+3. 12 V
+4. 8 V
+Back e.m.f. opposes the supply. The resistive drop is their difference.","ක්‍රියා කරන මෝටරයක සැපයුම 12 V හා ප්‍රති වි.ගා.බ. 8 V වේ. බුරුසු අග විභව බැස්ම නොසලකා, ආමේචර ධාරාව ඇති කරන විභව අන්තරය කීය ද?
+1. 4 V
+2. 20 V
+3. 12 V
+4. 8 V
+ප්‍රති වි.ගා.බ. සැපයුමට විරුද්ධ වේ. ප්‍රතිරෝධය හරහා බැස්ම ඒවායේ වෙනසයි.",1. 4 V / 4 V,Expand emf in the standalone explanation.,,
+phy.elec.c127,electricity,"After the initial transient has died away, steady DC in a fixed transformer primary maintains a continuous induced secondary p.d.
+1. True
+2. False
+A steady primary current gives a steady flux and hence zero induced secondary p.d.","ස්විචය සම්බන්ධ කළ පසු ඇති වන තාවකාලික වෙනස්කම් අවසන් වූ පසු, නිශ්චල පරිණාමකයක ප්‍රාථමිකයේ නියත සරල ධාරාවක් ද්විතීයිකයේ අඛණ්ඩ ප්‍රේරිත විභව අන්තරයක් පවත්වා ගනී.
+1. සත්‍ය
+2. අසත්‍ය
+නියත ප්‍රාථමික ධාරාවෙන් නියත ස්‍රාවයක් ඇති වන නිසා ද්විතීයික ප්‍රේරිත විභව අන්තරය ශූන්‍ය වේ.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.elec.c054,electricity,"Two parts of one copper wire carry the same steady current. The thinner part has one third the area. Find its electron drift speed divided by that in the wider part.
+1. 3 : 1
+2. 1 : 3
+3. 1 : 1
+4. 9 : 1
+In I = nAev, n and I are fixed. A smaller A requires a larger v.","එකම තඹ කම්බියක කොටස් දෙකක් හරහා එකම නියත ධාරාව ගලයි. සිහින් කොටසේ හරස්කඩ වර්ගඵලය පළල් කොටසෙන් තුනෙන් එකකි. සිහින් කොටසේ ඉලෙක්ට්‍රෝන ප්ලාවිත වේගය පළල් කොටසේ අගයෙන් බෙදූ විට අගය කීය ද?
+1. 3 : 1
+2. 1 : 3
+3. 1 : 1
+4. 9 : 1
+I = nAev හි n හා I නියතය. A අඩු නම් v වැඩි විය යුතුය.",1. 3 : 1 / 3 : 1,,,
+phy.elec.c055,electricity,"In a single wire carrying steady current, less charge passes a cross section near the far end each second because some charge was used up.
+1. True
+2. False
+Charge is conserved. At steady state equal charge passes every cross section per second.","නියත ධාරාවක් ඇති තනි කම්බියක ආරෝපණයෙන් කොටසක් වැය වන නිසා ඈත කෙළවරේ හරස්කඩකින් තත්පරයකදී අඩු ආරෝපණයක් ගමන් කරයි.
+1. සත්‍ය
+2. අසත්‍ය
+ආරෝපණය සංස්ථිතිකය. අනවරත අවස්ථාවේ සෑම හරස්කඩකින්ම තත්පරයකට සමාන ආරෝපණයක් ගමන් කරයි.",2. False / අසත්‍ය,,,
+phy.elec.c056,electricity,"At fixed current and cross-sectional area, a greater free carrier density requires a smaller drift speed for carriers of the same charge magnitude.
+1. True
+2. False
+The product of carrier density and drift speed stays fixed.","ධාරාව හා හරස්කඩ වර්ගඵලය නියත විට එකම ආරෝපණ විශාලත්වයක් ඇති නිදහස් වාහකවල සංඛ්‍යා ඝනත්වය වැඩි නම් අවශ්‍ය ප්ලාවිත වේගය අඩුය.
+1. සත්‍ය
+2. අසත්‍ය
+වාහක සංඛ්‍යා ඝනත්වය හා ප්ලාවිත වේගය අතර ගුණිතය නියතව පවතී.",1. True / සත්‍ය,,,
+phy.elec.c057,electricity,"Electron drift in a metal is opposite to the conventional current.
+1. True
+2. False
+Electrons carry negative charge.","ලෝහයක ඉලෙක්ට්‍රෝන ප්ලාවිත දිශාව සම්මත ධාරා දිශාවට ප්‍රතිවිරුද්ධය.
+1. සත්‍ය
+2. අසත්‍ය
+ඉලෙක්ට්‍රෝන ඍණ ආරෝපණ දරයි.",1. True / සත්‍ය,,,
+phy.elec.c058,electricity,"A wire is stretched uniformly to twice its initial length at constant volume and resistivity. Find final resistance divided by initial resistance.
+1. 4 : 1
+2. 2 : 1
+3. 1 : 4
+4. 1 : 1
+The area halves while length doubles. Both changes increase ρl/A.","පරිමාව හා ප්‍රතිරෝධකතාව නියතව තබා කම්බියක් ඒකාකාරව ඇද එහි දිග දෙගුණ කරයි. අවසන් ප්‍රතිරෝධය මුල් ප්‍රතිරෝධයෙන් බෙදූ විට අගය කීය ද?
+1. 4 : 1
+2. 2 : 1
+3. 1 : 4
+4. 1 : 1
+දිග දෙගුණ වන අතර හරස්කඩ වර්ගඵලය අඩක් වේ. වෙනස්කම් දෙකම ρl/A වැඩි කරයි.",1. 4 : 1 / 4 : 1,,,
+phy.elec.c059,electricity,"Two round wires have equal length and resistivity. One has triple the radius. Its resistance divided by the thinner wire’s resistance is what?
+1. 1 : 9
+2. 1 : 3
+3. 1 : 1
+4. 1 : 27
+Area varies as radius squared and resistance varies inversely with area.","වෘත්තාකාර හරස්කඩ ඇති කම්බි දෙකක දිග හා ප්‍රතිරෝධකතාව සමානය. එකක අරය අනෙකේ අරය මෙන් තුන් ගුණයකි. පළල් කම්බියේ ප්‍රතිරෝධය සිහින් කම්බියේ ප්‍රතිරෝධයෙන් බෙදූ විට අගය කීය ද?
+1. 1 : 9
+2. 1 : 3
+3. 1 : 1
+4. 1 : 27
+වර්ගඵලය අරයේ වර්ගයට සමානුපාතික වන අතර ප්‍රතිරෝධය වර්ගඵලයට ප්‍රතිලෝමව සමානුපාතිකය.",1. 1 : 9 / 1 : 9,,,
+phy.elec.c061,electricity,"A 2 Ω branch and a 6 Ω branch are connected in parallel. Find current in the 2 Ω branch divided by current in the 6 Ω branch.
+1. 3 : 1
+2. 1 : 3
+3. 1 : 1
+4. 4 : 1
+Both branches have the same p.d. Current is inversely proportional to branch resistance.","2 Ω හා 6 Ω ශාඛා දෙකක් සමාන්තරව සම්බන්ධ කර ඇත. 2 Ω ශාඛාවේ ධාරාව 6 Ω ශාඛාවේ ධාරාවෙන් බෙදූ විට අගය කීය ද?
+1. 3 : 1
+2. 1 : 3
+3. 1 : 1
+4. 4 : 1
+ශාඛා දෙකේ විභව අන්තරය සමානය. ධාරාව ශාඛා ප්‍රතිරෝධයට ප්‍රතිලෝමව සමානුපාතිකය.",1. 3 : 1 / 3 : 1,,,
+phy.elec.c062,electricity,"Two resistors in series carry successively smaller steady currents because each resistor dissipates energy.
+1. True
+2. False
+The same charge per second passes both. Energy transferred per charge can differ.","ශ්‍රේණිගත ප්‍රතිරෝධක දෙකෙහි ශක්තිය හානි වන බැවින් දෙවැන්න හරහා ගලන නියත ධාරාව පළමුවැන්නට වඩා අඩුය.
+1. සත්‍ය
+2. අසත්‍ය
+දෙක හරහාම තත්පරයකට එකම ආරෝපණය ගමන් කරයි. ඒකක ආරෝපණයකින් මාරු වන ශක්තිය වෙනස් විය හැකිය.",2. False / අසත්‍ය,,,
+phy.elec.c063,electricity,"For unequal resistors in parallel across the same supply, compare their powers using V²/R with the same V.
+1. True
+2. False
+The p.d. is common to both branches.","එකම සැපයුමට සමාන්තරව සම්බන්ධ කළ අසමාන ප්‍රතිරෝධකවල ජව සැසඳීමට එකම V අගය සමඟ V²/R යොදා ගත හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ශාඛා දෙකටම විභව අන්තරය පොදුය.",1. True / සත්‍ය,,,
+phy.elec.c069,electricity,"A 3 Ω resistor carries a steady 2 A. What is its power in W?
+1. P = 12 W
+2. P = 6 W
+3. P = 3 W
+4. P = 4/3 W
+Use I²R when the given quantities are current and resistance.","3 Ω ප්‍රතිරෝධකයක 2 A නියත ධාරාවක් ගලයි. එහි ජවය W වලින් කීය ද?
+1. P = 12 W
+2. P = 6 W
+3. P = 3 W
+4. P = 4/3 W
+දී ඇත්තේ ධාරාව හා ප්‍රතිරෝධය බැවින් I²R යොදන්න.",1. P = 12 W / P = 12 W,,,
+phy.elec.c070,electricity,"Two unequal resistors carrying the same series current dissipate equal powers.
+1. True
+2. False
+At common current power is proportional to resistance.","එකම ශ්‍රේණිගත ධාරාව ගලන අසමාන ප්‍රතිරෝධක දෙකක ජව සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+ධාරාව සමාන විට ජවය ප්‍රතිරෝධයට සමානුපාතිකය.",2. False / අසත්‍ය,,,
+phy.elec.c071,electricity,"A resistor delivering energy as heat draws more current at its inlet than leaves its outlet in steady state.
+1. True
+2. False
+Charge does not accumulate in the resistor.","තාපය ලෙස ශක්තිය පිට කරන ප්‍රතිරෝධකයක අනවරත අවස්ථාවේ ඇතුළුවන ධාරාව පිටවන ධාරාවට වඩා වැඩිය.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රතිරෝධකය තුළ ආරෝපණ රැස් නොවේ.",2. False / අසත්‍ය,,,
+phy.elec.c072,electricity,"When finding one resistor’s power using V²/R, V must be the p.d. across that resistor.
+1. True
+2. False
+The supply p.d. can be shared between several series elements.","V²/R මගින් එක් ප්‍රතිරෝධකයක ජවය සොයන විට V විය යුත්තේ එම ප්‍රතිරෝධකය හරහා විභව අන්තරයයි.
+1. සත්‍ය
+2. අසත්‍ය
+සැපයුම් විභව අන්තරය ශ්‍රේණිගත උපාංග කිහිපයක් අතර බෙදී යා හැකිය.",1. True / සත්‍ය,,,
+phy.elec.c073,electricity,"After finding a lamp’s current from its p.d. and resistance, multiply the current by its p.d. to obtain the power.
+1. True
+2. False
+The power is VI.","ලාම්පුවක විභව අන්තරය හා ප්‍රතිරෝධයෙන් ධාරාව සෙවූ පසු ජවය ලබා ගැනීමට ධාරාව එහි විභව අන්තරයෙන් ගුණ කරන්න.
+1. සත්‍ය
+2. අසත්‍ය
+ජවය VI වේ.",1. True / සත්‍ය,,,
+phy.elec.c074,electricity,"A 3 Ω heater carries 2 A for 5 s. Find the energy dissipated in J.
+1. Q = 60 J
+2. Q = 30 J
+3. Q = 12 J
+4. Q = 20/3 J
+The power is I²R. Multiply it by the heating time.","3 Ω තාපකයක 2 A ධාරාවක් 5 s පුරා ගලයි. පිට වන ශක්තිය J වලින් කීය ද?
+1. Q = 60 J
+2. Q = 30 J
+3. Q = 12 J
+4. Q = 20/3 J
+ජවය I²R වේ. එය රත් කළ කාලයෙන් ගුණ කරන්න.",1. Q = 60 J / Q = 60 J,,,
+phy.elec.c075,electricity,"All electrical energy supplied to an exposed heater must enter the water around it, even when heat escapes to the room.
+1. True
+2. False
+The water receives only the part retained after losses.","කාමරයට තාපය පිට වුවත් විවෘත තාපකයකට සපයන සියලු විද්‍යුත් ශක්තිය එය වටා ඇති ජලයටම ලැබිය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ජලයට ලැබෙන්නේ හානි වීමෙන් පසු ඉතිරි කොටසයි.",2. False / අසත්‍ය,,,
+phy.elec.c076,electricity,"At fixed current and resistance, tripling the heating time triples the electrical energy dissipated.
+1. True
+2. False
+Energy is constant power multiplied by time.","ධාරාව හා ප්‍රතිරෝධය නියත විට රත් කරන කාලය තුන් ගුණ කළහොත් පිට වන විද්‍යුත් ශක්තියත් තුන් ගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ශක්තිය යනු නියත ජවය කාලයෙන් ගුණ කළ අගයයි.",1. True / සත්‍ය,,,
+phy.elec.c077,electricity,"Across the same fixed resistor the p.d. triples. Find final power divided by initial power.
+1. 9 : 1
+2. 3 : 1
+3. 1 : 9
+4. 27 : 1
+At fixed resistance use P = V²/R.","එකම නියත ප්‍රතිරෝධකය හරහා විභව අන්තරය තුන් ගුණ වේ. අවසන් ජවය මුල් ජවයෙන් බෙදූ විට අගය කීය ද?
+1. 9 : 1
+2. 3 : 1
+3. 1 : 9
+4. 27 : 1
+ප්‍රතිරෝධය නියත විට P = V²/R යොදන්න.",1. 9 : 1 / 9 : 1,,,
+phy.elec.c078,electricity,"For two resistors held at the same p.d., the larger R has the higher power because P = I²R.
+1. True
+2. False
+The current changes with R. At the common p.d., P = V²/R decreases as R increases.","එකම විභව අන්තරය යටතේ ඇති ප්‍රතිරෝධක දෙකකින් වැඩි R ඇති එකේ ජවය වැඩි වන්නේ P = I²R නිසාය.
+1. සත්‍ය
+2. අසත්‍ය
+R වෙනස් වන විට ධාරාව වෙනස් වේ. පොදු විභව අන්තරයේදී R වැඩි වන විට P = V²/R අඩු වේ.",2. False / අසත්‍ය,,,
+phy.elec.c079,electricity,"Doubling resistance doubles resistor power only if current stays fixed in the comparison using P = I²R.
+1. True
+2. False
+The current factor is squared and must also be accounted for.","P = I²R යොදා සසඳන විට ප්‍රතිරෝධකයේ ප්‍රතිරෝධය දෙගුණ කිරීමෙන් ජවය දෙගුණ වන්නේ ධාරාවේ විශාලත්වය නියත නම් පමණි.
+1. සත්‍ය
+2. අසත්‍ය
+ධාරා සාධකය වර්ග වන බැවින් එයත් සැලකිල්ලට ගත යුතුය.",1. True / සත්‍ය,,,
+phy.elec.c080,electricity,"Doubling current in a fixed resistor leaves its power constant because resistance is unchanged.
+1. True
+2. False
+At fixed R the power varies as current squared.","නියත ප්‍රතිරෝධකයක ධාරාව දෙගුණ කළත් ප්‍රතිරෝධය වෙනස් නොවන නිසා ජවය නියත වේ.
+1. සත්‍ය
+2. අසත්‍ය
+R නියත විට ජවය ධාරාවේ වර්ගයට සමානුපාතිකය.",2. False / අසත්‍ය,,,
+phy.elec.c082,electricity,"A discharging cell always loses half its e.m.f. inside the cell.
+1. True
+2. False
+The internal p.d. drop is Ir and depends on the load current.","විසර්ජනය වන කෝෂයක විද්‍යුත් ගාමක බලයෙන් අඩක් සැමවිටම කෝෂය තුළ වැය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අභ්‍යන්තර විභව බැස්ම Ir වන අතර එය භාර ධාරාව මත රඳා පවතී.",2. False / අසත්‍ය,,,
+phy.elec.c083,electricity,"In the model of a cell, internal resistance is in series with the ideal e.m.f. source.
+1. True
+2. False
+The load current also passes through the internal resistance.","කෝෂයක සරල ආකෘතියේ අභ්‍යන්තර ප්‍රතිරෝධය පරිපූර්ණ විද්‍යුත් ගාමක බල ප්‍රභවය සමඟ ශ්‍රේණිගතය.
+1. සත්‍ය
+2. අසත්‍ය
+භාර ධාරාව අභ්‍යන්තර ප්‍රතිරෝධය හරහාත් ගමන් කරයි.",1. True / සත්‍ය,,,
+phy.elec.c084,electricity,"Two identical cells, each with internal resistance r, are connected in parallel with like terminals joined. What is the equivalent internal resistance?
+1. rₑ = r/2
+2. rₑ = 2r
+3. rₑ = r
+4. rₑ = r/4
+The two equal internal resistances act in parallel.","එකකට r අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති සර්වසම කෝෂ දෙකක් සමාන අග්‍ර එක් කර සමාන්තරව සම්බන්ධ කර ඇත. සමක අභ්‍යන්තර ප්‍රතිරෝධය කීය ද?
+1. rₑ = r/2
+2. rₑ = 2r
+3. rₑ = r
+4. rₑ = r/4
+සමාන අභ්‍යන්තර ප්‍රතිරෝධ දෙක සමාන්තරගතව ක්‍රියා කරයි.",1. rₑ = r/2 / rₑ = r/2,,,
+phy.elec.c087,electricity,"Identical cells connected in parallel in the same orientation give the same open-circuit p.d. as one cell.
+1. True
+2. False
+All branches share the same two terminals.","සර්වසම කෝෂ එකම දිශාවට සමාන්තරව සම්බන්ධ කළ විට විවෘත පරිපථ විභව අන්තරය තනි කෝෂයක අගයට සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+සියලු ශාඛාවලට එකම අග්‍ර දෙක පොදුය.",1. True / සත්‍ය,,,
+phy.elec.c088,electricity,"At maximum power transfer a cell has external resistance equal to its internal resistance. What fraction of its total electrical power reaches the load?
+1. 1 : 2
+2. 1 : 1
+3. 2 : 1
+4. 1 : 4
+The same current passes through two equal resistances. Each dissipates half the power.","උපරිම ජව හුවමාරුවේදී කෝෂයක බාහිර ප්‍රතිරෝධය එහි අභ්‍යන්තර ප්‍රතිරෝධයට සමානය. මුළු විද්‍යුත් ජවයෙන් භාරයට ලැබෙන්නේ කවර භාගයක් ද?
+1. 1 : 2
+2. 1 : 1
+3. 2 : 1
+4. 1 : 4
+සමාන ප්‍රතිරෝධ දෙක තුළින් එකම ධාරාව ගලයි. එක් එක් ප්‍රතිරෝධකයට ජවයෙන් අඩක් ලැබේ.",1. 1 : 2 / 1 : 2,,,
+phy.elec.c090,electricity,"For a single resistive load R supplied by a cell of internal resistance r, the current denominator is R + r.
+1. True
+2. False
+Load and internal resistance form one series path.","r අභ්‍යන්තර ප්‍රතිරෝධයක් ඇති කෝෂයකින් තනි R ප්‍රතිරෝධ භාරයකට ධාරාව සපයන විට ධාරා ප්‍රකාශනයේ හරය R + r වේ.
+1. සත්‍ය
+2. අසත්‍ය
+භාරය හා අභ්‍යන්තර ප්‍රතිරෝධය එකම ශ්‍රේණිගත මාර්ගයක පවතී.",1. True / සත්‍ය,,,
+phy.elec.c092,electricity,"When maximising load power, the quantity to maximise is I²R for the external resistor.
+1. True
+2. False
+Total power from the cell also includes its internal loss.","භාර ජවය උපරිම කිරීමේදී උපරිම කළ යුතු රාශිය බාහිර ප්‍රතිරෝධකයේ I²R වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කෝෂයේ මුළු ජවයට අභ්‍යන්තර හානියත් ඇතුළත්ය.",1. True / සත්‍ය,,,
+phy.elec.c093,electricity,"To measure current through a lamp, connect an ideal ammeter across its two terminals.
+1. True
+2. False
+Put the ammeter in series so the lamp current passes through it.","ලාම්පුවක ධාරාව මැනීමට පරිපූර්ණ ඇමීටරයක් එහි අග්‍ර දෙකට සමාන්තරව සම්බන්ධ කළ යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ලාම්පුවේ ධාරාවම මීටරය හරහා යන සේ ඇමීටරය ශ්‍රේණිගත කරන්න.",2. False / අසත්‍ය,,,
+phy.elec.c094,electricity,"A voltmeter measuring a resistor’s p.d. must share both terminals with the resistor.
+1. True
+2. False
+Parallel components share the same potential difference.","ප්‍රතිරෝධකයක විභව අන්තරය මනින වෝල්ට්මීටරයක් එහි අග්‍ර දෙකටම සම්බන්ධ කළ යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+සමාන්තර උපාංගවල විභව අන්තරය සමානය.",1. True / සත්‍ය,,,
+phy.elec.c095,electricity,"At a junction the current splits equally between a resistor and an ideal voltmeter connected in parallel.
+1. True
+2. False
+An ideal voltmeter draws zero current.","සන්ධියකදී සමාන්තරව සම්බන්ධ ප්‍රතිරෝධකයක් හා පරිපූර්ණ වෝල්ට්මීටරයක් අතර ධාරාව සමානව බෙදේ.
+1. සත්‍ය
+2. අසත්‍ය
+පරිපූර්ණ වෝල්ට්මීටරයක් තුළින් ධාරාව නොගලයි.",2. False / අසත්‍ය,,,
+phy.elec.c096,electricity,"Replacing an ideal ammeter with one of appreciable resistance can change the current being measured.
+1. True
+2. False
+Its series resistance changes the total circuit resistance.","පරිපූර්ණ ඇමීටරයක් වෙනුවට සැලකිය යුතු ප්‍රතිරෝධයක් ඇති ඇමීටරයක් යෙදීමෙන් මනින ධාරාව වෙනස් විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+එහි ශ්‍රේණිගත ප්‍රතිරෝධය නිසා පරිපථයේ මුළු ප්‍රතිරෝධය වෙනස් වේ.",1. True / සත්‍ය,,,
+phy.elec.c099,electricity,"A resistor of finite positive resistance placed between the midpoints of a balanced Wheatstone bridge has no current through it.
+1. True
+2. False
+There is no potential difference to drive a current across the link.","තුලිත විට්ස්ටන් සේතුවක මධ්‍ය ලක්ෂ්‍ය දෙක අතර සවි කළ පරිමිත ධන ප්‍රතිරෝධයක් ඇති ප්‍රතිරෝධකයක ධාරාවක් නොගලයි.
+1. සත්‍ය
+2. අසත්‍ය
+සම්බන්ධකය හරහා ධාරාවක් ඇති කිරීමට විභව අන්තරයක් නැත.",1. True / සත්‍ය,,,
+phy.elec.c101,electricity,"To find the missing arm of a balanced bridge from the other three, the supply current need not be known.
+1. True
+2. False
+Match the ratios of top to bottom resistances in the two branches.","තුලිත සේතුවක බාහු තුනක ප්‍රතිරෝධ දී ඇති විට අනෙක් බාහුව සෙවීමට සැපයුම් ධාරාව දැන ගැනීම අවශ්‍ය නොවේ.
+1. සත්‍ය
+2. අසත්‍ය
+ශාඛා දෙකේ ඉහළ හා පහළ ප්‍රතිරෝධ අතර අනුපාත සමාන කරන්න.",1. True / සත්‍ය,,,
+phy.elec.c102,electricity,"After ignoring the balanced link, the sum of the resistors along just the left branch is the resistance seen by the supply.
+1. True
+2. False
+Combine the series sum from each side in parallel.","තුලිත සම්බන්ධකය නොසලකා හැරීමෙන් පසු වම් ශාඛාවේ ප්‍රතිරෝධකවල ප්‍රතිරෝධ එකතුව පමණක් සැපයුමට පෙනෙන ප්‍රතිරෝධය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+දෙපස ශ්‍රේණිගත එකතු දෙක සමාන්තරව සංයෝජනය කරන්න.",2. False / අසත්‍ය,,,
+phy.elec.c104,electricity,"If the drop along the entire potentiometer wire is smaller than the test e.m.f., there is no balance point on the wire.
+1. True
+2. False
+No segment of the uniform wire provides the required opposing p.d.","මුළු විභවමාන කම්බිය දිගේ විභව බැස්ම පරීක්ෂා කරන විද්‍යුත් ගාමක බලයට වඩා අඩු නම් කම්බිය මත තුලන ලක්ෂ්‍යයක් නොලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+ඒකාකාර කම්බියේ කිසිම කොටසකට අවශ්‍ය ප්‍රතිවිරුද්ධ විභව අන්තරය සැපයිය නොහැකිය.",1. True / සත්‍ය,,,
+phy.elec.c105,electricity,"At a given test e.m.f., halving a uniform wire’s potential gradient halves the balance length.
+1. True
+2. False
+Balance length equals e.m.f. divided by potential gradient, provided the wire is long enough.","පරීක්ෂා කරන විද්‍යුත් ගාමක බලය නියත විට ඒකාකාර කම්බියක විභව අනුක්‍රමණය අඩක් කළ විට තුලන දිග ද අඩක් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කම්බිය ප්‍රමාණවත් තරම් දිග නම් තුලන දිග ලැබෙන්නේ විද්‍යුත් ගාමක බලය විභව අනුක්‍රමණයෙන් බෙදීමෙනි.",2. False / අසත්‍ය,,,
+phy.elec.c106,electricity,"A smaller potential gradient gives a larger balance-length change for a small change in test e.m.f. within range.
+1. True
+2. False
+A smaller p.d. drop per unit length spreads the same p.d. interval over more wire.","මැනිය හැකි පරාසය තුළ පරීක්ෂණ විද්‍යුත් ගාමක බලයේ කුඩා වෙනසකට, විභව අනුක්‍රමණය අඩු විට තුලන දිගේ වැඩි වෙනසක් ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+ඒකක දිගකට විභව බැස්ම අඩු වන විට එම විභව අන්තරයට වැඩි කම්බි දිගක් අයත් වේ.",1. True / සත්‍ය,,,
+phy.elec.c107,electricity,"A uniform potentiometer wire 4 m long has 2 V across it. Find its potential gradient in V m⁻¹.
+1. k = 0.5 V m⁻¹
+2. k = 2 V m⁻¹
+3. k = 8 V m⁻¹
+4. k = 0.005 V m⁻¹
+Divide the p.d. by the length expressed in metres.","4 m දිග ඒකාකාර විභවමාන කම්බියක් හරහා විභව අන්තරය 2 V වේ. එහි විභව අනුක්‍රමණය V m⁻¹ වලින් කීය ද?
+1. k = 0.5 V m⁻¹
+2. k = 2 V m⁻¹
+3. k = 8 V m⁻¹
+4. k = 0.005 V m⁻¹
+විභව අන්තරය මීටරවලින් දක්වා ඇති දිගෙන් බෙදන්න.",1. k = 0.5 V m⁻¹ / k = 0.5 V m⁻¹,,,
+phy.elec.c108,electricity,"A wire has a constant gradient of 4 V m⁻¹. What is the p.d. across a 0.25 m length?
+1. V = 1 V
+2. V = 4 V
+3. V = 16 V
+4. V = 0.25 V
+Multiply gradient by the chosen length.","කම්බියක විභව අනුක්‍රමණය 4 V m⁻¹ ලෙස නියතය. 0.25 m දිග කොටස හරහා විභව අන්තරය කීය ද?
+1. V = 1 V
+2. V = 4 V
+3. V = 16 V
+4. V = 0.25 V
+විභව අනුක්‍රමණය අදාළ කොටසේ දිගෙන් ගුණ කරන්න.",1. V = 1 V / V = 1 V,,,
+phy.elec.c109,electricity,"Two unequal lengths cut from one uniform potentiometer wire have equal p.d. drops when carrying the same current.
+1. True
+2. False
+The longer piece has greater resistance and p.d. drop.","ඒකාකාර විභවමාන කම්බියකින් කපාගත් අසමාන දිග දෙකක් එකම ධාරාව ගෙන යන විට ඒවායේ විභව බැස්ම සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+දිග කොටසේ ප්‍රතිරෝධයත් විභව බැස්මත් වැඩිය.",2. False / අසත්‍ය,,,
+phy.elec.c110,electricity,"A potentiometer wire with a varying cross-sectional area can have a varying potential gradient even at steady current.
+1. True
+2. False
+The resistance per unit length depends on cross-sectional area.","හරස්කඩ වර්ගඵලය වෙනස් වන විභවමාන කම්බියක නියත ධාරාවක් යටතේ පවා විභව අනුක්‍රමණය තැනින් තැන වෙනස් විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ඒකක දිගකට ප්‍රතිරෝධය හරස්කඩ වර්ගඵලය මත රඳා පවතී.",1. True / සත්‍ය,,,
+phy.elec.c111,electricity,"At a fixed gradient along a potentiometer wire the open-cell balance length is 60 cm and the loaded length is 40 cm. What length represents the internal p.d. drop?
+1. 20 cm
+2. −20 cm
+3. 40 cm
+4. 100 cm
+Internal drop is e.m.f. minus terminal p.d. Subtract the corresponding lengths.","විභවමාන කම්බියේ විභව අනුක්‍රමණය නියත විට විවෘත කෝෂයට අදාළ තුලන දිග 60 cm හා භාරය යෙදූ විට දිග 40 cm වේ. අභ්‍යන්තර විභව බැස්මට අනුරූප දිග කීය ද?
+1. 20 cm
+2. −20 cm
+3. 40 cm
+4. 100 cm
+අභ්‍යන්තර විභව බැස්ම යනු විද්‍යුත් ගාමක බලයෙන් අග්‍ර විභව අන්තරය අඩු කළ අගයයි. ඒවාට අනුරූප දිග අඩු කරන්න.",1. 20 cm / 20 cm,,,
+phy.elec.c112,electricity,"With unchanged gradient the ratio of loaded to open balance lengths gives terminal p.d. divided by e.m.f.
+1. True
+2. False
+Both potential differences equal their own balance length times the same gradient.","විභව අනුක්‍රමණය නොවෙනස් නම් භාරය සහිත හා විවෘත අවස්ථාවල තුලන දිග අතර අනුපාතය අග්‍ර විභව අන්තරය විද්‍යුත් ගාමක බලයෙන් බෙදූ අගයට සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+විභව අන්තර දෙකම අදාළ තුලන දිග එකම අනුක්‍රමණයෙන් ගුණ කළ අගයට සමානය.",1. True / සත්‍ය,,,
+phy.elec.c113,electricity,"The ratio of two potentiometer lengths always equals the p.d. ratio even if the wire current changes between readings.
+1. True
+2. False
+Changing wire current changes the potential gradient. The common factor then fails to cancel.","කියවීම් දෙක අතර කම්බියේ ධාරාව වෙනස් වුවත් විභවමානයේ දිග දෙකේ අනුපාතය සෑම විටම විභව අන්තර අනුපාතයට සමාන වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කම්බියේ ධාරාව වෙනස් වීමෙන් විභව අනුක්‍රමණය වෙනස් වේ. එවිට පොදු සාධකයක් ලෙස එය කැපී නොයයි.",2. False / අසත්‍ය,,,
+phy.elec.c116,electricity,"Reversing the same flux change over the same time reverses the sign of the mean induced e.m.f. for a fixed coil orientation.
+1. True
+2. False
+For fixed turn count and duration, the signed mean e.m.f. is proportional to −ΔΦ.","දඟරයේ දිශානතිය නියත විට එකම කාලය තුළ ස්‍රාව වෙනස ආපසු හැරවීමෙන් සාමාන්‍ය ප්‍රේරිත වි.ගා.බ. අගයේ ලකුණ මාරු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+වට ගණන හා කාල අන්තරය නියත විට ලකුණ සහිත සාමාන්‍ය විද්‍යුත් ගාමක බලය −ΔΦ ට සමානුපාතිකය.",1. True / සත්‍ය,,,
+phy.elec.c118,electricity,"For the same flux change and turn count, completing the change in half the time changes the mean e.m.f. magnitude by what factor?
+1. 2 : 1
+2. 1 : 1
+3. 4 : 1
+4. 1 : 2
+Faraday’s law uses change per unit time.","එකම ස්‍රාව වෙනසක් එකම වට ගණනක සිදු වන කාලය අඩක් කළ විට සාමාන්‍ය විද්‍යුත් ගාමක බලයේ විශාලත්වය කී ගුණයක් වේ ද?
+1. 2 : 1
+2. 1 : 1
+3. 4 : 1
+4. 1 : 2
+ෆැරඩේ නියමයට යෙදෙන්නේ ඒකක කාලයකට සිදු වන වෙනසයි.",1. 2 : 1 / 2 : 1,,,
+phy.elec.c119,electricity,"If an outward magnetic flux through a conducting loop is decreasing, the induced field points inwards.
+1. True
+2. False
+The induced field points outwards to oppose the loss of outward flux.","සන්නායක පුඩුවක් හරහා පිටතට යොමු වූ චුම්බක ස්‍රාවය අඩු වේ නම් ප්‍රේරිත ක්ෂේත්‍රය ඇතුළට යොමු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+පිටතට ඇති ස්‍රාවය අඩු වීමට විරුද්ධ වන සේ ප්‍රේරිත ක්ෂේත්‍රය පිටතට යොමු වේ.",2. False / අසත්‍ය,,,
+phy.elec.c120,electricity,"As a magnet approaches a closed conducting loop, the induced current tends to oppose the approach.
+1. True
+2. False
+The approaching magnet increases the linked flux. The induced field opposes that increase.","චුම්බකයක් සංවෘත සන්නායක පුඩුවකට ළං වන විට ප්‍රේරිත ධාරාවේ චුම්බක බලපෑම එම ළං වීමට විරුද්ධ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ළං වන චුම්බකය නිසා ස්‍රාව බන්ධනය වැඩි වේ. ප්‍රේරිත ක්ෂේත්‍රය එම වැඩිවීමට විරුද්ධ වේ.",1. True / සත්‍ය,,,
+phy.elec.c122,electricity,"A falling current in a nearby straight wire can induce a current in a closed loop if it changes the linked flux.
+1. True
+2. False
+Both an increase and a decrease in linked flux can induce e.m.f.","ආසන්න සරල කම්බියක අඩු වන ධාරාවෙන් සංවෘත පුඩුවක ස්‍රාව බන්ධනය වෙනස් වේ නම් එහි ධාරාවක් ප්‍රේරණය විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ස්‍රාව බන්ධනය වැඩි වීමෙන් මෙන්ම අඩු වීමෙන් ද විද්‍යුත් ගාමක බලයක් ප්‍රේරණය විය හැකිය.",1. True / සත්‍ය,,,
+phy.elec.c123,electricity,"Ohm’s law alone determines which face of an unpowered coil becomes north as a magnet approaches it.
+1. True
+2. False
+Use Lenz’s law to determine the direction of the induced effect.","චුම්බකයක් ළං වන විට බාහිර සැපයුමක් නැති දඟරයක උතුරු ධ්‍රැවය වන මුහුණත තීරණය කිරීමට ඕම් නියමය පමණක් ප්‍රමාණවත්ය.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රේරිත බලපෑමේ දිශාව තීරණය කිරීමට ලෙන්ස් නියමය යොදන්න.",2. False / අසත්‍ය,,,
+phy.elec.c126,electricity,"An ideal transformer receives 24 W and supplies a 6 V secondary. What secondary current does a resistive load draw?
+1. I = 4 A
+2. I = 0.25 A
+3. I = 24 A
+4. I = 6 A
+Output power equals input power. Divide 24 W by 6 V.","පරිපූර්ණ පරිණාමකයකට 24 W ලැබෙන අතර ද්විතීයික විභව අන්තරය 6 V වේ. ප්‍රතිරෝධ භාරයකට ලැබෙන ද්විතීයික ධාරාව කීය ද?
+1. I = 4 A
+2. I = 0.25 A
+3. I = 24 A
+4. I = 6 A
+ප්‍රතිදාන ජවය ප්‍රදාන ජවයට සමානය. 24 W අගය 6 V න් බෙදන්න.",1. I = 4 A / I = 4 A,,,
+phy.elec.c128,electricity,"An ideal transformer with a resistive load triples the p.d. Find secondary current divided by primary current.
+1. 1 : 3
+2. 3 : 1
+3. 1 : 1
+4. 1 : 9
+Conservation of power makes the current ratio the reciprocal of the p.d. ratio.","ප්‍රතිරෝධ භාරයක් සහිත පරිපූර්ණ පරිණාමකයක් විභව අන්තරය තුන් ගුණ කරයි. ද්විතීයික ධාරාව ප්‍රාථමික ධාරාවෙන් බෙදූ විට අගය කීය ද?
+1. 1 : 3
+2. 3 : 1
+3. 1 : 1
+4. 1 : 9
+ජව සංස්ථිතිය අනුව ධාරා අනුපාතය විභව අන්තර අනුපාතයේ පරස්පරයයි.",1. 1 : 3 / 1 : 3,,,
+phy.mech.c061,mechanics,"For an upward launch at speed u under constant gravity g, which expression gives the rise to the turning point?
+1. u²/(2g)
+2. u/(2g)
+3. u²/g
+4. u²/(4g)
+Set the final vertical speed to zero in v² = u² − 2gh.","නියත ගුරුත්වජ ත්වරණය g යටතේ u වේගයෙන් සිරස්ව ඉහළට විසි කළ වස්තුව හැරෙන ස්ථානය දක්වා ඉහළ යන උස කුමන ප්‍රකාශනයෙන් ලැබේ ද?
+1. u²/(2g)
+2. u/(2g)
+3. u²/g
+4. u²/(4g)
+v² = u² − 2gh හි අවසාන සිරස් වේගය ශූන්‍ය කරන්න.",1. u²/(2g) / u²/(2g),"Check the term for zero in the term sheet. Sinhala specifies a vertical launch. English says upward, which also allows an oblique launch. The keyed u²/(2g) needs u to be the vertical component.",,
+phy.mech.c062,mechanics,"A stone is thrown upwards from a roof in still air with negligible drag. Its time to the street must equal twice its time to the top, even when the street lies below the roof.
+1. True
+2. False
+The equal flight times refer to points at the same height. The stone also has to fall below roof level.","වායු ප්‍රතිරෝධය නොසලකා වහලයක සිට ඉහළට විසි කළ ගලකට වීදියට වැටීමට ගත වන කාලය, වීදිය වහලයට පහළින් තිබුණත්, ඉහළම තැනට යාමට ගත වන කාලය මෙන් දෙගුණයකි.
+1. සත්‍ය
+2. අසත්‍ය
+කාල සම්මිතිය යෙදෙන්නේ එකම උසේ ලක්ෂ්‍යවලටය. ගල වහල මට්ටමට පහළටත් වැටිය යුතුය.",2. False / අසත්‍ය,Check the term for symmetry in the term sheet. English explicitly assumes still air as well as negligible drag. Sinhala asks the reader to ignore air resistance and leaves air motion unspecified. Both give the same flight-time result.,,
+phy.mech.c063,mechanics,"A ball leaves the ground at speed u at angle θ above the horizontal. Ignore air resistance. What is its speed at the highest point for 0° < θ < 90°?
+1. v(hₘₐₓ) = u cos θ
+2. v(hₘₐₓ) = u sin θ
+3. v(hₘₐₓ) = 0
+4. v(hₘₐₓ) = u
+Only the vertical velocity vanishes. The horizontal component is unchanged.","බෝලයක් තිරසට ඉහළින් θ කෝණයකින් u වේගයෙන් විසි කරයි. වායු ප්‍රතිරෝධය නොසලකන්න. 0° < θ < 90° නම් ඉහළම තැනදී එහි වේගය කීය ද?
+1. v(hₘₐₓ) = u cos θ
+2. v(hₘₐₓ) = u sin θ
+3. v(hₘₐₓ) = 0
+4. v(hₘₐₓ) = u
+ශූන්‍ය වන්නේ සිරස් ප්‍රවේග සංරචකය පමණි. තිරස් සංරචකය වෙනස් නොවේ.",1. v(hₘₐₓ) = u cos θ / v(hₘₐₓ) = u cos θ,Check the term for zero in the term sheet. English launches the ball from the ground. Sinhala gives the angle and speed but leaves the starting height open. The requested speed is unaffected.,,
+phy.mech.c067,mechanics,"Every ball thrown obliquely has exactly half its initial kinetic energy at the top of its path in a vacuum.
+1. True
+2. False
+The energy fraction depends on launch angle because the horizontal velocity remains.","රික්තයක ආනතව විසි කළ සෑම වස්තුවකටම පථයේ ඉහළම තැනදී ඉතිරි වන්නේ මුල් චාලක ශක්තියෙන් හරි අඩකි.
+1. සත්‍ය
+2. අසත්‍ය
+තිරස් ප්‍රවේගය ඉතිරි වන නිසා චාලක ශක්තියේ ඉතිරි භාගය විසි කළ කෝණය මත රඳා පවතී.",2. False / අසත්‍ය,English makes the claim for every ball. Sinhala extends it to every object. Both claims are false in the projectile model.,,
+phy.mech.c078,mechanics,"A rider of mass m accelerates downwards at a in a lift, with 0 < a < g. Which expression gives the scale reading in newtons?
+1. N = m(g−a)
+2. N = m(g+a)
+3. N = mg
+4. N = g−a
+Weight exceeds the upward support force by ma. The scale reads the support force.","විදුලි සෝපානයක m ස්කන්ධයක් ඇති මගියෙක් a ත්වරණයෙන් පහළට ගමන් කරයි. 0 < a < g නම් තරාදියේ කියවීම නිව්ටන්වලින් කීය ද?
+1. N = m(g−a)
+2. N = m(g+a)
+3. N = mg
+4. N = g−a
+බර ඉහළට යෙදෙන ආධාරක බලයට වඩා ma ප්‍රමාණයකින් වැඩිය. තරාදියෙන් කියවෙන්නේ ආධාරක බලයයි.",1. N = m(g−a) / N = m(g−a),English specifies downward acceleration. Sinhala describes downward travel with acceleration a. A descending lift that is slowing down has upward acceleration and a different scale reading.,,
+phy.mech.c090,mechanics,"On a level truck bed the maximum friction on a box of mass m is μmg. What truck acceleration can friction alone just give the box?
+1. a = μg
+2. a = μmg
+3. a = g/μ
+4. a = μ
+Divide the limiting friction by the mass of the box.","තිරස් ලොරි තට්ටුවක m ස්කන්ධයක් ඇති පෙට්ටියකට යෙදිය හැකි උපරිම ඝර්ෂණ බලය μmg වේ. එම බලය පමණක් පෙට්ටියට ලබා දෙන උපරිම ත්වරණය කීය ද?
+1. a = μg
+2. a = μmg
+3. a = g/μ
+4. a = μ
+සීමාන්ත ඝර්ෂණ බලය පෙට්ටියේ ස්කන්ධයෙන් බෙදන්න.",1. a = μg / a = μg,English asks how much truck acceleration the friction can give the box. Sinhala asks only for the maximum box acceleration. The values coincide at the no-slip limit.,,
+phy.mech.c118,mechanics,"Spinning a rigid disc faster increases its moment of inertia about its fixed axle.
+1. True
+2. False
+Neither the mass nor its distribution about the axle changes.","දෘඪ තැටියක් එහි ස්ථිර අක්ෂය වටා වේගයෙන් කරකැවූ විට එහි අවස්ථිති සූර්ණය වැඩි වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ස්කන්ධය හෝ අක්ෂය වටා එහි ව්‍යාප්තිය හෝ වෙනස් නොවේ.",2. False / අසත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය. English changes the speed of the same disc. Sinhala says it is spun fast. An absolute speed replaces the comparison in the false claim.,,
+phy.mech.c053,mechanics,"A runner returns to her starting line after one lap. Her average velocity for the lap is zero.
+1. True
+2. False
+Her displacement is zero even though she covered a distance.","ධාවිකාවක් එක් වටයක් දිව ආරම්භක රේඛාවට ආපසු පැමිණෙයි. වටය සඳහා ඇගේ සාමාන්‍ය ප්‍රවේගය ශූන්‍ය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ගමන් කළ දුරක් තිබුණත් ඇගේ විස්ථාපනය ශූන්‍ය වේ.",1. True / සත්‍ය,Check the term for zero in the term sheet.,,
+phy.mech.c054,mechanics,"For any straight journey, averaging just the initial and final velocities gives the average velocity.
+1. True
+2. False
+The general rule uses displacement divided by elapsed time. Constant acceleration is one case where the endpoint shortcut applies.","ඕනෑම සරල රේඛීය ගමනක මුල් හා අවසන් ප්‍රවේග දෙකේ මධ්‍යන්‍යය ගැනීමෙන් සාමාන්‍ය ප්‍රවේගය ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+සාමාන්‍ය රීතිය අනුව විස්ථාපනය ගත වූ කාලයෙන් බෙදිය යුතුය. ත්වරණය නියත විට අන්ත දෙකේ ප්‍රවේග භාවිත කළ හැකිය.",2. False / අසත්‍ය,Check the term for final velocity in the term sheet.,,
+phy.mech.c080,mechanics,"A freely falling scale beneath a freely falling person still reads the person’s ordinary weight.
+1. True
+2. False
+The person and scale fall together. The contact force is zero.","නිදහසේ වැටෙන පුද්ගලයකු යටින් ඔහු සමඟ නිදහසේ වැටෙන තරාදියක සාමාන්‍ය බර කියවේ.
+1. සත්‍ය
+2. අසත්‍ය
+පුද්ගලයා සහ තරාදිය එකට වැටෙන බැවින් ස්පර්ශ බලය ශූන්‍ය වේ.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.mech.c093,mechanics,"A triangular force pulse rises from zero to 6 N and returns to zero. Its base lasts 4 s. Find its impulse in N s.
+1. 12 N s
+2. 24 N s
+3. 3 N s
+4. 6 N s
+Impulse is the triangular area, ½ × 4 × 6 = 12 N s.","ත්‍රිකෝණාකාර බල ස්පන්දනයක් ශූන්‍යයේ සිට 6 N දක්වා වැඩි වී යළි ශූන්‍ය වේ. එහි පාදයට අදාළ කාලය 4 s කි. ආවේගය N s වලින් කීය ද?
+1. 12 N s
+2. 24 N s
+3. 3 N s
+4. 6 N s
+ආවේගය ත්‍රිකෝණයේ වර්ගඵලයට සමානය. එය ½ × 4 × 6 = 12 N s වේ.",1. 12 N s / 12 N s,Check the term for zero in the term sheet.,,
+phy.mech.c104,mechanics,"A light bar has supports A and B, 4 m apart. A 12 N weight acts 1 m from A between them. While the bar rests horizontally, what upward force does B exert?
+1. 3 N
+2. 6 N
+3. 9 N
+4. 12 N
+Taking moments about A gives Fᵦ × 4 = 12 × 1.","සැහැල්ලු දණ්ඩක A හා B ආධාරක අතර දුර 4 m කි. ඒවා අතර A සිට 1 m දුරින් 12 N බරක් ක්‍රියා කරයි. බාල්කය තිරස්ව නිශ්චලව ඇති විට B යොදන ඉහළට බලය කීය ද?
+1. 3 N
+2. 6 N
+3. 9 N
+4. 12 N
+A වටා සූර්ණ ගත් විට Fᵦ × 4 = 12 × 1 වේ.",1. 3 N / 3 N,moment of force. ඝූර්ණය.,,
+phy.mech.c105,mechanics,"A mass m hangs at horizontal distance d from a pivot. Which expression gives the magnitude of the moment of its weight?
+1. τ = mgd
+2. τ = md
+3. τ = gd
+4. τ = mgd²
+Multiply the weight mg by the perpendicular distance d.","අසව්වක සිට තිරස් දුර d හි m ස්කන්ධයක් එල්ලා ඇත. එහි බර නිසා අසව්ව වටා ඇති බල සූර්ණයේ විශාලත්වය කීය ද?
+1. τ = mgd
+2. τ = md
+3. τ = gd
+4. τ = mgd²
+mg බර එහි ක්‍රියා රේඛාවට ඇති ලම්බ දුර d න් ගුණ කරන්න.",1. τ = mgd / τ = mgd,moment of force. ඝූර්ණය.,,
+phy.mech.c106,mechanics,"Taking moments about a pin removes the unknown force acting at that pin from the moment equation.
+1. True
+2. False
+Its line of action passes through the pivot, giving zero perpendicular distance.","ඇණයක් වටා සූර්ණ ගත් විට එම ඇණය මත ක්‍රියා කරන නොදන්නා බලය සූර්ණ සමීකරණයෙන් ඉවත් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එහි ක්‍රියා රේඛාව අසව්ව හරහා යන නිසා ලම්බ දුර ශූන්‍ය වේ.",1. True / සත්‍ය,moment of force. ඝූර්ණය. Check the term for zero in the term sheet.,,
+phy.mech.c107,mechanics,"Zero resultant force alone ensures that a free rigid bar has no angular acceleration.
+1. True
+2. False
+A couple has zero resultant force and a nonzero moment.","නිදහස් දෘඪ දණ්ඩක සම්ප්‍රයුක්ත බලය ශූන්‍ය වීම පමණක් එහි කෝණික ත්වරණය ශූන්‍ය වීමට ප්‍රමාණවත්ය.
+1. සත්‍ය
+2. අසත්‍ය
+බල යුග්මයක සම්ප්‍රයුක්ත බලය ශූන්‍ය වුවත් සූර්ණය ශූන්‍ය නොවේ.",2. False / අසත්‍ය,moment of force. ඝූර්ණය. Check the term for zero in the term sheet.,,
+phy.mech.c108,mechanics,"A uniform heavy bar supported at its ends may always be treated as weightless in a moment equation.
+1. True
+2. False
+Its weight acts at its centre. It produces a moment about either end.","දෙකෙළවරින් දරා ඇති ඒකාකාර බර දණ්ඩක ස්වකීය බර සූර්ණ සමීකරණයේදී සෑම විටම නොසලකා හැරිය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+එහි බර මධ්‍ය ලක්ෂ්‍යයේ ක්‍රියා කරයි. එබැවින් ඕනෑම කෙළවරක් වටා සූර්ණයක් ඇති කරයි.",2. False / අසත්‍ය,moment of force. ඝූර්ණය.,,
+phy.mech.c109,mechanics,"For a sloping bar and a vertical weight, the horizontal separation from the pivot to the weight’s line of action gives the moment arm.
+1. True
+2. False
+The arm is perpendicular to the vertical force.","ආනත දණ්ඩක් මත සිරස් බරක් සඳහා සූර්ණ භුජය වන්නේ අසව්ව හා බරේ ක්‍රියා රේඛාව අතර තිරස් පරතරයයි.
+1. සත්‍ය
+2. අසත්‍ය
+බාහුව සිරස් බලයට ලම්බකය.",1. True / සත්‍ය,moment arm. Use the ඝූර්ණ root. moment of force. ඝූර්ණය.,,
+phy.mech.c117,mechanics,"The moment of inertia of the same rod can differ for an axis through its end and a parallel axis through its centre.
+1. True
+2. False
+Changing the axis changes the distances of the masses from it.","එකම දණ්ඩක කෙළවරින් යන අක්ෂයක් හා ඊට සමාන්තරව මැදින් යන අක්ෂයක් සඳහා අවස්ථිති සූර්ණය වෙනස් විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+අක්ෂය මාරු කළ විට ස්කන්ධ කොටස්වල සිට අක්ෂයට ඇති දුර වෙනස් වේ.",1. True / සත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c119,mechanics,"Two bodies of equal mass must have equal moments of inertia about their respective central axes.
+1. True
+2. False
+The radial distribution of mass matters too.","සමාන ස්කන්ධ ඇති වස්තු දෙකකට ඒවායේ මධ්‍ය අක්ෂ වටා අනිවාර්යයෙන්ම සමාන අවස්ථිති සූර්ණ ඇත.
+1. සත්‍ය
+2. අසත්‍ය
+අක්ෂයේ සිට ස්කන්ධය ව්‍යාප්ත වී ඇති දුර ද බලපායි.",2. False / අසත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c120,mechanics,"Of a thin hoop and a uniform disc of equal mass and radius, the hoop has the larger moment of inertia about the central perpendicular axis.
+1. True
+2. False
+All of the hoop’s mass lies at the rim.","තුනී වළල්ලක හා ඒකාකාර තැටියක ස්කන්ධ හා අරය සමානය. තලයට ලම්බක මධ්‍ය අක්ෂය වටා වැඩි අවස්ථිති සූර්ණය ඇත්තේ වළල්ලටය.
+1. සත්‍ය
+2. අසත්‍ය
+වළල්ලේ මුළු ස්කන්ධයම පරිධියේ පිහිටයි.",1. True / සත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c121,mechanics,"Moving a point mass twice as far from an axis doubles its contribution to moment of inertia.
+1. True
+2. False
+Its contribution is mr², so it increases fourfold.","ලක්ෂ්‍යාකාර ස්කන්ධයක් අක්ෂයේ සිට දෙගුණයක් දුරට ගෙන ගිය විට අවස්ථිති සූර්ණයට එහි දායකත්වය දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+දායකත්වය mr² බැවින් එය සිව් ගුණයක් වේ.",2. False / අසත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c122,mechanics,"For several point masses about one axis, their separate moments of inertia can be added.
+1. True
+2. False
+Each mass contributes its own mr² to the total.","එකම අක්ෂයක් සඳහා ලක්ෂ්‍ය ස්කන්ධ කිහිපයක අවස්ථිති සූර්ණ වෙන වෙනම ගණනය කර එකතු කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+එක් එක් ස්කන්ධයෙන් එහි mr² ප්‍රමාණය මුළු අගයට එකතු වේ.",1. True / සත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c123,mechanics,"A spinner has Iω = 12 kg m² s⁻¹. Its moment of inertia drops from 6 to 3 kg m² with zero external torque. What is its new angular speed in rad s⁻¹?
+1. 4 rad s⁻¹
+2. 2 rad s⁻¹
+3. 12 rad s⁻¹
+4. 0.25 rad s⁻¹
+Divide the conserved angular momentum by the new moment of inertia.","භ්‍රමණය වන වස්තුවකට Iω = 12 kg m² s⁻¹ වේ. බාහිර ව්‍යාවර්තය ශූන්‍යව තිබියදී අවස්ථිති සූර්ණය 6 සිට 3 kg m² දක්වා අඩු වේ. නව කෝණික වේගය rad s⁻¹ වලින් කීය ද?
+1. 4 rad s⁻¹
+2. 2 rad s⁻¹
+3. 12 rad s⁻¹
+4. 0.25 rad s⁻¹
+සංස්ථිතික කෝණික ගම්‍යතාව නව අවස්ථිති සූර්ණයෙන් බෙදන්න.",1. 4 rad s⁻¹ / 4 rad s⁻¹,moment of inertia. අවස්ථිති ඝූර්ණය. Check the term for zero in the term sheet.,,
+phy.mech.c124,mechanics,"A skater pulling in both arms must keep the same rotational kinetic energy because external torque is zero.
+1. True
+2. False
+Internal work can change the rotational kinetic energy.","බාහිර ව්‍යාවර්තය ශූන්‍ය බැවින් දෑත් ඇතුළට ගන්නා ක්‍රීඩකයකුගේ භ්‍රමණ චාලක ශක්තිය නියතව තිබිය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+අභ්‍යන්තර කාර්යය නිසා භ්‍රමණ චාලක ශක්තිය වෙනස් විය හැකිය.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.mech.c125,mechanics,"For a spinning wheel about its fixed symmetry axis, Iω describes angular momentum.
+1. True
+2. False
+The corresponding quantity for translation is mv.","ස්ථිර සම්මිති අක්ෂය වටා භ්‍රමණය වන රෝදයක Iω යනු එම අක්ෂය වටා කෝණික ගම්‍යතාවයි.
+1. සත්‍ය
+2. අසත්‍ය
+උත්තාරණ චලිතයේ අනුරූප රාශිය mv වේ.",1. True / සත්‍ය,Check the term for symmetry in the term sheet.,,
+phy.mech.c127,mechanics,"With zero external torque angular velocity stays fixed even if the moment of inertia changes.
+1. True
+2. False
+The conserved product is Iω.","බාහිර ව්‍යාවර්තය ශූන්‍ය නම් අවස්ථිති සූර්ණය වෙනස් වුවත් කෝණික ප්‍රවේගය නියතව පවතී.
+1. සත්‍ය
+2. අසත්‍ය
+සංස්ථිතිකව පවතින්නේ Iω ගුණිතයයි.",2. False / අසත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය. Check the term for zero in the term sheet.,,
+phy.mech.c132,mechanics,"At equal mass, radius and angular speed, a thin hoop has more rotational kinetic energy than a uniform solid disc.
+1. True
+2. False
+The hoop has the larger moment of inertia.","ස්කන්ධය, අරය හා කෝණික වේගය සමාන විට තුනී වළල්ලක භ්‍රමණ චාලක ශක්තිය ඒකාකාර ඝන තැටියක අගයට වඩා වැඩිය.
+1. සත්‍ය
+2. අසත්‍ය
+වළල්ලේ අවස්ථිති සූර්ණය වැඩිය.",1. True / සත්‍ය,moment of inertia. අවස්ථිති ඝූර්ණය.,,
+phy.mech.c137,mechanics,"In uniform circular motion the net force is tangent to the circle.
+1. True
+2. False
+The velocity is tangential and the acceleration is radial.","ඒකාකාර වෘත්තාකාර චලිතයේදී ශුද්ධ බලය වෘත්තයට ස්පර්ශක වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රවේගය ස්පර්ශක දිශාවේ වන අතර ත්වරණය අරීය දිශාවේ වේ.",2. False / අසත්‍ය,Check the term for circular motion in the term sheet.,,
+phy.mech.c052,mechanics,"A cart moves east for 2 s, then rests for 6 s. Its displacement is 12 m east. Find its average eastward velocity in m s⁻¹.
+1. 1.5
+2. 3.0
+3. 6.0
+4. 12
+Include the rest in the elapsed time. The average is 12 ÷ 8 = 1.5 m s⁻¹ east.","කරත්තයක් 2 s ක් නැගෙනහිරට ගොස් 6 s ක් නතර වී සිටී. එහි විස්ථාපනය නැගෙනහිරට 12 m කි. නැගෙනහිර දිශාවට සාමාන්‍ය ප්‍රවේගය m s⁻¹ වලින් කීය ද?
+1. 1.5
+2. 3.0
+3. 6.0
+4. 12
+මුළු කාලයට නතර වී සිටි කාලයත් අයත් වේ. සාමාන්‍ය ප්‍රවේගය නැගෙනහිරට 12 ÷ 8 = 1.5 m s⁻¹ වේ.",1. 1.5 / 1.5,,,
+phy.mech.c055,mechanics,"To average velocity between clock readings 4 s and 10 s, divide the displacement over that interval by 6 s.
+1. True
+2. False
+Elapsed time is the difference between the two readings.","ඔරලෝසුවේ 4 s හා 10 s කියවීම් අතර සාමාන්‍ය ප්‍රවේගය සෙවීමට එම කාලයේ විස්ථාපනය 6 s න් බෙදිය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ගත වූ කාලය යනු කියවීම් දෙකේ වෙනසයි.",1. True / සත්‍ය,,,
+phy.mech.c056,mechanics,"A straight, rising displacement–time line represents constant positive velocity.
+1. True
+2. False
+Equal time intervals give equal increases in displacement.","විස්ථාපනය හා කාලය අතර ප්‍රස්තාරය ඉහළට නැඟෙන සරල රේඛාවක් නම් ප්‍රවේගය නියත ධන අගයකි.
+1. සත්‍ය
+2. අසත්‍ය
+සමාන කාල අන්තරවලදී විස්ථාපනය සමාන ප්‍රමාණවලින් වැඩි වේ.",1. True / සත්‍ය,,,
+phy.mech.c057,mechanics,"An area below the time axis on a velocity–time graph adds positive displacement.
+1. True
+2. False
+Velocity there is negative. That part of the displacement is negative.","ප්‍රවේග කාල ප්‍රස්තාරයක කාල අක්ෂයට පහළින් ඇති වර්ගඵලයෙන් විස්ථාපනයට ධන අගයක් එකතු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එම කොටසේ ප්‍රවේගය ඍණ බැවින් ඊට අනුරූප විස්ථාපනය ද ඍණ වේ.",2. False / අසත්‍ය,,,
+phy.mech.c058,mechanics,"The area under a speed–time graph always gives displacement, even if the object turns back.
+1. True
+2. False
+Speed has no direction. Its time integral gives distance travelled.","වස්තුව ආපසු හැරුණත් වේග කාල ප්‍රස්තාරයට යටින් ඇති වර්ගඵලය සෑම විටම විස්ථාපනය ලබා දෙයි.
+1. සත්‍ය
+2. අසත්‍ය
+වේගයට දිශාවක් නැත. එහි කාල අනුකලයෙන් ලැබෙන්නේ ගමන් කළ දුරයි.",2. False / අසත්‍ය,,,
+phy.mech.c059,mechanics,"A ball thrown straight up returns to its launch height after 8 s. Ignore air resistance. How many seconds does its descent take?
+1. 4 s
+2. 8 s
+3. 6 s
+4. −4 s
+At equal heights the upward and downward journeys take equal times. Each takes half of 8 s.","සිරස්ව ඉහළට විසි කළ බෝලයක් 8 s කින් මුල් උසට පැමිණේ. වායු ප්‍රතිරෝධය නොසලකන්න. පහළට ගමන් කිරීමට ගත වූ කාලය තත්පර කීය ද?
+1. 4 s
+2. 8 s
+3. 6 s
+4. −4 s
+එකම උස අතර ඉහළට හා පහළට යාමට සමාන කාල ගත වේ. එක් ගමනකට 8 s න් අඩක් ගත වේ.",1. 4 s / 4 s,,,
+phy.mech.c060,mechanics,"Two stones leave the ground vertically at the same speed in a vacuum. The heavier stone reaches a greater height.
+1. True
+2. False
+Both have the same initial speed and downward acceleration. Their maximum heights are equal.","රික්තයක ගල් දෙකක් එකම වේගයෙන් පොළොවෙන් සිරස්ව ඉහළට විසි කරයි. වැඩි ස්කන්ධයක් ඇති ගල වැඩි උසකට ළඟා වේ.
+1. සත්‍ය
+2. අසත්‍ය
+මුල් වේගය හා පහළට ඇති ත්වරණය දෙකටම සමාන බැවින් උපරිම උස ද සමාන වේ.",2. False / අසත්‍ය,,,
+phy.mech.c064,mechanics,"At the highest point of an oblique throw, gravity briefly stops acting.
+1. True
+2. False
+Gravity continues to accelerate the ball downwards through the turning point.","ආනතව විසි කළ වස්තුවක් ඉහළම ලක්ෂ්‍යයට ළඟා වන මොහොතේ ගුරුත්ව බලය ක්‍රියා කිරීම මඳකට නවතී.
+1. සත්‍ය
+2. අසත්‍ය
+එම ලක්ෂ්‍යය පසු කරන විටත් ගුරුත්ව බලය නිසා වස්තුව පහළට ත්වරණය වේ.",2. False / අසත්‍ය,,,
+phy.mech.c065,mechanics,"A ball flying horizontally at the top of its path in a vacuum has a downward net force.
+1. True
+2. False
+Only its weight acts during free flight.","රික්තයක ගමන් කරන බෝලයක පථයේ ඉහළම ලක්ෂ්‍යයේදී එහි ප්‍රවේගය තිරස් වුවත් ශුද්ධ බලය පහළට යොමු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+නිදහස් පියාසැරිය අතරතුර ක්‍රියා කරන්නේ බෝලයේ බර පමණි.",1. True / සත්‍ය,,,
+phy.mech.c066,mechanics,"At the top of a projectile path the speed is half its launch speed. What fraction of the initial kinetic energy remains?
+1. 1 : 4
+2. 1 : 2
+3. 3 : 4
+4. 1 : 1
+Kinetic energy is proportional to speed squared for fixed mass. The fraction is (1/2)².","ප්‍රක්ෂිප්තයක පථයේ ඉහළම තැනදී වේගය මුල් වේගයෙන් අඩකි. එහි ඉතිරි චාලක ශක්තිය මුල් චාලක ශක්තියෙන් කවර භාගයක් ද?
+1. 1 : 4
+2. 1 : 2
+3. 3 : 4
+4. 1 : 1
+ස්කන්ධය නියත විට චාලක ශක්තිය වේගයේ වර්ගයට සමානුපාතිකය. එම භාගය (1/2)² වේ.",1. 1 : 4 / 1 : 4,,,
+phy.mech.c068,mechanics,"Two forces of 3 N and 5 N can have a resultant force of exactly 2 N.
+1. True
+2. False
+Opposite directions give the difference of the magnitudes. The lower endpoint is possible.","3 N හා 5 N බල දෙකක සම්ප්‍රයුක්ත බලයේ විශාලත්වය හරියටම 2 N විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රතිවිරුද්ධ දිශාවලට ක්‍රියා කරන විට විශාලත්ව දෙකේ වෙනස ලැබේ. එබැවින් පහළ සීමා අගය ගත හැකිය.",1. True / සත්‍ය,,,
+phy.mech.c069,mechanics,"When a hand first presses a wall, the wall starts pushing back after a short delay.
+1. True
+2. False
+The two forces arise together during the interaction.","අතකින් බිත්තියක් තද කිරීම ආරම්භ කළ විට බිත්තිය අත මත බලයක් යෙදීම අරඹන්නේ ඊට මොහොතකට පසුවය.
+1. සත්‍ය
+2. අසත්‍ය
+අන්තර්ක්‍රියාවේදී බල දෙකම එකවර හට ගනී.",2. False / අසත්‍ය,,,
+phy.mech.c070,mechanics,"Earth and the Moon exert a third-law force pair on each other across space.
+1. True
+2. False
+Each body attracts the other by gravitation.","පෘථිවිය හා චන්ද්‍රයා අතර ස්පර්ශයක් නැතත් ඒවා එකිනෙක මත යොදන ගුරුත්ව බල නිව්ටන්ගේ තෙවැනි නියමයට අයත් බල යුගලයකි.
+1. සත්‍ය
+2. අසත්‍ය
+එක් එක් වස්තුව අනෙක ගුරුත්වාකර්ෂණයෙන් තමා දෙසට ඇද ගනී.",1. True / සත්‍ය,,,
+phy.mech.c071,mechanics,"The weight of a resting book and the normal force on it from a table form a third-law pair.
+1. True
+2. False
+Both act on the book. The partner of the table’s push acts on the table.","මේසයක් මත නිශ්චල පොතක බරත් මේසයෙන් පොතට යෙදෙන අභිලම්බ බලයත් තෙවැනි නියමයේ බල යුගලයකි.
+1. සත්‍ය
+2. අසත්‍ය
+බල දෙකම ක්‍රියා කරන්නේ පොත මතය. මේසය යොදන බලයට යුගල වූ බලය ක්‍රියා කරන්නේ මේසය මතය.",2. False / අසත්‍ය,,,
+phy.mech.c072,mechanics,"A skate pushes the ice backwards. Its partner force can accelerate the skater forwards.
+1. True
+2. False
+The two forces act on different bodies. Only the forward member acts on the skater.","ලිස්සන සපත්තුව අයිස් මත පිටුපසට බලයක් යොදයි. එහි ප්‍රතික්‍රියා බලයෙන් ක්‍රීඩකයා ඉදිරියට ත්වරණය විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+බල දෙක ක්‍රියා කරන්නේ වස්තු දෙකක් මතය. ක්‍රීඩකයා මත ක්‍රියා කරන්නේ ඉදිරියට යොමු වූ බලයයි.",1. True / සත්‍ය,,,
+phy.mech.c073,mechanics,"For the combined system of two colliding carts, the forces they exert on each other are internal forces.
+1. True
+2. False
+Both participants in that interaction lie inside the chosen system.","ගැටෙන කරත්ත දෙකම එක් පද්ධතියක් ලෙස ගත් විට ඒවා එකිනෙක මත යොදන බල අභ්‍යන්තර බල වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එම අන්තර්ක්‍රියාවට සහභාගි වන වස්තු දෙකම තෝරාගත් පද්ධතිය තුළ පවතී.",1. True / සත්‍ය,,,
+phy.mech.c074,mechanics,"A rope pulls a bucket up. Earth supplies the third-law partner of that pull.
+1. True
+2. False
+The bucket pulls the rope down. The partner comes from the body on which the original pull acts.","ලණුවක් බාල්දියක් ඉහළට අදියි. එම ඇදීමට අනුරූප තෙවැනි නියමයේ අනෙක් බලය යොදන්නේ පෘථිවියයි.
+1. සත්‍ය
+2. අසත්‍ය
+බාල්දිය ලණුව පහළට අදියි. අනෙක් බලය යොදන්නේ මුල් බලය ලැබූ බාල්දියයි.",2. False / අසත්‍ය,,,
+phy.mech.c075,mechanics,"A hand pushes trolley A into trolley B. The partner of A’s push on B is the hand’s push on A.
+1. True
+2. False
+Keep the same two bodies and exchange their roles. B pushes on A.","අතකින් A කරත්තය B කරත්තයට එරෙහිව තල්ලු කරයි. A විසින් B මත යොදන බලයේ ප්‍රතික්‍රියාව අත විසින් A මත යොදන බලයයි.
+1. සත්‍ය
+2. අසත්‍ය
+එම වස්තු දෙකම ගෙන ඒවායේ භූමිකා මාරු කරන්න. B විසින් A මත බලයක් යොදයි.",2. False / අසත්‍ය,,,
+phy.mech.c076,mechanics,"If a swimmer pushes water backwards, the forward force of this pair acts on the swimmer.
+1. True
+2. False
+Water is pushed back and in turn pushes the swimmer forwards.","පිහිනුම්කරුවකු ජලය පිටුපසට තල්ලු කළ විට මේ යුගලයේ ඉදිරියට යොමු වූ බලය ක්‍රියා කරන්නේ පිහිනුම්කරු මතය.
+1. සත්‍ය
+2. අසත්‍ය
+ජලය පිටුපසට තල්ලු වන අතර එය පිහිනුම්කරු ඉදිරියට තල්ලු කරයි.",1. True / සත්‍ය,,,
+phy.mech.c077,mechanics,"During a collision a light trolley and a heavy trolley exert forces of equal magnitude on each other.
+1. True
+2. False
+Different masses can have different accelerations under equal forces.","ගැටීමකදී සැහැල්ලු කරත්තයක් හා බර කරත්තයක් එකිනෙක මත සමාන විශාලත්ව ඇති බල යොදයි.
+1. සත්‍ය
+2. අසත්‍ය
+සමාන බල යටතේ වුවත් ස්කන්ධ වෙනස් නිසා ත්වරණ වෙනස් විය හැකිය.",1. True / සත්‍ය,,,
+phy.mech.c079,mechanics,"A descending lift slows down. A standing passenger’s scale reading exceeds their weight.
+1. True
+2. False
+Slowing a downward motion requires upward acceleration. The floor pushes up harder than gravity pulls down.","පහළට යන විදුලි සෝපානයක වේගය අඩු වේ. සිටගෙන සිටින මගියකුගේ තරාදි කියවීම ඔහුගේ බර ඉක්මවයි.
+1. සත්‍ය
+2. අසත්‍ය
+පහළට යන වේගය අඩු වීමට ඉහළට ත්වරණයක් අවශ්‍යය. එවිට පොළොව දෙසට යෙදෙන ගුරුත්ව බලයට වඩා සෝපාන තට්ටුවෙන් යෙදෙන බලය වැඩිය.",1. True / සත්‍ය,,,
+phy.mech.c081,mechanics,"A spring scale under a passenger measures the resultant force on that passenger.
+1. True
+2. False
+The reading is the contact force. Gravity also contributes to the resultant.","මගියකුගේ පා යට දුනු තරාදිය මනිනුයේ මගියා මත ඇති සම්ප්‍රයුක්ත බලයයි.
+1. සත්‍ය
+2. අසත්‍ය
+කියවීම ස්පර්ශ බලයට සමානය. සම්ප්‍රයුක්ත බලය සෙවීමේදී ගුරුත්ව බලයත් සැලකිය යුතුය.",2. False / අසත්‍ය,,,
+phy.mech.c082,mechanics,"For a passenger accelerating upwards, the equation for the support force N is N − mg = ma.
+1. True
+2. False
+Taking upwards as positive, the resultant force is the support force minus the weight.","ඉහළට ත්වරණය වන මගියකුට යෙදෙන ආධාරක බලය N නම් N − mg = ma වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ඉහළ දිශාවේ සම්ප්‍රයුක්ත බලය ලැබෙන්නේ ආධාරක බලයෙන් බර අඩු කිරීමෙනි.",1. True / සත්‍ය,,,
+phy.mech.c083,mechanics,"On a rough horizontal floor a block slides at speed u. Friction alone stops it with constant deceleration μg. Which expression gives the stopping distance?
+1. u²/(2μg)
+2. u²/(μg)
+3. u²/(2g)
+4. u/(2μg)
+Use 0 = u² − 2μgs and solve for s.","රළු තිරස් බිමක u වේගයෙන් ලිස්සන කුට්ටියක් ඝර්ෂණය නිසා පමණක් μg නියත මන්දනයෙන් නතර වේ. නැවතුම් දුර කීය ද?
+1. u²/(2μg)
+2. u²/(μg)
+3. u²/(2g)
+4. u/(2μg)
+0 = u² − 2μgs සමීකරණයෙන් s සොයන්න.",1. u²/(2μg) / u²/(2μg),,,
+phy.mech.c084,mechanics,"If the initial sliding speed triples on the same level rough floor, by what factor does the frictional stopping distance change? Assume constant kinetic friction coefficient.
+1. 9 : 1
+2. 3 : 1
+3. 1 : 9
+4. 1 : 1
+The initial kinetic energy increases ninefold. The same frictional force must act over a ninefold distance.","එකම රළු තිරස් බිමක ආරම්භක ලිස්සුම් වේගය තුන් ගුණයක් කළ විට නැවතුම් දුර කී ගුණයක් වේ ද? ගතික ඝර්ෂණ සංගුණකය නියතය.
+1. 9 : 1
+2. 3 : 1
+3. 1 : 9
+4. 1 : 1
+මුල් චාලක ශක්තිය නව ගුණයක් වේ. එබැවින් එම ඝර්ෂණ බලය නව ගුණයක දුරක් ක්‍රියා කළ යුතුය.",1. 9 : 1 / 9 : 1,,,
+phy.mech.c085,mechanics,"On an inclined rough board the normal reaction on a sliding block always points vertically up.
+1. True
+2. False
+The contact normal is perpendicular to the board.","ආනත රළු ලෑල්ලක් මත ලිස්සන කුට්ටියට යෙදෙන අභිලම්බ ප්‍රතික්‍රියාව සෑම විටම සිරස්ව ඉහළට යොමු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අභිලම්බ ප්‍රතික්‍රියාව ලෑල්ලේ පෘෂ්ඨයට ලම්බකය.",2. False / අසත්‍ය,,,
+phy.mech.c086,mechanics,"A block slides right on a stationary rough floor. Friction from the floor acts left on the block.
+1. True
+2. False
+Kinetic friction opposes the relative sliding at the contact.","නිශ්චල රළු බිමක් මත කුට්ටියක් දකුණට ලිස්සයි. බිමෙන් කුට්ටියට යෙදෙන ඝර්ෂණ බලය වමට යොමු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ගතික ඝර්ෂණය ස්පර්ශ පෘෂ්ඨ අතර සාපේක්ෂ ලිස්සීමට විරුද්ධ වේ.",1. True / සත්‍ය,,,
+phy.mech.c087,mechanics,"With the same kinetic friction coefficient, doubling a block’s mass leaves its sliding deceleration on a level floor unchanged.
+1. True
+2. False
+Both friction and mass double. Their ratio stays μg.","ගතික ඝර්ෂණ සංගුණකය එකම නම් තිරස් බිමක ලිස්සන කුට්ටියේ ස්කන්ධය දෙගුණ කළත් එහි මන්දනය වෙනස් නොවේ.
+1. සත්‍ය
+2. අසත්‍ය
+ඝර්ෂණ බලය හා ස්කන්ධය යන දෙකම දෙගුණ වන බැවින් ඒවායේ අනුපාතය μg ම වේ.",1. True / සත්‍ය,,,
+phy.mech.c088,mechanics,"A sliding block’s kinetic energy stays constant as friction brings it to rest on a horizontal floor.
+1. True
+2. False
+Friction does negative work on the block.","තිරස් බිමක ඝර්ෂණය නිසා ලිස්සන කුට්ටියක් නතර වන අතර එහි චාලක ශක්තිය නියතව පවතී.
+1. සත්‍ය
+2. අසත්‍ය
+ඝර්ෂණ බලය කුට්ටිය මත ඍණ කාර්යයක් කරයි.",2. False / අසත්‍ය,,,
+phy.mech.c089,mechanics,"For sliding on a level floor under kinetic friction alone, μ must be multiplied by g to obtain the deceleration.
+1. True
+2. False
+The friction coefficient has no units. The product μg has units of acceleration.","තිරස් බිමක ගතික ඝර්ෂණය නිසා පමණක් ලිස්සන වස්තුවේ මන්දනය සෙවීමට μ අගය g න් ගුණ කළ යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ඝර්ෂණ සංගුණකයට ඒකක නැත. μg ගුණිතයට ත්වරණයේ ඒකක ඇත.",1. True / සත්‍ය,,,
+phy.mech.c091,mechanics,"Two boxes of unequal mass accelerate together on a level platform. Each needs the same frictional force if friction is its only horizontal force.
+1. True
+2. False
+At the same acceleration the heavier box requires more force.","වෙනස් ස්කන්ධ ඇති පෙට්ටි දෙකක් තිරස් වේදිකාවක් මත එකම ත්වරණයෙන් ගමන් කරයි. එකම තිරස් බලය ඝර්ෂණය නම් දෙකටම සමාන ඝර්ෂණ බල අවශ්‍ය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ත්වරණය සමාන විට වැඩි ස්කන්ධයක් ඇති පෙට්ටියට වැඩි බලයක් අවශ්‍යය.",2. False / අසත්‍ය,,,
+phy.mech.c092,mechanics,"At constant acceleration a from rest, a crate moves ½at² in time t as it moves with a truck without slipping.
+1. True
+2. False
+Its average speed is half its final speed at.","ලොරියක් සමඟ නොලිස්සා ගමන් කරන පෙට්ටියක් නිශ්චලතාවෙන් ඇරඹී නියත ත්වරණය a යටතේ t කාලයකදී ½at² දුරක් ගමන් කරයි.
+1. සත්‍ය
+2. අසත්‍ය
+එහි සාමාන්‍ය වේගය අවසන් වේගය වන at හි අඩකි.",1. True / සත්‍ය,,,
+phy.mech.c094,mechanics,"A 2 kg cart receives an impulse of 8 N s. What is its velocity change in m s⁻¹ along the impulse?
+1. 4 m s⁻¹
+2. 8 m s⁻¹
+3. 0.25 m s⁻¹
+4. 16 m s⁻¹
+Divide impulse by mass since J = mΔv.","2 kg ස්කන්ධයක කරත්තයකට 8 N s ආවේගයක් ලැබේ. ආවේගයේ දිශාවට ප්‍රවේග වෙනස m s⁻¹ වලින් කීය ද?
+1. 4 m s⁻¹
+2. 8 m s⁻¹
+3. 0.25 m s⁻¹
+4. 16 m s⁻¹
+J = mΔv නිසා ආවේගය ස්කන්ධයෙන් බෙදන්න.",1. 4 m s⁻¹ / 4 m s⁻¹,,,
+phy.mech.c095,mechanics,"A constant positive force gives a rectangular area on a force–time graph.
+1. True
+2. False
+The height stays fixed throughout the time interval.","නියත ධන බලයක් සඳහා බල කාල ප්‍රස්තාරය හා කාල අක්ෂය අතර වර්ගඵලය සෘජුකෝණාස්‍රයකි.
+1. සත්‍ය
+2. අසත්‍ය
+අදාළ කාල අන්තරය පුරාම උස නියතව පවතී.",1. True / සත්‍ය,,,
+phy.mech.c096,mechanics,"A force acts only from 7 s to 9 s. Its impulse uses a duration of 9 s.
+1. True
+2. False
+The force acts for 9 − 7 = 2 s.","බලයක් ක්‍රියා කරන්නේ 7 s සිට 9 s දක්වා පමණි. ආවේගය සෙවීමේදී කාලය ලෙස 9 s යොදා ගනී.
+1. සත්‍ය
+2. අසත්‍ය
+බලය ක්‍රියා කරන කාලය 9 − 7 = 2 s වේ.",2. False / අසත්‍ය,,,
+phy.mech.c097,mechanics,"A 3 kg cart at 4 m s⁻¹ catches a stationary 1 kg cart. They lock together with negligible external impulse. Find their speed in m s⁻¹.
+1. 3 m s⁻¹
+2. 2 m s⁻¹
+3. 12 m s⁻¹
+4. 1 m s⁻¹
+The initial momentum is 12 kg m s⁻¹. Divide by the combined mass of 4 kg.","4 m s⁻¹ වේගයෙන් යන 3 kg කරත්තයක් නිශ්චල 1 kg කරත්තයකට ගැටී එය හා බැඳෙයි. බාහිර ආවේගය නොගිණිය හැකි නම් පොදු වේගය m s⁻¹ වලින් කීය ද?
+1. 3 m s⁻¹
+2. 2 m s⁻¹
+3. 12 m s⁻¹
+4. 1 m s⁻¹
+මුල් ගම්‍යතාව 12 kg m s⁻¹ වේ. එය ඒකාබද්ධ ස්කන්ධය වන 4 kg න් බෙදන්න.",1. 3 m s⁻¹ / 3 m s⁻¹,,,
+phy.mech.c098,mechanics,"An isolated object breaks into two unequal masses from rest. Their recoil speeds are equal.
+1. True
+2. False
+Their momenta are equal in magnitude. The lighter part has the larger speed.","නිශ්චල හුදෙකලා වස්තුවක් අසමාන ස්කන්ධ දෙකකට කැඩෙයි. කොටස් දෙකේ ප්‍රතික්ෂේප වේග සමාන වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ගම්‍යතා විශාලත්ව සමාන වේ. කුඩා ස්කන්ධයට වැඩි වේගයක් ලැබේ.",2. False / අසත්‍ය,,,
+phy.mech.c099,mechanics,"A wall can change the total momentum of two colliding carts if it gives one cart an impulse.
+1. True
+2. False
+The wall lies outside the two-cart system.","ගැටෙන කරත්ත දෙකෙන් එකකට බිත්තියකින් ආවේගයක් ලැබුණොත් කරත්ත දෙකේ මුළු ගම්‍යතාව වෙනස් විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+බිත්තිය කරත්ත දෙකෙන් සැදි පද්ධතියට අයත් නොවේ.",1. True / සත්‍ය,,,
+phy.mech.c100,mechanics,"With east positive, a westbound cart contributes negative momentum to the total.
+1. True
+2. False
+Momentum has the direction of velocity.","නැගෙනහිර ධන ලෙස ගත් විට බටහිරට යන කරත්තයක ගම්‍යතාව මුළු ගම්‍යතාවට එකතු වන්නේ ඍණ අගයක් ලෙසය.
+1. සත්‍ය
+2. අසත්‍ය
+ගම්‍යතාවයේ දිශාව ප්‍රවේගයේ දිශාවයි.",1. True / සත්‍ය,,,
+phy.mech.c101,mechanics,"During an impact with varying net force on a cart of fixed mass, its acceleration is constant throughout.
+1. True
+2. False
+Acceleration follows the changing force through F = ma.","නියත ස්කන්ධයක කරත්තයක ගැටීමක් අතරතුර ශුද්ධ බලය වෙනස් වුවත් එහි ත්වරණය ගැටීම පුරා නියතය.
+1. සත්‍ය
+2. අසත්‍ය
+F = ma අනුව බලය වෙනස් වන විට ත්වරණයත් වෙනස් වේ.",2. False / අසත්‍ය,,,
+phy.mech.c102,mechanics,"Taking both colliding bodies as one system removes their unknown mutual impulses from the total momentum equation.
+1. True
+2. False
+The internal impulses are equal and opposite.","ගැටෙන වස්තු දෙකම එක පද්ධතියක් ලෙස ගත් විට ඒවා අතර නොදන්නා අන්‍යෝන්‍ය ආවේග මුළු ගම්‍යතා සමීකරණයෙන් ඉවත් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අභ්‍යන්තර ආවේග විශාලත්වයෙන් සමාන හා දිශාවෙන් ප්‍රතිවිරුද්ධ වේ.",1. True / සත්‍ය,,,
+phy.mech.c103,mechanics,"When two carts stick together after colliding, their total kinetic energy must be conserved.
+1. True
+2. False
+Some kinetic energy becomes internal energy when the carts stick together.","කරත්ත දෙකක් ගැටීමෙන් පසු එකට ඇලෙන්නේ නම් ඒවායේ මුළු චාලක ශක්තිය අනිවාර්යයෙන්ම සංස්ථිතික වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කරත්ත එකට බැඳෙන විට චාලක ශක්තියෙන් කොටසක් අභ්‍යන්තර ශක්තිය බවට පත් වේ.",2. False / අසත්‍ය,,,
+phy.mech.c110,mechanics,"After bouncing, a ball rises vertically to one quarter of its drop height. Ignore air resistance. Find rebound speed divided by impact speed.
+1. 1 : 2
+2. 1 : 4
+3. 2 : 1
+4. 1 : 1
+Speed just above the floor is proportional to the square root of the corresponding height.","පන්දුවක් පොළොවේ වැදී සිරස්ව ඉහළ ගොස් අතහැරි උසෙන් හතරෙන් එකක් දක්වා නඟී. වායු ප්‍රතිරෝධය නොසලකා, ගැටීමෙන් පසු වේගය ගැටීමට පෙර වේගයෙන් බෙදූ විට අගය කීය ද?
+1. 1 : 2
+2. 1 : 4
+3. 2 : 1
+4. 1 : 1
+බිම ආසන්නයේ වේගය අදාළ උසේ වර්ගමූලයට සමානුපාතිකය.",1. 1 : 2 / 1 : 2,,,
+phy.mech.c111,mechanics,"To find the upward speed immediately after a bounce, use the original drop height even if the bounce loses energy.
+1. True
+2. False
+The upward flight starts after the impact. Use the height reached on that flight.","පිම්මකින් ශක්තිය හානි වුවත් පිම්මට වහාම පසු ඉහළට ඇති වේගය සෙවීමට මුලින් අතහැරි උස භාවිත කළ යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ඉහළට ගමන ආරම්භ වන්නේ ගැටීමෙන් පසුවය. එම ගමනේදී ළඟා වූ උස යොදන්න.",2. False / අසත්‍ය,,,
+phy.mech.c112,mechanics,"If calculation gives v² = 36 m² s⁻² after a bounce, the rebound speed is 6 m s⁻¹.
+1. True
+2. False
+Take the positive square root to obtain a speed.","පිම්මකින් පසු v² = 36 m² s⁻² ලැබුණොත් ඉහළට පනින වේගය 6 m s⁻¹ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+වේගය සෙවීමට ධන වර්ගමූලය ගන්න.",1. True / සත්‍ය,,,
+phy.mech.c113,mechanics,"Doubling the upward speed just after a bounce doubles the rebound height under constant gravity.
+1. True
+2. False
+The height is proportional to the square of the upward speed.","නියත ගුරුත්වජ ත්වරණය යටතේ පිම්මට පසු ඉහළට වේගය දෙගුණ කළ විට නැගෙන උස දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+උස ඉහළට ඇති වේගයේ වර්ගයට සමානුපාතිකය.",2. False / අසත්‍ය,,,
+phy.mech.c114,mechanics,"A motor raises a 2 kg mass at constant speed 3 m s⁻¹. Take g = 10 m s⁻². What is its useful power in W?
+1. 60 W
+2. 6 W
+3. 20 W
+4. 9 W
+At constant speed the lifting force equals the weight. Multiply 20 N by 3 m s⁻¹.","මෝටරයක් 2 kg ස්කන්ධයක් 3 m s⁻¹ නියත වේගයෙන් සිරස්ව ඔසවයි. g = 10 m s⁻² ලෙස ගන්න. ප්‍රයෝජනවත් ජවය W වලින් කීය ද?
+1. 60 W
+2. 6 W
+3. 20 W
+4. 9 W
+නියත වේගයේදී ඔසවන බලය බරට සමානය. 20 N බලය 3 m s⁻¹ වේගයෙන් ගුණ කරන්න.",1. 60 W / 60 W,,,
+phy.mech.c115,mechanics,"A force perpendicular to the instantaneous velocity supplies power of magnitude Fv.
+1. True
+2. False
+Only the force component along the velocity contributes to power.","ක්ෂණික ප්‍රවේගයට ලම්බක බලයක් Fv විශාලත්වයකින් ක්ෂමතාව සපයයි.
+1. සත්‍ය
+2. අසත්‍ය
+ක්ෂමතාවට දායක වන්නේ ප්‍රවේග දිශාවේ බල සංරචකය පමණි.",2. False / අසත්‍ය,,,
+phy.mech.c116,mechanics,"A motor does work between clock readings 3 s and 8 s. Its average power over that run uses a time of 5 s.
+1. True
+2. False
+Divide the work by elapsed time.","මෝටරයක් ඔරලෝසු කියවීම් 3 s හා 8 s අතර කාර්යයක් කරයි. එම ධාවනයේ මධ්‍යන්‍ය ක්ෂමතාව සඳහා අදාළ කාලය 5 s වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කාර්යය ගත වූ කාලයෙන් බෙදන්න.",1. True / සත්‍ය,,,
+phy.mech.c126,mechanics,"Energy conservation alone fixes a diver’s new spin rate when the diver does work to tuck in.
+1. True
+2. False
+With negligible external torque, conservation of angular momentum relates the two spin rates directly.","කිමිදුම්කරුවකු කාර්යයක් කරමින් සිරුර හකුළා ගන්නා විට ශක්ති සංස්ථිතිය පමණක් භාවිත කර නව භ්‍රමණ වේගය තීරණය කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+බාහිර ව්‍යාවර්තය නොගිණිය හැකි විට වේග දෙක සම්බන්ධ කරන්නේ කෝණික ගම්‍යතා සංස්ථිතියයි.",2. False / අසත්‍ය,,,
+phy.mech.c128,mechanics,"If I triples at fixed angular momentum, angular speed falls to one third.
+1. True
+2. False
+Angular speed is inversely proportional to I.","කෝණික ගම්‍යතාව නියතව තිබියදී I තුන් ගුණයක් කළ විට කෝණික වේගය මුල් අගයෙන් තුනෙන් එකක් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කෝණික වේගය I ට ප්‍රතිලෝමව සමානුපාතිකය.",1. True / සත්‍ය,,,
+phy.mech.c129,mechanics,"A rolling wheel has 6 J of translational and 2 J of rotational kinetic energy. What fraction of its total kinetic energy is rotational?
+1. 1 : 4
+2. 4 : 1
+3. 3 : 4
+4. 1 : 3
+Use the rotational part divided by the sum of both parts.","පෙරළෙන රෝදයක උත්තාරණ චාලක ශක්තිය 6 J හා භ්‍රමණ චාලක ශක්තිය 2 J වේ. භ්‍රමණ චාලක ශක්තිය මුළු චාලක ශක්තියෙන් කවර භාගයක් ද?
+1. 1 : 4
+2. 4 : 1
+3. 3 : 4
+4. 1 : 3
+භ්‍රමණ කොටස කොටස් දෙකේ එකතුවෙන් බෙදන්න.",1. 1 : 4 / 1 : 4,,,
+phy.mech.c130,mechanics,"Uniform solid discs of different masses rolling without slip at the same speed have the same rotational fraction of total kinetic energy.
+1. True
+2. False
+Both energy terms contain the same mass factor.","වෙනස් ස්කන්ධ ඇති ඒකාකාර ඝන තැටි එකම වේගයෙන් නොලිස්සා පෙරළෙද්දී ඒවායේ මුළු චාලක ශක්තියෙන් භ්‍රමණයට අයත් භාගය සමාන වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ශක්ති පද දෙකටම එකම ස්කන්ධ සාධකය ඇත.",1. True / සත්‍ය,,,
+phy.mech.c131,mechanics,"Rolling bodies of equal mass and radius always have the same rotational energy at the same angular speed.
+1. True
+2. False
+The energy also depends on how mass is distributed about the axis.","ස්කන්ධය හා අරය සමාන පෙරළෙන වස්තුවල කෝණික වේගය සමාන නම් ඒවායේ භ්‍රමණ ශක්තිය සෑම විටම සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+ශක්තිය අක්ෂය වටා ස්කන්ධ ව්‍යාප්තිය මත ද රඳා පවතී.",2. False / අසත්‍ය,,,
+phy.mech.c133,mechanics,"Doubling the speed of a wheel rolling without slip merely doubles its total kinetic energy.
+1. True
+2. False
+Both translational and rotational energy increase fourfold.","නොලිස්සා පෙරළෙන රෝදයක වේගය දෙගුණ කළ විට මුළු චාලක ශක්තිය දෙගුණයක් පමණක් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+උත්තාරණ හා භ්‍රමණ ශක්ති දෙකම සිව් ගුණයක් වේ.",2. False / අසත්‍ය,,,
+phy.mech.c134,mechanics,"A wheel starts partway down a ramp. Its loss of gravitational potential energy uses the vertical drop from its own starting point.
+1. True
+2. False
+Only the height difference over the actual journey contributes.","රෝදයක් ආනත තලයේ මැද තැනකින් ගමන් අරඹයි. ගුරුත්වාකර්ෂණ විභව ශක්ති අඩුව සෙවීමට ගන්නේ එය ගමන් ඇරඹූ තැන සිට ඇති සිරස් බැස්මයි.
+1. සත්‍ය
+2. අසත්‍ය
+දායක වන්නේ සැබවින්ම ගමන් කළ ලක්ෂ්‍ය අතර උස වෙනස පමණි.",1. True / සත්‍ය,,,
+phy.mech.c135,mechanics,"A car rounds a flat curve of diameter 20 m at 10 m s⁻¹. Find the required centripetal acceleration in m s⁻².
+1. 10 m s⁻²
+2. 5 m s⁻²
+3. 1 m s⁻²
+4. 0.1 m s⁻²
+Use v²/r with radius 10 m.","මෝටර් රථයක් විෂ්කම්භය 20 m වූ තිරස් වංගුවක 10 m s⁻¹ වේගයෙන් ගමන් කරයි. අවශ්‍ය කේන්ද්‍රාභිසාරී ත්වරණය m s⁻² වලින් කීය ද?
+1. 10 m s⁻²
+2. 5 m s⁻²
+3. 1 m s⁻²
+4. 0.1 m s⁻²
+අරය 10 m ලෙස ගෙන v²/r යොදන්න.",1. 10 m s⁻² / 10 m s⁻²,,,
+phy.mech.c136,mechanics,"Viewed from the road, a car turning at constant speed needs an outward net force.
+1. True
+2. False
+The net force points towards the centre of the turn.","මාර්ගයේ සිට බලන විට නියත වේගයෙන් වංගුවක යන රථයකට පිටතට යොමු වූ ශුද්ධ බලයක් අවශ්‍ය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ශුද්ධ බලය වංගුවේ කේන්ද්‍රය දෙසට යොමු වේ.",2. False / අසත්‍ය,,,
+phy.mech.c138,mechanics,"On a flat horizontal road, static friction can supply the inward force on a turning tyre.
+1. True
+2. False
+Weight and the road’s normal reaction are vertical.","තිරස් මාර්ගයක හැරෙන ටයරයකට අවශ්‍ය ඇතුළට බලය ස්ථිතික ඝර්ෂණයෙන් ලැබිය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+බර හා මාර්ගයේ අභිලම්බ ප්‍රතික්‍රියාව සිරස් දිශාවේය.",1. True / සත්‍ය,,,
+phy.mech.c139,mechanics,"For a flat road the greatest lateral acceleration before slipping is μg when the limiting friction is μmg.
+1. True
+2. False
+Divide the limiting lateral force by m.","තිරස් මාර්ගයක සීමාන්ත ඝර්ෂණය μmg නම් ලිස්සීමට පෙර උපරිම පාර්ශ්වික ත්වරණය μg වේ.
+1. සත්‍ය
+2. අසත්‍ය
+සීමාකාරී පාර්ශ්වික බලය m න් බෙදන්න.",1. True / සත්‍ය,,,
+phy.mech.c140,mechanics,"At fixed radius, doubling speed doubles the friction force required to turn a car.
+1. True
+2. False
+The required force is proportional to v², so it increases fourfold.","අරය නියත විට රථයේ වේගය දෙගුණ කළහොත් හැරීමට අවශ්‍ය ඝර්ෂණ බලය දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අවශ්‍ය බලය v² ට සමානුපාතික බැවින් එය සිව් ගුණයක් වේ.",2. False / අසත්‍ය,,,
+phy.therm.c090,thermal,"Pure ice melting at fixed pressure rises steadily in temperature while solid and liquid coexist.
+1. True
+2. False
+The temperature stays at the melting point during the change of state.","නියත පීඩනයේ සමතුලිතව දිය වන පිරිසිදු අයිස්වල ඝන හා ද්‍රව අවස්ථා දෙකම පවතින අතර උෂ්ණත්වය ක්‍රමයෙන් වැඩි වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අවස්ථා වෙනස අතරතුර උෂ්ණත්වය ද්‍රවාංකයේම පවතී.",2. False / අසත්‍ය,Sinhala explicitly puts the two phases in equilibrium. English only says they coexist. Equilibrium makes the constant melting-temperature argument explicit.,,
+phy.therm.c091,thermal,"Water clinging to ice can be counted as melted ice if wet ice is weighed for a mixtures experiment.
+1. True
+2. False
+The adhering liquid adds mass but needs no heat of fusion.","මිශ්‍රණ ක්‍රමයේ පරීක්ෂණයකදී තෙත් අයිස් කිරුවොත් එයට ඇලුණු ජලයේ ස්කන්ධයත් දිය වූ අයිස් ලෙස ගණනය විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ඇලුණු ද්‍රවය ස්කන්ධයට එකතු වුවත් එය විලයනය කිරීමට තාපයක් අවශ්‍ය නොවේ.",1. True / සත්‍ය,Clarify whether counting the adhering water is an experimental error or a correct step.,,
+phy.therm.c097,thermal,"Two air samples of unequal volumes mix without condensation at fixed total volume. Their final absolute humidity must be the simple mean of the two initial values.
+1. True
+2. False
+Add the vapour masses and divide by the total volume. The volumes determine the weights in the average.","අසමාන පරිමා ඇති වායු නියැදි දෙකක් මුළු පරිමාව නියතව, ඝණීභවනය නොවී මිශ්‍ර වේ. අවසන් නිරපේක්ෂ ආර්ද්‍රතාව අනිවාර්යයෙන්ම මුල් අගයන් දෙකේ සරල මධ්‍යන්‍යයයි.
+1. සත්‍ය
+2. අසත්‍ය
+වාෂ්ප ස්කන්ධ එකතු කර මුළු පරිමාවෙන් බෙදන්න. මධ්‍යන්‍යයේ බර තීරණය වන්නේ නියැදි පරිමා අනුවය.",2. False / අසත්‍ය,English mixes two samples of air. Sinhala says gas samples without specifying air. The vapour-mass calculation still uses the stated total volume.,,
+phy.therm.c104,thermal,"At the same air temperature, a higher actual vapour pressure means higher relative humidity.
+1. True
+2. False
+The saturated vapour pressure in the denominator is the same.","එකම වායු උෂ්ණත්වයේදී සැබෑ වාෂ්ප පීඩනය වැඩි නම් සාපේක්ෂ ආර්ද්‍රතාව වැඩිය.
+1. සත්‍ය
+2. අසත්‍ය
+හරයේ ඇති සංතෘප්ත වාෂ්ප පීඩනය අවස්ථා දෙකටම සමානය.",1. True / සත්‍ය,English fixes the air temperature. Sinhala fixes the gas temperature without identifying the gas as air. The humidity relation is otherwise the same.,,
+phy.therm.c063,thermal,"For a classical ideal gas, the mean translational kinetic energy approaches zero as the absolute temperature approaches zero.
+1. True
+2. False
+The mean translational energy is proportional to T.","සම්භාව්‍ය පරිපූර්ණ වායුවක නිරපේක්ෂ උෂ්ණත්වය ශූන්‍යයට ළං වන විට මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තියත් ශූන්‍යයට ළං වේ.
+1. සත්‍ය
+2. අසත්‍ය
+මධ්‍යන්‍ය උත්තාරණ ශක්තිය T ට සමානුපාතිකය.",1. True / සත්‍ය,Check the term for zero in the term sheet.,,
+phy.therm.c064,thermal,"At 0 °C the molecules of an ideal gas have zero mean translational kinetic energy.
+1. True
+2. False
+The formula uses kelvin temperature, which is positive here.","0 °C හි පරිපූර්ණ වායුවක අණුවල මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තිය ශූන්‍ය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+සූත්‍රයට යෙදෙන්නේ කෙල්වින් උෂ්ණත්වයයි. මෙහි එය ධන වේ.",2. False / අසත්‍ය,Check the term for zero in the term sheet.,,
+phy.therm.c073,thermal,"An initially cool metal container can absorb some heat when hot and cold water are mixed in it.
+1. True
+2. False
+Include the container in the heat balance if its heat capacity matters.","සිසිල් ලෝහ බඳුනක උණු හා සිසිල් ජලය මිශ්‍ර කළ විට බඳුනටත් යම් තාප ප්‍රමාණයක් උරාගත හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+බඳුනේ තාප ධාරිතාව සැලකිය යුතු නම් එයත් තාප තුලනයට ඇතුළත් කරන්න.",1. True / සත්‍ය,Check the English condition “initial temperature” in Sinhala.,,
+phy.therm.c106,thermal,"A gas absorbs 9 J and does 4 J of work. Find the increase in its internal energy.
+1. 5 J
+2. 13 J
+3. 9 J
+4. 4 J
+Subtract the work done by the gas from the heat entering it.","වායුවක් 9 J උරාගෙන 4 J ක කාර්යයක් කරයි. එහි අභ්‍යන්තර ශක්තියේ වැඩිවීම කීය ද?
+1. 5 J
+2. 13 J
+3. 9 J
+4. 4 J
+වායුවට ඇතුළු වූ තාපයෙන් වායුව කළ කාර්යය අඩු කරන්න.",1. 5 J / 5 J,Check the term for work done in the term sheet.,,
+phy.therm.c111,thermal,"For a fixed amount of ideal gas an isothermal expansion has zero change in internal energy.
+1. True
+2. False
+Its internal energy depends only on temperature.","නිශ්චිත පරිපූර්ණ වායු ප්‍රමාණයක සමෝෂ්ණ ප්‍රසාරණයකදී අභ්‍යන්තර ශක්ති වෙනස ශූන්‍ය වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එහි අභ්‍යන්තර ශක්තිය රඳා පවතින්නේ උෂ්ණත්වය මත පමණි.",1. True / සත්‍ය,Check the term for zero in the term sheet.,,
+phy.therm.c112,thermal,"In an adiabatic process the temperature change must be zero.
+1. True
+2. False
+Heat transfer is zero. Work can still change the internal energy.","අනුෂ්ණීය ක්‍රියාවලියක උෂ්ණත්ව වෙනස ශූන්‍ය විය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+ශූන්‍ය වන්නේ තාප හුවමාරුවයි. කාර්යය මගින් අභ්‍යන්තර ශක්තිය වෙනස් කළ හැකිය.",2. False / අසත්‍ය,adiabatic. ස්ථිරතාපී first. අනුෂ්ණීය may follow as an alias. Check the term for zero in the term sheet.,,
+phy.therm.c117,thermal,"At one point on a laterally insulated tapered rod, cross-sectional area halves relative to a wider point. At the same steady rate of heat flow and conductivity, what happens to the magnitude of the temperature gradient, as a factor?
+1. 2 : 1
+2. 1 : 2
+3. 1 : 1
+4. 4 : 1
+The rate of heat flow is conductivity × area × gradient magnitude.","පාර්ශ්ව පෘෂ්ඨ පරිවරණය කළ සිහින් වන දණ්ඩක එක් තැනක හරස්කඩ වර්ගඵලය පළල් තැනක අගයෙන් අඩකි. අනවරත තාපය ගලායාමේ සීඝ්‍රතාව හා තාප සන්නායකතාව සමාන නම් උෂ්ණත්ව අනුක්‍රමණයේ විශාලත්වය කී ගුණයක් වේ ද?
+1. 2 : 1
+2. 1 : 2
+3. 1 : 1
+4. 4 : 1
+තාපය ගලායාමේ සීඝ්‍රතාව යනු තාප සන්නායකතාව, වර්ගඵලය හා අනුක්‍රමණයේ විශාලත්වය යන තුනේ ගුණිතයයි.",1. 2 : 1 / 2 : 1,Check the term for rate in the term sheet.,,
+phy.therm.c050,thermal,"A rod at 20 °C is heated to 50 °C. In ΔL = αLΔT, which numerical value of ΔT in K should be used?
+1. 30
+2. 50
+3. 20
+4. −30
+Subtract the initial temperature from the final temperature. A temperature interval has the same numerical value in K and °C.","20 °C හි ඇති දණ්ඩක් 50 °C දක්වා රත් කරයි. ΔL = αLΔT හි ΔT සඳහා K වලින් යෙදිය යුතු අගය කීය ද?
+1. 30
+2. 50
+3. 20
+4. −30
+අවසන් උෂ්ණත්වයෙන් මුල් උෂ්ණත්වය අඩු කරන්න. උෂ්ණත්ව අන්තරයක සංඛ්‍යාත්මක අගය K හා °C වලින් සමානය.",1. 30 / 30,,,
+phy.therm.c051,thermal,"A free metal washer is heated uniformly. Its opening becomes smaller as the metal expands.
+1. True
+2. False
+The inner diameter expands in the same proportion as the outer diameter.","නිදහස් ලෝහ වළල්ලක් ඒකාකාරව රත් කළ විට ලෝහය ප්‍රසාරණය වන බැවින් ඇතුළත සිදුර කුඩා වේ.
+1. සත්‍ය
+2. අසත්‍ය
+පිටත විෂ්කම්භය ප්‍රසාරණය වන අනුපාතයෙන්ම ඇතුළත විෂ්කම්භයත් ප්‍රසාරණය වේ.",2. False / අසත්‍ය,,,
+phy.therm.c052,thermal,"A warmed metal ruler has longer divisions. It gives a smaller reading for an unchanged length.
+1. True
+2. False
+Fewer expanded divisions fit along the object.","රත් වූ ලෝහ රූලක කොටස් දිගු වේ. නොවෙනස් වූ දිගක් මැනීමේදී එයින් අඩු කියවීමක් ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+වස්තුවේ දිගට අල්ලාගත හැකි ප්‍රසාරිත කොටස් ගණන අඩුය.",1. True / සත්‍ය,,,
+phy.therm.c053,thermal,"An expansion of 0.002 m is 2 mm.
+1. True
+2. False
+Multiply metres by 1000 to get millimetres.","0.002 m ප්‍රසාරණයක් 2 mm ට සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+මීටර අගය 1000 න් ගුණ කළ විට මිලිමීටර ලැබේ.",1. True / සත්‍ය,,,
+phy.therm.c054,thermal,"A rod clamped rigidly at both ends can always increase its actual length by its free thermal expansion.
+1. True
+2. False
+Rigid supports constrain the length and the supports exert forces on the rod.","දෙකෙළවරම නොසෙල්වෙන සේ සවි කළ දණ්ඩක සැබෑ දිග සෑම විටම එහි නිදහස් තාපජ ප්‍රසාරණය තරමින් වැඩි විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+දෘඪ ආධාරක නිසා දිග වෙනස් වීම වැළකී ආධාරක දණ්ඩ මත බල යොදයි.",2. False / අසත්‍ය,,,
+phy.therm.c055,thermal,"For a freely expanding rod at small temperature rise ΔT, which expression gives its fractional length increase?
+1. ΔL/L = αΔT
+2. ΔL/L = 1/(αΔT)
+3. ΔL/L = (αΔT)²
+4. ΔL/L = 3αΔT
+For linear expansion divide ΔL = αLΔT by L.","නිදහසේ ප්‍රසාරණය වන දණ්ඩක කුඩා උෂ්ණත්ව වැඩිවීම ΔT නම් මුල් දිගට සාපේක්ෂ භාගික දිග වැඩිවීම කීය ද?
+1. ΔL/L = αΔT
+2. ΔL/L = 1/(αΔT)
+3. ΔL/L = (αΔT)²
+4. ΔL/L = 3αΔT
+රේඛීය ප්‍රසාරණය සඳහා ΔL = αLΔT සමීකරණය L න් බෙදන්න.",1. ΔL/L = αΔT / ΔL/L = αΔT,,,
+phy.therm.c056,thermal,"An ideal gas has pV = 12 J and nR = 3 J K⁻¹. What is its temperature in K?
+1. T = 4 K
+2. T = 0.25 K
+3. T = 12 K
+4. T = 36 K
+Divide pV by nR to isolate T.","පරිපූර්ණ වායුවකට pV = 12 J හා nR = 3 J K⁻¹ වේ. එහි උෂ්ණත්වය K වලින් කීය ද?
+1. T = 4 K
+2. T = 0.25 K
+3. T = 12 K
+4. T = 36 K
+T තනි කර ගැනීමට pV අගය nR න් බෙදන්න.",1. T = 4 K / T = 4 K,,,
+phy.therm.c057,thermal,"If gas leaks from a vessel, treating n as constant in pV = nRT can give the wrong final pressure.
+1. True
+2. False
+The amount of gas remaining changes.","බඳුනකින් වායුව කාන්දු වුවහොත් pV = nRT හි n නියත ලෙස ගැනීමෙන් වැරදි අවසාන පීඩනයක් ලැබිය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ඉතිරි වායු ද්‍රව්‍ය ප්‍රමාණය වෙනස් වේ.",1. True / සත්‍ය,,,
+phy.therm.c058,thermal,"A gas warms from 280 K to 300 K. The final state equation uses 20 K for T.
+1. True
+2. False
+The state equation uses the absolute temperature of that state, 300 K.","වායුවක් 280 K සිට 300 K දක්වා රත් වේ. අවසන් තත්ත්ව සමීකරණයේ T සඳහා 20 K යොදයි.
+1. සත්‍ය
+2. අසත්‍ය
+තත්ත්ව සමීකරණයට යෙදෙන්නේ එම තත්ත්වයේ නිරපේක්ෂ උෂ්ණත්වය වන 300 K ය.",2. False / අසත්‍ය,,,
+phy.therm.c059,thermal,"In pV = nRT, n denotes the number of individual molecules.
+1. True
+2. False
+With the molar constant R, n is the amount in moles.","pV = nRT හි n යනු තනි අණු ගණනයි.
+1. සත්‍ය
+2. අසත්‍ය
+මවුලික නියතය R යෙදූ විට n යනු මවුලවලින් ද්‍රව්‍ය ප්‍රමාණයයි.",2. False / අසත්‍ය,,,
+phy.therm.c060,thermal,"For a fixed amount of ideal gas at constant temperature, V triples. Find final pressure divided by initial pressure.
+1. 1 : 3
+2. 3 : 1
+3. 1 : 9
+4. 1 : 1
+Boyle’s law keeps pV constant.","නියත උෂ්ණත්වයේ ඇති නිශ්චිත පරිපූර්ණ වායු ප්‍රමාණයක V තුන් ගුණ වේ. අවසන් පීඩනය මුල් පීඩනයෙන් බෙදූ විට අගය කීය ද?
+1. 1 : 3
+2. 3 : 1
+3. 1 : 9
+4. 1 : 1
+බොයිල් නියමය අනුව pV නියතය.",1. 1 : 3 / 1 : 3,,,
+phy.therm.c061,thermal,"For fixed n and T, plotting p against 1/V for an ideal gas gives a straight line through the origin.
+1. True
+2. False
+Here p = nRT × (1/V).","පරිපූර්ණ වායුවක n හා T නියත විට 1/V ට එරෙහිව p ප්‍රස්තාරය ඇන්දොත් මූලය හරහා යන සරල රේඛාවක් ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+මෙහි p = nRT × (1/V) වේ.",1. True / සත්‍ය,,,
+phy.therm.c062,thermal,"For a fixed amount of ideal gas, a single p–V isotherm also describes heating at constant volume.
+1. True
+2. False
+Heating changes T and takes the gas to a different isotherm.","නිශ්චිත පරිපූර්ණ වායු ප්‍රමාණයක් නියත පරිමාවේදී රත් කිරීම ද එකම p–V සමෝෂ්ණ රේඛාවක් දිගේ සිදු වේ.
+1. සත්‍ය
+2. අසත්‍ය
+රත් කිරීමෙන් T වෙනස් වී වායුව වෙනත් සමෝෂ්ණ රේඛාවකට යයි.",2. False / අසත්‍ය,,,
+phy.therm.c065,thermal,"An ideal gas warms from 200 K to 400 K. By what factor does its mean translational energy per molecule change?
+1. 2 : 1
+2. 1 : 2
+3. 4 : 1
+4. 1 : 1
+Energy per molecule scales linearly with absolute temperature.","පරිපූර්ණ වායුවක් 200 K සිට 400 K දක්වා රත් වේ. අණුවකට මධ්‍යන්‍ය උත්තාරණ ශක්තිය කී ගුණයක් වේ ද?
+1. 2 : 1
+2. 1 : 2
+3. 4 : 1
+4. 1 : 1
+අණුවකට ශක්තිය නිරපේක්ෂ උෂ්ණත්වයට සෘජුව සමානුපාතිකය.",1. 2 : 1 / 2 : 1,,,
+phy.therm.c066,thermal,"Helium and nitrogen at the same temperature have equal mean translational kinetic energies per molecule when both behave ideally.
+1. True
+2. False
+The expression contains T and the Boltzmann constant only.","හීලියම් හා නයිට්‍රජන් යන දෙකම පරිපූර්ණ වායු මෙන් හැසිරේ නම් සමාන උෂ්ණත්වයේදී අණුවකට මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තිය සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රකාශනයට ඇතුළත් වන්නේ T හා බෝල්ට්ස්මාන් නියතය පමණි.",1. True / සත්‍ය,,,
+phy.therm.c067,thermal,"The mean translational kinetic energy of one ideal gas molecule is the total internal energy of the gas sample.
+1. True
+2. False
+One quantity is per molecule. The other includes the whole sample.","පරිපූර්ණ වායු අණුවක මධ්‍යන්‍ය උත්තාරණ චාලක ශක්තිය වායු නියැදියේ මුළු අභ්‍යන්තර ශක්තියට සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+එක් රාශියක් එක් අණුවකට අදාළය. අනෙක් රාශිය මුළු නියැදියටම අදාළය.",2. False / අසත්‍ය,,,
+phy.therm.c068,thermal,"A gas has density ρ and r.m.s. speed c. Which expression gives the pressure in kinetic theory?
+1. ρc²/3
+2. ρc/3
+3. 3/(ρc²)
+4. ρc²/2
+Use p = ρc²/3 for random isotropic motion.","වායුවක ඝනත්වය ρ හා වර්ග මධ්‍යන්‍ය මූල වේගය c වේ. චාලක වාදය අනුව පීඩනය කීය ද?
+1. ρc²/3
+2. ρc/3
+3. 3/(ρc²)
+4. ρc²/2
+සෑම දිශාවකටම එකසේ වූ අහඹු චලිතයට p = ρc²/3 යොදන්න.",1. ρc²/3 / ρc²/3,,,
+phy.therm.c069,thermal,"Quadrupling the absolute temperature of one ideal gas doubles its r.m.s. speed.
+1. True
+2. False
+The speed varies as the square root of T.","එකම පරිපූර්ණ වායුවේ නිරපේක්ෂ උෂ්ණත්වය සිව් ගුණ කළ විට වර්ග මධ්‍යන්‍ය මූල වේගය දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+මෙම වේගය T හි වර්ගමූලයට සමානුපාතිකය.",1. True / සත්‍ය,,,
+phy.therm.c070,thermal,"At the same temperature, ideal gas molecules of different masses must have equal r.m.s. speeds.
+1. True
+2. False
+At fixed T the r.m.s. speed decreases as molecular mass increases.","එකම උෂ්ණත්වයේදී වෙනස් ස්කන්ධ ඇති පරිපූර්ණ වායු අණුවල වර්ග මධ්‍යන්‍ය මූල වේග සමාන විය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+T නියත විට අණුක ස්කන්ධය වැඩි වන විට වර්ග මධ්‍යන්‍ය මූල වේගය අඩු වේ.",2. False / අසත්‍ය,,,
+phy.therm.c071,thermal,"Water of mass 2 kg cools from 50 °C to 40 °C. If c is its specific heat capacity, what is the heat lost in J if c is in J kg⁻¹ K⁻¹?
+1. 20c
+2. 10c
+3. 100c
+4. 80c
+Multiply the mass by c and the temperature drop of 10 K.","2 kg ජල ස්කන්ධයක් 50 °C සිට 40 °C දක්වා සිසිල් වේ. එහි විශිෂ්ට තාප ධාරිතාව c නම්, c හි J kg⁻¹ K⁻¹ අගය යොදා පිට කළ තාප ප්‍රමාණය J වලින් සොයන්න.
+1. 20c
+2. 10c
+3. 100c
+4. 80c
+ස්කන්ධය c න් හා 10 K උෂ්ණත්ව අඩුවෙන් ගුණ කරන්න.",1. 20c / 20c,,,
+phy.therm.c072,thermal,"Mixing unequal masses of hot and cold water in insulation always gives the arithmetic mean of their initial temperatures.
+1. True
+2. False
+With constant specific heat capacity, temperature is weighted by mass.","තාප පරිවරණය තුළ උණු හා සිසිල් ජලය අසමාන ස්කන්ධවලින් මිශ්‍ර කළ විට සෑම විටම මුල් උෂ්ණත්ව දෙකේ අංකගණිත මධ්‍යන්‍යය ලැබේ.
+1. සත්‍ය
+2. අසත්‍ය
+විශිෂ්ට තාප ධාරිතාව නියත විට එක් එක් උෂ්ණත්වයට ලැබෙන බර එම ජල ස්කන්ධයට සමානුපාතිකය.",2. False / අසත්‍ය,,,
+phy.therm.c074,thermal,"For the same heat supplied and fixed c, a larger water mass has a smaller temperature rise.
+1. True
+2. False
+ΔT = Q/(mc).","එකම තාප ප්‍රමාණය සපයන විට c නියත නම් වැඩි ජල ස්කන්ධයක උෂ්ණත්ව වැඩිවීම කුඩාය.
+1. සත්‍ය
+2. අසත්‍ය
+ΔT = Q/(mc) වේ.",1. True / සත්‍ය,,,
+phy.therm.c075,thermal,"In an insulated mixture the hot and cold bodies must undergo equal temperature changes.
+1. True
+2. False
+The exchanged heats are equal in magnitude. Their heat capacities determine their temperature changes.","පරිවරණය කළ මිශ්‍රණයක උණු හා සිසිල් වස්තු දෙකට සමාන උෂ්ණත්ව වෙනස්කම් සිදුවිය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+හුවමාරු වන තාප ප්‍රමාණ විශාලත්වයෙන් සමානය. උෂ්ණත්ව වෙනස්කම් තීරණය කරන්නේ ඒවායේ තාප ධාරිතාය.",2. False / අසත්‍ය,,,
+phy.therm.c076,thermal,"A heater supplies 60 W to a liquid flowing steadily at 2 kg s⁻¹. Ignore losses. What energy in J does each kilogram receive?
+1. Q = 30 J
+2. Q = 60 J
+3. Q = 120 J
+4. Q = 1/30 J
+Divide heat supplied per second by mass passing per second.","2 kg s⁻¹ ශීඝ්‍රතාවෙන් අනවරතව ගලා යන ද්‍රවයකට තාපකයක් 60 W සපයයි. හානි නොසලකන්න. සෑම කිලෝග්‍රෑමයකටම ලැබෙන ශක්තිය J වලින් කීය ද?
+1. Q = 30 J
+2. Q = 60 J
+3. Q = 120 J
+4. Q = 1/30 J
+තත්පරයකට සැපයෙන තාපය තත්පරයකදී ගලා යන ස්කන්ධයෙන් බෙදන්න.",1. Q = 30 J / Q = 30 J,,,
+phy.therm.c077,thermal,"A flow of 5 g s⁻¹ is 0.05 kg s⁻¹.
+1. True
+2. False
+Divide grams by 1000. The flow is 0.005 kg s⁻¹.","5 g s⁻¹ ප්‍රවාහයක් 0.05 kg s⁻¹ ට සමානය.
+1. සත්‍ය
+2. අසත්‍ය
+ග්‍රෑම් අගය 1000 න් බෙදන්න. ප්‍රවාහය 0.005 kg s⁻¹ වේ.",2. False / අසත්‍ය,,,
+phy.therm.c078,thermal,"If a steady flow heater loses heat to the room, the liquid receives less than its electrical input power.
+1. True
+2. False
+Energy supplied each second is shared between the liquid and the surroundings.","අනවරත ප්‍රවාහ තාපකයකින් කාමරයට තාපය පිට වේ නම් ද්‍රවයට ලැබෙන තාප ශීඝ්‍රතාව විද්‍යුත් ප්‍රදාන ජවයට වඩා අඩුය.
+1. සත්‍ය
+2. අසත්‍ය
+තත්පරයකට සැපයෙන ශක්තිය ද්‍රවය හා වටපිටාව අතර බෙදේ.",1. True / සත්‍ය,,,
+phy.therm.c079,thermal,"With negligible losses and constant c and flow rate, doubling heater power quadruples the liquid’s temperature rise.
+1. True
+2. False
+Temperature rise is directly proportional to power.","හානි නොගිණිය හැකි විට c හා ගැලීම් ශීඝ්‍රතාව නියතව තබා තාපකයේ ජවය දෙගුණ කළොත් ද්‍රවයේ උෂ්ණත්ව වැඩිවීම සිව් ගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+උෂ්ණත්ව වැඩිවීම ජවයට සෘජුව සමානුපාතිකය.",2. False / අසත්‍ය,,,
+phy.therm.c080,thermal,"Water cools from 50 °C to 40 °C in a 30 °C room. In Newton’s law of cooling, what is the final temperature excess in K?
+1. 10
+2. 40
+3. 20
+4. 30
+Use the final water temperature minus the room temperature.","30 °C ක කාමරයක ජලය 50 °C සිට 40 °C දක්වා සිසිල් වේ. නිව්ටන්ගේ සිසිලන නියමයට අදාළ අවසාන අතිරික්ත උෂ්ණත්වය K වලින් කීය ද?
+1. 10
+2. 40
+3. 20
+4. 30
+ජලයේ අවසාන උෂ්ණත්වයෙන් කාමර උෂ්ණත්වය අඩු කරන්න.",1. 10 / 10,,,
+phy.therm.c081,thermal,"Newton cooling in a room of constant temperature removes the same amount of heat every minute as the body cools.
+1. True
+2. False
+The temperature excess falls, so the loss rate falls.","නියත උෂ්ණත්වයක කාමරයක නිව්ටන් නියමයට අනුව සිසිල් වන වස්තුවකින් සෑම මිනිත්තුවකම එකම තාප ප්‍රමාණයක් පිට වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අතිරික්ත උෂ්ණත්වය අඩු වන බැවින් තාපය පිටවන ශීඝ්‍රතාවත් අඩු වේ.",2. False / අසත්‍ය,,,
+phy.therm.c082,thermal,"Under Newton cooling with unchanged surroundings and surface, the temperature excess halves. By what factor does the heat loss rate change?
+1. 1 : 2
+2. 2 : 1
+3. 1 : 4
+4. 1 : 1
+The rate is directly proportional to temperature excess.","නිව්ටන්ගේ සිසිලන නියමය අදාළ විට වටපිටාව හා පෘෂ්ඨය නොවෙනස්ව තිබියදී අතිරික්ත උෂ්ණත්වය අඩක් වේ. තාප හානි ශීඝ්‍රතාව මුල් අගයෙන් කී ගුණයක් වේ ද?
+1. 1 : 2
+2. 2 : 1
+3. 1 : 4
+4. 1 : 1
+තාප හානි ශීඝ්‍රතාව අතිරික්ත උෂ්ණත්වයට සෘජුව සමානුපාතිකය.",1. 1 : 2 / 1 : 2,,,
+phy.therm.c083,thermal,"Ice at its melting point receives heat Q and only part melts. With specific latent heat L, what mass melts?
+1. m = Q/L
+2. m = L/Q
+3. m = Q
+4. m = QL
+During melting at constant pressure, Q = mL.","ද්‍රවාංකයේ ඇති අයිස්වලට Q තාපයක් ලැබී කොටසක් පමණක් දිය වේ. විශිෂ්ට ගුප්ත තාපය L නම් දිය වන ස්කන්ධය කීය ද?
+1. m = Q/L
+2. m = L/Q
+3. m = Q
+4. m = QL
+නියත පීඩනයේදී දිය වන අතරතුර Q = mL වේ.",1. m = Q/L / m = Q/L,,,
+phy.therm.c084,thermal,"Any amount of warm water can melt all the ice added to it in an insulated cup.
+1. True
+2. False
+Compare available heat with the heat needed to melt the ice.","පරිවරණය කළ කෝප්පයක ඕනෑම උණු ජල ප්‍රමාණයකට එයට එක් කළ සියලු අයිස් දිය කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ලබා දිය හැකි තාපය අයිස් දිය කිරීමට අවශ්‍ය තාපය සමඟ සසඳන්න.",2. False / අසත්‍ය,,,
+phy.therm.c085,thermal,"Equal masses of ice at its melting point and warm water must reach the mean of their starting temperatures when mixed.
+1. True
+2. False
+Melting absorbs energy before the meltwater can warm.","ද්‍රවාංකයේ ඇති අයිස් හා උණු ජලය සමාන ස්කන්ධවලින් මිශ්‍ර කළ විට අවසන් උෂ්ණත්වය මුල් උෂ්ණත්ව දෙකේ මධ්‍යන්‍යය විය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+දිය වූ ජලයේ උෂ්ණත්වය වැඩි වීමට පෙර අයිස් දිය වීම සඳහා ශක්තිය උරා ගනී.",2. False / අසත්‍ය,,,
+phy.therm.c086,thermal,"Twice as much ice at its melting point requires twice as much heat to melt completely at the same pressure.
+1. True
+2. False
+The latent heat requirement is proportional to mass.","එකම පීඩනයේ ද්‍රවාංකයේ ඇති අයිස් ස්කන්ධය දෙගුණ කළ විට එය මුළුමනින් දිය කිරීමට අවශ්‍ය තාපයත් දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අවශ්‍ය ගුප්ත තාප ප්‍රමාණය ස්කන්ධයට සමානුපාතිකය.",1. True / සත්‍ය,,,
+phy.therm.c087,thermal,"Freezing water takes in latent heat from the surroundings.
+1. True
+2. False
+Freezing releases heat and melting absorbs heat.","ජලය මිදෙන විට වටපිටාවෙන් ගුප්ත තාපය උරා ගනී.
+1. සත්‍ය
+2. අසත්‍ය
+මිදීමේදී තාපය පිට කරන අතර දිය වීමේදී තාපය උරා ගනී.",2. False / අසත්‍ය,,,
+phy.therm.c088,thermal,"Steam that condenses and then cools below its boiling point releases heat in both stages.
+1. True
+2. False
+Add the condensation heat and the heat lost by the cooling water.","ජල වාෂ්ප ඝණීභවනය වී ඉන්පසු තාපාංකයට පහළ උෂ්ණත්වයකට සිසිල් වන විට අවස්ථා දෙකේදීම තාපය පිට වේ.
+1. සත්‍ය
+2. අසත්‍ය
+ඝණීභවනයේදී පිට වන තාපයට ජලය සිසිල් වීමේදී පිට වන තාපය එකතු කරන්න.",1. True / සත්‍ය,,,
+phy.therm.c089,thermal,"Before ice below its melting point begins to melt at fixed pressure, it needs heat to reach that point.
+1. True
+2. False
+Include the initial warming of solid ice in the energy balance.","නියත පීඩනයේ ද්‍රවාංකයට පහළින් ඇති අයිස් දිය වීම ඇරඹීමට පෙර ද්‍රවාංකයට ළඟා වීමට තාපය අවශ්‍යය.
+1. සත්‍ය
+2. අසත්‍ය
+ශක්ති තුලනයට ඝන අයිස් මුලින් රත් වීමත් ඇතුළත් කරන්න.",1. True / සත්‍ය,,,
+phy.therm.c092,thermal,"At the boiling point steam can heat a calorimeter even before the condensate begins to cool.
+1. True
+2. False
+Condensation releases latent heat.","තාපාංකයේදී ඝණීභවනයෙන් ලැබෙන ජලය සිසිල් වීමටත් පෙර වාෂ්පයට කැලරිමීටරය රත් කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ඝණීභවනයේදී ගුප්ත තාපය පිට වේ.",1. True / සත්‍ය,,,
+phy.therm.c093,thermal,"To estimate specific latent heat from the heat Q used in melting a measured mass m, use m/Q.
+1. True
+2. False
+Energy per unit mass is Q/m.","මනින ලද m ස්කන්ධයක් දිය කිරීමට යෙදූ Q තාපයෙන් විශිෂ්ට ගුප්ත තාපය සෙවීමට m/Q යොදයි.
+1. සත්‍ය
+2. අසත්‍ය
+ඒකක ස්කන්ධයකට ශක්තිය Q/m වේ.",2. False / අසත්‍ය,,,
+phy.therm.c094,thermal,"The actual vapour pressure is 1 kPa. At the air temperature the saturated vapour pressure is 4 kPa. What is the relative humidity?
+1. 25%
+2. 400%
+3. 75%
+4. 100%
+Relative humidity is actual pressure divided by saturated vapour pressure at the same temperature, expressed as a percentage.","සැබෑ වාෂ්ප පීඩනය 1 kPa වේ. වාතයේ උෂ්ණත්වයේදී සංතෘප්ත වාෂ්ප පීඩනය 4 kPa නම් සාපේක්ෂ ආර්ද්‍රතාව කීය ද?
+1. 25%
+2. 400%
+3. 75%
+4. 100%
+සාපේක්ෂ ආර්ද්‍රතාව යනු සැබෑ වාෂ්ප පීඩනය එම උෂ්ණත්වයේ සංතෘප්ත වාෂ්ප පීඩනයෙන් බෙදා ප්‍රතිශතයක් ලෙස දැක්වූ අගයයි.",1. 25% / 25%,,,
+phy.therm.c095,thermal,"A 2 m³ sample of moist air contains 6 g of water vapour. What is its absolute humidity in g m⁻³?
+1. 3 g m⁻³
+2. 1/3 g m⁻³
+3. 12 g m⁻³
+4. 6 g m⁻³
+Divide the mass of water vapour by the volume of the moist air.","තෙත් වාතය 2 m³ තුළ ජල වාෂ්ප 6 g ඇත. එහි නිරපේක්ෂ ආර්ද්‍රතාව g m⁻³ වලින් කීය ද?
+1. 3 g m⁻³
+2. 1/3 g m⁻³
+3. 12 g m⁻³
+4. 6 g m⁻³
+ජල වාෂ්ප ස්කන්ධය තෙත් වාතයේ පරිමාවෙන් බෙදන්න.",1. 3 g m⁻³ / 3 g m⁻³,,,
+phy.therm.c096,thermal,"Absolute humidity uses the mass of dry air in each cubic metre.
+1. True
+2. False
+Use only the mass of water vapour in that volume.","නිරපේක්ෂ ආර්ද්‍රතාව සෙවීමට සෑම ඝන මීටරයකම ඇති වියළි වාතයේ ස්කන්ධය ගනී.
+1. සත්‍ය
+2. අසත්‍ය
+එම පරිමාවේ ඇති ජල වාෂ්ප ස්කන්ධය පමණක් ගන්න.",2. False / අසත්‍ය,,,
+phy.therm.c098,thermal,"Cooling sealed moist air below its dew point can reduce the mass of water still as vapour.
+1. True
+2. False
+Some vapour condenses to liquid.","මුද්‍රා කළ බඳුනක තෙත් වාතය තුෂාර අංකයට පහළට සිසිල් කළ විට වාෂ්ප අවස්ථාවේ ඉතිරි ජල ස්කන්ධය අඩු විය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+වාෂ්පයෙන් කොටසක් ද්‍රව බවට ඝණීභවනය වේ.",1. True / සත්‍ය,,,
+phy.therm.c099,thermal,"If 3 g of vapour condenses in a sealed vessel, add 3 g to the original vapour mass to find the remaining vapour mass.
+1. True
+2. False
+Condensation transfers mass out of the vapour. Subtract the condensed mass.","මුද්‍රා කළ බඳුනක වාෂ්ප 3 g ඝණීභවනය වේ නම් ඉතිරි වාෂ්ප ස්කන්ධය සෙවීමට මුල් වාෂ්ප ස්කන්ධයට 3 g එකතු කරන්න.
+1. සත්‍ය
+2. අසත්‍ය
+ඝණීභවනයේදී වාෂ්ප අවස්ථාවෙන් ස්කන්ධය ඉවත් වන බැවින් ඝණීභවනය වූ ස්කන්ධය අඩු කරන්න.",2. False / අසත්‍ය,,,
+phy.therm.c100,thermal,"At fixed vapour mass with no condensation, doubling the volume halves the absolute humidity.
+1. True
+2. False
+It is vapour mass per unit volume.","ඝණීභවනයක් නැතිව වාෂ්ප ස්කන්ධය නියත විට පරිමාව දෙගුණ කළොත් නිරපේක්ෂ ආර්ද්‍රතාව අඩක් වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එය ඒකක පරිමාවක වාෂ්ප ස්කන්ධයයි.",1. True / සත්‍ය,,,
+phy.therm.c101,thermal,"To add the water vapour from two rooms, directly add their relative humidity percentages.
+1. True
+2. False
+Masses add. Percent saturation alone gives neither vapour mass.","කාමර දෙකක ඇති මුළු ජල වාෂ්ප ප්‍රමාණය සෙවීමට ඒවායේ සාපේක්ෂ ආර්ද්‍රතා ප්‍රතිශත කෙළින්ම එකතු කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+එකතු කළ හැක්කේ ස්කන්ධයයි. සංතෘප්තියේ ප්‍රතිශතය පමණක් දැන සිටීමෙන් වාෂ්ප ස්කන්ධය නොලැබේ.",2. False / අසත්‍ය,,,
+phy.therm.c102,thermal,"Air can have unchanged absolute humidity while its relative humidity changes.
+1. True
+2. False
+Heating sealed unsaturated air at fixed volume keeps its vapour mass per volume constant but changes the saturation limit.","වාතයේ සාපේක්ෂ ආර්ද්‍රතාව වෙනස් වන විට එහි නිරපේක්ෂ ආර්ද්‍රතාව නොවෙනස්ව තිබිය හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+නියත පරිමාවක මුද්‍රා කළ අසංතෘප්ත වාතය රත් කළ විට ඒකක පරිමාවේ වාෂ්ප ස්කන්ධය නියතව පැවතුණත් සංතෘප්ති සීමාව වෙනස් වේ.",1. True / සත්‍ය,,,
+phy.therm.c103,thermal,"Halving the volume of saturated vapour in equilibrium with liquid at fixed temperature doubles the equilibrium vapour pressure.
+1. True
+2. False
+Some vapour condenses. While both liquid and vapour remain, temperature fixes the pressure.","ද්‍රවය හා සමතුලිතතාවයේ ඇති සංතෘප්ත වාෂ්පයක පරිමාව නියත උෂ්ණත්වයේදී අඩක් කළ විට සමතුලිතතාවයේ වාෂ්ප පීඩනය දෙගුණ වේ.
+1. සත්‍ය
+2. අසත්‍ය
+වාෂ්පයෙන් කොටසක් ඝණීභවනය වේ. ද්‍රවය හා වාෂ්ප දෙකම පවතින තාක් සමතුලිත පීඩනය තීරණය වන්නේ උෂ්ණත්වයෙනි.",2. False / අසත්‍ය,,,
+phy.therm.c105,thermal,"At fixed actual vapour pressure a larger saturated vapour pressure gives a larger relative humidity.
+1. True
+2. False
+The saturated vapour pressure is the denominator of the ratio.","සැබෑ වාෂ්ප පීඩනය නියතව තිබියදී සංතෘප්ත වාෂ්ප පීඩනය වැඩි වන විට සාපේක්ෂ ආර්ද්‍රතාව වැඩි වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අනුපාතයේ හරය වන්නේ සංතෘප්ත වාෂ්ප පීඩනයයි.",2. False / අසත්‍ය,,,
+phy.therm.c107,thermal,"At constant pressure p, a gas expanding from V₁ to V₂ does work p(V₂ − V₁).
+1. True
+2. False
+The work depends on the change in volume over the process.","නියත පීඩනය p යටතේ V₁ සිට V₂ දක්වා ප්‍රසාරණය වන වායුවක් කරන කාර්යය p(V₂ − V₁) වේ.
+1. සත්‍ය
+2. අසත්‍ය
+කාර්යය රඳා පවතින්නේ ක්‍රියාවලියේ පරිමා වෙනස මතය.",1. True / සත්‍ය,,,
+phy.therm.c108,thermal,"At constant external pressure the expansion work equals that pressure divided by the volume increase.
+1. True
+2. False
+Multiply pressure by volume change to obtain energy.","නියත බාහිර පීඩනයකදී ප්‍රසාරණ කාර්යය යනු එම පීඩනය පරිමා වැඩිවීමෙන් බෙදූ අගයයි.
+1. සත්‍ය
+2. අසත්‍ය
+ශක්තිය ලබා ගැනීමට පීඩනය පරිමා වෙනසෙන් ගුණ කරන්න.",2. False / අසත්‍ය,,,
+phy.therm.c109,thermal,"A moving paddle of mass m and speed v has ½mv² of kinetic energy available to heat an insulated liquid if it stops inside.
+1. True
+2. False
+The energy transferred from motion depends on speed squared.","m ස්කන්ධයක් හා v වේගයක් ඇති තලයක් පරිවරණය කළ ද්‍රවයක් තුළ නතර වුණොත් තාපජ ශක්තිය බවට පත් විය හැකි එහි චාලක ශක්තිය ½mv² වේ.
+1. සත්‍ය
+2. අසත්‍ය
+චලිතයෙන් මාරු වන ශක්තිය වේගයේ වර්ගය මත රඳා පවතී.",1. True / සත්‍ය,,,
+phy.therm.c110,thermal,"A gas in a rigid sealed container can do expansion work while its volume stays fixed.
+1. True
+2. False
+Expansion work requires a change in volume.","දෘඪ මුද්‍රා කළ බඳුනක වායුවේ පරිමාව නොවෙනස්ව තිබියදී ප්‍රසාරණ කාර්යයක් කළ හැකිය.
+1. සත්‍ය
+2. අසත්‍ය
+ප්‍රසාරණ කාර්යය සඳහා පරිමා වෙනසක් අවශ්‍යය.",2. False / අසත්‍ය,,,
+phy.therm.c113,thermal,"Two insulated rods in series carry the same steady heat flow. Their thermal resistances are R and 2R. Which fraction of the total temperature drop lies across the second?
+1. 2 : 3
+2. 1 : 2
+3. 3 : 2
+4. 2 : 1
+At the same flow the drops are proportional to thermal resistance. The second rod accounts for two of three parts.","ශ්‍රේණිගත පරිවරණය කළ දඬු දෙකක අනවරත තාප ප්‍රවාහය සමානය. තාප ප්‍රතිරෝධ පිළිවෙළින් R හා 2R වේ. දෙවැනි දණ්ඩේ උෂ්ණත්ව බැස්ම මුළු බැස්මෙන් කවර භාගයක් ද?
+1. 2 : 3
+2. 1 : 2
+3. 3 : 2
+4. 2 : 1
+එකම ප්‍රවාහයේදී උෂ්ණත්ව බැස්ම තාප ප්‍රතිරෝධයට සමානුපාතිකය. කොටස් තුනෙන් දෙකක් දෙවැනි දණ්ඩට අයත්ය.",1. 2 : 3 / 2 : 3,,,
+phy.therm.c114,thermal,"Two rods in parallel between the same reservoirs must carry equal rates of heat flow even when their thermal resistances differ.
+1. True
+2. False
+They share a temperature difference. The smaller resistance carries more heat per second.","එකම තාප ආශය දෙක අතර සමාන්තරගත දඬු දෙකක තාප ප්‍රතිරෝධ වෙනස් වුවත් ඒවායේ තාප ධාරා සමාන විය යුතුය.
+1. සත්‍ය
+2. අසත්‍ය
+උෂ්ණත්ව අන්තරය සමාන වේ. අඩු ප්‍රතිරෝධය හරහා තත්පරයකට වැඩි තාපයක් ගලා යයි.",2. False / අසත්‍ය,,,
+phy.therm.c115,thermal,"For one rod in a series pair, its heat-flow equation uses the temperatures at its own two ends.
+1. True
+2. False
+One endpoint is the junction between the rods.","ශ්‍රේණිගත දඬු දෙකෙන් එක් දණ්ඩක තාප ප්‍රවාහ සමීකරණයට යොදන්නේ ඒ දණ්ඩේම දෙකෙළවර උෂ්ණත්වයි.
+1. සත්‍ය
+2. අසත්‍ය
+එක් අන්තයක් වන්නේ දඬු දෙක අතර සන්ධියයි.",1. True / සත්‍ය,,,
+phy.therm.c116,thermal,"Along a passive rod carrying heat from hot to cold, the temperature rises in the direction of heat flow.
+1. True
+2. False
+Temperature falls along that direction.","උණු අන්තයෙන් සිසිල් අන්තයට තාපය ගලා යන, අභ්‍යන්තර තාප ප්‍රභව නැති දණ්ඩක තාප ප්‍රවාහ දිශාවට උෂ්ණත්වය වැඩි වේ.
+1. සත්‍ය
+2. අසත්‍ය
+එම දිශාවට උෂ්ණත්වය අඩු වේ.",2. False / අසත්‍ය,,,
+phy.therm.c118,thermal,"A point with high temperature must also have a steep temperature gradient.
+1. True
+2. False
+The gradient measures local temperature change per distance.","ඉහළ උෂ්ණත්වයක් ඇති තැනක උෂ්ණත්ව අනුක්‍රමණය ද අනිවාර්යයෙන් විශාල වේ.
+1. සත්‍ය
+2. අසත්‍ය
+අනුක්‍රමණයෙන් මැනෙන්නේ එම තැන ආසන්නයේ ඒකක දුරකට උෂ්ණත්ව වෙනසයි.",2. False / අසත්‍ය,,,

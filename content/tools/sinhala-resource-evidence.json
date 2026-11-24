@@ -1,0 +1,1136 @@
+[
+  {
+    "category": "syllabus",
+    "pdf": "nie/physics/si/syllabus/AL-Physics-Syllabus-Gr12-13-si.pdf",
+    "pages": 72,
+    "pages_with_text_cues": 72,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 18,
+        "first_pdf_page": 14
+      },
+      "ශූන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 33
+      },
+      "ශුන්‍ය": {
+        "count": 4,
+        "first_pdf_page": 33
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 40
+      },
+      "සීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 52
+      },
+      "විභව අන්තරය": {
+        "count": 9,
+        "first_pdf_page": 46
+      },
+      "වෝල්ටීයතාව": {
+        "count": 16,
+        "first_pdf_page": 48
+      },
+      "නිව්ටන්": {
+        "count": 14,
+        "first_pdf_page": 15
+      },
+      "නිවුටන්": {
+        "count": 4,
+        "first_pdf_page": 15
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2015.pdf",
+    "pages": 24,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2016.pdf",
+    "pages": 24,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2017.pdf",
+    "pages": 26,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2018.pdf",
+    "pages": 1,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2019-new-syllabus.pdf",
+    "pages": 26,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2024.pdf",
+    "pages": 28,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "doe/physics/si/past-papers/2025.pdf",
+    "pages": 26,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2000-part1.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 7
+      },
+      "ශූන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 10
+      },
+      "ශුන්‍ය": {
+        "count": 5,
+        "first_pdf_page": 3
+      },
+      "සීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 5
+      },
+      "විභව අන්තරය": {
+        "count": 3,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 7,
+        "first_pdf_page": 4
+      },
+      "සමමිති": {
+        "count": 1,
+        "first_pdf_page": 13
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2000-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 10
+      },
+      "සීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 11,
+        "first_pdf_page": 8
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2001-part1.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 4,
+        "first_pdf_page": 4
+      },
+      "විභව අන්තරය": {
+        "count": 2,
+        "first_pdf_page": 1
+      },
+      "වෝල්ටීයතාව": {
+        "count": 4,
+        "first_pdf_page": 1
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2001-part2.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 13,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 6
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 12
+      },
+      "විභව අන්තරය": {
+        "count": 5,
+        "first_pdf_page": 6
+      },
+      "වෝල්ටීයතාව": {
+        "count": 3,
+        "first_pdf_page": 12
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2002-part1.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 4,
+        "first_pdf_page": 5
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 6
+      },
+      "සීඝ්‍රතාව": {
+        "count": 5,
+        "first_pdf_page": 4
+      },
+      "විභව අන්තරය": {
+        "count": 3,
+        "first_pdf_page": 11
+      },
+      "වෝල්ටීයතාව": {
+        "count": 7,
+        "first_pdf_page": 2
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2002-part2.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 15,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 5,
+        "first_pdf_page": 2
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 14
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 3,
+        "first_pdf_page": 13
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2003-part1.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 13,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 4
+      },
+      "වෝල්ටීයතාව": {
+        "count": 2,
+        "first_pdf_page": 1
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2003-part2.pdf",
+    "pages": 13,
+    "pages_with_text_cues": 13,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 8
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 6
+      },
+      "වෝල්ටීයතාව": {
+        "count": 6,
+        "first_pdf_page": 10
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2004-part1.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 3
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 6,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 4,
+        "first_pdf_page": 1
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2004-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 7
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 7,
+        "first_pdf_page": 9
+      },
+      "වෝල්ටීයතාව": {
+        "count": 5,
+        "first_pdf_page": 14
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2005-part1.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "ශුන්‍ය": {
+        "count": 8,
+        "first_pdf_page": 1
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 1
+      },
+      "විභව අන්තරය": {
+        "count": 3,
+        "first_pdf_page": 6
+      },
+      "වෝල්ටීයතාව": {
+        "count": 6,
+        "first_pdf_page": 2
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2005-part2.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 4,
+        "first_pdf_page": 8
+      },
+      "සූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 8
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 11
+      },
+      "විභව අන්තරය": {
+        "count": 5,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 10,
+        "first_pdf_page": 6
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2006-part1.pdf",
+    "pages": 17,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 3,
+        "first_pdf_page": 8
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 12
+      },
+      "සීඝ්‍රතාව": {
+        "count": 4,
+        "first_pdf_page": 1
+      },
+      "වෝල්ටීයතාව": {
+        "count": 14,
+        "first_pdf_page": 9
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2006-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "සීඝ්‍රතාව": {
+        "count": 4,
+        "first_pdf_page": 4
+      },
+      "වෝල්ටීයතාව": {
+        "count": 4,
+        "first_pdf_page": 13
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2007-part1.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 15,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 11
+      },
+      "ශූන්‍ය": {
+        "count": 4,
+        "first_pdf_page": 10
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 4
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 5,
+        "first_pdf_page": 1
+      },
+      "වෝල්ටීයතාව": {
+        "count": 5,
+        "first_pdf_page": 10
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2007-part2.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 8
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 13
+      },
+      "වෝල්ටීයතාව": {
+        "count": 8,
+        "first_pdf_page": 10
+      },
+      "නිව්ටන්": {
+        "count": 1,
+        "first_pdf_page": 13
+      },
+      "සමමිති": {
+        "count": 1,
+        "first_pdf_page": 10
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2008-part1.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 7
+      },
+      "ශුන්‍ය": {
+        "count": 5,
+        "first_pdf_page": 3
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 3
+      },
+      "සීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 5
+      },
+      "වෝල්ටීයතාව": {
+        "count": 2,
+        "first_pdf_page": 7
+      },
+      "සමමිති": {
+        "count": 1,
+        "first_pdf_page": 4
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2008-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 3,
+        "first_pdf_page": 9
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 12
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 9
+      },
+      "වෝල්ටීයතාව": {
+        "count": 12,
+        "first_pdf_page": 7
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2009-part1.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 3
+      },
+      "ශූන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 5
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 10
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 5
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 2,
+        "first_pdf_page": 2
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2009-part2.pdf",
+    "pages": 17,
+    "pages_with_text_cues": 17,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 2
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 4
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 12
+      },
+      "වෝල්ටීයතාව": {
+        "count": 4,
+        "first_pdf_page": 14
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2010-part1.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 13,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 3,
+        "first_pdf_page": 1
+      },
+      "ශුන්‍ය": {
+        "count": 2,
+        "first_pdf_page": 4
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 12
+      },
+      "වෝල්ටීයතාව": {
+        "count": 6,
+        "first_pdf_page": 1
+      },
+      "සමමිති": {
+        "count": 1,
+        "first_pdf_page": 4
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2010-part2.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 15,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 8
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "විභව අන්තරය": {
+        "count": 2,
+        "first_pdf_page": 13
+      },
+      "වෝල්ටීයතාව": {
+        "count": 6,
+        "first_pdf_page": 13
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2011-part1.pdf",
+    "pages": 13,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 3,
+        "first_pdf_page": 3
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 6,
+        "first_pdf_page": 4
+      },
+      "විභව අන්තරය": {
+        "count": 2,
+        "first_pdf_page": 2
+      },
+      "වෝල්ටීයතාව": {
+        "count": 8,
+        "first_pdf_page": 6
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2011-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "ශුන්‍ය": {
+        "count": 4,
+        "first_pdf_page": 10
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 14
+      },
+      "වෝල්ටීයතාව": {
+        "count": 12,
+        "first_pdf_page": 7
+      },
+      "නිව්ටන්": {
+        "count": 1,
+        "first_pdf_page": 5
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2012-part1.pdf",
+    "pages": 14,
+    "pages_with_text_cues": 11,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 3,
+        "first_pdf_page": 3
+      },
+      "වෝල්ටීයතාව": {
+        "count": 2,
+        "first_pdf_page": 8
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2012-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 14,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 7
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 13
+      },
+      "වෝල්ටීයතාව": {
+        "count": 5,
+        "first_pdf_page": 10
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2013-part1.pdf",
+    "pages": 13,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 3
+      },
+      "ශුන්‍ය": {
+        "count": 3,
+        "first_pdf_page": 6
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 4,
+        "first_pdf_page": 1
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 11
+      },
+      "වෝල්ටීයතාව": {
+        "count": 1,
+        "first_pdf_page": 8
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2013-part2.pdf",
+    "pages": 16,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 13,
+        "first_pdf_page": 11
+      },
+      "වෝල්ටීයතාව": {
+        "count": 14,
+        "first_pdf_page": 13
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2014-part1.pdf",
+    "pages": 12,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 6,
+        "first_pdf_page": 2
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 4,
+        "first_pdf_page": 5
+      },
+      "වෝල්ටීයතාව": {
+        "count": 7,
+        "first_pdf_page": 6
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2014-part2.pdf",
+    "pages": 17,
+    "pages_with_text_cues": 16,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 9
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 15
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 14
+      },
+      "වෝල්ටීයතාව": {
+        "count": 21,
+        "first_pdf_page": 6
+      },
+      "අසව්": {
+        "count": 1,
+        "first_pdf_page": 10
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2020-part1.pdf",
+    "pages": 12,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 2
+      },
+      "ශුන්‍ය": {
+        "count": 4,
+        "first_pdf_page": 2
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 7
+      },
+      "විභව අන්තරය": {
+        "count": 2,
+        "first_pdf_page": 3
+      },
+      "වෝල්ටීයතාව": {
+        "count": 3,
+        "first_pdf_page": 3
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2020-part2.pdf",
+    "pages": 21,
+    "pages_with_text_cues": 21,
+    "hits": {
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 11
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 7,
+        "first_pdf_page": 13
+      },
+      "විභව අන්තරය": {
+        "count": 6,
+        "first_pdf_page": 15
+      },
+      "වෝල්ටීයතාව": {
+        "count": 8,
+        "first_pdf_page": 16
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2021-part1.pdf",
+    "pages": 15,
+    "pages_with_text_cues": 13,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 4
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 9
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 8
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2021-part2.pdf",
+    "pages": 21,
+    "pages_with_text_cues": 19,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 2,
+        "first_pdf_page": 10
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 4
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 6,
+        "first_pdf_page": 17
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 15
+      },
+      "වෝල්ටීයතාව": {
+        "count": 4,
+        "first_pdf_page": 15
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2022-part1.pdf",
+    "pages": 12,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 7
+      },
+      "ශුන්‍ය": {
+        "count": 3,
+        "first_pdf_page": 2
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 9
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 2
+      },
+      "වෝල්ටීයතාව": {
+        "count": 3,
+        "first_pdf_page": 11
+      },
+      "අසව්": {
+        "count": 1,
+        "first_pdf_page": 7
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2022-part2.pdf",
+    "pages": 19,
+    "pages_with_text_cues": 19,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 19
+      },
+      "වෝල්ටීයතාව": {
+        "count": 16,
+        "first_pdf_page": 16
+      }
+    }
+  },
+  {
+    "category": "papers",
+    "pdf": "mirror-epapers/physics/si/2023-part1.pdf",
+    "pages": 12,
+    "pages_with_text_cues": 12,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 1,
+        "first_pdf_page": 12
+      },
+      "ශුන්‍ය": {
+        "count": 1,
+        "first_pdf_page": 5
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 2,
+        "first_pdf_page": 8
+      },
+      "විභව අන්තරය": {
+        "count": 1,
+        "first_pdf_page": 10
+      },
+      "වෝල්ටීයතාව": {
+        "count": 7,
+        "first_pdf_page": 1
+      }
+    }
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr12-Physics-RB-Unit01-02-Measurement-Mechanics-si.pdf",
+    "pages": 142,
+    "pages_with_text_cues": 101,
+    "hits": {
+      "ඝූර්ණ": {
+        "count": 37,
+        "first_pdf_page": 65
+      },
+      "ශූන්‍ය": {
+        "count": 9,
+        "first_pdf_page": 50
+      },
+      "ශුන්‍ය": {
+        "count": 5,
+        "first_pdf_page": 85
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 13,
+        "first_pdf_page": 73
+      },
+      "නිව්ටන්": {
+        "count": 23,
+        "first_pdf_page": 67
+      }
+    }
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr12-Physics-RB-Unit03-Oscillations-Waves-si.pdf",
+    "pages": 117,
+    "pages_with_text_cues": 85,
+    "hits": {
+      "ශීඝ්‍රතාව": {
+        "count": 1,
+        "first_pdf_page": 69
+      },
+      "නිව්ටන්": {
+        "count": 1,
+        "first_pdf_page": 55
+      },
+      "සමමිති": {
+        "count": 1,
+        "first_pdf_page": 92
+      }
+    }
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr12-Physics-RB-Unit04-si.pdf",
+    "pages": 100,
+    "pages_with_text_cues": 93,
+    "hits": {
+      "ශූන්‍ය": {
+        "count": 11,
+        "first_pdf_page": 9
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 18,
+        "first_pdf_page": 9
+      },
+      "වෝල්ටීයතාව": {
+        "count": 1,
+        "first_pdf_page": 23
+      },
+      "නිව්ටන්": {
+        "count": 4,
+        "first_pdf_page": 58
+      }
+    }
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr13-Physics-RB-Unit05-08-si.pdf",
+    "pages": 1,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr13-Physics-RB-Unit09-Electronics-si.pdf",
+    "pages": 114,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr13-Physics-RB-Unit10-si.pdf",
+    "pages": 1,
+    "pages_with_text_cues": 0,
+    "hits": {}
+  },
+  {
+    "category": "books",
+    "pdf": "nie/physics/si/resource-books/Gr13-Physics-RB-Unit11-si.pdf",
+    "pages": 101,
+    "pages_with_text_cues": 100,
+    "hits": {
+      "ශූන්‍ය": {
+        "count": 11,
+        "first_pdf_page": 12
+      },
+      "ශුන්‍ය": {
+        "count": 5,
+        "first_pdf_page": 19
+      },
+      "ශීඝ්‍රතාව": {
+        "count": 26,
+        "first_pdf_page": 10
+      },
+      "විභව අන්තරය": {
+        "count": 56,
+        "first_pdf_page": 26
+      },
+      "වෝල්ටීයතාව": {
+        "count": 7,
+        "first_pdf_page": 45
+      },
+      "නිව්ටන්": {
+        "count": 1,
+        "first_pdf_page": 95
+      },
+      "සමමිති": {
+        "count": 3,
+        "first_pdf_page": 38
+      }
+    }
+  }
+]
