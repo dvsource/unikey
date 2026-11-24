@@ -19,7 +19,9 @@ export type Content = {
 
 export type Attempt = { day: number; seq: number; height: Height; right: boolean; ms: number; card: string;
   /** A right answer under the guess line (`isFastRight`): weak evidence, never counted toward a step up. */
-  fast?: true };
+  fast?: true;
+  /** T114: the student's grade (absent on attempts saved before grades: `right` → good, else again). `right` is grade ≠ again. */
+  grade?: Grade };
 export type SkillRec = {
   height: Height;
   attempts: Attempt[]; // last 12 kept
@@ -65,6 +67,8 @@ export type SessionHistoryEntry = {
   drip?: boolean;
   /** A fast wrong answer (`isGuess`): a miss for the recap, but no evidence about the skill. */
   guess?: boolean;
+  /** T114: the student's grade on an answered card (absent on skips and on entries saved before grades). */
+  grade?: Grade;
 };
 /**
  * The open session. Invariant: `served === null` while a session is open only when "5 more" is on offer.
@@ -135,8 +139,27 @@ export type SessionState = {
    * extra card's own effort when answered; 0 outside "5 more"). An extra card is served only if its effort fits it.
    */
   extendEffortLeft: number;
+  /**
+   * T114 (DR-0052): repairs waiting for the end of the session, in the order of their misses. A repair is never served
+   * straight after a miss; it runs after the middle and before the closing card. What is left at the end carries over.
+   */
+  repairQueue: RepairState[];
+  /** T114: the end-of-session repairs have started: no more middle cards, only repair cards, then the closing card. */
+  repairing: boolean;
+  /** T114: skills an Easy grade has stepped up this session (at most once per skill per session). */
+  easyUps: string[];
 };
 
+/** T114 (DR-0052, DR-0056): the student's grade after Show answer. It alone drives scheduling, on MCQ too. */
+export type Grade = "again" | "hard" | "good" | "easy";
+export const GRADES: Grade[] = ["again", "hard", "good", "easy"];
+/**
+ * T114: how a card was answered. `mode`: recall (think, then reveal) or mcq (an option selected, then reveal; default
+ * mcq when `picked` is given, else recall). `picked`: the selected option's index (mcq; absent: nothing picked). The
+ * MCQ's right/wrong is worked out by the engine from `picked` and only logged (DR-0056).
+ */
+export type AnswerInput = { card: string; ms: number; grade: Grade; mode?: "recall" | "mcq"; picked?: number };
+/** @deprecated Before T114: the option index or "I don't know". `answer` still takes `{ card, choice, ms }` (right → good, else again). */
 export type Choice = number | "dont-know";
 export type EndKind = "budget" | "bad-day" | "extended-done" | "daily-cap" | "content-exhausted" | "left" | "interrupted";
 /**
@@ -151,7 +174,11 @@ export type EndInfo = {
   kind: EndKind; effort: number; cards: number; right: number; fixed: number; streakKept: boolean; recap: boolean; fixedSkills: string[];
   rightSkills: string[];
 };
-export type Feedback = { right: boolean; correctIndex: number; tag?: string; reveal?: { section: string } };
+/**
+ * `right`: the scheduling outcome (the grade is not again). `grade`: the student's grade. `correct` (T114): the MCQ
+ * result, null for recall or nothing picked (shown and logged only, DR-0056). `tag`: the wrong pick's error tag.
+ */
+export type Feedback = { right: boolean; correctIndex: number; tag?: string; reveal?: { section: string }; grade: Grade; correct: boolean | null };
 /** Shown before a second (or later) skip of a section: its share of the unit's weight and its top skills. */
 export type ValueMessage = { section: string; sharePct: number; topSkills: { skill: string; solid: boolean }[] };
 /** Implemented in Task 8 (moments). */
@@ -176,6 +203,8 @@ export type Step = {
   state: State; events: EngineEvent[]; feedback?: Feedback; moments: Moment[]; next: Next;
   /** `guess-nudge`: on the step after the session's `guess.nudgeAfter`-th guess, once per session. Does not change the next card. */
   hint?: "guess-nudge";
+  /** T126: why the next card was picked, in words (the same text as `next.card.why`); absent when no card is next. */
+  why?: string;
 };
 export type State = {
   v: 1; student: string; rng: Rng; seq: number; lastNow: number;
@@ -199,6 +228,8 @@ export type State = {
   ladder: Ladder | null;
   /** Change 3: cards and right answers of the last session that was open (written at its end), else null. */
   lastSession: { cards: number; right: number } | null;
+  /** T114: repairs the last session had no room for: the next session opens with them. */
+  carryRepairs: RepairState[];
 };
 export type Ladder = { level: Height; rightRun: number };
 
@@ -210,6 +241,8 @@ export type Reason = "open:liked" | "close:winnable" | "repair:missing-piece" | 
 export type Served = {
   card: string; variant: number; skill: string; section: string; height: Height;
   reason: Reason; effort: number; borrowedFrom?: string;
+  /** T126: why this card was picked, in words, for logs and the engine playground (the student never sees it). */
+  why?: string;
 };
 
 /**
@@ -235,12 +268,20 @@ export type PickCtx = {
    * card). Repairs, closing and "5 more" never call `pickMiddle`.
    */
   stretchOff?: boolean;
+  /** T114: three Easys in a row: a stretch card now, whatever the running rate (DR-0051 change 5's push-up). */
+  pushUp?: boolean;
   /** Change 5: the session's one extra new skill (beyond `session.maxNewSkills`) is used. */
   extraNewUsed?: boolean;
 };
 
 /** `extraNew` (change 5): the pick is the session's one extra new skill beyond `session.maxNewSkills`. */
-export type Picked = { served: Served; rng: Rng; extraNew?: true };
+export type Picked = { served: Served; rng: Rng; extraNew?: true; why?: string };
 
 /** A repair in flight (spec §5). `tag` / `note` are absent (never undefined) when unknown. */
-export type RepairState = { skill: string; failedHeight: Height; tag?: string; note?: string; stage: "piece" | "confidence" };
+/**
+ * T114: `card`, the missed card (set when the repair waits for the session end; it is never the repair card, though it
+ * may have left the session's recent cards by then); `carried`, it was carried over from the last session.
+ */
+export type RepairState = {
+  skill: string; failedHeight: Height; tag?: string; note?: string; stage: "piece" | "confidence"; card?: string; carried?: true;
+};

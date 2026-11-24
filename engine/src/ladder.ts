@@ -8,11 +8,12 @@ import type { Content, Height, Ladder, PickCtx, Picked, Reason, SkillDef, State 
 
 /**
  * After an answer on a ladder card: right → one more in the run, and at `ladder.upAfterRight` the level goes up one
- * (max 3) and the run starts again; a miss (wrong or "I don't know") → the level down one (min 1), the run 0.
+ * (max 3) and the run starts again; a Hard keeps the level and restarts the run (T114); a miss (wrong or "I don't know") → the level down one (min 1), the run 0.
  * Repair, confidence, return, closing, drip, side-door and "5 more" cards never come here.
  */
-export function ladderAfterAnswer(l: Ladder, right: boolean, cfg: Config): Ladder {
+export function ladderAfterAnswer(l: Ladder, right: boolean, cfg: Config, hard = false): Ladder {
   if (!right) return { level: Math.max(1, l.level - 1) as Height, rightRun: 0 };
+  if (hard) return { level: l.level, rightRun: 0 }; // T114: a Hard is no credit toward going up, and breaks the run
   const run = l.rightRun + 1;
   if (run >= cfg.ladder.upAfterRight) return { level: Math.min(3, l.level + 1) as Height, rightRun: 0 };
   return { level: l.level, rightRun: run };

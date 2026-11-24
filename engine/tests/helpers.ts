@@ -1,3 +1,4 @@
+import { afterAll, beforeAll } from "vitest";
 import { defaultConfig, type Config } from "../src/config.js";
 import { DAY_MS } from "../src/time.js";
 import { answer, endSession, skip, startSession } from "../src/session.js";
@@ -123,4 +124,16 @@ export function ladderSteps(steps: Step[]): { served: Served; before: State["lad
     out.push({ served: st.next.card, before: st.state.ladder, after: nx.state.ladder });
   }
   return out;
+}
+
+/**
+ * T114: the suites written for the repair timing before T114 (the repair straight after the miss) pin it for their whole
+ * file with this call: they test the repair mechanics (piece, confidence, return, failed repairs, the guard), which do
+ * not change. `tests/grades.test.ts` tests the T114 timing (the repair near the session end) on the default config.
+ * Vitest runs each test file in its own module context, so the change never leaks into another file.
+ */
+export function useRepairTimingBeforeT114(): void {
+  const was = defaultConfig.repairEnd.atEnd;
+  beforeAll(() => { defaultConfig.repairEnd.atEnd = false; });
+  afterAll(() => { defaultConfig.repairEnd.atEnd = was; });
 }

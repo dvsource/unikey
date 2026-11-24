@@ -2,10 +2,12 @@
 
 One board for every Claude session and for Viraj. Sessions write to it through the MCP server or the CLI. Viraj watches a read-only dashboard. Nobody edits `pm/data/` by hand.
 
-- **Dashboard:** `pm/bin/pm serve`, then open http://localhost:4477 (`pm serve 5000` for another port). It has Overview, Kanban, Graph and Gantt views. It is read-only, serves GET requests on 127.0.0.1 only, and updates live when the data changes.
+- **Web app:** `pm/bin/pm serve`, then open http://localhost:4477 (`pm serve 5000` for another port). It listens on 127.0.0.1 only and has several pages behind one nav:
+  - **Tracker** (`/tracker`): Overview, Kanban, Graph and Gantt views. Read-only (GET only), and updates live when the data changes.
+  - **Engine playground** (`/playground`, T126, [design](../docs/superpowers/specs/2026-11-24-engine-playground-design.md)): grade a sandbox student's cards Again / Hard / Good / Easy and watch the real engine (`engine/src`) re-plan the rest of today and the next 6 days, with what moved highlighted. Click a card for its question, answer, the engine's reason and the skill's numbers. "Ungraded cards get" picks the default grade for the forecast (or a simulator persona). The scenario lives in the browser tab (Save / Load write a JSON file through the browser); the server keeps no state and writes nothing.
 - **MCP server:** `pm`, registered in the repo-root `.mcp.json`. It has two tools: `pm_q` (read) and `pm_w` (write).
 - **CLI:** `pm/bin/pm <cmd>`. Needs Node ≥ 23.6, which runs the TypeScript directly. There is no build step and no runtime dependencies.
-- **Tests:** `cd pm && npm test` runs the core library tests. `npm run check:mcp` makes a real MCP SDK client call against the server, using a throwaway copy of the data (needs `npm install` first, for the SDK dev dependency).
+- **Tests:** `cd pm && npm test` runs the core library tests and the web app tests (pages, the read-only tracker, the playground on the real engine). `npm run check:mcp` makes a real MCP SDK client call against the server, using a throwaway copy of the data (needs `npm install` first, for the SDK dev dependency).
 
 ## Cheapest calling pattern
 
@@ -80,8 +82,11 @@ Filters for `ls`, `next` and `brief` can be combined:
 | `src/core.ts` | the only logic: parse/format, the store and lock, ops, relations, filters, brief |
 | `src/cli.ts`, `bin/pm` | the CLI |
 | `src/mcp.ts` | the stdio MCP server (JSON-RPC, with no SDK at runtime) |
-| `src/serve.ts`, `src/ui.html` | the dashboard server (`/`, `/data`, `/events` SSE, and `/repo/<path>` serving refs as plain text) and its single-page UI in the Dawn colours |
-| `test/` | `core.test.ts` (node:test) and `mcp-check.mjs` (an SDK client) |
+| `src/serve.ts` | the web app server: the page list (`PAGES`) and site nav, the tracker endpoints (`/data`, `/events` SSE, `/repo/<path>` serving refs as plain text; GET only) and the playground API (`/api/engine/packs`, `/api/engine/card`, `POST /api/engine/run`) |
+| `src/pages/` | `index.html`, `tracker.html` (the board), `playground.html`, and `site.css` (Dawn tokens and the nav). A page's `<!--site-nav-->` is replaced by the nav; to add a page, add it to `PAGES` |
+| `src/playground.ts` | the playground's engine driver: replays a scenario (the grades given, day by day) from a fresh seeded state, then forecasts with the default. Stateless and pure |
+| `src/engine-hooks.ts` | a Node resolve hook so the engine's `./x.js` imports find `./x.ts` (plain Node strips types but does not remap them); loaded before the playground |
+| `test/` | `core.test.ts` and `serve.test.ts` (node:test), and `mcp-check.mjs` (an SDK client) |
 
 The dashboard is standalone so that it can later be linked or mounted as a panel of the planned `/admin` page ([DR-0046](../docs/decisions/0046-narrow-admin-page-reuse-tools.md)); that page was never built.
 

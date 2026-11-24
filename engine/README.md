@@ -13,16 +13,32 @@ Every call is pure: it takes the state (and `now`, epoch ms) and returns a new s
 | `buildContent(packs, noteRefs?)` | the engine's content from the built packs (`app/assets/content/packs/*.json`) |
 | `setCurrentTopic(state, topic, "class" \| "student")` | the "teaching now" topic; `null` clears it |
 | `startSession(state, content, now)` | opens a session and returns the first card |
-| `answer(state, content, { card, choice, ms }, now)` | the student answered; `choice` is the option index or `"dont-know"` |
-| `skip(state, content, { card, reason?, confirmed? }, now)` | "Not now" on the current card |
+| `answer(state, content, { card, ms, grade, mode?, picked? }, now)` | the student pressed Show answer and graded the card: `grade` is `"again"`, `"hard"`, `"good"` or `"easy"`; `picked` is the selected MCQ option (absent: nothing picked); `mode` is `"recall"` or `"mcq"` (default: mcq when `picked` is given). The old `{ card, choice, ms }` still works (a right option is good, a wrong one or `"dont-know"` again) until the app moves to grades (T116). |
+| `skip(state, content, { card, confirmed? }, now)` | Skip on the current card (every student skip is "later"; `reason` stays in the API for now, see below) |
 | `setSkipReason(state, content, section, reason, now)` | the one-tap reason, given on the toast after a skip |
 | `extend(state, content, now)` | the student took "5 more" |
 | `endSession(state, content, now, cfg?, { left? })` | closes the open session |
 | `valueMessage(state, content, section)` | the value message for a section (also returned by `skip`) |
+| `whyOf(state, content, served, day)` | the reason a card was picked, in words (the engine already puts it on every served card as `why`) |
 
 Order: `migrate` on load, `setCurrentTopic` when the topic changes, `startSession` when the student opens study, then `answer` / `skip` / `extend` as `next` says, until `next.kind` is `end`.
 
-`startSession`, `answer`, `skip`, `extend` and `endSession` return a `Step`: `{ state, events, next, moments, feedback? }`. `setSkipReason` returns `{ state, events }`.
+`startSession`, `answer`, `skip`, `extend` and `endSession` return a `Step`: `{ state, events, next, moments, feedback?, hint?, why? }`. `why` is set when `next` is a card: the same text as `next.card.why`. `setSkipReason` returns `{ state, events }`.
+
+## Grades (T114, DR-0052, DR-0056)
+
+Every card is answered the same way: the student thinks, taps Show answer, sees the answer and grades it. **The engine schedules from the student's grade only, on MCQ too.** The MCQ's right or wrong (from `picked`) is shown by the app and logged next to the grade (`answer` event: `grade`, `mode`, `picked`, `correct`), and changes nothing. There is no trust check in this version.
+
+| grade | review gap | level | the rest of the session |
+|---|---|---|---|
+| Again | 1 day, back to the first step | a second Again at this level within the step-down window lowers it | a miss: its repair waits for the session end (below) |
+| Hard | stays on the same step | no credit toward a step up (it breaks "right in a row"); not a miss | half a right answer in the running rate (`grades.hardCredit`). Two Hards in a row (`grades.hardRun`): the next card comes from the closing order, a height the student usually gets right |
+| Good | the next step (1, 3, 7, 14, 30 days × memory), as before grades | one of the rights needed to step up | right |
+| Easy | skips one step | steps up at once, at most once per skill per session (`session.easyUps`), never into a rested level 3 (a full-problem miss, or a returning section's first two days) | right. Three Easys in a row (`grades.easyRun`): a stretch card (change 5's push-up) |
+
+**Repair timing.** After an Again the repair (piece, then confidence card, as before) is queued (`session.repairQueue`), not served next. It comes after the middle of the session and before the closing card; the middle leaves `repairEnd.reserve` effort for it. A repair card never comes straight after a miss (a `repair:return` neither), and never repeats the missed card. A repair that does not fit what is left of the budget, or that the session never reached (the student left, a bad day), opens the next session (`state.carryRepairs`, at most `repairEnd.maxCarry`, its `why` says "carried from the last session"). `repairEnd.atEnd: false` restores the timing before T114 (the repair straight after the miss); the older test suites pin it to test the repair mechanics.
+
+**Feedback.** `feedback.right` is the scheduling outcome (the grade is not Again). `feedback.grade` is the grade and `feedback.correct` the MCQ result (null for recall or nothing picked).
 
 ## What the app must persist
 
@@ -66,13 +82,13 @@ End kinds: `budget`, `extended-done`, `bad-day`, `daily-cap`, `content-exhausted
 
 ## Feedback and moments
 
-- **`feedback`** (on `answer`): right or wrong, the correct option's index, and the wrong option's error `tag` if any. Show the explanation. "I don't know" gets the explanation with no negative message.
+- **`feedback`** (on `answer`): `right` (the grade is not Again), `grade`, `correct` (the MCQ result or null), the correct option's index, and the wrong pick's error `tag` if any.
 - **`feedback.reveal`**: set when a skipped section's "side door" card was answered right. Tell the student which section that was (the card was not labelled as it).
 - **`moments`**: progress moments to show, at most 2 a session: `section-solid`, `avoided-now-done`, `then-wrong-now-right`, `missing-piece-fixed`, `height-up`. A session that is already full keeps the two strongest kinds (`section-solid`, `avoided-now-done`) for the next session: they come back in `startSession`'s `moments` ("held" moments). Show them at the start.
 
 ## Reasons
 
-Every card has a `reason`. The app can log it; the student never sees it.
+Every card has a `reason`, and a `why` in words (T126: for logs and the engine playground, for example "due: Good 3 days ago", "repair after Again on X: an easier piece", "easier: 2 Hards in a row, a card you usually get right"). The app can log them; the student never sees them.
 
 | reason | in words |
 |---|---|
@@ -95,6 +111,7 @@ Every card has a `reason`. The app can log it; the student never sees it.
 
 ## Skip and its reason
 
+- **The student path (T114, spec 2026-11-23 §4 item 6):** the app passes no reason; every skip is `"later"`. The second-skip value message stays. The rest of this section (reasons, `setSkipReason`, the "too hard" card skip) is no longer reachable from the UI and stays in the API until the simulator rerun decides its removal.
 - `skip` with no `reason`, `"later"` or `"not-learned"` is a **section skip**: the section is put away until its remind day (a second skip of it asks first with `confirm-skip`). The `skip` event has `scope: "section"`. The section remembers the level of the skipped card (`skippedLevel`).
 - `skip` with `reason: "too-hard"` is a **card skip** (change 6): the section stays. The card's skill goes down one level that has cards and is not served again this session; at its lowest level it rests for `skip.tooHardRestDays` days instead. No confirm step, no value message, no effort. Its repair and queued return are dropped. The `skip` event has `scope: "card"`, `skill`, `fromLevel`, `toLevel` (equal when the skill rests). A drip or side-door card skipped as too hard leaves its section's skipped state as it was.
 - The spec shows the one-tap reason on the toast after the skip: call `setSkipReason(state, content, section, "not-learned" | "too-hard" | "later", now)` when the student taps one. It changes only the reason of that section's last skip; the remind day never changes.
@@ -104,13 +121,14 @@ Every card has a `reason`. The app can log it; the student never sees it.
 
 ## Guesses, fast right answers and the full-problem rest
 
-- **A guess** is a wrong answer (not "I don't know") that came faster than the guess line: the larger of a floor (`guess.floorMs`: 4 s at level 1, 6 s at level 2, 10 s at level 3) and `guess.fraction` (a third) of the student's usual time at that level. The `answer` event has `guess: true`. A right answer is never a guess.
+- **A guess** (T114: an Again after an option was picked; nothing picked is never a guess) is a wrong answer (not "I don't know") that came faster than the guess line: the larger of a floor (`guess.floorMs`: 4 s at level 1, 6 s at level 2, 10 s at level 3) and `guess.fraction` (a third) of the student's usual time at that level. The `answer` event has `guess: true`. A right answer is never a guess.
 - **What a guess does not do.** It does not step the skill down, reset its review gap, count toward "two misses leave the skill", count as a bad moment, or move the student's profile (memory, calc against concept, comfort, the first-session ladder).
 - **What a guess still does.** It costs effort like any wrong answer, it still starts the normal repair (an easier card follows), and it still counts as a miss for "a session never ends on a wrong answer" (so the session ends on a recap).
 - **Fast right answers.** A right answer under the same guess line is marked `fast` on the attempt. It is weak evidence: it never counts toward a step up to a higher level.
-- **`Step.hint`.** After the session's third guess (`guess.nudgeAfter`), the next step carries `hint: "guess-nudge"`, once per session. The app shows a short line such as "Not sure? Tap I don't know. It costs nothing." The hint does not change the next card.
+- **`Step.hint`.** After the session's third guess (`guess.nudgeAfter`), the next step carries `hint: "guess-nudge"`, once per session. The app shows a short line such as "Not sure? Tap Show answer, then Again. It costs nothing." The hint does not change the next card.
 - **The full-problem rest.** A missed full problem (level 3, a wrong answer or "I don't know", not a guess) rests that skill's level 3 cards for `full.restDays` (2) days. Other levels of the skill carry on. Two such misses in a row drop the skill to level 2. A calc or concept weakness needs at least `calc.minH3` (3) full problems before it is read.
 - **New config groups:** `guess` (`fraction`, `floorMs`, `nudgeAfter`), `full` (`restDays`), and `calc.minH3`. All are in `src/config.ts`.
+- **T114 config groups:** `grades` (`hardCredit`, `hardRun`, `easyRun`) and `repairEnd` (`atEnd`, `reserve`, `maxCarry`).
 
 ## Known gaps
 
@@ -128,7 +146,7 @@ From `engine/`, use `--pack-set v2` with `npm run sim` to select the three sampl
 | `npm install` | once |
 | `npx vitest run` | the unit tests |
 | `npx tsc --noEmit` | the type check |
-| `npm run sim -- --days 28 --seed 1 --packs all --out runs/<name>` | the 28-day simulator: 16 hidden students, the twelve code checks (exit 1 if one fails) |
+| `npm run sim -- --days 28 --seed 1 --packs all --out runs/<name>` | the 28-day simulator: 16 hidden students, the fourteen code checks (exit 1 if one fails). Each persona grades itself (T114): honest by default, over-confident (`confident-misconceptions`: a wrong pick graded Good half the time) or under-confident (`underconfident-skipper`: Hard unless very sure). |
 | `npm run judge -- packets --run runs/<name>` | builds the AI judge packets (`judge/JUDGING.md` is the runbook) |
 | `npm run judge -- collect --run runs/<name>` | collects the judge reports into the summary input |
 

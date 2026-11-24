@@ -6,7 +6,9 @@ import { defaultConfig as cfg } from "../src/config.js";
 import type { Served } from "../src/types.js";
 import type { Content, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
-import { T0, atts, choiceFor, rec, run, section, served, startedState, withProfile } from "./helpers.js";
+import { T0, atts, choiceFor, rec, run, section, served, startedState, withProfile, useRepairTimingBeforeT114 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C = fixture();
 const D0 = dayOf(T0);
@@ -35,7 +37,7 @@ test("wrong on a1.h3 picking option 1 (sign-error) → next is a1.h1.2 repair:mi
   const s0 = startSession(leadState("a1"), C, T0);
   expect(card(s0)).toMatchObject({ card: "a1.h3", reason: "open:liked" });
   const s1 = say(C, s0, 1, T0 + 10_000);
-  expect(s1.feedback).toEqual({ right: false, correctIndex: 0, tag: "sign-error" });
+  expect(s1.feedback).toEqual({ right: false, correctIndex: 0, tag: "sign-error", grade: "again", correct: false });
   expect(s1.state.session!.repair).toEqual({ skill: "a1", failedHeight: 3, tag: "sign-error", stage: "piece" });
   expect(card(s1)).toMatchObject({ card: "a1.h1.2", skill: "a1", height: 1, reason: "repair:missing-piece" });
   const s2 = right(C, s1, T0 + 20_000);

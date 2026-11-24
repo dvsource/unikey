@@ -235,22 +235,29 @@ function knowledgeUp(logs: StudentLog[]): CheckResult {
   return { ...v, detail: `${v.detail}; mean knowledge gain ${mean >= 0 ? "+" : "−"}${Math.abs(mean).toFixed(3)}` };
 }
 
-/** A repair card (reason `repair:missing-piece`) is easier than the miss it repairs: level 1 → 1 on another card is the only same-level case. */
+/**
+ * A repair card (reason `repair:missing-piece`) is easier than the miss it repairs: level 1 → 1 on another card is the
+ * only same-level case. T114: the repair comes near the session end (or opens the next session), so the miss it repairs
+ * is the latest non-repair miss on the piece's skill in this session or the one before (a carried repair); a piece
+ * with no such miss is from a neighbour skill and is always level 1.
+ */
 function repairStepsDown(logs: StudentLog[]): CheckResult {
   const bad: string[] = [];
   let repairs = 0;
   for (const log of logs) {
-    const lastMiss = new Map<number, LogLine>(); // session -> nearest earlier answered non-repair miss
+    const lastMiss = new Map<string, LogLine>(); // skill -> its latest answered non-repair miss
     for (const l of log.lines) {
       if (l.kind !== "card" || !l.served) continue;
       const sv = l.served;
       if (sv.reason === "repair:missing-piece") {
         repairs++;
-        const m = lastMiss.get(l.session);
+        const m0 = lastMiss.get(sv.skill);
+        const m = m0 && m0.session >= l.session - 1 ? m0 : undefined;
         if (m && sv.height >= m.served!.height && !(sv.height === 1 && m.served!.height === 1 && sv.card !== m.served!.card))
           bad.push(`${where(log, l)}: repair ${sv.card} at level ${sv.height} after a miss on ${m.served!.card} at level ${m.served!.height}`);
+        if (!m && sv.height !== 1) bad.push(`${where(log, l)}: neighbour repair ${sv.card} at level ${sv.height}, not level 1`);
       }
-      if (l.right !== true && !sv.reason.startsWith("repair:")) lastMiss.set(l.session, l);
+      if (l.right !== true && !sv.reason.startsWith("repair:")) lastMiss.set(sv.skill, l);
     }
   }
   return verdict("repair-steps-down", bad, `${repairs} missing-piece repair cards, each easier than the miss (or level 1 on another card)`);
@@ -290,7 +297,8 @@ function dayOneFit(logs: StudentLog[]): CheckResult {
     let fifth = -1;
     ls.forEach((l, i) => {
       if (fifth >= 0 || l.kind !== "card") return; // skips are not answers: they neither count nor break the run
-      run = l.right === true ? run + 1 : 0;
+      // T114: a Hard is no credit toward going up; a fast right (under the guess line) never was.
+      run = l.right === true && l.grade !== "hard" && l.fast !== true ? run + 1 : 0;
       if (run === 5) fifth = i;
     });
     if (fifth < 0) continue;
@@ -298,7 +306,7 @@ function dayOneFit(logs: StudentLog[]): CheckResult {
     if (!ls.slice(fifth).some((l) => isServe(l) && l.served!.height >= 2))
       bad.push(`${where(log, ls[fifth]!)}: 5 right in a row, no level 2 or 3 card from the fifth (${ls[fifth]!.served?.card})`);
   }
-  return verdict("day-one-fit", bad, `${runs} first sessions with 5 right in a row, each moved up to level 2 or 3`);
+  return verdict("day-one-fit", bad, `${runs} first sessions with 5 right (not Hard) in a row, each moved up to level 2 or 3`);
 }
 
 /** After a non-guess miss on a level-3 card, no level-3 card of that skill is served for `full.restDays` days. */
@@ -319,10 +327,53 @@ function noFullAfterFullMiss(logs: StudentLog[], cfg: Config): CheckResult {
   return verdict("no-full-after-full-miss", bad, `${misses} missed full problems (not guesses), none followed by a full problem on the skill within ${cfg.full.restDays} days`);
 }
 
+/** The card after the given card line in the same session (the next card / skip / quit line), if any. */
+function nextServe(log: StudentLog, i: number): LogLine | undefined {
+  const l = log.lines[i]!;
+  for (let j = i + 1; j < log.lines.length; j++) {
+    const x = log.lines[j]!;
+    if (x.session !== l.session) return undefined;
+    if (isServe(x)) return x;
+  }
+  return undefined;
+}
+
+/** T114 (spec 2026-11-23 §4 item 8): after Again the same card is never served straight away (no same-card retry). */
+function noRetryAfterAgain(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let agains = 0;
+  for (const log of logs) {
+    log.lines.forEach((l, i) => {
+      if (l.kind !== "card" || l.right !== false) return;
+      agains++;
+      const nx = nextServe(log, i);
+      if (nx && nx.served!.card === l.served!.card) bad.push(`${where(log, l)}: ${l.served!.card} served again straight after Again`);
+    });
+  }
+  return verdict("no-retry-after-again", bad, `${agains} Agains (or misses), none followed by the same card`);
+}
+
+/** T114 (DR-0052): a repair card never comes straight after a miss; it waits for the session end. */
+function repairNotStraightAfterMiss(logs: StudentLog[]): CheckResult {
+  const bad: string[] = [];
+  let repairs = 0;
+  for (const log of logs) {
+    log.lines.forEach((l, i) => {
+      if (l.kind !== "card") return;
+      const nx = nextServe(log, i);
+      if (!nx || !nx.served!.reason.startsWith("repair:")) return;
+      repairs++;
+      if (l.right === false) bad.push(`${where(log, l)}: ${nx.served!.reason} ${nx.served!.card} straight after a miss on ${l.served!.card}`);
+    });
+  }
+  return verdict("repair-not-straight-after-miss", bad, `${repairs} repair cards after an answer, none straight after a miss`);
+}
+
 export function runChecks(logs: StudentLog[], cfg: Config): CheckResult[] {
   return [
     noEndOnWrong(logs), skipTiming(logs, cfg), effortCapAndFairness(logs, cfg),
     noRepeat(logs, cfg), endsBeforeFade(logs), knowledgeUp(logs), noBackToBack(logs, cfg),
     repairStepsDown(logs), noLongZeroSession(logs), sideDoorNotFull(logs), dayOneFit(logs), noFullAfterFullMiss(logs, cfg),
+    noRetryAfterAgain(logs), repairNotStraightAfterMiss(logs),
   ];
 }

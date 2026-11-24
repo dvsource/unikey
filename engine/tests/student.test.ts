@@ -111,8 +111,9 @@ test("never skips a repair or close card", () => {
   const f = resolvePersona(byId("one-feared-section"), content);
   const fh = newHidden(f, content, 1);
   const r = decide(withK(fh, "b2", 0.3), content, served("b2.h1.1"), S, 0).action;
-  expect(r).toEqual({ kind: "skip", reason: "too-hard" });
-  expect(decide(withK(fh, "b2", 0), content, served("b2.h1.1"), S, 0).action).toEqual({ kind: "skip", reason: "not-learned" });
+  // T114 (spec §4 item 6): the student path gives no reason: every skip is "later"
+  expect(r).toEqual({ kind: "skip" });
+  expect(decide(withK(fh, "b2", 0), content, served("b2.h1.1"), S, 0).action).toEqual({ kind: "skip" });
 });
 
 test("habits: gap10 plays 0 on days 9–18; binge-vanish 2/day on days 0–5", () => {

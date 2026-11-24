@@ -32,12 +32,13 @@ function telling(content: Content, def: SkillDef, tag: string | undefined): stri
  * (`blocked`: the session's skipped ones) and the session's left skills. confidence: same skill, `failedHeight − 1`
  * (min 1), nearest at or below.
  * `recent`: card ids not to serve (R5: the session's last `session.returnAfterCards` serves). The failed card was the
- * last card served, so it is always among them: the missing piece is a different card.
+ * last card served, so it is always among them: the missing piece is a different card. T114: a repair waiting for the
+ * session end names its missed card (`repair.card`), which is left out too.
  */
 export function nextRepairCard(
   state: State, content: Content, repair: RepairState, day: number, cfg: Config, blocked: string[] = [], recent: string[] = [],
 ): { served: Served; rng: Rng } | null {
-  const ex = { exclude: recent };
+  const ex = { exclude: repair.card !== undefined ? [...recent, repair.card] : recent }; // T114: never the missed card itself
   const def = content.skills[repair.skill];
   if (!def) return null;
   if (repair.stage === "confidence") {

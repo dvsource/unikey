@@ -10,8 +10,11 @@ import { onAnswer, onSessionEnd, rampBefore } from "./profile.js";
 import { detectMoments, recordMoments, releasePending } from "./moments.js";
 import { afterSectionAnswer, applyCardSkip, applySkip, newSectionRec, pickSkipCard, rejoinSilently, valueMessage } from "./skip.js";
 import { ladderAfterAnswer, pickLadder } from "./ladder.js";
+import { whyOf } from "./why.js";
+import { GRADES } from "./types.js";
 import type {
-  Choice, Content, EndInfo, EndKind, Feedback, Next, PickCtx, Picked, Reason, Served, SessionState, SkipReason, State, Step,
+  AnswerInput, CardOption, Choice, Content, EndInfo, EndKind, Feedback, Grade, Next, PickCtx, Picked, Reason, RepairState, Served,
+  SessionState, SkipReason, State, Step,
 } from "./types.js";
 
 /**
@@ -65,15 +68,24 @@ function ctxOf(r: Run, strict: boolean, remaining: number, extraBlocked: string[
   // pickMiddle today (those paths never call it); they are kept as guards.
   const stretchOff = ss.history.length < r.cfg.session.openCards || ladderOn(r) || ss.repair !== null
     || ss.phase === "closing" || ss.phase === "extend" || ss.stretchCard !== null || done.at(-1)?.right === false;
+  // T114: a Hard counts `grades.hardCredit` of a right answer in the running rate; three Easys in a row push up.
+  const credit = done.reduce((a, h) => a + (h.right !== true ? 0 : h.grade === "hard" ? r.cfg.grades.hardCredit : 1), 0);
+  const pushUp = lastGrades(ss, r.cfg.grades.easyRun).every((g) => g === "easy") && done.length >= r.cfg.grades.easyRun;
   return {
     day: r.day, sessionDay: r.sessionDay, remaining: strict ? Math.min(remaining, capRoom(r.s, r.cfg)) : Infinity,
-    runningRight: done.filter((h) => h.right).length, runningTotal: done.length,
+    runningRight: credit, runningTotal: done.length, ...(pushUp ? { pushUp: true } : {}),
     newSkillsThisSession: ss.newSkills, lastSkills: ss.history.map((h) => h.skill),
     blockedSections: [...ss.blockedSections, ...extraBlocked], h3Spent: ss.h3Spent, spent: ss.spent, strictBudget: strict,
     excludeSkills: [...(strict ? ss.returns.map((q) => q.skill) : []), ...ss.leftSkills],
     recentCards: recentCards(r), leftSkills: ss.leftSkills, ladderFull: ss.ladderFull, stretchOff, extraNewUsed: ss.extraNew,
   };
 }
+/** T114: the grades of the session's last `n` answered cards, oldest first (an entry from before grades by its `right`). */
+function lastGrades(ss: SessionState, n: number): Grade[] {
+  return ss.history.filter((h) => h.right !== null).slice(-n).map((h) => h.grade ?? (h.right ? "good" : "again"));
+}
+/** T126: a pick with its own reason in words (otherwise `serve` words it from the reason). */
+const because = (p: Picked | null, why: string): Picked | null => p && { ...p, why };
 /** R5: the card ids of the session's last `session.returnAfterCards` serves, not to be served again yet. */
 const recentCards = (r: Run) => r.s.session!.servedCards.slice(-r.cfg.session.returnAfterCards);
 const loose = (r: Run) => ctxOf(r, false, Infinity);
@@ -110,7 +122,7 @@ function withReason(p: Picked | null, reason: Reason): Picked | null {
  */
 function serve(r: Run, p: Picked, sweep = false, ladder = false, stretch = false): Next {
   const ss = r.s.session!;
-  const sv = p.served;
+  const sv: Served = { ...p.served };
   r.s.rng = p.rng;
   ss.ladderCard = ladder ? sv.card : ss.ramp !== null && ss.ramp.card === ss.ladderCard ? ss.ladderCard : null;
   ss.stretchCard = stretch ? sv.card : ss.ramp !== null && ss.ramp.card === ss.stretchCard ? ss.stretchCard : null;
@@ -120,6 +132,7 @@ function serve(r: Run, p: Picked, sweep = false, ladder = false, stretch = false
     ss.newSkills += 1;
     if (sweep) r.s.skills[sv.skill] = newSkillRec(sv.height);
   }
+  sv.why = p.why ?? whyOf(r.s, r.content, sv, r.day); // T126
   ss.served = sv;
   ss.servedCards = [...ss.servedCards, sv.card];
   if (sv.reason === "side-door") ss.sideDoor = sv.section;
@@ -173,14 +186,19 @@ function normal(r: Run, last: Last): Next {
   const ss = s.session!;
   // Keep a wrong close card's worth; but while today is under the minimum day, the session may use its budget up to
   // the minimum day (a minimum-day budget, R4c / comeback, is spent in full).
-  const left = ss.budget - ss.spent;
+  // T114: the end-of-session repairs have started: no more middle cards (`endRepairs` serves them, then closing).
+  if (ss.repairing) return toClosing(r, false);
+  // T114: while a repair waits for the session end, the middle leaves `repairEnd.reserve` effort for it.
+  const left = ss.budget - ss.spent - (ss.repairQueue.length > 0 ? cfg.repairEnd.reserve : 0);
   const room = Math.min(Math.max(left - closeReserve(cfg), Math.min(left, cfg.budget.minimumDay - s.day!.effort)), capRoom(s, cfg));
   const strict = (extra: string[] = []) => ctxOf(r, true, room, extra);
   rejoinSilently(r, ss.blockedSections); // change 6: a due section with no side-door card comes back without one
   // Change 1 (Task 9 fix): a return is never the card straight after a miss on its own skill (a repair with no piece
   // and no confidence card queues it at once; the early path below would otherwise serve it next, at the skill's level).
   const prev = ss.history.at(-1);
-  const returns = () => (prev !== undefined && prev.right !== true ? ss.returns.filter((q) => q.skill !== prev.skill) : ss.returns);
+  // T114 (DR-0052): with the repair near the session end, no repair card (a return either) comes straight after any miss.
+  const returns = () => (prev !== undefined && prev.right !== true
+    ? (cfg.repairEnd.atEnd ? [] : ss.returns.filter((q) => q.skill !== prev.skill)) : ss.returns);
 
   while (ss.repair) {
     const rc = nextRepairCard(s, content, ss.repair, r.day, cfg, ss.blockedSections, recentCards(r));
@@ -190,6 +208,14 @@ function normal(r: Run, last: Last): Next {
       queueReturn(r, ss.repair.skill);
       ss.repair = null;
     }
+  }
+  // T114 (DR-0052): `grades.hardRun` Hards in a row: the next card comes from a height the student usually gets right
+  // (the closing order: the easiest eligible card), and a waiting height-3 card is dropped.
+  const hards = lastGrades(ss, cfg.grades.hardRun);
+  if (hards.length === cfg.grades.hardRun && hards.every((g) => g === "hard")) {
+    ss.ramp = null;
+    const p = because(withReason(pickClose(s, content, strict(), cfg), "comfort-correction"), `easier: ${cfg.grades.hardRun} Hards in a row, a card you usually get right`);
+    if (p) return serve(r, p, true);
   }
   if (ss.ramp) { // the height-3 card the ramp card was served for
     const q = ss.ramp;
@@ -285,6 +311,41 @@ function serveMain(r: Run, p: Picked, room: number, ladder = false): Next {
   return serve(r, stretch ? { ...ramp, served: { ...ramp.served, reason: "open:liked" } } : ramp);
 }
 
+/**
+ * T114 (DR-0052, spec 2026-11-23 §4 item 3): the session's queued repairs, after the middle and before the closing
+ * card, in the order of their misses: piece, then confidence, as before; a finished repair's return waits for tomorrow.
+ * Never straight after a miss: after a missed card no repair starts (what is left carries over). A repair card that does
+ * not fit what is left of the budget (and the daily cap) waits for the next session's opening. Null: none to serve now.
+ */
+function endRepairs(r: Run): Next | null {
+  const ss = r.s.session!;
+  const afterMiss = ss.history.filter((h) => h.right !== null).at(-1)?.right === false;
+  const room = Math.min(ss.budget - ss.spent, capRoom(r.s, r.cfg));
+  const held: RepairState[] = [];
+  let out: Next | null = null;
+  while (out === null) {
+    if (!ss.repair) {
+      if (afterMiss || ss.repairQueue.length === 0) break;
+      ss.repair = ss.repairQueue[0];
+      ss.repairQueue = ss.repairQueue.slice(1);
+    }
+    const rc = nextRepairCard(r.s, r.content, ss.repair, r.day, r.cfg, ss.blockedSections, recentCards(r));
+    if (rc && rc.served.effort <= room) {
+      ss.repairing = true;
+      out = serve(r, rc);
+    } else if (rc) {
+      held.push(ss.repair); // no room today: the next session opens with it
+      ss.repair = null;
+    } else if (ss.repair.stage === "piece") ss.repair = { ...ss.repair, stage: "confidence" };
+    else {
+      queueReturn(r, ss.repair.skill);
+      ss.repair = null;
+    }
+  }
+  ss.repairQueue = [...held, ...ss.repairQueue];
+  return out;
+}
+
 /** The after-miss guard ends the session early: the engine's choice, so the streak counts (`SessionState.guardClose`). */
 function guardClosing(r: Run): Next {
   r.s.session!.guardClose = true;
@@ -293,6 +354,12 @@ function guardClosing(r: Run): Next {
 
 function toClosing(r: Run, forced: boolean): Next {
   const ss = r.s.session!;
+  if (!r.cfg.repairEnd.atEnd) { /* the timing before T114: an open repair is dropped below */ } else if (!forced && ss.phase !== "extend" && ss.phase !== "closing") {
+    const rp = endRepairs(r); // T114: the queued repairs come after the middle, before the closing card
+    if (rp) return rp;
+  } else if (ss.repair) {
+    ss.repairQueue = [ss.repair, ...ss.repairQueue]; // T114: a bad day's repair waits for the next session
+  }
   ss.phase = "closing";
   ss.closeServed = 0;
   ss.repair = null;
@@ -371,6 +438,11 @@ function closeSession(r: Run, kind: EndKind, recap = false): Next {
   if (guarded || kind === "bad-day" || ((kind === "budget" || kind === "extended-done") && (today.effort >= r.cfg.budget.minimumDay || spentBudget))
     || (kind === "content-exhausted" && cards >= 1)) today.streakKept = true;
   if (kind === "left") ss.fadeEffort = ss.fadeEffort ?? ss.spent; // a fade seen earlier (R4b) is kept
+  // T114: repairs not done (no room, a bad day, the student left) open the next session; one per skill, latest first.
+  const open = [...(ss.repair ? [ss.repair] : []), ...ss.repairQueue].filter((q) => !ss.leftSkills.includes(q.skill));
+  const carry: RepairState[] = [];
+  for (const q of open) if (!carry.some((x) => x.skill === q.skill)) carry.push({ ...q, carried: true });
+  r.s.carryRepairs = r.cfg.repairEnd.atEnd ? carry.slice(0, r.cfg.repairEnd.maxCarry) : [];
   for (const q of ss.returns) {
     if (r.s.skills[q.skill]) r.s.skills[q.skill] = { ...r.s.skills[q.skill], nextReviewDay: r.day + 1 };
   }
@@ -410,6 +482,9 @@ export function startSession(state: State, content: Content, now: number, cfg: C
   // Change 3: after a near-zero session, start again from easy (the ladder too, when it is still on).
   const lowStart = afterLowRight(r.s, cfg);
   if (lowStart && r.s.ladder !== null) r.s.ladder = { level: 1, rightRun: 0 };
+  // T114: repairs carried from the last session: the first opens this one, the rest wait for its end.
+  const carried = r.s.carryRepairs;
+  r.s.carryRepairs = [];
   r.s.session = {
     id: `${r.s.student}:s${r.s.sessionCount}`, startedAt: r.now, budget, spent: 0, h3Spent: 0, served: null,
     history: [], repair: null, returns: [], newSkills: 0, badMoments: [], extended: false, extendLeft: 0,
@@ -417,34 +492,66 @@ export function startSession(state: State, content: Content, now: number, cfg: C
     sideDoor: null, confident: [], leftSkills: [], ladderCard: null, ladderFull: 0, stretchCard: null, extraNew: false, lastSkip: null,
     startProfile: pickNumbers(r.s.profile), ramp: null, tailCard: null, badDay: false, guardClose: false, slowBefore: [], servedCards: [],
     missRun: 0, guesses: 0, guessNudged: false, lowStart, fixedSkills: [], extendEffortLeft: 0,
+    repairQueue: carried.slice(1), repairing: false, easyUps: [],
   };
+  if (carried.length > 0) r.s.session.repair = carried[0];
   emit(r, "session_start", { budget, comeback, sessionCount: r.s.sessionCount, lowStart });
   const held = releasePending(r.s, cfg);
   for (const m of held) emit(r, "moment", { ...m });
   return step(r, decide(r, null), undefined, held);
 }
 
+/** The old input (before T114): `choice` is the option index or "I don't know". */
+type LegacyInput = { card: string; choice: Choice; ms: number };
+type Read = { grade: Grade; mode: "recall" | "mcq"; picked: number | null };
+
+/**
+ * T114: the answer as grade, mode and pick, or null when invalid (a stale call). The old `{ choice }` input still works:
+ * a right option is good, a wrong one or "I don't know" again (the engine's behaviour before grades).
+ */
+function readAnswer(input: AnswerInput | LegacyInput, opts: CardOption[]): Read | null {
+  const okIndex = (i: unknown): i is number => typeof i === "number" && Number.isInteger(i) && i >= 0 && i < opts.length;
+  if (!("grade" in input)) {
+    if (input.choice === "dont-know") return { grade: "again", mode: "recall", picked: null };
+    return okIndex(input.choice) ? { grade: opts[input.choice].correct ? "good" : "again", mode: "mcq", picked: input.choice } : null;
+  }
+  if (!GRADES.includes(input.grade)) return null;
+  if (input.picked !== undefined && !okIndex(input.picked)) return null;
+  const mode = input.mode ?? (input.picked !== undefined ? "mcq" : "recall");
+  if (mode !== "mcq" && mode !== "recall") return null;
+  if (mode === "recall" && input.picked !== undefined) return null;
+  return { grade: input.grade, mode, picked: input.picked ?? null };
+}
+
+/**
+ * The student answered the open card (T114, DR-0052 / DR-0056): `grade` is the student's Again / Hard / Good / Easy and
+ * alone drives scheduling, on MCQ too; `picked` (MCQ) is checked against the options and only logged.
+ */
 export function answer(
-  state: State, content: Content, input: { card: string; choice: Choice; ms: number }, now: number, cfg: Config = defaultConfig,
+  state: State, content: Content, input: AnswerInput | LegacyInput, now: number, cfg: Config = defaultConfig,
 ): Step {
   const sv0 = state.session?.served;
   const opts = sv0 && sv0.card === input.card ? content.cards[sv0.card]?.variants[sv0.variant] : undefined;
-  const okChoice = input.choice === "dont-know" || (Number.isInteger(input.choice) && input.choice >= 0 && opts !== undefined && input.choice < opts.length);
-  if (!opts || !okChoice) return stale(state);
+  const a = opts ? readAnswer(input, opts) : null;
+  if (!opts || !a) return stale(state);
 
   const r = begin(state, content, now, cfg);
   const sv = r.s.session!.served!;
   const card = content.cards[sv.card];
-  const picked = input.choice === "dont-know" ? null : opts[input.choice];
-  const right = picked !== null && picked.correct;
-  const tag = picked !== null && !right ? picked.tag : undefined;
+  const picked = a.picked === null ? null : opts[a.picked];
+  const grade = a.grade;
+  const correct = picked === null ? null : picked.correct; // logged only (DR-0056)
+  const right = grade !== "again";
+  const hard = grade === "hard";
+  const choice: Choice = a.picked ?? "dont-know";
+  const tag = picked !== null && !picked.correct ? picked.tag : undefined;
   const drip = sv.reason === "skipped-drip";
   const usual = usualMs(r.s, sv.height, cfg);
   // Rule 1: a fast wrong answer is a guess: it costs and misses like a wrong answer but is no evidence about the skill.
-  const guess = isGuess(r.s, sv.height, right, input.choice, input.ms, cfg);
+  const guess = isGuess(r.s, sv.height, right, choice, input.ms, cfg);
   const fast = isFastRight(r.s, sv.height, right, input.ms, cfg); // rule 1: weak evidence
   const slow = !guess && usual !== null && input.ms > cfg.badDay.slowFactor * usual;
-  const cost = sv.effort + (picked === null ? cfg.effort.dontKnow : right ? 0 : cfg.effort.wrong);
+  const cost = sv.effort + (right ? 0 : picked === null ? cfg.effort.dontKnow : cfg.effort.wrong);
 
   const today = r.s.day!;
   today.effort += cost;
@@ -460,7 +567,11 @@ export function answer(
   if (def && !guess) {
     // F3: a new skill starts at the height actually served (below it, a right answer would never schedule a review).
     const rec0 = r.s.skills[sv.skill] ?? newSkillRec(sv.height);
-    const out = recordAttempt(rec0, def, { day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card, ...(fast ? { fast: true as const } : {}) }, r.s.profile.memory, cfg);
+    const easyUp = !r.s.session!.easyUps.includes(sv.skill);
+    const out = recordAttempt(rec0, def, {
+      day: r.day, seq: r.s.answered, height: sv.height, right, ms: input.ms, card: sv.card, grade, ...(fast ? { fast: true as const } : {}),
+    }, r.s.profile.memory, cfg, { easyUp });
+    if (out.easyUp) r.s.session!.easyUps = [...r.s.session!.easyUps, sv.skill];
     // A drip is a height-1 card, the lowest height, so a wrong drip can never step its skill down.
     // Change 4: a right ladder answer above the skill's record sets the record to that level (the ladder is the
     // step-up rule in these sessions), with a new step window. A right answer below the record leaves it.
@@ -469,7 +580,7 @@ export function answer(
     belowRecord = fromLadder && sv.height < rec0.height;
     // Change 5: a right stretch answer sets the record the same way (a stretch miss leaves it; the repair follows).
     let rec1 = out.rec;
-    if ((fromLadder || fromStretch) && right && !fast && sv.height > rec0.height) rec1 = { ...rec1, height: sv.height, windowStartSeq: r.s.answered + 1 };
+    if ((fromLadder || fromStretch) && right && !hard && !fast && sv.height > rec0.height) rec1 = { ...rec1, height: sv.height, windowStartSeq: r.s.answered + 1 };
     else if (belowRecord && right && isDue(rec0, r.day)) {
       const gaps = cfg.reviewGapsDays;
       rec1 = {
@@ -482,7 +593,7 @@ export function answer(
   } else if (def && !r.s.skills[sv.skill]) {
     r.s.skills[sv.skill] = newSkillRec(sv.height); // a guess on a new skill: a neutral record at the served level, no attempt
   }
-  if (fromLadder && !guess && !fast) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg);
+  if (fromLadder && !guess && !fast) r.s.ladder = ladderAfterAnswer(r.s.ladder!, right, cfg, hard);
   const reveal = afterSectionAnswer(r.s, content, sv, right, r.day, cfg, guess);
   if (!guess) onAnswerProfile(r, sv, right, input.ms, usual, belowRecord); // a guess moves no profile number (and its ms is not a usual time)
 
@@ -496,7 +607,7 @@ export function answer(
   // Change 2: the session's last two answers (skips are not answers) both misses on this skill, neither a drip.
   const prev = ss.history.filter((h) => h.right !== null).at(-1);
   const twoMisses = !right && !drip && prev !== undefined && prev.skill === sv.skill && prev.right === false && prev.drip !== true && prev.guess !== true && !guess;
-  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, ...(drip ? { drip: true } : {}), ...(guess ? { guess: true } : {}) });
+  ss.history.push({ skill: sv.skill, right, ms: input.ms, bad: false, height: sv.height, slow, grade, ...(drip ? { drip: true } : {}), ...(guess ? { guess: true } : {}) });
   let nudge = false;
   if (guess) {
     ss.guesses += 1;
@@ -513,11 +624,16 @@ export function answer(
     ss.extendLeft -= 1;
     ss.extendEffortLeft -= sv.effort; // extend ruling: the card's own effort, not the wrong-answer surcharge
   }
-  emit(r, "answer", { card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, choice: input.choice, right, ms: input.ms, tag: tag ?? null, guess });
+  // T114: the grade and the MCQ result side by side (DR-0056: a later trust check is designed from them). `choice` is kept
+  // for older readers of the log.
+  emit(r, "answer", {
+    card: sv.card, variant: sv.variant, skill: sv.skill, height: sv.height, grade, mode: a.mode, picked: a.picked, correct,
+    choice, right, ms: input.ms, tag: tag ?? null, guess,
+  });
   const moments = recordMoments(r.s, detectMoments(state, r.s, content, sv, right, r.day, cfg), cfg);
   for (const m of moments) emit(r, "moment", { ...m });
   const feedback: Feedback = {
-    right, correctIndex: opts.findIndex((o) => o.correct), ...(tag !== undefined ? { tag } : {}), ...(reveal ? { reveal } : {}),
+    right, correctIndex: opts.findIndex((o) => o.correct), ...(tag !== undefined ? { tag } : {}), ...(reveal ? { reveal } : {}), grade, correct,
   };
 
   let avoid: string | undefined;
@@ -535,6 +651,7 @@ export function answer(
     if (ss.repair && (ss.repair.skill === sv.skill || repairCard)) ss.repair = null;
     ss.ramp = null;
     ss.returns = ss.returns.filter((q) => q.skill !== sv.skill);
+    ss.repairQueue = ss.repairQueue.filter((q) => q.skill !== sv.skill); // T114: its waiting repair too
     ss.confident = ss.confident.filter((x) => x !== sv.skill);
     const lrec = r.s.skills[sv.skill];
     // Ruling (fix round 1): a left skill goes down one level, once: not again when recordAttempt just stepped it down.
@@ -563,13 +680,17 @@ export function answer(
         ss.repair = null;
       }
     } else if (!right && !drip) {
-      ss.repair = {
+      // T114 (DR-0052): the repair waits for the end of the session (`endRepairs`), never straight after the miss. A
+      // later miss on the same skill replaces its waiting repair.
+      const q: RepairState = {
         skill: sv.skill, failedHeight: sv.height, ...(tag !== undefined ? { tag } : {}),
         ...(card.noteRef !== undefined ? { note: card.noteRef } : {}), stage: "piece",
       };
+      if (cfg.repairEnd.atEnd) ss.repairQueue = [...ss.repairQueue.filter((x) => x.skill !== sv.skill), { ...q, card: sv.card }];
+      else ss.repair = q; // the timing before T114
     }
   }
-  if (ss.repair) ss.ramp = null; // a wrong answer starts a repair; the waiting height-3 card is dropped
+  if (ss.repair || (!right && !drip)) ss.ramp = null; // after a miss the waiting height-3 card is dropped
   // Change 3: `badDay.missRun` misses in a row (any skills; drips neither count nor break it) are one bad moment at the
   // last of them, once: the run restarts. When this answer is already a bad moment (a failed repair, a left skill), it
   // stays one.
@@ -609,7 +730,8 @@ export function skip(
   const r = begin(state, content, now, cfg);
   const sv = r.s.session!.served!;
   const closingCard = r.s.session!.phase === "closing";
-  emit(r, "skip", tooHard ? applyCardSkip(r.s, content, sv, r.day, cfg) : applySkip(r.s, content, sv, input.reason, r.day, cfg));
+  // T114 (spec §4 item 6): the student path gives no reason; every such skip is "later".
+  emit(r, "skip", tooHard ? applyCardSkip(r.s, content, sv, r.day, cfg) : applySkip(r.s, content, sv, input.reason ?? "later", r.day, cfg));
   return step(r, closingCard ? closeCardSkipped(r) : decide(r, null));
 }
 

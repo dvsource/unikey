@@ -7,7 +7,9 @@ import { isCalcWeak, onAnswer, onSessionEnd, rampBefore } from "../src/profile.j
 import { usualMs } from "../src/estimate.js";
 import type { EndInfo, Height, SectionRec, SessionState, SkillRec, State } from "../src/types.js";
 import { fixture } from "./fixture.js";
-import { T0, atts, choiceFor, nextDay, play, rec, run, section, served, startedState, withProfile } from "./helpers.js";
+import { T0, atts, choiceFor, nextDay, play, rec, run, section, served, startedState, withProfile, useRepairTimingBeforeT114 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C = fixture();
 const D0 = dayOf(T0);

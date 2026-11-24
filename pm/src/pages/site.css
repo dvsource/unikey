@@ -1,0 +1,18 @@
+/* Shared by every page of the pm web app. Dawn tokens (app/src/theme.ts). */
+:root {
+  --skyTop:#E3ECFB; --skyMid:#F4F2F2; --skyBottom:#FDEAD6;
+  --ink:#1B1F4B; --muted:#555A80; --faint:#B4BAD3; --surface:#FFFFFF; --hairline:#D8DFEF; --track:#E3E8F6;
+  --yellow:#F6C453; --yellowEdge:#D49A1E; --yellowSoft:#FDF1D2; --lavender:#7569D6; --green:#23694D; --greenSoft:#DDF1E6;
+  --terracotta:#C4693F; --terracottaSoft:#F8E4DA; --hold:#8C90AE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font: 13px/1.4 "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink);
+  background: linear-gradient(180deg, var(--skyTop), var(--skyMid) 45%, var(--skyBottom)) fixed; min-height: 100vh; }
+a { color: var(--lavender); }
+nav.site { display: flex; gap: 2px; align-items: center; flex-wrap: wrap; margin: 0 0 6px; font-size: 12px; }
+nav.site a { color: var(--muted); text-decoration: none; padding: 2px 10px; border-radius: 999px; }
+nav.site a:hover { background: var(--track); }
+nav.site a.on { color: var(--ink); background: var(--surface); border: 1px solid var(--hairline); font-weight: 600; }
+nav.site a.home { color: var(--ink); font-weight: 700; padding-left: 0; }
+nav.site a.home:hover { background: none; }

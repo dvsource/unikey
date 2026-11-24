@@ -228,6 +228,7 @@ function cardLevelRule(s: State, content: Content, skill: string, level: Height,
   }
   ss.leftSkills = [...ss.leftSkills.filter((x) => x !== skill), skill];
   if (ss.repair && ss.repair.skill === skill) ss.repair = null;
+  ss.repairQueue = ss.repairQueue.filter((q) => q.skill !== skill); // T114: its waiting end-of-session repair too
   if (ss.ramp && ss.ramp.skill === skill) ss.ramp = null;
   ss.returns = ss.returns.filter((q) => q.skill !== skill);
   ss.confident = ss.confident.filter((x) => x !== skill);
@@ -283,6 +284,7 @@ export function applySkip(s: State, content: Content, sv: Served, reason: SkipRe
     };
     const inSec = (skill: string) => content.skills[skill]?.section === sec;
     if (ss.repair && inSec(ss.repair.skill)) ss.repair = null;
+    ss.repairQueue = ss.repairQueue.filter((q) => !inSec(q.skill)); // T114: waiting end-of-session repairs too
     ss.returns = ss.returns.filter((q) => !inSec(q.skill));
   }
   if (!ss.blockedSections.includes(sec)) ss.blockedSections = [...ss.blockedSections, sec];

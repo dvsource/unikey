@@ -4,18 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UniKey Tracker</title>
+<link rel="stylesheet" href="/site.css">
 <style>
-/* Dawn tokens (app/src/theme.ts) */
-:root {
-  --skyTop:#E3ECFB; --skyMid:#F4F2F2; --skyBottom:#FDEAD6;
-  --ink:#1B1F4B; --muted:#555A80; --faint:#B4BAD3; --surface:#FFFFFF; --hairline:#D8DFEF; --track:#E3E8F6;
-  --yellow:#F6C453; --yellowEdge:#D49A1E; --lavender:#7569D6; --green:#23694D; --greenSoft:#DDF1E6;
-  --terracotta:#C4693F; --terracottaSoft:#F8E4DA; --hold:#8C90AE;
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; }
-body { font: 13px/1.4 "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink);
-  background: linear-gradient(180deg, var(--skyTop), var(--skyMid) 45%, var(--skyBottom)) fixed; min-height: 100vh; }
+/* tokens, reset and body: /site.css */
 header { position: sticky; top: 0; z-index: 5; background: rgba(244,242,242,.92); backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--hairline); padding: 10px 16px 8px; }
 h1 { font-size: 16px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px; }
@@ -44,7 +35,6 @@ main { padding: 14px 16px 40px; }
 .bar { height: 7px; background: var(--track); border-radius: 7px; overflow: hidden; }
 .bar > i { display: block; height: 100%; background: var(--lavender); border-radius: 7px; }
 .late { color: var(--terracotta); font-weight: 600; }
-a { color: var(--lavender); }
 /* overview */
 .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
 .kpi { padding: 10px 14px; } .kpi b { display: block; font-size: 22px; font-weight: 600; }
@@ -89,6 +79,7 @@ a { color: var(--lavender); }
 </head>
 <body>
 <header>
+  <!--site-nav-->
   <h1><span class="live" id="live" title="live updates"></span>UniKey project tracker <span class="sub" id="sum"></span></h1>
   <nav id="tabs">
     <button data-v="overview">Overview</button><button data-v="kanban">Kanban</button>

@@ -3,7 +3,7 @@
 import { pathToFileURL } from "node:url";
 import {
   answer, defaultConfig, endSession, extend, newState, setCurrentTopic, skip, startSession, DAY_MS,
-  type Choice, type Config, type Content, type EndInfo, type Moment, type Profile, type Served, type SkipReason,
+  type Choice, type Config, type Content, type EndInfo, type Grade, type Moment, type Profile, type Served, type SkipReason,
   type State, type Step, type ValueMessage,
 } from "../src/index.js";
 import {
@@ -38,7 +38,14 @@ export type LogLine = {
   /** Cards served so far in this session (0 on the start line). */
   n: number;
   kind: "start" | "card" | "skip" | "confirm-skip" | "end" | "offer-extend" | "moment" | "quit" | "rejoin" | "hint";
+  /**
+   * card: `right` is the engine's outcome (the grade is not again); `grade` the student's grade and `correct` whether the
+   * pick was right (T114: they can disagree for an over- or under-confident student; absent in older logs).
+   */
   served?: Served; choice?: Choice; right?: boolean; ms?: number; end?: EndInfo; moment?: Moment;
+  grade?: Grade; correct?: boolean;
+  /** card: a right answer under the guess line (the engine's `Attempt.fast`): weak evidence, no step-up credit. */
+  fast?: true;
   /** On card / skip / confirm-skip / quit lines: the session's effort was above the hidden stamina when it was served. */
   hiddenFatigued?: boolean;
   /** start: the session budget the engine asked (`state.session.budget`) and the four profile numbers. */
@@ -212,14 +219,22 @@ function playSession(state0: State, h0: Hidden, content: Content, cfg: Config, s
     }
     now += a.ms;
     const kBefore = h.k[sv.skill] ?? 0;
-    st = answer(st.state, content, { card: sv.card, choice: a.choice, ms: a.ms }, now, cfg);
+    // T114: Show answer, then the student's grade (an MCQ pick is checked by the engine and only logged).
+    const input = a.choice === "dont-know"
+      ? { card: sv.card, ms: a.ms, grade: a.grade, mode: "recall" as const }
+      : { card: sv.card, ms: a.ms, grade: a.grade, mode: "mcq" as const, picked: a.choice };
+    st = answer(st.state, content, input, now, cfg);
     if (!st.feedback) throw new Error(`runner: answer to ${sv.card} on day ${day} was stale`);
     const right = st.feedback.right;
     const tag = st.feedback.tag;
-    h = learn(h, sv, right, day, tag);
-    recent.push(a.choice === "dont-know" ? "dk" : right);
+    h = learn(h, sv, a.correct, day, tag); // the hidden student learns from the truth, not from the grade
+    recent.push(a.choice === "dont-know" ? "dk" : a.correct);
     const guess = st.events.find((e) => e.type === "answer")?.data.guess === true;
-    log({ kind: "card", served: sv, choice: a.choice, right, ms: a.ms, guess, hiddenFatigued, kBefore, kAfter: h.k[sv.skill] ?? 0, ...(tag !== undefined ? { tag } : {}) });
+    const fast = st.state.skills[sv.skill]?.attempts.at(-1)?.fast === true && !guess;
+    log({
+      kind: "card", served: sv, choice: a.choice, right, grade: a.grade, correct: a.correct, ms: a.ms, guess, hiddenFatigued, kBefore,
+      kAfter: h.k[sv.skill] ?? 0, ...(tag !== undefined ? { tag } : {}), ...(fast ? { fast: true as const } : {}),
+    });
     if (st.hint !== undefined) log({ kind: "hint", hint: st.hint });
   }
 }
