@@ -62,7 +62,7 @@ Decisions: [DR-0057](../decisions/0057-onboarding-v1-short-flow.md) sets the ord
 | O3 | About you + save progress | "What should we call you?" (optional). "What are you aiming for?" Medicine / Engineering / Another degree / Pass well (sets the motivation copy). Stream: Bio / Maths / Other (sets the default mix). Exam: 2027 / 2028 (sets the countdown and pacing). Then "Keep your progress safe": Google / Phone / Later ("Later keeps it on this phone only"). |
 | O4 | Home, first time | The normal Today screen with a **"Day 1 done" banner** the first time only: sunrise, streak 1, "Strong in: …" (chips), "Started: වෘත්ත චලිතය". Then the widget offer: "Add UniKey to your home screen? Today's 5 minutes at a glance." [Add] [Not now] |
 
-**Not in this version** (backlog; the order will be revised in a later version): routine, units covered, and the paywall with its parent message. Until units covered returns, new skills follow the current unit and exam weight. **Open:** how parent consent is collected while the paywall's parent message is out.
+**Not in this version** (backlog; the order will be revised in a later version): routine, units covered, and the paywall with its parent message. Until units covered returns, new skills follow the current unit and exam weight. Parent consent collection also comes in a later version (Viraj, 2026-11-24; tracker T124).
 
 **Later versions (DR-0055, for reference):**
 

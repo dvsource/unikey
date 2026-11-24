@@ -421,3 +421,25 @@
 2026-11-24T15:42 student-journey-redesign T122 + Test the impact of Again/Hard/Good/Easy effects with pilot d
 2026-11-24T15:42 student-journey-redesign T123 + Handle Skip more like Again (design, then engine)
 2026-11-24T15:42 student-journey-redesign T124 + Decide how parent consent is collected in this version (no p
+2026-11-24T15:42 git T114 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git T116 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git T119 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git T121 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git S12 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git S13 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git D6 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git D7 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git D8 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git T122 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:42 git T124 commit c290df6 docs: student grade always counts; short onboarding for v1
+2026-11-24T15:57 student-journey-redesign T124 p3 g:later | ||
+2026-11-24T15:57 student-journey-redesign T114 ^P4
+2026-11-24T15:57 student-journey-redesign T115 ^P4
+2026-11-24T15:57 student-journey-redesign T118 ^P4
+2026-11-24T15:57 student-journey-redesign T119 ^P4
+2026-11-24T15:57 student-journey-redesign T121 ^P4
+2026-11-24T15:57 student-journey-redesign T122 ^P4
+2026-11-24T15:57 student-journey-redesign T123 ^P4
+2026-11-24T15:57 student-journey-redesign T125 + Restructure the pm web app into several pages (tracker board
+2026-11-24T15:57 student-journey-redesign T126 + Engine playground page: grade today's cards, see today and t
+2026-11-24T15:57 student-journey-redesign S34 + Engine returns a why for each pick (due, repair, new, side d
