@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engine Playground</title>
+<link rel="stylesheet" href="/site.css">
+<style>
+header { position: sticky; top: 0; z-index: 5; background: rgba(244,242,242,.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hairline); padding: 10px 16px 8px; }
+h1 { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bar label { color: var(--muted); font-size: 12px; display: flex; gap: 4px; align-items: center; }
+select, button, input[type=number] { font: inherit; border: 1px solid var(--hairline); border-radius: 10px; background: var(--surface); color: var(--ink); padding: 4px 10px; }
+button { cursor: pointer; border-radius: 999px; }
+button:hover { border-color: var(--lavender); }
+button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+input[type=number] { width: 64px; }
+.daynow { font-weight: 600; }
+main { padding: 12px 16px 60px; max-width: 1400px; }
+.note { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+.err { background: var(--terracottaSoft); color: var(--terracotta); border-radius: 12px; padding: 8px 12px; margin-bottom: 10px; display: none; }
+.changes { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 8px 12px; margin-bottom: 12px; font-size: 12px; }
+.changes b { margin-right: 6px; }
+.changes .ch { display: inline-block; margin: 0 10px 2px 0; }
+.row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; padding: 8px 0; border-top: 1px solid var(--hairline); }
+.row.today { background: rgba(255,255,255,.55); border-radius: 14px; padding: 8px; border: 1px solid var(--hairline); margin: 4px 0; }
+.row.past { opacity: .6; }
+.rowhead b { display: block; font-size: 14px; }
+.rowhead span { color: var(--muted); font-size: 11px; }
+.cards { display: flex; flex-wrap: wrap; gap: 6px; align-items: stretch; }
+.c { width: 178px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 6px 8px; cursor: pointer; position: relative; }
+.c:hover { border-color: var(--lavender); }
+.c .sk { font-weight: 600; font-size: 12px; line-height: 1.25; max-height: 2.5em; overflow: hidden; padding-right: 28px; }
+.c .meta { font-size: 10px; color: var(--muted); margin-top: 2px; display: flex; gap: 4px; flex-wrap: wrap; }
+.c .why { font-size: 10px; color: var(--lavender); margin-top: 3px; line-height: 1.25; }
+.c .g { position: absolute; top: 5px; right: 6px; font: 600 10px ui-monospace, monospace; border-radius: 6px; padding: 0 4px; background: var(--track); color: var(--muted); }
+.c .g.again { background: var(--terracottaSoft); color: var(--terracotta); } .c .g.easy { background: var(--greenSoft); color: var(--green); }
+.c .g.hard { background: var(--yellowSoft); color: var(--yellowEdge); }
+.c.you { border-left: 3px solid var(--ink); }
+.c.fc { border-style: dashed; }
+.c.open { border: 2px solid var(--lavender); box-shadow: 0 2px 10px rgba(117,105,214,.25); cursor: default; }
+.c.moved { background: var(--yellowSoft); border-color: var(--yellowEdge); }
+.c.new { background: var(--greenSoft); border-color: var(--green); }
+.c.gone { opacity: .55; text-decoration: line-through; border-style: dotted; cursor: default; }
+.h { font: 600 9px ui-monospace, monospace; border-radius: 5px; padding: 0 3px; background: var(--track); }
+.h3 { background: var(--terracotta); color: #fff; } .h2 { background: var(--yellow); }
+.grades { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.grades button { padding: 2px 8px; font-size: 11px; }
+.grades .ga { color: var(--terracotta); } .grades .gh { color: var(--yellowEdge); } .grades .gg { color: var(--green); font-weight: 600; } .grades .ge { color: var(--lavender); }
+.end { align-self: center; font-size: 11px; color: var(--muted); background: var(--track); border-radius: 10px; padding: 4px 8px; max-width: 220px; }
+.end.recap { background: var(--terracottaSoft); color: var(--terracotta); }
+.offer { align-self: center; display: flex; gap: 4px; align-items: center; font-size: 12px; }
+details.earlier summary { cursor: pointer; color: var(--muted); font-size: 12px; margin: 6px 0; }
+.legend { font-size: 11px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+.legend .c { display: inline-block; width: auto; padding: 0 6px; cursor: default; vertical-align: middle; }
+#detail { position: fixed; right: 0; top: 0; bottom: 0; width: min(440px, 100%); background: var(--surface); border-left: 1px solid var(--hairline);
+  box-shadow: -8px 0 30px rgba(27,31,75,.12); padding: 16px; overflow-y: auto; z-index: 30; display: none; }
+#detail.on { display: block; }
+#detail h2 { font-size: 15px; margin: 0 0 4px; }
+#detail .x { position: absolute; top: 10px; right: 12px; }
+#detail .stem { margin: 10px 0 6px; }
+#detail .si { color: var(--muted); }
+#detail ol { padding-left: 20px; margin: 4px 0; } #detail li.ok { color: var(--green); font-weight: 600; }
+#detail table { border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+#detail td, #detail th { padding: 2px 10px 2px 0; text-align: left; }
+#detail th { color: var(--muted); font-weight: 400; }
+@media (max-width: 600px) { .row { grid-template-columns: 1fr; } .c { width: calc(50% - 4px); } }
+</style>
+</head>
+<body>
+<header>
+  <!--site-nav-->
+  <h1>Engine playground <span class="note" id="sub">a sandbox student, graded by you; nothing is saved to the repo</span></h1>
+  <div class="bar">
+    <label>Unit <select id="pack"></select></label>
+    <label>Seed <input id="seed" type="number" min="1" value="1"></label>
+    <span class="daynow" id="daynow"></span>
+    <button id="nextDay" title="Grade the rest of today with the default, and move to tomorrow">Next day ▶</button>
+    <button id="undo" title="Take back your last grade">Undo</button>
+    <button id="reset" title="A fresh student">Reset</button>
+    <label>Ungraded cards get <select id="deflt"></select></label>
+    <button id="save">Save</button>
+    <button id="load">Load</button><input id="file" type="file" accept="application/json" hidden>
+  </div>
+</header>
+<main>
+  <div class="err" id="err"></div>
+  <p class="note">Only today's next card can be graded. Everything after it, and the next 6 days, is the engine's forecast if every card not yet graded got the default. It is run again after every grade; the changes from your last grade are highlighted.</p>
+  <div class="changes" id="changes"></div>
+  <div id="rows"></div>
+  <div class="legend">
+    <span class="c you">your grade</span> <span class="c fc">forecast</span> <span class="c moved">moved day</span> <span class="c new">new</span> <span class="c gone">gone</span>
+    · <span class="h">H1</span> easy <span class="h h2">H2</span> guided <span class="h h3">H3</span> full
+    · A / H / G / E: Again / Hard / Good / Easy. Every card is MCQ for now: the engine's recall/MCQ mode choice (spec 2026-11-23 §4 item 5) is not built yet, so a grade here is the recall path (nothing picked).
+    · One session a day at 18:00 Sri Lanka time. Day 1 is Monday 4 January 2027.
+  </div>
+</main>
+<aside id="detail"></aside>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const GRADES = ["again", "hard", "good", "easy"];
+const G1 = { again: "A", hard: "H", good: "G", easy: "E", skip: "skip", quit: "quit" };
+const HEIGHT = { 1: "easy", 2: "guided", 3: "full" };
+const KEY = "unikey-playground-v1";
+
+let scenario = null; // { pack, seed, deflt, days: Act[][] }: the whole truth, kept in this tab
+let result = null;   // the last /api/engine/run answer
+let prev = null;     // the answer before the last change (for the highlights)
+let undoStack = [];
+let meta = { packs: [], personas: [] };
+
+function fresh(pack, seed, deflt) { return { pack, seed, deflt: deflt ?? "good", days: [[]] }; }
+function store() { try { localStorage.setItem(KEY, JSON.stringify(scenario)); } catch {} }
+function restore() { try { const s = JSON.parse(localStorage.getItem(KEY) ?? "null"); return s && Array.isArray(s.days) ? s : null; } catch { return null; } }
+
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error ?? r.statusText);
+  return j;
+}
+
+async function rerun(keepPrev = true) {
+  try {
+    const r = await api("/api/engine/run", scenario);
+    prev = keepPrev ? result : null;
+    result = r;
+    $("err").style.display = "none";
+    store();
+    render();
+  } catch (e) {
+    $("err").textContent = "The engine said: " + e.message;
+    $("err").style.display = "block";
+  }
+}
+
+/** One change of the scenario, with undo and a rerun. */
+function act(mutate) {
+  undoStack.push(JSON.stringify(scenario));
+  mutate(scenario);
+  rerun();
+}
+
+// ---------- highlights ----------
+
+/** For each day (absolute index): card id → { status, from } for new rows, and the ghosts of rows that went. */
+function diff() {
+  const out = { rows: new Map(), ghosts: new Map(), list: [] };
+  if (!prev || !result || prev.pack !== result.pack) return out;
+  const where = (res) => { const m = new Map(); for (const d of res.days) for (const r of d.rows) if (!m.has(r.card)) m.set(r.card, d.day); return m; };
+  const before = where(prev), after = where(result);
+  const label = (res, d) => res.days.find((x) => x.day === d)?.label ?? `day ${d + 1}`;
+  const pdays = new Map(prev.days.map((d) => [d.day, d]));
+  for (const d of result.days) {
+    const old = pdays.get(d.day);
+    if (!old || d.day < Math.min(result.today, prev.today)) continue;
+    const oldIds = new Set(old.rows.map((r) => r.card));
+    const newIds = new Set(d.rows.map((r) => r.card));
+    for (const r of d.rows) {
+      if (r.source === "you" || oldIds.has(r.card)) continue;
+      if (before.has(r.card)) {
+        out.rows.set(`${d.day}:${r.card}`, "moved");
+        out.list.push(`<span class="ch"><b>${esc(r.skillName)}</b>${label(prev, before.get(r.card))} → ${d.label}</span>`);
+      } else {
+        out.rows.set(`${d.day}:${r.card}`, "new");
+        out.list.push(`<span class="ch"><b>${esc(r.skillName)}</b>new ${d.label}</span>`);
+      }
+    }
+    const ghosts = old.rows.filter((r) => !newIds.has(r.card) && !after.has(r.card) && r.source !== "you");
+    if (ghosts.length) out.ghosts.set(d.day, ghosts);
+    for (const g of ghosts) out.list.push(`<span class="ch"><b>${esc(g.skillName)}</b>left ${d.label}</span>`);
+  }
+  return out;
+}
+
+// ---------- render ----------
+
+function cardHtml(r, d, cls, i) {
+  const open = r.open === true;
+  const g = r.did && !open ? `<span class="g ${r.did}">${G1[r.did]}</span>` : "";
+  const src = r.source === "you" ? "you" : r.source === "forecast" ? "fc" : "";
+  const buttons = open ? `<div class="grades">
+      <button class="ga" data-g="again">A</button><button class="gh" data-g="hard">H</button>
+      <button class="gg" data-g="good">G</button><button class="ge" data-g="easy">E</button>
+      <button data-g="skip">Skip</button></div>` : "";
+  return `<div class="c ${src} ${open ? "open" : ""} ${cls}" data-day="${d.day}" data-i="${i}" title="${esc(r.card)}">${g}
+    <div class="sk">${esc(r.skillName)}</div>
+    <div class="meta"><span class="h h${r.height}">H${r.height}</span>${HEIGHT[r.height]} · MCQ · ${esc(r.card.split(".").pop())}</div>
+    <div class="why">${esc(r.why)}</div>${buttons}</div>`;
+}
+
+function endHtml(d) {
+  if (d.pending === "offer-extend") return `<div class="offer">"5 more"? <button data-x="extend">Take 5 more</button><button data-x="decline">No thanks</button></div>`;
+  if (!d.end) return "";
+  const e = d.end;
+  const what = { budget: "budget spent", "extended-done": "after 5 more", "bad-day": "bad day: ended early", "daily-cap": "daily cap", "content-exhausted": "cards ran out", left: "left", interrupted: "interrupted" }[e.kind] ?? e.kind;
+  return `<div class="end ${e.recap ? "recap" : ""}">end: ${esc(what)}${e.recap ? ", on a recap" : ""} · ${e.cards} cards, ${e.right} right · effort ${e.effort}${e.fixedSkills?.length ? ` · fixed ${e.fixedSkills.length}` : ""}</div>`;
+}
+
+function render() {
+  const r = result;
+  $("daynow").textContent = `Day ${r.today + 1} (${r.days[r.today].label})`;
+  const df = diff();
+  $("changes").innerHTML = prev ? (df.list.length ? `<b>Changes from your last grade:</b>${df.list.slice(0, 20).join("")}${df.list.length > 20 ? ` … ${df.list.length - 20} more` : ""}` : "<b>Changes from your last grade:</b> none in the week") : "<b>Grade the open card to see what moves.</b>";
+  const rowHtml = (d) => {
+    const ghosts = (df.ghosts.get(d.day) ?? []).map((g) => cardHtml({ ...g, open: false }, d, "gone", -1)).join("");
+    const cards = d.rows.map((x, i) => cardHtml(x, d, df.rows.get(`${d.day}:${x.card}`) ?? "", i)).join("");
+    const cls = d.day === r.today ? "today" : d.day < r.today ? "past" : "";
+    return `<div class="row ${cls}"><div class="rowhead"><b>${d.day === r.today ? "Today" : d.label}</b><span>${d.label} ${d.date} · day ${d.day + 1}</span></div>
+      <div class="cards">${cards}${ghosts}${endHtml(d)}</div></div>`;
+  };
+  const past = r.days.filter((d) => d.day < r.today);
+  $("rows").innerHTML = (past.length ? `<details class="earlier"><summary>Earlier days (${past.length})</summary>${past.map(rowHtml).join("")}</details>` : "")
+    + r.days.filter((d) => d.day >= r.today).map(rowHtml).join("");
+  $("undo").disabled = undoStack.length === 0;
+}
+
+// ---------- the card panel ----------
+
+async function showCard(day, i) {
+  const d = result.days.find((x) => x.day === day);
+  const r = d?.rows[i];
+  if (!r) return;
+  const panel = $("detail");
+  const numRow = (label, b, a, f) => `<tr><th>${label}</th><td>${b ? f(b) : "—"}</td><td>${a ? f(a) : "—"}</td></tr>`;
+  const due = (n) => n.nextDue === null ? "none" : `day ${n.nextDue + 1}`;
+  panel.innerHTML = `<button class="x" onclick="this.parentNode.classList.remove('on')">Close</button>
+    <h2>${esc(r.skillName)}</h2><div class="note">${esc(r.section)} · ${esc(r.card)} · level ${r.height} (${HEIGHT[r.height]}) · effort ${r.effort}</div>
+    <div class="note">Reason: <b>${esc(r.reason)}</b> — ${esc(r.why)}</div>
+    <table><tr><th></th><th>before</th><th>after</th></tr>
+      ${numRow("level", r.before, r.after, (n) => n.height)}
+      ${numRow("rights toward a step up", r.before, r.after, (n) => n.stepRun)}
+      ${numRow("gap step", r.before, r.after, (n) => n.gapIndex)}
+      ${numRow("next due", r.before, r.after, due)}
+      ${numRow("full problems rest until", r.before, r.after, (n) => n.noFullUntil === null ? "—" : `day ${n.noFullUntil + 1}`)}
+    </table>
+    <div id="qa" class="note">Loading the card…</div>`;
+  panel.classList.add("on");
+  try {
+    const c = await api(`/api/engine/card?pack=${encodeURIComponent(result.pack)}&id=${encodeURIComponent(r.card)}&variant=${r.variant}`);
+    const v = c.variant ?? {};
+    const t = (x) => x ? `${esc(x.si ?? "")}${x.si && x.en ? `<br><span class="si">${esc(x.en)}</span>` : esc(x.en ?? "")}` : "";
+    const opts = (v.options ?? []).map((o) => `<li class="${o.correct ? "ok" : ""}">${t(o.text)}${o.tag && !o.correct ? ` <span class="note">(${esc(o.tag)})</span>` : ""}</li>`).join("");
+    $("qa").outerHTML = `<div class="stem">${t(v.stem)}</div>${v.figure ? `<div class="note">(this card has a figure)</div>` : ""}<ol>${opts}</ol>
+      ${c.explanation ? `<div class="note"><b>Answer:</b> ${t(c.explanation)}</div>` : ""}`;
+  } catch (e) { $("qa").textContent = "Could not load the card: " + e.message; }
+}
+
+// ---------- events ----------
+
+$("rows").addEventListener("click", (ev) => {
+  const g = ev.target.closest("[data-g]");
+  if (g) {
+    const grade = g.dataset.g;
+    act((s) => s.days.at(-1).push(grade === "skip" ? { kind: "skip" } : { kind: "grade", grade }));
+    return;
+  }
+  const x = ev.target.closest("[data-x]");
+  if (x) { act((s) => s.days.at(-1).push({ kind: x.dataset.x })); return; }
+  const c = ev.target.closest(".c");
+  if (c && !c.classList.contains("gone") && !c.classList.contains("open")) showCard(Number(c.dataset.day), Number(c.dataset.i));
+  else if (c && c.classList.contains("open") && !ev.target.closest("button")) showCard(Number(c.dataset.day), Number(c.dataset.i));
+});
+$("nextDay").onclick = () => act((s) => { s.days.at(-1).push({ kind: "finish", with: s.deflt }); s.days.push([]); });
+$("reset").onclick = () => { undoStack = []; scenario = fresh($("pack").value, Number($("seed").value) || 1, $("deflt").value); prev = null; result = null; rerun(false); };
+$("undo").onclick = () => { const s = undoStack.pop(); if (!s) return; scenario = JSON.parse(s); rerun(); };
+$("deflt").onchange = () => act((s) => { s.deflt = $("deflt").value; });
+$("pack").onchange = () => $("reset").onclick();
+$("seed").onchange = () => $("reset").onclick();
+$("save").onclick = () => {
+  const blob = new Blob([JSON.stringify({ kind: "unikey-engine-playground", v: 1, scenario }, null, 2)], { type: "application/json" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `playground-${scenario.pack}-day${scenario.days.length}.json` });
+  a.click(); URL.revokeObjectURL(a.href);
+};
+$("load").onclick = () => $("file").click();
+$("file").onchange = async () => {
+  const f = $("file").files[0];
+  if (!f) return;
+  try {
+    const j = JSON.parse(await f.text());
+    const s = j.scenario ?? j;
+    if (!s || !Array.isArray(s.days)) throw new Error("not a playground scenario");
+    undoStack = []; scenario = s; prev = null; result = null;
+    syncControls(); rerun(false);
+  } catch (e) { $("err").textContent = "Could not load: " + e.message; $("err").style.display = "block"; }
+  $("file").value = "";
+};
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("detail").classList.remove("on"); });
+
+function syncControls() {
+  $("pack").value = scenario.pack; $("seed").value = scenario.seed; $("deflt").value = scenario.deflt;
+}
+
+(async () => {
+  meta = await api("/api/engine/packs");
+  $("pack").innerHTML = meta.packs.map((p) => `<option value="${esc(p.id)}">${esc(p.unit)} (${esc(p.edition)}: ${esc(p.id)})</option>`).join("");
+  $("deflt").innerHTML = GRADES.map((g) => `<option value="${g}">${g[0].toUpperCase() + g.slice(1)}</option>`).join("")
+    + `<optgroup label="A simulated student">${meta.personas.map((p) => `<option value="persona:${esc(p.id)}">${esc(p.name)} (${esc(p.grading)})</option>`).join("")}</optgroup>`;
+  $("deflt").value = "good";
+  scenario = restore();
+  if (!scenario || !meta.packs.some((p) => p.id === scenario.pack)) scenario = fresh(meta.packs[0].id, 1, "good");
+  syncControls();
+  rerun(false);
+})();
+</script>
+</body>
+</html>
