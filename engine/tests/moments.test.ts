@@ -6,7 +6,9 @@ import { detectMoments, recordMoments } from "../src/moments.js";
 import { migrate } from "../src/state.js";
 import type { Content, Height, Moment, Reason, Served, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
-import { T0, atts, choiceFor, rec, run, section, startedState } from "./helpers.js";
+import { T0, atts, choiceFor, rec, run, section, startedState, useRepairTimingBeforeT114 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C: Content = fixture();
 const D0 = dayOf(T0);

@@ -27,7 +27,7 @@ function cliLog(packArgs: string[]): LogLine[] {
   const out = mkdtempSync(resolve(tmpdir(), "unikey-sim-"));
   try {
     execFileSync(process.execPath, ["--import", "tsx", "sim/run.ts", ...packArgs,
-      "--days", "1", "--seed", String(seed), "--persona", "strong", "--out", out], { cwd: resolve(root, "engine") });
+      "--days", "2", "--seed", String(seed), "--persona", "strong", "--out", out], { cwd: resolve(root, "engine") });
     const lines = readFileSync(resolve(out, "strong.log.jsonl"), "utf8").trimEnd();
     return lines.split("\n").map(line => JSON.parse(line));
   } finally {
@@ -38,7 +38,7 @@ function cliLog(packArgs: string[]): LogLine[] {
 function checkSubsetLog(lines: LogLine[]) {
   const content = loadPackSet(root, "v2", [subset]);
   const expected = runStudent(personas[index], content, {
-    days: 1, seed: personaSeed(seed, index), start: SIM_START, cfg: defaultConfig,
+    days: 2, seed: personaSeed(seed, index), start: SIM_START, cfg: defaultConfig,
   });
   expect(lines).toEqual(expected.lines);
 }
@@ -46,6 +46,7 @@ function checkSubsetLog(lines: LogLine[]) {
 test("the CLI serves the exact v2 subset event sequence including a v2-only card", () => {
   const lines = cliLog(["--pack-set", "v2", "--packs", subset]);
   checkSubsetLog(lines);
+  // T114 changed the sequence: the v2-only card now comes on day 2 (two days are run)
   expect(lines.some(l => l.kind === "card" && l.served?.card === "phy.therm.c049")).toBe(true);
   expect(loadPackSet(root, "v1").cards["phy.therm.c049"]).toBeUndefined();
 });

@@ -8,7 +8,9 @@ import { eligibleCard, pickAny, pickClose, pickComeback, pickMiddle, pickOpen, p
 import { expectedSuccess } from "../src/estimate.js";
 import type { PickCtx, SectionRec, Served, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
-import { T0, atts, choiceFor, lastStep, nextDay, play, rec, run, section, served, startedState } from "./helpers.js";
+import { T0, atts, choiceFor, lastStep, nextDay, play, rec, run, section, served, startedState, useRepairTimingBeforeT114 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C = fixture();
 const D0 = dayOf(T0);
@@ -293,7 +295,7 @@ test("side door wrong → normal repair; the section still rejoins", () => {
   const r = play(C, s0, T0, until(isSide));
   const sd = cardOf(lastStep(r.steps));
   const w = answer(lastStep(r.steps).state, C, { card: sd.card, choice: choiceFor(C, sd, "w"), ms: 8000 }, r.now + 10_000);
-  expect(w.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap" });
+  expect(w.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap", grade: "again", correct: false });
   expect(cardOf(w).reason).toBe("repair:missing-piece");
   expect(w.state.session!.repair?.skill).toBe(sd.skill);
   expect(w.state.sections[B]).toMatchObject({ returned: true, remindDay: null, skipCount: 1 });
@@ -426,7 +428,7 @@ test("drip wrong → no repair, no bad moment", () => {
   const last = lastStep(p.steps);
   const drip = cardOf(last);
   const w = answer(last.state, C, { card: drip.card, choice: choiceFor(C, drip, "w"), ms: 8000 }, p.now + 10_000);
-  expect(w.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap" });
+  expect(w.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap", grade: "again", correct: false });
   expect(w.state.session).not.toBeNull(); // still open, so the checks below run
   const ss = w.state.session!;
   expect(ss.repair).toBeNull();

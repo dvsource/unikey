@@ -282,7 +282,8 @@ export function pickMiddle(state: State, content: Content, ctx: PickCtx, cfg: Co
   }
 
   // Change 5: well above comfort, a stretch card (or one extra new skill) before the usual order.
-  if (!ctx.stretchOff && rate !== null && ctx.runningTotal >= cfg.estimate.minRunning && rate >= comfort + cfg.comfort.pushUpBand) {
+  // T114: three Easys in a row call for it too (`ctx.pushUp`), whatever the running rate.
+  if (!ctx.stretchOff && (ctx.pushUp === true || (rate !== null && ctx.runningTotal >= cfg.estimate.minRunning && rate >= comfort + cfg.comfort.pushUpBand))) {
     const p = pickStretch(state, content, st, ctx, cfg);
     if (p) return p;
     if (ctx.newSkillsThisSession >= cfg.session.maxNewSkills && ctx.extraNewUsed !== true) {

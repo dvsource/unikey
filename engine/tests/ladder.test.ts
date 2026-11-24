@@ -7,7 +7,9 @@ import { dayOf } from "../src/time.js";
 import type { Height, PickCtx, Seen, State, Step } from "../src/types.js";
 import { isCalcWeak } from "../src/profile.js";
 import { fixture } from "./fixture.js";
-import { T0, atts, choiceFor, ladderSteps, play, rec, section, served, startedState } from "./helpers.js";
+import { T0, atts, choiceFor, ladderSteps, play, rec, section, served, startedState, useRepairTimingBeforeT114 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C = fixture();
 const D0 = dayOf(T0);

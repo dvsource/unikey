@@ -132,8 +132,13 @@ export function readableLog(lines: LogLine[], content: Content, days: number): s
     const n = `#${l.n}`;
     switch (l.kind) {
       case "card": {
+        // T114: what the student picked (or nothing), then their own grade, which is what the app schedules from
         const act = l.choice === "dont-know" ? `"I don't know"` : l.right ? "right" : l.guess === true ? "wrong (guessed" : "wrong";
-        out.push(`${at(l)} ${n}  ${cardText(l)} — ${act === "wrong (guessed" ? `${act}, ${secs(l.ms ?? 0)})` : `${act}, ${secs(l.ms ?? 0)}`}`);
+        const shown = l.grade === undefined ? act
+          : `${l.choice === "dont-know" ? "nothing picked" : l.correct ? "picked right" : l.guess === true ? "picked wrong (guessed" : "picked wrong"}`;
+        const g = l.grade === undefined ? "" : `, graded ${l.grade[0]!.toUpperCase()}${l.grade.slice(1)}`;
+        const guessed = shown.endsWith("(guessed");
+        out.push(`${at(l)} ${n}  ${cardText(l)} — ${guessed ? `${shown}, ${secs(l.ms ?? 0)})${g}` : `${shown}, ${secs(l.ms ?? 0)}${g}`}`);
         break;
       }
       case "confirm-skip": {
@@ -201,17 +206,18 @@ function momentText(l: LogLine, nm: ReturnType<typeof namer>): string {
 }
 
 /** What the app says to a student after a run of guesses (the engine's `guess-nudge` hint). */
-const GUESS_NUDGE_TEXT = "Not sure? Tap I don't know. It costs nothing.";
+const GUESS_NUDGE_TEXT = "Not sure? Tap Show answer, then Again. It costs nothing.";
 
 /** What the log lines mean; shown above every log. Not part of the log (quotes are checked against event lines only). */
 export const LOG_LEGEND = `How to read the log. One line per event.
 - \`D03 S1 #4\` is day 3 of 28, the first session that day, the 4th card of that session. \`D03 S1 start\` and \`D03 S1 end\` open and close a session. \`after #4\` means between card 4 and card 5.
 - \`[repair:missing-piece]\` is the app's own reason for choosing that card (list below).
 - \`H1 easy\`, \`H2 guided\`, \`H3 full\` is how demanding the card is: an easy theory or recall card, a guided problem, or a full exam-style problem.
-- Then the section of the syllabus › the skill, what the student did (right, wrong, "I don't know", skipped with "Not now", or closed the app), and how many seconds it took.
+- Then the section of the syllabus › the skill, what the student did (picked the right option, a wrong one, nothing; skipped with "Not now"; or closed the app), how many seconds it took, and the grade the student gave themself.
+- Every card is answered the same way: the student thinks, taps Show answer, sees the answer, and grades themself Again, Hard, Good or Easy. The app schedules from that grade only, even when it disagrees with the option picked (a wrong pick graded Good counts as right; the pick is only recorded). Again is a miss: the skill comes back tomorrow, and an easier card on it comes near the end of the session, never straight after (or at the start of the next session if there is no room). Hard is half right: no progress toward a harder level, and two Hards in a row bring a card the student usually gets right. Good is a normal right answer. Easy moves the skill up a level at once (once per skill per session) and spaces it further out; three Easys in a row bring a harder card.
 - Session ends give how the session ended, the effort it took (an easy card costs 1, a guided card 1.5, a full problem 4, a wrong answer 1 more, "I don't know" nothing extra; the app allows at most 40 a day), the cards answered, how many were right, and how many skills were fixed (a skill is fixed when its repair ended with the easy confidence card right, or when it was answered right on coming back; a later miss on it that session undoes this).
 - \`wrong (guessed, 1s)\`: a very fast wrong answer is treated as a guess. It does not count against the skill (the app learns nothing bad about it from that answer), but the student still gets an easier card on it, as after any wrong answer.
-- \`the app suggests: "Not sure? Tap I don't know. It costs nothing."\` is a short hint the app shows after a student's third guess in a session (once per session). It changes nothing else.
+- \`the app suggests: "Not sure? Tap Show answer, then Again. It costs nothing."\` is a short hint the app shows after a student's third guess in a session (once per session). It changes nothing else.
 - A missed full problem (H3) is not shown again on that skill for a couple of days. Other cards on the skill still come as normal.
 - After every answer the app shows whether it was right. After a wrong answer it shows the mistake's message and the explanation; "I don't know" gets the explanation with no negative message and costs no extra effort. Then the next card comes. The app shows no score, no backlog and no "due" count.
 - "★ moment shown" is a message the app showed to point out progress. "5 more" is the app's offer of a small extra set at the end, up to five cards; it is limited by effort too, so it may be fewer cards when they are big problems.
@@ -224,7 +230,7 @@ export const LOG_LEGEND = `How to read the log. One line per event.
 The app's reasons:
 - open:liked: an opening card from a section the student does well in or enjoys
 - close:winnable: a closing card picked so the session ends on a likely win
-- repair:missing-piece: after a wrong answer, an easier card on the piece that was probably missing
+- repair:missing-piece: after an Again, an easier card on the piece that was probably missing (near the end of the session)
 - repair:confidence: an easy card on the same skill to rebuild confidence
 - repair:return: the skill that went wrong comes back, to check it is fixed
 - due-review: something learned before, brought back before it fades

@@ -425,10 +425,16 @@ test("a guess, the nudge and the full-problem rest read plainly in the log and l
   expect(right.find((l) => l.includes("#1"))).toMatch(/ — right, 1s$/);
   const nudge = logOf({ day: 0, session: 1, n: 3, kind: "hint", hint: "guess-nudge" });
   const line = nudge.find((l) => l.includes("the app suggests"))!;
-  expect(line).toBe('D01 S1 after #3  the app suggests: "Not sure? Tap I don\'t know. It costs nothing."');
+  expect(line).toBe('D01 S1 after #3  the app suggests: "Not sure? Tap Show answer, then Again. It costs nothing."');
   expect(eventLines(line)).toEqual([line]);
   expect(LOG_LEGEND).toMatch(/wrong \(guessed.*very fast wrong answer.*guess.*does not count against the skill.*easier card/s);
-  expect(LOG_LEGEND).toContain('the app suggests: "Not sure? Tap I don\'t know. It costs nothing."');
+  expect(LOG_LEGEND).toContain('the app suggests: "Not sure? Tap Show answer, then Again. It costs nothing."');
+  // T114: a graded answer shows the pick and the student's grade
+  const graded = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 1, right: true, grade: "good", correct: false, ms: 7400 });
+  expect(graded.find((l) => l.includes("#1"))).toMatch(/ — picked wrong, 7s, graded Good$/);
+  const gg = logOf({ day: 0, session: 1, n: 1, kind: "card", served: served("due-review", 2), choice: 1, right: false, grade: "again", correct: false, guess: true, ms: 1400 });
+  expect(gg.find((l) => l.includes("#1"))).toMatch(/ — picked wrong \(guessed, 1s\), graded Again$/);
+  expect(LOG_LEGEND).toMatch(/grades themself Again, Hard, Good or Easy.*schedules from that grade only/s);
   expect(LOG_LEGEND).toMatch(/missed full problem.*not shown again on that skill for a couple of days/s);
   for (const w of ["fraction", "floor", "usual time", "1/3"]) expect(LOG_LEGEND.toLowerCase()).not.toContain(w);
 });
@@ -436,7 +442,7 @@ test("a guess, the nudge and the full-problem rest read plainly in the log and l
 test("a real run with guessers shows guessed answers and the nudge in the student packet, with no leaks", () => {
   const files = buildPackets(runOf(1, 28), content, prompts);
   const all = Object.entries(files).filter(([f]) => f.startsWith("student-")).flatMap(([, t]) => eventLines(t));
-  expect(all.some((l) => /— wrong \(guessed, \d+s\)$/.test(l))).toBe(true);
-  expect(all.some((l) => l.includes('the app suggests: "Not sure? Tap I don\'t know. It costs nothing."'))).toBe(true);
+  expect(all.some((l) => /— picked wrong \(guessed, \d+s\), graded Again$/.test(l))).toBe(true); // T114: the grade follows
+  expect(all.some((l) => l.includes('the app suggests: "Not sure? Tap Show answer, then Again. It costs nothing."'))).toBe(true);
   for (const l of all.filter((x) => /guessed|the app suggests/.test(x))) expect(l).not.toMatch(/knowledge|stamina|comfort(?!-correction)|budget|fraction/i);
 });

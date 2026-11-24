@@ -45,7 +45,9 @@ export function emit(r: Run, type: EngineEvent["type"], data: Record<string, unk
 }
 
 export function step(r: Run, next: Next, feedback?: Feedback, moments: Moment[] = []): Step {
-  return feedback ? { state: r.s, events: r.events, feedback, moments, next } : { state: r.s, events: r.events, moments, next };
+  const out: Step = feedback ? { state: r.s, events: r.events, feedback, moments, next } : { state: r.s, events: r.events, moments, next };
+  if (next.kind === "card" && next.card.why !== undefined) out.why = next.card.why; // T126
+  return out;
 }
 
 /** What the caller was last told: the open card, the pending offer, or the last end. */

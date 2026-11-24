@@ -91,7 +91,7 @@ function mk(persona: string, lines: LogLine[], o: Partial<StudentLog> = {}): Stu
     contentExhausted: 0, ...o,
   };
 }
-const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card", "repair-steps-down", "no-long-zero-session", "side-door-not-full", "day-one-fit", "no-full-after-full-miss"];
+const NAMES = ["no-end-on-wrong", "skip-timing", "effort-cap-and-fairness", "no-repeat-14d", "ends-before-fade", "knowledge-up", "no-back-to-back-card", "repair-steps-down", "no-long-zero-session", "side-door-not-full", "day-one-fit", "no-full-after-full-miss", "no-retry-after-again", "repair-not-straight-after-miss"];
 function result(logs: StudentLog[], name: string) {
   const all = runChecks(logs, defaultConfig);
   expect(all.map((c) => c.name)).toEqual(NAMES);
@@ -311,8 +311,10 @@ const ok4 = [{ s: sv("a1"), right: true }, { s: sv("a2"), right: true }, { s: sv
 
 test("repair-steps-down: a repair card is easier than the missed card, level 1 → 1 on another card is fine", () => {
   allPass([mk("strong", day0(ok4))]);
+  // T114: the repair comes later in the session, never straight after the miss
   const rep = (missH: 1 | 2 | 3, repH: 1 | 2 | 3, o: Partial<Served> = {}) => day0([
     { s: sv("m", { height: missH }), right: false },
+    { s: sv("a1"), right: true },
     { s: sv("r", { height: repH, reason: "repair:missing-piece", ...o }), right: true },
     { s: sv("a3", { height: 2 }), right: true },
   ]);
@@ -326,16 +328,21 @@ test("repair-steps-down: a repair card is easier than the missed card, level 1 �
   // compared with the nearest earlier miss that is not itself a repair card
   allPass([mk("strong", day0([
     { s: sv("m", { height: 3 }), right: false },
+    { s: sv("a1"), right: true }, // T114: a repair never comes straight after a miss
     { s: sv("r1", { height: 2, reason: "repair:missing-piece" }), right: false },
+    { s: sv("a2"), right: true },
     { s: sv("r2", { height: 2, reason: "repair:missing-piece" }), right: true }, // passes against m (3), would fail against r1 (2)
   ]))]);
-  // a right answer is no anchor: no earlier miss, nothing to compare
-  allPass([mk("strong", day0([{ s: sv("m", { height: 1 }), right: true }, { s: sv("r", { height: 3, reason: "repair:missing-piece" }), right: true }]))]);
-  // a miss in another session is not the anchor: miss in session 1, same-level repair in session 2
-  const cross = [...withRecap(session(0, 1, [{ s: sv("m", { height: 2 }), right: false }])), ...session(1, 2, [{ s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]), ...cleanLines(13).filter((l) => l.day >= 2)];
-  allPass([mk("strong", cross)]);
+  // a right answer is no anchor: with no earlier miss on its skill the piece is a neighbour's, always level 1 (T114)
+  allPass([mk("strong", day0([{ s: sv("m", { height: 1 }), right: true }, { s: sv("r", { height: 1, reason: "repair:missing-piece" }), right: true }]))]);
+  onlyFails([mk("strong", day0([{ s: sv("m", { height: 1 }), right: true }, { s: sv("r", { height: 3, reason: "repair:missing-piece" }), right: true }]))], "repair-steps-down");
+  // T114: a repair carried to the next session anchors on the miss of the session before: miss in session 1, a
+  // same-level repair opening session 2 fails; two sessions back is no anchor (a level-1 neighbour piece passes)
+  const cross = (h: 1 | 2) => [...withRecap(session(0, 1, [{ s: sv("m", { height: 2 }), right: false }])), ...session(1, 2, [{ s: sv("r", { height: h, reason: "repair:missing-piece" }), right: true }]), ...cleanLines(13).filter((l) => l.day >= 2)];
+  onlyFails([mk("strong", cross(2))], "repair-steps-down");
+  allPass([mk("strong", cross(1))]);
   // "I don't know" (right !== true) is a miss
-  const dk = day0([{ s: sv("m", { height: 2 }), right: false }, { s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]);
+  const dk = day0([{ s: sv("m", { height: 2 }), right: false }, { s: sv("a1"), right: true }, { s: sv("r", { height: 2, reason: "repair:missing-piece" }), right: true }]);
   onlyFails([mk("strong", dk)], "repair-steps-down");
 });
 
@@ -459,12 +466,12 @@ test("runner logs scope on skips and a rejoin line", () => {
   const log = runStudent(spec, content, opts(14, 5));
   const skips = log.lines.filter((l) => l.kind === "skip");
   expect(skips.every((l) => l.scope === "card" || l.scope === "section")).toBe(true);
-  const card = skips.filter((l) => l.scope === "card");
+  // T114 (spec §4 item 6): the student path gives no reason, so the runner never makes a card-level "too hard" skip
+  // (that branch is still tested in skip.test.ts): every skip is a section skip.
   const sec = skips.filter((l) => l.scope === "section");
-  expect(card.length).toBeGreaterThan(0);
+  expect(sec.length).toBe(skips.length);
   expect(sec.length).toBeGreaterThan(0);
-  expect(card.every((l) => l.skipReason === "too-hard")).toBe(true);
-  expect(sec.every((l) => l.skipReason !== "too-hard")).toBe(true);
+  expect(skips.every((l) => l.skipReason === undefined)).toBe(true);
   // a card-level skip is never asked to confirm
   log.lines.forEach((l, i) => { if (l.kind === "skip" && l.scope === "card") expect(log.lines[i - 1]?.kind).not.toBe("confirm-skip"); });
   const rejoins = log.lines.filter((l) => l.kind === "rejoin");
@@ -525,7 +532,10 @@ test("no-full-after-full-miss: a level-3 card of the skill inside the rest after
 });
 
 test("the runner logs guess on answers and a hint line for the nudge", () => {
-  const log = runStudent(byId("fast-guesser"), fixture(), opts(8, 5));
+  // T114: repairs wait for the session end, so a session ends sooner after misses and holds fewer guesses: a weaker
+  // guesser (prior 0.15) still reaches three in a session.
+  const fg = byId("fast-guesser");
+  const log = runStudent({ ...fg, traits: { ...fg.traits, prior: 0.15 } }, fixture(), opts(8, 5));
   const cards = log.lines.filter((l) => l.kind === "card");
   const guesses = cards.filter((l) => l.guess === true);
   expect(guesses.length).toBeGreaterThan(3);

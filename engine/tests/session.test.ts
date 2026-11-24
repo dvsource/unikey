@@ -11,8 +11,10 @@ import type { Served } from "../src/types.js";
 import type { Content, EndInfo, Height, SkillRec, State, Step } from "../src/types.js";
 import { fixture } from "./fixture.js";
 import {
-  T0, anyEligible, atts, choiceFor, lastStep, nextDay, play, rec, run, served, startedState, withProfile,
+  T0, anyEligible, atts, choiceFor, lastStep, nextDay, play, rec, run, served, startedState, withProfile, useRepairTimingBeforeT114,
 } from "./helpers.js";
+
+useRepairTimingBeforeT114(); // T114: see helpers.ts
 
 const C = fixture();
 const D0 = dayOf(T0);
@@ -108,13 +110,13 @@ test("dont-know costs card effort only; wrong costs +1", () => {
   const s1 = answer(first.state, C, { card: c1.card, choice: "dont-know", ms: 8000 }, T0 + 10_000);
   expect(s1.state.session!.spent).toBe(c1.effort);
   expect(s1.state.day!.effort).toBe(c1.effort);
-  expect(s1.feedback).toEqual({ right: false, correctIndex: 0 });
+  expect(s1.feedback).toEqual({ right: false, correctIndex: 0, grade: "again", correct: null });
   if (s1.next.kind !== "card") throw new Error("no card");
   const c2 = s1.next.card;
   const s2 = answer(s1.state, C, { card: c2.card, choice: choiceFor(C, c2, "w"), ms: 8000 }, T0 + 20_000);
   expect(s2.state.session!.spent).toBe(c1.effort + c2.effort + cfg.effort.wrong);
   expect(s2.state.day!.effort).toBe(c1.effort + c2.effort + cfg.effort.wrong);
-  expect(s2.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap" });
+  expect(s2.feedback).toEqual({ right: false, correctIndex: 0, tag: "recall-gap", grade: "again", correct: false });
 });
 
 test("no session ends on a wrong answer, except after 1 + maxExtraClose close cards all wrong (close cards answered by the pattern too)", () => {
@@ -413,7 +415,7 @@ test("events: ids unique and increasing; JSON round-trip of state", () => {
   const served1 = events.find((e) => e.type === "card_served")!;
   expect(served1.data).toHaveProperty("reason");
   const ans = events.find((e) => e.type === "answer")!;
-  expect(Object.keys(ans.data).sort()).toEqual(["card", "choice", "guess", "height", "ms", "right", "skill", "tag", "variant"]);
+  expect(Object.keys(ans.data).sort()).toEqual(["card", "choice", "correct", "grade", "guess", "height", "mode", "ms", "picked", "right", "skill", "tag", "variant"]);
   // the state survives a JSON round trip mid-session too
   const mid = play(C, startedAt(2, 3, 1), T0, ["r", "w"]).state;
   const back = JSON.parse(JSON.stringify(mid)) as State;

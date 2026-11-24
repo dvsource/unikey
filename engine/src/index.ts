@@ -5,6 +5,7 @@ export * from "./types.js";
 export { buildContent, type RawPack } from "./content.js";
 export * from "./state.js";
 export * from "./skill.js";
+export { whyOf } from "./why.js";
 export * from "./estimate.js";
 export * from "./pick.js";
 export * from "./repair.js";

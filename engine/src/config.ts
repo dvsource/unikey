@@ -63,6 +63,18 @@ export const defaultConfig = {
    * count that earns the one-time nudge.
    */
   guess: { fraction: 1 / 3, floorMs: { 1: 4000, 2: 6000, 3: 10000 } as Record<1 | 2 | 3, number>, nudgeAfter: 3 },
+  /**
+   * T114 grades (DR-0052; starting values, to be tested against pilot data). `hardCredit`: a Hard's share of a right
+   * answer in the session's running success rate. `hardRun`: Hards in a row before the next card comes from a height the
+   * student usually gets right. `easyRun`: Easys in a row before a stretch card (change 5's push-up).
+   */
+  grades: { hardCredit: 0.5, hardRun: 2, easyRun: 3 },
+  /**
+   * T114 repair timing (DR-0052). `atEnd`: a miss's repair waits for the end of the session (false: the timing before
+   * T114, the repair straight after the miss, nothing carried over). `reserve`: effort the middle leaves for it while one
+   * is queued. `maxCarry`: repairs carried to the next session's opening at most.
+   */
+  repairEnd: { atEnd: true, reserve: 2, maxCarry: 2 },
 };
 
 export type Config = typeof defaultConfig;

@@ -4,7 +4,7 @@ const average: PersonaSpec["traits"] = {
   prior: 0.4, learn: 1, forget: 1, calc: 0, concept: 0,
   misconceptions: {}, patienceWrongs: 4, patienceSessions: 3, skipBelow: 0.3, fearedSections: [],
   dontKnowBelow: 0.3, stamina: 14, baseMs: 9000, guesser: false, extendChance: 0.3,
-  habit: "daily", classPace: null,
+  habit: "daily", classPace: null, grading: "honest",
 };
 
 const P = (id: string, name: string, sheet: string, o: Partial<PersonaSpec["traits"]>): PersonaSpec =>
@@ -28,9 +28,9 @@ export const personas: PersonaSpec[] = [
   P("calc-strong-memory-poor", "Strong calculations, poor memory",
     "I am good at working through numerical problems once I know the formula. The trouble is I forget things quickly, so last week's lesson is often gone. I need to see things again and again. Theory questions are where I lose marks.", { prior: 0.5, forget: 2.5, calc: 0.25, concept: -0.1 }),
   P("confident-misconceptions", "Confident with misconceptions",
-    "I always feel sure about my answers and I almost never say I do not know. The thing is, I have some wrong ideas stuck in my head from the past and I do not notice them. I answer quickly and with confidence even when I am wrong. I only change my mind when I see the correct answer.", { prior: 0.5, patienceWrongs: 5, patienceSessions: 4, skipBelow: 0.05, stamina: 16, dontKnowBelow: 0, misconceptions: "auto" as const }),
+    "I always feel sure about my answers and I almost never say I do not know. The thing is, I have some wrong ideas stuck in my head from the past and I do not notice them. I answer quickly and with confidence even when I am wrong. I only change my mind when I see the correct answer.", { prior: 0.5, patienceWrongs: 5, patienceSessions: 4, skipBelow: 0.05, stamina: 16, dontKnowBelow: 0, misconceptions: "auto" as const, grading: "over" }),
   P("underconfident-skipper", "Underconfident skipper",
-    "I actually know more than I think, but I never trust myself. When a question looks hard I would rather skip it or say I do not know. I get nervous about being wrong in front of anyone, even an app. I need a lot of encouragement.", { prior: 0.65, patienceWrongs: 3, skipBelow: 0.75, stamina: 12, dontKnowBelow: 0.6 }),
+    "I actually know more than I think, but I never trust myself. When a question looks hard I would rather skip it or say I do not know. I get nervous about being wrong in front of anyone, even an app. I need a lot of encouragement.", { prior: 0.65, patienceWrongs: 3, skipBelow: 0.75, stamina: 12, dontKnowBelow: 0.6, grading: "under" }),
   P("one-feared-section", "One feared section",
     "I am fine with most of physics. There is one part of the syllabus that scares me and I always have been weak at it, so I avoid it whenever I can. The other parts I handle normally. I study at my usual time every day.", { prior: 0.5, fearedSections: "auto" as const, fearedPrior: 0.1 }),
   P("steady-five-min", "Steady five-minute studier",

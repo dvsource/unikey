@@ -1,4 +1,4 @@
-import { next, type Rng, type Content, type Served, type SkipReason, type Height } from "../src/index.js";
+import { next, type Rng, type Content, type Grade, type Served, type SkipReason, type Height } from "../src/index.js";
 
 /** Starting values of the hidden-student model; the tuning task changes them here only. */
 export const simParams = {
@@ -19,12 +19,19 @@ export const simParams = {
   // then declines (slow-reader and smart-impatient took "5 more" at 9 of 10 effort and quit from fatigue two cards later).
   extendFeel: 5,
   misconceptionDecay: 0.8,
+  // T114 self-grading (spec 2026-11-23 §4 item 8). The student's chance of being right (pRight) is how sure they feel.
+  // honest: a miss or "I don't know" → again; right → easy when p ≥ easyP, hard when p < hardP, else good.
+  // over-confident: a wrong pick graded good with chance overWrongGood (else again); right → easy from overEasyP.
+  // under-confident: right → hard below underGoodP, else good (never easy); a miss → again.
+  grading: { easyP: 0.85, hardP: 0.55, overWrongGood: 0.5, overEasyP: 0.6, underGoodP: 0.9 },
   fiveMinEffort: 12,
   binge: { fast: 5, vanishUntil: 20 },
   gap10: { from: 9, to: 18 },
 };
 
 export type Habit = "daily" | "alternate" | "binge-vanish" | "gap10" | "five-min";
+/** T114: how the student grades themself after Show answer. */
+export type Grading = "honest" | "over" | "under";
 export type Traits = {
   prior: number; priorBySection?: Record<string, number>; learn: number; forget: number;
   calc: number; concept: number;
@@ -33,6 +40,8 @@ export type Traits = {
   skipBelow: number; fearedSections: string[]; dontKnowBelow: number;
   stamina: number; baseMs: number; guesser: boolean; extendChance: number;
   habit: Habit; classPace: number | null;
+  /** T114: self-grading behaviour (absent: honest). */
+  grading?: Grading;
 };
 export type Persona = { id: string; name: string; sheet: string; traits: Traits };
 /** A persona whose content-dependent traits are placeholders `newHidden` / `resolvePersona` resolve. */
@@ -52,8 +61,12 @@ export type Hidden = {
   badSessions: number; quitApp: boolean; rng: Rng;
 };
 export type QuitReason = "time-up" | "frustration" | "fatigue";
+/**
+ * `choice`: the option the student picked, or "dont-know" (nothing picked; a recall-style Show answer). `grade`: the
+ * student's own grade after the reveal (T114). `correct`: the hidden truth (the pick was right).
+ */
 export type Action =
-  | { kind: "answer"; choice: number | "dont-know"; ms: number }
+  | { kind: "answer"; choice: number | "dont-know"; ms: number; grade: Grade; correct: boolean }
   | { kind: "skip"; reason?: SkipReason }
   | { kind: "quit"; reason: QuitReason };
 
@@ -139,7 +152,7 @@ export function decide(h: Hidden, content: Content, card: Served,
   if (!protectedCard) {
     const feared = t.fearedSections.includes(card.section) && k < simParams.fearedK;
     if (feared || (p < t.skipBelow && draw() < simParams.skipChance))
-      return done({ kind: "skip", reason: k > simParams.tooHardK ? "too-hard" : "not-learned" });
+      return done({ kind: "skip" }); // T114 (spec §4 item 6): the student path has no skip reason; every skip is "later"
   }
 
   const msOf = (): number => {
@@ -151,19 +164,36 @@ export function decide(h: Hidden, content: Content, card: Served,
     return Math.round(ms);
   };
 
-  if (p < t.dontKnowBelow && !t.guesser) return done({ kind: "answer", choice: "dont-know", ms: msOf() });
-
   const options = content.cards[card.card]!.variants[card.variant]!;
+  const graded = (choice: number | "dont-know", ms: number) => {
+    const correct = choice !== "dont-know" && options[choice]!.correct;
+    return done({ kind: "answer", choice, ms, correct, grade: gradeFor(t.grading ?? "honest", choice === "dont-know" ? null : correct, p, draw) });
+  };
+  if (p < t.dontKnowBelow && !t.guesser) return graded("dont-know", msOf());
+
   for (let i = 0; i < options.length; i++) {
     const o = options[i]!;
     const s = !o.correct && o.tag && Object.hasOwn(t.misconceptions, o.tag) ? t.misconceptions[o.tag] : undefined;
-    if (s !== undefined && draw() < s * (1 - k)) return done({ kind: "answer", choice: i, ms: msOf() });
+    if (s !== undefined && draw() < s * (1 - k)) return graded(i, msOf());
   }
   const right = draw() < p;
   let idx = options.map((o, i) => (o.correct === right ? i : -1)).filter((i) => i >= 0);
   if (idx.length === 0) idx = options.map((_, i) => i);
   const choice = idx[Math.min(idx.length - 1, Math.floor(draw() * idx.length))]!;
-  return done({ kind: "answer", choice, ms: msOf() });
+  return graded(choice, msOf());
+}
+
+/**
+ * T114: the student's grade after the reveal. `correct`: null for "I don't know" (nothing picked), else whether the
+ * pick was right. `p`: how sure the student felt (pRight). The over-confident draw is made only on a wrong pick.
+ */
+export function gradeFor(g: Grading, correct: boolean | null, p: number, draw: () => number): Grade {
+  const q = simParams.grading;
+  if (correct === null) return "again";
+  if (!correct) return g === "over" && draw() < q.overWrongGood ? "good" : "again";
+  if (g === "under") return p >= q.underGoodP ? "good" : "hard";
+  if (g === "over") return p >= q.overEasyP ? "easy" : "good";
+  return p >= q.easyP ? "easy" : p < q.hardP ? "hard" : "good";
 }
 
 /** `tag`: the tag of the wrong option chosen, if any (shrinks that misconception). */

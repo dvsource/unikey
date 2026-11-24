@@ -11,7 +11,7 @@ export function newState(student: string, seed: number, cfg: Config = defaultCon
     },
     skills: {}, sections: {}, seen: [], currentTopic: null, day: null,
     sessionCount: 0, lastSessionDay: null, session: null, answered: 0, lastEnd: null,
-    pendingMoments: [], momentsDone: [], ladder: { level: 1, rightRun: 0 }, lastSession: null,
+    pendingMoments: [], momentsDone: [], ladder: { level: 1, rightRun: 0 }, lastSession: null, carryRepairs: [],
   };
 }
 
@@ -32,6 +32,7 @@ export function migrate(json: unknown, cfg: Config = defaultConfig): State {
     fixedSkills: s.session.fixedSkills ?? [], // change 7
     // extend ruling; final review F6: an open "5 more" from before it gets the whole allowance
     extendEffortLeft: s.session.extendEffortLeft ?? (s.session.phase === "extend" ? cfg.budget.extendEffort : 0),
+    repairQueue: s.session.repairQueue ?? [], repairing: s.session.repairing ?? false, easyUps: s.session.easyUps ?? [], // T114
   } : null;
   const sections = Object.fromEntries(Object.entries(s.sections ?? {}).map(([id, x]) => [id, {
     ...x, skipTotal: x.skipTotal ?? x.skipCount, lastSkipSeq: x.lastSkipSeq ?? null, skippedLevel: x.skippedLevel ?? null, // change 6
@@ -46,6 +47,7 @@ export function migrate(json: unknown, cfg: Config = defaultConfig): State {
     // Change 4: a student who answered before the ladder existed is past day one; a fresh one starts on it.
     ladder: s.ladder !== undefined ? s.ladder : (s.answered ?? 0) > 0 ? null : { level: 1, rightRun: 0 },
     lastSession: s.lastSession ?? null, // change 3
+    carryRepairs: s.carryRepairs ?? [], // T114
   };
 }
 
